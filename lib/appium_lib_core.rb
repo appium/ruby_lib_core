@@ -1,6 +1,6 @@
 require 'selenium-webdriver'
-require 'appium_lib_core/version'
 
+require_relative 'appium_lib_core/version'
 require_relative 'appium_lib_core/common'
 require_relative 'appium_lib_core/patch'
 require_relative 'appium_lib_core/driver'
