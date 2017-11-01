@@ -22,52 +22,6 @@ class AppiumLibCoreTest
         array.each { |v| assert ::Appium::Core::Base::CoreBridgeOSS.method_defined?(v) }
       end
 
-      def test_no_arg_definitions
-        parameterized_method_defined_check([:shake,
-                                            :launch_app,
-                                            :close_app,
-                                            :reset,
-                                            :device_locked?,
-                                            :unlock,
-                                            :device_time,
-                                            :current_context,
-                                            :open_notifications,
-                                            :toggle_airplane_mode,
-                                            :current_activity,
-                                            :current_package,
-                                            :get_system_bars,
-                                            :get_display_density,
-                                            :is_keyboard_shown,
-                                            :get_network_connection,
-                                            :get_performance_data_types])
-      end
-
-      def test_with_arg_definitions
-        parameterized_method_defined_check([:available_contexts,
-                                            :set_context,
-                                            :app_strings,
-                                            :lock,
-                                            :install_app,
-                                            :remove_app,
-                                            :app_installed?,
-                                            :background_app,
-                                            :hide_keyboard,
-                                            :press_keycode,
-                                            :long_press_keycode,
-                                            :set_immediate_value,
-                                            :push_file,
-                                            :pull_file,
-                                            :pull_folder,
-                                            :get_settings,
-                                            :update_settings,
-                                            :touch_actions,
-                                            :multi_touch,
-                                            :start_activity,
-                                            :end_coverage,
-                                            :set_network_connection,
-                                            :get_performance_data])
-      end
-
       def test_shake
         skip
         assert @@driver.shake

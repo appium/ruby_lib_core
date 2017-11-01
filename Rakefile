@@ -30,6 +30,23 @@ namespace :func_test do
   end
 end
 
+namespace :unit_test do
+  desc('Run all iOS related tests in test directory')
+  Rake::TestTask.new(:ios) do |t|
+    t.libs << 'test'
+    t.libs << 'lib'
+    t.test_files = FileList['test/unit/ios/**/*_test.rb']
+  end
+
+  desc('Run all Android related tests in test directory')
+  Rake::TestTask.new(:android) do |t|
+    t.libs << 'test'
+    t.libs << 'lib'
+    t.test_files = FileList['test/unit/android/**/*_test.rb']
+  end
+end
+
+
 task :default => :test
 
 desc('Generate yardoc')
