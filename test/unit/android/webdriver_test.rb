@@ -1,0 +1,1 @@
+# TODO: add path related tests with WebDriver

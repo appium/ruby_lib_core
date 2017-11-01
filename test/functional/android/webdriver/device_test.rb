@@ -23,6 +23,8 @@ class AppiumLibCoreTest
         assert !status['build']['revision'].nil?
       end
 
+      # TODO: replace_value
+
       def test_set_immediate_value
         @@core.wait { @@driver.find_element :accessibility_id, 'App' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Activity' }.click

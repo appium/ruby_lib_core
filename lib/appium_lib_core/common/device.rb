@@ -216,6 +216,13 @@ module Appium
       #   set_immediate_value element, 'hello'
       #
 
+      # @!method replace_value(element, *value)
+      #   Replace the value to element directly
+      #
+      # @example
+      #
+      #   replace_value element, 'hello'
+      #
 
       # @!method ime_activate(ime_name)
       # Android only. Make an engine that is available active.
@@ -363,6 +370,13 @@ module Appium
             def set_immediate_value(element, *value)
               keys = ::Selenium::WebDriver::Keys.encode(value)
               execute :set_immediate_value, { id: element.ref }, value: Array(keys)
+            end
+          end
+
+          add_endpoint_method(:replace_value) do
+            def replace_value(element, *value)
+              keys = ::Selenium::WebDriver::Keys.encode(value)
+              execute :replace_value, { id: element.ref }, value: Array(keys)
             end
           end
 

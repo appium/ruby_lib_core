@@ -20,6 +20,8 @@ class AppiumLibCoreTest
         assert !status['build']['revision'].nil?
       end
 
+      # TODO: replave_value
+
       def test_set_immediate_value
         @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }.click
 
