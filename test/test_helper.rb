@@ -108,10 +108,36 @@ class AppiumLibCoreTest
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
       assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
-
-      assert_equal '1234567890', driver.session_id
-
       driver
     end
+
+    def ios_mock_create_session
+      response = {
+          status: 0, # To make bridge.dialect == :oss
+          sessionId: '1234567890',
+          value: {
+              capabilities: {
+                  device: 'iphone',
+                  browserName: 'UICatalog',
+                  sdkVersion: '10.3.1',
+                  CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
+              }
+          }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
+          .with(body: { ms: 30_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
+      driver
+    end
+
   end
 end

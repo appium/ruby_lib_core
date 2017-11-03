@@ -15,45 +15,6 @@ class AppiumLibCoreTest
         assert size.height
       end
 
-      def parameterized_method_defined_check(array)
-        array.each { |v| assert ::Appium::Core::Base::CoreBridgeOSS.method_defined?(v) }
-      end
-
-      def test_no_arg_definitions
-        parameterized_method_defined_check([:shake,
-                                            :launch_app,
-                                            :close_app,
-                                            :reset,
-                                            :device_locked?,
-                                            :unlock,
-                                            :device_time,
-                                            :current_context])
-      end
-
-      def test_with_arg_definitions
-        parameterized_method_defined_check([:available_contexts,
-                                            :set_context,
-                                            :app_strings,
-                                            :lock,
-                                            :install_app,
-                                            :remove_app,
-                                            :app_installed?,
-                                            :background_app,
-                                            :hide_keyboard,
-                                            :press_keycode,
-                                            :long_press_keycode,
-                                            :set_immediate_value,
-                                            :push_file,
-                                            :pull_file,
-                                            :pull_folder,
-                                            :get_settings,
-                                            :update_settings,
-                                            :touch_actions,
-                                            :multi_touch,
-                                            :touch_id,
-                                            :toggle_touch_id_enrollment])
-      end
-
       def test_shake
         skip 'NotImplemented'  if @@core.automation_name == :xcuitest
 
