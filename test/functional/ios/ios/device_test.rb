@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake ios TEST=test/ios/ios/device_test.rb
+# $ rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
 class AppiumLibCoreTest
   module Ios
     class DeviceTest < Minitest::Test

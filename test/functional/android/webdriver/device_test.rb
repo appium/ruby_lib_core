@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake ios TEST=test/android/webdriver/device_test.rb
+# $ rake test:func:android TEST=test/functional/android/webdriver/device_test.rb
 class AppiumLibCoreTest
   module WebDriver
     class DeviceTest < Minitest::Test

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake android TEST=test/android/patch_test.rb
+# $ rake test:func:android TEST=test/functional/android/patch_test.rb
 class AppiumLibCoreTest
   class PathTest < Minitest::Test
     def setup

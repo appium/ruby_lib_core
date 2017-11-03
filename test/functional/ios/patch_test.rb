@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake ios TEST=test/ios/patch_test.rb
+# $ rake test:func:ios TEST=test/functional/ios/patch_test.rb
 class AppiumLibCoreTest
   class PathTest < Minitest::Test
     def setup

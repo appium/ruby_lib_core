@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake android TEST=test/android/android/search_context_test.rb
+# $ rake test:func:android TEST=test/functional/android/android/search_context_test.rb
 class AppiumLibCoreTest
   module Ios
     class SearchContextTest < Minitest::Test

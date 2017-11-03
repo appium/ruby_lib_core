@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake android TEST=test/android/android/device_test.rb
+# $ rake test:func:android TEST=test/functional/android/android/device_test.rb
 class AppiumLibCoreTest
   module Android
     class DeviceTest < Minitest::Test

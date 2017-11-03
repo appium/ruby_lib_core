@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake android TEST=test/android/driver_test.rb
+# $ rake test:func:android TEST=test/functional/android/driver_test.rb
 class AppiumLibCoreTest
   class DriverTest < Minitest::Test
     def setup

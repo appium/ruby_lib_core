@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake ios TEST=test/ios/driver_test.rb
+# $ rake test:func:ios TEST=test/functional/ios/driver_test.rb
 class AppiumLibCoreTest
   class DriverTest < Minitest::Test
     def setup
