@@ -25,7 +25,7 @@ module Appium
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
         get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze],
         get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze],
-
+        stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze]
         # iOS
       }.freeze
 
@@ -58,7 +58,8 @@ module Appium
         start_activity:             [:post, 'session/:session_id/appium/device/start_activity'.freeze],
         end_coverage:               [:post, 'session/:session_id/appium/app/end_test_coverage'.freeze],
         set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze],
-        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze]
+        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze],
+        start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
       }.freeze
 
       COMMAND_IOS = {

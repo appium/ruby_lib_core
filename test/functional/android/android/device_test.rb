@@ -230,9 +230,12 @@ class AppiumLibCoreTest
         @@driver.open_notifications
         # shouldn't see the elements behind shade
 
-        assert_raises Selenium::WebDriver::Error::NoSuchElementError do
-          @@driver.find_element :accessibility_id, ':-|'
-        end
+        # Sometimes, we should wait animation
+        @@core.wait {
+          assert_raises Selenium::WebDriver::Error::NoSuchElementError do
+            @@driver.find_element :accessibility_id, ':-|'
+          end
+        }
 
         # should see the notification
         @@core.wait_true { text 'Mood ring' }

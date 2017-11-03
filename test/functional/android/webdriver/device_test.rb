@@ -76,7 +76,7 @@ class AppiumLibCoreTest
         # assert @@driver.switch_to.alert.text.start_with?('Lorem ipsum dolor sit aie consectetur')
         # assert @@driver.switch_to.alert.dismiss
 
-        assert_equal 'Cancel', @@driver.find_element(:id, 'android:id/button2').name
+        assert_equal 'CANCEL', @@driver.find_element(:id, 'android:id/button2').name
         assert @@driver.find_element(:id, 'android:id/button2').click
       end
 

@@ -77,6 +77,27 @@ module Appium
       #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
       #
 
+      # @!method start_recording_screen(package_name:, data_type:, data_read_timeout: 1000)
+      #   Record the display of devices running Android 4.4 (API level 19) and higher.
+      #   It records screen activity to an MPEG-4 file. Audio is not recorded with the video file.
+      # @param [String] file_path A path to save the video. `/sdcard/default.mp4` is by default.
+      # @param [String] video_size A video size. '1280x720' is by default.
+      # @param [String] time_limit Recording time. 180 second is by default.
+      # @param [String] bit_rate The video bit rate for the video, in megabits per second. 3000000(3Mbps) is by default.
+      #
+      # @example
+      #
+      #   @driver.start_recording_screen file_path: '/sdcard/default.mp4', video_size: '1280x720', time_limit: '180', bit_rate: '3000000'
+      #
+
+      # @!method stop_recording_screen
+      #   Stop recording the screen.
+      #
+      # @example
+      #
+      #   @driver.stop_recording_screen
+      #
+
       ####
       ## class << self
       ####
@@ -136,6 +157,12 @@ module Appium
               execute :get_performance_data, {}, packageName: package_name,
                                                  dataType: data_type,
                                                  dataReadTimeout: data_read_timeout
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
+            def start_recording_screen(file_path: '/sdcard/default.mp4', video_size: '1280x720', time_limit: '180', bit_rate: '3000000')
+              execute :start_recording_screen, {}, filePath: file_path, videoSize: video_size, timeLimit: time_limit, bitRate: bit_rate
             end
           end
         end

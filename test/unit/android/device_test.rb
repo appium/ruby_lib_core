@@ -227,6 +227,15 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/performanceData/types", times: 1)
       end
 
+      def test_stop_recording_screen
+        stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
+            .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.stop_recording_screen
+
+        assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
+      end
+
       ## with args
 
       def test_available_contexts
@@ -443,6 +452,15 @@ class AppiumLibCoreTest
         @driver.get_performance_data(package_name: 'package_name', data_type: 'type')
 
         assert_requested(:post, "#{SESSION}/appium/getPerformanceData", times: 1)
+      end
+
+      def test_start_recording_screen
+        stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+            .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.start_recording_screen
+
+        assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
       end
     end
   end
