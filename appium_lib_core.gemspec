@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 3.1.0'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'appium_thor', '~> 0.0', '>= 0.0.7'
 end
