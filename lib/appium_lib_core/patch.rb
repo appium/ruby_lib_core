@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Appium
   module Core
     # Implement useful features for element.
