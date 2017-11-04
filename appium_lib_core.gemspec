@@ -4,6 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'appium_lib_core/version'
 
 Gem::Specification.new do |spec|
+  spec.required_ruby_version = '>= 2.2'
+
   spec.name          = 'appium_lib_core'
   spec.version       = Appium::Core::VERSION
   spec.authors       = ['Kazuaki MATSUO']
@@ -11,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Minimal Ruby library for Appium.}
   spec.description   = %q{Minimal Ruby library for Appium.}
-  spec.homepage      = 'https://github.com/appium/ruby_lib'
+  spec.homepage      = 'https://github.com/appium/ruby_lib_core/'
   spec.license       = 'Apache-2.0'
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(doc|test|spec|features)/})
