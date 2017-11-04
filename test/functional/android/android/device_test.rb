@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/android/device_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Android
     class DeviceTest < Minitest::Test
@@ -29,7 +30,7 @@ class AppiumLibCoreTest
 
       def test_close_and_launch_app
         @@driver.close_app
-        assert_equal ['NATIVE_APP'],@@driver.available_contexts
+        assert @@driver.available_contexts.include?('NATIVE_APP')
 
         @@driver.launch_app
         e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
@@ -50,7 +51,7 @@ class AppiumLibCoreTest
         e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.name
 
-        @@driver.background_app -1
+        @@driver.background_app(-1)
         assert_raises Selenium::WebDriver::Error::NoSuchElementError do
           @@driver.find_element :accessibility_id, 'App'
         end
@@ -70,7 +71,7 @@ class AppiumLibCoreTest
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click
 
-        assert_equal 'NATIVE_APP',@@driver.current_context
+        assert_equal 'NATIVE_APP', @@driver.current_context
 
         contexts = @@driver.available_contexts
         webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
@@ -79,7 +80,7 @@ class AppiumLibCoreTest
         assert @@driver.current_context.start_with? 'WEBVIEW'
 
         @@driver.set_context 'NATIVE_APP'
-        assert_equal 'NATIVE_APP',@@driver.current_context
+        assert_equal 'NATIVE_APP', @@driver.current_context
       end
 
       def test_app_string
@@ -139,17 +140,17 @@ class AppiumLibCoreTest
       def test_settings
         assert_equal({ 'ignoreUnimportantViews' => false, 'allowInvisibleElements' => false }, @@driver.get_settings)
 
-        @@driver.update_settings('allowInvisibleElements': true)
+        @@driver.update_settings('allowInvisibleElements' => true)
         assert_equal({ 'ignoreUnimportantViews' => false, 'allowInvisibleElements' => true }, @@driver.get_settings)
 
-        @@driver.update_settings('allowInvisibleElements': false)
+        @@driver.update_settings('allowInvisibleElements' => false)
       end
 
       def test_touch_actions
         Appium::Core::TouchAction.new(@@driver)
-            .press(element: @@driver.find_element(:accessibility_id, 'App'))
-            .release
-            .perform
+                                 .press(element: @@driver.find_element(:accessibility_id, 'App'))
+                                 .release
+                                 .perform
 
         @@core.wait { @@driver.find_element :accessibility_id, 'Action Bar' }
         @@driver.back
@@ -157,7 +158,7 @@ class AppiumLibCoreTest
 
       def test_swipe
         touch_action = Appium::Core::TouchAction.new(@@driver)
-                           .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
+                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
 
         assert_equal :press, touch_action.actions[0][:action]
         assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
@@ -181,10 +182,10 @@ class AppiumLibCoreTest
 
         assert @@driver.is_keyboard_shown
 
-        @@core.wait {
+        @@core.wait do
           @@driver.hide_keyboard
-          sleep 1 # wait animation
-        }
+        end
+        sleep 1 # wait animation
 
         assert !@@driver.is_keyboard_shown
       end
@@ -231,11 +232,11 @@ class AppiumLibCoreTest
         # shouldn't see the elements behind shade
 
         # Sometimes, we should wait animation
-        @@core.wait {
+        @@core.wait(timeout: 5) do
           assert_raises Selenium::WebDriver::Error::NoSuchElementError do
             @@driver.find_element :accessibility_id, ':-|'
           end
-        }
+        end
 
         # should see the notification
         @@core.wait_true { text 'Mood ring' }
@@ -274,7 +275,8 @@ class AppiumLibCoreTest
         args.each_with_index do |arg, index|
           begin
             elem = @@driver.find_element :uiautomator,
-                                         "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(#{arg}.instance(0));"
+                                         'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
+                                             ".scrollIntoView(#{arg}.instance(0));"
             return elem
           rescue => e
             raise e if index == args.size - 1
@@ -288,7 +290,7 @@ class AppiumLibCoreTest
         unquote = string.match(/"(.+)"/)
         string = unquote[1] if unquote
 
-        resource_id = /^[a-zA-Z_][a-zA-Z0-9\._]*:[^\/]+\/[\S]+$/
+        resource_id = %r{^[a-zA-Z_][a-zA-Z0-9\._]*:[^\/]+\/[\S]+$}
         string.match(resource_id) ? on_match : ''
       end
 

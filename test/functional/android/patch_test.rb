@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/patch_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class PathTest < Minitest::Test
     def setup
@@ -47,8 +48,8 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
       location = e.location_rel(@@driver)
 
-      assert_match /\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z/, location.x
-      assert_match /\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z/, location.y
+      assert_match %r{\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z}, location.x
+      assert_match %r{\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z}, location.y
     end
   end
 end

@@ -9,7 +9,7 @@ module Appium
         def self.patch_webdriver_element
           ::Selenium::WebDriver::Element.class_eval do
             # Cross platform way of entering text into a textfield
-            def type(text, driver = $driver)
+            def type(text, driver)
               driver.execute_script %(au.getElement('#{ref}').setValue('#{text}');)
             end # def type
           end # Selenium::WebDriver::Element.class_eval

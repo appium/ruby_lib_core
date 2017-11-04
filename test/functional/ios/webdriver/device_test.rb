@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/ios/webdriver/device_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module WebDriver
     class DeviceTest < Minitest::Test
@@ -27,12 +28,10 @@ class AppiumLibCoreTest
 
         e = @@core.wait { @@driver.find_element :name, '<enter text>' }
         e.click
-
         @@driver.set_immediate_value e, 'hello'
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
-
         assert_equal 'Normal', e.name
         assert_equal 'hello', e.value
 
@@ -61,10 +60,9 @@ class AppiumLibCoreTest
 
       def test_accept_alert
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
-
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
         assert @@driver.switch_to.alert.accept
 
         @@driver.back
@@ -72,10 +70,9 @@ class AppiumLibCoreTest
 
       def test_dismiss_alert
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
-
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
         assert @@driver.switch_to.alert.dismiss
 
         @@driver.back

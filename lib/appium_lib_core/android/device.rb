@@ -87,7 +87,8 @@ module Appium
       #
       # @example
       #
-      #   @driver.start_recording_screen file_path: '/sdcard/default.mp4', video_size: '1280x720', time_limit: '180', bit_rate: '3000000'
+      #   @driver.start_recording_screen(file_path: '/sdcard/default.mp4', video_size: '1280x720',
+      #                                  time_limit: '180', bit_rate: '3000000')
       #
 
       # @!method stop_recording_screen
@@ -154,15 +155,16 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:get_performance_data) do
             def get_performance_data(package_name:, data_type:, data_read_timeout: 1000)
-              execute :get_performance_data, {}, packageName: package_name,
-                                                 dataType: data_type,
-                                                 dataReadTimeout: data_read_timeout
+              execute(:get_performance_data, {},
+                      packageName: package_name, dataType: data_type, dataReadTimeout: data_read_timeout)
             end
           end
 
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
-            def start_recording_screen(file_path: '/sdcard/default.mp4', video_size: '1280x720', time_limit: '180', bit_rate: '3000000')
-              execute :start_recording_screen, {}, filePath: file_path, videoSize: video_size, timeLimit: time_limit, bitRate: bit_rate
+            def start_recording_screen(file_path: '/sdcard/default.mp4', video_size: '1280x720',
+                                       time_limit: '180', bit_rate: '3000000')
+              execute(:start_recording_screen, {},
+                      filePath: file_path, videoSize: video_size, timeLimit: time_limit, bitRate: bit_rate)
             end
           end
         end

@@ -65,7 +65,7 @@ class AppiumLibCoreTest
 
       def test_toggle_touch_id_enrollment
         stub_request(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment")
-            .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         @driver.toggle_touch_id_enrollment(true)
 

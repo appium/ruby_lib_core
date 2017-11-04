@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/webdriver/device_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module WebDriver
     class DeviceTest < Minitest::Test
@@ -76,7 +77,8 @@ class AppiumLibCoreTest
         # assert @@driver.switch_to.alert.text.start_with?('Lorem ipsum dolor sit aie consectetur')
         # assert @@driver.switch_to.alert.dismiss
 
-        assert_equal 'CANCEL', @@driver.find_element(:id, 'android:id/button2').name
+        # Because the results depends on OS version.
+        assert_equal 'CANCEL', @@driver.find_element(:id, 'android:id/button2').name.upcase
         assert @@driver.find_element(:id, 'android:id/button2').click
       end
 

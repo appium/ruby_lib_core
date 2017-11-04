@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/android/search_context_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Ios
     class SearchContextTest < Minitest::Test
