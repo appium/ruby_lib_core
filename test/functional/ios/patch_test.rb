@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/ios/patch_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class PathTest < Minitest::Test
     def setup

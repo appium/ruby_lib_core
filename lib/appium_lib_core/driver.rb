@@ -313,7 +313,7 @@ module Appium
       def wait(opts = {})
         opts = process_wait_opts(opts).merge(return_if_true: false)
 
-        opts[:timeout]  ||= @wait_timeout
+        opts[:timeout] ||= @wait_timeout
         opts[:interval] ||= @wait_interval
 
         wait = ::Appium::Core::Base::Wait.new opts
@@ -406,14 +406,14 @@ module Appium
 
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
-        @custom_url          = appium_lib_opts.fetch :server_url, false
-        @default_wait        = appium_lib_opts.fetch :wait, 0
+        @custom_url = appium_lib_opts.fetch :server_url, false
+        @default_wait = appium_lib_opts.fetch :wait, 0
 
         # bump current session id into a particular file
-        @export_session      = appium_lib_opts.fetch :export_session, false
+        @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, '/tmp/appium_lib_session'
 
-        @port      = appium_lib_opts.fetch :port, 4723
+        @port = appium_lib_opts.fetch :port, 4723
 
         # timeout and interval used in ::Appium::Comm.wait/wait_true
         @wait_timeout  = appium_lib_opts.fetch :wait_timeout, 30

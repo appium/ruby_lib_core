@@ -1,25 +1,47 @@
 module Appium
   module Core
     # Implement useful features for element.
+    # Patch for Selenium Webdriver.
     class Selenium::WebDriver::Element
       # Note: For testing .text should be used over value, and name.
 
       # Returns the value attribute
       #
-      # Fixes NoMethodError: undefined method `value' for Selenium::WebDriver::Element
+      # Fixes NoMethodError: undefined method `value' for Selenium::WebDriver::Element for iOS
+      # @return [String]
+      #
+      # @example
+      #
+      #   e = @driver.find_element :accessibility_id, 'something'
+      #   e.value
+      #
       def value
         attribute :value
       end
 
       # Returns the name attribute
       #
-      # Fixes NoMethodError: undefined method `name' for Selenium::WebDriver::Element
+      # Fixes NoMethodError: undefined method `name' for Selenium::WebDriver::Element for iOS
+      # @return [String]
+      #
+      # @example
+      #
+      #   e = @driver.find_element :accessibility_id, 'something'
+      #   e.name
+      #
       def name
         attribute :name
       end
 
       # Enable access to iOS accessibility label
       # accessibility identifier is supported as 'name'
+      # @return [String]
+      #
+      # @example
+      #
+      #   e = @driver.find_element :accessibility_id, 'something'
+      #   e.label
+      #
       def label
         attribute :label
       end
@@ -33,10 +55,11 @@ module Appium
       #
       # @example
       #
-      #   location_rel @driver
+      #   e = @driver.find_element :accessibility_id, 'something'
+      #   e.location_rel @driver
       #
       def location_rel(driver)
-        rect   = self.rect
+        rect = self.rect
         location_x = rect.x.to_f
         location_y = rect.y.to_f
 

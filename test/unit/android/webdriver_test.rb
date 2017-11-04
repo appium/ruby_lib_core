@@ -41,7 +41,7 @@ class AppiumLibCoreTest
 
       def test_rotate
         stub_request(:post, "#{SESSION}/orientation")
-            .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
 
         @driver.rotation = :landscape
 
@@ -53,7 +53,6 @@ class AppiumLibCoreTest
           .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
         stub_request(:post, "#{SESSION}/accept_alert")
           .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
 
         @driver.switch_to.alert.accept
 
@@ -81,7 +80,6 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 2)
       end
-
     end
   end
 end

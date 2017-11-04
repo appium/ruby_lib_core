@@ -1,6 +1,7 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'yard'
+require 'rubocop/rake_task'
 
 desc('setup development environment')
 task :setup do |_t, _args|
@@ -51,4 +52,11 @@ end
 desc('Generate yardoc')
 YARD::Rake::YardocTask.new do |t|
   t.files   = ['lib/**/*.rb']
+end
+
+desc 'Execute RuboCop static code analysis'
+RuboCop::RakeTask.new(:rubocop) do |t|
+  t.patterns = %w(lib test)
+  t.options = %w(-D)
+  t.fail_on_error = true
 end

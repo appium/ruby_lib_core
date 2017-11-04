@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/driver_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class DriverTest < Minitest::Test
     def setup

@@ -26,7 +26,7 @@ module Appium
     raise 'symbolize_keys requires a hash' unless hash.is_a? Hash
     result = {}
     hash.each do |key, value|
-      key = key.to_sym rescue key
+      key = key.to_sym rescue key # rubocop:disable Style/RescueModifier
       result[key] = value.is_a?(Hash) ? symbolize_keys(value) : value
     end
     result

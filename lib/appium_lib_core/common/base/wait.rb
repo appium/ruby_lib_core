@@ -1,3 +1,4 @@
+# rubocop:disable Lint/HandleExceptions
 module Appium
   module Core
     class Base

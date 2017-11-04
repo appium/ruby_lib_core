@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/search_context_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Ios
     class SearchContextTest < Minitest::Test
@@ -16,7 +17,6 @@ class AppiumLibCoreTest
         else
           assert true
         end
-
       end
 
       def test_predicate

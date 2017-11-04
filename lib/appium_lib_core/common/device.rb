@@ -198,7 +198,6 @@ module Appium
       #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
       #
 
-
       # @!method update_settings(settings)
       # Update Appium Settings for current test session
       # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to

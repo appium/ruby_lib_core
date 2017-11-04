@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
+# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Ios
     class DeviceTest < Minitest::Test
@@ -16,14 +17,14 @@ class AppiumLibCoreTest
       end
 
       def test_shake
-        skip 'NotImplemented'  if @@core.automation_name == :xcuitest
+        skip 'NotImplemented' if @@core.automation_name == :xcuitest
 
         assert @@driver.shake
       end
 
       def test_close_and_launch_app
         @@driver.close_app
-        assert_equal ['NATIVE_APP'],@@driver.available_contexts
+        assert_equal ['NATIVE_APP'], @@driver.available_contexts
 
         @@driver.launch_app
         e = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
@@ -31,7 +32,7 @@ class AppiumLibCoreTest
       end
 
       def test_lock_unlock
-        skip 'NotImplemented'  if @@core.automation_name == :xcuitest
+        skip 'NotImplemented' if @@core.automation_name == :xcuitest
 
         @@driver.lock 5
         assert @@driver.device_locked?
@@ -45,7 +46,7 @@ class AppiumLibCoreTest
         e = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
         assert_equal 'TextView', e.name
 
-        @@driver.background_app -1
+        @@driver.background_app(-1)
         assert_raises Selenium::WebDriver::Error::NoSuchElementError do
           @@driver.find_element :accessibility_id, 'TextView'
         end
@@ -68,23 +69,23 @@ class AppiumLibCoreTest
         contexts = @@driver.available_contexts
         assert_equal ['NATIVE_APP'], contexts
 
-        assert_equal 'NATIVE_APP',@@driver.current_context
+        assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.set_context contexts.last
-        assert_match 'NATIVE_APP' ,@@driver.current_context
+        assert_match 'NATIVE_APP', @@driver.current_context
 
         @@driver.set_context 'NATIVE_APP'
-        assert_equal 'NATIVE_APP',@@driver.current_context
+        assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.back # go to top
       end
 
       def test_app_string
-        assert_equal 'Use of UISearchBar',@@driver.app_strings['SearchBarExplain']
+        assert_equal 'Use of UISearchBar', @@driver.app_strings['SearchBarExplain']
       end
 
       def test_re_install
-        skip 'NotImplemented'  if @@core.automation_name == :xcuitest
+        skip 'NotImplemented' if @@core.automation_name == :xcuitest
 
         assert @@driver.app_installed?('io.appium.bundle')
 
@@ -113,18 +114,18 @@ class AppiumLibCoreTest
       def test_settings
         assert_equal({ 'nativeWebTap' => false }, @@driver.get_settings)
 
-        @@driver.update_settings('nativeWebTap': true)
+        @@driver.update_settings('nativeWebTap' => true)
         assert_equal({ 'nativeWebTap' => true }, @@driver.get_settings)
       end
 
       def test_touch_actions
         if @@core.automation_name == :xcuitest
           element = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
-          @@driver.execute_script 'mobile: tap', { x: 0, y: 0, element: element.ref }
+          @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.ref)
         else
           Appium::Core::TouchAction.new(@@driver)
-              .press(element: @@driver.find_element(:accessibility_id, 'TextView'))
-              .perform
+                                   .press(element: @@driver.find_element(:accessibility_id, 'TextView'))
+                                   .perform
         end
 
         @@core.wait { @@driver.find_element :accessibility_id, 'Back' }
@@ -133,12 +134,12 @@ class AppiumLibCoreTest
 
       def test_swipe
         touch_action = Appium::Core::TouchAction.new(@@driver)
-                           .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
-                           .perform
+                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
+                                                .perform
         assert_equal [], touch_action.actions
 
         touch_action = Appium::Core::TouchAction.new(@@driver)
-                           .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
+                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
 
         assert_equal :press, touch_action.actions[0][:action]
         assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
@@ -170,10 +171,10 @@ class AppiumLibCoreTest
 
         assert @@driver.find_element(:class, 'XCUIElementTypeKeyboard').displayed?
 
-        @@core.wait {
+        @@core.wait do
           @@driver.hide_keyboard
           sleep 1 # wait animation
-        }
+        end
 
         m = assert_raises Selenium::WebDriver::Error::NoSuchElementError do
           @@driver.find_element(:class, 'XCUIElementTypeKeyboard')

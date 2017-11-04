@@ -166,7 +166,7 @@ class AppiumLibCoreTest
 
       def test_current_activity
         stub_request(:get, "#{SESSION}/appium/device/current_activity")
-            .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
         @driver.current_activity
 
@@ -175,7 +175,7 @@ class AppiumLibCoreTest
 
       def test_current_package
         stub_request(:get, "#{SESSION}/appium/device/current_package")
-            .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
         @driver.current_package
 
@@ -184,7 +184,7 @@ class AppiumLibCoreTest
 
       def test_get_system_bars
         stub_request(:get, "#{SESSION}/appium/device/system_bars")
-            .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
         @driver.get_system_bars
 
@@ -229,7 +229,7 @@ class AppiumLibCoreTest
 
       def test_stop_recording_screen
         stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
-            .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
         @driver.stop_recording_screen
 
@@ -395,7 +395,7 @@ class AppiumLibCoreTest
         stub_request(:post, "#{SESSION}/appium/settings")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.update_settings({ sample: 'value' })
+        @driver.update_settings(sample: 'value')
 
         assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
       end
@@ -422,7 +422,7 @@ class AppiumLibCoreTest
         stub_request(:post, "#{SESSION}/appium/device/start_activity")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.start_activity({ app_activity: 'activity', app_package: 'package' })
+        @driver.start_activity(app_activity: 'activity', app_package: 'package')
 
         assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
       end
@@ -456,7 +456,7 @@ class AppiumLibCoreTest
 
       def test_start_recording_screen
         stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-            .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
         @driver.start_recording_screen
 
