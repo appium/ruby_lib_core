@@ -1,0 +1,16 @@
+sudo: false
+cache: bundler
+language: ruby
+rvm:
+  - 2.2.5
+  - 2.3.3
+  - 2.4.0
+
+script:
+  - bundle exec rake rubocop
+  - rake test:unit
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
