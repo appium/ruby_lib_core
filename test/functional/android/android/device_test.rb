@@ -79,7 +79,7 @@ class AppiumLibCoreTest
         @@driver.set_context webview_context
         assert @@driver.current_context.start_with? 'WEBVIEW'
 
-        @@driver.set_context 'NATIVE_APP'
+        @@driver.switch_to_default_context
         assert_equal 'NATIVE_APP', @@driver.current_context
       end
 
@@ -264,6 +264,14 @@ class AppiumLibCoreTest
 
         @@core.wait { @@driver.ime_activate(available_ime) }
         assert_equal available_ime, @@driver.ime_active_engine
+      end
+
+      def test_within_context
+        result = @@driver.within_context('NATIVE_APP') do
+          @@core.wait { @@driver.find_element :accessibility_id, 'App' }.click
+        end
+
+        assert_equal 'App', result.text
       end
 
       private

@@ -74,7 +74,7 @@ class AppiumLibCoreTest
         @@driver.set_context contexts.last
         assert_match 'NATIVE_APP', @@driver.current_context
 
-        @@driver.set_context 'NATIVE_APP'
+        @@driver.switch_to_default_context
         assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.back # go to top
@@ -182,6 +182,14 @@ class AppiumLibCoreTest
         assert 'An element could not be located on the page using the given search parameters.', m.message
 
         @@driver.back
+      end
+
+      def test_within_context
+        result = @@driver.within_context('NATIVE_APP') do
+          @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }.click
+        end
+
+        assert_equal 'Buttons', result.name
       end
     end
   end
