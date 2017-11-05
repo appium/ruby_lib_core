@@ -109,7 +109,7 @@ module Appium
 
         extend_for(device: @device, automation_name: @automation_name, target: target)
 
-        self
+        self # rubocop:disable Lint/Void
       end
 
       # Creates a new global driver and quits the old one if it exists.
@@ -150,7 +150,7 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-        server_url = server_url ? server_url : "http://127.0.0.1:#{@port}/wd/hub"
+        server_url ||= "http://127.0.0.1:#{@port}/wd/hub"
 
         # open_timeout and read_timeout are explicit wait.
         open_timeout = http_client_ops.delete(:open_timeout)
@@ -209,7 +209,7 @@ module Appium
       #
       def quit_driver
         @driver.quit
-      rescue
+      rescue # rubocop:disable Lint/RescueWithoutErrorClass
         nil
       end
 

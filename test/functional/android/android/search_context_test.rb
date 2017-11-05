@@ -13,7 +13,7 @@ class AppiumLibCoreTest
       def test_uiautomation
         e = @@driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
 
-        assert 10 < e.size
+        assert e.size > 10
       end
     end
   end

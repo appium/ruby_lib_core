@@ -118,7 +118,7 @@ module Appium
               app_wait_package  = opts.fetch(:app_wait_package, '')
               app_wait_activity = opts.fetch(:app_wait_activity, '')
 
-              unknown_opts = opts.keys - [:app_package, :app_activity, :app_wait_package, :app_wait_activity]
+              unknown_opts = opts.keys - %i(app_package app_activity app_wait_package app_wait_activity)
               raise "Unknown options #{unknown_opts}" unless unknown_opts.empty?
 
               execute :start_activity, {}, appPackage: app_package,

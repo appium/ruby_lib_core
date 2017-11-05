@@ -68,6 +68,7 @@ class AppiumLibCoreTest
         @@driver.back
       end
 
+      # NOTE: Sometimes this test fails because of getting nil in @@driver.switch_to.alert.text
       def test_dismiss_alert
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click

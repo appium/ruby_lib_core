@@ -2,6 +2,7 @@ require 'test_helper'
 require 'webmock/minitest'
 
 # $ rake test:unit TEST=test/unit/ios/device_test.rb
+# rubocop:disable Style/SymbolArray
 class AppiumLibCoreTest
   module IOS
     class DeviceTest < Minitest::Test

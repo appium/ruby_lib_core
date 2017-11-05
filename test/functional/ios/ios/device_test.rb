@@ -59,7 +59,7 @@ class AppiumLibCoreTest
 
       def test_device_time
         require 'date'
-        assert DateTime.parse(@@driver.device_time).is_a?(DateTime)
+        assert Date.parse(@@driver.device_time).is_a?(Date)
       end
 
       def test_context_related
@@ -108,7 +108,7 @@ class AppiumLibCoreTest
 
       def test_pull_folder
         data = @@driver.pull_folder 'Library/AddressBook'
-        assert 1 < data.length
+        assert data.length > 1
       end
 
       def test_settings

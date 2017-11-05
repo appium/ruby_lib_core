@@ -6,9 +6,9 @@ module Appium
         require 'timeout' # for wait
 
         def initialize(opts = {})
-          valid_keys = [:timeout, :interval, :message, :ignore, :return_if_true]
+          valid_keys = %i(timeout interval message ignore return_if_true)
           invalid_keys = []
-          opts.keys.each { |key| invalid_keys << key unless valid_keys.include?(key) }
+          opts.each_key { |key| invalid_keys << key unless valid_keys.include?(key) }
           # [:one, :two] => :one, :two
           unless invalid_keys.empty?
             raise "Invalid keys #{invalid_keys.to_s[1..-2]}. Valid keys are #{valid_keys.to_s[1..-2]}"

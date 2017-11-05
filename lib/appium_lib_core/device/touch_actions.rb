@@ -12,8 +12,8 @@ module Appium
   # ```
   module Core
     class TouchAction
-      ACTIONS         = [:move_to, :long_press, :double_tap, :two_finger_tap, :press, :release, :tap, :wait, :perform].freeze
-      COMPLEX_ACTIONS = [:swipe].freeze
+      ACTIONS = %i(move_to long_press double_tap two_finger_tap press release tap wait perform).freeze
+      COMPLEX_ACTIONS = %i(swipe).freeze
 
       attr_reader :actions, :driver
 
@@ -44,7 +44,7 @@ module Appium
       # @option y [integer] y co-ordinate to press on.
       # @option duration [integer] Number of milliseconds to press.
       def long_press(opts)
-        args = opts.select { |k, _v| [:element, :x, :y, :duration].include? k }
+        args = opts.select { |k, _v| %i(element x y duration).include? k }
         args = args_with_ele_ref(args)
         chain_method(:longPress, args) # longPress is what the appium server expects
       end
@@ -56,7 +56,7 @@ module Appium
       # @option opts [integer] :x x co-ordinate to press on
       # @option opts [integer] :y y co-ordinate to press on
       def press(opts)
-        args = opts.select { |k, _v| [:element, :x, :y].include? k }
+        args = opts.select { |k, _v| %i(element x y).include? k }
         args = args_with_ele_ref(args)
         chain_method(:press, args)
       end
@@ -92,7 +92,7 @@ module Appium
       # @option opts [integer] :y y co-ordinate to tap
 
       def double_tap(opts)
-        args = opts.select { |k, _v| [:element, :x, :y].include? k }
+        args = opts.select { |k, _v| %i(element x y).include? k }
         args = args_with_ele_ref(args)
         chain_method(:doubleTap, args) # doubleTap is what the appium server expects
       end
@@ -103,7 +103,7 @@ module Appium
       # @option opts [integer] :x x co-ordinate to tap
       # @option opts [integer] :y y co-ordinate to tap
       def two_finger_tap(opts)
-        args = opts.select { |k, _v| [:element, :x, :y].include? k }
+        args = opts.select { |k, _v| %i(element x y).include? k }
         args = args_with_ele_ref(args)
         chain_method(:twoFingerTap, args) # twoFingerTap is what the appium server expects
       end

@@ -64,7 +64,7 @@ class AppiumLibCoreTest
 
       def test_device_time
         require 'date'
-        assert DateTime.parse(@@driver.device_time).is_a?(DateTime)
+        assert Date.parse(@@driver.device_time).is_a?(Date)
       end
 
       def test_context_related
@@ -134,7 +134,7 @@ class AppiumLibCoreTest
 
       def test_pull_folder
         data = @@driver.pull_folder '/data/local/tmp'
-        assert 100 < data.length
+        assert data.length > 100
       end
 
       def test_settings
@@ -278,7 +278,7 @@ class AppiumLibCoreTest
                                          'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
                                              ".scrollIntoView(#{arg}.instance(0));"
             return elem
-          rescue => e
+          rescue StandardError => e
             raise e if index == args.size - 1
           end
         end

@@ -18,5 +18,9 @@ Style/Documentation:
   Enabled: false
 Style/AccessorMethodName:
   Enabled: false
+Style/CommentedKeyword:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
 Lint/NestedMethodDefinition:
   Enabled: false
