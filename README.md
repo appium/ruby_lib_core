@@ -52,8 +52,8 @@ opts = {
        appium_lib: {
        }
      }
-@core = Appium::Driver.new(opts) # core driver
-@driver = @core.start_driver     # driver extend selenium-webdriver
+@core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
+@driver = @core.start_driver
 
 # Launch iPhone Simulator and `MyiOS.app`
 @driver.find_element(:accessibility_id, 'some accessibility') # find an element

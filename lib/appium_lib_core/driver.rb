@@ -143,9 +143,11 @@ module Appium
       #                wait_interval: 0.3,
       #              }
       #            }
-      #     @core = Appium::Driver.new(opts)
+      #
+      #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
       #     @driver = @core.start_driver
       #
+
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
         server_url = server_url ? server_url : "http://127.0.0.1:#{@port}/wd/hub"
