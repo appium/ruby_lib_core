@@ -18,41 +18,42 @@ module Appium
       # @return [Hash]
       attr_reader :automation_name
 
-      # Custom URL for the selenium server. If set this attribute, ruby_lib try to handshake to the custom url.
+      # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.
+      # False is by default and then "http://127.0.0.1:#{@port}/wd/hub" is used.
       # @return [String]
       attr_reader :custom_url
 
-      # Export session id to textfile in /tmp for 3rd party tools
+      # Export session id to textfile in /tmp for 3rd party tools. False bu default.
       # @return [Boolean]
       attr_reader :export_session
       # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
       attr_reader :export_session_path
 
       # Default wait time for elements to appear
-      # Returns the default client side wait.
-      # This value is independent of what the server is using
-      # Provide Appium::Drive like { appium_lib: { wait: 20 } }
+      # Returns the default client side wait. 20 second is by default.
+      # Provide Appium::Drive like { appium_lib: { wait: 30 } }
       # @return [Integer]
       attr_reader :default_wait
 
-      # Appium's server port
+      # Appium's server port. 4723 is by default.
       # Provide Appium::Drive like { appium_lib: { port: 8080 } }
       # @return [Integer]
       attr_reader :port
 
-      # Return a time wait timeout
+      # Return a time wait timeout. 30 second is by default.
       # Wait time for ::Appium::Core::Base::Wait, wait and wait_true
       # Provide Appium::Drive like { appium_lib: { wait_timeout: 20 } }
       # @return [Integer]
       attr_reader :wait_timeout
 
-      # Return a time wait timeout
+      # Return a time to wait interval. 0.5 second is by default.
       # Wait interval time for ::Appium::Core::Base::Wait, wait and wait_true
-      # Provide Appium::Drive like { appium_lib: { wait_interval: 20 } }
+      # Provide Appium::Drive like { appium_lib: { wait_interval: 0.1 } }
       # @return [Integer]
       attr_reader :wait_interval
 
       # instance of AbstractEventListener for logging support
+      # Nil by default
       attr_reader :listener
 
       # @return [Appium::Core::Base::Driver]
@@ -66,12 +67,15 @@ module Appium
       # @example
       #
       #     require 'rubygems'
-      #     require 'appium_lib'
+      #     require 'appium_lib_core'
       #
       #     # Start iOS driver
       #     opts = {
       #              caps: {
       #                platformName: :ios,
+      #                platformVersion: '11.0',
+      #                deviceName: 'iPhone Simulator',
+      #                automationName: 'XCUITest',
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
@@ -84,8 +88,8 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core_driver = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core_driver.start_driver(server_url: server_url, http_client_ops: http_client_ops) # start driver
+      #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
+      #     @core.start_driver(server_url: server_url) # start driver
       #
       def self.for(target, opts = {})
         new(target, opts)
@@ -120,7 +124,7 @@ module Appium
       # @example
       #
       #     require 'rubygems'
-      #     require 'appium_lib'
+      #     require 'appium_lib_core'
       #
       #     # platformName takes a string or a symbol.
       #
@@ -128,16 +132,15 @@ module Appium
       #     opts = {
       #              caps: {
       #                platformName: :ios,
+      #                platformVersion: '11.0',
+      #                deviceName: 'iPhone Simulator',
+      #                automationName: 'XCUITest',
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                server_url: "http://custom-host:8080/wd/hub.com",
-      #                export_session: false,
-      #                port: 8080,
-      #                wait: 0,
+      #                wait: 20,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
-      #                listener: nil,
       #              }
       #            }
       #     @core = Appium::Driver.new(opts)
@@ -407,7 +410,7 @@ module Appium
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, false
-        @default_wait = appium_lib_opts.fetch :wait, 0
+        @default_wait = appium_lib_opts.fetch :wait, 20
 
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false

@@ -10,6 +10,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 class AppiumLibCoreTest
   module Caps
+    # Require a simulator which OS version is 10.3, for example.
     IOS_OPS = {
       caps: {
         platformName: :ios,
@@ -28,6 +29,8 @@ class AppiumLibCoreTest
       }
     }.freeze
 
+    # Require a real device or an emulator.
+    # We should update platformVersion and deviceName to fit your environment.
     ANDROID_OPS = {
       caps: {
         platformName: :android,
