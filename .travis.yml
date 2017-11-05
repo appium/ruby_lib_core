@@ -8,7 +8,7 @@ rvm:
 
 script:
   - bundle exec rake rubocop
-  - rake test:unit
+  - bundle exec rake test:unit
 
 notifications:
   email:
