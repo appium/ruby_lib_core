@@ -19,10 +19,6 @@ class AppiumLibCoreTest
         assert size.height
       end
 
-      def parameterized_method_defined_check(array)
-        array.each { |v| assert ::Appium::Core::Base::CoreBridgeOSS.method_defined?(v) }
-      end
-
       def test_shake
         skip
         assert @@driver.shake

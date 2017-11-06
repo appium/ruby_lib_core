@@ -283,8 +283,8 @@ module Appium
             end
           end
 
-          # TODO: Don't define selenium-side methods. We pick up from them.
-          # ::Appium::Core::Base::Commands::OSS.each_key do |method|
+          # Don't define selenium-side methods. We pick up from them.
+          # ::Appium::Core::Base::Commands::MJSONWP.each_key do |method|
           #   add_endpoint_method method
           # end
 
@@ -447,7 +447,7 @@ module Appium
 
         # @private
         def create_bridge_command(method)
-          ::Appium::Core::Base::CoreBridgeOSS.class_eval do
+          ::Appium::Core::Base::CoreBridgeMJSONWP.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
           end
           ::Appium::Core::Base::CoreBridgeW3C.class_eval do
