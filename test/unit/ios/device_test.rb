@@ -14,7 +14,7 @@ class AppiumLibCoreTest
       end
 
       def parameterized_method_defined_check(array)
-        array.each { |v| assert ::Appium::Core::Base::CoreBridgeOSS.method_defined?(v) }
+        array.each { |v| assert ::Appium::Core::Base::CoreBridgeMJSONWP.method_defined?(v) }
         array.each { |v| assert ::Appium::Core::Base::CoreBridgeW3C.method_defined?(v) }
       end
 

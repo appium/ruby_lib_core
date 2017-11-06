@@ -16,8 +16,8 @@ module Appium
           capabilities = bridge.create_session(desired_capabilities)
 
           case bridge.dialect
-          when :oss
-            CoreBridgeOSS.new(capabilities, bridge.session_id, opts)
+          when :oss # for MJSONWP
+            CoreBridgeMJSONWP.new(capabilities, bridge.session_id, opts)
           when :w3c
             CoreBridgeW3C.new(capabilities, bridge.session_id, opts)
           else
@@ -26,17 +26,17 @@ module Appium
         end
       end # class Bridge
 
-      class CoreBridgeOSS < ::Selenium::WebDriver::Remote::OSS::Bridge
+      class CoreBridgeMJSONWP < ::Selenium::WebDriver::Remote::OSS::Bridge
         def commands(command)
-          ::Appium::Core::Commands::COMMANDS_EXTEND_OSS[command]
+          ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
         end
-      end # class CoreBridgeOSS
+      end # class CoreBridgeMJSONWP
 
       class CoreBridgeW3C < ::Selenium::WebDriver::Remote::W3C::Bridge
         def commands(command)
           case command
           when :status, :is_element_displayed
-            ::Appium::Core::Commands::COMMANDS_EXTEND_OSS[command]
+            ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
           else
             ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
           end
