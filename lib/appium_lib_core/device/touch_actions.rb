@@ -4,12 +4,14 @@ module Appium
   #
   # Each method returns the object itself, so calls can be chained.
   #
-  # ```ruby
-  # action = TouchAction(@driver).new.press(x: 45, y: 100).wait(5).release
-  # action.perform
-  # action = TouchAction.new.swipe(....)
-  # action.perform
-  # ```
+  # @example
+  #
+  #   @driver = Appium::Core.for(self, opts).start_driver
+  #   action = TouchAction.new(@driver).press(x: 45, y: 100).wait(5).release
+  #   action.perform
+  #   action = TouchAction.new(@driver).swipe(....)
+  #   action.perform
+  #
   module Core
     class TouchAction
       ACTIONS = %i(move_to long_press double_tap two_finger_tap press release tap wait perform).freeze
