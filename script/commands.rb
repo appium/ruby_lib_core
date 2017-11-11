@@ -4,6 +4,8 @@ require './lib/appium_lib_core'
 module Script
   class CommandsChecker
     attr_reader :spec_commands
+    attr_reader :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands
+    attr_reader :webdriver_oss_commands, :webdriver_w3c_commands
 
     # https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1
     def get_mjsonwp_routes(to_path = './mjsonwp_routes.js')
@@ -16,7 +18,7 @@ module Script
 
     def get_all_command_path(path)
       current_command = ''
-      @spec_commands = File.read(path).lines.reduce({}) { |memo, line|
+      @spec_commands = File.read(path).lines.reduce({}) do |memo, line|
         new_memo = if line.match(/'\/wd\/hub\/.+'/)
                      current_command = gsub_set(line.slice(/'\/wd\/hub\/.+'/))
                      memo.merge(current_command => [])
@@ -27,38 +29,20 @@ module Script
                      memo
                    end
         new_memo
-      }
-    end
-
-    def convert_core_commands
-      Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP.reduce({}) do |memo, command|
-        method = command[1][0]
-        key = command[1][1]
-
-        if memo[key]
-          memo[key] << method
-        else
-          memo[key] = [method]
-        end
-
-        memo
       end
     end
 
-    def all_diff_commands_oss
-      core_commands = convert_core_commands
-      new = {}
-      @spec_commands.each_key do |key|
-        if core_commands.has_key? key
-          diff = @spec_commands[key] - core_commands[key]
-          puts diff
-          unless diff.empty?
-            new[key] = diff
-          end
-        else
-          new[key] = @spec_commands[key]
-        end
-      end
+    def appium_commands
+      @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP
+      @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_W3C
+      @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
+
+      @webdriver_oss_commands = convert_driver_commands Appium::Core::Base::Commands::OSS
+      @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
+    end
+
+    def all_diff_commands_mjsonwp
+      new = compare_commands(@spec_commands, @implemented_mjsonwp_commands)
 
       white_list.each { |v| new.delete v }
       w3c_spec.each { |v| new.delete v }
@@ -66,20 +50,46 @@ module Script
       new
     end
 
+    def all_diff_commands_w3c
+      new = compare_commands(@spec_commands, @implemented_w3c_commands)
+
+      white_list.each { |v| new.delete v }
+      mjsonwp_spec.each { |v| new.delete v }
+
+      new
+    end
+
     def diff_except_for_webdriver
-      (@spec_commands - white_list) - Appium::Core::Commands::COMMANDS.map { |v| v[1][1] }
+      new = compare_commands(@spec_commands, @implemented_core_commands)
+      white_list.each { |v| new.delete v }
+      new
     end
 
     def diff_webdriver_oss
-      (@spec_commands - white_list - w3c_spec) - Appium::Core::Base::Commands::OSS.map { |v| v[1][1] }
-    end
-
-    def all_diff_commands_w3c
-      (@spec_commands - white_list - oss_spec) - Appium::Core::Commands::COMMANDS_EXTEND_W3C.map { |v| v[1][1] }
+      new = compare_commands(@spec_commands, @webdriver_oss_commands)
+      white_list.each { |v| new.delete v }
+      w3c_spec.each { |v| new.delete v }
+      new
     end
 
     def diff_webdriver_w3c
-      (@spec_commands - white_list - oss_spec) - Appium::Core::Base::Commands::W3C.map { |v| v[1][1] }
+      new = compare_commands(@spec_commands, @webdriver_w3c_commands)
+      white_list.each { |v| new.delete v }
+      mjsonwp_spec.each { |v| new.delete v }
+      new
+    end
+
+    def compare_commands(command1, command2)
+      new = {}
+      command1&.each_key do |key|
+        if command2&.has_key? key
+          diff = command1[key] - command2[key]
+          new[key] = diff unless diff.empty?
+        else
+          new[key] = command1[key]
+        end
+      end
+      new
     end
 
     private
@@ -92,7 +102,7 @@ module Script
     end
 
     # https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js
-    def oss_spec
+    def mjsonwp_spec
       %w(
         '/wd/hub/session/:sessionId/alert_text'
         '/wd/hub/session/:sessionId/accept_alert'
@@ -119,14 +129,29 @@ module Script
           &.sub('css/:propertyName', 'css/:property_name')
           &.sub('element/:id/pageIndex', 'element/:id/page_index')
     end
+
+    def convert_driver_commands(from)
+      from.reduce({}) do |memo, command|
+        method = command[1][0]
+        key = command[1][1]
+
+        if memo[key]
+          memo[key] << method
+        else
+          memo[key] = [method]
+        end
+
+        memo
+      end
+    end
   end
 end
 
-c = Script::CommandsChecker.new
-c.get_mjsonwp_routes
-c.get_all_command_path './mjsonwp_routes.js'
-
-# puts c.all_diff_commands_oss
-
-require 'pry'
-binding.pry
+# c = Script::CommandsChecker.new
+# c.get_mjsonwp_routes
+# c.get_all_command_path './mjsonwp_routes.js'
+#
+# # puts c.all_diff_commands_oss
+#
+# require 'pry'
+# binding.pry
