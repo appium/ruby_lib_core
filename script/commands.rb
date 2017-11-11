@@ -7,6 +7,15 @@ module Script
     attr_reader :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands
     attr_reader :webdriver_oss_commands, :webdriver_w3c_commands
 
+    def initialize
+      @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP
+      @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_W3C
+      @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
+
+      @webdriver_oss_commands = convert_driver_commands Appium::Core::Base::Commands::OSS
+      @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
+    end
+
     # https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1
     def get_mjsonwp_routes(to_path = './mjsonwp_routes.js')
       uri = URI 'https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1'
@@ -30,15 +39,6 @@ module Script
                    end
         new_memo
       end
-    end
-
-    def appium_commands
-      @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP
-      @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_W3C
-      @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
-
-      @webdriver_oss_commands = convert_driver_commands Appium::Core::Base::Commands::OSS
-      @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
     end
 
     def all_diff_commands_mjsonwp
@@ -146,12 +146,3 @@ module Script
     end
   end
 end
-
-# c = Script::CommandsChecker.new
-# c.get_mjsonwp_routes
-# c.get_all_command_path './mjsonwp_routes.js'
-#
-# # puts c.all_diff_commands_oss
-#
-# require 'pry'
-# binding.pry

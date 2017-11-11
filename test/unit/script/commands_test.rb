@@ -23,8 +23,6 @@ class ScriptTest
 
     # depends on webdriver-version... (number of commands)
     def test_appium_commands
-      @c.appium_commands
-
       assert_equal 127, @c.implemented_mjsonwp_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_mjsonwp_commands.first
       assert_equal [:get, :post], @c.implemented_mjsonwp_commands['session/:session_id/alert_text']
