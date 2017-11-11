@@ -15,17 +15,59 @@ module Script
     end
 
     def get_all_command_path(path)
-      @spec_commands = File.read(path).lines.reduce([]) { |memo, line|
-        memo << gsub_set(line.slice(/'\/wd\/hub\/.+'/))
-      }.compact
+      current_command = ''
+      @spec_commands = File.read(path).lines.reduce({}) { |memo, line|
+        new_memo = if line.match(/'\/wd\/hub\/.+'/)
+                     current_command = gsub_set(line.slice(/'\/wd\/hub\/.+'/))
+                     memo.merge(current_command => [])
+                   elsif line.match(%r(GET:|POST:|DELETE:|PUT:))
+                     memo[current_command] << line.slice(%r(GET:|POST:|DELETE:|PUT:)).chop.downcase.to_sym
+                     memo
+                   else
+                     memo
+                   end
+        new_memo
+      }
+    end
+
+    def convert_core_commands
+      Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP.reduce({}) do |memo, command|
+        method = command[1][0]
+        key = command[1][1]
+
+        if memo[key]
+          memo[key] << method
+        else
+          memo[key] = [method]
+        end
+
+        memo
+      end
+    end
+
+    def all_diff_commands_oss
+      core_commands = convert_core_commands
+      new = {}
+      @spec_commands.each_key do |key|
+        if core_commands.has_key? key
+          diff = @spec_commands[key] - core_commands[key]
+          puts diff
+          unless diff.empty?
+            new[key] = diff
+          end
+        else
+          new[key] = @spec_commands[key]
+        end
+      end
+
+      white_list.each { |v| new.delete v }
+      w3c_spec.each { |v| new.delete v }
+
+      new
     end
 
     def diff_except_for_webdriver
       (@spec_commands - white_list) - Appium::Core::Commands::COMMANDS.map { |v| v[1][1] }
-    end
-
-    def all_diff_commands_oss
-      (@spec_commands - white_list - w3c_spec) - Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP.map { |v| v[1][1] }
     end
 
     def diff_webdriver_oss
@@ -84,4 +126,7 @@ c = Script::CommandsChecker.new
 c.get_mjsonwp_routes
 c.get_all_command_path './mjsonwp_routes.js'
 
-puts c.all_diff_commands_oss
+# puts c.all_diff_commands_oss
+
+require 'pry'
+binding.pry
