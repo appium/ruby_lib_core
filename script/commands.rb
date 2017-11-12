@@ -7,6 +7,14 @@ module Script
     attr_reader :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands
     attr_reader :webdriver_oss_commands, :webdriver_w3c_commands
 
+    # Set commands implemented in this core library.
+    #
+    # - implemented_mjsonwp_commands:  All commands include ::Selenium::WebDriver::Remote::OSS::Bridge::COMMANDS
+    # - implemented_w3c_commands:  All commands include ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
+    # - implemented_core_commands:  All commands except for selenium-webdriver's commands
+    # - webdriver_oss_commands: ::Selenium::WebDriver::Remote::OSS::Bridge::COMMANDS
+    # - webdriver_w3c_commands: ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
+    #
     def initialize
       @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP
       @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::COMMANDS_EXTEND_W3C
@@ -16,16 +24,29 @@ module Script
       @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
     end
 
+    # Get the bellow url's file.
     # https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1
+    #
+    # @param [String] to_path: A file path to routes.js
+    # @return [String] The file path in which has saved `routes.js`.
+    #
     def get_mjsonwp_routes(to_path = './mjsonwp_routes.js')
       uri = URI 'https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1'
       result = Net::HTTP.get uri
 
       File.delete to_path
       File.write to_path, result
+      to_path
     end
 
-    def get_all_command_path(path)
+    # Read routes.js and set the values in @spec_commands
+    #
+    # @param [String] path: A file path to routes.js
+    # @return [Hash] @spec_commands
+    #
+    def get_all_command_path(path = './mjsonwp_routes.js')
+      raise "No file in #{path}" unless File.exist? path
+
       current_command = ''
       @spec_commands = File.read(path).lines.reduce({}) do |memo, line|
         new_memo = if line =~ %r('\/wd\/hub\/.+')
@@ -41,6 +62,9 @@ module Script
       end
     end
 
+    # All commands which haven't been implemented in ruby core library yet.
+    # @return [Hash]
+    #
     def all_diff_commands_mjsonwp
       new = compare_commands(@spec_commands, @implemented_mjsonwp_commands)
 
@@ -50,6 +74,9 @@ module Script
       new
     end
 
+    # All commands which haven't been implemented in ruby core library yet.
+    # @return [Hash]
+    #
     def all_diff_commands_w3c
       new = compare_commands(@spec_commands, @implemented_w3c_commands)
 
@@ -59,6 +86,9 @@ module Script
       new
     end
 
+    # Commands, only this core library, which haven't been implemented in ruby core library yet.
+    # @return [Hash]
+    #
     def diff_except_for_webdriver
       new = compare_commands(@spec_commands, @implemented_core_commands)
       white_list.each { |v| new.delete v }
