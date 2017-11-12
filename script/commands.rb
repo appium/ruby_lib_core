@@ -28,11 +28,11 @@ module Script
     def get_all_command_path(path)
       current_command = ''
       @spec_commands = File.read(path).lines.reduce({}) do |memo, line|
-        new_memo = if line.match(/'\/wd\/hub\/.+'/)
-                     current_command = gsub_set(line.slice(/'\/wd\/hub\/.+'/))
+        new_memo = if line =~ %r('\/wd\/hub\/.+')
+                     current_command = gsub_set(line.slice(%r('\/wd\/hub\/.+')))
                      memo.merge(current_command => [])
-                   elsif line.match(%r(GET:|POST:|DELETE:|PUT:))
-                     memo[current_command] << line.slice(%r(GET:|POST:|DELETE:|PUT:)).chop.downcase.to_sym
+                   elsif line =~ /GET:|POST:|DELETE:|PUT:/
+                     memo[current_command] << line.slice(/GET:|POST:|DELETE:|PUT:/).chop.downcase.to_sym
                      memo
                    else
                      memo
@@ -79,11 +79,14 @@ module Script
       new
     end
 
-    def compare_commands(command1, command2)
+    def compare_commands(command1, with_command2)
+      return {} if command1.nil?
+      return command1 if with_command2.nil?
+
       new = {}
-      command1&.each_key do |key|
-        if command2&.has_key? key
-          diff = command1[key] - command2[key]
+      command1.each_key do |key|
+        if with_command2.key? key
+          diff = command1[key] - with_command2[key]
           new[key] = diff unless diff.empty?
         else
           new[key] = command1[key]
@@ -94,6 +97,7 @@ module Script
 
     private
 
+    # rubocop:disable Lint/PercentStringArray
     def white_list
       %w(
         '/wd/hub/session'
@@ -118,20 +122,22 @@ module Script
         '/wd/hub/session/:sessionId/element/:elementId/rect'
       ).map { |v| gsub_set(v) }
     end
+    # rubocop:enable Lint/PercentStringArray
 
     def gsub_set(line)
-      line
-          &.gsub(/(\A'\/wd\/hub\/|'\z)/, '')
-          &.sub(':sessionId', ':session_id')
-          &.sub('element/:elementId', 'element/:id')
-          &.sub(':windowhandle', ':window_handle')
-          &.sub('equals/:otherId', 'equals/:other')
-          &.sub('css/:propertyName', 'css/:property_name')
-          &.sub('element/:id/pageIndex', 'element/:id/page_index')
+      return nil if line.gsub(%r((\A'\/wd\/hub\/|'\z)), '').nil?
+
+      line.gsub(%r((\A'\/wd\/hub\/|'\z)), '')
+          .sub(':sessionId', ':session_id')
+          .sub('element/:elementId', 'element/:id')
+          .sub(':windowhandle', ':window_handle')
+          .sub('equals/:otherId', 'equals/:other')
+          .sub('css/:propertyName', 'css/:property_name')
+          .sub('element/:id/pageIndex', 'element/:id/page_index')
     end
 
     def convert_driver_commands(from)
-      from.reduce({}) do |memo, command|
+      from.each_with_object({}) do |command, memo|
         method = command[1][0]
         key = command[1][1]
 
