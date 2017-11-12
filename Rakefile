@@ -54,9 +54,20 @@ YARD::Rake::YardocTask.new do |t|
   t.files   = ['lib/**/*.rb']
 end
 
-desc 'Execute RuboCop static code analysis'
+desc('Execute RuboCop static code analysis')
 RuboCop::RakeTask.new(:rubocop) do |t|
-  t.patterns = %w(lib test)
+  t.patterns = %w(lib test script)
   t.options = %w(-D)
   t.fail_on_error = true
+end
+
+desc("print commands which haven't implemented yet.")
+namespace :commands do
+  task :mjsonwp do |_t, _args|
+    require './script/commands'
+    c = Script::CommandsChecker.new
+    c.get_mjsonwp_routes
+    c.get_all_command_path './mjsonwp_routes.js'
+    c.all_diff_commands_mjsonwp.each { |key, value| puts("command: #{key}, method: #{value}") }
+  end
 end

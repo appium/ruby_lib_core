@@ -264,6 +264,48 @@ module Appium
       #   ime_deactivate #=> Deactivate current IME engine
       #
 
+      # @!method set_context(context)
+      # Change the context to the given context.
+      # @param [String] context The context to change to
+      #
+      # @example
+      #
+      #   @driver.set_context "NATIVE_APP"
+      #
+
+      # @!method current_context
+      # @return [String] The context currently being used.
+      #
+      # @example
+      #
+      #   @driver.current_context
+      #
+
+      # @!method available_contexts
+      # @return [Array<String>] All usable contexts, as an array of strings.
+      #
+      # @example
+      #
+      #   @driver.available_contexts
+      #
+
+      # Perform a block within the given context, then switch back to the starting context.
+      # @param [String] context The context to switch to for the duration of the block.
+      #
+      # @example
+      #
+      #   result = @driver.within_context('NATIVE_APP') do
+      #     @driver.find_element :tag, "button"
+      #   end # The result of `find_element :tag, "button"`
+      #
+
+      # Change to the default context. This is equivalent to `set_context nil`.
+      #
+      # @example
+      #
+      #   @driver.switch_to_default_context
+      #
+
       ####
       ## class << self
       ####
@@ -414,6 +456,7 @@ module Appium
 
           add_touch_actions
           add_ime_actions
+          add_handling_context
         end
 
         # def extended
@@ -505,63 +548,29 @@ module Appium
             end
           end
         end
-      end # class << self
 
-      # @!method set_context(context)
-      # Change the context to the given context.
-      # @param [String] context The context to change to
-      #
-      # @example
-      #
-      #   @driver.set_context "NATIVE_APP"
-      #
+        def add_handling_context
+          add_endpoint_method(:within_context) do
+            def within_context(context)
+              existing_context = current_context
+              set_context context
+              if block_given?
+                result = yield
+                set_context existing_context
+                result
+              else
+                set_context existing_context
+              end
+            end
+          end
 
-      # @!method current_context
-      # @return [String] The context currently being used.
-      #
-      # @example
-      #
-      #   @driver.current_context
-      #
-
-      # @!method available_contexts
-      # @return [Array<String>] All usable contexts, as an array of strings.
-      #
-      # @example
-      #
-      #   @driver.available_contexts
-      #
-
-      # Perform a block within the given context, then switch back to the starting context.
-      # @param [String] context The context to switch to for the duration of the block.
-      #
-      # @example
-      #
-      #   result = @driver.within_context('NATIVE_APP') do
-      #     @driver.find_element :tag, "button"
-      #   end # The result of `find_element :tag, "button"`
-      #
-      def within_context(context)
-        existing_context = current_context
-        set_context context
-        if block_given?
-          result = yield
-          set_context existing_context
-          result
-        else
-          set_context existing_context
+          add_endpoint_method(:switch_to_default_context) do
+            def switch_to_default_context
+              set_context nil
+            end
+          end
         end
-      end
-
-      # Change to the default context. This is equivalent to `set_context nil`.
-      #
-      # @example
-      #
-      #   @driver.switch_to_default_context
-      #
-      def switch_to_default_context
-        set_context nil
-      end
+      end # class << self
     end # module Device
   end # module Core
 end # module Appium
