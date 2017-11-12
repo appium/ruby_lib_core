@@ -264,7 +264,7 @@ class AppiumLibCoreTest
 
       def test_within_context
         result = @@driver.within_context('NATIVE_APP') do
-          @@core.wait { @@driver.find_element :accessibility_id, 'App' }.click
+          @@core.wait { @@driver.find_element :accessibility_id, 'App' }
         end
 
         assert_equal 'App', result.text
