@@ -79,8 +79,8 @@ $ ruby test.rb
 Use [appium_thor](https://github.com/appium/appium_thor) to release this gem.
 
 ```bash
-$ bundle exec thor bump # bumpy, bumpz
-$ bundle exec thor release
+$ thor bump # bumpy,
+$ thor release
 ```
 
 # Contribution
