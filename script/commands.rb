@@ -68,63 +68,61 @@ module Script
     # @return [Hash]
     #
     def all_diff_commands_mjsonwp
-      new = compare_commands(@spec_commands, @implemented_mjsonwp_commands)
+      result = compare_commands(@spec_commands, @implemented_mjsonwp_commands)
 
-      white_list.each { |v| new.delete v }
-      w3c_spec.each { |v| new.delete v }
+      white_list.each { |v| result.delete v }
+      w3c_spec.each { |v| result.delete v }
 
-      new
+      result
     end
 
     # All commands which haven't been implemented in ruby core library yet.
     # @return [Hash]
     #
     def all_diff_commands_w3c
-      new = compare_commands(@spec_commands, @implemented_w3c_commands)
-
-      white_list.each { |v| new.delete v }
-      mjsonwp_spec.each { |v| new.delete v }
-
-      new
+      result = compare_commands(@spec_commands, @implemented_w3c_commands)
+      white_list.each { |v| result.delete v }
+      mjsonwp_spec.each { |v| result.delete v }
+      result
     end
 
     # Commands, only this core library, which haven't been implemented in ruby core library yet.
     # @return [Hash]
     #
     def diff_except_for_webdriver
-      new = compare_commands(@spec_commands, @implemented_core_commands)
-      white_list.each { |v| new.delete v }
-      new
+      result = compare_commands(@spec_commands, @implemented_core_commands)
+      white_list.each { |v| result.delete v }
+      result
     end
 
     def diff_webdriver_oss
-      new = compare_commands(@spec_commands, @webdriver_oss_commands)
-      white_list.each { |v| new.delete v }
-      w3c_spec.each { |v| new.delete v }
-      new
+      result = compare_commands(@spec_commands, @webdriver_oss_commands)
+      white_list.each { |v| result.delete v }
+      w3c_spec.each { |v| result.delete v }
+      result
     end
 
     def diff_webdriver_w3c
-      new = compare_commands(@spec_commands, @webdriver_w3c_commands)
-      white_list.each { |v| new.delete v }
-      mjsonwp_spec.each { |v| new.delete v }
-      new
+      result = compare_commands(@spec_commands, @webdriver_w3c_commands)
+      white_list.each { |v| result.delete v }
+      mjsonwp_spec.each { |v| result.delete v }
+      result
     end
 
     def compare_commands(command1, with_command2)
       return {} if command1.nil?
       return command1 if with_command2.nil?
 
-      new = {}
+      result = {}
       command1.each_key do |key|
         if with_command2.key? key
           diff = command1[key] - with_command2[key]
-          new[key] = diff unless diff.empty?
+          result[key] = diff unless diff.empty?
         else
-          new[key] = command1[key]
+          result[key] = command1[key]
         end
       end
-      new
+      result
     end
 
     private
