@@ -39,6 +39,11 @@ module Script
       to_path
     end
 
+    # @private
+    HTTP_METHOD_MATCH = /GET:|POST:|DELETE:|PUT:|PATCH:/
+    # @private
+    WD_HUB_PREFIX_MATCH = "'/wd/hub/"
+
     # Read routes.js and set the values in @spec_commands
     #
     # @param [String] path: A file path to routes.js
@@ -49,16 +54,13 @@ module Script
 
       current_command = ''
       @spec_commands = File.read(path).lines.reduce({}) do |memo, line|
-        new_memo = if line =~ %r('\/wd\/hub\/.+')
-                     current_command = gsub_set(line.slice(%r('\/wd\/hub\/.+')))
-                     memo.merge(current_command => [])
-                   elsif line =~ /GET:|POST:|DELETE:|PUT:/
-                     memo[current_command] << line.slice(/GET:|POST:|DELETE:|PUT:/).chop.downcase.to_sym
-                     memo
-                   else
-                     memo
-                   end
-        new_memo
+        if line =~ %r(#{WD_HUB_PREFIX_MATCH}.+')
+          current_command = gsub_set(line.slice(%r(#{WD_HUB_PREFIX_MATCH}.+')))
+          memo.merge!(current_command => [])
+        elsif line =~ HTTP_METHOD_MATCH
+          memo[current_command] << line.slice(HTTP_METHOD_MATCH).chop.downcase.to_sym
+        end
+        memo
       end
     end
 
@@ -155,9 +157,9 @@ module Script
     # rubocop:enable Lint/PercentStringArray
 
     def gsub_set(line)
-      return nil if line.gsub(%r((\A'\/wd\/hub\/|'\z)), '').nil?
+      return nil if line.gsub(%r((\A#{WD_HUB_PREFIX_MATCH}|'\z)), '').nil?
 
-      line.gsub(%r((\A'\/wd\/hub\/|'\z)), '')
+      line.gsub(%r((\A#{WD_HUB_PREFIX_MATCH}|'\z)), '')
           .sub(':sessionId', ':session_id')
           .sub('element/:elementId', 'element/:id')
           .sub(':windowhandle', ':window_handle')
