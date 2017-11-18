@@ -138,6 +138,17 @@ module Appium
       #   @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
       #
 
+      # @!method keyevent(key, metastate = nil)
+      # Send keyevent on the device.(Only for Selendroid)
+      # http://developer.android.com/reference/android/view/KeyEvent.html
+      # @param [integer] key The key to press.
+      # @param [String] metastate The state the metakeys should be in when pressing the key.
+      #
+      # @example
+      #
+      #   @driver.keyevent 82
+      #
+
       # @!method press_keycode(key, metastate = nil)
       # Press keycode on the device.
       # http://developer.android.com/reference/android/view/KeyEvent.html
@@ -388,6 +399,15 @@ module Appium
               option[:strategy] = strategy || :pressKey # default to pressKey
 
               execute :hide_keyboard, {}, option
+            end
+          end
+
+          # Only for Selendroid
+          add_endpoint_method(:keyevent) do
+            def keyevent(key, metastate = nil)
+              args             = { keycode: key }
+              args[:metastate] = metastate if metastate
+              execute :keyevent, {}, args
             end
           end
 

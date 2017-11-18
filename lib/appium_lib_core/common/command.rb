@@ -43,6 +43,8 @@ module Appium
         hide_keyboard:              [:post, 'session/:session_id/appium/device/hide_keyboard'.freeze],
         press_keycode:              [:post, 'session/:session_id/appium/device/press_keycode'.freeze],
         long_press_keycode:         [:post, 'session/:session_id/appium/device/long_press_keycode'.freeze],
+        # keyevent is only for Selendroid
+        keyevent:                   [:post, 'session/:session_id/appium/device/keyevent'.freeze],
         set_immediate_value:        [:post, 'session/:session_id/appium/element/:id/value'.freeze],
         replace_value:              [:post, 'session/:session_id/appium/element/:id/replace_value'.freeze],
         push_file:                  [:post, 'session/:session_id/appium/device/push_file'.freeze],
