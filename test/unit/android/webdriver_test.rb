@@ -80,6 +80,15 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 2)
       end
+
+      def test_active_element
+        stub_request(:post, "#{SESSION}/element/active")
+          .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+        @driver.switch_to.active_element
+
+        assert_requested(:post, "#{SESSION}/element/active", times: 1)
+      end
     end
   end
 end
