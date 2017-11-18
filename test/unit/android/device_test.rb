@@ -326,7 +326,7 @@ class AppiumLibCoreTest
         skip('Because only for Selendroid')
 
         stub_request(:post, "#{SESSION}/appium/device/keyevent")
-            .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.keyevent 86
 

@@ -402,31 +402,6 @@ module Appium
             end
           end
 
-          # Only for Selendroid
-          add_endpoint_method(:keyevent) do
-            def keyevent(key, metastate = nil)
-              args             = { keycode: key }
-              args[:metastate] = metastate if metastate
-              execute :keyevent, {}, args
-            end
-          end
-
-          add_endpoint_method(:press_keycode) do
-            def press_keycode(key, metastate = nil)
-              args             = { keycode: key }
-              args[:metastate] = metastate if metastate
-              execute :press_keycode, {}, args
-            end
-          end
-
-          add_endpoint_method(:long_press_keycode) do
-            def long_press_keycode(key, metastate = nil)
-              args             = { keycode: key }
-              args[:metastate] = metastate if metastate
-              execute :long_press_keycode, {}, args
-            end
-          end
-
           add_endpoint_method(:set_immediate_value) do
             def set_immediate_value(element, *value)
               keys = ::Selenium::WebDriver::Keys.encode(value)
@@ -474,6 +449,7 @@ module Appium
             end
           end
 
+          add_keyevent
           add_touch_actions
           add_ime_actions
           add_handling_context
@@ -515,6 +491,33 @@ module Appium
           end
           ::Appium::Core::Base::CoreBridgeW3C.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
+          end
+        end
+
+        def add_keyevent
+          # Only for Selendroid
+          add_endpoint_method(:keyevent) do
+            def keyevent(key, metastate = nil)
+              args             = { keycode: key }
+              args[:metastate] = metastate if metastate
+              execute :keyevent, {}, args
+            end
+          end
+
+          add_endpoint_method(:press_keycode) do
+            def press_keycode(key, metastate = nil)
+              args             = { keycode: key }
+              args[:metastate] = metastate if metastate
+              execute :press_keycode, {}, args
+            end
+          end
+
+          add_endpoint_method(:long_press_keycode) do
+            def long_press_keycode(key, metastate = nil)
+              args             = { keycode: key }
+              args[:metastate] = metastate if metastate
+              execute :long_press_keycode, {}, args
+            end
           end
         end
 
