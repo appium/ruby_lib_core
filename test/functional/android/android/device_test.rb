@@ -206,6 +206,12 @@ class AppiumLibCoreTest
         assert(@@driver.get_display_density > 0)
       end
 
+      def test_keyevent
+        skip('Because only for Selendroid')
+        # http://developer.android.com/reference/android/view/KeyEvent.html
+        assert @@driver.keyevent(176)
+      end
+
       def test_press_keycode
         # http://developer.android.com/reference/android/view/KeyEvent.html
         assert @@driver.press_keycode(176)

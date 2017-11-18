@@ -48,6 +48,7 @@ class AppiumLibCoreTest
                                             :app_installed?,
                                             :background_app,
                                             :hide_keyboard,
+                                            :keyevent,
                                             :press_keycode,
                                             :long_press_keycode,
                                             :set_immediate_value,
@@ -319,6 +320,17 @@ class AppiumLibCoreTest
         @driver.hide_keyboard 'Finished'
 
         assert_requested(:post, "#{SESSION}/appium/device/hide_keyboard", times: 1)
+      end
+
+      def test_keyevent
+        skip('Because only for Selendroid')
+
+        stub_request(:post, "#{SESSION}/appium/device/keyevent")
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.keyevent 86
+
+        assert_requested(:post, "#{SESSION}/appium/device/keyevent", times: 1)
       end
 
       def test_press_keycode
