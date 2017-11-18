@@ -329,13 +329,6 @@ module Appium
             add_endpoint_method method
           end
 
-          # call http://www.rubydoc.info/gems/selenium-webdriver/Selenium/WebDriver/DriverExtensions/HasRemoteStatus#remote_status-instance_method
-          add_endpoint_method(:remote_status) do
-            def remote_status
-              execute(:status, {}) || []
-            end
-          end
-
           # Don't define selenium-side methods. We pick up from them.
           # ::Appium::Core::Base::Commands::MJSONWP.each_key do |method|
           #   add_endpoint_method method
