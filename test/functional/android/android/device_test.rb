@@ -34,7 +34,7 @@ class AppiumLibCoreTest
       end
 
       def test_lock_unlock
-        @@driver.lock 5
+        @@driver.lock
         assert @@driver.device_locked?
 
         @@driver.unlock

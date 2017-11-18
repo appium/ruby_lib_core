@@ -32,8 +32,6 @@ class AppiumLibCoreTest
       end
 
       def test_lock_unlock
-        skip 'NotImplemented' if @@core.automation_name == :xcuitest
-
         @@driver.lock 5
         assert @@driver.device_locked?
 

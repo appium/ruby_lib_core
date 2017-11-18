@@ -61,6 +61,14 @@ module Appium
       #   @driver.launch_app
       #
 
+      # @!method close_app
+      # Close an app on device
+      #
+      # @example
+      #
+      #   @driver.close_app
+      #
+
       # @!method reset
       # Reset the device, relaunching the application.
       #
@@ -85,6 +93,14 @@ module Appium
       #   @driver.toggle_flight_mode
       #
 
+      # @!method unlock
+      # Unlock the device
+      #
+      # @example
+      #
+      #   @driver.unlock
+      #
+
       # @!method device_locked?
       # Check current device status is weather locked or not
       #
@@ -97,9 +113,51 @@ module Appium
       #   Get the device network connection current status
       #   See set_network_connection method for return value
 
+      # @!method open_notifications
+      #   Open Android notifications
+      #
+      # @example
+      #
+      #   @driver.open_notifications
+      #
+
+      # @!method device_time
+      #   Get the time on the device
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.device_time
+      #
+
       ####
       ## With arguments
       ####
+
+      # @!method install_app(path)
+      # Install the given app onto the device
+      #
+      # @example
+      #
+      #   @driver.install_app("/path/to/test.apk")
+      #
+
+      # @!method remove_app(app_id)
+      # Install the given app onto the device
+      #
+      # @example
+      #
+      #   @driver.remove_app("io.appium.bundle")
+      #
+
+      # @!method app_installed?(app_id)
+      # Check whether the specified app is installed on the device
+      # @return [bool]
+      #
+      # @example
+      #
+      #   @driver.app_installed?("io.appium.bundle")
+      #
 
       # @!method app_strings(language = nil)
       # Return the hash of all localization strings.
@@ -178,7 +236,7 @@ module Appium
       #
       # @example
       #
-      #   @driver.push_file "/file/to/path", data
+      #   @driver.push_file "/file/to/path", "data"
       #
 
       # @!method pull_file(path)
@@ -349,8 +407,9 @@ module Appium
           end
 
           add_endpoint_method(:lock) do
-            def lock(duration)
-              execute :lock, {}, seconds: duration
+            def lock(duration = nil)
+              opts = duration ? { seconds: duration } : {}
+              execute :lock, {}, opts
             end
           end
 
