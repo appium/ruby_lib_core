@@ -110,10 +110,12 @@ class AppiumLibCoreTest
       end
 
       def test_settings
-        assert_equal({ 'nativeWebTap' => false }, @@driver.get_settings)
+        assert_equal(false, @@driver.get_settings['nativeWebTap'])
 
         @@driver.update_settings('nativeWebTap' => true)
-        assert_equal({ 'nativeWebTap' => true }, @@driver.get_settings)
+        assert_equal(true, @@driver.get_settings['nativeWebTap'])
+
+        @@driver.update_settings('nativeWebTap' => false)
       end
 
       def test_touch_actions

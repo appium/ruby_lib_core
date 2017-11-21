@@ -134,12 +134,12 @@ class AppiumLibCoreTest
       end
 
       def test_settings
-        assert_equal({ 'ignoreUnimportantViews' => false, 'allowInvisibleElements' => false }, @@driver.get_settings)
+        assert_equal(false, @@driver.get_settings['ignoreUnimportantViews'])
 
-        @@driver.update_settings('allowInvisibleElements' => true)
-        assert_equal({ 'ignoreUnimportantViews' => false, 'allowInvisibleElements' => true }, @@driver.get_settings)
+        @@driver.update_settings('ignoreUnimportantViews' => true)
+        assert_equal(true, @@driver.get_settings['ignoreUnimportantViews'])
 
-        @@driver.update_settings('allowInvisibleElements' => false)
+        @@driver.update_settings('ignoreUnimportantViews' => false)
       end
 
       def test_touch_actions
