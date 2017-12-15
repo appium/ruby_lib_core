@@ -13,7 +13,7 @@ class AppiumLibCoreTest
     end
 
     def teardown
-      cleanup(@@driver)
+      save_reports(@@driver)
     end
 
     def test_value
