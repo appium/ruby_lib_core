@@ -3,13 +3,17 @@ require 'test_helper'
 # $ rake test:func:android TEST=test/functional/android/patch_test.rb
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
-  class PathTest < Minitest::Test
+  class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
       @@driver ||= @@core.start_driver
 
       @@driver.start_activity app_package: 'io.appium.android.apis',
                               app_activity: '.ApiDemos'
+    end
+
+    def teardown
+      cleanup(@@driver)
     end
 
     def test_value

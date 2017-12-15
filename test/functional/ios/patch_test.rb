@@ -3,10 +3,14 @@ require 'test_helper'
 # $ rake test:func:ios TEST=test/functional/ios/patch_test.rb
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
-  class PathTest < Minitest::Test
+  class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
       @@driver ||= @@core.start_driver
+    end
+
+    def teardown
+      cleanup(@@driver)
     end
 
     def test_value
