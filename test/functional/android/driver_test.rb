@@ -3,10 +3,14 @@ require 'test_helper'
 # $ rake test:func:android TEST=test/functional/android/driver_test.rb
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
-  class DriverTest < Minitest::Test
+  class DriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
       @@driver ||= @@core.start_driver
+    end
+
+    def teardown
+      save_reports(@@driver)
     end
 
     def test_appium_server_version

@@ -8,6 +8,23 @@ $VERBOSE = nil
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+ROOT_REPORT_PATH = "#{Dir.pwd}/test/report/".freeze
+Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
+
+class AppiumLibCoreTest
+  module Function
+    class TestCase < Minitest::Test
+      def save_reports(driver)
+        return if passed?
+
+        path = "#{ROOT_REPORT_PATH}#{self.class.name.gsub('::', '_')}-#{name}-error"
+        File.write "#{path}.xml", driver.page_source
+        driver.save_screenshot "#{path}.png"
+      end
+    end
+  end
+end
+
 class AppiumLibCoreTest
   module Caps
     # Require a simulator which OS version is 10.3, for example.

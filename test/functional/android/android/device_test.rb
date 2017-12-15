@@ -4,13 +4,17 @@ require 'test_helper'
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Android
-    class DeviceTest < Minitest::Test
+    class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
                                 app_activity: '.ApiDemos'
+      end
+
+      def teardown
+        save_reports(@@driver)
       end
 
       def test_window_size

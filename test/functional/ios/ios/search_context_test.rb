@@ -4,10 +4,14 @@ require 'test_helper'
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   module Ios
-    class SearchContextTest < Minitest::Test
+    class SearchContextTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
         @@driver ||= @@core.start_driver
+      end
+
+      def teardown
+        save_reports(@@driver)
       end
 
       def test_uiautomation
