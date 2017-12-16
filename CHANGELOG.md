@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.1.0] - 2017-12-16
+### Enhancements
 - Add guidelines in `.github`
 - session/:session_id/appium/device/keyevent [#21](https://github.com/appium/ruby_lib_core/issues/21)
 
