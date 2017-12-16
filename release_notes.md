@@ -1,3 +1,17 @@
+#### v1.1.0 2017-12-16
+
+- [29b36af](https://github.com/appium/ruby_lib_core/commit/29b36af7af280308f7cfc2ee7ffa1738085e0306) Release 1.1.0
+- [f7eefc3](https://github.com/appium/ruby_lib_core/commit/f7eefc376f0d00fb9bc3e8324c652544cb363a9b) fix creating sessions (#31)
+- [08c826f](https://github.com/appium/ruby_lib_core/commit/08c826f78ce861e8bd35b7bced54c9bd91d2fabc) for test code: add taking screens if tests failed (#30)
+- [f14c924](https://github.com/appium/ruby_lib_core/commit/f14c92435388e16598921685963cc7879eb7ba3a) insert @private
+- [5eb125a](https://github.com/appium/ruby_lib_core/commit/5eb125a06e3bc5dfd59a749183d6ff46fd9c5a28) make setting tests robust
+- [8bc97ce](https://github.com/appium/ruby_lib_core/commit/8bc97ce1258da79975fc347dc02dfdb14d06a8df) update comments for some commands (#29)
+- [7de2e89](https://github.com/appium/ruby_lib_core/commit/7de2e89349c5dce775e91c15e0c8a5486b8cbc5e) Remove duplicated remote status (#28)
+- [fcb64b7](https://github.com/appium/ruby_lib_core/commit/fcb64b7992c17d21b82b34cfd714d5dc150ae9a5) add keyevent (#27)
+- [a54b315](https://github.com/appium/ruby_lib_core/commit/a54b315155ee68b79d6051046b7f7899d7d0dda9) add some guidelines
+- [65d00cb](https://github.com/appium/ruby_lib_core/commit/65d00cb14bfbf6a3bdc3eded05d69037a3c06645) add a rake task for w3c
+
+
 #### v1.0.0 2017-11-12
 
 - [de176fe](https://github.com/appium/ruby_lib_core/commit/de176fe2fbcfaa341392e7f37ee537158ed2e23e) Release 1.0.0
