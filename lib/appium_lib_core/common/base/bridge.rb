@@ -24,6 +24,19 @@ module Appium
             raise CoreError, 'cannot understand dialect'
           end
         end
+
+        private
+
+        # Use capabilities directory because Appium's capability is based on W3C one.
+        # Called in bridge.create_session(desired_capabilities)
+        def merged_capabilities(desired_capabilities)
+          {
+            desiredCapabilities: desired_capabilities,
+            capabilities: {
+              firstMatch: [desired_capabilities]
+            }
+          }
+        end
       end # class Bridge
 
       class CoreBridgeMJSONWP < ::Selenium::WebDriver::Remote::OSS::Bridge
