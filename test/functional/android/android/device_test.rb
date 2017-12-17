@@ -280,6 +280,15 @@ class AppiumLibCoreTest
         assert_equal 'App', result.text
       end
 
+      def test_take_element_screenshot
+        e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
+        @@driver.take_element_screenshot(e, 'take_element_screenshot.png')
+
+        assert File.exist? 'take_element_screenshot.png'
+
+        File.delete 'take_element_screenshot.png'
+      end
+
       private
 
       def scroll_to(text)

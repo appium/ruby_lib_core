@@ -43,6 +43,8 @@ module Appium
         hide_keyboard:              [:post, 'session/:session_id/appium/device/hide_keyboard'.freeze],
         press_keycode:              [:post, 'session/:session_id/appium/device/press_keycode'.freeze],
         long_press_keycode:         [:post, 'session/:session_id/appium/device/long_press_keycode'.freeze],
+        ## take_element_screenshot is for MJSONWP. W3C already has.
+        take_element_screenshot:    [:get,  'session/:session_id/element/:id/screenshot'.freeze],
         # keyevent is only for Selendroid
         keyevent:                   [:post, 'session/:session_id/appium/device/keyevent'.freeze],
         set_immediate_value:        [:post, 'session/:session_id/appium/element/:id/value'.freeze],
