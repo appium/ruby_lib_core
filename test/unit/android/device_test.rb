@@ -354,7 +354,7 @@ class AppiumLibCoreTest
 
       def test_take_element_screenshot
         stub_request(:get, "#{SESSION}/element/id/screenshot")
-            .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.take_element_screenshot ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
 
