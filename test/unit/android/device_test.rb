@@ -51,6 +51,7 @@ class AppiumLibCoreTest
                                             :keyevent,
                                             :press_keycode,
                                             :long_press_keycode,
+                                            :take_element_screenshot,
                                             :set_immediate_value,
                                             :replace_value,
                                             :push_file,
@@ -349,6 +350,15 @@ class AppiumLibCoreTest
         @driver.long_press_keycode 86
 
         assert_requested(:post, "#{SESSION}/appium/device/long_press_keycode", times: 1)
+      end
+
+      def test_take_element_screenshot
+        stub_request(:get, "#{SESSION}/element/id/screenshot")
+            .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.take_element_screenshot ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
+
+        assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
       end
 
       def test_set_immediate_value
