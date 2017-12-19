@@ -2,6 +2,16 @@ module Appium
   module Core
     class Base
       class Bridge < ::Selenium::WebDriver::Remote::Bridge
+        # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
+        #
+        # Implements protocol handshake which:
+        #
+        #   1. Creates session with driver.
+        #   2. Sniffs response.
+        #   3. Based on the response, understands which dialect we should use.
+        #
+        # @return [CoreBridgeMJSONWP, CoreBridgeW3C]
+        #
         def self.handshake(**opts)
           desired_capabilities = opts.delete(:desired_capabilities)
 
@@ -25,6 +35,11 @@ module Appium
           end
         end
 
+        # Append `appium:` prefix for Appium following W3C spec
+        # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
+        #
+        # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
+        # @return [::Selenium::WebDriver::Remote::W3C::Capabilities]
         def add_appium_prefix(capabilities)
           w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.new
 
