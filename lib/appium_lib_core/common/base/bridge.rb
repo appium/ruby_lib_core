@@ -25,15 +25,41 @@ module Appium
           end
         end
 
+        def add_prefix(oss_capabilities)
+          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.new
+
+          oss_capabilities = oss_capabilities.__send__(:capabilities) unless oss_capabilities.is_a?(Hash)
+          oss_capabilities.each do |name, value|
+            next if value.nil?
+            next if value.is_a?(String) && value.empty?
+
+            capability_name = name.to_s
+
+            snake_cased_capability_names = ::Selenium::WebDriver::Remote::W3C::Capabilities::KNOWN.map(&:to_s)
+            camel_cased_capability_names = snake_cased_capability_names.map(&w3c_capabilities.method(:camel_case))
+
+            unless snake_cased_capability_names.include?(capability_name) || camel_cased_capability_names.include?(capability_name)
+              name = "appium:#{capability_name}"
+            end
+
+            w3c_capabilities[name] = value
+          end
+
+          w3c_capabilities
+        end
+
         private
 
         # Use capabilities directory because Appium's capability is based on W3C one.
         # Called in bridge.create_session(desired_capabilities)
         def merged_capabilities(desired_capabilities)
+          new_caps = add_prefix(desired_capabilities)
+          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+
           {
             desiredCapabilities: desired_capabilities,
             capabilities: {
-              firstMatch: [desired_capabilities]
+              firstMatch: [w3c_capabilities]
             }
           }
         end
