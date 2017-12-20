@@ -375,6 +375,16 @@ module Appium
       #   @driver.switch_to_default_context
       #
 
+      # @!method take_element_screenshot(element, png_path)
+      # @param [Selenium::WebDriver::Element] element A element you'd like to take screenshot.
+      # @param [String] png_path A path to save the screenshot
+      # @return [File] Path to the screenshot.
+      #
+      # @example
+      #
+      #   @driver.take_element_screenshot(element, "fine_name.png")
+      #
+
       ####
       ## class << self
       ####
@@ -451,6 +461,19 @@ module Appium
               option[:strategy] = strategy || :pressKey # default to pressKey
 
               execute :hide_keyboard, {}, option
+            end
+          end
+
+          add_endpoint_method(:take_element_screenshot) do
+            def take_element_screenshot(element, png_path)
+              result = execute :take_element_screenshot, id: element.ref
+
+              extension = File.extname(png_path).downcase
+              if extension != '.png'
+                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                                'It should end with .png extension'
+              end
+              File.open(png_path, 'wb') { |f| f << result.unpack('m')[0] }
             end
           end
 
