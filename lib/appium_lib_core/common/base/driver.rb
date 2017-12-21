@@ -20,7 +20,7 @@ module Appium
             extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
             extend ::Selenium::WebDriver::DriverExtensions::HasLocation
             extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-          else
+          elsif @bridge.dialect == :w3c
             # TODO: Only for Appium. Ideally, we'd like to remove the below like selenium-webdriver
             extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
             extend ::Selenium::WebDriver::DriverExtensions::HasLocation

@@ -4,10 +4,10 @@ module Appium
       class CoreBridgeW3C < ::Selenium::WebDriver::Remote::W3C::Bridge
         def commands(command)
           case command
-            when :status, :is_element_displayed
-              ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
-            else
-              ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
+          when :status, :is_element_displayed
+            ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
+          else
+            ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
           end
         end
 
@@ -17,16 +17,16 @@ module Appium
                                                       ::Selenium::WebDriver::Interactions.key('keyboard'),
                                                       async
         end
-        alias_method :actions, :action
+        alias actions action
 
         # override
         def find_element_by(how, what, parent = nil)
           how, what = convert_locators(how, what)
 
           id = if parent
-                 execute :find_child_element, {id: parent}, {using: how, value: what}
+                 execute :find_child_element, { id: parent }, { using: how, value: what }
                else
-                 execute :find_element, {}, {using: how, value: what}
+                 execute :find_element, {}, { using: how, value: what }
                end
           ::Selenium::WebDriver::Element.new self, element_id_from(id)
         end
@@ -36,9 +36,9 @@ module Appium
           how, what = convert_locators(how, what)
 
           ids = if parent
-                  execute :find_child_elements, {id: parent}, {using: how, value: what}
+                  execute :find_child_elements, { id: parent }, { using: how, value: what }
                 else
-                  execute :find_elements, {}, {using: how, value: what}
+                  execute :find_elements, {}, { using: how, value: what }
                 end
 
           ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
