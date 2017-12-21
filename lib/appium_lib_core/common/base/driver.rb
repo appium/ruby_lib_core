@@ -20,6 +20,11 @@ module Appium
             extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
             extend ::Selenium::WebDriver::DriverExtensions::HasLocation
             extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
+          else
+            # TODO: Only for Appium. Ideally, we'd like to remove the below like selenium-webdriver
+            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
+            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
+            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
           end
           super(@bridge, listener: listener)
         end
