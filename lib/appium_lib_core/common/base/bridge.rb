@@ -25,14 +25,14 @@ module Appium
           bridge = new(opts)
           capabilities = bridge.create_session(desired_capabilities)
 
-          # case bridge.dialect
-          # when :oss # for MJSONWP
-          #   CoreBridgeMJSONWP.new(capabilities, bridge.session_id, opts)
-          # when :w3c
+          case bridge.dialect
+          when :oss # for MJSONWP
+            CoreBridgeMJSONWP.new(capabilities, bridge.session_id, opts)
+          when :w3c
             CoreBridgeW3C.new(capabilities, bridge.session_id, opts)
-          # else
-          #   raise CoreError, 'cannot understand dialect'
-          # end
+          else
+            raise CoreError, 'cannot understand dialect'
+          end
         end
 
         # Append `appium:` prefix for Appium following W3C spec

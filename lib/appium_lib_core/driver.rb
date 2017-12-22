@@ -187,8 +187,9 @@ module Appium
       private
 
       # Ignore setting default wait if the target driver has no implementation
+      # FIXME: Appium doesn't support W3C's implicit wait
       def set_implicit_wait_by_default(wait)
-        # @driver.manage.timeouts.implicit_wait = wait
+        @driver.manage.timeouts.implicit_wait = wait
       rescue Selenium::WebDriver::Error::UnknownError => e
         unless e.message.include?('The operation requested is not yet implemented')
           raise e.message, ::Appium::Core::Error::ServerError

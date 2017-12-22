@@ -16,8 +16,6 @@ Metrics/PerceivedComplexity:
   Max: 8
 Style/Documentation:
   Enabled: false
-Style/AccessorMethodName:
-  Enabled: false
 Style/CommentedKeyword:
   Enabled: false
 Style/PercentLiteralDelimiters:
@@ -25,4 +23,6 @@ Style/PercentLiteralDelimiters:
 Style/BracesAroundHashParameters:
   Enabled: false
 Lint/NestedMethodDefinition:
+  Enabled: false
+Naming/AccessorMethodName:
   Enabled: false
