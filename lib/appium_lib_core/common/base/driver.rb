@@ -29,6 +29,12 @@ module Appium
           super(@bridge, listener: listener)
         end
 
+        # Get the dialect value
+        # @return [:oss|:w3c]
+        def dialect
+          @bridge.dialect
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

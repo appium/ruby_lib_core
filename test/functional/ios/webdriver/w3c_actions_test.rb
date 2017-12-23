@@ -15,13 +15,15 @@ class AppiumLibCoreTest
       end
 
       def test_tap
-        el = @@driver.find_element(:accessibility_id, 'Buttons')
+        skip if @@driver.dialect
+
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
 
-        el = @@driver.find_element(:name, 'Button with Image')
+        el = @@core.wait { @@driver.find_element(:name, 'Button with Image') }
         @@driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
 
-        el = @@driver.find_element(:accessibility_id, 'ImageButton')
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.name
       end
     end
