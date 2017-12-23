@@ -6,6 +6,19 @@ module Appium
           ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
         end
 
+        # Perform touch actions for W3C module. Generate `touch` pointer action here and users can use this via `driver.action`
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        #
+        # @private
+        # override
+        #
+        # @example
+        #
+        #     element = @driver.find_element(:id, "some id")
+        #     @driver.action.click(element).perform # The `click` is a part of `PointerActions`
+        #
         def action(async = false)
           ::Selenium::WebDriver::W3CActionBuilder.new self,
                                                       ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch'),
