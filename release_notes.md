@@ -1,3 +1,10 @@
+#### v1.2.1 2017-12-23
+
+- [93e094e](https://github.com/appium/ruby_lib_core/commit/93e094eeebf200cae7c4b097d674367d3457d542) Release 1.2.1
+- [ab5d7c5](https://github.com/appium/ruby_lib_core/commit/ab5d7c5ed31f318a9395e5aeafe1d0d655d3cff4) override default duration to make some action fast (#36)
+- [ec2ec43](https://github.com/appium/ruby_lib_core/commit/ec2ec43fa1092321c07f14ced79cc7a5b37db8f8) add documentation
+
+
 #### v1.2.0 2017-12-23
 
 - [28f937b](https://github.com/appium/ruby_lib_core/commit/28f937bbaf15a7d99b8870b5b1ec1f063414ea3b) Release 1.2.0
