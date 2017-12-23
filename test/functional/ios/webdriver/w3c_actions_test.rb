@@ -15,7 +15,7 @@ class AppiumLibCoreTest
       end
 
       def test_tap
-        skip if @@driver.dialect
+        skip if @@driver.dialect == :oss
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
