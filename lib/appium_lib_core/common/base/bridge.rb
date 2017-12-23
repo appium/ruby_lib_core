@@ -83,23 +83,6 @@ module Appium
           }
         end
       end # class Bridge
-
-      class CoreBridgeMJSONWP < ::Selenium::WebDriver::Remote::OSS::Bridge
-        def commands(command)
-          ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
-        end
-      end # class CoreBridgeMJSONWP
-
-      class CoreBridgeW3C < ::Selenium::WebDriver::Remote::W3C::Bridge
-        def commands(command)
-          case command
-          when :status, :is_element_displayed
-            ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
-          else
-            ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
-          end
-        end
-      end # class CoreBridgeW3C
     end # class Base
   end # module Core
 end # module Appium

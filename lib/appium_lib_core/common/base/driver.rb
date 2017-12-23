@@ -20,8 +20,19 @@ module Appium
             extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
             extend ::Selenium::WebDriver::DriverExtensions::HasLocation
             extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
+          elsif @bridge.dialect == :w3c
+            # TODO: Only for Appium. Ideally, we'd like to remove the below like selenium-webdriver
+            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
+            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
+            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
           end
           super(@bridge, listener: listener)
+        end
+
+        # Get the dialect value
+        # @return [:oss|:w3c]
+        def dialect
+          @bridge.dialect
         end
 
         # Get the device window's size.

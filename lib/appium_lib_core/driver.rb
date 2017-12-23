@@ -196,6 +196,15 @@ module Appium
 
         Appium::Logger.debug(e.message)
         {}
+      rescue Selenium::WebDriver::Error::WebDriverError => e
+        # FIXME: Temporary rescue until Appium support W3C's implicit wait
+        # https://github.com/jlipps/simple-wd-spec#set-timeouts
+        unless e.message.include?('Parameters were incorrect. We wanted {"required":["type","ms"]} and you sent ["implicit"]')
+          raise e.message, ::Appium::Core::Error::ServerError
+        end
+
+        Appium::Logger.debug(e.message)
+        {}
       end
 
       public

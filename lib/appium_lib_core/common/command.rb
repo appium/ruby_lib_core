@@ -43,8 +43,6 @@ module Appium
         hide_keyboard:              [:post, 'session/:session_id/appium/device/hide_keyboard'.freeze],
         press_keycode:              [:post, 'session/:session_id/appium/device/press_keycode'.freeze],
         long_press_keycode:         [:post, 'session/:session_id/appium/device/long_press_keycode'.freeze],
-        ## take_element_screenshot is for MJSONWP. W3C already has.
-        take_element_screenshot:    [:get,  'session/:session_id/element/:id/screenshot'.freeze],
         # keyevent is only for Selendroid
         keyevent:                   [:post, 'session/:session_id/appium/device/keyevent'.freeze],
         set_immediate_value:        [:post, 'session/:session_id/appium/element/:id/value'.freeze],
@@ -74,8 +72,27 @@ module Appium
       COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).merge(COMMAND_IOS)
                    .merge(COMMAND_NO_ARG).freeze
 
-      COMMANDS_EXTEND_MJSONWP = COMMANDS.merge(::Appium::Core::Base::Commands::OSS).freeze
-      COMMANDS_EXTEND_W3C = COMMANDS.merge(::Appium::Core::Base::Commands::W3C).freeze
+      COMMANDS_EXTEND_MJSONWP = COMMANDS.merge(
+        {
+          # W3C already has.
+          take_element_screenshot:    [:get, 'session/:session_id/element/:id/screenshot'.freeze]
+        }
+      ).merge(::Appium::Core::Base::Commands::OSS).freeze
+      COMMANDS_EXTEND_W3C = COMMANDS.merge(
+        {
+          # ::Appium::Core::Base::Commands::OSS has the following commands and Appium also use them.
+          # Delegated to ::Appium::Core::Base::Commands::OSS commands
+          status:                    [:get, 'status'.freeze],
+          is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze],
+
+          # For IME
+          ime_get_available_engines: [:get,  'session/:session_id/ime/available_engines'.freeze],
+          ime_get_active_engine:     [:get,  'session/:session_id/ime/active_engine'.freeze],
+          ime_is_activated:          [:get,  'session/:session_id/ime/activated'.freeze],
+          ime_deactivate:            [:post, 'session/:session_id/ime/deactivate'.freeze],
+          ime_activate_engine:       [:post, 'session/:session_id/ime/activate'.freeze]
+        }
+      ).merge(::Appium::Core::Base::Commands::W3C).freeze
     end
   end
 end
