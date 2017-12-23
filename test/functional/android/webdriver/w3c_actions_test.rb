@@ -24,7 +24,19 @@ class AppiumLibCoreTest
         @@driver.action.click(el).perform
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Custom') }
-        @@driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
+        # same as @@driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
+        @@driver.action
+                .move_to(el).pointer_down(:left)
+                .move_to_location(0, 700)
+                .release
+                .perform
+
+        # Scroll a bit without elements
+        @@driver.action
+                .move_to_location(500, 500).pointer_down(:left)
+                .move_to_location(0, 700)
+                .release
+                .perform
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.name
