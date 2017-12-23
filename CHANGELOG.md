@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Append `appium:` prefix for capabilities automatically due to W3C format.
+- add take element screenshot for oss module [#33](https://github.com/appium/ruby_lib_core/pull/33)
+- add w3c touch action tests and some supports for w3c [#35](https://github.com/appium/ruby_lib_core/pull/35)
+    - IME related
+    - Touch actions based on W3C spec
 
 ### Bug fixes
 
