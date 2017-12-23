@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.2.1] - 2017-12-23
+### Enhancements
 - override default duration to make some action fast [#36](https://github.com/appium/ruby_lib_core/pull/36)
 
 ### Bug fixes
