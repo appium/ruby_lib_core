@@ -1,3 +1,13 @@
+#### v1.2.0 2017-12-23
+
+- [28f937b](https://github.com/appium/ruby_lib_core/commit/28f937bbaf15a7d99b8870b5b1ec1f063414ea3b) Release 1.2.0
+- [27c1475](https://github.com/appium/ruby_lib_core/commit/27c1475d4cce8271ddc8409c14fb7bdfa1ff6834) update changelog
+- [82e2526](https://github.com/appium/ruby_lib_core/commit/82e2526de95b05e8a49872e0b69835e99acc66e5) add w3c touch action tests and some supports for w3c (#35)
+- [415b908](https://github.com/appium/ruby_lib_core/commit/415b90827105e84234e52f5faedde02357083b66) add take element screenshot for oss (#33)
+- [9dd9c83](https://github.com/appium/ruby_lib_core/commit/9dd9c83271483727e4429e7e6602480da214e118) add adding appium-prefix for W3C format (#34)
+- [cb94184](https://github.com/appium/ruby_lib_core/commit/cb94184854a9977a08f15a44843778314470a73a) update changelog
+
+
 #### v1.1.0 2017-12-16
 
 - [29b36af](https://github.com/appium/ruby_lib_core/commit/29b36af7af280308f7cfc2ee7ffa1738085e0306) Release 1.1.0
