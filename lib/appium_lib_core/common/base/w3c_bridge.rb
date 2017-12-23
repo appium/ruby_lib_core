@@ -3,12 +3,7 @@ module Appium
     class Base
       class CoreBridgeW3C < ::Selenium::WebDriver::Remote::W3C::Bridge
         def commands(command)
-          case command
-          when :status, :is_element_displayed
-            ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
-          else
-            ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
-          end
+          ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
         end
 
         def action(async = false)
