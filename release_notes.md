@@ -1,3 +1,9 @@
+#### v1.2.2 2017-12-25
+
+- [9e7a971](https://github.com/appium/ruby_lib_core/commit/9e7a971ae35aefd471ee07faae8c0f78fb9b0ae2) Release 1.2.2
+- [0bd38f5](https://github.com/appium/ruby_lib_core/commit/0bd38f587b7631e8f89ee37cb27083d7e6966714) add some methods for w3c (#37)
+
+
 #### v1.2.1 2017-12-23
 
 - [93e094e](https://github.com/appium/ruby_lib_core/commit/93e094eeebf200cae7c4b097d674367d3457d542) Release 1.2.1
