@@ -9,10 +9,10 @@ $VERBOSE = nil
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
-START_AT = Time.now.strftime("%Y-%m-%d-%H%M%S").freeze
+START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
-FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? ("#{ROOT_REPORT_PATH}/#{START_AT}")
+FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? "#{ROOT_REPORT_PATH}/#{START_AT}"
 
 class AppiumLibCoreTest
   module Function
