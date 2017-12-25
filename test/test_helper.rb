@@ -8,8 +8,11 @@ $VERBOSE = nil
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report/".freeze
+ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
+START_AT = Time.now.strftime("%Y-%m-%d-%H%M%S").freeze
+
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
+FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? ("#{ROOT_REPORT_PATH}/#{START_AT}")
 
 class AppiumLibCoreTest
   module Function
@@ -17,9 +20,12 @@ class AppiumLibCoreTest
       def save_reports(driver)
         return if passed?
 
-        path = "#{ROOT_REPORT_PATH}#{self.class.name.gsub('::', '_')}-#{name}-error"
-        File.write "#{path}.xml", driver.page_source
-        driver.save_screenshot "#{path}.png"
+        # Save failed view's screenshot and source
+        base_path = "#{ROOT_REPORT_PATH}/#{START_AT}/#{self.class.name.gsub('::', '_')}"
+        FileUtils.mkdir_p(base_path) unless FileTest.exist? base_path
+
+        File.write "#{base_path}/#{name}-failed.xml", driver.page_source
+        driver.save_screenshot "#{base_path}/#{name}-failed.png"
       end
     end
   end
