@@ -8,6 +8,14 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
+## [1.2.2] - 2017-12-25
+### Enhancements
+
+### Bug fixes
+- Fix some w3c methods to work with Appium [#37](https://github.com/appium/ruby_lib_core/pull/37)
+
+### Deprecations
+
 ## [1.2.1] - 2017-12-23
 ### Enhancements
 - override default duration to make some action fast [#36](https://github.com/appium/ruby_lib_core/pull/36)
