@@ -32,6 +32,22 @@ module Appium
         alias actions action
 
         # override
+        def page_source
+          # For W3C
+          # execute_script('var source = document.documentElement.outerHTML;' \
+          # 'if (!source) { source = new XMLSerializer().serializeToString(document); }' \
+          # 'return source;')
+          execute :get_page_source
+        end
+
+        # override
+        def element_attribute(element, name)
+          # For W3C
+          # execute_atom :getAttribute, element, name
+          execute :get_element_attribute, id: element.ref, name: name
+        end
+
+        # override
         def find_element_by(how, what, parent = nil)
           how, what = convert_locators(how, what)
 

@@ -72,18 +72,22 @@ module Appium
       COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).merge(COMMAND_IOS)
                    .merge(COMMAND_NO_ARG).freeze
 
-      COMMANDS_EXTEND_MJSONWP = COMMANDS.merge(
+      COMMANDS_EXTEND_MJSONWP = COMMANDS.merge(::Appium::Core::Base::Commands::OSS).merge(
         {
           # W3C already has.
           take_element_screenshot:    [:get, 'session/:session_id/element/:id/screenshot'.freeze]
         }
-      ).merge(::Appium::Core::Base::Commands::OSS).freeze
-      COMMANDS_EXTEND_W3C = COMMANDS.merge(
+      ).freeze
+      COMMANDS_EXTEND_W3C = COMMANDS.merge(::Appium::Core::Base::Commands::W3C).merge(
         {
           # ::Appium::Core::Base::Commands::OSS has the following commands and Appium also use them.
           # Delegated to ::Appium::Core::Base::Commands::OSS commands
           status:                    [:get, 'status'.freeze],
           is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze],
+
+          # FIXME: remove after apply https://github.com/SeleniumHQ/selenium/pull/5249
+          # The fix will be included in selenium-3.8.2
+          get_page_source: [:get, 'session/:session_id/source'.freeze],
 
           # For IME
           ime_get_available_engines: [:get,  'session/:session_id/ime/available_engines'.freeze],
@@ -92,7 +96,7 @@ module Appium
           ime_deactivate:            [:post, 'session/:session_id/ime/deactivate'.freeze],
           ime_activate_engine:       [:post, 'session/:session_id/ime/activate'.freeze]
         }
-      ).merge(::Appium::Core::Base::Commands::W3C).freeze
+      ).freeze
     end
   end
 end
