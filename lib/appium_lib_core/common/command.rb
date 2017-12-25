@@ -86,6 +86,7 @@ module Appium
           is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze],
 
           # FIXME: remove after apply https://github.com/SeleniumHQ/selenium/pull/5249
+          # The fix will be included in selenium-3.8.2
           get_page_source: [:get, 'session/:session_id/source'.freeze],
 
           # For IME
