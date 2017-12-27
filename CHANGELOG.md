@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
-## [1.2.3]
+## [1.2.3] - 2017-12-27
 ### Enhancements
 
 ### Bug fixes
