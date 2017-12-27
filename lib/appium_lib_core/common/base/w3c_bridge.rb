@@ -87,8 +87,8 @@ module Appium
         # For Appium
         # override
         def set_location(lat, lon, alt)
-          loc = {latitude: lat, longitude: lon, altitude: alt}
-          execute :set_location, {}, {location: loc}
+          loc = { latitude: lat, longitude: lon, altitude: alt }
+          execute :set_location, {}, { location: loc }
         end
 
         # For Appium
@@ -100,7 +100,7 @@ module Appium
         # For Appium
         # override
         def network_connection=(type)
-          execute :set_network_connection, {}, {parameters: {type: type}}
+          execute :set_network_connection, {}, { parameters: { type: type } }
         end
 
         private
