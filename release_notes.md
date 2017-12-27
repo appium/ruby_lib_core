@@ -1,3 +1,9 @@
+#### v1.2.3 2017-12-27
+
+- [26b8392](https://github.com/appium/ruby_lib_core/commit/26b83923a50257922030c7ccb83e110aff55eee5) Release 1.2.3
+- [297bf22](https://github.com/appium/ruby_lib_core/commit/297bf22d7c3b0e96a3ed25f7ea62bb19cf6bd277) add some oss commands to w3c module(#38)
+
+
 #### v1.2.2 2017-12-25
 
 - [9e7a971](https://github.com/appium/ruby_lib_core/commit/9e7a971ae35aefd471ee07faae8c0f78fb9b0ae2) Release 1.2.2
