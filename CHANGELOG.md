@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+- Fix some w3c methods to work with Appium part 2 [#38](https://github.com/appium/ruby_lib_core/pull/38)
+
+### Deprecations
+
+## [1.2.3]
+### Enhancements
+
+### Bug fixes
+- Fix some w3c methods to work with Appium part 2 [#38](https://github.com/appium/ruby_lib_core/pull/38)
 
 ### Deprecations
 
