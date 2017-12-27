@@ -71,16 +71,16 @@ class AppiumLibCoreTest
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click
 
-        assert_equal 'NATIVE_APP', @@driver.current_context
+        @@core.wait { assert_equal 'NATIVE_APP', @@driver.current_context }
 
         contexts = @@driver.available_contexts
         webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
 
         @@driver.set_context webview_context
-        assert @@driver.current_context.start_with? 'WEBVIEW'
+        @@core.wait { assert @@driver.current_context.start_with? 'WEBVIEW' }
 
         @@driver.switch_to_default_context
-        assert_equal 'NATIVE_APP', @@driver.current_context
+        @@core.wait { assert_equal 'NATIVE_APP', @@driver.current_context }
       end
 
       def test_app_string

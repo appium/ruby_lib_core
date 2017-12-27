@@ -3,7 +3,7 @@ require 'test_helper'
 # $ rake test:func:android TEST=test/functional/android/android/search_context_test.rb
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
-  module Ios
+  module Android
     class SearchContextTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
