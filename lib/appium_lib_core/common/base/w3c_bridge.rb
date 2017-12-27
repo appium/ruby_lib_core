@@ -16,6 +16,7 @@ module Appium
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
         # @private
+        # For Appium
         # override
         #
         # @example
@@ -31,6 +32,7 @@ module Appium
         end
         alias actions action
 
+        # For Appium
         # override
         def page_source
           # For W3C
@@ -40,6 +42,7 @@ module Appium
           execute :get_page_source
         end
 
+        # For Appium
         # override
         def element_attribute(element, name)
           # For W3C
@@ -47,6 +50,7 @@ module Appium
           execute :get_element_attribute, id: element.ref, name: name
         end
 
+        # For Appium
         # override
         def find_element_by(how, what, parent = nil)
           how, what = convert_locators(how, what)
@@ -59,6 +63,7 @@ module Appium
           ::Selenium::WebDriver::Element.new self, element_id_from(id)
         end
 
+        # For Appium
         # override
         def find_elements_by(how, what, parent = nil)
           how, what = convert_locators(how, what)
@@ -70,6 +75,32 @@ module Appium
                 end
 
           ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
+        end
+
+        # For Appium
+        # override
+        def location
+          obj = execute(:get_location) || {}
+          Location.new obj['latitude'], obj['longitude'], obj['altitude']
+        end
+
+        # For Appium
+        # override
+        def set_location(lat, lon, alt)
+          loc = { latitude: lat, longitude: lon, altitude: alt }
+          execute :set_location, {}, { location: loc }
+        end
+
+        # For Appium
+        # override
+        def network_connection
+          execute :get_network_connection
+        end
+
+        # For Appium
+        # override
+        def network_connection=(type)
+          execute :set_network_connection, {}, { parameters: { type: type } }
         end
 
         private

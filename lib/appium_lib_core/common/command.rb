@@ -89,6 +89,17 @@ module Appium
           # The fix will be included in selenium-3.8.2
           get_page_source: [:get, 'session/:session_id/source'.freeze],
 
+          ## Add to W3C commands
+          # rotatable
+          get_screen_orientation: [:get, 'session/:session_id/orientation'.freeze],
+          set_screen_orientation: [:post, 'session/:session_id/orientation'.freeze],
+
+          get_location: [:get, 'session/:session_id/location'.freeze],
+          set_location: [:post, 'session/:session_id/location'.freeze],
+
+          get_network_connection: [:get, 'session/:session_id/network_connection'.freeze],
+          set_network_connection: [:post, 'session/:session_id/network_connection'.freeze],
+
           # For IME
           ime_get_available_engines: [:get,  'session/:session_id/ime/available_engines'.freeze],
           ime_get_active_engine:     [:get,  'session/:session_id/ime/active_engine'.freeze],
