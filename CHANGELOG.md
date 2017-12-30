@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Refactor `create_session` in `Appium::Core::Base::Bridge`
-- Be able to communicate with Appium by `W3C` based webdriver protocol
-    - Read API doc for `Appium::Core::Base::Bridge#create_session` and its example
-    - By default, the client try to communicate by `mjsonwp` based protocol
+- Be able to communicate with Appium by `W3C` based webdriver protocol if the Appium supports W3C protocol.
+    - If `force_mjsonwp: true` exists in the capability, the client try to communicate `mjsonwp` based protocol
+        - By default, `force_mjsonwp: false`
+    - Read API doc for `Appium::Core::Base::Bridge#create_session` to read the example of `forceforce_mjsonwp`
 
 ### Bug fixes
 
