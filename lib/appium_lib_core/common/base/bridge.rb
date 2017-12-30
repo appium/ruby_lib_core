@@ -42,7 +42,7 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
         #
-        # If `desired_capabilities` has `w3c: true` capability, the bridge works as W3C client only for Appium 1.7.2-beta5+.
+        # If `desired_capabilities` has `w3c: true` capability, this bridge works with W3C protocol and it requires Appium 1.7.2-beta5+. Read an example.
         #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
