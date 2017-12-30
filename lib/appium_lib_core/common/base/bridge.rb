@@ -25,9 +25,6 @@ module Appium
             desired_capabilities = Remote::Capabilities.__send__(desired_capabilities)
           end
 
-          require 'pry'
-          binding.pry
-
           bridge = new(opts)
           capabilities = bridge.create_session(desired_capabilities)
 
