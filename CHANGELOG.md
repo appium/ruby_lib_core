@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Refactor `create_session` in `Appium::Core::Base::Bridge`
+- Be able to `W3C` protocol based Appium feature.
+    - Read API doc for `Appium::Core::Base::Bridge#create_session` and its example.
 
 ### Bug fixes
 

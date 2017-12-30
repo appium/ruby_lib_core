@@ -47,6 +47,25 @@ module Appium
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
         #
+        # @example
+        #
+        #   opts = {
+        #     caps: {
+        #       platformName: :ios,
+        #       automationName: 'XCUITest',
+        #       app: 'test/functional/app/UICatalog.app',
+        #       platformVersion: '10.3',
+        #       deviceName: 'iPhone Simulator',
+        #       useNewWDA: true,
+        #       w3c: true
+        #     },
+        #     appium_lib: {
+        #       wait: 30
+        #     }
+        #   }
+        #   core = ::Appium::Core.for(self, caps)
+        #   driver = core.start_driver #=> driver.dialect == :w3c
+        #
         def create_session(desired_capabilities)
           w3c = desired_capabilities[:w3c] || false
 
