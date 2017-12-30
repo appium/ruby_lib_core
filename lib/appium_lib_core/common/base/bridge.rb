@@ -125,15 +125,15 @@ module Appium
             w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
 
             {
-                desiredCapabilities: desired_capabilities,
-                capabilities: {
-                    alwaysMatch: w3c_capabilities,
-                    firstMatch: []
-                }
+              desiredCapabilities: desired_capabilities,
+              capabilities: {
+                alwaysMatch: w3c_capabilities,
+                firstMatch: []
+              }
             }
           else
             {
-                desiredCapabilities: desired_capabilities
+              desiredCapabilities: desired_capabilities
             }
           end
         end
