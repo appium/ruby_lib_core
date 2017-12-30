@@ -72,10 +72,10 @@ module Appium
           response = execute(:new_session, {}, merged_capabilities(desired_capabilities, w3c))
 
           @session_id = response['sessionId']
-          oss_status = response['status']
+          oss_status = response['status'] # for compatibility with Appium 1.7.1-
           value = response['value']
 
-          if value.is_a?(Hash)
+          if value.is_a?(Hash) # include for W3C format
             @session_id = value['sessionId'] if value.key?('sessionId')
 
             if value.key?('capabilities')
