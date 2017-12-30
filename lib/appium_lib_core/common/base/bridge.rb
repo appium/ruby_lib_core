@@ -147,7 +147,7 @@ module Appium
               desiredCapabilities: desired_capabilities,
               capabilities: {
                 alwaysMatch: w3c_capabilities,
-                firstMatch: []
+                firstMatch: [{}]
               }
             }
           else
