@@ -42,7 +42,8 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
         #
-        # If `desired_capabilities` has `w3c: true` capability, this bridge works with W3C protocol and it requires Appium 1.7.2-beta5+. Read an example.
+        # If `desired_capabilities` has `force_mjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
+        # If `force_mjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
         #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
@@ -57,19 +58,37 @@ module Appium
         #       platformVersion: '10.3',
         #       deviceName: 'iPhone Simulator',
         #       useNewWDA: true,
-        #       w3c: true
+        #       force_mjsonwp: true
         #     },
         #     appium_lib: {
         #       wait: 30
         #     }
         #   }
         #   core = ::Appium::Core.for(self, caps)
-        #   driver = core.start_driver #=> driver.dialect == :w3c
+        #   driver = core.start_driver #=> driver.dialect == :oss
+        #
+        # @example
+        #
+        #   opts = {
+        #     caps: {
+        #       platformName: :ios,
+        #       automationName: 'XCUITest',
+        #       app: 'test/functional/app/UICatalog.app',
+        #       platformVersion: '10.3',
+        #       deviceName: 'iPhone Simulator',
+        #       useNewWDA: true,
+        #     },
+        #     appium_lib: {
+        #       wait: 30
+        #     }
+        #   }
+        #   core = ::Appium::Core.for(self, caps)
+        #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
         #
         def create_session(desired_capabilities)
-          w3c = desired_capabilities[:w3c] || false
+          force_mjsonwp = desired_capabilities[:force_mjsonwp] || false
 
-          response = execute(:new_session, {}, merged_capabilities(desired_capabilities, w3c))
+          response = execute(:new_session, {}, merged_capabilities(desired_capabilities, force_mjsonwp))
 
           @session_id = response['sessionId']
           oss_status = response['status'] # for compatibility with Appium 1.7.1-
@@ -138,8 +157,12 @@ module Appium
         end
 
         # Called in bridge.create_session(desired_capabilities) from Parent class
-        def merged_capabilities(desired_capabilities, w3c = false)
-          if w3c
+        def merged_capabilities(desired_capabilities, force_mjsonwp = true)
+          if force_mjsonwp
+            {
+              desiredCapabilities: desired_capabilities
+            }
+          else
             new_caps = add_appium_prefix(desired_capabilities)
             w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
 
@@ -149,10 +172,6 @@ module Appium
                 alwaysMatch: w3c_capabilities,
                 firstMatch: [{}]
               }
-            }
-          else
-            {
-              desiredCapabilities: desired_capabilities
             }
           end
         end

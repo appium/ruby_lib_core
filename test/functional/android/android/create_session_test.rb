@@ -6,7 +6,7 @@ class AppiumLibCoreTest
     class CreateSessionTestTest < AppiumLibCoreTest::Function::TestCase
       def test_mjsonwp
         caps = Caps::ANDROID_OPS
-        caps[:caps][:w3c] = false
+        caps[:caps][:force_mjsonwp] = false
         core = ::Appium::Core.for(self, caps)
 
         driver = core.start_driver
@@ -17,7 +17,7 @@ class AppiumLibCoreTest
       # Require Appium 1.7.2+
       def test_w3c
         caps = Caps::ANDROID_OPS
-        caps[:caps][:w3c] = true
+        caps[:caps][:force_mjsonwp] = true
         core = ::Appium::Core.for(self, caps)
 
         driver = core.start_driver
