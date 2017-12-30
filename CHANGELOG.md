@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Refactor `create_session` in `Appium::Core::Base::Bridge`
 
 ### Bug fixes
 
