@@ -25,6 +25,9 @@ module Appium
             desired_capabilities = Remote::Capabilities.__send__(desired_capabilities)
           end
 
+          require 'pry'
+          binding.pry
+
           bridge = new(opts)
           capabilities = bridge.create_session(desired_capabilities)
 
@@ -42,11 +45,15 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
         #
+        # If `desired_capabilities` has `w3c: true` capability, the bridge works as W3C client only for Appium 1.7.2-beta5+.
+        #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
         #
         def create_session(desired_capabilities)
-          response = execute(:new_session, {}, merged_capabilities(desired_capabilities))
+          w3c = desired_capabilities[:w3c] || false
+
+          response = execute(:new_session, {}, merged_capabilities(desired_capabilities, w3c))
 
           @session_id = response['sessionId']
           oss_status = response['status']
@@ -115,16 +122,23 @@ module Appium
         end
 
         # Called in bridge.create_session(desired_capabilities) from Parent class
-        def merged_capabilities(desired_capabilities)
-          new_caps = add_appium_prefix(desired_capabilities)
-          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+        def merged_capabilities(desired_capabilities, w3c = false)
+          if w3c
+            new_caps = add_appium_prefix(desired_capabilities)
+            w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
 
-          {
-            desiredCapabilities: desired_capabilities,
-            capabilities: {
-              firstMatch: [w3c_capabilities]
+            {
+                desiredCapabilities: desired_capabilities,
+                capabilities: {
+                    alwaysMatch: w3c_capabilities,
+                    firstMatch: []
+                }
             }
-          }
+          else
+            {
+                desiredCapabilities: desired_capabilities
+            }
+          end
         end
       end # class Bridge
     end # class Base
