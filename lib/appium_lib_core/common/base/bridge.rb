@@ -156,8 +156,7 @@ module Appium
           end
         end
 
-        # Called in bridge.create_session(desired_capabilities) from Parent class
-        def merged_capabilities(desired_capabilities, force_mjsonwp = true)
+        def merged_capabilities(desired_capabilities, force_mjsonwp)
           if force_mjsonwp
             {
               desiredCapabilities: desired_capabilities
