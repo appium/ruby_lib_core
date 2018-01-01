@@ -42,17 +42,57 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
         #
+        # If `desired_capabilities` has `forceMjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
+        # If `forceMjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
+        #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
+        #
+        # @example
+        #
+        #   opts = {
+        #     caps: {
+        #       platformName: :ios,
+        #       automationName: 'XCUITest',
+        #       app: 'test/functional/app/UICatalog.app',
+        #       platformVersion: '10.3',
+        #       deviceName: 'iPhone Simulator',
+        #       useNewWDA: true,
+        #       forceMjsonwp: true
+        #     },
+        #     appium_lib: {
+        #       wait: 30
+        #     }
+        #   }
+        #   core = ::Appium::Core.for(self, caps)
+        #   driver = core.start_driver #=> driver.dialect == :oss
+        #
+        # @example
+        #
+        #   opts = {
+        #     caps: {
+        #       platformName: :ios,
+        #       automationName: 'XCUITest',
+        #       app: 'test/functional/app/UICatalog.app',
+        #       platformVersion: '10.3',
+        #       deviceName: 'iPhone Simulator',
+        #       useNewWDA: true,
+        #     },
+        #     appium_lib: {
+        #       wait: 30
+        #     }
+        #   }
+        #   core = ::Appium::Core.for(self, caps)
+        #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
         #
         def create_session(desired_capabilities)
           response = execute(:new_session, {}, merged_capabilities(desired_capabilities))
 
           @session_id = response['sessionId']
-          oss_status = response['status']
+          oss_status = response['status'] # for compatibility with Appium 1.7.1-
           value = response['value']
 
-          if value.is_a?(Hash)
+          if value.is_a?(Hash) # include for W3C format
             @session_id = value['sessionId'] if value.key?('sessionId')
 
             if value.key?('capabilities')
@@ -114,17 +154,41 @@ module Appium
           end
         end
 
-        # Called in bridge.create_session(desired_capabilities) from Parent class
-        def merged_capabilities(desired_capabilities)
-          new_caps = add_appium_prefix(desired_capabilities)
-          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+        def delete_force_mjsonwp(capabilities)
+          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.new
 
-          {
-            desiredCapabilities: desired_capabilities,
-            capabilities: {
-              firstMatch: [w3c_capabilities]
+          capabilities = capabilities.__send__(:capabilities) unless capabilities.is_a?(Hash)
+          capabilities.each do |name, value|
+            next if value.nil?
+            next if value.is_a?(String) && value.empty?
+            next if name == :forceMjsonwp
+
+            w3c_capabilities[name] = value
+          end
+
+          w3c_capabilities
+        end
+
+        def merged_capabilities(desired_capabilities)
+          force_mjsonwp = desired_capabilities[:forceMjsonwp]
+          desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
+
+          if force_mjsonwp
+            {
+              desiredCapabilities: desired_capabilities
             }
-          }
+          else
+            new_caps = add_appium_prefix(desired_capabilities)
+            w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+
+            {
+              desiredCapabilities: desired_capabilities,
+              capabilities: {
+                alwaysMatch: w3c_capabilities,
+                firstMatch: [{}]
+              }
+            }
+          end
         end
       end # class Bridge
     end # class Base
