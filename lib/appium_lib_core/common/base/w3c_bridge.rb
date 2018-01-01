@@ -79,20 +79,6 @@ module Appium
 
         # For Appium
         # override
-        def location
-          obj = execute(:get_location) || {}
-          Location.new obj['latitude'], obj['longitude'], obj['altitude']
-        end
-
-        # For Appium
-        # override
-        def set_location(lat, lon, alt)
-          loc = { latitude: lat, longitude: lon, altitude: alt }
-          execute :set_location, {}, { location: loc }
-        end
-
-        # For Appium
-        # override
         def network_connection
           execute :get_network_connection
         end
@@ -101,6 +87,44 @@ module Appium
         # override
         def network_connection=(type)
           execute :set_network_connection, {}, { parameters: { type: type } }
+        end
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        def location
+          obj = execute(:get_location) || {}
+          ::Selenium::WebDriver::Location.new obj['latitude'], obj['longitude'], obj['altitude']
+        end
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        def set_location(lat, lon, alt)
+          loc = {latitude: lat, longitude: lon, altitude: alt}
+          execute :set_location, {}, {location: loc}
+        end
+
+        #
+        # logs
+        #
+        # For Appium
+        # No implementation for W3C webdriver module
+        def available_log_types
+          types = execute :get_available_log_types
+          Array(types).map(&:to_sym)
+        end
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        def log(type)
+          data = execute :get_log, {}, {type: type.to_s}
+
+          Array(data).map do |l|
+            begin
+              ::Selenium::WebDriver::LogEntry.new l.fetch('level', 'UNKNOWN'), l.fetch('timestamp'), l.fetch('message')
+            rescue KeyError
+              next
+            end
+          end
         end
 
         private
