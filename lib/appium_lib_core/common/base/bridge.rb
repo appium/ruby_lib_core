@@ -42,8 +42,8 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
         #
-        # If `desired_capabilities` has `force_mjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
-        # If `force_mjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
+        # If `desired_capabilities` has `forceMjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
+        # If `forceMjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
         #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
@@ -58,7 +58,7 @@ module Appium
         #       platformVersion: '10.3',
         #       deviceName: 'iPhone Simulator',
         #       useNewWDA: true,
-        #       force_mjsonwp: true
+        #       forceMjsonwp: true
         #     },
         #     appium_lib: {
         #       wait: 30
@@ -86,7 +86,7 @@ module Appium
         #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
         #
         def create_session(desired_capabilities)
-          force_mjsonwp = desired_capabilities[:force_mjsonwp] || false
+          force_mjsonwp = desired_capabilities.delete(:forceMjsonwp) || false
 
           response = execute(:new_session, {}, merged_capabilities(desired_capabilities, force_mjsonwp))
 
