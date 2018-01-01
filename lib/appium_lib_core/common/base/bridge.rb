@@ -86,9 +86,7 @@ module Appium
         #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
         #
         def create_session(desired_capabilities)
-          force_mjsonwp = desired_capabilities.delete(:forceMjsonwp) || false
-
-          response = execute(:new_session, {}, merged_capabilities(desired_capabilities, force_mjsonwp))
+          response = execute(:new_session, {}, merged_capabilities(desired_capabilities))
 
           @session_id = response['sessionId']
           oss_status = response['status'] # for compatibility with Appium 1.7.1-
@@ -156,7 +154,25 @@ module Appium
           end
         end
 
-        def merged_capabilities(desired_capabilities, force_mjsonwp)
+        def delete_force_mjsonwp(capabilities)
+          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.new
+
+          capabilities = capabilities.__send__(:capabilities) unless capabilities.is_a?(Hash)
+          capabilities.each do |name, value|
+            next if value.nil?
+            next if value.is_a?(String) && value.empty?
+            next if name == :forceMjsonwp
+
+            w3c_capabilities[name] = value
+          end
+
+          w3c_capabilities
+        end
+
+        def merged_capabilities(desired_capabilities)
+          force_mjsonwp = desired_capabilities[:forceMjsonwp]
+          desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
+
           if force_mjsonwp
             {
               desiredCapabilities: desired_capabilities
