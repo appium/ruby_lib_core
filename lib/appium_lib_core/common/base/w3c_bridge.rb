@@ -99,8 +99,8 @@ module Appium
         # For Appium
         # No implementation for W3C webdriver module
         def set_location(lat, lon, alt)
-          loc = {latitude: lat, longitude: lon, altitude: alt}
-          execute :set_location, {}, {location: loc}
+          loc = { latitude: lat, longitude: lon, altitude: alt }
+          execute :set_location, {}, { location: loc }
         end
 
         #
@@ -116,7 +116,7 @@ module Appium
         # For Appium
         # No implementation for W3C webdriver module
         def log(type)
-          data = execute :get_log, {}, {type: type.to_s}
+          data = execute :get_log, {}, { type: type.to_s }
 
           Array(data).map do |l|
             begin
