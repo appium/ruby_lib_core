@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
     - If `forceMjsonwp: true` exists in the capability, the client try to communicate `mjsonwp` based protocol
         - By default, it depends on the response from the server
     - Read API doc for `Appium::Core::Base::Bridge#create_session` to read the example of `forceMjsonwp`
+- Backport some commands from OSS module to W3C module
+    - Read `lib/appium_lib_core/common/base/w3c_bridge.rb` for more details
 
 ### Bug fixes
 
