@@ -14,8 +14,8 @@ class AppiumLibCoreTest
       end
 
       def parameterized_method_defined_check(array)
-        array.each { |v| assert ::Appium::Core::Base::CoreBridgeMJSONWP.method_defined?(v) }
-        array.each { |v| assert ::Appium::Core::Base::CoreBridgeW3C.method_defined?(v) }
+        array.each { |v| assert ::Appium::Core::Base::Bridge::MJSONWP.method_defined?(v) }
+        array.each { |v| assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v) }
       end
 
       def test_no_arg_definitions

@@ -112,6 +112,12 @@ module Appium
       # @!method get_network_connection
       #   Get the device network connection current status
       #   See set_network_connection method for return value
+      #
+      # @example
+      #
+      #   @driver.network_connection_type #=> 6
+      #   @driver.get_network_connection  #=> 6
+      #
 
       # @!method open_notifications
       #   Open Android notifications
@@ -561,10 +567,10 @@ module Appium
 
         # @private
         def create_bridge_command(method)
-          ::Appium::Core::Base::CoreBridgeMJSONWP.class_eval do
+          ::Appium::Core::Base::Bridge::MJSONWP.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
           end
-          ::Appium::Core::Base::CoreBridgeW3C.class_eval do
+          ::Appium::Core::Base::Bridge::W3C.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
           end
         end

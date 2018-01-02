@@ -9,21 +9,23 @@ module Appium
       # @return [[Selenium::WebDriver::LogEntry]] A list of logs data.
       #
       # @example
-      #   Appium::Core::Logs.new(driver).get("syslog") #=> [[Selenium::WebDriver::LogEntry]]
-      #   Appium::Core::Logs.new(driver).get(:syslog)  #=> [[Selenium::WebDriver::LogEntry]]
+      #
+      #   @driver.logs.get "syslog" # []
+      #   @driver.logs.get :syslog # []
       #
       def get(type)
-        @bridge.get type
+        @bridge.log type
       end
 
       # Get a list of available log types
       #
       # @return [[Hash]] A list of available log types.
       # @example
-      #   Appium::Core::Logs.new(driver).available_types #=>  [:syslog, :crashlog, :performance]
+      #
+      #   @driver.logs.available_types # [:syslog, :crashlog, :performance]
       #
       def available_types
-        @bridge.available_types
+        @bridge.available_log_types
       end
     end
   end # module Core

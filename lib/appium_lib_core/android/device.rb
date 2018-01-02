@@ -53,6 +53,7 @@ module Appium
       # @example
       #
       #   @driver.set_network_connection 1
+      #   @driver.network_connection_type = 1
       #
 
       # @!method get_performance_data_types

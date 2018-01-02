@@ -103,6 +103,11 @@ class AppiumLibCoreTest
       #   @@driver.execute_async_script('mobile: tap', x: 0, y: 0, element: element.ref)
       #   @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.ref)
       # end
+
+      def test_logs
+        assert_equal %i(syslog crashlog performance), @@driver.logs.available_types
+        assert @@driver.logs.get(:syslog)
+      end
     end
   end
 end

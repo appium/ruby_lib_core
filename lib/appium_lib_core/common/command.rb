@@ -23,7 +23,7 @@ module Appium
         get_system_bars:            [:get,  'session/:session_id/appium/device/system_bars'.freeze],
         get_display_density:        [:get,  'session/:session_id/appium/device/display_density'.freeze],
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
-        get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze],
+        get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze], # defined also in OSS
         get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze],
         stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze]
         # iOS
@@ -59,7 +59,7 @@ module Appium
       COMMAND_ANDROID = {
         start_activity:             [:post, 'session/:session_id/appium/device/start_activity'.freeze],
         end_coverage:               [:post, 'session/:session_id/appium/app/end_test_coverage'.freeze],
-        set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze],
+        set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze], # defined also in OSS
         get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze],
         start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
       }.freeze
@@ -89,23 +89,24 @@ module Appium
           # The fix will be included in selenium-3.8.2
           get_page_source: [:get, 'session/:session_id/source'.freeze],
 
-          ## Add to W3C commands
-          # rotatable
+          ## Add OSS commands to W3C commands
+          ### rotatable
           get_screen_orientation: [:get, 'session/:session_id/orientation'.freeze],
           set_screen_orientation: [:post, 'session/:session_id/orientation'.freeze],
 
           get_location: [:get, 'session/:session_id/location'.freeze],
           set_location: [:post, 'session/:session_id/location'.freeze],
 
-          get_network_connection: [:get, 'session/:session_id/network_connection'.freeze],
-          set_network_connection: [:post, 'session/:session_id/network_connection'.freeze],
-
-          # For IME
+          ### For IME
           ime_get_available_engines: [:get,  'session/:session_id/ime/available_engines'.freeze],
           ime_get_active_engine:     [:get,  'session/:session_id/ime/active_engine'.freeze],
           ime_is_activated:          [:get,  'session/:session_id/ime/activated'.freeze],
           ime_deactivate:            [:post, 'session/:session_id/ime/deactivate'.freeze],
-          ime_activate_engine:       [:post, 'session/:session_id/ime/activate'.freeze]
+          ime_activate_engine:       [:post, 'session/:session_id/ime/activate'.freeze],
+
+          ### Logs
+          get_available_log_types: [:get, 'session/:session_id/log/types'.freeze],
+          get_log: [:post, 'session/:session_id/log'.freeze]
         }
       ).freeze
     end

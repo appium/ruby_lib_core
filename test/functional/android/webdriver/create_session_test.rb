@@ -39,8 +39,6 @@ class AppiumLibCoreTest
         assert_equal :w3c, driver.dialect
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
-
-        driver.quit
       end
     end
   end

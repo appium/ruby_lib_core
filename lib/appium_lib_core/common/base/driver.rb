@@ -56,6 +56,18 @@ module Appium
         def back
           navigate.back
         end
+
+        # Get the device window's logs.
+        # @return [String]
+        #
+        # @example
+        #
+        #   @driver.logs.available_types # [:syslog, :crashlog, :performance]
+        #   @driver.logs.get :syslog # []
+        #
+        def logs
+          @logs ||= Logs.new(@bridge)
+        end
       end # class Driver
     end # class Base
   end # module Core

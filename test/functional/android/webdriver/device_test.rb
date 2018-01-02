@@ -100,6 +100,18 @@ class AppiumLibCoreTest
         @@driver.rotation = :portrait
         assert_equal :portrait, @@driver.orientation
       end
+
+      def test_logs
+        assert_equal %i(syslog crashlog performance), @@driver.logs.available_types
+        assert @@driver.logs.get(:syslog)
+      end
+
+      def test_network_connection
+        assert @@driver.get_network_connection
+        assert @@driver.network_connection_type
+        assert @driver.set_network_connection(6)
+        assert @driver.network_connection_type = 6
+      end
     end
   end
 end
