@@ -115,8 +115,8 @@ module Appium
       #
       # @example
       #
-      #   @driver.network_connection_type
-      #   @driver.get_network_connection
+      #   @driver.network_connection_type #=> 6
+      #   @driver.get_network_connection  #=> 6
       #
 
       # @!method open_notifications
