@@ -13,13 +13,13 @@ module Appium
         #   2. Sniffs response.
         #   3. Based on the response, understands which dialect we should use.
         #
-        # @return [CoreBridgeMJSONWP, CoreBridgeW3C]
+        # @return [Bridge::MJSONWP, Bridge::W3C]
         #
         def self.handshake(**opts)
           desired_capabilities = opts.delete(:desired_capabilities)
 
           if desired_capabilities.is_a?(Symbol)
-            unless Remote::Capabilities.respond_to?(desired_capabilities)
+            unless ::Selenium::WebDriver::Remote::Capabilities.respond_to?(desired_capabilities)
               raise Error::WebDriverError, "invalid desired capability: #{desired_capabilities.inspect}"
             end
             desired_capabilities = Remote::Capabilities.__send__(desired_capabilities)
@@ -30,9 +30,9 @@ module Appium
 
           case bridge.dialect
           when :oss # for MJSONWP
-            CoreBridgeMJSONWP.new(capabilities, bridge.session_id, opts)
+            Bridge::MJSONWP.new(capabilities, bridge.session_id, opts)
           when :w3c
-            CoreBridgeW3C.new(capabilities, bridge.session_id, opts)
+            Bridge::W3C.new(capabilities, bridge.session_id, opts)
           else
             raise CoreError, 'cannot understand dialect'
           end

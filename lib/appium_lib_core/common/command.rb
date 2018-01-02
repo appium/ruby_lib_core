@@ -23,7 +23,7 @@ module Appium
         get_system_bars:            [:get,  'session/:session_id/appium/device/system_bars'.freeze],
         get_display_density:        [:get,  'session/:session_id/appium/device/display_density'.freeze],
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
-        get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze],
+        get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze], # defined also in OSS
         get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze],
         stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze]
         # iOS
@@ -59,7 +59,7 @@ module Appium
       COMMAND_ANDROID = {
         start_activity:             [:post, 'session/:session_id/appium/device/start_activity'.freeze],
         end_coverage:               [:post, 'session/:session_id/appium/app/end_test_coverage'.freeze],
-        set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze],
+        set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze], # defined also in OSS
         get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze],
         start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
       }.freeze
@@ -96,9 +96,6 @@ module Appium
 
           get_location: [:get, 'session/:session_id/location'.freeze],
           set_location: [:post, 'session/:session_id/location'.freeze],
-
-          get_network_connection: [:get, 'session/:session_id/network_connection'.freeze],
-          set_network_connection: [:post, 'session/:session_id/network_connection'.freeze],
 
           ### For IME
           ime_get_available_engines: [:get,  'session/:session_id/ime/available_engines'.freeze],
