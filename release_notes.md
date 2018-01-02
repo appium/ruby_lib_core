@@ -1,3 +1,13 @@
+#### v1.2.4 2018-01-03
+
+- [7032bc0](https://github.com/appium/ruby_lib_core/commit/7032bc02acc44640542eb545067a4125a7f1811f) Release 1.2.4
+- [2396b08](https://github.com/appium/ruby_lib_core/commit/2396b08f99a9630827f6805dde2716b0bd0b14f7) Add some missing commands for w3c (#42)
+- [db6aa69](https://github.com/appium/ruby_lib_core/commit/db6aa6954566f601bb038aa7a7aa6884612e19fe) Switchable w3c format caps from capabilities (#41)
+- [dac4ff1](https://github.com/appium/ruby_lib_core/commit/dac4ff16271361ceaecf1f613f85cff0bb6c4be2) Add capability for create session following w3c (#40)
+- [f2c25ce](https://github.com/appium/ruby_lib_core/commit/f2c25ce9e551790beb4cf6abb170a02a70955eb4) update travis (#39)
+- [2ea7908](https://github.com/appium/ruby_lib_core/commit/2ea7908a5e77f4f7275a3e51c1abae7966cf2d94) remove bug fixes part in unreleased
+
+
 #### v1.2.3 2017-12-27
 
 - [26b8392](https://github.com/appium/ruby_lib_core/commit/26b83923a50257922030c7ccb83e110aff55eee5) Release 1.2.3
