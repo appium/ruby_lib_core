@@ -66,7 +66,7 @@ module Appium
         #   @driver.logs.get :syslog # []
         #
         def logs
-          @log ||= Logs.new(@bridge)
+          @logs ||= Logs.new(@bridge)
         end
       end # class Driver
     end # class Base
