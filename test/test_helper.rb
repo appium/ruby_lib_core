@@ -59,7 +59,7 @@ class AppiumLibCoreTest
         platformName: :android,
         automationName: 'uiautomator2',
         app: 'test/functional/app/api.apk',
-        platformVersion: '6.0',
+        platformVersion: '7.1.1',
         deviceName: 'Android Emulator',
         appPackage: 'io.appium.android.apis',
         appActivity: 'io.appium.android.apis.ApiDemos',
@@ -138,6 +138,39 @@ class AppiumLibCoreTest
       driver
     end
 
+    def android_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: 'uiautomator2',
+            app: 'test/functional/app/api.apk',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator',
+            appPackage: 'io.appium.android.apis',
+            appActivity: 'io.appium.android.apis.ApiDemos',
+            some_capability: 'some_capability',
+            unicodeKeyboard: true,
+            resetKeyboard: true
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 30_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
+      driver
+    end
+
     def ios_mock_create_session
       response = {
         status: 0, # To make bridge.dialect == :oss
@@ -163,6 +196,33 @@ class AppiumLibCoreTest
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
       assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
+      driver
+    end
+
+    def ios_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            device: 'iphone',
+            browserName: 'UICatalog',
+            sdkVersion: '10.3.1',
+            CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 30_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
       driver
     end
   end
