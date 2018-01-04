@@ -66,13 +66,13 @@ class AppiumLibCoreTest
         response = { value: RESPONSE_BASE_VALUE }.to_json
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-            .with(body: { desiredCapabilities: CAPS,
-                          capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
-            .to_return(headers: Mock::HEADER, status: 200, body: response)
+          .with(body: { desiredCapabilities: CAPS,
+                        capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
-            .with(body: { implicit: 20_000 }.to_json)
-            .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
+          .with(body: { implicit: 20_000 }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = ::Appium::Core.for(self, { caps: CAPS.merge({ forceMjsonwp: false }), appium_lib: {} }).start_driver
 
