@@ -5,16 +5,16 @@ require 'webmock/minitest'
 # rubocop:disable Style/SymbolArray
 class AppiumLibCoreTest
   module IOS
-    class DeviceTest < Minitest::Test
+    class DeviceW3CTest < Minitest::Test
       include AppiumLibCoreTest::Mock
 
       def setup
         @core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
-        @driver ||= ios_mock_create_session
+        @driver ||= ios_mock_create_session_w3c
       end
 
       def parameterized_method_defined_check(array)
-        array.each { |v| assert ::Appium::Core::Base::Bridge::MJSONWP.method_defined?(v) }
+        array.each { |v| assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v) }
       end
 
       def test_no_arg_definitions

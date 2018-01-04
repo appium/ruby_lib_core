@@ -6,7 +6,6 @@ class AppiumLibCoreTest
 
     def setup
       @core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
-      @driver ||= android_mock_create_session
     end
 
     class ExampleDriver
@@ -77,6 +76,8 @@ class AppiumLibCoreTest
     end
 
     def test_default_timeout_for_http_client
+      @driver ||= android_mock_create_session
+
       assert_equal 999_999, @core.http_client.open_timeout
       assert_equal 999_999, @core.http_client.read_timeout
     end
