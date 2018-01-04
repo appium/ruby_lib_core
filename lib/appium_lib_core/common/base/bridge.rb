@@ -5,6 +5,8 @@ module Appium
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'.freeze
 
+        FORCE_MJSONWP = :forceMjsonwp
+
         # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
         #
         # Implements protocol handshake which:
@@ -161,7 +163,7 @@ module Appium
           capabilities.each do |name, value|
             next if value.nil?
             next if value.is_a?(String) && value.empty?
-            next if name == :forceMjsonwp
+            next if name == FORCE_MJSONWP
 
             w3c_capabilities[name] = value
           end
@@ -170,7 +172,7 @@ module Appium
         end
 
         def merged_capabilities(desired_capabilities)
-          force_mjsonwp = desired_capabilities[:forceMjsonwp]
+          force_mjsonwp = desired_capabilities[FORCE_MJSONWP]
           desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
 
           if force_mjsonwp
