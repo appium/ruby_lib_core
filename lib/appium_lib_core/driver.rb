@@ -254,7 +254,7 @@ module Appium
       #
       # @example
       #
-      #     @core.platform_version #=> [10.1.1]
+      #     @core.platform_version #=> [10,1,1]
       #
       def platform_version
         p_version = @driver.capabilities['platformVersion']
