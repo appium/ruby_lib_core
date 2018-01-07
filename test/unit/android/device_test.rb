@@ -323,8 +323,7 @@ class AppiumLibCoreTest
       end
 
       def test_keyevent
-        skip('Because only for Selendroid')
-
+        # only for Selendroid
         stub_request(:post, "#{SESSION}/appium/device/keyevent")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
