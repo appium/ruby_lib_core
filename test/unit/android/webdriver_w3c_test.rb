@@ -90,6 +90,15 @@ class AppiumLibCoreTest
 
         assert_requested(:get, "#{SESSION}/element/active", times: 1)
       end
+
+      def test_get_timeouts
+        stub_request(:get, "#{SESSION}/timeouts")
+            .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+        @driver.get_timeouts
+
+        assert_requested(:get, "#{SESSION}/timeouts", times: 1)
+      end
     end
   end
 end
