@@ -34,6 +34,10 @@ module Appium
           end
           alias actions action
 
+          def get_timeouts
+            execute :get_timeouts
+          end
+
           # For Appium
           # override
           def page_source
