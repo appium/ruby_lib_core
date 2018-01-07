@@ -42,6 +42,7 @@ class AppiumLibCoreTest
         platformVersion: '10.3',
         deviceName: 'iPhone Simulator',
         useNewWDA: true,
+        useJSONSource: true,
         some_capability: 'some_capability'
       },
       appium_lib: {
