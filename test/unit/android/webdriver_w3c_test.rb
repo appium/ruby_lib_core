@@ -93,7 +93,7 @@ class AppiumLibCoreTest
 
       def test_get_timeouts
         stub_request(:get, "#{SESSION}/timeouts")
-            .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
 
         @driver.get_timeouts
 
