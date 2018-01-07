@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Enhance W3C support
+    - Timeout related methods
 
 ### Bug fixes
 
