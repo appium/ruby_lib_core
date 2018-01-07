@@ -68,6 +68,18 @@ module Appium
         def logs
           @logs ||= Logs.new(@bridge)
         end
+
+        # For W3C.
+        # Get the timeout related settings on the server side.
+        #
+        # @return [Hash]
+        #
+        # @example
+        #   @driver.get_timeouts
+        #
+        def get_timeouts
+          @bridge.get_timeouts
+        end
       end # class Driver
     end # class Base
   end # module Core

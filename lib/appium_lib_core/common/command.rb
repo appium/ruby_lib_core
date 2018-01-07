@@ -89,6 +89,8 @@ module Appium
           # The fix will be included in selenium-3.8.2
           get_page_source: [:get, 'session/:session_id/source'.freeze],
 
+          get_timeouts: [:get, 'session/:session_id/timeouts'.freeze],
+
           ## Add OSS commands to W3C commands
           ### rotatable
           get_screen_orientation: [:get, 'session/:session_id/orientation'.freeze],
