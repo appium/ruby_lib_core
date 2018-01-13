@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.2.5] - 2018-01-13
+### Enhancements
 - Enhance W3C support
     - Timeout related methods
 
