@@ -47,7 +47,17 @@ class AppiumLibCoreTest
       end
 
       def test_page_source
-        assert @@driver.page_source
+        require 'json'
+        response = Net::HTTP.get(URI('http://localhost:8100/source'))
+        source = JSON.parse(response)['value']
+
+        assert !source.include?('AppiumAUT')
+        assert source.include?('XCUIElementTypeApplication type')
+
+        s_source = @@driver.page_source
+
+        assert s_source.include?('AppiumAUT')
+        assert s_source.include?('XCUIElementTypeApplication type')
       end
 
       def test_location
