@@ -125,7 +125,7 @@ module Appium
             next if value.is_a?(String) && value.empty?
 
             capability_name = name.to_s
-            w3c_name = appium_prefix?(capability_name, w3c_capabilities) ? name : "#{APPIUM_PREFIX}#{capability_name}"
+            w3c_name = extension_prefix?(capability_name, w3c_capabilities) ? name : "#{APPIUM_PREFIX}#{capability_name}"
 
             w3c_capabilities[w3c_name] = value
           end
@@ -135,13 +135,13 @@ module Appium
 
         private
 
-        def appium_prefix?(capability_name, w3c_capabilities)
+        def extension_prefix?(capability_name, w3c_capabilities)
           snake_cased_capability_names = ::Selenium::WebDriver::Remote::W3C::Capabilities::KNOWN.map(&:to_s)
           camel_cased_capability_names = snake_cased_capability_names.map(&w3c_capabilities.method(:camel_case))
 
           snake_cased_capability_names.include?(capability_name) ||
             camel_cased_capability_names.include?(capability_name) ||
-            capability_name.start_with?(APPIUM_PREFIX)
+            capability_name.match(::Selenium::WebDriver::Remote::W3C::Capabilities::EXTENSION_CAPABILITY_PATTERN)
         end
 
         def json_create(oss_status, value)
