@@ -141,7 +141,7 @@ module Appium
 
           snake_cased_capability_names.include?(capability_name) ||
             camel_cased_capability_names.include?(capability_name) ||
-              capability_name.match(::Selenium::WebDriver::Remote::W3C::Capabilities::EXTENSION_CAPABILITY_PATTERN)
+            capability_name.match(::Selenium::WebDriver::Remote::W3C::Capabilities::EXTENSION_CAPABILITY_PATTERN)
         end
 
         def json_create(oss_status, value)
