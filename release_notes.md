@@ -1,3 +1,16 @@
+#### v1.2.5 2018-01-13
+
+- [0934b97](https://github.com/appium/ruby_lib_core/commit/0934b977419d6b5359dcc8e5b7c4edcd7f4916f4) Release 1.2.5
+- [9497621](https://github.com/appium/ruby_lib_core/commit/9497621a62cdee727614d9c48ffff0f0f2faa7da) ignore extensional prefix (#49)
+- [6337c78](https://github.com/appium/ruby_lib_core/commit/6337c7887873c12093ef854dde5a960bbe199449) update readme
+- [9cbad5c](https://github.com/appium/ruby_lib_core/commit/9cbad5ca553d513c66508ede5f5f977aeb9f365d) add get timeouts for w3c (#46)
+- [dacdc36](https://github.com/appium/ruby_lib_core/commit/dacdc3601cdc8a43b974db52ae164170945cc7ba) remove skip tests from unit tests (#45)
+- [2d5c7ae](https://github.com/appium/ruby_lib_core/commit/2d5c7aed33a524d754cc28b5ae46cec917f48318) Fix typo in documentation of Driver#platform_version (#44)
+- [d70f244](https://github.com/appium/ruby_lib_core/commit/d70f244ba260fed6c2d522a98d0c5516f3673c47) fix rubocop
+- [c6f6528](https://github.com/appium/ruby_lib_core/commit/c6f652817b9d1ad104002d067bfb0452074653aa) add unit tests for forceMjsonwp
+- [591a9bd](https://github.com/appium/ruby_lib_core/commit/591a9bd35b72287f10e47bdeae0de9dc2646b44a) add unit tests for w3c case (#43)
+
+
 #### v1.2.4 2018-01-03
 
 - [7032bc0](https://github.com/appium/ruby_lib_core/commit/7032bc02acc44640542eb545067a4125a7f1811f) Release 1.2.4
