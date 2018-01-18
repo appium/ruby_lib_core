@@ -23,6 +23,14 @@ class AppiumLibCoreTest
         assert size.height
       end
 
+      def test_window_rect
+        size = @@driver.window_size
+        assert size.width
+        assert size.height
+        assert size.x
+        assert size.y
+      end
+
       def test_shake
         skip
         assert @@driver.shake
