@@ -47,6 +47,20 @@ module Appium
           manage.window.size
         end
 
+        # Get the device window's rect.
+        # @return [Selenium::WebDriver::Rectangle]
+        #
+        # @example
+        #   size = @driver.window_rect
+        #   size.width #=> Integer
+        #   size.height #=> Integer
+        #   size.x #=> 0
+        #   size.y #=> 0
+        #
+        def window_rect
+          manage.window.rect
+        end
+
         # Get the device window's size.
         # @return [String]
         #
