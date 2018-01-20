@@ -24,7 +24,7 @@ class AppiumLibCoreTest
       end
 
       def test_window_rect
-        size = @@driver.window_size
+        size = @@driver.window_rect
         assert size.width
         assert size.height
         assert size.x
@@ -60,7 +60,7 @@ class AppiumLibCoreTest
         assert_equal 'App', e.name
 
         @@driver.background_app(-1)
-        assert_raises Selenium::WebDriver::Error::NoSuchElementError do
+        assert_raises Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, 'App'
         end
 
@@ -247,7 +247,7 @@ class AppiumLibCoreTest
 
         # Sometimes, we should wait animation
         @@core.wait(timeout: 5) do
-          assert_raises Selenium::WebDriver::Error::NoSuchElementError do
+          assert_raises Selenium::WebDriver::Error::WebDriverError do
             @@driver.find_element :accessibility_id, ':-|'
           end
         end
