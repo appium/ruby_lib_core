@@ -43,7 +43,7 @@ class AppiumLibCoreTest
         deviceName: 'iPhone Simulator',
         useNewWDA: true,
         useJSONSource: true,
-        some_capability: 'some_capability'
+        someCapability: 'some_capability'
       },
       appium_lib: {
         export_session: true,
@@ -64,7 +64,7 @@ class AppiumLibCoreTest
         deviceName: 'Android Emulator',
         appPackage: 'io.appium.android.apis',
         appActivity: 'io.appium.android.apis.ApiDemos',
-        some_capability: 'some_capability',
+        someCapability: 'some_capability',
         unicodeKeyboard: true,
         resetKeyboard: true
       },
@@ -151,7 +151,7 @@ class AppiumLibCoreTest
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',
             appActivity: 'io.appium.android.apis.ApiDemos',
-            some_capability: 'some_capability',
+            someCapability: 'some_capability',
             unicodeKeyboard: true,
             resetKeyboard: true
           }
