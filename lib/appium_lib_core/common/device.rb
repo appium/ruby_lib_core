@@ -174,6 +174,16 @@ module Appium
       #   @driver.app_strings #=> "TransitionsTitle"=>"Transitions", "WebTitle"=>"Web"
       #
 
+      # @!method lock(duration = nil)
+      # Lock the device
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.lock    #=> Lock the device
+      #   @driver.lock(5) #=> Lock the device in 5 sec and unlock the device after 5 sec
+      #
+
       # @!method background_app(duration = 0)
       # Backgrounds the app for a set number of seconds.
       # This is a blocking application
