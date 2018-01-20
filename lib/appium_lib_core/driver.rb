@@ -458,8 +458,9 @@ module Appium
       # @private
       def set_automation_name_if_nil
         return unless @automation_name.nil?
-        automation_name = @driver.capabilities['automationName']
-        @automation_name = automation_name.nil? ? automation_name : automation_name.intern
+        @automation_name = if @driver.capabilities['automationName']
+                             @driver.capabilities['automationName'].intern
+                           end
       end
 
       # @private
