@@ -14,6 +14,7 @@ module Appium
         unlock:                     [:post, 'session/:session_id/appium/device/unlock'.freeze],
         device_time:                [:get,  'session/:session_id/appium/device/system_time'.freeze],
         current_context:            [:get,  'session/:session_id/context'.freeze],
+        stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
 
         # Android
         open_notifications:         [:post, 'session/:session_id/appium/device/open_notifications'.freeze],
@@ -24,8 +25,7 @@ module Appium
         get_display_density:        [:get,  'session/:session_id/appium/device/display_density'.freeze],
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
         get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze], # defined also in OSS
-        get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze],
-        stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze]
+        get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze]
         # iOS
       }.freeze
 
@@ -53,15 +53,15 @@ module Appium
         get_settings:               [:get,  'session/:session_id/appium/settings'.freeze],
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         touch_actions:              [:post, 'session/:session_id/touch/perform'.freeze],
-        multi_touch:                [:post, 'session/:session_id/touch/multi/perform'.freeze]
+        multi_touch:                [:post, 'session/:session_id/touch/multi/perform'.freeze],
+        start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
       }.freeze
 
       COMMAND_ANDROID = {
         start_activity:             [:post, 'session/:session_id/appium/device/start_activity'.freeze],
         end_coverage:               [:post, 'session/:session_id/appium/app/end_test_coverage'.freeze],
         set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze], # defined also in OSS
-        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze],
-        start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
+        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze]
       }.freeze
 
       COMMAND_IOS = {
