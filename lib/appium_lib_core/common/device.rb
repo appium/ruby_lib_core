@@ -181,7 +181,8 @@ module Appium
       # @example
       #
       #   @driver.lock    #=> Lock the device
-      #   @driver.lock(5) #=> Lock the device in 5 sec and unlock the device after 5 sec
+      #   @driver.lock(5) #=> Lock the device in 5 sec and unlock the device after 5 sec.
+      #                   #   Block other commands during locking the device.
       #
 
       # @!method background_app(duration = 0)
