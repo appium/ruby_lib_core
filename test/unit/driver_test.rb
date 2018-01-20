@@ -53,7 +53,8 @@ class AppiumLibCoreTest
                                                                     automationName:  'XCUITest',
                                                                     deviceName:      'iPhone Simulator',
                                                                     app:             'test/functional/app/UICatalog.app',
-                                                                    some_capability: 'some_capability')
+                                                                    some_capability1: 'some_capability1',
+                                                                    someCapability2: 'someCapability2')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
@@ -61,14 +62,16 @@ class AppiumLibCoreTest
       assert_equal 'test/functional/app/UICatalog.app', caps_with_json['app']
       assert_equal 'XCUITest', caps_with_json['automationName']
       assert_equal 'iPhone Simulator', caps_with_json['deviceName']
-      assert_equal 'some_capability', caps_with_json['someCapability']
+      assert_equal 'some_capability1', caps_with_json['someCapability1']
+      assert_equal 'someCapability2', caps_with_json['someCapability2']
 
       assert_equal 'ios', caps[:platformName]
       assert_equal '10.3', caps[:platformVersion]
       assert_equal 'test/functional/app/UICatalog.app', caps[:app]
       assert_equal 'XCUITest', caps[:automationName]
       assert_equal 'iPhone Simulator', caps[:deviceName]
-      assert_equal 'some_capability', caps[:some_capability]
+      assert_equal 'some_capability1', caps[:some_capability1]
+      assert_equal 'someCapability2', caps[:someCapability2]
     end
 
     def test_default_wait

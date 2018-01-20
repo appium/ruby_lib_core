@@ -108,7 +108,8 @@ class AppiumLibCoreTest
           platformVersion: '10.3',
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
-          some_capability: 'some_capability',
+          some_capability1: 'some_capability1',
+          someCapability2: 'someCapability2',
           'moz:someOtherCap' => 'someOtherCap' # Should ignore if it already have some extentions
         }
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
@@ -121,7 +122,8 @@ class AppiumLibCoreTest
           'appium:platformVersion' => '10.3',
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
-          'appium:some_capability' => 'some_capability',
+          'appium:some_capability1' => 'some_capability1',
+          'appium:someCapability2' => 'someCapability2',
           'moz:someOtherCap' => 'someOtherCap'
         }
 
@@ -136,7 +138,8 @@ class AppiumLibCoreTest
           platformVersion: '10.3',
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
-          some_capability: 'some_capability'
+          some_capability1: 'some_capability1',
+          someCapability2: 'someCapability2'
         }
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
 
@@ -148,7 +151,8 @@ class AppiumLibCoreTest
           'appium:platformVersion' => '10.3',
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
-          'appium:some_capability' => 'some_capability'
+          'appium:some_capability1' => 'some_capability1',
+          'appium:someCapability2' => 'someCapability2'
         }
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
