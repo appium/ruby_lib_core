@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Add `window_rect`
 
 ### Bug fixes
+- Make `@driver.automation_name` symbol when someone define the `automationName` with the server argument.
 
 ### Deprecations
 
