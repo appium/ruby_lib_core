@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
-## [1.2.6]
+## [1.2.6] - 2018-01-21
 ### Enhancements
 - Add `window_rect`
 
