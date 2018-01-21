@@ -139,7 +139,7 @@ module Appium
         private
 
         def warn_if_camel_case(caps)
-          warn_caps = caps.collect { |key, _value| key.match?(/_([a-z])/) ? key : nil }.compact
+          warn_caps = caps.collect { |key, _value| key.to_s.match?(/_([a-z])/) ? key.to_s : nil }.compact
           return if warn_caps.empty?
 
           warn_message = warn_caps.join(', ')

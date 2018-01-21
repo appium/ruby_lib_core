@@ -41,7 +41,7 @@ class AppiumLibCoreTest
 
     def file_exist?(file_path)
       count = 0
-      while !File.exist?(file_path) && count != 5 do
+      while !File.exist?(file_path) && count != 5
         sleep 0.1
         count += 1
       end
