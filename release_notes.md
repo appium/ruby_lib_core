@@ -1,3 +1,15 @@
+#### v1.2.6 2018-01-21
+
+- [5bca38e](https://github.com/appium/ruby_lib_core/commit/5bca38e9d11c7596f54c81f7b123a0e5dce59040) Release 1.2.6
+- [faa6d3f](https://github.com/appium/ruby_lib_core/commit/faa6d3f92bc4081507f588da55a6c9866ee4e1b9) fix some tests
+- [2cb416f](https://github.com/appium/ruby_lib_core/commit/2cb416f1583d1529f5232f716e4a41807069ffe6) add the lock is blocking call
+- [6f44596](https://github.com/appium/ruby_lib_core/commit/6f44596c46bba12c151d1c43e73f4453621944aa) add parameters for tests (#54)
+- [1d89232](https://github.com/appium/ruby_lib_core/commit/1d89232419ddd484f5231be38d95d9cfdc8efbc2) add lock API doc (#53)
+- [087d654](https://github.com/appium/ruby_lib_core/commit/087d65415322f783bf1eb0bf71eb5e196d21a6ba) apply intern (#52)
+- [c03f03e](https://github.com/appium/ruby_lib_core/commit/c03f03e0c66cd13fe365df89bce9ce4088eb9b4b) add rect (#51)
+- [3c4e9a8](https://github.com/appium/ruby_lib_core/commit/3c4e9a89f351da0588b806248ac22101c2b66a24) add source test
+
+
 #### v1.2.5 2018-01-13
 
 - [0934b97](https://github.com/appium/ruby_lib_core/commit/0934b977419d6b5359dcc8e5b7c4edcd7f4916f4) Release 1.2.5
