@@ -39,12 +39,24 @@ class AppiumLibCoreTest
       end
     end
 
+    def file_exist?(file_path)
+      count = 0
+      while !File.exist?(file_path) && count != 5
+        sleep 0.1
+        count += 1
+      end
+    end
+
     def test_verify_session_id_in_the_export_session_path
-      assert_equal '1234567890', File.read(@core.export_session_path).strip
+      file = @core.export_session_path
+      file_exist? file
+      assert_equal '1234567890', File.read(file).strip
     end
 
     def test_verify_session_from_default_value
-      assert_equal '1234567890', File.read('/tmp/appium_lib_session').strip
+      file = '/tmp/appium_lib_session'
+      file_exist? file
+      assert_equal '1234567890', File.read(file).strip
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
