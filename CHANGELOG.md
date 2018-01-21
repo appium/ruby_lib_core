@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Print warning messages to use camelCase if capability key names are snake_case
+    - For W3C adaption for Appium Server
 
 ### Bug fixes
 
