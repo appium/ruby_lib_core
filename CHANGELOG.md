@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.2.6]
+### Enhancements
 - Add `window_rect`
 
 ### Bug fixes
