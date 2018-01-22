@@ -14,7 +14,6 @@ module Appium
         unlock:                     [:post, 'session/:session_id/appium/device/unlock'.freeze],
         device_time:                [:get,  'session/:session_id/appium/device/system_time'.freeze],
         current_context:            [:get,  'session/:session_id/context'.freeze],
-        stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
 
         # Android
         open_notifications:         [:post, 'session/:session_id/appium/device/open_notifications'.freeze],
@@ -54,6 +53,7 @@ module Appium
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         touch_actions:              [:post, 'session/:session_id/touch/perform'.freeze],
         multi_touch:                [:post, 'session/:session_id/touch/multi/perform'.freeze],
+        stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
         start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
       }.freeze
 

@@ -402,6 +402,24 @@ module Appium
       #   @driver.take_element_screenshot(element, "fine_name.png")
       #
 
+      # @!method stop_recording_screen(remote_path:, user:, pass:, method:)
+      #
+      # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
+      #                             The following protocols are supported: http/https, ftp.
+      #                             Null or empty string value (the default setting) means the content of resulting
+      #                             file should be encoded as Base64 and passed as the endpoint response value.
+      #                             An exception will be thrown if the generated media file is too big to
+      #                             fit into the available process memory.
+      # @option [String] user The name of the user for the remote authentication.
+      # @option [String] pass The password for the remote authentication.
+      # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
+      #
+      # @example
+      #
+      #    @driver.stop_recording_screen
+      #    @driver.stop_recording_screen remote_path: 'https://example.com', user: 'example', pass: 'pass', method: 'POST'
+      #
+
       ####
       ## class << self
       ####
@@ -540,6 +558,7 @@ module Appium
           add_touch_actions
           add_ime_actions
           add_handling_context
+          add_screen_recording
         end
 
         # def extended
@@ -677,6 +696,23 @@ module Appium
           add_endpoint_method(:switch_to_default_context) do
             def switch_to_default_context
               set_context nil
+            end
+          end
+        end
+
+        def add_screen_recording
+          add_endpoint_method(:stop_recording_screen) do
+            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil)
+              option = {}
+
+              unless remote_path.nil?
+                option[:remotePath] = remote_path
+                option[:user] = user
+                option[:pass] = pass
+                option[:method] = method || 'PUT'
+              end
+
+              execute(:stop_recording_screen, {}, options: option)
             end
           end
         end
