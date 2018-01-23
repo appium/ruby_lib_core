@@ -469,7 +469,7 @@ class AppiumLibCoreTest
 
       def test_start_recording_screen_default
         stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-          .with(body: { options: { videoSize: '1280x720', timeLimit: '180', bitRate: '4' } }.to_json)
+          .with(body: { options: { timeLimit: '180', bitRate: '4000000' } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
         @driver.start_recording_screen
@@ -479,10 +479,10 @@ class AppiumLibCoreTest
 
       def test_start_recording_screen_custom
         stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-          .with(body: { options: { videoSize: '1280x1280', timeLimit: '60', bitRate: '5' } }.to_json)
+          .with(body: { options: { videoSize: '1280x1280', timeLimit: '60', bitRate: '5000000' } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
-        @driver.start_recording_screen video_size: '1280x1280', time_limit: '60', bit_rate: '5'
+        @driver.start_recording_screen video_size: '1280x1280', time_limit: '60', bit_rate: '5000000'
 
         assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
       end
@@ -503,7 +503,7 @@ class AppiumLibCoreTest
                             { remotePath: 'https://example.com', user: 'user name', pass: 'pass', method: 'PUT' } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
-        @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', pass: 'pass')
+        @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', password: 'pass')
 
         assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
       end
