@@ -43,9 +43,9 @@ module Appium
         # @option [String] user The name of the user for the remote authentication.
         # @option [String] pass The password for the remote authentication.
         # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
-        # @option [Boolean] forceRestart Whether to try to catch and upload/return the currently running screen recording
-        #                               (`false`, the default setting) or ignore the result of it and start a new recording
-        #                               immediately (`true`).
+        # @option [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
+        #                                 (`false`, the default setting on server) or ignore the result of it
+        #                                 and start a new recording immediately (`true`).
         #
         # @param [String] video_type The format of the screen capture to be recorded.
         #                            Available formats: "h264", "mp4" or "fmp4". Default is "mp4".
@@ -98,17 +98,11 @@ module Appium
           def add_screen_recording
             Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
               # rubocop:disable Metrics/ParameterLists
-              def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: false,
+              def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil,
                                          video_type: 'mp4', time_limit: '180', video_quality: 'medium')
-                option = {}
-
-                unless remote_path.nil?
-                  option[:remotePath] = remote_path
-                  option[:user] = user
-                  option[:pass] = pass
-                  option[:method] = method || 'PUT'
-                  option[:forceRestart] = force_restart
-                end
+                option = ::Appium::Core::Device::ScreenRecord.new(
+                  remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
+                ).upload_option
 
                 option[:videoType] = video_type
                 option[:timeLimit] = time_limit

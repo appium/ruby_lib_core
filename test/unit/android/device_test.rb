@@ -487,9 +487,19 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
       end
 
+      def test_start_recording_screen_custom_false_force_restart
+        stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+          .with(body: { options: { forceRestart: false, videoSize: '1280x1280', timeLimit: '60', bitRate: '5' } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.start_recording_screen video_size: '1280x1280', time_limit: '60', bit_rate: '5', force_restart: false
+
+        assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
+      end
+
       def test_stop_recording_screen_default
         stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
-          .with(body: { options: {} }.to_json)
+          .with(body: {}.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
         @driver.stop_recording_screen

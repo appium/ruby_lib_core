@@ -93,8 +93,8 @@ module Appium
       # @option [String] pass The password for the remote authentication.
       # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
       # @option [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
-      #                               (`false`, the default setting) or ignore the result of it and start a new recording
-      #                               immediately (`true`).
+      #                                 (`false`, the default setting on server) or ignore the result of it
+      #                                 and start a new recording immediately (`true`).
       #
       # @param [String] video_size The format is widthxheight.
       #                            The default value is the device's native display resolution (if supported),
@@ -179,17 +179,11 @@ module Appium
         def add_screen_recording
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
             # rubocop:disable Metrics/ParameterLists
-            def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: false,
-                                       video_size: '1280x720', time_limit: '180', bit_rate: '4')
-              option = {}
-
-              unless remote_path.nil?
-                option[:remotePath] = remote_path
-                option[:user] = user
-                option[:pass] = pass
-                option[:method] = method || 'PUT'
-                option[:forceRestart] = force_restart
-              end
+            def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil,
+                                       video_size: '1280x720', time_limit: '180', bit_rate: '4000000')
+              option = ::Appium::Core::Device::ScreenRecord.new(
+                remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
+              ).upload_option
 
               option[:videoSize] = video_size
               option[:timeLimit] = time_limit

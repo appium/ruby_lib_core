@@ -489,7 +489,7 @@ class AppiumLibCoreTest
 
       def test_stop_recording_screen_default
         stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
-          .with(body: { options: {} }.to_json)
+          .with(body: {}.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
         @driver.stop_recording_screen

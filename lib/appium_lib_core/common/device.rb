@@ -420,6 +420,15 @@ module Appium
       #    @driver.stop_recording_screen remote_path: 'https://example.com', user: 'example', pass: 'pass', method: 'POST'
       #
 
+      # @!method stop_and_save_recording_screen(file_path)
+      #
+      # @option [String] file_path The path to save video decoded from base64 from Appium server.
+      #
+      # @example
+      #
+      #    @driver.stop_and_save_recording_screen 'example.mp4'
+      #
+
       ####
       ## class << self
       ####
@@ -702,17 +711,21 @@ module Appium
 
         def add_screen_recording
           add_endpoint_method(:stop_recording_screen) do
-            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil)
-              option = {}
+            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
+              option = ::Appium::Core::Device::ScreenRecord.new(
+                remote_path: remote_path, user: user, pass: pass, method: method
+              ).upload_option
 
-              unless remote_path.nil?
-                option[:remotePath] = remote_path
-                option[:user] = user
-                option[:pass] = pass
-                option[:method] = method || 'PUT'
-              end
+              params = option.empty? ? {} : {options: option}
 
-              execute(:stop_recording_screen, {}, options: option)
+              execute(:stop_recording_screen, {}, params)
+            end
+          end
+
+          add_endpoint_method(:stop_and_save_recording_screen) do
+            def stop_and_save_recording_screen(file_path)
+              base64data = execute(:stop_recording_screen, {}, {})
+              File.open(file_path, 'wb') { |f| f << Base64.decode64(base64data) }
             end
           end
         end
