@@ -120,12 +120,15 @@ module Appium
           w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.new
 
           capabilities = capabilities.__send__(:capabilities) unless capabilities.is_a?(Hash)
+
+          warn_if_camel_case(capabilities)
+
           capabilities.each do |name, value|
             next if value.nil?
             next if value.is_a?(String) && value.empty?
 
             capability_name = name.to_s
-            w3c_name = extension_prefix?(capability_name, w3c_capabilities) ? name : "#{APPIUM_PREFIX}#{capability_name}"
+            w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
 
             w3c_capabilities[w3c_name] = value
           end
@@ -135,9 +138,21 @@ module Appium
 
         private
 
-        def extension_prefix?(capability_name, w3c_capabilities)
+        def warn_if_camel_case(caps)
+          warn_caps = caps.collect { |key, _value| key =~ /_([a-z])/ ? key : nil }.compact
+          return if warn_caps.empty?
+
+          warn_message = warn_caps.join(', ')
+          ::Appium::Logger.warn("Please define capability key names: #{warn_message} as camelCase for W3C Appium Server")
+        end
+
+        def camel_case(str)
+          str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
+        end
+
+        def extension_prefix?(capability_name)
           snake_cased_capability_names = ::Selenium::WebDriver::Remote::W3C::Capabilities::KNOWN.map(&:to_s)
-          camel_cased_capability_names = snake_cased_capability_names.map(&w3c_capabilities.method(:camel_case))
+          camel_cased_capability_names = snake_cased_capability_names.map { |v| camel_case(v) }
 
           snake_cased_capability_names.include?(capability_name) ||
             camel_cased_capability_names.include?(capability_name) ||
