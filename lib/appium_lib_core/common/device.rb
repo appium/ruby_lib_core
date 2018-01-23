@@ -402,7 +402,7 @@ module Appium
       #   @driver.take_element_screenshot(element, "fine_name.png")
       #
 
-      # @!method stop_recording_screen(remote_path:, user:, password:, method:)
+      # @!method stop_recording_screen(remote_path:, user:, pass:, method:)
       #
       # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
       #                             The following protocols are supported: http/https, ftp.
@@ -411,13 +411,13 @@ module Appium
       #                             An exception will be thrown if the generated media file is too big to
       #                             fit into the available process memory.
       # @option [String] user The name of the user for the remote authentication.
-      # @option [String] password The password for the remote authentication.
+      # @option [String] pass The password for the remote authentication.
       # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
       #
       # @example
       #
       #    @driver.stop_recording_screen
-      #    @driver.stop_recording_screen remote_path: 'https://example.com', user: 'example', password: 'pass', method: 'POST'
+      #    @driver.stop_recording_screen remote_path: 'https://example.com', user: 'example', pass: 'pass', method: 'POST'
       #
 
       # @!method stop_and_save_recording_screen(file_path)
@@ -711,9 +711,9 @@ module Appium
 
         def add_screen_recording
           add_endpoint_method(:stop_recording_screen) do
-            def stop_recording_screen(remote_path: nil, user: nil, password: nil, method: 'PUT')
+            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
               option = ::Appium::Core::Device::ScreenRecord.new(
-                remote_path: remote_path, user: user, password: password, method: method
+                remote_path: remote_path, user: user, pass: pass, method: method
               ).upload_option
 
               params = option.empty? ? {} : { options: option }

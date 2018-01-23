@@ -29,7 +29,7 @@ module Appium
         #   @driver.background_app(-1) #=> the app never come back. https://github.com/appium/appium/issues/7741
         #
 
-        # @!method start_recording_screen(remote_path:, user:, password:, method:, force_restart:,
+        # @!method start_recording_screen(remote_path:, user:, pass:, method:, force_restart:,
         #                                 video_type:, time_limit:, video_quality:)
         #
         # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
@@ -41,7 +41,7 @@ module Appium
         #                             This option only has an effect if there is screen recording process in progreess
         #                             and `forceRestart` parameter is not set to `true`.
         # @option [String] user The name of the user for the remote authentication.
-        # @option [String] password The password for the remote authentication.
+        # @option [String] pass The password for the remote authentication.
         # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
         # @option [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
         #                                 (`false`, the default setting on server) or ignore the result of it
@@ -50,7 +50,7 @@ module Appium
         # @param [String] video_type The format of the screen capture to be recorded.
         #                            Available formats: "h264", "mp4" or "fmp4". Default is "mp4".
         #                            Only works for Simulator.
-        # @param [String] time_limit Recording time. 180 second is by default.
+        # @param [String] time_limit Recording time. 180 seconds is by default.
         # @param [String] video_quality The video encoding quality (low, medium, high, photo - defaults to medium).
         #                               Only works for real devices.
         #
@@ -98,10 +98,10 @@ module Appium
           def add_screen_recording
             Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
               # rubocop:disable Metrics/ParameterLists
-              def start_recording_screen(remote_path: nil, user: nil, password: nil, method: nil, force_restart: nil,
+              def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil,
                                          video_type: 'mp4', time_limit: '180', video_quality: 'medium')
                 option = ::Appium::Core::Device::ScreenRecord.new(
-                  remote_path: remote_path, user: user, password: password, method: method, force_restart: force_restart
+                  remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
                 ).upload_option
 
                 option[:videoType] = video_type

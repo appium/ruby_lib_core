@@ -10,7 +10,7 @@ module Appium
 
         METHOD = %w(POST PUT).freeze
 
-        def initialize(remote_path: nil, user: nil, password: nil, method: 'PUT', force_restart: nil)
+        def initialize(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil)
           @upload_option = if remote_path.nil?
                              {}
                            else
@@ -19,7 +19,7 @@ module Appium
                              option = {}
                              option[:remotePath] = remote_path
                              option[:user] = user unless user.nil?
-                             option[:pass] = password unless password.nil?
+                             option[:pass] = pass unless pass.nil?
                              option[:method] = method
                              option
                            end

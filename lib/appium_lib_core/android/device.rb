@@ -78,7 +78,7 @@ module Appium
       #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
       #
 
-      # @!method start_recording_screen(remote_path:, user:, password:, method:, force_restart:,
+      # @!method start_recording_screen(remote_path:, user:, pass:, method:, force_restart:,
       #                                 video_size:, time_limit:, bit_rate:)
       #
       # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
@@ -90,18 +90,18 @@ module Appium
       #                             This option only has an effect if there is screen recording process in progress
       #                             and `forceRestart` parameter is not set to `true`.
       # @option [String] user The name of the user for the remote authentication.
-      # @option [String] password The password for the remote authentication.
+      # @option [String] pass The password for the remote authentication.
       # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
       # @option [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
       #                                 (`false`, the default setting on server) or ignore the result of it
       #                                 and start a new recording immediately (`true`).
       #
-      # @param [String] video_size The format is widthxheight.
-      #                            The default value is the device's native display resolution (if supported),
-      #                            1280x720 if not. For best results,
-      #                            use a size supported by your device's Advanced Video Coding (AVC) encoder.
-      #                            For example, "1280x720"
-      # @param [String] time_limit Recording time. 180 second is by default.
+      # @option [String] video_size The format is widthxheight.
+      #                             The default value is the device's native display resolution (if supported),
+      #                             1280x720 if not. For best results,
+      #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
+      #                             For example, "1280x720"
+      # @param [String] time_limit Recording time. 180 seconds is by default.
       # @param [String] bit_rate The video bit rate for the video, in megabits per second. 4 is by default.
       #
       # @example
@@ -179,10 +179,10 @@ module Appium
         def add_screen_recording
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
             # rubocop:disable Metrics/ParameterLists
-            def start_recording_screen(remote_path: nil, user: nil, password: nil, method: 'PUT', force_restart: nil,
+            def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil,
                                        video_size: nil, time_limit: '180', bit_rate: '4000000')
               option = ::Appium::Core::Device::ScreenRecord.new(
-                remote_path: remote_path, user: user, password: password, method: method, force_restart: force_restart
+                remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
               ).upload_option
 
               option[:videoSize] = video_size unless video_size.nil?

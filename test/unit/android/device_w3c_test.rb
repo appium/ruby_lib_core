@@ -503,7 +503,7 @@ class AppiumLibCoreTest
                             { remotePath: 'https://example.com', user: 'user name', pass: 'pass', method: 'PUT' } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
-        @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', password: 'pass')
+        @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', pass: 'pass')
 
         assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
       end
