@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
     - For W3C adaption for Appium Server
 
 ### Bug fixes
+- make `@driver.automation_name` downcase
 
 ### Deprecations
 
