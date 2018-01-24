@@ -1,7 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.2.7] - 2018-01-25
+### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.2.7] - 2018-01-25
 ### Enhancements
 - Print warning messages to use camelCase if capability key names are snake_case
     - For W3C adaption for Appium Server
