@@ -1,3 +1,12 @@
+#### v1.2.7 2018-01-25
+
+- [02b3845](https://github.com/appium/ruby_lib_core/commit/02b3845a58afb349f62e5d699cfcccee20810665) Release 1.2.7
+- [45cf118](https://github.com/appium/ruby_lib_core/commit/45cf1188385339b30773e8e333f4a131b7b2364c) Merge branch 'master' of github.com:appium/ruby_lib_core
+- [803cbbb](https://github.com/appium/ruby_lib_core/commit/803cbbb42ccd1cb193d90aa48d4240ada520633f) add downcase strip
+- [31561db](https://github.com/appium/ruby_lib_core/commit/31561db31a07bec2cab36bb847fd8489ac9258ce) insert snake case checking (#56)
+- [9e0f140](https://github.com/appium/ruby_lib_core/commit/9e0f1409d5ebb841b3daaf41345ae8862ad7dacf) add the date
+
+
 #### v1.2.6 2018-01-21
 
 - [5bca38e](https://github.com/appium/ruby_lib_core/commit/5bca38e9d11c7596f54c81f7b123a0e5dce59040) Release 1.2.6
