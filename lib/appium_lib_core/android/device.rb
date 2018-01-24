@@ -102,12 +102,12 @@ module Appium
       #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
       #                             For example, "1280x720"
       # @param [String] time_limit Recording time. 180 seconds is by default.
-      # @param [String] bit_rate The video bit rate for the video, in megabits per second. 4 is by default.
+      # @param [String] bit_rate The video bit rate for the video, in megabits per second. 4 Mbps(4000000) is by default.
       #
       # @example
       #
       #    @driver.start_recording_screen
-      #    @driver.start_recording_screen video_size: '1280x720', time_limit: '180', bit_rate: '5'
+      #    @driver.start_recording_screen video_size: '1280x720', time_limit: '180', bit_rate: '5000000'
       #
 
       ####
