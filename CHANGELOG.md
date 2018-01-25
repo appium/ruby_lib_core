@@ -1,8 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.2.7] - 2018-01-25
+## [Unreleased]
 ### Enhancements
+- `start_recording_screen`/`stop_recording_screen` support iOS from `Appium 1.8.0`
+    - **Breaking Changes**
+        - `start_recording_screen`
+            - The argument, `file_path`, was removed.
 
 ### Bug fixes
 

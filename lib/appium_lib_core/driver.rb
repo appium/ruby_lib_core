@@ -30,7 +30,7 @@ module Appium
       attr_reader :export_session_path
 
       # Default wait time for elements to appear
-      # Returns the default client side wait. 20 second is by default.
+      # Returns the default client side wait. 20 seconds is by default.
       # Provide Appium::Drive like { appium_lib: { wait: 30 } }
       # @return [Integer]
       attr_reader :default_wait
@@ -40,13 +40,13 @@ module Appium
       # @return [Integer]
       attr_reader :port
 
-      # Return a time wait timeout. 30 second is by default.
+      # Return a time wait timeout. 30 seconds is by default.
       # Wait time for ::Appium::Core::Base::Wait, wait and wait_true
       # Provide Appium::Drive like { appium_lib: { wait_timeout: 20 } }
       # @return [Integer]
       attr_reader :wait_timeout
 
-      # Return a time to wait interval. 0.5 second is by default.
+      # Return a time to wait interval. 0.5 seconds is by default.
       # Wait interval time for ::Appium::Core::Base::Wait, wait and wait_true
       # Provide Appium::Drive like { appium_lib: { wait_interval: 0.1 } }
       # @return [Integer]

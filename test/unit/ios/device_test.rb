@@ -73,6 +73,59 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment", times: 1)
       end
+
+      # Screen recording
+
+      def test_start_recording_screen
+        stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+          .with(body: { options: { videoType: 'mp4', timeLimit: '180', videoQuality: 'medium' } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.start_recording_screen
+
+        assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
+      end
+
+      def test_start_recording_screen_custom
+        stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+          .with(body: { options: { videoType: 'h265', timeLimit: '60', videoQuality: 'medium' } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.start_recording_screen video_type: 'h265', time_limit: '60'
+
+        assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
+      end
+
+      def test_start_recording_screen_custom_force
+        stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+          .with(body: { options: { forceRestart: true, videoType: 'h265', timeLimit: '60', videoQuality: 'medium' } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.start_recording_screen video_type: 'h265', time_limit: '60', force_restart: true
+
+        assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
+      end
+
+      def test_stop_recording_screen_default
+        stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
+          .with(body: {}.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.stop_recording_screen
+
+        assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
+      end
+
+      def test_stop_recording_screen_custom
+        stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
+          .with(body: { options:
+                            { remotePath: 'https://example.com', user: 'user name', pass: 'pass', method: 'PUT' } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+        @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', pass: 'pass')
+
+        assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
+      end
     end
   end
 end
