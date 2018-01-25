@@ -60,9 +60,10 @@ class AppiumLibCoreTest
         assert_equal 'App', e.name
 
         @@driver.background_app(-1)
-        assert_raises Selenium::WebDriver::Error::WebDriverError do
+        error = assert_raises Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, 'App'
         end
+        assert 'An element could not be located on the page using the given search parameters.', error.message
 
         @@driver.reset
 
@@ -247,9 +248,10 @@ class AppiumLibCoreTest
 
         # Sometimes, we should wait animation
         @@core.wait(timeout: 5) do
-          assert_raises Selenium::WebDriver::Error::WebDriverError do
+          error = assert_raises Selenium::WebDriver::Error::WebDriverError do
             @@driver.find_element :accessibility_id, ':-|'
           end
+          assert 'An element could not be located on the page using the given search parameters.', error.message
         end
 
         # should see the notification

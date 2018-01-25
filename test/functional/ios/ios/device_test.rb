@@ -57,9 +57,10 @@ class AppiumLibCoreTest
         assert_equal 'TextView', e.name
 
         @@driver.background_app(-1)
-        assert_raises Selenium::WebDriver::Error::WebDriverError do
+        error = assert_raises Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, 'TextView'
         end
+        assert 'An element could not be located on the page using the given search parameters.', error.message
 
         @@driver.reset
 
