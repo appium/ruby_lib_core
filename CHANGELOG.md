@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- `start_recording_screen`/`stop_recording_screen` support iOS from `Appium 1.8.0`
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.0] - 2018-01-28
+### Enhancements
+- `start_recording_screen`/`stop_recording_screen` support iOS from `Appium 1.8.0` [#48](https://github.com/appium/ruby_lib_core/issues/48)
     - **Breaking Changes**
         - `start_recording_screen`
             - The argument, `file_path`, was removed.
@@ -18,7 +25,7 @@ All notable changes to this project will be documented in this file.
     - For W3C adaption for Appium Server
 
 ### Bug fixes
-- make `@driver.automation_name` downcase
+- Make `@driver.automation_name` downcase [#50](https://github.com/appium/ruby_lib_core/issues/50)
 
 ### Deprecations
 
@@ -27,7 +34,7 @@ All notable changes to this project will be documented in this file.
 - Add `window_rect`
 
 ### Bug fixes
-- Make `@driver.automation_name` symbol when someone define the `automationName` with the server argument.
+- Make `@driver.automation_name` symbol when someone define the `automationName` with the server argument. [#50](https://github.com/appium/ruby_lib_core/issues/50)
 
 ### Deprecations
 
