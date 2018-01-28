@@ -402,17 +402,16 @@ module Appium
       #   @driver.take_element_screenshot(element, "fine_name.png")
       #
 
-      # @!method stop_recording_screen(remote_path:, user:, pass:, method:)
-      #
-      # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
+      # @!method stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
+      # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
       #                             The following protocols are supported: http/https, ftp.
       #                             Null or empty string value (the default setting) means the content of resulting
       #                             file should be encoded as Base64 and passed as the endpoint response value.
       #                             An exception will be thrown if the generated media file is too big to
       #                             fit into the available process memory.
-      # @option [String] user The name of the user for the remote authentication.
-      # @option [String] pass The password for the remote authentication.
-      # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
+      # @param [String] user: The name of the user for the remote authentication.
+      # @param [String] pass: The password for the remote authentication.
+      # @param [String] method: The http multipart upload method name. The 'PUT' one is used by default.
       #
       # @example
       #
@@ -421,8 +420,7 @@ module Appium
       #
 
       # @!method stop_and_save_recording_screen(file_path)
-      #
-      # @option [String] file_path The path to save video decoded from base64 from Appium server.
+      # @param [String] file_path The path to save video decoded from base64 from Appium server.
       #
       # @example
       #

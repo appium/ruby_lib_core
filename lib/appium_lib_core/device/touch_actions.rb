@@ -28,6 +28,7 @@ module Appium
       #
       # `move_to`'s `x` and `y` have two case. One is working as coordinate, the other is working as offset.
       #
+      # @param opts [Hash] Options
       # @option opts [integer] :x x co-ordinate to move to if element isn't set. Works as an offset if x is set with Element.
       # @option opts [integer] :y y co-ordinate to move to if element isn't set. Works as an offset if y is set with Element.
       # @option opts [WebDriver::Element] Element to scope this move within.
@@ -41,19 +42,20 @@ module Appium
       # https://github.com/appium/ruby_lib/issues/231#issuecomment-269895512
       # e.g. Appium::TouchAction.new.press(x: 280, y: 530).wait(2000).release.perform
       #
-      # @option element [WebDriver::Element] the element to press.
-      # @option x [integer] x co-ordinate to press on.
-      # @option y [integer] y co-ordinate to press on.
-      # @option duration [integer] Number of milliseconds to press.
+      # @param opts [Hash] Options
+      # @option opts [WebDriver::Element] element the element to press.
+      # @option opts [integer] x X co-ordinate to press on.
+      # @option opts [integer] y Y co-ordinate to press on.
+      # @option opts [integer] duration Number of milliseconds to press.
       def long_press(opts)
         args = opts.select { |k, _v| %i(element x y duration).include? k }
         args = args_with_ele_ref(args)
         chain_method(:longPress, args) # longPress is what the appium server expects
       end
 
-      # Press a finger onto the screen.  Finger will stay down until you call
-      # `release`.
+      # Press a finger onto the screen.  Finger will stay down until you call `release`.
       #
+      # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to press within.
       # @option opts [integer] :x x co-ordinate to press on
       # @option opts [integer] :y y co-ordinate to press on
@@ -65,6 +67,7 @@ module Appium
 
       # Remove a finger from the screen.
       #
+      # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to release from.
       # @option opts [integer] :x x co-ordinate to release from
       # @option opts [integer] :y y co-ordinate to release from
@@ -76,6 +79,7 @@ module Appium
       # Touch a point on the screen.
       # Alternatively, you can use `press(...).release.perform` instead of `tap(...).perform`.
       #
+      # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to restrict scope too.
       # @option opts [integer] :x x co-ordinate to tap
       # @option opts [integer] :y y co-ordinate to tap
@@ -89,6 +93,7 @@ module Appium
 
       # Double tap an element on the screen
       #
+      # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to restrict scope too.
       # @option opts [integer] :x x co-ordinate to tap
       # @option opts [integer] :y y co-ordinate to tap
@@ -101,6 +106,7 @@ module Appium
 
       # Two finger tap an element on the screen
       #
+      # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to restrict scope too.
       # @option opts [integer] :x x co-ordinate to tap
       # @option opts [integer] :y y co-ordinate to tap
@@ -128,6 +134,7 @@ module Appium
       # If you'd like more details, please read tests and its log samples in
       # `ios_tests/lib/ios/specs/device/touch_actions.rb` and `ios_tests/lib/ios/specs/device/touch_actions.rb`
       #
+      # @param opts [Hash] Options
       # @option opts [int] :start_x Where to start swiping, on the x axis.  Default 0.
       # @option opts [int] :start_y Where to start swiping, on the y axis.  Default 0.
       # @option opts [int] :offset_x Offset, on the x axis.  Default 0.

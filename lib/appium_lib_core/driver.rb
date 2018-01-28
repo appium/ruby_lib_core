@@ -19,7 +19,7 @@ module Appium
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.
-      # False is by default and then "http://127.0.0.1:#{@port}/wd/hub" is used.
+      # False is by default and then "http://127.0.0.1:#{port}/wd/hub" is used.
       # @return [String]
       attr_reader :custom_url
 
@@ -116,6 +116,7 @@ module Appium
       # You can customise http_client as the following
       #
       # @param [String] server_url Custom server url to send to requests. Default is "http://127.0.0.1:4723/wd/hub".
+      # @param http_client_ops [Hash] Options for http client
       # @option http_client_ops [Hash] :http_client Custom HTTP Client
       # @option http_client_ops [Hash] :open_timeout Custom open timeout for http client.
       # @option http_client_ops [Hash] :read_timeout Custom read timeout for http client.

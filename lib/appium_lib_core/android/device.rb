@@ -3,6 +3,8 @@ module Appium
     module Device
       extend Forwardable
 
+      # rubocop:disable Metrics/LineLength
+
       # @!method hide_keyboard(close_key = nil, strategy = nil)
       # Hide the onscreen keyboard
       # @param [String] close_key The name of the key which closes the keyboard.
@@ -27,10 +29,11 @@ module Appium
       # @!method start_activity(opts)
       # Android only. Start a new activity within the current app or launch a new app and start the target activity.
       #
-      # @option [String] The package owning the activity [required]
-      # @option [String] The target activity [required]
-      # @option opts [String] The package to start before the target package [optional]
-      # @option opts [String] The activity to start before the target activity [optional]
+      # @param opts [Hash] Options
+      # @option opts [String] :app_package The package owning the activity [required]
+      # @option opts [String] :app_activity The target activity [required]
+      # @option opts [String] :app_wait_package The package to start before the target package [optional]
+      # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
       #
       # @example
       #
@@ -69,19 +72,17 @@ module Appium
       # @!method get_performance_data(package_name:, data_type:, data_read_timeout: 1000)
       #   Get the resource usage information of the application.
       #   https://github.com/appium/appium-base-driver/blob/be29aec2318316d12b5c3295e924a5ba8f09b0fb/lib/mjsonwp/routes.js#L303
-      # @param [String] package_name Package name
-      # @param [String] data_type Data type get with `get_performance_data_types`
-      # @param [String] data_read_timeout Command timeout. Default is 2.
+      # @param [String] package_name: Package name
+      # @param [String] data_type: Data type get with `get_performance_data_types`
+      # @param [String] data_read_timeout: Command timeout. Default is 2.
       #
       # @example
       #
       #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
       #
 
-      # @!method start_recording_screen(remote_path:, user:, pass:, method:, force_restart:,
-      #                                 video_size:, time_limit:, bit_rate:)
-      #
-      # @option [String] remote_path The path to the remote location, where the resulting video should be uploaded.
+      # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000')
+      # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
       #                             The following protocols are supported: http/https, ftp.
       #                             Null or empty string value (the default setting) means the content of resulting
       #                             file should be encoded as Base64 and passed as the endpoint response value.
@@ -89,20 +90,20 @@ module Appium
       #                             fit into the available process memory.
       #                             This option only has an effect if there is screen recording process in progress
       #                             and `forceRestart` parameter is not set to `true`.
-      # @option [String] user The name of the user for the remote authentication.
-      # @option [String] pass The password for the remote authentication.
-      # @option [String] method The http multipart upload method name. The 'PUT' one is used by default.
-      # @option [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
+      # @param [String] user: The name of the user for the remote authentication.
+      # @param [String] pass: The password for the remote authentication.
+      # @param [String] method: The http multipart upload method name. The 'PUT' one is used by default.
+      # @param [Boolean] force_restart: Whether to try to catch and upload/return the currently running screen recording
       #                                 (`false`, the default setting on server) or ignore the result of it
       #                                 and start a new recording immediately (`true`).
       #
-      # @option [String] video_size The format is widthxheight.
+      # @param [String] video_size: The format is widthxheight.
       #                             The default value is the device's native display resolution (if supported),
       #                             1280x720 if not. For best results,
       #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
       #                             For example, "1280x720"
-      # @param [String] time_limit Recording time. 180 seconds is by default.
-      # @param [String] bit_rate The video bit rate for the video, in megabits per second. 4 Mbps(4000000) is by default.
+      # @param [String] time_limit: Recording time. 180 seconds is by default.
+      # @param [String] bit_rate: The video bit rate for the video, in megabits per second. 4 Mbps(4000000) is by default.
       #
       # @example
       #
@@ -113,6 +114,8 @@ module Appium
       ####
       ## class << self
       ####
+
+      # rubocop:enable Metrics/LineLength
 
       class << self
         def extended(_mod)
