@@ -1,3 +1,11 @@
+#### v1.3.0 2018-01-28
+
+- [b7a994b](https://github.com/appium/ruby_lib_core/commit/b7a994ba29b3870257cf7e8af602deb147afd791) Release 1.3.0
+- [f421cad](https://github.com/appium/ruby_lib_core/commit/f421cad6a1941eb51837a8a2e5b4c403ae2aba42) add error message assertion
+- [9864037](https://github.com/appium/ruby_lib_core/commit/9864037619e102decdf5e8f888352eb355193f65) move screen recording command to common (#55)
+- [8cffce7](https://github.com/appium/ruby_lib_core/commit/8cffce73ec45443dcc037b9b440de44e946ba13a) Update CHANGELOG.md
+
+
 #### v1.2.7 2018-01-25
 
 - [02b3845](https://github.com/appium/ruby_lib_core/commit/02b3845a58afb349f62e5d699cfcccee20810665) Release 1.2.7
