@@ -147,15 +147,13 @@ module Appium
         offset_y = opts.fetch :offset_y, 0
         duration = opts.fetch :duration, 200
 
-        coordinates = swipe_coordinates(start_x: start_x, start_y: start_y, offset_x: offset_x, offset_y: offset_y)
-
         if ele # pinch/zoom for XCUITest
           press x: start_x, y: start_y, element: ele
-          move_to x: coordinates[:offset_x], y: coordinates[:offset_y], element: ele
+          move_to x: offset_x, y: offset_y, element: ele
         else
           press x: start_x, y: start_y
           wait(duration) if duration
-          move_to x: coordinates[:offset_x], y: coordinates[:offset_y]
+          move_to x: offset_x, y: offset_y
         end
         release
 
