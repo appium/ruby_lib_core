@@ -276,7 +276,7 @@ class AppiumLibCoreTest
         stub_request(:post, "#{SESSION}/appium/device/terminate_app")
           .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
 
-        @driver.remove_app 'com.app.id'
+        @driver.terminate_app 'com.app.id'
 
         assert_requested(:post, "#{SESSION}/appium/device/terminate_app", times: 1)
       end
@@ -285,7 +285,7 @@ class AppiumLibCoreTest
         stub_request(:post, "#{SESSION}/appium/device/activate_app")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.remove_app 'com.app.id'
+        @driver.activate_app 'com.app.id'
 
         assert_requested(:post, "#{SESSION}/appium/device/activate_app", times: 1)
       end
