@@ -37,6 +37,7 @@ class AppiumLibCoreTest
                                             :remove_app,
                                             :terminate_app,
                                             :activate_app,
+                                            :app_state,
                                             :app_installed?,
                                             :background_app,
                                             :hide_keyboard,

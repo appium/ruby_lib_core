@@ -109,8 +109,12 @@ class AppiumLibCoreTest
       end
 
       def test_app_management
+        assert @@driver.app_state('io.appium.android.apis') == 4
         assert @@driver.terminate_app('io.appium.android.apis')
-        assert @@driver.activate_app('io.appium.android.apis') == {}
+        assert @@driver.app_state('io.appium.android.apis') == 1
+
+        assert @@driver.activate_app('io.appium.android.apis') == nil
+        assert @@driver.app_state('io.appium.android.apis') == 4
       end
 
       def test_start_activity

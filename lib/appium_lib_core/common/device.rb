@@ -183,6 +183,24 @@ module Appium
       #   @driver.activate_app("io.appium.bundle") #=> {}
       #
 
+      # Get the status of an existing application on the device.
+      # State:
+      #   0: The current application state cannot be determined/is unknown
+      #   1: The application is not running
+      #   2: The application is running in the background and is suspended
+      #   3: The application is running in the background and is not suspended
+      #   4: The application is running in the foreground
+      #
+      # For more details: https://developer.apple.com/documentation/xctest/xcuiapplicationstate
+      #
+      # @param [String] bundle_id A target app's bundle id
+      # @return [0|1|2|3|4] A number of the state
+      #
+      # @example
+      #
+      #      @driver.app_state("io.appium.bundle") #=> 1
+      #
+
       # @!method app_strings(language = nil)
       # Return the hash of all localization strings.
       # @return [Hash]
@@ -509,6 +527,13 @@ module Appium
             def terminate_app(app_id)
               # required: [['appId'], ['bundleId']]
               execute :terminate_app, {}, appId: app_id
+            end
+          end
+
+          add_endpoint_method(:app_state) do
+            def app_state(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :app_state, {}, appId: app_id
             end
           end
 
