@@ -98,13 +98,18 @@ class AppiumLibCoreTest
       def test_re_install
         skip 'NotImplemented' if @@core.automation_name == :xcuitest
 
-        assert @@driver.app_installed?('io.appium.bundle')
+        assert @@driver.app_installed?('com.example.apple-samplecode.UICatalog')
 
-        @@driver.remove_app 'io.appium.bundle'
-        assert !@@driver.app_installed?('io.appium.bundle')
+        @@driver.remove_app 'com.example.apple-samplecode.UICatalog'
+        assert !@@driver.app_installed?('com.example.apple-samplecode.UICatalog')
 
         @@driver.install_app Caps::IOS_OPS[:caps][:app]
-        assert @@driver.app_installed?('io.appium.bundle')
+        assert @@driver.app_installed?('com.example.apple-samplecode.UICatalog')
+      end
+
+      def test_app_management
+        assert @@driver.terminate_app('com.example.apple-samplecode.UICatalog')
+        assert @@driver.activate_app('com.example.apple-samplecode.UICatalog') == {}
       end
 
       def test_push_pull

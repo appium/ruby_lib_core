@@ -108,6 +108,11 @@ class AppiumLibCoreTest
         assert !@@driver.app_installed?('fake_app')
       end
 
+      def test_app_management
+        assert @@driver.terminate_app('io.appium.android.apis')
+        assert @@driver.activate_app('io.appium.android.apis') == {}
+      end
+
       def test_start_activity
         e = @@core.wait { @@driver.current_activity }
         assert_equal '.ApiDemos', e

@@ -35,6 +35,8 @@ class AppiumLibCoreTest
                                             :lock,
                                             :install_app,
                                             :remove_app,
+                                            :terminate_app,
+                                            :activate_app,
                                             :app_installed?,
                                             :background_app,
                                             :hide_keyboard,

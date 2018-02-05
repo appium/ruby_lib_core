@@ -22,7 +22,7 @@ class ScriptTest
 
     # depends on webdriver-version... (number of commands)
     def test_implemented_mjsonwp_commands
-      assert_equal 129, @c.implemented_mjsonwp_commands.length
+      assert_equal 131, @c.implemented_mjsonwp_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_mjsonwp_commands.first
 
       # pick up an arbitrary command
@@ -30,7 +30,7 @@ class ScriptTest
     end
 
     def test_implemented_w3c_commands
-      assert_equal 100, @c.implemented_w3c_commands.length
+      assert_equal 102, @c.implemented_w3c_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_w3c_commands.first
 
       # pick up an arbitrary command
@@ -38,7 +38,7 @@ class ScriptTest
     end
 
     def test_implemented_core_commands
-      assert_equal 43, @c.implemented_core_commands.length
+      assert_equal 45, @c.implemented_core_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_core_commands.first
 
       # pick up an arbitrary command

@@ -165,6 +165,24 @@ module Appium
       #   @driver.app_installed?("io.appium.bundle")
       #
 
+      # @!method terminate_app(app_id)
+      # Terminate the specified app.
+      # @return [bool]
+      #
+      # @example
+      #
+      #   @driver.terminate_app("io.appium.bundle") # true
+      #
+
+      # @!method activate_app(app_id)
+      # Activate(Launch) the specified app.
+      # @return [Hash]
+      #
+      # @example
+      #
+      #   @driver.activate_app("io.appium.bundle") #=> {}
+      #
+
       # @!method app_strings(language = nil)
       # Return the hash of all localization strings.
       # @return [Hash]
@@ -468,13 +486,29 @@ module Appium
 
           add_endpoint_method(:remove_app) do
             def remove_app(id)
+              # required: [['appId'], ['bundleId']]
               execute :remove_app, {}, appId: id
             end
           end
 
           add_endpoint_method(:app_installed?) do
             def app_installed?(app_id)
+              # required: [['appId'], ['bundleId']]
               execute :app_installed?, {}, bundleId: app_id
+            end
+          end
+
+          add_endpoint_method(:activate_app) do
+            def activate_app(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :activate_app, {}, bundleId: app_id
+            end
+          end
+
+          add_endpoint_method(:terminate_app) do
+            def terminate_app(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :terminate_app, {}, appId: app_id
             end
           end
 
