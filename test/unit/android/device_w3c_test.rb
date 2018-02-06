@@ -45,6 +45,9 @@ class AppiumLibCoreTest
                                             :install_app,
                                             :remove_app,
                                             :app_installed?,
+                                            :terminate_app,
+                                            :activate_app,
+                                            :app_state,
                                             :background_app,
                                             :hide_keyboard,
                                             :keyevent,
@@ -266,6 +269,33 @@ class AppiumLibCoreTest
         @driver.lock 5
 
         assert_requested(:post, "#{SESSION}/appium/device/lock", times: 1)
+      end
+
+      def test_terminate_app
+        stub_request(:post, "#{SESSION}/appium/device/terminate_app")
+          .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
+
+        @driver.terminate_app 'com.app.id'
+
+        assert_requested(:post, "#{SESSION}/appium/device/terminate_app", times: 1)
+      end
+
+      def test_activate_app
+        stub_request(:post, "#{SESSION}/appium/device/activate_app")
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.activate_app 'com.app.id'
+
+        assert_requested(:post, "#{SESSION}/appium/device/activate_app", times: 1)
+      end
+
+      def test_app_state
+        stub_request(:get, "#{SESSION}/appium/device/app_state")
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.app_state 'com.app.id'
+
+        assert_requested(:get, "#{SESSION}/appium/device/app_state", times: 1)
       end
 
       def test_install_app

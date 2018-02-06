@@ -9,6 +9,7 @@ require_relative 'appium_lib_core/driver'
 require_relative 'appium_lib_core/device/touch_actions'
 require_relative 'appium_lib_core/device/multi_touch'
 require_relative 'appium_lib_core/device/screen_record'
+require_relative 'appium_lib_core/device/app_management'
 
 require_relative 'appium_lib_core/android'
 require_relative 'appium_lib_core/android_uiautomator2'
