@@ -109,15 +109,15 @@ class AppiumLibCoreTest
 
       def test_app_management
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') ==
-               Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_FOREGROUND
+               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
 
         assert @@driver.terminate_app('com.example.apple-samplecode.UICatalog')
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') ==
-               Appium::Core::Device::AppManagement::APP_STATE_NOT_RUNNING
+               Appium::Core::Device::AppState::NOT_RUNNING
 
         assert @@driver.activate_app('com.example.apple-samplecode.UICatalog') == {}
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') ==
-               Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_FOREGROUND
+               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
       end
 
       def test_push_pull
