@@ -271,7 +271,6 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/lock", times: 1)
       end
 
-
       def test_terminate_app
         stub_request(:post, "#{SESSION}/appium/device/terminate_app")
           .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)

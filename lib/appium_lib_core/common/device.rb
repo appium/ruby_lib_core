@@ -5,6 +5,8 @@ module Appium
     module Device
       extend Forwardable
 
+      # rubocop:disable Metrics/LineLength
+
       ####
       ## No argument
       ####
@@ -185,16 +187,16 @@ module Appium
 
       # Get the status of an existing application on the device.
       # State:
-      #   0: The current application state cannot be determined/is unknown
-      #   1: The application is not running
-      #   2: The application is running in the background and is suspended
-      #   3: The application is running in the background and is not suspended
-      #   4: The application is running in the foreground
+      #   AppManagement::APP_STATE_NOT_INSTALLED : The current application state cannot be determined/is unknown
+      #   AppManagement::APP_STATE_NOT_RUNNING : The application is not running
+      #   AppManagement::APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND : The application is running in the background and is suspended
+      #   AppManagement::APP_STATE_RUNNING_IN_BACKGROUND : The application is running in the background and is not suspended
+      #   AppManagement::APP_STATE_RUNNING_IN_FOREGROUND : The application is running in the foreground
       #
       # For more details: https://developer.apple.com/documentation/xctest/xcuiapplicationstate
       #
       # @param [String] bundle_id A target app's bundle id
-      # @return [0|1|2|3|4] A number of the state
+      # @return [AppManagement::APP_STATE_NOT_INSTALLED|AppManagement::APP_STATE_NOT_RUNNING|APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND|AppManagement::APP_STATE_RUNNING_IN_BACKGROUND|AppManagement::APP_STATE_RUNNING_IN_FOREGROUND] A number of the state
       #
       # @example
       #
@@ -463,6 +465,8 @@ module Appium
       #    @driver.stop_and_save_recording_screen 'example.mp4'
       #
 
+      # rubocop:enable Metrics/LineLength
+
       ####
       ## class << self
       ####
@@ -493,47 +497,6 @@ module Appium
             def lock(duration = nil)
               opts = duration ? { seconds: duration } : {}
               execute :lock, {}, opts
-            end
-          end
-
-          add_endpoint_method(:install_app) do
-            def install_app(path)
-              execute :install_app, {}, appPath: path
-            end
-          end
-
-          add_endpoint_method(:remove_app) do
-            def remove_app(id)
-              # required: [['appId'], ['bundleId']]
-              execute :remove_app, {}, appId: id
-            end
-          end
-
-          add_endpoint_method(:app_installed?) do
-            def app_installed?(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :app_installed?, {}, bundleId: app_id
-            end
-          end
-
-          add_endpoint_method(:activate_app) do
-            def activate_app(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :activate_app, {}, bundleId: app_id
-            end
-          end
-
-          add_endpoint_method(:terminate_app) do
-            def terminate_app(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :terminate_app, {}, appId: app_id
-            end
-          end
-
-          add_endpoint_method(:app_state) do
-            def app_state(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :app_state, {}, appId: app_id
             end
           end
 
@@ -625,6 +588,7 @@ module Appium
           add_ime_actions
           add_handling_context
           add_screen_recording
+          add_app_management
         end
 
         # def extended
@@ -663,6 +627,65 @@ module Appium
           end
           ::Appium::Core::Base::Bridge::W3C.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
+          end
+        end
+
+        def add_app_management
+          add_endpoint_method(:install_app) do
+            def install_app(path)
+              execute :install_app, {}, appPath: path
+            end
+          end
+
+          add_endpoint_method(:remove_app) do
+            def remove_app(id)
+              # required: [['appId'], ['bundleId']]
+              execute :remove_app, {}, appId: id
+            end
+          end
+
+          add_endpoint_method(:app_installed?) do
+            def app_installed?(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :app_installed?, {}, bundleId: app_id
+            end
+          end
+
+          add_endpoint_method(:activate_app) do
+            def activate_app(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :activate_app, {}, bundleId: app_id
+            end
+          end
+
+          add_endpoint_method(:terminate_app) do
+            def terminate_app(app_id)
+              # required: [['appId'], ['bundleId']]
+              execute :terminate_app, {}, appId: app_id
+            end
+          end
+
+          add_endpoint_method(:app_state) do
+            def app_state(app_id)
+              # required: [['appId'], ['bundleId']]
+              response = execute :app_state, {}, appId: app_id
+
+              case response
+              when 0
+                Appium::Core::Device::AppManagement::APP_STATE_NOT_INSTALLED
+              when 1
+                Appium::Core::Device::AppManagement::APP_STATE_NOT_RUNNING
+              when 2
+                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND
+              when 3
+                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_BACKGROUND
+              when 4
+                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_FOREGROUND
+              else
+                Appium::Logger.debug("Unexpected status in app_state: #{response}")
+                response
+              end
+            end
           end
         end
 
