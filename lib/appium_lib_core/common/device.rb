@@ -142,20 +142,32 @@ module Appium
       ## With arguments
       ####
 
-      # @!method install_app(path)
+      # @!method install_app(path, replace: nil, timeout: nil, allow_test_packages: nil, use_sdcard: nil, grant_permissions: nil)
       # Install the given app onto the device
+      #
+      # @param [String] path A path to akp
+      # @param [Boolean] replace: Whether to reinstall/upgrade the package if it is already present on the device under test. `true` by default
+      # @param [Integer] timeout: How much time to wait for the installation to complete. 60000ms by default.
+      # @param [Boolean] allow_test_packages: Whether to allow installation of packages marked as test in the manifest. `false` by default
+      # @param [Boolean] use_sdcard: Whether to use the SD card to install the app. `false` by default
+      # @param [Boolean] grant_permissions:  whether to automatically grant application permissions on Android 6+ after the installation completes. `false` by default
       #
       # @example
       #
       #   @driver.install_app("/path/to/test.apk")
+      #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true, use_sdcard: false, grant_permissions: false)
       #
 
-      # @!method remove_app(app_id)
-      # Install the given app onto the device
+      # @!method remove_app(app_id, keep_data: nil, timeout: nil)
+      #
+      # @param [Strong] app_id BundleId for iOS or package name for Android
+      # @param [Boolean] keep_data: Whether to keep application data and caches after it is uninstalled. `false` by default
+      # @param [Integer] timeout: How much time to wait for the uninstall to complete. 20000ms by default.
       #
       # @example
       #
       #   @driver.remove_app("io.appium.bundle")
+      #   @driver.remove_app("io.appium.bundle", keep_data: false, timeout, 10000)
       #
 
       # @!method app_installed?(app_id)
@@ -169,11 +181,15 @@ module Appium
 
       # @!method terminate_app(app_id)
       # Terminate the specified app.
+      #
+      # @param [Strong] app_id BundleId for iOS or package name for Android
+      # @param [Integer] timeout: How much time to wait for the uninstall to complete. 500ms by default.
       # @return [bool]
       #
       # @example
       #
       #   @driver.terminate_app("io.appium.bundle") # true
+      #   @driver.terminate_app("io.appium.bundle", timeout: 500)
       #
 
       # @!method activate_app(app_id)
@@ -632,15 +648,35 @@ module Appium
 
         def add_app_management
           add_endpoint_method(:install_app) do
-            def install_app(path)
-              execute :install_app, {}, appPath: path
+            def install_app(path,
+                            replace: nil,
+                            timeout: nil,
+                            allow_test_packages: nil,
+                            use_sdcard: nil,
+                            grant_permissions: nil)
+              args = { appPath: path }
+
+              args[:options] = {} unless replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
+              args[:options][:replace] = replace unless replace.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+              args[:options][:allowTestPackages] = allow_test_packages unless allow_test_packages.nil?
+              args[:options][:useSdcard] = use_sdcard unless use_sdcard.nil?
+              args[:options][:grantPermissions] = grant_permissions unless grant_permissions.nil?
+
+              execute :install_app, {}, args
             end
           end
 
           add_endpoint_method(:remove_app) do
-            def remove_app(id)
+            def remove_app(id, keep_data: nil, timeout: nil)
               # required: [['appId'], ['bundleId']]
-              execute :remove_app, {}, appId: id
+              args = { appId: id }
+
+              args[:options] = {} unless keep_data.nil? || timeout.nil?
+              args[:options][:keepData] = keep_data unless keep_data.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+
+              execute :remove_app, {}, args
             end
           end
 
@@ -659,9 +695,15 @@ module Appium
           end
 
           add_endpoint_method(:terminate_app) do
-            def terminate_app(app_id)
+            def terminate_app(app_id, timeout: nil)
               # required: [['appId'], ['bundleId']]
-              execute :terminate_app, {}, appId: app_id
+              #
+              args = { appId: app_id }
+
+              args[:options] = {} unless timeout.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+
+              execute :terminate_app, {}, args
             end
           end
 
