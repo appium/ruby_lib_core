@@ -282,10 +282,10 @@ class AppiumLibCoreTest
 
       def test_terminate_app_with_param
         stub_request(:post, "#{SESSION}/appium/device/terminate_app")
-          .with(body: { appId: 'com.app.id', options: { timeout: 20000 } }.to_json)
+          .with(body: { appId: 'com.app.id', options: { timeout: 20_000 } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
 
-        @driver.terminate_app 'com.app.id', timeout: 20000
+        @driver.terminate_app 'com.app.id', timeout: 20_000
 
         assert_requested(:post, "#{SESSION}/appium/device/terminate_app", times: 1)
       end
@@ -322,14 +322,19 @@ class AppiumLibCoreTest
           .with(body: { appPath: 'app_path',
                         options: {
                           replace: true,
-                          timeout: 20000,
+                          timeout: 20_000,
                           allowTestPackages: true,
                           useSdcard: false,
                           grantPermissions: false
                         } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.install_app 'app_path', replace: true, timeout: 20000, allow_test_packages: true, use_sdcard: false, grant_permissions: false
+        @driver.install_app 'app_path',
+                            replace: true,
+                            timeout: 20_000,
+                            allow_test_packages: true,
+                            use_sdcard: false,
+                            grant_permissions: false
 
         assert_requested(:post, "#{SESSION}/appium/device/install_app", times: 1)
       end
@@ -345,10 +350,10 @@ class AppiumLibCoreTest
 
       def test_remove_app_with_param
         stub_request(:post, "#{SESSION}/appium/device/remove_app")
-          .with(body: { appId: 'com.app.id', options: { keepData: false, timeout: 20000 } }.to_json)
+          .with(body: { appId: 'com.app.id', options: { keepData: false, timeout: 20_000 } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.remove_app 'com.app.id', keep_data: false, timeout: 20000
+        @driver.remove_app 'com.app.id', keep_data: false, timeout: 20_000
 
         assert_requested(:post, "#{SESSION}/appium/device/remove_app", times: 1)
       end

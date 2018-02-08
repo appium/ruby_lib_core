@@ -646,6 +646,7 @@ module Appium
           end
         end
 
+        # rubocop:disable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
         def add_app_management
           add_endpoint_method(:install_app) do
             def install_app(path,
@@ -656,7 +657,8 @@ module Appium
                             grant_permissions: nil)
               args = { appPath: path }
 
-              args[:options] = {} unless replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
+              args[:options] = {} unless options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
+
               args[:options][:replace] = replace unless replace.nil?
               args[:options][:timeout] = timeout unless timeout.nil?
               args[:options][:allowTestPackages] = allow_test_packages unless allow_test_packages.nil?
@@ -664,6 +666,12 @@ module Appium
               args[:options][:grantPermissions] = grant_permissions unless grant_permissions.nil?
 
               execute :install_app, {}, args
+            end
+
+            private
+
+            def options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
+              replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
             end
           end
 
@@ -730,6 +738,7 @@ module Appium
             end
           end
         end
+        # rubocop:enable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 
         def add_keyevent
           # Only for Selendroid
