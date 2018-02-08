@@ -49,7 +49,7 @@ module Appium
 
       # @!method is_keyboard_shown
       # Get whether keyboard is displayed or not.
-      # @return [Bool] Return true if keyboard is shown. Return false if keyboard is hidden.
+      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
       #
       # @example
       #   @driver.is_keyboard_shown # false
@@ -145,12 +145,12 @@ module Appium
       # @!method install_app(path, replace: nil, timeout: nil, allow_test_packages: nil, use_sdcard: nil, grant_permissions: nil)
       # Install the given app onto the device
       #
-      # @param [String] path A path to akp
-      # @param [Boolean] replace: Whether to reinstall/upgrade the package if it is already present on the device under test. `true` by default
+      # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+      # @param [Boolean] replace: Only for Android. Whether to reinstall/upgrade the package if it is already present on the device under test. `true` by default
       # @param [Integer] timeout: How much time to wait for the installation to complete. 60000ms by default.
-      # @param [Boolean] allow_test_packages: Whether to allow installation of packages marked as test in the manifest. `false` by default
-      # @param [Boolean] use_sdcard: Whether to use the SD card to install the app. `false` by default
-      # @param [Boolean] grant_permissions:  whether to automatically grant application permissions on Android 6+ after the installation completes. `false` by default
+      # @param [Boolean] allow_test_packages: Only for Android. Whether to allow installation of packages marked as test in the manifest. `false` by default
+      # @param [Boolean] use_sdcard: Only for Android. Whether to use the SD card to install the app. `false` by default
+      # @param [Boolean] grant_permissions:  Only for Android. whether to automatically grant application permissions on Android 6+ after the installation completes. `false` by default
       #
       # @example
       #
@@ -161,7 +161,7 @@ module Appium
       # @!method remove_app(app_id, keep_data: nil, timeout: nil)
       #
       # @param [Strong] app_id BundleId for iOS or package name for Android
-      # @param [Boolean] keep_data: Whether to keep application data and caches after it is uninstalled. `false` by default
+      # @param [Boolean] keep_data: Only for Android. Whether to keep application data and caches after it is uninstalled. `false` by default
       # @param [Integer] timeout: How much time to wait for the uninstall to complete. 20000ms by default.
       #
       # @example
@@ -172,7 +172,7 @@ module Appium
 
       # @!method app_installed?(app_id)
       # Check whether the specified app is installed on the device
-      # @return [bool]
+      # @return [Boolean]
       #
       # @example
       #
@@ -184,7 +184,7 @@ module Appium
       #
       # @param [Strong] app_id BundleId for iOS or package name for Android
       # @param [Integer] timeout: How much time to wait for the uninstall to complete. 500ms by default.
-      # @return [bool]
+      # @return [Boolean]
       #
       # @example
       #
