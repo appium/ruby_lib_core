@@ -183,7 +183,7 @@ module Appium
       # Terminate the specified app.
       #
       # @param [Strong] app_id BundleId for iOS or package name for Android
-      # @param [Integer] timeout: Only for Android. How much time to wait for the uninstall to complete. 500ms by default.
+      # @param [Integer] timeout: Only for Android. How much time to wait for the application termination to complete. 500ms by default.
       # @return [Boolean]
       #
       # @example
