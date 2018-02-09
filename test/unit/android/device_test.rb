@@ -280,6 +280,28 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/install_app", times: 1)
       end
 
+      def test_install_app_with_params
+        stub_request(:post, "#{SESSION}/appium/device/install_app")
+          .with(body: { appPath: 'app_path',
+                        options: {
+                          replace: true,
+                          timeout: 20_000,
+                          allowTestPackages: true,
+                          useSdcard: false,
+                          grantPermissions: false
+                        } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.install_app 'app_path',
+                            replace: true,
+                            timeout: 20_000,
+                            allow_test_packages: true,
+                            use_sdcard: false,
+                            grant_permissions: false
+
+        assert_requested(:post, "#{SESSION}/appium/device/install_app", times: 1)
+      end
+
       def test_remove_app
         stub_request(:post, "#{SESSION}/appium/device/remove_app")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
@@ -289,11 +311,31 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/remove_app", times: 1)
       end
 
+      def test_remove_app_with_param
+        stub_request(:post, "#{SESSION}/appium/device/remove_app")
+          .with(body: { appId: 'com.app.id', options: { keepData: false, timeout: 20_000 } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.remove_app 'com.app.id', keep_data: false, timeout: 20_000
+
+        assert_requested(:post, "#{SESSION}/appium/device/remove_app", times: 1)
+      end
+
       def test_terminate_app
         stub_request(:post, "#{SESSION}/appium/device/terminate_app")
           .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
 
         @driver.terminate_app 'com.app.id'
+
+        assert_requested(:post, "#{SESSION}/appium/device/terminate_app", times: 1)
+      end
+
+      def test_terminate_app_with_param
+        stub_request(:post, "#{SESSION}/appium/device/terminate_app")
+          .with(body: { appId: 'com.app.id', options: { timeout: 20_000 } }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
+
+        @driver.terminate_app 'com.app.id', timeout: 20_000
 
         assert_requested(:post, "#{SESSION}/appium/device/terminate_app", times: 1)
       end
@@ -308,12 +350,12 @@ class AppiumLibCoreTest
       end
 
       def test_app_state
-        stub_request(:get, "#{SESSION}/appium/device/app_state")
+        stub_request(:post, "#{SESSION}/appium/device/app_state")
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.app_state 'com.app.id'
 
-        assert_requested(:get, "#{SESSION}/appium/device/app_state", times: 1)
+        assert_requested(:post, "#{SESSION}/appium/device/app_state", times: 1)
       end
 
       def test_app_installed?

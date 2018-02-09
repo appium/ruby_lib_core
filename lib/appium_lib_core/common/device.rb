@@ -49,7 +49,7 @@ module Appium
 
       # @!method is_keyboard_shown
       # Get whether keyboard is displayed or not.
-      # @return [Bool] Return true if keyboard is shown. Return false if keyboard is hidden.
+      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
       #
       # @example
       #   @driver.is_keyboard_shown # false
@@ -142,25 +142,37 @@ module Appium
       ## With arguments
       ####
 
-      # @!method install_app(path)
+      # @!method install_app(path, replace: nil, timeout: nil, allow_test_packages: nil, use_sdcard: nil, grant_permissions: nil)
       # Install the given app onto the device
+      #
+      # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
+      # @param [Boolean] replace: Only for Android. Whether to reinstall/upgrade the package if it is already present on the device under test. `true` by default
+      # @param [Integer] timeout: Only for Android. How much time to wait for the installation to complete. 60000ms by default.
+      # @param [Boolean] allow_test_packages: Only for Android. Whether to allow installation of packages marked as test in the manifest. `false` by default
+      # @param [Boolean] use_sdcard: Only for Android. Whether to use the SD card to install the app. `false` by default
+      # @param [Boolean] grant_permissions:  Only for Android. whether to automatically grant application permissions on Android 6+ after the installation completes. `false` by default
       #
       # @example
       #
       #   @driver.install_app("/path/to/test.apk")
+      #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true, use_sdcard: false, grant_permissions: false)
       #
 
-      # @!method remove_app(app_id)
-      # Install the given app onto the device
+      # @!method remove_app(app_id, keep_data: nil, timeout: nil)
+      #
+      # @param [Strong] app_id BundleId for iOS or package name for Android
+      # @param [Boolean] keep_data: Only for Android. Whether to keep application data and caches after it is uninstalled. `false` by default
+      # @param [Integer] timeout: Only for Android. How much time to wait for the uninstall to complete. 20000ms by default.
       #
       # @example
       #
       #   @driver.remove_app("io.appium.bundle")
+      #   @driver.remove_app("io.appium.bundle", keep_data: false, timeout, 10000)
       #
 
       # @!method app_installed?(app_id)
       # Check whether the specified app is installed on the device
-      # @return [bool]
+      # @return [Boolean]
       #
       # @example
       #
@@ -169,11 +181,15 @@ module Appium
 
       # @!method terminate_app(app_id)
       # Terminate the specified app.
-      # @return [bool]
+      #
+      # @param [Strong] app_id BundleId for iOS or package name for Android
+      # @param [Integer] timeout: Only for Android. How much time to wait for the application termination to complete. 500ms by default.
+      # @return [Boolean]
       #
       # @example
       #
       #   @driver.terminate_app("io.appium.bundle") # true
+      #   @driver.terminate_app("io.appium.bundle", timeout: 500)
       #
 
       # @!method activate_app(app_id)
@@ -187,11 +203,11 @@ module Appium
 
       # Get the status of an existing application on the device.
       # State:
-      #   AppManagement::APP_STATE_NOT_INSTALLED : The current application state cannot be determined/is unknown
-      #   AppManagement::APP_STATE_NOT_RUNNING : The application is not running
-      #   AppManagement::APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND : The application is running in the background and is suspended
-      #   AppManagement::APP_STATE_RUNNING_IN_BACKGROUND : The application is running in the background and is not suspended
-      #   AppManagement::APP_STATE_RUNNING_IN_FOREGROUND : The application is running in the foreground
+      #   AppState::NOT_INSTALLED : The current application state cannot be determined/is unknown
+      #   AppState::NOT_RUNNING : The application is not running
+      #   AppState::RUNNING_IN_BACKGROUND_SUSPENDED : The application is running in the background and is suspended
+      #   AppState::RUNNING_IN_BACKGROUND : The application is running in the background and is not suspended
+      #   AppState::RUNNING_IN_FOREGROUND : The application is running in the foreground
       #
       # For more details: https://developer.apple.com/documentation/xctest/xcuiapplicationstate
       #
@@ -630,17 +646,45 @@ module Appium
           end
         end
 
+        # rubocop:disable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
         def add_app_management
           add_endpoint_method(:install_app) do
-            def install_app(path)
-              execute :install_app, {}, appPath: path
+            def install_app(path,
+                            replace: nil,
+                            timeout: nil,
+                            allow_test_packages: nil,
+                            use_sdcard: nil,
+                            grant_permissions: nil)
+              args = { appPath: path }
+
+              args[:options] = {} unless options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
+
+              args[:options][:replace] = replace unless replace.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+              args[:options][:allowTestPackages] = allow_test_packages unless allow_test_packages.nil?
+              args[:options][:useSdcard] = use_sdcard unless use_sdcard.nil?
+              args[:options][:grantPermissions] = grant_permissions unless grant_permissions.nil?
+
+              execute :install_app, {}, args
+            end
+
+            private
+
+            def options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
+              replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
             end
           end
 
           add_endpoint_method(:remove_app) do
-            def remove_app(id)
+            def remove_app(id, keep_data: nil, timeout: nil)
               # required: [['appId'], ['bundleId']]
-              execute :remove_app, {}, appId: id
+              args = { appId: id }
+
+              args[:options] = {} unless keep_data.nil? || timeout.nil?
+              args[:options][:keepData] = keep_data unless keep_data.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+
+              execute :remove_app, {}, args
             end
           end
 
@@ -659,9 +703,15 @@ module Appium
           end
 
           add_endpoint_method(:terminate_app) do
-            def terminate_app(app_id)
+            def terminate_app(app_id, timeout: nil)
               # required: [['appId'], ['bundleId']]
-              execute :terminate_app, {}, appId: app_id
+              #
+              args = { appId: app_id }
+
+              args[:options] = {} unless timeout.nil?
+              args[:options][:timeout] = timeout unless timeout.nil?
+
+              execute :terminate_app, {}, args
             end
           end
 
@@ -672,15 +722,15 @@ module Appium
 
               case response
               when 0
-                Appium::Core::Device::AppManagement::APP_STATE_NOT_INSTALLED
+                Appium::Core::Device::AppState::NOT_INSTALLED
               when 1
-                Appium::Core::Device::AppManagement::APP_STATE_NOT_RUNNING
+                Appium::Core::Device::AppState::NOT_RUNNING
               when 2
-                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND
+                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
               when 3
-                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_BACKGROUND
+                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
               when 4
-                Appium::Core::Device::AppManagement::APP_STATE_RUNNING_IN_FOREGROUND
+                Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
               else
                 Appium::Logger.debug("Unexpected status in app_state: #{response}")
                 response
@@ -688,6 +738,7 @@ module Appium
             end
           end
         end
+        # rubocop:enable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 
         def add_keyevent
           # Only for Selendroid

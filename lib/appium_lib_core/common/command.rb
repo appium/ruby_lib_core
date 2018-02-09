@@ -40,7 +40,7 @@ module Appium
         app_installed?:             [:post, 'session/:session_id/appium/device/app_installed'.freeze],
         activate_app:               [:post, 'session/:session_id/appium/device/activate_app'.freeze],
         terminate_app:              [:post, 'session/:session_id/appium/device/terminate_app'.freeze],
-        app_state:                  [:get,  'session/:session_id/appium/device/app_state'.freeze],
+        app_state:                  [:post, 'session/:session_id/appium/device/app_state'.freeze],
         background_app:             [:post, 'session/:session_id/appium/app/background'.freeze],
         hide_keyboard:              [:post, 'session/:session_id/appium/device/hide_keyboard'.freeze],
         press_keycode:              [:post, 'session/:session_id/appium/device/press_keycode'.freeze],
