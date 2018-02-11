@@ -108,6 +108,19 @@ class AppiumLibCoreTest
         assert !@@driver.app_installed?('fake_app')
       end
 
+      def test_app_management
+        assert @@driver.app_state('io.appium.android.apis') ==
+               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+
+        assert @@driver.terminate_app('io.appium.android.apis')
+        assert @@driver.app_state('io.appium.android.apis') ==
+               Appium::Core::Device::AppState::NOT_RUNNING
+
+        assert @@driver.activate_app('io.appium.android.apis').nil?
+        assert @@driver.app_state('io.appium.android.apis') ==
+               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+      end
+
       def test_start_activity
         e = @@core.wait { @@driver.current_activity }
         assert_equal '.ApiDemos', e

@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- add some app management commands [#58](https://github.com/appium/ruby_lib_core/pull/58)
+    - Require Appium 1.8.0+
 
 ### Bug fixes
 
