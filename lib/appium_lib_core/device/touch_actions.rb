@@ -123,22 +123,13 @@ module Appium
         chain_method(:wait, args)
       end
 
-      # Convenience method to peform a swipe.
-      #
-      # Note that iOS 7 simulators have broken swipe.
-      #
-      # For iOS: Use `offset_x` and `offset_y` to define the end point.
-      #
-      # For Android: Use `end_x` and `end_y` to define the end point.
-      #
-      # If you'd like more details, please read tests and its log samples in
-      # `ios_tests/lib/ios/specs/device/touch_actions.rb` and `ios_tests/lib/ios/specs/device/touch_actions.rb`
+      # Convenience method to perform a swipe.
       #
       # @param opts [Hash] Options
       # @option opts [int] :start_x Where to start swiping, on the x axis.  Default 0.
       # @option opts [int] :start_y Where to start swiping, on the y axis.  Default 0.
-      # @option opts [int] :offset_x Offset, on the x axis.  Default 0.
-      # @option opts [int] :offset_y Offset, on the y axis.  Default 0.
+      # @option opts [int] :offset_x Move to the end, on the x axis.  Default 0.
+      # @option opts [int] :offset_y Move to the end, on the y axis.  Default 0.
       # @option opts [int] :duration How long the actual swipe takes to complete in milliseconds. Default 200.
       def swipe(opts, ele = nil)
         start_x  = opts.fetch :start_x, 0
