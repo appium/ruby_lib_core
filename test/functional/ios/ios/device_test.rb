@@ -159,13 +159,19 @@ class AppiumLibCoreTest
       end
 
       def test_swipe
-        touch_action = Appium::Core::TouchAction.new(@@driver)
-                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
-                                                .perform
-        assert_equal [], touch_action.actions
+        @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }.click
+
+        el = @@core.wait { @@driver.find_element :accessibility_id, 'Gray' }
+        rect = el.rect
+
+        Appium::Core::TouchAction.new(@@driver)
+                                 .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 500, duration: 500)
+                                 .perform
+        assert rect.x == el.rect.x
+        assert rect.y == el.rect.y
 
         touch_action = Appium::Core::TouchAction.new(@@driver)
-                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 20, duration: 500)
+                                                .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 300, duration: 500)
 
         assert_equal :press, touch_action.actions[0][:action]
         assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
@@ -174,12 +180,17 @@ class AppiumLibCoreTest
         assert_equal({ ms: 500 }, touch_action.actions[1][:options])
 
         assert_equal :moveTo, touch_action.actions[2][:action]
-        assert_equal({ x: 75, y: 20 }, touch_action.actions[2][:options])
+        assert_equal({ x: 75, y: 300 }, touch_action.actions[2][:options])
 
         assert_equal :release, touch_action.actions[3][:action]
 
         touch_action.perform
         assert_equal [], touch_action.actions
+
+        assert rect.x == el.rect.x
+        assert rect.y > el.rect.y
+
+        @@driver.back
       end
 
       def test_touch_id

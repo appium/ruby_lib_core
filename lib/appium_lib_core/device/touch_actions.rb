@@ -123,22 +123,13 @@ module Appium
         chain_method(:wait, args)
       end
 
-      # Convenience method to peform a swipe.
-      #
-      # Note that iOS 7 simulators have broken swipe.
-      #
-      # For iOS: Use `offset_x` and `offset_y` to define the end point.
-      #
-      # For Android: Use `end_x` and `end_y` to define the end point.
-      #
-      # If you'd like more details, please read tests and its log samples in
-      # `ios_tests/lib/ios/specs/device/touch_actions.rb` and `ios_tests/lib/ios/specs/device/touch_actions.rb`
+      # Convenience method to perform a swipe.
       #
       # @param opts [Hash] Options
       # @option opts [int] :start_x Where to start swiping, on the x axis.  Default 0.
       # @option opts [int] :start_y Where to start swiping, on the y axis.  Default 0.
-      # @option opts [int] :offset_x Offset, on the x axis.  Default 0.
-      # @option opts [int] :offset_y Offset, on the y axis.  Default 0.
+      # @option opts [int] :offset_x Move to the end, on the x axis.  Default 0.
+      # @option opts [int] :offset_y Move to the end, on the y axis.  Default 0.
       # @option opts [int] :duration How long the actual swipe takes to complete in milliseconds. Default 200.
       def swipe(opts, ele = nil)
         start_x  = opts.fetch :start_x, 0
@@ -147,15 +138,13 @@ module Appium
         offset_y = opts.fetch :offset_y, 0
         duration = opts.fetch :duration, 200
 
-        coordinates = swipe_coordinates(start_x: start_x, start_y: start_y, offset_x: offset_x, offset_y: offset_y)
-
         if ele # pinch/zoom for XCUITest
           press x: start_x, y: start_y, element: ele
-          move_to x: coordinates[:offset_x], y: coordinates[:offset_y], element: ele
+          move_to x: offset_x, y: offset_y, element: ele
         else
           press x: start_x, y: start_y
           wait(duration) if duration
-          move_to x: coordinates[:offset_x], y: coordinates[:offset_y]
+          move_to x: offset_x, y: offset_y
         end
         release
 
