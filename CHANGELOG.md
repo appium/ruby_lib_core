@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 - add some app management commands [#58](https://github.com/appium/ruby_lib_core/pull/58)
     - Require Appium 1.8.0+
+- Both platforms work absolute based axis for `move_to` and `swipe`
+    - **Breaking Changes**
+        - Android was relevant, previously.
+        - e.g.:
+            ```ruby
+            # Do not move because of the start and end point is the same
+            # Tap (75, 500) and move the point to (75, 500) with duration 500ms.
+            Appium::Core::TouchAction.new(@driver)
+              .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 500, duration: 500)
+              .perform
+        
+            # Tap (75, 500) and move the point to (75, 1000) with duration 500ms.
+            Appium::Core::TouchAction.new(@driver)
+              .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 1000, duration: 500)
+              .perform
+            ```
 
 ### Bug fixes
 
