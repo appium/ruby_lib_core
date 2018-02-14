@@ -4,6 +4,11 @@ module Appium
   #
   # Each method returns the object itself, so calls can be chained.
   #
+  # Consider to use W3C spec touch action like the followings.
+  # https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+  # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
+  # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
+  #
   # @example
   #
   #   @driver = Appium::Core.for(self, opts).start_driver
@@ -163,13 +168,6 @@ module Appium
         @actions << { action: cancel }
         @driver.touch_actions @actions
         self
-      end
-
-      # Visible for testing
-      # @private
-      def swipe_coordinates(start_x: 0, start_y: 0, offset_x: 0, offset_y: 0)
-        Appium::Logger.info "start_x: #{start_x}, start_y: #{start_y}, offset_x: #{offset_x}, offset_y: #{offset_y}"
-        { offset_x: offset_x, offset_y: offset_y }
       end
 
       private
