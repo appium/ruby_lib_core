@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.1] - 2018-02-14
+### Enhancements
 - add some app management commands [#58](https://github.com/appium/ruby_lib_core/pull/58)
     - Require Appium 1.8.0+
 - Both platforms work absolute based axis for `move_to` and `swipe`
