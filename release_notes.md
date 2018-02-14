@@ -1,3 +1,14 @@
+#### v1.3.1 2018-02-14
+
+- [d107749](https://github.com/appium/ruby_lib_core/commit/d107749782e3eae49aeb9c17411a120eecb5a242) Release 1.3.1
+- [9dc38d6](https://github.com/appium/ruby_lib_core/commit/9dc38d65a1c0d8975fc67a8274c1d2ebd43e7e5d) remove unused method
+- [3ca89ff](https://github.com/appium/ruby_lib_core/commit/3ca89ff6a81e016739f602a1cc60c4a7538ae96a) remove corrdinator for moveTo in swipe (#57)
+- [29c528e](https://github.com/appium/ruby_lib_core/commit/29c528e8b407591072a65d4a544af65413a93b9d) arrange consts names and add some options for app management (#59)
+- [da7fd55](https://github.com/appium/ruby_lib_core/commit/da7fd55fb7a8330e778fe7295807646e984f262a) Update CHANGELOG.md
+- [b1b484d](https://github.com/appium/ruby_lib_core/commit/b1b484ddced5011daedca6c0546d236624511d1a) add terminate, app_state and activate app (#58)
+- [0ba7b1c](https://github.com/appium/ruby_lib_core/commit/0ba7b1c726f02e11d6daa46481309b1e0e54b00e) fix documentation
+
+
 #### v1.3.0 2018-01-28
 
 - [b7a994b](https://github.com/appium/ruby_lib_core/commit/b7a994ba29b3870257cf7e8af602deb147afd791) Release 1.3.0
