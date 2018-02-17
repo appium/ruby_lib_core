@@ -26,3 +26,5 @@ Lint/NestedMethodDefinition:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
+Style/SymbolArray:
+  Enabled: false

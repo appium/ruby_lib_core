@@ -2,7 +2,6 @@ require 'test_helper'
 require 'webmock/minitest'
 
 # $ rake test:unit TEST=test/unit/android/device_test.rb
-# rubocop:disable Style/SymbolArray
 class AppiumLibCoreTest
   module Android
     class DeviceW3CTest < Minitest::Test
@@ -578,6 +577,76 @@ class AppiumLibCoreTest
         @driver.stop_recording_screen(remote_path: 'https://example.com', user: 'user name', pass: 'pass')
 
         assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
+      end
+
+      def test_send_sms
+        stub_request(:post, "#{SESSION}/appium/device/send_sms")
+          .with(body: { phoneNumber: '00000000000', message: 'test message' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.send_sms phone_number: '00000000000', message: 'test message'
+
+        assert_requested(:post, "#{SESSION}/appium/device/send_sms", times: 1)
+      end
+
+      def test_gsm_call
+        stub_request(:post, "#{SESSION}/appium/device/gsm_call")
+          .with(body: { phoneNumber: '00000000000', action: 'call' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.gsm_call phone_number: '00000000000', action: :call
+
+        assert_requested(:post, "#{SESSION}/appium/device/gsm_call", times: 1)
+      end
+
+      def test_gsm_signal
+        stub_request(:post, "#{SESSION}/appium/device/gsm_signal")
+          .with(body: { signalStrengh: 3 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.gsm_signal :good
+
+        assert_requested(:post, "#{SESSION}/appium/device/gsm_signal", times: 1)
+      end
+
+      def test_gsm_voice
+        stub_request(:post, "#{SESSION}/appium/device/gsm_voice")
+          .with(body: { state: 'on' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.gsm_voice :on
+
+        assert_requested(:post, "#{SESSION}/appium/device/gsm_voice", times: 1)
+      end
+
+      def test_network_speed
+        stub_request(:post, "#{SESSION}/appium/device/network_speed")
+          .with(body: { netspeed: 'gsm' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.set_network_speed :gsm
+
+        assert_requested(:post, "#{SESSION}/appium/device/network_speed", times: 1)
+      end
+
+      def test_set_power_capacity
+        stub_request(:post, "#{SESSION}/appium/device/power_capacity")
+          .with(body: { percent: 10 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.set_power_capacity 10
+
+        assert_requested(:post, "#{SESSION}/appium/device/power_capacity", times: 1)
+      end
+
+      def test_power_ac
+        stub_request(:post, "#{SESSION}/appium/device/power_ac")
+          .with(body: { state: 'on' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.set_power_ac :on
+
+        assert_requested(:post, "#{SESSION}/appium/device/power_ac", times: 1)
       end
     end
   end
