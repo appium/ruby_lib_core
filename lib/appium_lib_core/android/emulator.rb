@@ -2,6 +2,16 @@ module Appium
   module Android
     module Device
       module Emulator
+        GSM_CALL_ACTION = [:call, :accept, :cancel, :hold].freeze
+
+        GSM_VOICE_STATE = [:on, :off, :denied, :searching, :roaming, :home, :unregistered].freeze
+
+        GSM_SIGNAL = { none_or_unknown: 0, poor: 1, moderate: 2, good: 3, great: 4 }.freeze
+
+        NET_SPEED = [:gsm, :scsd, :gprs, :edge, :umts, :hsdpa, :lte, :evdo, :full].freeze
+
+        POWER_AC_STATE = [:on, :off].freeze
+
         # @!method send_sms(phone_number:, message:)
         #     Emulate send SMS event on the connected emulator.
         #
@@ -17,8 +27,7 @@ module Appium
         #     Emulate GSM call event on the connected emulator.
         #
         # @param [String] phone_number: The phone number of message sender
-        # @param [Hash] action: One of available GSM call actions.
-        #     Available action is [:call, :accept, :cancel, :hold].
+        # @param [Hash] action: One of available GSM call actions. Available action is GSM_CALL_ACTION.
         #
         # @example
         #
@@ -28,8 +37,7 @@ module Appium
         # @!method gsm_signal(signal_strength)
         #     Emulate GSM signal strength change event on the connected emulator.
         #
-        # @param [Hash] signal_strength One of available GSM signal strength.
-        #     Available action is [:none_or_unknown, :poor, :moderate, :good, :great].
+        # @param [Hash] signal_strength One of available GSM signal strength. Available action is GSM_SIGNAL.
         #
         # @example
         #
@@ -39,8 +47,7 @@ module Appium
         # @!method gsm_voice(state)
         #     Emulate GSM voice event on the connected emulator.
         #
-        # @param [Hash] state One of available GSM voice state.
-        #     Available action is [:on, :off, :denied, :searching, :roaming, :home, :unregistered].
+        # @param [Hash] state One of available GSM voice state. Available action is GSM_VOICE_STATE.
         #
         # @example
         #
@@ -50,8 +57,7 @@ module Appium
         # @!method set_network_speed(netspeed)
         #     Emulate network speed change event on the connected emulator.
         #
-        # @param [Hash] netspeed One of available Network Speed values.
-        #     Available action is [:gsm, :scsd, :gprs, :edge, :umts, :hsdpa, :lte, :evdo, :full].
+        # @param [Hash] netspeed One of available Network Speed values. Available action is NET_SPEED.
         #
         # @example
         #
@@ -71,8 +77,7 @@ module Appium
         # @!method set_power_ac(state)
         #     Emulate power state change on the connected emulator.
         #
-        # @param [Hash] state One of available power AC state.
-        #     Available action is [:on, :off].
+        # @param [Hash] state One of available power AC state. Available action is POWER_AC_STATE.
         #
         # @example
         #
@@ -87,9 +92,8 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:gsm_call) do
             def gsm_call(phone_number:, action:)
-              expected_actions = [:call, :accept, :cancel, :hold]
-              unless expected_actions.member? action.to_sym
-                raise "action: should be member of #{expected_actions}. Not #{action}."
+              unless GSM_CALL_ACTION.member? action.to_sym
+                raise "action: should be member of #{GSM_CALL_ACTION}. Not #{action}."
               end
 
               execute(:gsm_call, {}, { phoneNumber: phone_number, action: action })
@@ -98,24 +102,16 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:gsm_signal) do
             def gsm_signal(signal_strength)
-              signal = {
-                none_or_unknown: 0,
-                poor: 1,
-                moderate: 2,
-                good: 3,
-                great: 4
-              }
-              raise "#{signal_strength} should be member of #{signal} " if signal[signal_strength.to_sym].nil?
+              raise "#{signal_strength} should be member of #{GSM_SIGNAL} " if GSM_SIGNAL[signal_strength.to_sym].nil?
 
-              execute(:gsm_signal, {}, { signalStrengh: signal[signal_strength] })
+              execute(:gsm_signal, {}, { signalStrengh: GSM_SIGNAL[signal_strength] })
             end
           end
 
           Appium::Core::Device.add_endpoint_method(:gsm_voice) do
             def gsm_voice(state)
-              expected_state = [:on, :off, :denied, :searching, :roaming, :home, :unregistered]
-              unless expected_state.member? state.to_sym
-                raise "The state should be member of #{expected_state}. Not #{state}."
+              unless GSM_VOICE_STATE.member? state.to_sym
+                raise "The state should be member of #{GSM_VOICE_STATE}. Not #{state}."
               end
 
               execute(:gsm_voice, {}, { state: state })
@@ -124,9 +120,8 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:set_network_speed) do
             def set_network_speed(netspeed)
-              expected_netspeed = [:gsm, :scsd, :gprs, :edge, :umts, :hsdpa, :lte, :evdo, :full]
-              unless expected_netspeed.member? netspeed.to_sym
-                raise "The netspeed should be member of #{expected_netspeed}. Not #{netspeed}."
+              unless NET_SPEED.member? netspeed.to_sym
+                raise "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
               end
 
               execute(:set_network_speed, {}, { netspeed: netspeed })
@@ -145,9 +140,8 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:set_power_ac) do
             def set_power_ac(state)
-              expected_state = [:on, :off]
-              unless expected_state.member? state.to_sym
-                raise "The state should be member of #{expected_state}. Not #{state}."
+              unless POWER_AC_STATE.member? state.to_sym
+                raise "The state should be member of #{POWER_AC_STATE}. Not #{state}."
               end
 
               execute(:set_power_ac, {}, { state: state })
