@@ -3,8 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.2] - 2018-02-18
+### Enhancements
 - Add Android emulator commands
     - `send_sms`, `gsm_call`, `gsm_signal`, `gsm_voice`, `set_network_speed`, `set_power_capacity`, `set_power_ac`
+- Add toggles
+    - `toggle_location_services`, `toggle_wifi`, `toggle_data`
 
 ### Bug fixes
 
