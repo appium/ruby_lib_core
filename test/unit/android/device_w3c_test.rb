@@ -649,6 +649,37 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/appium/device/power_ac", times: 1)
       end
+
+      # toggles
+      def test_toggle_wifi
+        stub_request(:post, "#{SESSION}/appium/device/toggle_wifi")
+          .with(body: '{}')
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.toggle_wifi
+
+        assert_requested(:post, "#{SESSION}/appium/device/toggle_wifi", times: 1)
+      end
+
+      def test_toggle_data
+        stub_request(:post, "#{SESSION}/appium/device/toggle_data")
+          .with(body: '{}')
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.toggle_data
+
+        assert_requested(:post, "#{SESSION}/appium/device/toggle_data", times: 1)
+      end
+
+      def test_toggle_location_services
+        stub_request(:post, "#{SESSION}/appium/device/toggle_location_services")
+          .with(body: '{}')
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.toggle_location_services
+
+        assert_requested(:post, "#{SESSION}/appium/device/toggle_location_services", times: 1)
+      end
     end
   end
 end
