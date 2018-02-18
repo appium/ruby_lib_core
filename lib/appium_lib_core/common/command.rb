@@ -24,7 +24,11 @@ module Appium
         get_display_density:        [:get,  'session/:session_id/appium/device/display_density'.freeze],
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
         get_network_connection:     [:get,  'session/:session_id/network_connection'.freeze], # defined also in OSS
-        get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze]
+        get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'.freeze],
+        toggle_wifi:                [:post, 'session/:session_id/appium/device/toggle_wifi'.freeze],
+        toggle_data:                [:post, 'session/:session_id/appium/device/toggle_data'.freeze],
+        toggle_location_services:   [:post, 'session/:session_id/appium/device/toggle_location_services'.freeze]
+
         # iOS
       }.freeze
 
