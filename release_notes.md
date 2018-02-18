@@ -1,3 +1,10 @@
+#### v1.3.2 2018-02-18
+
+- [28e04a7](https://github.com/appium/ruby_lib_core/commit/28e04a743905cfee5b3be1487ffe5f852a387ba4) Release 1.3.2
+- [703ec81](https://github.com/appium/ruby_lib_core/commit/703ec81c3add83f9ab0e2b84648bc0db16829bc2) add toggles (#61)
+- [1f93d58](https://github.com/appium/ruby_lib_core/commit/1f93d58666caa66f9d13aca9618d6a5d333631e7) Add some emulator commands (#60)
+
+
 #### v1.3.1 2018-02-14
 
 - [d107749](https://github.com/appium/ruby_lib_core/commit/d107749782e3eae49aeb9c17411a120eecb5a242) Release 1.3.1
