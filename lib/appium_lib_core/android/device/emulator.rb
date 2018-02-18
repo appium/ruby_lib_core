@@ -92,6 +92,11 @@ module Appium
         #
         #   @driver.set_power_ac :on
         #
+
+        ####
+        ## self.emulator_commands
+        ####
+
         def self.emulator_commands
           Appium::Core::Device.add_endpoint_method(:send_sms) do
             def send_sms(phone_number:, message:)

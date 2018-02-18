@@ -138,6 +138,33 @@ module Appium
       #   @driver.device_time
       #
 
+      # @!method toggle_location_services
+      #   Switch the state of the location service
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_location_services
+      #
+
+      # @!method toggle_wifi
+      #   Switch the state of the wifi service
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_wifi
+      #
+
+      # @!method toggle_data
+      #   Switch the state of data service
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_data
+      #
+
       ####
       ## With arguments
       ####
