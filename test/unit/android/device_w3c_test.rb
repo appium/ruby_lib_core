@@ -579,6 +579,7 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
       end
 
+      # emulator
       def test_send_sms
         stub_request(:post, "#{SESSION}/appium/device/send_sms")
           .with(body: { phoneNumber: '00000000000', message: 'test message' }.to_json)
@@ -601,7 +602,7 @@ class AppiumLibCoreTest
 
       def test_gsm_signal
         stub_request(:post, "#{SESSION}/appium/device/gsm_signal")
-          .with(body: { signalStrengh: ::Appium::Android::Device::Emulator::GSM_SIGNAL[:good] }.to_json)
+          .with(body: { signalStrengh: ::Appium::Android::Device::Emulator::GSM_SIGNALS[:good] }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.gsm_signal :good

@@ -1,4 +1,4 @@
-require_relative 'emulator'
+require_relative 'device/emulator'
 
 module Appium
   module Android

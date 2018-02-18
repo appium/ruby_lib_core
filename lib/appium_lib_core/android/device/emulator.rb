@@ -2,12 +2,21 @@ module Appium
   module Android
     module Device
       module Emulator
-        GSM_CALL_ACTION = [:call, :accept, :cancel, :hold].freeze
+        GSM_CALL_ACTIONS = [:call, :accept, :cancel, :hold].freeze
 
-        GSM_VOICE_STATE = [:on, :off, :denied, :searching, :roaming, :home, :unregistered].freeze
+        GSM_VOICE_STATES = [:on, :off, :denied, :searching, :roaming, :home, :unregistered].freeze
 
-        GSM_SIGNAL = { none_or_unknown: 0, poor: 1, moderate: 2, good: 3, great: 4 }.freeze
+        GSM_SIGNALS = { none_or_unknown: 0, poor: 1, moderate: 2, good: 3, great: 4 }.freeze
 
+        # :gsm   // GSM/CSD (up: 14.4, down: 14.4).
+        # :scsd  // HSCSD (up: 14.4, down: 57.6).
+        # :gprs  // GPRS (up: 28.8, down: 57.6).
+        # :edge  // EDGE/EGPRS (up: 473.6, down: 473.6).
+        # :umts  // UMTS/3G (up: 384.0, down: 384.0).
+        # :hsdpa // HSDPA (up: 5760.0, down: 13,980.0).
+        # :lte   // LTE (up: 58,000, down: 173,000).
+        # :evdo  // EVDO (up: 75,000, down: 280,000).
+        # :full  // No limit, the default (up: 0.0, down: 0.0).
         NET_SPEED = [:gsm, :scsd, :gprs, :edge, :umts, :hsdpa, :lte, :evdo, :full].freeze
 
         POWER_AC_STATE = [:on, :off].freeze
@@ -92,8 +101,8 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:gsm_call) do
             def gsm_call(phone_number:, action:)
-              unless GSM_CALL_ACTION.member? action.to_sym
-                raise "action: should be member of #{GSM_CALL_ACTION}. Not #{action}."
+              unless GSM_CALL_ACTIONS.member? action.to_sym
+                raise "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
               end
 
               execute(:gsm_call, {}, { phoneNumber: phone_number, action: action })
@@ -102,16 +111,16 @@ module Appium
 
           Appium::Core::Device.add_endpoint_method(:gsm_signal) do
             def gsm_signal(signal_strength)
-              raise "#{signal_strength} should be member of #{GSM_SIGNAL} " if GSM_SIGNAL[signal_strength.to_sym].nil?
+              raise "#{signal_strength} should be member of #{GSM_SIGNALS} " if GSM_SIGNALS[signal_strength.to_sym].nil?
 
-              execute(:gsm_signal, {}, { signalStrengh: GSM_SIGNAL[signal_strength] })
+              execute(:gsm_signal, {}, { signalStrengh: GSM_SIGNALS[signal_strength] })
             end
           end
 
           Appium::Core::Device.add_endpoint_method(:gsm_voice) do
             def gsm_voice(state)
-              unless GSM_VOICE_STATE.member? state.to_sym
-                raise "The state should be member of #{GSM_VOICE_STATE}. Not #{state}."
+              unless GSM_VOICE_STATES.member? state.to_sym
+                raise "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
               end
 
               execute(:gsm_voice, {}, { state: state })
