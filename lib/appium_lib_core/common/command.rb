@@ -64,7 +64,16 @@ module Appium
         start_activity:             [:post, 'session/:session_id/appium/device/start_activity'.freeze],
         end_coverage:               [:post, 'session/:session_id/appium/app/end_test_coverage'.freeze],
         set_network_connection:     [:post, 'session/:session_id/network_connection'.freeze], # defined also in OSS
-        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze]
+        get_performance_data:       [:post, 'session/:session_id/appium/getPerformanceData'.freeze],
+
+        # only emulator
+        send_sms:                   [:post, 'session/:session_id/appium/device/send_sms'.freeze],
+        gsm_call:                   [:post, 'session/:session_id/appium/device/gsm_call'.freeze],
+        gsm_signal:                 [:post, 'session/:session_id/appium/device/gsm_signal'.freeze],
+        gsm_voice:                  [:post, 'session/:session_id/appium/device/gsm_voice'.freeze],
+        set_network_speed:          [:post, 'session/:session_id/appium/device/network_speed'.freeze],
+        set_power_capacity:         [:post, 'session/:session_id/appium/device/power_capacity'.freeze],
+        set_power_ac:               [:post, 'session/:session_id/appium/device/power_ac'.freeze]
       }.freeze
 
       COMMAND_IOS = {

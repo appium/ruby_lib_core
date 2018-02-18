@@ -1,3 +1,5 @@
+require_relative 'device/emulator'
+
 module Appium
   module Android
     module Device
@@ -175,6 +177,7 @@ module Appium
           end
 
           add_screen_recording
+          Emulator.emulator_commands
         end
 
         private
