@@ -131,6 +131,7 @@ module Appium
 
       # @!method device_time
       #   Get the time on the device
+      #
       # @return [String]
       #
       # @example
@@ -140,6 +141,7 @@ module Appium
 
       # @!method toggle_location_services
       #   Switch the state of the location service
+      #
       # @return [String]
       #
       # @example
@@ -148,7 +150,8 @@ module Appium
       #
 
       # @!method toggle_wifi
-      #   Switch the state of the wifi service
+      #   Switch the state of the wifi service only for Android
+      #
       # @return [String]
       #
       # @example
@@ -157,7 +160,8 @@ module Appium
       #
 
       # @!method toggle_data
-      #   Switch the state of data service
+      #   Switch the state of data service only for Android, and the device should be rooted
+      #
       # @return [String]
       #
       # @example
