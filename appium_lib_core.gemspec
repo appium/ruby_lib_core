@@ -31,7 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.1'
   spec.add_development_dependency 'webmock', '~> 3.1.0'
-  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rubocop', '0.51.0'
   spec.add_development_dependency 'appium_thor', '~> 0.0', '>= 0.0.7'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry-byebug'
 end
