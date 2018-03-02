@@ -99,6 +99,17 @@ class AppiumLibCoreTest
 
         assert_requested(:get, "#{SESSION}/timeouts", times: 1)
       end
+
+      def test_session_capabilities
+        stub_request(:get, SESSION.to_s)
+          .to_return(headers: HEADER, status: 200, body: { value: { sample_key: 'xxx' } }.to_json)
+
+        capability = @driver.session_capabilities
+        assert capability.is_a? Selenium::WebDriver::Remote::W3C::Capabilities
+        assert capability['sample_key'] == 'xxx'
+
+        assert_requested(:get, SESSION.to_s, times: 1)
+      end
     end
   end
 end

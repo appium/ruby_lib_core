@@ -38,6 +38,11 @@ module Appium
             execute :get_timeouts
           end
 
+          # Port from MJSONWP
+          def session_capabilities
+            ::Selenium::WebDriver::Remote::W3C::Capabilities.json_create execute(:get_capabilities)
+          end
+
           # For Appium
           # override
           def page_source
