@@ -1,3 +1,11 @@
+#### v1.3.3 2018-03-03
+
+- [bf9a6a3](https://github.com/appium/ruby_lib_core/commit/bf9a6a357f7c318fd3aae489552964e6dc847a8e) Release 1.3.3
+- [a7cf0b2](https://github.com/appium/ruby_lib_core/commit/a7cf0b2129d83723c58667e431162997fff42eb0) Add session capabilities w3cmodule (#62)
+- [3947064](https://github.com/appium/ruby_lib_core/commit/3947064b831d4dc390cbf8e07cf4f04d68067c87) introduce pry-byebug
+- [e919a4e](https://github.com/appium/ruby_lib_core/commit/e919a4ed95e892e082b925e4ab878de33eca0b3d) append some limitations
+
+
 #### v1.3.2 2018-02-18
 
 - [28e04a7](https://github.com/appium/ruby_lib_core/commit/28e04a743905cfee5b3be1487ffe5f852a387ba4) Release 1.3.2
