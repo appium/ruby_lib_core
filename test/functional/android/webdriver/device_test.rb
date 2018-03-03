@@ -114,6 +114,10 @@ class AppiumLibCoreTest
         assert @driver.set_network_connection(6)
         assert @driver.network_connection_type = 6
       end
+
+      def test_session_capability
+        assert @driver.session_capabilities['deviceUDID'] == 'emulator-5554'
+      end
     end
   end
 end

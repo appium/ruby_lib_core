@@ -94,6 +94,94 @@ module Appium
         def get_timeouts
           @bridge.get_timeouts
         end
+
+        # Retrieve the capabilities of the specified session
+        #
+        # @return [Selenium::WebDriver::Remote::Capabilities]
+        #
+        # @example
+        #   @driver.session_capabilities
+        #
+        #   #=> uiautomator2
+        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fa38dae1360
+        #   # @capabilities=
+        #   #     {:proxy=>nil,
+        #   #      :browser_name=>nil,
+        #   #      :browser_version=>nil,
+        #   #      :platform_name=>"android",
+        #   #      :page_load_strategy=>nil,
+        #   #      :remote_session_id=>nil,
+        #   #      :accessibility_checks=>nil,
+        #   #      :profile=>nil,
+        #   #      :rotatable=>nil,
+        #   #      :device=>nil,
+        #   #      "platform"=>"LINUX",
+        #   #      "webStorageEnabled"=>false,
+        #   #      "takesScreenshot"=>true,
+        #   #      "javascriptEnabled"=>true,
+        #   #      "databaseEnabled"=>false,
+        #   #      "networkConnectionEnabled"=>true,
+        #   #      "locationContextEnabled"=>false,
+        #   #      "warnings"=>{},
+        #   #      "desired"=>
+        #   #          {"platformName"=>"android",
+        #   #           "automationName"=>"uiautomator2",
+        #   #           "app"=>"/path/to/app/api.apk",
+        #   #           "platformVersion"=>"8.1.0",
+        #   #           "deviceName"=>"Android Emulator",
+        #   #           "appPackage"=>"io.appium.android.apis",
+        #   #           "appActivity"=>"io.appium.android.apis.ApiDemos",
+        #   #           "someCapability"=>"some_capability",
+        #   #           "unicodeKeyboard"=>true,
+        #   #           "resetKeyboard"=>true},
+        #   #      "automationName"=>"uiautomator2",
+        #   #      "app"=>"/path/to/app/api.apk",
+        #   #      "platformVersion"=>"8.1.0",
+        #   #      "deviceName"=>"emulator-5554",
+        #   #      "appPackage"=>"io.appium.android.apis",
+        #   #      "appActivity"=>"io.appium.android.apis.ApiDemos",
+        #   #      "someCapability"=>"some_capability",
+        #   #      "unicodeKeyboard"=>true,
+        #   #      "resetKeyboard"=>true,
+        #   #      "deviceUDID"=>"emulator-5554",
+        #   #      "deviceScreenSize"=>"1080x1920",
+        #   #      "deviceScreenDensity"=>420,
+        #   #      "deviceModel"=>"Android SDK built for x86",
+        #   #      "deviceManufacturer"=>"Google",
+        #   #      "pixelRatio"=>2.625,
+        #   #      "statBarHeight"=>63,
+        #   #      "viewportRect"=>{"left"=>0, "top"=>63, "width"=>1080, "height"=>1731}}>
+        #   #
+        #   #=> XCUITest
+        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fb15dc01370
+        #   # @capabilities=
+        #   #     {:proxy=>nil,
+        #   #      :browser_name=>"UICatalog",
+        #   #      :browser_version=>nil,
+        #   #      :platform_name=>"ios",
+        #   #      :page_load_strategy=>nil,
+        #   #      :remote_session_id=>nil,
+        #   #      :accessibility_checks=>nil,
+        #   #      :profile=>nil,
+        #   #      :rotatable=>nil,
+        #   #      :device=>"iphone",
+        #   #      "udid"=>"DED4DBAD-8E5E-4AD6-BDC4-E75CF9AD84D8",
+        #   #      "automationName"=>"XCUITest",
+        #   #      "app"=>"/path/to/app/UICatalog.app",
+        #   #      "platformVersion"=>"10.3",
+        #   #      "deviceName"=>"iPhone Simulator",
+        #   #      "useNewWDA"=>true,
+        #   #      "useJSONSource"=>true,
+        #   #      "someCapability"=>"some_capability",
+        #   #      "sdkVersion"=>"10.3.1",
+        #   #      "CFBundleIdentifier"=>"com.example.apple-samplecode.UICatalog",
+        #   #      "pixelRatio"=>2,
+        #   #      "statBarHeight"=>23.4375,
+        #   #      "viewportRect"=>{"left"=>0, "top"=>47, "width"=>750, "height"=>1287}}>
+        #
+        def session_capabilities
+          @bridge.session_capabilities
+        end
       end # class Driver
     end # class Base
   end # module Core

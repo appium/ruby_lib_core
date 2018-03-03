@@ -107,7 +107,10 @@ module Appium
 
           get_timeouts: [:get, 'session/:session_id/timeouts'.freeze],
 
-          ## Add OSS commands to W3C commands
+          ## Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
+          ### Session capability
+          get_capabilities:       [:get, 'session/:session_id'.freeze],
+
           ### rotatable
           get_screen_orientation: [:get, 'session/:session_id/orientation'.freeze],
           set_screen_orientation: [:post, 'session/:session_id/orientation'.freeze],
