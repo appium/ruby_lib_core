@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
-## [1.3.3]
+## [1.3.3] - 2018-03-03
 ### Enhancements
 - add `session_capabilities`: https://appium.io/docs/en/commands/session/get/
 
