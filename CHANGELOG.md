@@ -8,6 +8,14 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
+## [1.3.3]
+### Enhancements
+- add `session_capabilities`: https://appium.io/docs/en/commands/session/get/
+
+### Bug fixes
+
+### Deprecations
+
 ## [1.3.2] - 2018-02-18
 ### Enhancements
 - Add Android emulator commands
