@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add `save_viewport_screenshot` which get screenshot except for status bar. 
+    - https://github.com/search?q=org%3Aappium+viewportScreenshot&type=Code
 
 ### Bug fixes
 

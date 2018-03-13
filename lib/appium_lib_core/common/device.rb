@@ -369,6 +369,14 @@ module Appium
       #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
       #
 
+      # @!method save_viewport_screenshot
+      # Save screenshot except for status bar while `@driver.save_screenshot` save entire screen.
+      #
+      # @example
+      #
+      #   @driver.save_viewport_screenshot 'path/to/save.png' #=> Get the File instance of viewport_screenshot
+      #
+
       # @!method update_settings(settings)
       # Update Appium Settings for current test session
       # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
@@ -627,6 +635,18 @@ module Appium
           add_endpoint_method(:update_settings) do
             def update_settings(settings)
               execute :update_settings, {}, settings: settings
+            end
+          end
+
+          add_endpoint_method(:save_viewport_screenshot) do
+            def save_viewport_screenshot(png_path)
+              extension = File.extname(png_path).downcase
+              if extension != '.png'
+                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                                  'It should end with .png extension'
+              end
+              viewport_screenshot_encode64 = execute_script('mobile: viewportScreenshot')
+              File.open(png_path, 'wb') { |f| f << viewport_screenshot_encode64.unpack('m')[0] }
             end
           end
 
