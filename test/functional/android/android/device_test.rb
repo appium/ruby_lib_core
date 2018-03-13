@@ -328,6 +328,15 @@ class AppiumLibCoreTest
         File.delete 'take_element_screenshot.png'
       end
 
+      def test_viewport_screenshot
+        file = @@driver.save_viewport_screenshot './ios_viewport_screenshot_test.png'
+
+        assert File.exist?(file.path)
+
+        File.delete file.path
+        assert !File.exist?(file.path)
+      end
+
       private
 
       def scroll_to(text)
