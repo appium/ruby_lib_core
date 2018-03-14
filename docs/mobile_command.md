@@ -1,7 +1,7 @@
 # Mobile Command
 
 Appium has `mobile:` command.
-They call via `execute_script` command with `mobile:` arguments.
+We can invoke them via `execute_script` command with `mobile:` arguments.
 
 - Android:
     - https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android
