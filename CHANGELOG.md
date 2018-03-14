@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 - Add `save_viewport_screenshot` which get screenshot except for status bar. 
     - https://github.com/search?q=org%3Aappium+viewportScreenshot&type=Code
+- [iOS] Add `start_performance_record` and `get_performance_record`
 
 ### Bug fixes
 
