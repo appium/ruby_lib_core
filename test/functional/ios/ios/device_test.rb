@@ -237,6 +237,20 @@ class AppiumLibCoreTest
         File.delete file.path
         assert !File.exist?(file.path)
       end
+
+      def test_start_performance_record_and_stop
+        @@driver.start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor')
+
+        sleep 3
+
+        file = @@driver.get_performance_record(save_file_path: './test_start_performance_record_and_stop',
+                                               profile_name: 'Activity Monitor')
+
+        assert File.exist?(file.path)
+
+        File.delete file.path
+        assert !File.exist?(file.path)
+      end
     end
   end
 end

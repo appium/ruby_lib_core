@@ -51,7 +51,7 @@ end
 
 desc('Generate yardoc')
 YARD::Rake::YardocTask.new do |t|
-  t.files   = ['lib/**/*.rb']
+  t.files   = %w(lib/**/*.rb)
 end
 
 desc('Execute RuboCop static code analysis')
