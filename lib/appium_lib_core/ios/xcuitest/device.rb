@@ -59,6 +59,49 @@ module Appium
         #    @driver.start_recording_screen video_type: 'h264', time_limit: '260'
         #
 
+        # @since 1.3.4
+        # @!method start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
+        #
+        # This is a blocking application.
+        # @param [Integer|String] timeout: The maximum count of milliseconds to record the profiling information.
+        # @param [String] profile_name: The name of existing performance profile to apply.
+        #                               Execute `instruments -s` to show the list of available profiles.
+        #                               Note, that not all profiles are supported on mobile devices.
+        # @return nil
+        #
+        # @example
+        #
+        #   @driver.start_performance_record # default: (timeout: 300000, profile_name: 'Activity Monitor')
+        #   @driver.start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
+        #
+
+        # @since 1.3.4
+        # @!method get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor', remote_path: nil, user: nil, pass: nil, method: 'PUT')
+        #
+        # This is a blocking application.
+        #
+        # @param [String] save_file_path: A path to save data as zipped .trace file
+        # @param [String] profile_name: The name of existing performance profile to apply.
+        #                               Execute `instruments -s` to show the list of available profiles.
+        #                               Note, that not all profiles are supported on mobile devices.
+        # @param [String] save_file_path: The name of existing performance profile to apply.
+        #                              Execute `instruments -s` to show the list of available profiles.
+        #                              Note, that not all profiles are supported on mobile devices.
+        # @param [String] remote_path: The path to the remote location, where the resulting zipped .trace file should be uploaded.
+        #                              The following protocols are supported: http/https, ftp.
+        #                              Null or empty string value (the default setting) means the content of resulting
+        #                              file should be zipped, encoded as Base64 and passed as the endpount response value.
+        #                              An exception will be thrown if the generated file is too big to
+        #                              fit into the available process memory.
+        # @param [String] user: The name of the user for the remote authentication. Only works if `remotePath` is provided.
+        # @param [String] pass: The password for the remote authentication. Only works if `remotePath` is provided.
+        # @param [String] method: The http multipart upload method name. Only works if `remotePath` is provided.
+        #
+        # @example
+        #
+        #   @driver.get_performance_record
+        #   @driver.get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor')
+
         # rubocop:enable Metrics/LineLength
 
         ####
@@ -91,10 +134,35 @@ module Appium
               end
             end
 
+            add_performance
             add_screen_recording
           end
 
           private
+
+          def add_performance
+            Appium::Core::Device.add_endpoint_method(:start_performance_record) do
+              def start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor')
+                execute_script 'mobile: startPerfRecord', { timeout: timeout, profileName: profile_name }
+              end
+            end
+
+            Appium::Core::Device.add_endpoint_method(:get_performance_record) do
+              # rubocop:disable Metrics/ParameterLists
+              def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
+                                         remote_path: nil, user: nil, pass: nil, method: 'PUT')
+                option = ::Appium::Core::Device::ScreenRecord.new(
+                  remote_path: remote_path, user: user, pass: pass, method: method
+                ).upload_option
+
+                option[:profileName] = profile_name
+                result = execute_script 'mobile: stopPerfRecord', option
+
+                File.open("#{save_file_path}.zip", 'wb') { |f| f << result.unpack('m')[0] }
+              end
+              # rubocop:enable Metrics/ParameterLists
+            end
+          end
 
           def add_screen_recording
             Appium::Core::Device.add_endpoint_method(:start_recording_screen) do

@@ -369,6 +369,7 @@ module Appium
       #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
       #
 
+      # @since 1.3.4
       # @!method save_viewport_screenshot
       # Save screenshot except for status bar while `@driver.save_screenshot` save entire screen.
       #
