@@ -67,6 +67,11 @@ module Appium
         # @param [String] profile_name: The name of existing performance profile to apply.
         #                               Execute `instruments -s` to show the list of available profiles.
         #                               Note, that not all profiles are supported on mobile devices.
+        # @param [Integer|String] pid: The ID of the process to measure the performance for.
+        #                              Set it to `current` in order to measure the performance of
+        #                              the process, which belongs to the currently active application.
+        #                              All processes running on the device are measured if
+        #                              pid is unset (the default setting).
         # @return nil
         #
         # @example
@@ -142,8 +147,13 @@ module Appium
 
           def add_performance
             Appium::Core::Device.add_endpoint_method(:start_performance_record) do
-              def start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor')
-                execute_script 'mobile: startPerfRecord', { timeout: timeout, profileName: profile_name }
+              def start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor', pid: nil)
+                option = {}
+                option[:timeout] = timeout
+                option[:profileName] = profile_name
+                option[:pid] = pid if pid
+
+                execute_script 'mobile: startPerfRecord', option
               end
             end
 
