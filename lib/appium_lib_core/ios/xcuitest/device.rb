@@ -71,7 +71,9 @@ module Appium
         #                              Set it to `current` in order to measure the performance of
         #                              the process, which belongs to the currently active application.
         #                              All processes running on the device are measured if
-        #                              pid is unset (the default setting).
+        #                              pid is unset (the default setting). Setting process ID while
+        #                              device under test is Simulator might require `instruments` to be launched
+        #                              with sudo privileges, which is not supported and will throw a timeout exception.
         # @return nil
         #
         # @example
