@@ -190,14 +190,14 @@ module Appium
       # Ignore setting default wait if the target driver has no implementation
       def set_implicit_wait_by_default(wait)
         @driver.manage.timeouts.implicit_wait = wait
-      rescue Selenium::WebDriver::Error::UnknownError => e
+      rescue ::Selenium::WebDriver::Error::UnknownError => e
         unless e.message.include?('The operation requested is not yet implemented')
           raise e.message, ::Appium::Core::Error::ServerError
         end
 
         Appium::Logger.debug(e.message)
         {}
-      rescue Selenium::WebDriver::Error::WebDriverError => e
+      rescue ::Selenium::WebDriver::Error::WebDriverError => e
         # FIXME: Temporary rescue until Appium support W3C's implicit wait
         # https://github.com/jlipps/simple-wd-spec#set-timeouts
         unless e.message.include?('Parameters were incorrect. We wanted {"required":["type","ms"]} and you sent ["implicit"]')

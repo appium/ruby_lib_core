@@ -57,7 +57,7 @@ class AppiumLibCoreTest
         assert_equal 'TextView', e.name
 
         @@driver.background_app(-1)
-        error = assert_raises Selenium::WebDriver::Error::WebDriverError do
+        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, 'TextView'
         end
         assert 'An element could not be located on the page using the given search parameters.', error.message
@@ -213,7 +213,7 @@ class AppiumLibCoreTest
           sleep 1 # wait animation
         end
 
-        m = assert_raises Selenium::WebDriver::Error::WebDriverError do
+        m = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element(:class, 'XCUIElementTypeKeyboard')
         end
         assert 'An element could not be located on the page using the given search parameters.', m.message

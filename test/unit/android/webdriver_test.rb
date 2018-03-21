@@ -12,6 +12,40 @@ class AppiumLibCoreTest
         @driver ||= android_mock_create_session
       end
 
+      def test_no_session_id
+        response = {
+          status: 0, # To make bridge.dialect == :oss
+          value: {
+            capabilities: {
+              desired: {
+                platformName: 'Android',
+                automationName: 'uiautomator2',
+                platformVersion: '7.1.1',
+                deviceName: 'Android Emulator',
+                app: '/test/apps/ApiDemos-debug.apk',
+                newCommandTimeout: 240,
+                unicodeKeyboard: true,
+                resetKeyboard: true
+              },
+              platformName: 'Android',
+              automationName: 'uiautomator2',
+              platformVersion: '7.1.1',
+              deviceName: 'emulator-5554',
+              app: '/test/apps/ApiDemos-debug.apk'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
+          @core.start_driver
+        end
+
+        assert_equal 'no sessionId in returned payload', error.message
+      end
+
       def test_remote_status
         stub_request(:get, 'http://127.0.0.1:4723/wd/hub/status')
           .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
