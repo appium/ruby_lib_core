@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - [iOS] Add `start_performance_record` and `get_performance_record`
 
 ### Bug fixes
+- Fix _create_session attempt to throw non-existent error type Appium::Core::Error::WebDriverError_ [#66](https://github.com/appium/ruby_lib_core/issues/66)
 
 ### Deprecations
 
