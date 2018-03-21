@@ -1,3 +1,14 @@
+#### v1.3.4 2018-03-21
+
+- [053458e](https://github.com/appium/ruby_lib_core/commit/053458e8c766c2f83c7025251e1aeebb1a2da4d5) Release 1.3.4
+- [0987ba3](https://github.com/appium/ruby_lib_core/commit/0987ba361f276c9cdbbf6d400201ec49316a09f6) Fix error initialisation (#67)
+- [0064cee](https://github.com/appium/ruby_lib_core/commit/0064cee5a9077858f4903e325471405aefb51fbd) append pid
+- [73185aa](https://github.com/appium/ruby_lib_core/commit/73185aa548e4118f19f23f46814dc2ed52f77b53) apply https://github.com/appium/appium-xcuitest-driver/pull/638
+- [2b46bcf](https://github.com/appium/ruby_lib_core/commit/2b46bcf168dc6bd4524749beaa9aa5676b65a0cb) add getting performance in core as same as Android (#65)
+- [d7335ee](https://github.com/appium/ruby_lib_core/commit/d7335ee5a2c18b8d1a61b125858b825d196c72d1) rename
+- [443394d](https://github.com/appium/ruby_lib_core/commit/443394dc0de09929866f70aea983c77b556b924a) add viewportScreen (#63)
+
+
 #### v1.3.3 2018-03-03
 
 - [bf9a6a3](https://github.com/appium/ruby_lib_core/commit/bf9a6a357f7c318fd3aae489552964e6dc847a8e) Release 1.3.3
