@@ -105,7 +105,11 @@ module Appium
       #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
       #                             For example, "1280x720"
       # @param [String] time_limit: Recording time. 180 seconds is by default.
-      # @param [String] bit_rate: The video bit rate for the video, in megabits per second. 4 Mbps(4000000) is by default.
+      # @param [String] bit_rate: The video bit rate for the video, in megabits per second.
+      #                           4 Mbp/s(4000000) is by default for Android API level below 27. 20 Mb/s(20000000) for API level 27 and above.
+      # @param [Boolean] bug_report: Set it to `true` in order to display additional information on the video overlay,
+      #                              such as a timestamp, that is helpful in videos captured to illustrate bugs.
+      #                              This option is only supported since API level 27 (Android P).
       #
       # @example
       #
@@ -186,14 +190,19 @@ module Appium
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
             # rubocop:disable Metrics/ParameterLists
             def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil,
-                                       video_size: nil, time_limit: '180', bit_rate: '4000000')
+                                       video_size: nil, time_limit: '180', bit_rate: nil, bug_report: nil)
               option = ::Appium::Core::Device::ScreenRecord.new(
                 remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
               ).upload_option
 
               option[:videoSize] = video_size unless video_size.nil?
               option[:timeLimit] = time_limit
-              option[:bitRate] = bit_rate
+              option[:bitRate] = bit_rate unless bit_rate.nil?
+
+              unless bug_report.nil?
+                raise 'bug_report should be true or false' unless [true, false].member?(bug_report)
+                option[:bugReport] = bug_report
+              end
 
               execute(:start_recording_screen, {}, { options: option })
             end
