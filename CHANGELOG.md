@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add a `bug_report` option in `start_recording_screen`, Android
 
 ### Bug fixes
 
