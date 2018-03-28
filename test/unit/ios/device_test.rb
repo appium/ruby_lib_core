@@ -47,6 +47,8 @@ class AppiumLibCoreTest
                                             :push_file,
                                             :pull_file,
                                             :pull_folder,
+                                            :get_clipboard,
+                                            :set_clipboard,
                                             :get_settings,
                                             :update_settings,
                                             :touch_actions,

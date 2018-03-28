@@ -65,7 +65,9 @@ class AppiumLibCoreTest
                                             :start_activity,
                                             :end_coverage,
                                             :set_network_connection,
-                                            :get_performance_data])
+                                            :get_performance_data,
+                                            :get_clipboard,
+                                            :set_clipboard])
       end
 
       ## no args
