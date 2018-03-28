@@ -657,6 +657,7 @@ module Appium
           add_handling_context
           add_screen_recording
           add_app_management
+          add_clipboard
         end
 
         # def extended
@@ -909,6 +910,27 @@ module Appium
             def stop_and_save_recording_screen(file_path)
               base64data = execute(:stop_recording_screen, {}, {})
               File.open(file_path, 'wb') { |f| f << Base64.decode64(base64data) }
+            end
+          end
+        end
+
+        def add_clipboard
+          add_endpoint_method(:get_clipboard) do
+            def get_clipboard(content_type: nil)
+              params = {}
+              params[:contentType] = content_type unless content_type.nil?
+
+              execute(:get_clipboard, {}, params)
+            end
+          end
+
+          add_endpoint_method(:set_clipboard) do
+            def set_clipboard(content:, content_type: nil, label: nil)
+              params = { content: content }
+              params[:contentType] = content_type unless content_type.nil?
+              params[:label] = label unless label.nil?
+
+              execute(:get_clipboard, {}, params)
             end
           end
         end

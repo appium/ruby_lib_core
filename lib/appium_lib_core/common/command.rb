@@ -56,6 +56,8 @@ module Appium
         push_file:                  [:post, 'session/:session_id/appium/device/push_file'.freeze],
         pull_file:                  [:post, 'session/:session_id/appium/device/pull_file'.freeze],
         pull_folder:                [:post, 'session/:session_id/appium/device/pull_folder'.freeze],
+        get_clipboard:              [:post, 'session/:session_id/appium/device/get_clipboard'.freeze],
+        set_clipboard:              [:post, 'session/:session_id/appium/device/set_clipboard'.freeze],
         get_settings:               [:get,  'session/:session_id/appium/settings'.freeze],
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         touch_actions:              [:post, 'session/:session_id/touch/perform'.freeze],
