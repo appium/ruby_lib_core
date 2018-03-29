@@ -337,6 +337,14 @@ class AppiumLibCoreTest
         assert !File.exist?(file.path)
       end
 
+      def test_clipbord
+        input = 'happy testing'
+
+        @@driver.set_clipboard(content: input, label: 'Note')
+
+        assert_equal input, @@driver.get_clipboard
+      end
+
       private
 
       def scroll_to(text)

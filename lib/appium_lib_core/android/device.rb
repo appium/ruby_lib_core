@@ -1,4 +1,5 @@
 require_relative 'device/emulator'
+require 'base64'
 
 module Appium
   module Android
@@ -117,6 +118,17 @@ module Appium
       #    @driver.start_recording_screen video_size: '1280x720', time_limit: '180', bit_rate: '5000000'
       #
 
+      # @!method set_clipboard(content:, content_type:, label:)
+      #   Set the content of device's clipboard.
+      # @param [String] label: clipboard data label.
+      # @param [String] content_type: one of supported content types.
+      # @param [String] content: base64-encoded content to be set.
+      #
+      # @example
+      #
+      #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
+      #
+
       ####
       ## class << self
       ####
@@ -181,6 +193,7 @@ module Appium
           end
 
           add_screen_recording
+          add_clipboard
           Emulator.emulator_commands
         end
 
@@ -207,6 +220,31 @@ module Appium
               execute(:start_recording_screen, {}, { options: option })
             end
             # rubocop:enable Metrics/ParameterLists
+          end
+        end
+
+        def add_clipboard
+          ::Appium::Core::Device.add_endpoint_method(:get_clipboard) do
+            def get_clipboard(content_type: :plaintext)
+              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+              params = { contentType: content_type }
+
+              execute(:get_clipboard, {}, params)
+            end
+          end
+
+          ::Appium::Core::Device.add_endpoint_method(:set_clipboard) do
+            def set_clipboard(content:, content_type: :plaintext, label: nil)
+              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+
+              params = {
+                contentType: content_type,
+                content: Base64.encode64(content)
+              }
+              params[:label] = label unless label.nil?
+
+              execute(:set_clipboard, {}, params)
+            end
           end
         end
       end
