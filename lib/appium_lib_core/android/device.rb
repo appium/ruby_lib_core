@@ -118,15 +118,25 @@ module Appium
       #    @driver.start_recording_screen video_size: '1280x720', time_limit: '180', bit_rate: '5000000'
       #
 
-      # @!method set_clipboard(content:, content_type:, label:)
+      # @!method get_clipboard(content_type: :plaintext)
       #   Set the content of device's clipboard.
-      # @param [String] label: clipboard data label.
       # @param [String] content_type: one of supported content types.
-      # @param [String] content: base64-encoded content to be set.
+      # @return [String]
       #
       # @example
       #
-      #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
+      #   @driver.get_clipboard #=> "happy testing"
+      #
+
+      # @!method set_clipboard(content:, content_type: :plaintext, label: nil)
+      #   Set the content of device's clipboard.
+      # @param [String] label: clipboard data label.
+      # @param [String] content_type: one of supported content types.
+      # @param [String] content: Contents to be set. (Will encode with base64-encoded inside this method)
+      #
+      # @example
+      #
+      #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
       #
 
       ####
@@ -226,7 +236,10 @@ module Appium
         def add_clipboard
           ::Appium::Core::Device.add_endpoint_method(:get_clipboard) do
             def get_clipboard(content_type: :plaintext)
-              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
+
               params = { contentType: content_type }
 
               execute(:get_clipboard, {}, params)
@@ -235,7 +248,9 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:set_clipboard) do
             def set_clipboard(content:, content_type: :plaintext, label: nil)
-              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
 
               params = {
                 contentType: content_type,

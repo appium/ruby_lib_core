@@ -30,6 +30,26 @@ module Appium
       #   @driver.toggle_touch_id_enrollment false #=> Disable toggle enrolled
       #
 
+      # @!method get_clipboard(content_type: :plaintext)
+      #   Set the content of device's clipboard.
+      # @param [String] content_type: one of supported content types.
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.get_clipboard #=> "happy testing"
+      #
+
+      # @!method set_clipboard(content:, content_type: :plaintext)
+      #   Set the content of device's clipboard.
+      # @param [String] content_type: one of supported content types.
+      # @param [String] content: Contents to be set. (Will encode with base64-encoded inside this method)
+      #
+      # @example
+      #
+      #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
+      #
+
       ####
       ## class << self
       ####
@@ -58,7 +78,9 @@ module Appium
         def add_clipboard
           ::Appium::Core::Device.add_endpoint_method(:get_clipboard) do
             def get_clipboard(content_type: :plaintext)
-              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
 
               params = {}
               params[:contentType] = content_type
@@ -70,7 +92,9 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:set_clipboard) do
             def set_clipboard(content:, content_type: :plaintext)
-              raise 'content_type should be [:plaintext, :image, :url]' unless [:plaintext, :image, :url].member?(content_type)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
 
               params = {
                 contentType: content_type,
