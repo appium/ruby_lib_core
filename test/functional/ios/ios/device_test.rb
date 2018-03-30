@@ -251,6 +251,14 @@ class AppiumLibCoreTest
         File.delete file.path
         assert !File.exist?(file.path)
       end
+
+      def test_clipbord
+        input = 'happy testing'
+
+        @@driver.set_clipboard(content: input)
+
+        assert_equal input, @@driver.get_clipboard
+      end
     end
   end
 end

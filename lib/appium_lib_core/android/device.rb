@@ -1,4 +1,5 @@
 require_relative 'device/emulator'
+require 'base64'
 
 module Appium
   module Android
@@ -117,6 +118,27 @@ module Appium
       #    @driver.start_recording_screen video_size: '1280x720', time_limit: '180', bit_rate: '5000000'
       #
 
+      # @!method get_clipboard(content_type: :plaintext)
+      #   Set the content of device's clipboard.
+      # @param [String] content_type: one of supported content types.
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.get_clipboard #=> "happy testing"
+      #
+
+      # @!method set_clipboard(content:, content_type: :plaintext, label: nil)
+      #   Set the content of device's clipboard.
+      # @param [String] label: clipboard data label.
+      # @param [String] content_type: one of supported content types.
+      # @param [String] content: Contents to be set. (Will encode with base64-encoded inside this method)
+      #
+      # @example
+      #
+      #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
+      #
+
       ####
       ## class << self
       ####
@@ -181,6 +203,7 @@ module Appium
           end
 
           add_screen_recording
+          add_clipboard
           Emulator.emulator_commands
         end
 
@@ -207,6 +230,37 @@ module Appium
               execute(:start_recording_screen, {}, { options: option })
             end
             # rubocop:enable Metrics/ParameterLists
+          end
+        end
+
+        def add_clipboard
+          ::Appium::Core::Device.add_endpoint_method(:get_clipboard) do
+            def get_clipboard(content_type: :plaintext)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
+
+              params = { contentType: content_type }
+
+              data = execute(:get_clipboard, {}, params)
+              Base64.decode64 data
+            end
+          end
+
+          ::Appium::Core::Device.add_endpoint_method(:set_clipboard) do
+            def set_clipboard(content:, content_type: :plaintext, label: nil)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
+
+              params = {
+                contentType: content_type,
+                content: Base64.encode64(content)
+              }
+              params[:label] = label unless label.nil?
+
+              execute(:set_clipboard, {}, params)
+            end
           end
         end
       end
