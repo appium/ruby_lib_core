@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.5] - 2018-03-30
+### Enhancements
 - Add a `bug_report` option in `start_recording_screen`, Android
 - Add clipboard apis [#69](https://github.com/appium/ruby_lib_core/pull/69)
 
