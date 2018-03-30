@@ -1,3 +1,10 @@
+#### v1.3.5 2018-03-30
+
+- [1f10dcb](https://github.com/appium/ruby_lib_core/commit/1f10dcb1448d44fd336317a7d16dd53ee03355f8) Release 1.3.5
+- [993840a](https://github.com/appium/ruby_lib_core/commit/993840a698fe302434ef895213998f6b55d0497c) add clipboard api (#69)
+- [8ce848c](https://github.com/appium/ruby_lib_core/commit/8ce848c848e3e312fd8af3c4a2733fdc9fc093bc) Add bug report option (#68)
+
+
 #### v1.3.4 2018-03-21
 
 - [053458e](https://github.com/appium/ruby_lib_core/commit/053458e8c766c2f83c7025251e1aeebb1a2da4d5) Release 1.3.4
