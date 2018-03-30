@@ -242,7 +242,8 @@ module Appium
 
               params = { contentType: content_type }
 
-              execute(:get_clipboard, {}, params)
+              data = execute(:get_clipboard, {}, params)
+              Base64.decode64 data
             end
           end
 
