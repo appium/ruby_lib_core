@@ -1,7 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+
 ## [Unreleased]
+### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.6] - 2018-04-01
 ### Enhancements
 - Be able to change `kind` in W3C touch action.
     - Read: https://github.com/appium/ruby_lib_core/blob/master/lib/appium_lib_core/common/base/bridge/w3c.rb#L29
