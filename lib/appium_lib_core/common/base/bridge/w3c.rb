@@ -26,9 +26,11 @@ module Appium
           #     element = @driver.find_element(:id, "some id")
           #     @driver.action.click(element).perform # The `click` is a part of `PointerActions`
           #
-          def action(async = false)
+          #     # You can change the kind as the below.
+          #     @driver.action(kind: :mouse).click(element).perform # The `click` is a part of `PointerActions`
+          def action(async: false, kind: :touch)
             ::Selenium::WebDriver::W3CActionBuilder.new self,
-                                                        ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch'),
+                                                        ::Selenium::WebDriver::Interactions.pointer(kind, name: kind.to_s),
                                                         ::Selenium::WebDriver::Interactions.key('keyboard'),
                                                         async
           end
