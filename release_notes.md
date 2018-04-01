@@ -1,3 +1,9 @@
+#### v1.3.6 2018-04-01
+
+- [4e54ea5](https://github.com/appium/ruby_lib_core/commit/4e54ea5dbf1bbe02d9e221b29ecf08bd495a4e28) Release 1.3.6
+- [a3ba034](https://github.com/appium/ruby_lib_core/commit/a3ba034af075ef998e04d3a3a717c14aaf51c05f) be able to change kind for w3c touch action (#70)
+
+
 #### v1.3.5 2018-03-30
 
 - [1f10dcb](https://github.com/appium/ruby_lib_core/commit/1f10dcb1448d44fd336317a7d16dd53ee03355f8) Release 1.3.5
