@@ -17,9 +17,8 @@ module Appium
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
           #
-          # @private
-          # For Appium
-          # override
+          # 'mouse' action is by default in the Ruby client. Appium server force the `mouse` action to `touch` once in
+          # the server side. So we don't consider the case.
           #
           # @example
           #
@@ -28,14 +27,9 @@ module Appium
           #
           #     # You can change the kind as the below.
           #     @driver.action(kind: :mouse).click(element).perform # The `click` is a part of `PointerActions`
-          def action(async: false, kind: :touch)
-            ::Selenium::WebDriver::W3CActionBuilder.new self,
-                                                        ::Selenium::WebDriver::Interactions.pointer(kind, name: kind.to_s),
-                                                        ::Selenium::WebDriver::Interactions.key('keyboard'),
-                                                        async
-          end
-          alias actions action
+          #
 
+          # Port from MJSONWP
           def get_timeouts
             execute :get_timeouts
           end
