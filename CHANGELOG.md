@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Remove `touch` action by default and following `selenium-webdriver` in W3C action.
+    - Since XCUITest and UA2 drivers force handling the pointer as `touch`.
 
 ### Bug fixes
 

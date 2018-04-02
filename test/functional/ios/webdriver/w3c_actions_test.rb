@@ -21,10 +21,8 @@ class AppiumLibCoreTest
         @@driver.action.click(el).perform
 
         el = @@core.wait { @@driver.find_element(:name, 'Button with Image') }
-        @@driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
-
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'ImageButton') }
-        assert_equal 'ImageButton', el.name
+        rect = el.rect
+        @@driver.action.click_and_hold(el).move_to_location(rect.x, rect.y + 500).release.perform
       end
     end
   end
