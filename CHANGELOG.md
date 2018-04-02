@@ -4,8 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- Remove `touch` action by default and following `selenium-webdriver` in W3C action.
-    - Since XCUITest and UA2 drivers force handling the pointer as `touch`.
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.7] - 2018-04-02
+### Enhancements
+- Only for `ruby_lib_core` internal process
+    - Remove `touch` action by default and following `selenium-webdriver` in W3C action.
+        - Since XCUITest and UA2 drivers force handling the pointer as `touch`.
 
 ### Bug fixes
 
