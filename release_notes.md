@@ -1,3 +1,9 @@
+#### v1.3.7 2018-04-02
+
+- [e658b98](https://github.com/appium/ruby_lib_core/commit/e658b98c82275b431370cf9d3f8db313f5609bed) Release 1.3.7
+- [b55532a](https://github.com/appium/ruby_lib_core/commit/b55532acbacd7865c681cb50495b2d4eae0e4f8c) remove overrided action (#71)
+
+
 #### v1.3.6 2018-04-01
 
 - [4e54ea5](https://github.com/appium/ruby_lib_core/commit/4e54ea5dbf1bbe02d9e221b29ecf08bd495a4e28) Release 1.3.6
