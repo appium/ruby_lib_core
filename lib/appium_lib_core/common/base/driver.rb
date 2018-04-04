@@ -95,7 +95,8 @@ module Appium
           @bridge.get_timeouts
         end
 
-        # Retrieve the capabilities of the specified session
+        # Retrieve the capabilities of the specified session.
+        # It's almost same as `@driver.capabilities` but you can get more details.
         #
         # @return [Selenium::WebDriver::Remote::Capabilities]
         #
