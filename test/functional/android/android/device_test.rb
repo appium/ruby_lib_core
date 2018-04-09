@@ -11,9 +11,6 @@ class AppiumLibCoreTest
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
                                 app_activity: '.ApiDemos'
-
-        require 'pry'
-        binding.pry
       end
 
       def teardown
@@ -170,10 +167,7 @@ class AppiumLibCoreTest
         assert_equal(true, @@driver.get_settings['ignoreUnimportantViews'])
 
         @@driver.update_settings('ignoreUnimportantViews' => false)
-
-        @@driver.update_settings('keyInjectionDelay' => true)
-
-
+        assert_equal(false, @@driver.get_settings['ignoreUnimportantViews'])
       end
 
       def test_touch_actions
