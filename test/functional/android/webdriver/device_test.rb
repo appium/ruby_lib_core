@@ -48,17 +48,17 @@ class AppiumLibCoreTest
         assert s_source.include?('o.appium.android.apis')
       end
 
-      def test_location
-        latitude = 100
-        longitude = 100
-        altitude = 75
-        @@driver.set_location(latitude, longitude, altitude)
-
-        loc = @@driver.location # check the location
-        assert_equal 100, loc.latitude
-        assert_equal 100, loc.longitude
-        assert_equal 75, loc.altitude
-      end
+      # def test_location
+      #   latitude = 100
+      #   longitude = 100
+      #   altitude = 75
+      #   @@driver.set_location(latitude, longitude, altitude)
+      #
+      #   loc = @@driver.location # check the location
+      #   assert_equal 100, loc.latitude
+      #   assert_equal 100, loc.longitude
+      #   assert_equal 75, loc.altitude
+      # end
 
       def test_accept_alert
         @@core.wait { @@driver.find_element :accessibility_id, 'App' }.click
@@ -111,12 +111,12 @@ class AppiumLibCoreTest
       def test_network_connection
         assert @@driver.get_network_connection
         assert @@driver.network_connection_type
-        assert @driver.set_network_connection(6)
-        assert @driver.network_connection_type = 6
+        assert @@driver.set_network_connection(6)
+        assert @@driver.network_connection_type = 6
       end
 
       def test_session_capability
-        assert @driver.session_capabilities['deviceUDID'] == 'emulator-5554'
+        assert @@driver.session_capabilities['deviceUDID'] == 'emulator-5554'
       end
     end
   end

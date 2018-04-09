@@ -43,7 +43,8 @@ class AppiumLibCoreTest
         deviceName: 'iPhone Simulator',
         useNewWDA: true,
         useJSONSource: true,
-        someCapability: 'some_capability'
+        someCapability: 'some_capability',
+        newCommandTimeout: 120
       },
       appium_lib: {
         export_session: true,

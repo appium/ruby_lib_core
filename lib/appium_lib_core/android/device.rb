@@ -8,6 +8,106 @@ module Appium
 
       # rubocop:disable Metrics/LineLength
 
+      # @!method open_notifications
+      #   Open Android notifications
+      #
+      # @example
+      #
+      #   @driver.open_notifications
+      #
+
+      # @!method current_activity
+      # Get current activity name
+      # @return [String] An activity name
+      #
+      # @example
+      #
+      #   @driver.current_activity # '.ApiDemos'
+      #
+
+      # @!method current_package
+      # Get current package name
+      # @return [String] A package name
+      #
+      # @example
+      #
+      #   @driver.current_package # 'com.example.android.apis'
+      #
+
+      # @!method get_system_bars
+      # Get system bar's information
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.get_system_bars
+      #
+
+      # @!method get_display_density
+      # Get connected device's density.
+      # @return [Integer] The size of density
+      #
+      # @example
+      #
+      #   @driver.get_display_density # 320
+      #
+
+      # @!method is_keyboard_shown
+      # Get whether keyboard is displayed or not.
+      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
+      #
+      # @example
+      #   @driver.is_keyboard_shown # false
+      #
+
+      # @!method get_network_connection
+      #   Get the device network connection current status
+      #   See set_network_connection method for return value
+      #
+      # @example
+      #
+      #   @driver.network_connection_type #=> 6
+      #   @driver.get_network_connection  #=> 6
+      #
+
+      # @!method toggle_wifi
+      #   Switch the state of the wifi service only for Android
+      #
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_wifi
+      #
+
+      # @!method toggle_data
+      #   Switch the state of data service only for Android, and the device should be rooted
+      #
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_data
+      #
+
+      # @!method toggle_location_services
+      #   Switch the state of the location service
+      #
+      # @return [String]
+      #
+      # @example
+      #
+      #   @driver.toggle_location_services
+      #
+
+      # @!method toggle_airplane_mode
+      # Toggle flight mode on or off
+      #
+      # @example
+      #
+      #   @driver.toggle_airplane_mode
+      #
+
       # @!method hide_keyboard(close_key = nil, strategy = nil)
       # Hide the onscreen keyboard
       # @param [String] close_key The name of the key which closes the keyboard.
@@ -149,7 +249,79 @@ module Appium
         def extended(_mod)
           Appium::Core::Device.extend_webdriver_with_forwardable
 
-          # Android
+          Appium::Core::Device.add_endpoint_method(:open_notifications) do
+            def open_notifications
+              execute :open_notifications
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:toggle_airplane_mode) do
+            def toggle_airplane_mode
+              execute :toggle_airplane_mode
+            end
+            alias_method :toggle_flight_mode, :toggle_airplane_mode
+          end
+
+          Appium::Core::Device.add_endpoint_method(:current_activity) do
+            def current_activity
+              execute :current_activity
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:current_package) do
+            def current_package
+              execute :current_package
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:get_system_bars) do
+            def get_system_bars
+              execute :get_system_bars
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:get_display_density) do
+            def get_display_density
+              execute :get_display_density
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:is_keyboard_shown) do
+            def is_keyboard_shown # rubocop:disable Naming/PredicateName for compatibility
+              execute :is_keyboard_shown
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:get_network_connection) do
+            def get_network_connection
+              execute :get_network_connection
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:get_performance_data_types) do
+            def get_performance_data_types
+              execute :get_performance_data_types
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:toggle_wifi) do
+            def toggle_wifi
+              execute :toggle_wifi
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:toggle_data) do
+            def toggle_data
+              execute :toggle_data
+            end
+          end
+
+          Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
+            def toggle_location_services
+              execute :toggle_location_services
+            end
+          end
+
           Appium::Core::Device.add_endpoint_method(:start_activity) do
             def start_activity(opts)
               raise 'opts must be a hash' unless opts.is_a? Hash

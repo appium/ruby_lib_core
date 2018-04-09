@@ -16,7 +16,7 @@ class AppiumLibCoreTest
         array.each { |v| assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v) }
       end
 
-      def test_no_arg_definitions
+      def test_with_arg_definitions
         parameterized_method_defined_check([:shake,
                                             :launch_app,
                                             :close_app,
@@ -33,11 +33,8 @@ class AppiumLibCoreTest
                                             :get_display_density,
                                             :is_keyboard_shown,
                                             :get_network_connection,
-                                            :get_performance_data_types])
-      end
-
-      def test_with_arg_definitions
-        parameterized_method_defined_check([:available_contexts,
+                                            :get_performance_data_types,
+                                            :available_contexts,
                                             :set_context,
                                             :app_strings,
                                             :lock,
