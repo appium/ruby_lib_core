@@ -10,7 +10,7 @@ class AppiumLibCoreTest
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: '.ApiDemos'
+                                app_activity: 'io.appium.android.apis.ApiDemos'
       end
 
       def teardown
@@ -112,7 +112,7 @@ class AppiumLibCoreTest
         assert @@driver.get_network_connection
         assert @@driver.network_connection_type
         assert @@driver.set_network_connection(6)
-        assert @@driver.network_connection_type = 6
+        assert @@driver.network_connection_type = :all # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
       end
 
       def test_session_capability
