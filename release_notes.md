@@ -1,3 +1,10 @@
+#### v1.3.8 2018-04-13
+
+- [f5e1c39](https://github.com/appium/ruby_lib_core/commit/f5e1c39ed07c191c89a491c407d0fc368459367c) Release 1.3.8
+- [53c61d4](https://github.com/appium/ruby_lib_core/commit/53c61d46b25e25ba488bb3e065ddec5ee2e6f83c) get ride of auto method generation to enhance ide support (#72)
+- [f175c44](https://github.com/appium/ruby_lib_core/commit/f175c4494d2f5edf56402116c016044bfb1603d0) append a comment
+
+
 #### v1.3.7 2018-04-02
 
 - [e658b98](https://github.com/appium/ruby_lib_core/commit/e658b98c82275b431370cf9d3f8db313f5609bed) Release 1.3.7
