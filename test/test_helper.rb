@@ -67,7 +67,8 @@ class AppiumLibCoreTest
         appActivity: 'io.appium.android.apis.ApiDemos',
         someCapability: 'some_capability',
         unicodeKeyboard: true,
-        resetKeyboard: true
+        resetKeyboard: true,
+        newCommandTimeout: 300
       },
       appium_lib: {
         export_session: true,

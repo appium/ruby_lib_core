@@ -433,13 +433,13 @@ module Appium
 
           add_endpoint_method(:shake) do
             def shake
-              execute(:shake)
+              execute :shake
             end
           end
 
           add_endpoint_method(:device_time) do
             def device_time
-              execute(:device_time)
+              execute :device_time
             end
           end
 
@@ -564,13 +564,13 @@ module Appium
 
           add_endpoint_method(:device_locked?) do
             def device_locked?
-              execute(:device_locked?)
+              execute :device_locked?
             end
           end
 
           add_endpoint_method(:unlock) do
             def unlock
-              execute(:unlock)
+              execute :unlock
             end
           end
         end
@@ -602,25 +602,25 @@ module Appium
         def add_app_management
           add_endpoint_method(:launch_app) do
             def launch_app
-              execute(:launch_app)
+              execute :launch_app
             end
           end
 
           add_endpoint_method(:close_app) do
             def close_app
-              execute(:close_app)
+              execute :close_app
             end
           end
 
           add_endpoint_method(:close_app) do
             def close_app
-              execute(:close_app)
+              execute :close_app
             end
           end
 
           add_endpoint_method(:reset) do
             def reset
-              execute(:reset)
+              execute :reset
             end
           end
 
@@ -830,7 +830,7 @@ module Appium
 
           add_endpoint_method(:current_context) do
             def current_context
-              execute(:current_context)
+              execute :current_context
             end
           end
 
