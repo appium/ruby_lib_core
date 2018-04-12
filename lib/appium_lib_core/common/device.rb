@@ -11,50 +11,6 @@ module Appium
       ## No argument
       ####
 
-      # @!method current_activity
-      # Get current activity name
-      # @return [String] An activity name
-      #
-      # @example
-      #
-      #   @driver.current_activity # '.ApiDemos'
-      #
-
-      # @!method current_package
-      # Get current package name
-      # @return [String] A package name
-      #
-      # @example
-      #
-      #   @driver.current_package # 'com.example.android.apis'
-      #
-
-      # @!method get_system_bars
-      # Get system bar's information
-      # @return [String]
-      #
-      # @example
-      #
-      #   @driver.get_system_bars
-      #
-
-      # @!method get_display_density
-      # Get connected device's density.
-      # @return [Integer] The size of density
-      #
-      # @example
-      #
-      #   @driver.get_display_density # 320
-      #
-
-      # @!method is_keyboard_shown
-      # Get whether keyboard is displayed or not.
-      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
-      #
-      # @example
-      #   @driver.is_keyboard_shown # false
-      #
-
       # @!method launch_app
       # Start the simulator and application configured with desired capabilities
       #
@@ -87,14 +43,6 @@ module Appium
       #   @driver.shake
       #
 
-      # @!method toggle_flight_mode
-      # Toggle flight mode on or off
-      #
-      # @example
-      #
-      #   @driver.toggle_flight_mode
-      #
-
       # @!method unlock
       # Unlock the device
       #
@@ -111,24 +59,6 @@ module Appium
       #   @driver.device_locked?
       #
 
-      # @!method get_network_connection
-      #   Get the device network connection current status
-      #   See set_network_connection method for return value
-      #
-      # @example
-      #
-      #   @driver.network_connection_type #=> 6
-      #   @driver.get_network_connection  #=> 6
-      #
-
-      # @!method open_notifications
-      #   Open Android notifications
-      #
-      # @example
-      #
-      #   @driver.open_notifications
-      #
-
       # @!method device_time
       #   Get the time on the device
       #
@@ -137,36 +67,6 @@ module Appium
       # @example
       #
       #   @driver.device_time
-      #
-
-      # @!method toggle_location_services
-      #   Switch the state of the location service
-      #
-      # @return [String]
-      #
-      # @example
-      #
-      #   @driver.toggle_location_services
-      #
-
-      # @!method toggle_wifi
-      #   Switch the state of the wifi service only for Android
-      #
-      # @return [String]
-      #
-      # @example
-      #
-      #   @driver.toggle_wifi
-      #
-
-      # @!method toggle_data
-      #   Switch the state of data service only for Android, and the device should be rooted
-      #
-      # @return [String]
-      #
-      # @example
-      #
-      #   @driver.toggle_data
       #
 
       ####
@@ -531,40 +431,15 @@ module Appium
         def extended(_mod)
           extend_webdriver_with_forwardable
 
-          ::Appium::Core::Commands::COMMAND_NO_ARG.each_key do |method|
-            add_endpoint_method method
-          end
-
-          add_endpoint_method(:available_contexts) do
-            def available_contexts
-              # return empty array instead of nil on failure
-              execute(:available_contexts, {}) || []
+          add_endpoint_method(:shake) do
+            def shake
+              execute :shake
             end
           end
 
-          add_endpoint_method(:app_strings) do
-            def app_strings(language = nil)
-              opts = language ? { language: language } : {}
-              execute :app_strings, {}, opts
-            end
-          end
-
-          add_endpoint_method(:lock) do
-            def lock(duration = nil)
-              opts = duration ? { seconds: duration } : {}
-              execute :lock, {}, opts
-            end
-          end
-
-          add_endpoint_method(:background_app) do
-            def background_app(duration = 0)
-              execute :background_app, {}, seconds: duration
-            end
-          end
-
-          add_endpoint_method(:set_context) do
-            def set_context(context = null)
-              execute :set_context, {}, name: context
+          add_endpoint_method(:device_time) do
+            def device_time
+              execute :device_time
             end
           end
 
@@ -585,7 +460,7 @@ module Appium
 
               extension = File.extname(png_path).downcase
               if extension != '.png'
-                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
                                 'It should end with .png extension'
               end
               File.open(png_path, 'wb') { |f| f << result.unpack('m')[0] }
@@ -606,27 +481,6 @@ module Appium
             end
           end
 
-          add_endpoint_method(:push_file) do
-            def push_file(path, filedata)
-              encoded_data = Base64.encode64 filedata
-              execute :push_file, {}, path: path, data: encoded_data
-            end
-          end
-
-          add_endpoint_method(:pull_file) do
-            def pull_file(path)
-              data = execute :pull_file, {}, path: path
-              Base64.decode64 data
-            end
-          end
-
-          add_endpoint_method(:pull_folder) do
-            def pull_folder(path)
-              data = execute :pull_folder, {}, path: path
-              Base64.decode64 data
-            end
-          end
-
           add_endpoint_method(:get_settings) do
             def get_settings
               execute :get_settings, {}
@@ -643,7 +497,7 @@ module Appium
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
               if extension != '.png'
-                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
                                   'It should end with .png extension'
               end
               viewport_screenshot_encode64 = execute_script('mobile: viewportScreenshot')
@@ -657,6 +511,8 @@ module Appium
           add_handling_context
           add_screen_recording
           add_app_management
+          add_device_lock
+          add_file_management
         end
 
         # def extended
@@ -698,8 +554,89 @@ module Appium
           end
         end
 
+        def add_device_lock
+          add_endpoint_method(:lock) do
+            def lock(duration = nil)
+              opts = duration ? { seconds: duration } : {}
+              execute :lock, {}, opts
+            end
+          end
+
+          add_endpoint_method(:device_locked?) do
+            def device_locked?
+              execute :device_locked?
+            end
+          end
+
+          add_endpoint_method(:unlock) do
+            def unlock
+              execute :unlock
+            end
+          end
+        end
+
+        def add_file_management
+          add_endpoint_method(:push_file) do
+            def push_file(path, filedata)
+              encoded_data = Base64.encode64 filedata
+              execute :push_file, {}, path: path, data: encoded_data
+            end
+          end
+
+          add_endpoint_method(:pull_file) do
+            def pull_file(path)
+              data = execute :pull_file, {}, path: path
+              Base64.decode64 data
+            end
+          end
+
+          add_endpoint_method(:pull_folder) do
+            def pull_folder(path)
+              data = execute :pull_folder, {}, path: path
+              Base64.decode64 data
+            end
+          end
+        end
+
         # rubocop:disable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
         def add_app_management
+          add_endpoint_method(:launch_app) do
+            def launch_app
+              execute :launch_app
+            end
+          end
+
+          add_endpoint_method(:close_app) do
+            def close_app
+              execute :close_app
+            end
+          end
+
+          add_endpoint_method(:close_app) do
+            def close_app
+              execute :close_app
+            end
+          end
+
+          add_endpoint_method(:reset) do
+            def reset
+              execute :reset
+            end
+          end
+
+          add_endpoint_method(:app_strings) do
+            def app_strings(language = nil)
+              opts = language ? { language: language } : {}
+              execute :app_strings, {}, opts
+            end
+          end
+
+          add_endpoint_method(:background_app) do
+            def background_app(duration = 0)
+              execute :background_app, {}, seconds: duration
+            end
+          end
+
           add_endpoint_method(:install_app) do
             def install_app(path,
                             replace: nil,
@@ -774,17 +711,17 @@ module Appium
 
               case response
               when 0
-                Appium::Core::Device::AppState::NOT_INSTALLED
+                ::Appium::Core::Device::AppState::NOT_INSTALLED
               when 1
-                Appium::Core::Device::AppState::NOT_RUNNING
+                ::Appium::Core::Device::AppState::NOT_RUNNING
               when 2
-                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
+                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
               when 3
-                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
+                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
               when 4
-                Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+                ::Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
               else
-                Appium::Logger.debug("Unexpected status in app_state: #{response}")
+                ::Appium::Logger.debug("Unexpected status in app_state: #{response}")
                 response
               end
             end
@@ -888,6 +825,25 @@ module Appium
           add_endpoint_method(:switch_to_default_context) do
             def switch_to_default_context
               set_context nil
+            end
+          end
+
+          add_endpoint_method(:current_context) do
+            def current_context
+              execute :current_context
+            end
+          end
+
+          add_endpoint_method(:available_contexts) do
+            def available_contexts
+              # return empty array instead of nil on failure
+              execute(:available_contexts, {}) || []
+            end
+          end
+
+          add_endpoint_method(:set_context) do
+            def set_context(context = null)
+              execute :set_context, {}, name: context
             end
           end
         end

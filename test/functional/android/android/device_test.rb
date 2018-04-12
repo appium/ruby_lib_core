@@ -10,7 +10,7 @@ class AppiumLibCoreTest
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: '.ApiDemos'
+                                app_activity: 'io.appium.android.apis.ApiDemos'
       end
 
       def teardown
@@ -159,6 +159,7 @@ class AppiumLibCoreTest
         assert data.length > 100
       end
 
+      # check
       def test_settings
         assert_equal(false, @@driver.get_settings['ignoreUnimportantViews'])
 
@@ -166,6 +167,7 @@ class AppiumLibCoreTest
         assert_equal(true, @@driver.get_settings['ignoreUnimportantViews'])
 
         @@driver.update_settings('ignoreUnimportantViews' => false)
+        assert_equal(false, @@driver.get_settings['ignoreUnimportantViews'])
       end
 
       def test_touch_actions

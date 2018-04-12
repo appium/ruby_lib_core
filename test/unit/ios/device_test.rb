@@ -16,7 +16,7 @@ class AppiumLibCoreTest
         array.each { |v| assert ::Appium::Core::Base::Bridge::MJSONWP.method_defined?(v) }
       end
 
-      def test_no_arg_definitions
+      def test_with_arg_definitions
         parameterized_method_defined_check([:shake,
                                             :launch_app,
                                             :close_app,
@@ -24,11 +24,8 @@ class AppiumLibCoreTest
                                             :device_locked?,
                                             :unlock,
                                             :device_time,
-                                            :current_context])
-      end
-
-      def test_with_arg_definitions
-        parameterized_method_defined_check([:available_contexts,
+                                            :current_context,
+                                            :available_contexts,
                                             :set_context,
                                             :app_strings,
                                             :lock,

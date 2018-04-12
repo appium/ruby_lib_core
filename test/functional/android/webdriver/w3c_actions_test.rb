@@ -10,7 +10,7 @@ class AppiumLibCoreTest
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: '.ApiDemos'
+                                app_activity: 'io.appium.android.apis.ApiDemos'
       end
 
       def teardown
