@@ -113,7 +113,8 @@ class AppiumLibCoreTest
         assert @@driver.get_network_connection
         assert @@driver.network_connection_type
         assert @@driver.set_network_connection(6)
-        assert @@driver.network_connection_type = :all # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
+        # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
+        assert @@driver.network_connection_type = :all
       end
 
       def test_session_capability

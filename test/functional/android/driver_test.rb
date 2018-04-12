@@ -17,7 +17,6 @@ class AppiumLibCoreTest
       v = @@core.appium_server_version
 
       refute_nil v['build']['version']
-      refute_nil v['build']['revision']
     end
 
     def test_platform_version

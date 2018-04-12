@@ -460,7 +460,7 @@ module Appium
 
               extension = File.extname(png_path).downcase
               if extension != '.png'
-                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
                                 'It should end with .png extension'
               end
               File.open(png_path, 'wb') { |f| f << result.unpack('m')[0] }
@@ -497,7 +497,7 @@ module Appium
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
               if extension != '.png'
-                WebDriver.logger.warn 'name used for saved screenshot does not match file type. '\
+                ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
                                   'It should end with .png extension'
               end
               viewport_screenshot_encode64 = execute_script('mobile: viewportScreenshot')
@@ -711,17 +711,17 @@ module Appium
 
               case response
               when 0
-                Appium::Core::Device::AppState::NOT_INSTALLED
+                ::Appium::Core::Device::AppState::NOT_INSTALLED
               when 1
-                Appium::Core::Device::AppState::NOT_RUNNING
+                ::Appium::Core::Device::AppState::NOT_RUNNING
               when 2
-                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
+                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
               when 3
-                Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
+                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
               when 4
-                Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+                ::Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
               else
-                Appium::Logger.debug("Unexpected status in app_state: #{response}")
+                ::Appium::Logger.debug("Unexpected status in app_state: #{response}")
                 response
               end
             end
