@@ -1,9 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.3.8] - 2018-04-12
+### Enhancements
+- Make no-argument commands friendly for IDE
 
 ### Bug fixes
 
