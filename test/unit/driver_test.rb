@@ -51,12 +51,14 @@ class AppiumLibCoreTest
       file = @core.export_session_path
       file_exist? file
       assert_equal '1234567890', File.read(file).strip
+      File.delete file
     end
 
     def test_verify_session_from_default_value
       file = '/tmp/appium_lib_session'
       file_exist? file
       assert_equal '1234567890', File.read(file).strip
+      File.delete file
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
