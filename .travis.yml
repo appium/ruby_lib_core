@@ -15,6 +15,13 @@ script:
   - bundle exec rake rubocop
   - bundle exec parallel_test test/unit/
 
+env:
+  global:
+    - CI_NODE_TOTAL=2
+  matrix:
+    - CI_NODE_INDEX=0
+    - CI_NODE_INDEX=1
+
 notifications:
   email:
     on_success: never
