@@ -12,6 +12,9 @@ For features or bug fixes, please submit a pull request. Ideally there would be 
 - Android
     - `rake test:func:android`
 
+## Merge
+- Squash and merge when we merge PRs to the master
+
 ## Publishing on rubygems
 
 0. Ensure you have `~/.gem/credentials` If not run [the following command](http://guides.rubygems.org/make-your-own-gem/) (replace username with your rubygems user)
