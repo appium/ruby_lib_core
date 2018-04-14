@@ -13,7 +13,7 @@ before_install:
 
 script:
   - bundle exec rake rubocop
-  - bundle exec rake test:unit
+  - bundle exec parallel_test test/unit/ -n 4
 
 notifications:
   email:

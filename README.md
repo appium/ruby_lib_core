@@ -19,7 +19,7 @@ Run unit tests which check each method and commands, URL, using the webmock.
 
 ```bash
 $ bundle install
-$ rake test:unit
+$ bundle exec parallel_test test/unit/
 ```
 
 ### Functional Tests
