@@ -46,6 +46,13 @@ namespace :test do
       t.libs << 'lib'
       t.test_files = FileList['test/unit/android/**/*_test.rb']
     end
+
+    desc('Run all common related unit tests in test directory')
+    Rake::TestTask.new(:common) do |t|
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/common/**/*_test.rb']
+    end
   end
 end
 

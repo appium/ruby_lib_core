@@ -45,6 +45,8 @@ module Appium
         @ws_thread.exit
       end
 
+      private
+
       # Response from server
 
       def response_open
