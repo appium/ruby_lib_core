@@ -39,6 +39,7 @@ module Appium
       # Provide Appium::Drive like { appium_lib: { port: 8080 } }
       # @return [Integer]
       attr_reader :port
+      DEFAULT_APPIUM_PORT = 4723
 
       # Return a time wait timeout. 30 seconds is by default.
       # Wait time for ::Appium::Core::Base::Wait, wait and wait_true
@@ -428,7 +429,7 @@ module Appium
         @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, '/tmp/appium_lib_session'
 
-        @port = appium_lib_opts.fetch :port, 4723
+        @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 
         # timeout and interval used in ::Appium::Comm.wait/wait_true
         @wait_timeout  = appium_lib_opts.fetch :wait_timeout, 30

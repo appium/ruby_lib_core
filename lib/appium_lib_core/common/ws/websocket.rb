@@ -4,11 +4,13 @@ require 'eventmachine'
 module Appium
   module Core
     class WebSocket
-      attr_reader :client
+      attr_reader :client, :endpoint
 
       # ws://%s:%s/ws/session/%s/appium/device/logcat
       # Need session id
-      def initialize(url: 'ws://localhost:4723', protocols: nil, options: {})
+      def initialize(url: "ws://127.0.0.1:#{::Appium::Core::WebSocket::DEFAULT_APPIUM_PORT}", protocols: nil, options: {})
+        @endpoint = url
+
         @ws_thread = Thread.new do
           EM.run do
             @client ||= ::Faye::WebSocket::Client.new(url, protocols, options)
@@ -58,7 +60,7 @@ module Appium
       end
 
       def response_error
-        Logger.warn %w(:error)
+        Logger.error %w(:error)
       end
 
       def response_close(code, reason)
