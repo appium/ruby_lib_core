@@ -16,8 +16,8 @@ module Appium
       #                           The driver will negotiate one of these to use via the Sec-WebSocket-Protocol header
       #                           if supported by the other peer. Default is nil.
       #                           The protocols is equal to https://github.com/faye/faye-websocket-ruby/ 's one for client.
-      # @param [Hash] options: Initialize options for Faye client. Read https://github.com/faye/faye-websocket-ruby#initialization-options for more details.
-      #                        Default is {}.
+      # @param [Hash] options: Initialize options for Faye client. Read https://github.com/faye/faye-websocket-ruby#initialization-options
+      #                        for more details. Default is `{}`.
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -99,7 +99,6 @@ module Appium
       end
 
       # Response from server
-
 
       #
       # Fires when the socket connection is established. Event has no attributes.
