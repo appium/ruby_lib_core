@@ -382,29 +382,9 @@ module Appium
           add_screen_recording
           add_clipboard
           Emulator.emulator_commands
-          add_logcat
         end
 
         private
-
-        def add_logcat
-          Appium::Core::Device.add_endpoint_method(:start_logcat_broadcast) do
-            def start_logcat_broadcast(host, port)
-              execute_script 'mobile: startLogsBroadcast'
-
-              socket_url = "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat"
-              @logcat_client = ::Appium::Core::WebSocket.new(url: socket_url)
-            end
-          end
-
-          Appium::Core::Device.add_endpoint_method(:stop_logcat_broadcast) do
-            def stop_logcat_broadcast
-              @logcat_client.close
-
-              execute_script 'mobile: stopLogsBroadcast'
-            end
-          end
-        end
 
         def add_screen_recording
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do

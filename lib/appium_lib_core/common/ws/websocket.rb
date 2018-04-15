@@ -22,6 +22,7 @@ module Appium
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
       #     ws.client #=> #<Faye::WebSocket::Client:.....> # An instance of Faye::WebSocket::Client
+      #     ws.message 'some message' #=> nil. Send a message to the peer.
       #     ws.close #=> Kill the thread which run a eventmachine.
       #
       def initialize(url:, protocols: nil, options: {})
