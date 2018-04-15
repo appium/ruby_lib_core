@@ -392,7 +392,8 @@ module Appium
             def start_logcat_broadcast(host, port)
               execute_script 'mobile: startLogsBroadcast'
 
-              @logcat_client = ::Appium::Core::WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
+              socket_url = "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat"
+              @logcat_client = ::Appium::Core::WebSocket.new(url: socket_url)
             end
           end
 

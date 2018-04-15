@@ -347,41 +347,7 @@ class AppiumLibCoreTest
         assert_equal input, @@driver.get_clipboard
       end
 
-      # TODO: ARRANGE
-      # [3] pry(#<AppiumLibCoreTest::DriverTest>)> @@driver.start_logcat_broadcast('127.0.0.1', @@core.port)
-      # => #<Appium::Core::WebSocket:0x007ff9831c6c70
-      #     @endpoint="ws://127.0.0.1:4723/ws/session/489f13e2-5162-4515-8336-0ca5f5e439e7/appium/device/logcat",
-      #         @ws_thread=#<Thread:0x007ff9831c6b30@/Users/kazuaki/GitHub/ruby_lib_core/lib/appium_lib_core/common/ws/websocket.rb:14 run>>
-      # [4] pry(#<AppiumLibCoreTest::DriverTest>)> [":open"]
-      #     [":message", "04-15 04:14:52.041  1561  1579 E BatteryExternalStatsWorker: modem info is invalid: ModemActivityInfo{ mTimestamp=0 mSleepTimeMs=0 mIdleTimeMs=0 mTxTimeMs[]=[0, 0, 0, 0, 0] mRxTimeMs=0 mEnergyUsed=0}"]
-      # [":message", "04-15 04:14:54.575  1378  1378 I qemu-props: start adbd ..."]
-      # [":message", "04-15 04:14:55.533  1561  1575 E memtrack: Couldn't load memtrack module"]
-      # [":message", "04-15 04:14:55.533  1561  1575 W android.os.Debug: failed to get memory consumption info: -1"]
-      # [":message", "04-15 04:14:55.551  1561  1575 E memtrack: Couldn't load memtrack module"]
-      # [":message", "04-15 04:14:55.551  1561  1575 W android.os.Debug: failed to get memory consumption info: -1"]
-      # [":message", "04-15 04:14:55.574  1561  1575 E memtrack: Couldn't load memtrack module"]
-      # [":message", "04-15 04:14:55.574  1561  1575 W android.os.Debug: failed to get memory consumption info: -1"]
-      # [":message", "04-15 04:15:00.017  1373  1397 D hwcomposer: hw_composer sent 48 syncs in 60s"]
-      # [":message", "04-15 04:15:00.017  1676  1903 D EGL_emulation: eglMakeCurrent: 0x9e305600: ver 2 0 (tinfo 0x9e3034b0)"]
-      # [4] pry(#<AppiumLibCoreTest::DriverTest>)> @@driver.stop_logcat_broadcast
-      #     [":close", "1006", ""]
-      #
-      # ## Server
-      # [HTTP] {"script":"mobile: startLogsBroadcast","args":[]}
-      # [debug] [W3C] Calling AppiumDriver.execute() with args: ["mobile: startLogsBroadcast",[],"489f13e2-5162-4515-8336-0ca5f5e439e7"]
-      # [AndroidDriver] Assigning logcat broadcasting web socket server to /ws/session/489f13e2-5162-4515-8336-0ca5f5e439e7/appium/device/logcat
-      # [debug] [W3C] Responding to client with driver.execute() result: null
-      # [HTTP] <-- POST /wd/hub/session/489f13e2-5162-4515-8336-0ca5f5e439e7/execute/sync 200 3 ms - 14
-      # [HTTP]
-      # [debug] [AndroidDriver] Established a new logcat listener web socket connection from 127.0.0.1
-      # [debug] [AndroidDriver] Logcat listener web socket is closed.
-      #           [HTTP] --> POST /wd/hub/session/489f13e2-5162-4515-8336-0ca5f5e439e7/execute/sync
-      # [HTTP] {"script":"mobile: stopLogsBroadcast","args":[]}
-      # [debug] [W3C] Calling AppiumDriver.execute() with args: ["mobile: stopLogsBroadcast",[],"489f13e2-5162-4515-8336-0ca5f5e439e7"]
-      # [debug] [AndroidDriver] Stopping the logcat broadcasting web socket server
-      # [debug] [W3C] Responding to client with driver.execute() result: null
-      # [HTTP] <-- POST /wd/hub/session/489f13e2-5162-4515-8336-0ca5f5e439e7/execute/sync 200 3 ms - 14
-      # [HTTP]
+      # TODO: move to other test file
       def test_logcat_websocket
         @@driver.start_logcat_broadcast('127.0.0.1', @@core.port)
         sleep 5
