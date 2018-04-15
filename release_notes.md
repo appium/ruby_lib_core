@@ -1,3 +1,11 @@
+#### v1.4.0 2018-04-15
+
+- [5cc89aa](https://github.com/appium/ruby_lib_core/commit/5cc89aa4a9533e174527db5b805b96cf2b45a9ac) Release 1.4.0
+- [598460c](https://github.com/appium/ruby_lib_core/commit/598460cb9a040ec4d0bd3351bbdb0fb9412428e2) implement websocket client (#74)
+- [56a60c6](https://github.com/appium/ruby_lib_core/commit/56a60c6b49b0a36c2e6af34a9d22d828ba38e721) add squash and merge for ontributing.md
+- [6fc0a30](https://github.com/appium/ruby_lib_core/commit/6fc0a303073c895494c172a0ec4d196fefed694e) add parallel tests (#73)
+
+
 #### v1.3.8 2018-04-13
 
 - [f5e1c39](https://github.com/appium/ruby_lib_core/commit/f5e1c39ed07c191c89a491c407d0fc368459367c) Release 1.3.8
