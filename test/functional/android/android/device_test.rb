@@ -6,11 +6,15 @@ class AppiumLibCoreTest
   module Android
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
+        require 'pry'
+        binding.pry
+
         @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
                                 app_activity: 'io.appium.android.apis.ApiDemos'
+
       end
 
       def teardown
