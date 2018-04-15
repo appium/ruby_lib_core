@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add a support for WebSocket client based on Faye::WebSocket::Client.
 
 ### Bug fixes
 
