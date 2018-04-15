@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- Add a support for WebSocket client based on Faye::WebSocket::Client.
+
+### Bug fixes
+
+### Deprecations
+
+## [1.4.0] - 2018-04-15
+### Enhancements
+- Add a support for WebSocket client based on Faye::WebSocket::Client [#74](https://github.com/appium/ruby_lib_core/pull/74)
 
 ### Bug fixes
 
