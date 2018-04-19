@@ -4,7 +4,7 @@ module Appium
       class Bridge
         class MJSONWP < ::Selenium::WebDriver::Remote::OSS::Bridge
           def commands(command)
-            ::Appium::Core::Commands::COMMANDS_EXTEND_MJSONWP[command]
+            ::Appium::Core::Commands::MJSONWP::COMMANDS[command]
           end
         end # class MJSONWP
       end # class Bridge
