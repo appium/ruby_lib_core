@@ -1,10 +1,8 @@
 # rubocop:disable Lint/HandleExceptions
 module Appium
   module Core
-    class Wait
+    module Wait
       class TimeoutError < StandardError; end
-
-      require 'timeout' # for wait
 
       DEFAULT_TIMEOUT  = 5
       DEFAULT_INTERVAL = 0.2
