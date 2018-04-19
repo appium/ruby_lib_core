@@ -1,6 +1,7 @@
 module Appium
   module Core
     class Driver
+      include Waitable
       # Selenium webdriver capabilities
       # @return [Core::Base::Capabilities]
       attr_reader :caps
@@ -278,72 +279,7 @@ module Appium
         @driver.save_screenshot png_save_path
       end
 
-      # Check every interval seconds to see if yield returns a truthy value.
-      # Note this isn't a strict boolean true, any truthy value is accepted.
-      # false and nil are considered failures.
-      # Give up after timeout seconds.
-      #
-      # Wait code from the selenium Ruby gem
-      # https://github.com/SeleniumHQ/selenium/blob/cf501dda3f0ed12233de51ce8170c0e8090f0c20/rb/lib/selenium/webdriver/common/wait.rb
-      #
-      # If only a number is provided then it's treated as the timeout value.
-      #
-      # @param [Hash] opts Options
-      # @option opts [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option opts [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option opts [String] :message Exception message if timed out.
-      # @option opts [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
-      #
-      # @example
-      #
-      #   @core.wait_true { @driver.find_element :accessibility_id, 'something' }
-      #
-      def wait_true(opts = {})
-        opts = process_wait_opts(opts).merge(return_if_true: true)
-
-        opts[:timeout]  ||= @wait_timeout
-        opts[:interval] ||= @wait_interval
-
-        wait = ::Appium::Core::Base::Wait.new opts
-        wait.until { yield }
-      end
-
-      # Check every interval seconds to see if yield doesn't raise an exception.
-      # Give up after timeout seconds.
-      #
-      # Wait code from the selenium Ruby gem
-      # https://github.com/SeleniumHQ/selenium/blob/cf501dda3f0ed12233de51ce8170c0e8090f0c20/rb/lib/selenium/webdriver/common/wait.rb
-      #
-      # If only a number is provided then it's treated as the timeout value.
-      #
-      # @param [Hash] opts Options
-      # @option opts [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option opts [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option opts [String] :message Exception message if timed out.
-      # @option opts [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
-      #
-      # @example
-      #
-      #   @core.wait { @driver.find_element :accessibility_id, 'something' }
-      #
-      def wait(opts = {})
-        opts = process_wait_opts(opts).merge(return_if_true: false)
-
-        opts[:timeout] ||= @wait_timeout
-        opts[:interval] ||= @wait_interval
-
-        wait = ::Appium::Core::Base::Wait.new opts
-        wait.until { yield }
-      end
-
       private
-
-      # @private
-      def process_wait_opts(opts)
-        opts = { timeout: opts } if opts.is_a?(Numeric)
-        raise 'opts must be a hash' unless opts.is_a? Hash
-        opts
-      end
 
       # @private
       def extend_for(device:, automation_name:, target:)
@@ -432,8 +368,8 @@ module Appium
         @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 
         # timeout and interval used in ::Appium::Comm.wait/wait_true
-        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, 30
-        @wait_interval = appium_lib_opts.fetch :wait_interval, 0.5
+        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
+        @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
 
         # to pass it in Selenium.new.
         # `listener = opts.delete(:listener)` is called in Selenium::Driver.new
