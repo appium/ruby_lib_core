@@ -278,6 +278,7 @@ module Appium
         @driver.save_screenshot png_save_path
       end
 
+      # TODO: move to wait module and include them
       # Check every interval seconds to see if yield returns a truthy value.
       # Note this isn't a strict boolean true, any truthy value is accepted.
       # false and nil are considered failures.
@@ -288,26 +289,27 @@ module Appium
       #
       # If only a number is provided then it's treated as the timeout value.
       #
-      # @param [Hash] opts Options
-      # @option opts [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option opts [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option opts [String] :message Exception message if timed out.
-      # @option opts [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
+      # @option [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+      # @option [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+      # @option [String] :message Exception message if timed out.
+      # @option [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
       #
       # @example
       #
       #   @core.wait_true { @driver.find_element :accessibility_id, 'something' }
       #
-      def wait_true(opts = {})
-        opts = process_wait_opts(opts).merge(return_if_true: true)
+      def wait_true(timeout: nil, interval: nil, message: nil, ignored: nil)
+        timeout ||= @wait_timeout
+        interval ||= @wait_interval
 
-        opts[:timeout]  ||= @wait_timeout
-        opts[:interval] ||= @wait_interval
-
-        wait = ::Appium::Core::Base::Wait.new opts
-        wait.until { yield }
+        ::Appium::Core::Wait.until(timeout: timeout,
+                                   interval: interval,
+                                   message: message,
+                                   ignored: ignored,
+                                   return_if_true: true) { yield }
       end
 
+      # TODO: move to wait module and include them
       # Check every interval seconds to see if yield doesn't raise an exception.
       # Give up after timeout seconds.
       #
@@ -316,34 +318,27 @@ module Appium
       #
       # If only a number is provided then it's treated as the timeout value.
       #
-      # @param [Hash] opts Options
-      # @option opts [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option opts [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option opts [String] :message Exception message if timed out.
-      # @option opts [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
+      # @option [Integer] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+      # @option [Integer] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+      # @option [String] :message Exception message if timed out.
+      # @option [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
       #
       # @example
       #
       #   @core.wait { @driver.find_element :accessibility_id, 'something' }
       #
-      def wait(opts = {})
-        opts = process_wait_opts(opts).merge(return_if_true: false)
+      def wait(timeout: nil, interval: nil, message: nil, ignored: nil)
+        timeout ||= @wait_timeout
+        interval ||= @wait_interval
 
-        opts[:timeout] ||= @wait_timeout
-        opts[:interval] ||= @wait_interval
-
-        wait = ::Appium::Core::Base::Wait.new opts
-        wait.until { yield }
+        ::Appium::Core::Wait.until(timeout: timeout,
+                                   interval: interval,
+                                   message: message,
+                                   ignored: ignored,
+                                   return_if_true: false) { yield }
       end
 
       private
-
-      # @private
-      def process_wait_opts(opts)
-        opts = { timeout: opts } if opts.is_a?(Numeric)
-        raise 'opts must be a hash' unless opts.is_a? Hash
-        opts
-      end
 
       # @private
       def extend_for(device:, automation_name:, target:)
