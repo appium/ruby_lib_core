@@ -115,12 +115,12 @@ class AppiumLibCoreTest
       # end
 
       def test_logs
-        assert_equal %i(syslog crashlog performance), @@driver.logs.available_types
+        assert_equal %i(syslog crashlog performance server), @@driver.logs.available_types
         assert @@driver.logs.get(:syslog)
       end
 
       def test_session_capability
-        assert !@driver.session_capabilities['udid'].nil?
+        assert !@@driver.session_capabilities['udid'].nil?
       end
     end
   end

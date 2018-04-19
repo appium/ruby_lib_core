@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - [internal] No longer have dependency for Selenium's wait
+- [internal] Separate mjsonwp commands module and w3c commands module from one command module
 
 ### Bug fixes
 

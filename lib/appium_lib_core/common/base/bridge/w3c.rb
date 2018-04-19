@@ -8,7 +8,7 @@ module Appium
           ::Selenium::WebDriver::PointerActions::DEFAULT_MOVE_DURATION = 0.05
 
           def commands(command)
-            ::Appium::Core::Commands::COMMANDS_EXTEND_W3C[command]
+            ::Appium::Core::Commands::W3C::COMMANDS[command]
           end
 
           # Perform touch actions for W3C module.
