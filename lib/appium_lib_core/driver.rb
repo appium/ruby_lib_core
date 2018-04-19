@@ -1,6 +1,7 @@
 module Appium
   module Core
     class Driver
+      include Waitable
       # Selenium webdriver capabilities
       # @return [Core::Base::Capabilities]
       attr_reader :caps
@@ -278,66 +279,6 @@ module Appium
         @driver.save_screenshot png_save_path
       end
 
-      # TODO: move to wait module and include them
-      # Check every interval seconds to see if yield returns a truthy value.
-      # Note this isn't a strict boolean true, any truthy value is accepted.
-      # false and nil are considered failures.
-      # Give up after timeout seconds.
-      #
-      # Wait code from the selenium Ruby gem
-      # https://github.com/SeleniumHQ/selenium/blob/cf501dda3f0ed12233de51ce8170c0e8090f0c20/rb/lib/selenium/webdriver/common/wait.rb
-      #
-      # If only a number is provided then it's treated as the timeout value.
-      #
-      # @option [Numeric] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option [Numeric] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option [String] :message Exception message if timed out.
-      # @option [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
-      #
-      # @example
-      #
-      #   @core.wait_true { @driver.find_element :accessibility_id, 'something' }
-      #
-      def wait_true(timeout: nil, interval: nil, message: nil, ignored: nil)
-        timeout ||= @wait_timeout
-        interval ||= @wait_interval
-
-        ::Appium::Core::Wait.until(timeout: timeout,
-                                   interval: interval,
-                                   message: message,
-                                   ignored: ignored,
-                                   return_if_true: true) { yield }
-      end
-
-      # TODO: move to wait module and include them
-      # Check every interval seconds to see if yield doesn't raise an exception.
-      # Give up after timeout seconds.
-      #
-      # Wait code from the selenium Ruby gem
-      # https://github.com/SeleniumHQ/selenium/blob/cf501dda3f0ed12233de51ce8170c0e8090f0c20/rb/lib/selenium/webdriver/common/wait.rb
-      #
-      # If only a number is provided then it's treated as the timeout value.
-      #
-      # @option [Integer] :timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @option [Integer] :interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @option [String] :message Exception message if timed out.
-      # @option [Array, Exception] :ignore Exceptions to ignore while polling (default: Exception)
-      #
-      # @example
-      #
-      #   @core.wait { @driver.find_element :accessibility_id, 'something' }
-      #
-      def wait(timeout: nil, interval: nil, message: nil, ignored: nil)
-        timeout ||= @wait_timeout
-        interval ||= @wait_interval
-
-        ::Appium::Core::Wait.until(timeout: timeout,
-                                   interval: interval,
-                                   message: message,
-                                   ignored: ignored,
-                                   return_if_true: false) { yield }
-      end
-
       private
 
       # @private
@@ -427,8 +368,8 @@ module Appium
         @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 
         # timeout and interval used in ::Appium::Comm.wait/wait_true
-        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, 30
-        @wait_interval = appium_lib_opts.fetch :wait_interval, 0.5
+        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
+        @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
 
         # to pass it in Selenium.new.
         # `listener = opts.delete(:listener)` is called in Selenium::Driver.new
