@@ -38,7 +38,7 @@ module Appium
             get_log:                   [:post, 'session/:session_id/log'.freeze]
           }
         ).freeze
-      end
-    end
-  end
-end
+      end # module W3C
+    end # module Commands
+  end # module Core
+end # module Appium

@@ -8,7 +8,7 @@ module Appium
             take_element_screenshot:    [:get, 'session/:session_id/element/:id/screenshot'.freeze]
           }
         ).freeze
-      end
-    end
-  end
-end
+      end # module MJSONWP
+    end # module Commands
+  end # module Core
+end # Appium

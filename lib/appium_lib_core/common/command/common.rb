@@ -82,6 +82,6 @@ module Appium
       }.freeze
 
       COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).merge(COMMAND_IOS).freeze
-    end
-  end
-end
+    end # module Commands
+  end # module Core
+end # module Appium
