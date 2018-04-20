@@ -6,23 +6,8 @@ module Appium
       module ImageComparision
         extend Forwardable
 
-        # matchTemplate:
-        #     Performs images matching by template to find possible occurrence of the partial image
-        #     in the full image with default options. Read https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
-        #     for more details on this topic.
-        #
-
         MODE = [:matchFeatures, :getSimilarity, :matchTemplate].freeze
 
-        # detectorName:
-        #     Sets the detector name for features matching
-        #     algorithm. Some of these detectors (FAST, AGAST, GFTT, FAST, SIFT and MSER) are not available
-        #     in the default OpenCV installation and have to be enabled manually before
-        #     library compilation. The default detector name is 'ORB'.
-        # matchFunc:
-        #     The name of the matching function. The default one is 'BruteForce'.
-        # goodMatchesFactor:
-        #     The maximum count of "good" matches (e. g. with minimal distances).
         MATCH_FEATURES = {
           detector_name: %w(AKAZE AGAST BRISK FAST GFTT KAZE MSER SIFT ORB),
           match_func: %w(FlannBased BruteForce BruteForceL1 BruteForceHamming BruteForceHammingLut BruteForceSL2),
@@ -37,6 +22,74 @@ module Appium
         GET_SIMILARITY = {
           visualize: [true, false]
         }.freeze
+
+        # @!method match_images_features(first_image:, second_image:, detector_name: 'ORB',
+        #                                match_func: 'BruteForce', good_matches_factor: 100, visualize: false)
+        # Performs images matching by features with default options. Read https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
+        # for more details on this topic.
+        #
+        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] detector_name Sets the detector name for features matching
+        #                               algorithm. Some of these detectors (FAST, AGAST, GFTT, FAST, SIFT and MSER) are
+        #                               not available in the default OpenCV installation and have to be enabled manually
+        #                               before library compilation. The default detector name is 'ORB'.
+        # @param [String] match_func The name of the matching function. The default one is 'BruteForce'.
+        # @param [String] good_matches_factor The maximum count of "good" matches (e. g. with minimal distances).
+        # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
+        #               the corresponding picture matching operation. This option is disabled by default.
+        #
+        # @example
+        #     @driver.match_images_features first_image: "image data 1", second_image: "image data 2"
+        #
+
+        # @!method find_image_occurrence(first_image:, second_image:, detector_name: 'ORB', visualize: false)
+        # Performs images matching by template to find possible occurrence of the partial image
+        # in the full image with default options. Read https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
+        # for more details on this topic.
+        #
+        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
+        #               the corresponding picture matching operation. This option is disabled by default.
+        #
+        # @example
+        #     @driver.find_image_occurrence first_image: "image data 1", second_image: "image data 2"
+        #
+
+        # @!method get_images_similarity(first_image:, second_image:, detector_name: 'ORB', visualize: false)
+        # Performs images matching to calculate the similarity score between them
+        # with default options. The flow there is similar to the one used in `find_image_occurrence`
+        # but it is mandatory that both images are of equal size.
+        #
+        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
+        #               the corresponding picture matching operation. This option is disabled by default.
+        #
+        # @example
+        #     @driver.get_images_similarity first_image: "image data 1", second_image: "image data 2"
+        #
+
+        # @!method compare_images(mode:, first_image:, second_image:, options:)
+        #
+        # Performs images comparison using OpenCV framework features.
+        # It is expected that both OpenCV framework and opencv4nodejs
+        # module are installed on the machine where Appium server is running.
+        #
+        # @param [Symbol] mode: One of possible comparison modes: `:matchFeatures`, `:getSimilarity`, `:matchTemplate`.
+        #                       `:matchFeatures is by default.
+        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [Hash] options The content of this dictionary depends on the actual `mode` value.
+        #               See the documentation on `appium-support` module for more details.
+        # @returns [Hash] The content of the resulting dictionary depends on the actual `mode` and `options` values.
+        #                 See the documentation on `appium-support` module for more details.
+        #
+
+        ####
+        ## class << self
+        ####
 
         def self.extended
           ::Appium::Core::Device.add_endpoint_method(:match_images_features) do
@@ -93,21 +146,6 @@ module Appium
           end
 
           ::Appium::Core::Device.add_endpoint_method(:compare_images) do
-            # @!method compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
-            #
-            # Performs images comparison using OpenCV framework features.
-            # It is expected that both OpenCV framework and opencv4nodejs
-            # module are installed on the machine where Appium server is running.
-            #
-            # @param [Symbol] mode: One of possible comparison modes: `:matchFeatures`, `:getSimilarity`, `:matchTemplate`.
-            #                       `:matchFeatures is by default.
-            # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-            # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-            # @param [Hash] options The content of this dictionary depends on the actual `mode` value.
-            #               See the documentation on `appium-support` module for more details.
-            # @returns [Hash] The content of the resulting dictionary depends on the actual `mode` and `options` values.
-            #                 See the documentation on `appium-support` module for more details.
-            #
             def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
               unless ::Appium::Core::Device::ImageComparision::MODE.member?(mode)
                 raise "content_type should be #{::Appium::Core::Device::ImageComparision::MODE}"
