@@ -3,7 +3,7 @@ require_relative 'device/multi_touch'
 require_relative 'device/screen_record'
 require_relative 'device/app_state'
 require_relative 'device/clipboard_content_type'
-require_relative 'device/image_comparision_mode'
+require_relative 'device/image_comparision'
 
 require 'base64'
 

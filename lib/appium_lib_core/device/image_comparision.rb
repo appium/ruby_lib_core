@@ -6,7 +6,6 @@ module Appium
       module ImageComparision
         extend Forwardable
 
-
         # matchTemplate:
         #     Performs images matching by template to find possible occurrence of the partial image
         #     in the full image with default options. Read https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
@@ -25,31 +24,37 @@ module Appium
         # goodMatchesFactor:
         #     The maximum count of "good" matches (e. g. with minimal distances).
         MATCH_FEATURES = {
-            detector_name: %w(AKAZE AGAST BRISK FAST GFTT KAZE MSER SIFT ORB),
-            match_func: %w(FlannBased BruteForce BruteForceL1 BruteForceHamming BruteForceHammingLut BruteForceSL2),
-            goodMatchesFactor: 100,
-            visualize: [true, false]
-        }
+          detector_name: %w(AKAZE AGAST BRISK FAST GFTT KAZE MSER SIFT ORB),
+          match_func: %w(FlannBased BruteForce BruteForceL1 BruteForceHamming BruteForceHammingLut BruteForceSL2),
+          goodMatchesFactor: 100,
+          visualize: [true, false]
+        }.freeze
 
         MATCH_TEMPLATE = {
-            visualize: [true, false]
-        }
+          visualize: [true, false]
+        }.freeze
 
         GET_SIMILARITY = {
-            visualize: [true, false]
-        }
+          visualize: [true, false]
+        }.freeze
 
         def self.extended
           ::Appium::Core::Device.add_endpoint_method(:match_images_features) do
-            def match_images_features(first_image:, second_image:,
+            def match_images_features(first_image:, # rubocop:disable Metrics/ParameterLists
+                                      second_image:,
                                       detector_name: 'ORB',
                                       match_func: 'BruteForce',
                                       good_matches_factor: 100,
                                       visualize: false)
-
-              raise "detector_name should be #{MATCH_FEATURES[:detector_name]}" unless MATCH_FEATURES[:detector_name].member?(detector_name)
-              raise "match_func should be #{MATCH_FEATURES[:match_func]}" unless MATCH_FEATURES[:match_func].member?(match_func)
-              raise "visualize should be #{MATCH_FEATURES[:visualize]}" unless MATCH_FEATURES[:visualize].member?(visualize)
+              unless MATCH_FEATURES[:detector_name].member?(detector_name)
+                raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
+              end
+              unless MATCH_FEATURES[:match_func].member?(match_func)
+                raise "match_func should be #{MATCH_FEATURES[:match_func]}"
+              end
+              unless MATCH_FEATURES[:visualize].member?(visualize)
+                raise "visualize should be #{MATCH_FEATURES[:visualize]}"
+              end
 
               options = {}
               options[:detectorName] = detector_name.upcase
@@ -63,8 +68,9 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:find_image_occurrence) do
             def find_image_occurrence(first_image:, second_image:, visualize: false)
-
-              raise "visualize should be #{MATCH_TEMPLATE[:visualize]}" unless MATCH_TEMPLATE[:visualize].member?(visualize)
+              unless MATCH_TEMPLATE[:visualize].member?(visualize)
+                raise "visualize should be #{MATCH_TEMPLATE[:visualize]}"
+              end
 
               options = {}
               options[:visualize] = visualize
@@ -75,8 +81,9 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:get_images_similarity) do
             def get_images_similarity(first_image:, second_image:, visualize: false)
-
-              raise "visualize should be #{GET_SIMILARITY[:visualize]}" unless GET_SIMILARITY[:visualize].member?(visualize)
+              unless GET_SIMILARITY[:visualize].member?(visualize)
+                raise "visualize should be #{GET_SIMILARITY[:visualize]}"
+              end
 
               options = {}
               options[:visualize] = visualize
