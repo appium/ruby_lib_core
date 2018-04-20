@@ -45,7 +45,8 @@ module Appium
         get_settings:               [:get,  'session/:session_id/appium/settings'.freeze],
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
-        start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze]
+        start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze],
+        compare_images:             [:post, 'session/:session_id/appium/compare_images'.freeze]
       }.freeze
 
       COMMAND_ANDROID = {

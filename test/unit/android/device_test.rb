@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'webmock/minitest'
+require 'base64'
 
 # $ rake test:unit TEST=test/unit/android/device_test.rb
 class AppiumLibCoreTest
@@ -698,6 +699,18 @@ class AppiumLibCoreTest
         @driver.toggle_location_services
 
         assert_requested(:post, "#{SESSION}/appium/device/toggle_location_services", times: 1)
+      end
+
+      def test_image_comparision
+        stub_request(:post, "#{SESSION}/appium/compare_images")
+          .with(body: { mode: :matchFeatures,
+                        firstImage: Base64.encode64('image1'),
+                        secondImage: Base64.encode64('image2') }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.compare_images first_image: 'image1', second_image: 'image2'
+
+        assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
       end
     end
   end
