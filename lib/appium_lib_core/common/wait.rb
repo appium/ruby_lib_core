@@ -1,4 +1,5 @@
-# rubocop:disable Lint/HandleExceptions
+require_relative 'wait/timer'
+
 module Appium
   module Core
     module Wait
@@ -30,19 +31,14 @@ module Appium
         def until(timeout: DEFAULT_TIMEOUT, interval: DEFAULT_INTERVAL, message: nil, ignored: nil, object: nil)
           ignored = Array(ignored || ::Exception)
 
-          end_time   = Time.now + timeout
           last_error = nil
 
-          until Time.now > end_time
-            begin
-              return yield(object)
-            rescue ::Errno::ECONNREFUSED => e
-              raise e
-            rescue *ignored => last_error
-              # swallowed
-            end
-
-            sleep interval
+          begin
+            run_with_timer(timeout, interval) { return yield(object) }
+          rescue ::Errno::ECONNREFUSED => e
+            raise e
+          rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+            # swallowed
           end
 
           msg = message_for timeout, message
@@ -75,20 +71,17 @@ module Appium
         def until_true(timeout: DEFAULT_TIMEOUT, interval: DEFAULT_INTERVAL, message: nil, ignored: nil, object: nil)
           ignored = Array(ignored || ::Exception)
 
-          end_time   = Time.now + timeout
           last_error = nil
 
-          until Time.now > end_time
-            begin
+          begin
+            run_with_timer(timeout, interval) do
               result = yield(object)
               return result if result
-            rescue ::Errno::ECONNREFUSED => e
-              raise e
-            rescue *ignored => last_error
-              # swallowed
             end
-
-            sleep interval
+          rescue ::Errno::ECONNREFUSED => e
+            raise e
+          rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+            # swallowed
           end
 
           msg = message_for timeout, message
@@ -103,6 +96,17 @@ module Appium
           msg = "timed out after #{timeout} seconds"
           msg << ", #{message}" if message
           msg
+        end
+
+        def run_with_timer(timeout, interval, &block)
+          if timeout.zero?
+            block.call # rubocop:disable Performance/RedundantBlockCall
+          else
+            Timer.wait timeout do
+              block.call # rubocop:disable Performance/RedundantBlockCall
+              sleep interval
+            end
+          end
         end
       end # self
     end # module Wait
