@@ -28,8 +28,8 @@ module Appium
         # Performs images matching by features with default options. Read https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_feature2d/py_matcher/py_matcher.html
         # for more details on this topic.
         #
-        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] first_image An image data. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image An image data. All image formats, that OpenCV library itself accepts, are supported.
         # @param [String] detector_name Sets the detector name for features matching
         #                               algorithm. Some of these detectors (FAST, AGAST, GFTT, FAST, SIFT and MSER) are
         #                               not available in the default OpenCV installation and have to be enabled manually
@@ -47,20 +47,21 @@ module Appium
         #     File.write 'match_images_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
         #
 
-        # @!method find_image_occurrence(first_image:, second_image:, detector_name: 'ORB', visualize: false)
+        # @!method find_image_occurrence(full_image:, partial_image:, detector_name: 'ORB', visualize: false)
         # Performs images matching by template to find possible occurrence of the partial image
         # in the full image with default options. Read https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
         # for more details on this topic.
         #
-        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
+        # @param [String] full_image: A full image data.
+        # @param [String] partial_image: A partial image data. All image formats, that OpenCV library itself accepts,
+        #                                are supported.
+        # @param [Bool] visualise: Makes the endpoint to return an image, which contains the visualized result of
         #               the corresponding picture matching operation. This option is disabled by default.
         #
         # @example
-        #     @driver.find_image_occurrence first_image: "image data 1", second_image: "image data 2"
+        #     @driver.find_image_occurrence full_image: "image data 1", partial_image: "image data 2"
         #
-        #     visual = @@driver.find_image_occurrence first_image: image1, second_image: image2, visualize: true
+        #     visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
         #     File.write 'find_result_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
         #
 
@@ -69,9 +70,9 @@ module Appium
         # with default options. The flow there is similar to the one used in `find_image_occurrence`
         # but it is mandatory that both images are of equal size.
         #
-        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
+        # @param [String] first_image: An image data. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image: An image data. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [Bool] visualise: Makes the endpoint to return an image, which contains the visualized result of
         #               the corresponding picture matching operation. This option is disabled by default.
         #
         # @example
@@ -89,9 +90,9 @@ module Appium
         #
         # @param [Symbol] mode: One of possible comparison modes: `:matchFeatures`, `:getSimilarity`, `:matchTemplate`.
         #                       `:matchFeatures is by default.
-        # @param [String] first_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [String] second_image An image file. All image formats, that OpenCV library itself accepts, are supported.
-        # @param [Hash] options The content of this dictionary depends on the actual `mode` value.
+        # @param [String] first_image: An image data. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [String] second_image: An image data. All image formats, that OpenCV library itself accepts, are supported.
+        # @param [Hash] options: The content of this dictionary depends on the actual `mode` value.
         #               See the documentation on `appium-support` module for more details.
         # @returns [Hash] The content of the resulting dictionary depends on the actual `mode` and `options` values.
         #                 See the documentation on `appium-support` module for more details.
@@ -109,10 +110,10 @@ module Appium
                                       match_func: 'BruteForce',
                                       good_matches_factor: nil,
                                       visualize: false)
-              unless MATCH_FEATURES[:detector_name].member?(detector_name)
+              unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
                 raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
               end
-              unless MATCH_FEATURES[:match_func].member?(match_func)
+              unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
                 raise "match_func should be #{MATCH_FEATURES[:match_func]}"
               end
               unless MATCH_FEATURES[:visualize].member?(visualize)
@@ -120,8 +121,8 @@ module Appium
               end
 
               options = {}
-              options[:detectorName] = detector_name.upcase
-              options[:matchFunc] = match_func
+              options[:detectorName] = detector_name.to_s.upcase
+              options[:matchFunc] = match_func.to_s
               options[:goodMatchesFactor] = good_matches_factor.to_i unless good_matches_factor.nil?
               options[:visualize] = visualize
 
@@ -130,7 +131,7 @@ module Appium
           end
 
           ::Appium::Core::Device.add_endpoint_method(:find_image_occurrence) do
-            def find_image_occurrence(first_image:, second_image:, visualize: false)
+            def find_image_occurrence(full_image:, partial_image:, visualize: false)
               unless MATCH_TEMPLATE[:visualize].member?(visualize)
                 raise "visualize should be #{MATCH_TEMPLATE[:visualize]}"
               end
@@ -138,7 +139,7 @@ module Appium
               options = {}
               options[:visualize] = visualize
 
-              compare_images(mode: :matchTemplate, first_image: first_image, second_image: second_image, options: options)
+              compare_images(mode: :matchTemplate, first_image: full_image, second_image: partial_image, options: options)
             end
           end
 

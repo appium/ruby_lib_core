@@ -8,9 +8,6 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
         @@driver ||= @@core.start_driver
-
-        require 'pry'
-        binding.pry
       end
 
       def teardown
@@ -282,10 +279,10 @@ class AppiumLibCoreTest
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
 
-        find_result = @@driver.find_image_occurrence first_image: image1, second_image: image2
+        find_result = @@driver.find_image_occurrence full_image: image1, partial_image: image2
         assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
 
-        find_result_visual = @@driver.find_image_occurrence first_image: image1, second_image: image2, visualize: true
+        find_result_visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
         assert_equal %w(rect visualization), find_result_visual.keys
         File.write 'find_result_visual.png', Base64.decode64(find_result_visual['visualization'])
         assert File.size? 'find_result_visual.png'

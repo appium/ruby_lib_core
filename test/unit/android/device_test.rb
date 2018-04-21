@@ -737,7 +737,7 @@ class AppiumLibCoreTest
                         options: { visualize: false } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.find_image_occurrence first_image: 'image1', second_image: 'image2'
+        @driver.find_image_occurrence full_image: 'image1', partial_image: 'image2'
 
         assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
       end
