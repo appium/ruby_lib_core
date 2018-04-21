@@ -347,7 +347,7 @@ class AppiumLibCoreTest
         assert_equal input, @@driver.get_clipboard
       end
 
-      def test_image_comparision_match_result
+      def test_image_comparison_match_result
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
 
@@ -362,7 +362,7 @@ class AppiumLibCoreTest
         File.delete 'match_result_visual.png'
       end
 
-      def test_image_comparision_find_result
+      def test_image_comparison_find_result
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
 
@@ -377,7 +377,7 @@ class AppiumLibCoreTest
         File.delete 'find_result_visual.png'
       end
 
-      def test_image_comparision_get_images_result
+      def test_image_comparison_get_images_result
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
 

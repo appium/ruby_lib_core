@@ -3,7 +3,7 @@ require 'base64'
 module Appium
   module Core
     module Device
-      module ImageComparision
+      module Imagecomparison
         extend Forwardable
 
         MODE = [:matchFeatures, :getSimilarity, :matchTemplate].freeze
@@ -11,7 +11,7 @@ module Appium
         MATCH_FEATURES = {
           detector_name: %w(AKAZE AGAST BRISK FAST GFTT KAZE MSER SIFT ORB),
           match_func: %w(FlannBased BruteForce BruteForceL1 BruteForceHamming BruteForceHammingLut BruteForceSL2),
-          goodMatchesFactor: 100,
+          goodMatchesFactor: nil, # Integer
           visualize: [true, false]
         }.freeze
 
@@ -36,6 +36,7 @@ module Appium
         #                               before library compilation. The default detector name is 'ORB'.
         # @param [String] match_func The name of the matching function. The default one is 'BruteForce'.
         # @param [String] good_matches_factor The maximum count of "good" matches (e. g. with minimal distances).
+        #                                     The default one is nil.
         # @param [Bool] visualise Makes the endpoint to return an image, which contains the visualized result of
         #               the corresponding picture matching operation. This option is disabled by default.
         #
@@ -106,7 +107,7 @@ module Appium
                                       second_image:,
                                       detector_name: 'ORB',
                                       match_func: 'BruteForce',
-                                      good_matches_factor: 100,
+                                      good_matches_factor: nil,
                                       visualize: false)
               unless MATCH_FEATURES[:detector_name].member?(detector_name)
                 raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
@@ -121,7 +122,7 @@ module Appium
               options = {}
               options[:detectorName] = detector_name.upcase
               options[:matchFunc] = match_func
-              options[:goodMatchesFactor] = good_matches_factor.to_i
+              options[:goodMatchesFactor] = good_matches_factor.to_i unless good_matches_factor.nil?
               options[:visualize] = visualize
 
               compare_images(mode: :matchFeatures, first_image: first_image, second_image: second_image, options: options)
@@ -156,8 +157,8 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:compare_images) do
             def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
-              unless ::Appium::Core::Device::ImageComparision::MODE.member?(mode)
-                raise "content_type should be #{::Appium::Core::Device::ImageComparision::MODE}"
+              unless ::Appium::Core::Device::Imagecomparison::MODE.member?(mode)
+                raise "content_type should be #{::Appium::Core::Device::Imagecomparison::MODE}"
               end
 
               params = {}
@@ -170,7 +171,7 @@ module Appium
             end
           end
         end # self
-      end # module ImageComparision
+      end # module Imagecomparison
     end # module Device
   end # module Core
 end # module Appium

@@ -690,7 +690,7 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/toggle_location_services", times: 1)
       end
 
-      def test_image_comparision_match_images_features
+      def test_image_comparison_match_images_features
         stub_request(:post, "#{SESSION}/appium/compare_images")
           .with(body: { mode: :matchFeatures,
                         firstImage: Base64.encode64('image1'),
@@ -701,12 +701,12 @@ class AppiumLibCoreTest
                                    visualize: false } }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.match_images_features first_image: 'image1', second_image: 'image2'
+        @driver.match_images_features first_image: 'image1', second_image: 'image2', good_matches_factor: 100
 
         assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
       end
 
-      def test_image_comparision_find_image_occurrence
+      def test_image_comparison_find_image_occurrence
         stub_request(:post, "#{SESSION}/appium/compare_images")
           .with(body: { mode: :matchTemplate,
                         firstImage: Base64.encode64('image1'),
@@ -719,7 +719,7 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
       end
 
-      def test_image_comparision_get_images_similarity
+      def test_image_comparison_get_images_similarity
         stub_request(:post, "#{SESSION}/appium/compare_images")
           .with(body: { mode: :getSimilarity,
                         firstImage: Base64.encode64('image1'),
