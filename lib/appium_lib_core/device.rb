@@ -520,7 +520,7 @@ module Appium
           add_app_management
           add_device_lock
           add_file_management
-          Core::Device::Imagecomparison.extended
+          Core::Device::ImageComparison.extended
         end
 
         # def extended

@@ -3,7 +3,7 @@ require 'base64'
 module Appium
   module Core
     module Device
-      module Imagecomparison
+      module ImageComparison
         extend Forwardable
 
         MODE = [:matchFeatures, :getSimilarity, :matchTemplate].freeze
@@ -110,14 +110,14 @@ module Appium
                                       match_func: 'BruteForce',
                                       good_matches_factor: nil,
                                       visualize: false)
-              unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
-                raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
+              unless ::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
+                raise "detector_name should be #{::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:detector_name]}"
               end
-              unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
-                raise "match_func should be #{MATCH_FEATURES[:match_func]}"
+              unless ::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:match_func].member?(match_func.to_s)
+                raise "match_func should be #{::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:match_func]}"
               end
-              unless MATCH_FEATURES[:visualize].member?(visualize)
-                raise "visualize should be #{MATCH_FEATURES[:visualize]}"
+              unless ::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:visualize].member?(visualize)
+                raise "visualize should be #{::Appium::Core::Device::ImageComparison::MATCH_FEATURES[:visualize]}"
               end
 
               options = {}
@@ -132,8 +132,8 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:find_image_occurrence) do
             def find_image_occurrence(full_image:, partial_image:, visualize: false)
-              unless MATCH_TEMPLATE[:visualize].member?(visualize)
-                raise "visualize should be #{MATCH_TEMPLATE[:visualize]}"
+              unless ::Appium::Core::Device::ImageComparison::MATCH_TEMPLATE[:visualize].member?(visualize)
+                raise "visualize should be #{::Appium::Core::Device::ImageComparison::MATCH_TEMPLATE[:visualize]}"
               end
 
               options = {}
@@ -145,8 +145,8 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:get_images_similarity) do
             def get_images_similarity(first_image:, second_image:, visualize: false)
-              unless GET_SIMILARITY[:visualize].member?(visualize)
-                raise "visualize should be #{GET_SIMILARITY[:visualize]}"
+              unless ::Appium::Core::Device::ImageComparison::GET_SIMILARITY[:visualize].member?(visualize)
+                raise "visualize should be #{::Appium::Core::Device::ImageComparison::GET_SIMILARITY[:visualize]}"
               end
 
               options = {}
@@ -158,8 +158,8 @@ module Appium
 
           ::Appium::Core::Device.add_endpoint_method(:compare_images) do
             def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
-              unless ::Appium::Core::Device::Imagecomparison::MODE.member?(mode)
-                raise "content_type should be #{::Appium::Core::Device::Imagecomparison::MODE}"
+              unless ::Appium::Core::Device::ImageComparison::MODE.member?(mode)
+                raise "content_type should be #{::Appium::Core::Device::ImageComparison::MODE}"
               end
 
               params = {}
@@ -172,7 +172,7 @@ module Appium
             end
           end
         end # self
-      end # module Imagecomparison
+      end # module ImageComparison
     end # module Device
   end # module Core
 end # module Appium
