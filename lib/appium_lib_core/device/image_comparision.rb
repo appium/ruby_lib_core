@@ -42,6 +42,9 @@ module Appium
         # @example
         #     @driver.match_images_features first_image: "image data 1", second_image: "image data 2"
         #
+        #     visual = @@driver.match_images_features first_image: image1, second_image: image2, visualize: true
+        #     File.write 'match_images_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
+        #
 
         # @!method find_image_occurrence(first_image:, second_image:, detector_name: 'ORB', visualize: false)
         # Performs images matching by template to find possible occurrence of the partial image
@@ -56,6 +59,9 @@ module Appium
         # @example
         #     @driver.find_image_occurrence first_image: "image data 1", second_image: "image data 2"
         #
+        #     visual = @@driver.find_image_occurrence first_image: image1, second_image: image2, visualize: true
+        #     File.write 'find_result_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
+        #
 
         # @!method get_images_similarity(first_image:, second_image:, detector_name: 'ORB', visualize: false)
         # Performs images matching to calculate the similarity score between them
@@ -69,6 +75,9 @@ module Appium
         #
         # @example
         #     @driver.get_images_similarity first_image: "image data 1", second_image: "image data 2"
+        #
+        #     visual = @@driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
+        #     File.write 'images_similarity_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
         #
 
         # @!method compare_images(mode:, first_image:, second_image:, options:)
