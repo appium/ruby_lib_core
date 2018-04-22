@@ -5,12 +5,7 @@ require_relative 'appium_lib_core/common'
 require_relative 'appium_lib_core/patch'
 require_relative 'appium_lib_core/driver'
 
-# for multi touch related methods
-require_relative 'appium_lib_core/device/touch_actions'
-require_relative 'appium_lib_core/device/multi_touch'
-require_relative 'appium_lib_core/device/screen_record'
-require_relative 'appium_lib_core/device/app_state'
-require_relative 'appium_lib_core/device/clipboard_content_type'
+require_relative 'appium_lib_core/device'
 
 require_relative 'appium_lib_core/android'
 require_relative 'appium_lib_core/android_uiautomator2'
