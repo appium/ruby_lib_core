@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- add base image comparison
+    - `match_images_features`, `find_image_occurrence`, `get_images_similarity`, `compare_images`
 - [internal] No longer have dependency for Selenium's wait
 - [internal] Separate mjsonwp commands module and w3c commands module from one command module
 
