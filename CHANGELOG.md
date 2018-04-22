@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.4.1] - 2018-04-22
+### Enhancements
 - add base image comparison
     - `match_images_features`, `find_image_occurrence`, `get_images_similarity`, `compare_images`
 - [internal] No longer have dependency for Selenium's wait
