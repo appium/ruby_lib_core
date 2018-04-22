@@ -1,3 +1,9 @@
+#### v1.4.2 2018-04-22
+
+- [9a29196](https://github.com/appium/ruby_lib_core/commit/9a29196c1dde66a828b72bef0b3f28b929c7bf1b) Release 1.4.2
+- [d51668a](https://github.com/appium/ruby_lib_core/commit/d51668a2f63fa6d8e36e4861002d5c2fd070fc7f) revert delegate_from_appium_driver
+
+
 #### v1.4.1 2018-04-22
 
 - [afb5d33](https://github.com/appium/ruby_lib_core/commit/afb5d334a786a12bd407848312ddd35c8c9ad308) Release 1.4.1
