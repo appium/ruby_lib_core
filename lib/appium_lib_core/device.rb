@@ -530,6 +530,7 @@ module Appium
           block_given? ? create_bridge_command(method, &Proc.new) : create_bridge_command(method)
 
           delegate_driver_method method
+          delegate_from_appium_driver method
         end
 
         # @private CoreBridge
@@ -538,6 +539,12 @@ module Appium
           ::Appium::Core::Base::Driver.class_eval do
             extend Forwardable
           end
+        end
+
+        # For ruby_lib compatibility
+        # @private
+        def delegate_from_appium_driver(method, delegation_target = :driver)
+          def_delegator delegation_target, method
         end
 
         # @private
