@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
-- Revert `delegate_from_appium_driver` for `ruby_lib` compatibility
 
 ### Deprecations
 
@@ -22,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - add base image comparison
     - `match_images_features`, `find_image_occurrence`, `get_images_similarity`, `compare_images`
 - [internal] No longer have dependency for Selenium's wait
+    - Raise `::Appium::Core::Wait::TimeoutError` instead of `::Selenium::WebDriver::Error::TimeOutError`
 - [internal] Separate mjsonwp commands module and w3c commands module from one command module
 
 ### Bug fixes
