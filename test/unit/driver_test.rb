@@ -39,18 +39,9 @@ class AppiumLibCoreTest
       end
     end
 
-    def file_exist?(file_path)
-      count = 0
-      while !File.exist?(file_path) && count != 5
-        sleep 0.1
-        count += 1
-      end
-    end
-
     def test_verify_session_id_in_the_export_session_path
       file = @core.export_session_path
-      file_exist? file
-      @core.wait { assert_equal '1234567890', File.read(file).strip }
+      @core.wait { assert File.size?(file) }
       File.delete file
     end
 

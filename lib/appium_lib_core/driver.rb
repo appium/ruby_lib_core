@@ -403,7 +403,7 @@ module Appium
 
       # @private
       def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
-        File.open(export_path, 'w') { |f| f.puts session_id }
+        File.write(export_path, session_id)
       rescue IOError => e
         ::Appium::Logger.warn e
         nil
