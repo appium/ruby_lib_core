@@ -40,9 +40,7 @@ class AppiumLibCoreTest
     end
 
     def test_verify_session_id_in_the_export_session_path
-      file = @core.export_session_path
-      @core.wait { assert File.size?(file) }
-      File.delete file
+      @core.wait { assert File.size?(@core.export_session_path) }
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
