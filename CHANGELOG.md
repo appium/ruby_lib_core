@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+- Revert `delegate_from_appium_driver` for `ruby_lib` compatibility
+
+### Deprecations
+
+## [1.4.2] - 2018-04-22
+### Enhancements
+
+### Bug fixes
+- Revert `delegate_from_appium_driver` for `ruby_lib` compatibility
 
 ### Deprecations
 
