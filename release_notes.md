@@ -1,3 +1,12 @@
+#### v1.4.1 2018-04-22
+
+- [afb5d33](https://github.com/appium/ruby_lib_core/commit/afb5d334a786a12bd407848312ddd35c8c9ad308) Release 1.4.1
+- [7fd0ccc](https://github.com/appium/ruby_lib_core/commit/7fd0ccca947e742f03ac41022d0670bf809d3969) add base image comparison (#80)
+- [0b10980](https://github.com/appium/ruby_lib_core/commit/0b10980cbbb48cfba0352fa0ef4e15b2fd16d086) split timer loop from wait
+- [009f679](https://github.com/appium/ruby_lib_core/commit/009f679c08fd4c019b4876454d758ef5cf30daae) Refactor commands (#79)
+- [4b1c086](https://github.com/appium/ruby_lib_core/commit/4b1c0868c6258106faae24978be324b79785fc5b) Extract wait (#78)
+
+
 #### v1.4.0 2018-04-15
 
 - [5cc89aa](https://github.com/appium/ruby_lib_core/commit/5cc89aa4a9533e174527db5b805b96cf2b45a9ac) Release 1.4.0
