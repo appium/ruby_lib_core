@@ -34,8 +34,8 @@ module Appium
       # `move_to`'s `x` and `y` have two case. One is working as coordinate, the other is working as offset.
       #
       # @param opts [Hash] Options
-      # @option opts [integer] :x x co-ordinate to move to if element isn't set. Works as an offset if x is set with Element.
-      # @option opts [integer] :y y co-ordinate to move to if element isn't set. Works as an offset if y is set with Element.
+      # @option opts [integer] :x x co-ordinate to move to if element isn't set. Works as an absolute if x is set with Element.
+      # @option opts [integer] :y y co-ordinate to move to if element isn't set. Works as an absolute if y is set with Element.
       # @option opts [WebDriver::Element] Element to scope this move within.
       def move_to(opts)
         opts = args_with_ele_ref(opts)
@@ -133,24 +133,30 @@ module Appium
       # @param opts [Hash] Options
       # @option opts [int] :start_x Where to start swiping, on the x axis.  Default 0.
       # @option opts [int] :start_y Where to start swiping, on the y axis.  Default 0.
-      # @option opts [int] :offset_x Move to the end, on the x axis.  Default 0.
-      # @option opts [int] :offset_y Move to the end, on the y axis.  Default 0.
+      # @option opts [int] :end_x Move to the end, on the x axis.  Default 0.
+      # @option opts [int] :end_y Move to the end, on the y axis.  Default 0.
       # @option opts [int] :duration How long the actual swipe takes to complete in milliseconds. Default 200.
-      def swipe(opts, ele = nil)
-        start_x  = opts.fetch :start_x, 0
-        start_y  = opts.fetch :start_y, 0
-        offset_x = opts.fetch :offset_x, 0
-        offset_y = opts.fetch :offset_y, 0
+      def swipe(opts)
+        start_x = opts.fetch :start_x, 0
+        start_y = opts.fetch :start_y, 0
+        end_x   = opts.fetch :end_x, 0
+        end_y   = opts.fetch :end_y, 0
+
+        if opts[:offset_x]
+          ::Appium::Logger.warn('[DEPRECATED] :offset_x was renamed to :end_x to indicate as an absolute point.')
+          end_x = opts.fetch :offset_x, 0
+        end
+        if opts[:offset_y]
+          ::Appium::Logger.warn('[DEPRECATED] :offset_y was renamed to :end_y to indicate as an absolute point.')
+          end_y = opts.fetch :offset_y, 0
+        end
+
         duration = opts.fetch :duration, 200
 
-        if ele # pinch/zoom for XCUITest
-          press x: start_x, y: start_y, element: ele
-          move_to x: offset_x, y: offset_y, element: ele
-        else
-          press x: start_x, y: start_y
-          wait(duration) if duration
-          move_to x: offset_x, y: offset_y
-        end
+        press x: start_x, y: start_y
+        wait(duration) if duration
+        move_to x: end_x, y: end_y
+
         release
 
         self
