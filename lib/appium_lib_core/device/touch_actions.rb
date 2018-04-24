@@ -136,21 +136,17 @@ module Appium
       # @option opts [int] :offset_x Move to the end, on the x axis.  Default 0.
       # @option opts [int] :offset_y Move to the end, on the y axis.  Default 0.
       # @option opts [int] :duration How long the actual swipe takes to complete in milliseconds. Default 200.
-      def swipe(opts, ele = nil)
+      def swipe(opts)
         start_x  = opts.fetch :start_x, 0
         start_y  = opts.fetch :start_y, 0
         offset_x = opts.fetch :offset_x, 0
         offset_y = opts.fetch :offset_y, 0
         duration = opts.fetch :duration, 200
 
-        if ele # pinch/zoom for XCUITest
-          press x: start_x, y: start_y, element: ele
-          move_to x: offset_x, y: offset_y, element: ele
-        else
-          press x: start_x, y: start_y
-          wait(duration) if duration
-          move_to x: offset_x, y: offset_y
-        end
+        press x: start_x, y: start_y
+        wait(duration) if duration
+        move_to x: offset_x, y: offset_y
+
         release
 
         self

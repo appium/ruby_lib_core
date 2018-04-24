@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- [internal] Remove hot fix for XCUITest action
 
 ### Bug fixes
 
