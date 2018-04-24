@@ -1,3 +1,10 @@
+#### v1.5.0 2018-04-25
+
+- [b37ab24](https://github.com/appium/ruby_lib_core/commit/b37ab249c01a9d9f22a35e8d08e79a6d6b53e3f2) Release 1.5.0
+- [0e2df5c](https://github.com/appium/ruby_lib_core/commit/0e2df5ce86d89fdeb9010a8af3b47da9eed3b269) Remove hotfix xcuitest pinch zoom (#81)
+- [7209568](https://github.com/appium/ruby_lib_core/commit/7209568040ad94b47aebfac132f47f4be451d112) Update CHANGELOG.md
+
+
 #### v1.4.2 2018-04-22
 
 - [9a29196](https://github.com/appium/ruby_lib_core/commit/9a29196c1dde66a828b72bef0b3f28b929c7bf1b) Release 1.4.2
