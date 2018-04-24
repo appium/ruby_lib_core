@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.5.0] - 2018-04-25
+### Enhancements
 - [internal] Remove hot fix for XCUITest action
 
 ### Bug fixes
