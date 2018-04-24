@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 ### Bug fixes
 
 ### Deprecations
+- Changed the name of arguments
+    - `swipe(start_x:, start_y:, end_x:, end_y:)` instead of `swipe(start_x:, start_y:, offset_x:, offset_y:)`
 
 ## [1.4.2] - 2018-04-22
 ### Enhancements
