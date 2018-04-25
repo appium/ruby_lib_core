@@ -10,8 +10,6 @@ module Appium
           current_time > @end_time
         end
 
-        private
-
         if defined?(Process::CLOCK_MONOTONIC)
           def current_time
             Process.clock_gettime(Process::CLOCK_MONOTONIC)
