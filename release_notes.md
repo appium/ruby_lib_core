@@ -1,3 +1,9 @@
+#### v1.5.1 2018-04-25
+
+- [27f6149](https://github.com/appium/ruby_lib_core/commit/27f6149f330137bc1d6350271c246ebe0346122b) Release 1.5.1
+- [ddd8624](https://github.com/appium/ruby_lib_core/commit/ddd8624d2c3b9295af086eaf75774f94dbb17b39) Km/fix timeout error (#82)
+
+
 #### v1.5.0 2018-04-25
 
 - [b37ab24](https://github.com/appium/ruby_lib_core/commit/b37ab249c01a9d9f22a35e8d08e79a6d6b53e3f2) Release 1.5.0
