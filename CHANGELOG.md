@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+
+### Deprecations
+
+## [1.5.1] - 2018-04-25
+### Enhancements
+
+### Bug fixes
 - Revert timeout logic in `1.4.1`
 
 ### Deprecations
