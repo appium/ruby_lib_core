@@ -32,13 +32,17 @@ module Appium
           ignored = Array(ignored || ::Exception)
 
           last_error = nil
+          timer = Wait::Timer.new(timeout)
 
-          begin
-            run_with_timer(timeout, interval) { return yield(object) }
-          rescue ::Errno::ECONNREFUSED => e
-            raise e
-          rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
-            # swallowed
+          until timer.timeout?
+            begin
+              return yield(object)
+            rescue ::Errno::ECONNREFUSED => e
+              raise e
+            rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+              # swallowed
+            end
+            sleep interval
           end
 
           msg = message_for timeout, message
@@ -72,16 +76,18 @@ module Appium
           ignored = Array(ignored || ::Exception)
 
           last_error = nil
+          timer = Wait::Timer.new(timeout)
 
-          begin
-            run_with_timer(timeout, interval) do
+          until timer.timeout?
+            begin
               result = yield(object)
               return result if result
+            rescue ::Errno::ECONNREFUSED => e
+              raise e
+            rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+              # swallowed
             end
-          rescue ::Errno::ECONNREFUSED => e
-            raise e
-          rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
-            # swallowed
+            sleep interval
           end
 
           msg = message_for timeout, message
@@ -96,17 +102,6 @@ module Appium
           msg = "timed out after #{timeout} seconds"
           msg << ", #{message}" if message
           msg
-        end
-
-        def run_with_timer(timeout, interval, &block)
-          if timeout.zero?
-            block.call # rubocop:disable Performance/RedundantBlockCall
-          else
-            Timer.wait timeout do
-              block.call # rubocop:disable Performance/RedundantBlockCall
-              sleep interval
-            end
-          end
         end
       end # self
     end # module Wait
