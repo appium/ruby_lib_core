@@ -109,6 +109,21 @@ module Appium
         #   @driver.get_performance_record
         #   @driver.get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor')
 
+        # @since 1.6.0
+        # @!method battery_info
+        #
+        # Get battery information.
+        #
+        # @return [Hash]  Return battery level and battery state.
+        #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
+        #                 Battery state. The following symbols are possible
+        #                 `:unplugged, :charging, :full`
+        #
+        # @example
+        #
+        #   @driver.battery_info #=> { state: :full, level: 0.7 }
+        #
+
         # rubocop:enable Metrics/LineLength
 
         ####
@@ -117,8 +132,6 @@ module Appium
 
         class << self
           def extended(_mod)
-            ::Appium::Core::Device.extend_webdriver_with_forwardable
-
             # Override
             ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
               def hide_keyboard(close_key = nil, strategy = nil)
