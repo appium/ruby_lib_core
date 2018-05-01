@@ -109,16 +109,13 @@ class AppiumLibCoreTest
       end
 
       def test_app_management
-        assert @@driver.app_state('io.appium.android.apis') ==
-               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+        assert @@driver.app_state('io.appium.android.apis') == :running_in_foreground
 
         assert @@driver.terminate_app('io.appium.android.apis')
-        assert @@driver.app_state('io.appium.android.apis') ==
-               Appium::Core::Device::AppState::NOT_RUNNING
+        assert @@driver.app_state('io.appium.android.apis') == :not_running
 
         assert @@driver.activate_app('io.appium.android.apis').nil?
-        assert @@driver.app_state('io.appium.android.apis') ==
-               Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+        assert @@driver.app_state('io.appium.android.apis') == :running_in_background
       end
 
       def test_start_activity
