@@ -152,12 +152,14 @@ module Appium
             Appium::Core::Device.add_endpoint_method(:battery_info) do
               def battery_info
                 response = execute_script 'mobile: batteryInfo', {}
-                case response
-                when 1, 2, 3
-                  ::Appium::Core::Device::BatteryStatus::IOS[response]
-                else
-                  ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
-                end
+
+                state = case response['state']
+                        when 1, 2, 3
+                          ::Appium::Core::Device::BatteryStatus::IOS[response['state']]
+                        else
+                          ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
+                        end
+                {state: state, level: response['level']}
               end
             end
           end
