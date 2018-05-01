@@ -159,7 +159,7 @@ module Appium
                         else
                           ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
                         end
-                {state: state, level: response['level']}
+                { state: state, level: response['level'] }
               end
             end
           end

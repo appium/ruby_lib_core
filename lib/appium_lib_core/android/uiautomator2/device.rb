@@ -20,7 +20,7 @@ module Appium
                           else
                             ::Appium::Core::Device::BatteryStatus::ANDROID[0] # :undefined
                           end
-                  {state: state, level: response['level']}
+                  { state: state, level: response['level'] }
                 end
               end
             end
