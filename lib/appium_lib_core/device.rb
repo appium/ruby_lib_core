@@ -141,20 +141,20 @@ module Appium
 
       # Get the status of an existing application on the device.
       # State:
-      #   AppState::NOT_INSTALLED : The current application state cannot be determined/is unknown
-      #   AppState::NOT_RUNNING : The application is not running
-      #   AppState::RUNNING_IN_BACKGROUND_SUSPENDED : The application is running in the background and is suspended
-      #   AppState::RUNNING_IN_BACKGROUND : The application is running in the background and is not suspended
-      #   AppState::RUNNING_IN_FOREGROUND : The application is running in the foreground
+      #   :not_installed : The current application state cannot be determined/is unknown
+      #   :not_running : The application is not running
+      #   :running_in_background_suspended : The application is running in the background and is suspended
+      #   :running_in_background : The application is running in the background and is not suspended
+      #   :running_in_foreground : The application is running in the foreground
       #
       # For more details: https://developer.apple.com/documentation/xctest/xcuiapplicationstate
       #
       # @param [String] bundle_id A target app's bundle id
-      # @return [AppManagement::APP_STATE_NOT_INSTALLED|AppManagement::APP_STATE_NOT_RUNNING|APP_STATE_RUNNING_IN_BACKGROUND_SUSPEND|AppManagement::APP_STATE_RUNNING_IN_BACKGROUND|AppManagement::APP_STATE_RUNNING_IN_FOREGROUND] A number of the state
+      # @return [AppState::STATUS] A number of the state
       #
       # @example
       #
-      #      @driver.app_state("io.appium.bundle") #=> 1
+      #      @driver.app_state("io.appium.bundle") #=> :not_running
       #
 
       # @!method app_strings(language = nil)
@@ -719,16 +719,8 @@ module Appium
               response = execute :app_state, {}, appId: app_id
 
               case response
-              when 0
-                ::Appium::Core::Device::AppState::NOT_INSTALLED
-              when 1
-                ::Appium::Core::Device::AppState::NOT_RUNNING
-              when 2
-                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND_SUSPENDED
-              when 3
-                ::Appium::Core::Device::AppState::RUNNING_IN_BACKGROUND
-              when 4
-                ::Appium::Core::Device::AppState::RUNNING_IN_FOREGROUND
+              when 0, 1, 2, 3, 4
+                ::Appium::Core::Device::AppState::STATUS[response]
               else
                 ::Appium::Logger.debug("Unexpected status in app_state: #{response}")
                 response

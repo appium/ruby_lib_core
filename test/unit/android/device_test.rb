@@ -350,11 +350,12 @@ class AppiumLibCoreTest
 
       def test_app_state
         stub_request(:post, "#{SESSION}/appium/device/app_state")
-          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 1 }.to_json)
 
-        @driver.app_state 'com.app.id'
+        state = @driver.app_state 'com.app.id'
 
         assert_requested(:post, "#{SESSION}/appium/device/app_state", times: 1)
+        assert_equal :not_running, state
       end
 
       def test_app_installed?

@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- [Breaking Change]
+    - Change the results of `app_state`.
+        - Before: A number or const.
+            - `0, 1, 2, 3, 4` or `NOT_INSTALLED, NOT_RUNNING, RUNNING_IN_BACKGROUND_SUSPENDED, RUNNING_IN_BACKGROUND, RUNNING_IN_FOREGROUND`
+        - After: Symbol.
+            - `:not_installed, :not_running, :running_in_background_suspended, :running_in_background, :running_in_foreground`
 
 ### Bug fixes
 

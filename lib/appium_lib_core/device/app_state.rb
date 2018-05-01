@@ -2,11 +2,13 @@ module Appium
   module Core
     module Device
       class AppState
-        NOT_INSTALLED = 0
-        NOT_RUNNING = 1
-        RUNNING_IN_BACKGROUND_SUSPENDED = 2
-        RUNNING_IN_BACKGROUND = 3
-        RUNNING_IN_FOREGROUND = 4
+        STATUS = [
+          :not_installed,                  # 0
+          :not_running,                    # 1
+          :running_in_background_suspended,# 2
+          :running_in_background,          # 3
+          :running_in_foreground           # 4
+        ]
       end
     end
   end
