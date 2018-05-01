@@ -118,8 +118,8 @@ class AppiumLibCoreTest
 
       def test_get_battery_info
         stub_request(:post, "#{SESSION}/execute/sync")
-            .with(body: {script: 'mobile: batteryInfo', args: [{}]}.to_json)
-            .to_return(headers: HEADER, status: 200, body: { value: 1 }.to_json)
+          .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 1 }.to_json)
 
         info = @driver.battery_info
 
