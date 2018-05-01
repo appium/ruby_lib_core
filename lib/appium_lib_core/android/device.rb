@@ -382,9 +382,25 @@ module Appium
           add_screen_recording
           add_clipboard
           Emulator.emulator_commands
+          add_battery_info
         end
 
         private
+
+        def add_battery_info
+          ::Appium::Core::Device.add_endpoint_method(:get_battery_info) do
+            def get_clipboard(content_type: :plaintext)
+              unless ::Appium::Core::Device::Clipboard::CONTENT_TYPE.member?(content_type)
+                raise "content_type should be #{::Appium::Core::Device::Clipboard::CONTENT_TYPE}"
+              end
+
+              params = { contentType: content_type }
+
+              data = execute(:get_clipboard, {}, params)
+              Base64.decode64 data
+            end
+          end
+        end
 
         def add_screen_recording
           Appium::Core::Device.add_endpoint_method(:start_recording_screen) do

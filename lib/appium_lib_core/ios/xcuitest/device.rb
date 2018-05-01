@@ -143,9 +143,24 @@ module Appium
 
             add_performance
             add_screen_recording
+            add_battery_info
           end
 
           private
+
+          def add_battery_info
+            Appium::Core::Device.add_endpoint_method(:battery_info) do
+              def battery_info
+                response = execute_script 'mobile: batteryInfo', {}
+                case response
+                when 1, 2, 3
+                  ::Appium::Core::Device::BatteryStatus::IOS[response]
+                else
+                  ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
+                end
+              end
+            end
+          end
 
           def add_performance
             Appium::Core::Device.add_endpoint_method(:start_performance_record) do

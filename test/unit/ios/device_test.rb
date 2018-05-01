@@ -127,6 +127,17 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/appium/stop_recording_screen", times: 1)
       end
+
+      def test_get_battery_info
+        stub_request(:post, "#{SESSION}/execute")
+          .with(body: {script: 'mobile: batteryInfo', args: [{}]}.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: 3 }.to_json)
+
+        info = @driver.battery_info
+
+        assert_requested(:post, "#{SESSION}/execute", times: 1)
+        assert_equal :full, info
+      end
     end
   end
 end
