@@ -52,14 +52,6 @@ module Appium
       #   @driver.get_display_density # 320
       #
 
-      # @!method is_keyboard_shown
-      # Get whether keyboard is displayed or not.
-      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
-      #
-      # @example
-      #   @driver.is_keyboard_shown # false
-      #
-
       # @!method get_network_connection
       #   Get the device network connection current status
       #   See set_network_connection method for return value
@@ -283,12 +275,6 @@ module Appium
           Appium::Core::Device.add_endpoint_method(:get_display_density) do
             def get_display_density
               execute :get_display_density
-            end
-          end
-
-          Appium::Core::Device.add_endpoint_method(:is_keyboard_shown) do
-            def is_keyboard_shown # rubocop:disable Naming/PredicateName for compatibility
-              execute :is_keyboard_shown
             end
           end
 
