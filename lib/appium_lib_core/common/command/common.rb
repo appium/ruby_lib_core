@@ -46,7 +46,8 @@ module Appium
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
         start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'.freeze],
-        compare_images:             [:post, 'session/:session_id/appium/compare_images'.freeze]
+        compare_images:             [:post, 'session/:session_id/appium/compare_images'.freeze],
+        is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze]
       }.freeze
 
       COMMAND_ANDROID = {
@@ -57,7 +58,6 @@ module Appium
         current_package:            [:get,  'session/:session_id/appium/device/current_package'.freeze],
         get_system_bars:            [:get,  'session/:session_id/appium/device/system_bars'.freeze],
         get_display_density:        [:get,  'session/:session_id/appium/device/display_density'.freeze],
-        is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'.freeze],
         toggle_wifi:                [:post, 'session/:session_id/appium/device/toggle_wifi'.freeze],
         toggle_data:                [:post, 'session/:session_id/appium/device/toggle_data'.freeze],
         toggle_location_services:   [:post, 'session/:session_id/appium/device/toggle_location_services'.freeze],

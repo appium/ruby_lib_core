@@ -37,6 +37,7 @@ class AppiumLibCoreTest
                                             :app_installed?,
                                             :background_app,
                                             :hide_keyboard,
+                                            :is_keyboard_shown,
                                             :keyevent,
                                             :press_keycode,
                                             :long_press_keycode,
