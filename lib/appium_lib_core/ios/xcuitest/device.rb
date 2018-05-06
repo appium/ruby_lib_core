@@ -109,6 +109,23 @@ module Appium
         #   @driver.get_performance_record
         #   @driver.get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor')
 
+        # @since 1.6.0
+        # @!method battery_info
+        #
+        # Get battery information.
+        #
+        # @return [Hash]  Return battery level and battery state from the target real device. (Simulator has no battery.)
+        #                 https://developer.apple.com/documentation/uikit/uidevice/ 's `batteryLevel` and `batteryState`.
+        #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
+        #                 if the actual value cannot be retrieved from the system.
+        #                 Battery state. The following symbols are possible
+        #                 `:unplugged, :charging, :full`
+        #
+        # @example
+        #
+        #   @driver.battery_info #=> { state: :full, level: 0.7 }
+        #
+
         # rubocop:enable Metrics/LineLength
 
         ####
@@ -117,8 +134,6 @@ module Appium
 
         class << self
           def extended(_mod)
-            ::Appium::Core::Device.extend_webdriver_with_forwardable
-
             # Override
             ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
               def hide_keyboard(close_key = nil, strategy = nil)
@@ -143,9 +158,27 @@ module Appium
 
             add_performance
             add_screen_recording
+            add_battery_info
           end
 
           private
+
+          def add_battery_info
+            Appium::Core::Device.add_endpoint_method(:battery_info) do
+              def battery_info
+                response = execute_script 'mobile: batteryInfo', {}
+
+                state = case response['state']
+                        when 1, 2, 3
+                          ::Appium::Core::Device::BatteryStatus::IOS[response['state']]
+                        else
+                          Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
+                          ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
+                        end
+                { state: state, level: response['level'] }
+              end
+            end
+          end
 
           def add_performance
             Appium::Core::Device.add_endpoint_method(:start_performance_record) do

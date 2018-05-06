@@ -44,11 +44,11 @@ class AppiumLibCoreTest
       end
 
       def test_lock_unlock
-        @@driver.lock 5
-        assert @@driver.device_locked?
+        @@driver.lock
+        @@core.wait { assert @@driver.device_locked? }
 
         @@driver.unlock
-        assert !@@driver.device_locked?
+        @@core.wait { assert !@@driver.device_locked? }
       end
 
       def test_background_reset
@@ -300,6 +300,13 @@ class AppiumLibCoreTest
         assert File.size? 'get_images_result_visual.png'
 
         File.delete 'get_images_result_visual.png'
+      end
+
+      def test_battery_info
+        result = @@driver.battery_info
+
+        assert !result[:state].nil?
+        assert !result[:level].nil?
       end
     end
   end

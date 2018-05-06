@@ -1,23 +1,23 @@
 module Appium
-  # Perform a series of gestures, one after another.  Gestures are chained
-  # together and only performed when `perform()` is called. Default is conducted by global driver.
-  #
-  # Each method returns the object itself, so calls can be chained.
-  #
-  # Consider to use W3C spec touch action like the followings.
-  # https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
-  # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
-  # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
-  #
-  # @example
-  #
-  #   @driver = Appium::Core.for(self, opts).start_driver
-  #   action = TouchAction.new(@driver).press(x: 45, y: 100).wait(5).release
-  #   action.perform
-  #   action = TouchAction.new(@driver).swipe(....)
-  #   action.perform
-  #
   module Core
+    # Perform a series of gestures, one after another.  Gestures are chained
+    # together and only performed when `perform()` is called. Default is conducted by global driver.
+    #
+    # Each method returns the object itself, so calls can be chained.
+    #
+    # Consider to use W3C spec touch action like the followings.
+    # https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+    # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
+    # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
+    #
+    # @example
+    #
+    #   @driver = Appium::Core.for(self, opts).start_driver
+    #   action = TouchAction.new(@driver).press(x: 45, y: 100).wait(5).release
+    #   action.perform
+    #   action = TouchAction.new(@driver).swipe(....)
+    #   action.perform
+    #
     class TouchAction
       ACTIONS = %i(move_to long_press double_tap two_finger_tap press release tap wait perform).freeze
       COMPLEX_ACTIONS = %i(swipe).freeze

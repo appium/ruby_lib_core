@@ -755,6 +755,18 @@ class AppiumLibCoreTest
 
         assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
       end
+
+      def test_get_battery_info
+        stub_request(:post, "#{SESSION}/execute")
+          .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: { state: 2, level: 1.0 } }.to_json)
+
+        info = @driver.battery_info
+
+        assert_requested(:post, "#{SESSION}/execute", times: 1)
+        assert_equal :charging, info[:state]
+        assert_equal 1.0, info[:level]
+      end
     end
   end
 end

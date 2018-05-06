@@ -389,6 +389,13 @@ class AppiumLibCoreTest
         File.delete 'get_images_result_visual.png'
       end
 
+      def test_battery_info
+        result = @@driver.battery_info
+
+        assert !result[:state].nil?
+        assert !result[:level].nil?
+      end
+
       private
 
       def scroll_to(text)
