@@ -205,6 +205,14 @@ module Appium
       #   @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
       #
 
+      # @!method is_keyboard_shown
+      # Get whether keyboard is displayed or not.
+      # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
+      #
+      # @example
+      #   @driver.is_keyboard_shown # false
+      #
+
       # @!method keyevent(key, metastate = nil)
       # Send keyevent on the device.(Only for Selendroid)
       # http://developer.android.com/reference/android/view/KeyEvent.html
@@ -450,17 +458,6 @@ module Appium
             end
           end
 
-          add_endpoint_method(:hide_keyboard) do
-            def hide_keyboard(close_key = nil, strategy = nil)
-              option = {}
-
-              option[:key] = close_key || 'Done'        # default to Done key.
-              option[:strategy] = strategy || :pressKey # default to pressKey
-
-              execute :hide_keyboard, {}, option
-            end
-          end
-
           add_endpoint_method(:take_element_screenshot) do
             def take_element_screenshot(element, png_path)
               result = execute :take_element_screenshot, id: element.ref
@@ -520,6 +517,7 @@ module Appium
           add_app_management
           add_device_lock
           add_file_management
+          add_keyboard
           Core::Device::ImageComparison.extended
         end
 
@@ -753,6 +751,25 @@ module Appium
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
               execute :long_press_keycode, {}, args
+            end
+          end
+        end
+
+        def add_keyboard
+          add_endpoint_method(:hide_keyboard) do
+            def hide_keyboard(close_key = nil, strategy = nil)
+              option = {}
+
+              option[:key] = close_key || 'Done'        # default to Done key.
+              option[:strategy] = strategy || :pressKey # default to pressKey
+
+              execute :hide_keyboard, {}, option
+            end
+          end
+
+          add_endpoint_method(:is_keyboard_shown) do
+            def is_keyboard_shown # rubocop:disable Naming/PredicateName for compatibility
+              execute :is_keyboard_shown
             end
           end
         end

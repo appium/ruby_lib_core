@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
         - After: Symbol.
             - `:not_installed, :not_running, :running_in_background_suspended, :running_in_background, :running_in_foreground`
 - add `battery_info` to get battery information
+- add `is_keyboard_shown` for iOS ( see also https://github.com/appium/appium-xcuitest-driver/pull/664/files )
 
 ### Bug fixes
 
