@@ -115,7 +115,8 @@ module Appium
         # Get battery information.
         #
         # @return [Hash]  Return battery level and battery state.
-        #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
+        #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
+        #                 if the actual value cannot be retrieved from the system.
         #                 Battery state. The following symbols are possible
         #                 `:unplugged, :charging, :full`
         #
@@ -170,6 +171,7 @@ module Appium
                         when 1, 2, 3
                           ::Appium::Core::Device::BatteryStatus::IOS[response['state']]
                         else
+                          Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
                           ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
                         end
                 { state: state, level: response['level'] }

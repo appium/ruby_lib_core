@@ -11,8 +11,8 @@ module Appium
           # Get battery information.
           #
           # @return [Hash]  Return battery level and battery state.
-          #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge.
-          #                 -1 is returned if the actual value cannot be retrieved from the system.
+          #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
+          #                 if the actual value cannot be retrieved from the system.
           #                 Battery state. The following symbols are possible
           #                 `:unknown, :charging, :discharging, :not_charging, :full`
           #
@@ -32,10 +32,11 @@ module Appium
                   response = execute_script 'mobile: batteryInfo', {}
 
                   state = case response['state']
-                          when 1, 2, 3, 4, 5
+                          when 2, 3, 4, 5
                             ::Appium::Core::Device::BatteryStatus::ANDROID[response['state']]
                           else
-                            ::Appium::Core::Device::BatteryStatus::ANDROID[0] # :undefined
+                            Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
+                            ::Appium::Core::Device::BatteryStatus::ANDROID[1] # :unknown
                           end
                   { state: state, level: response['level'] }
                 end
