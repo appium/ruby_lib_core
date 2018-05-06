@@ -114,7 +114,8 @@ module Appium
         #
         # Get battery information.
         #
-        # @return [Hash]  Return battery level and battery state.
+        # @return [Hash]  Return battery level and battery state from the target real device. (Simulator has no battery.)
+        #                 https://developer.apple.com/documentation/uikit/uidevice/ 's `batteryLevel` and `batteryState`.
         #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
         #                 if the actual value cannot be retrieved from the system.
         #                 Battery state. The following symbols are possible
