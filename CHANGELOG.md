@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.6.0] - 2018-05-08
+### Enhancements
 - **Breaking Change**
     - Change the results of `app_state`.
         - Before: A number or const.
