@@ -1,3 +1,13 @@
+#### v1.6.0 2018-05-08
+
+- [37a35f0](https://github.com/appium/ruby_lib_core/commit/37a35f022d35f43a9770c17e25b8fa3c57737dd6) Release 1.6.0
+- [0a5134c](https://github.com/appium/ruby_lib_core/commit/0a5134c80939484301250331bc77b384bc01cf1c) fix an example
+- [59a920f](https://github.com/appium/ruby_lib_core/commit/59a920fc6a8e42503f4314f6cfd1242326573559) Add battery info (#85)
+- [1e9717f](https://github.com/appium/ruby_lib_core/commit/1e9717fae8231b87c906ade40cea4ca4bebe5262) add is_keyboard_shown for iOS (#86)
+- [48ae579](https://github.com/appium/ruby_lib_core/commit/48ae57975dbf17d0d097d49a6b8598ad18cf4c63) Update CHANGELOG.md
+- [9ae597c](https://github.com/appium/ruby_lib_core/commit/9ae597c6fdea0abb5f7292bb2c3e02dc859ecb3d) change the response of app_state (#84)
+
+
 #### v1.5.1 2018-04-25
 
 - [27f6149](https://github.com/appium/ruby_lib_core/commit/27f6149f330137bc1d6350271c246ebe0346122b) Release 1.5.1
