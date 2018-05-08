@@ -224,22 +224,24 @@ module Appium
       #   @driver.keyevent 82
       #
 
-      # @!method press_keycode(key, metastate = nil)
+      # @!method press_keycode(key, metastate = nil, flag: nil)
       # Press keycode on the device.
       # http://developer.android.com/reference/android/view/KeyEvent.html
       # @param [integer] key The key to press.
       # @param [String] metastate The state the metakeys should be in when pressing the key.
+      # @param [String] flag: Native Android flag value. Several flags can be combined into a single key event.
       #
       # @example
       #
       #   @driver.press_keycode 82
       #
 
-      # @!method long_press_keycode(key, metastate = nil)
+      # @!method long_press_keycode(key, metastate = nil, flag: nil)
       # Long press keycode on the device.
       # http://developer.android.com/reference/android/view/KeyEvent.html
       # @param [integer] key The key to long press.
       # @param [String] metastate The state the metakeys should be in when long pressing the key.
+      # @param [String] flag: Native Android flag value. Several flags can be combined into a single key event.
       #
       # @example
       #
@@ -739,17 +741,20 @@ module Appium
           end
 
           add_endpoint_method(:press_keycode) do
-            def press_keycode(key, metastate = nil)
+            # TODO: change the way to set flags
+            def press_keycode(key, metastate = nil, flags: nil)
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
+              args[:flags]     = flags if flags
               execute :press_keycode, {}, args
             end
           end
 
           add_endpoint_method(:long_press_keycode) do
-            def long_press_keycode(key, metastate = nil)
+            def long_press_keycode(key, metastate = nil, flags: nil)
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
+              args[:flags]     = flags if flags
               execute :long_press_keycode, {}, args
             end
           end
