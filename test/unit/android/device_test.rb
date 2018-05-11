@@ -409,10 +409,11 @@ class AppiumLibCoreTest
       # keypress
       def test_press_keycode_with_flags
         stub_request(:post, "#{SESSION}/appium/device/press_keycode")
-          .with(body: { keycode: 86, flags: 8224 }.to_json)
+          .with(body: { keycode: 86, flags: 44 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.press_keycode 86, nil, flags: [0x20, 0x2000] # CANCELED and CTRL_LEFT_ON
+        # CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
+        @driver.press_keycode 86, nil, flags: [0x20, 0x00000004, 0x00000008]
 
         assert_requested(:post, "#{SESSION}/appium/device/press_keycode", times: 1)
       end
@@ -437,10 +438,11 @@ class AppiumLibCoreTest
       # keypress
       def test_long_press_keycodewith_flags
         stub_request(:post, "#{SESSION}/appium/device/long_press_keycode")
-          .with(body: { keycode: 86, flags: 8224 }.to_json)
+          .with(body: { keycode: 86, flags: 36 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        @driver.long_press_keycode 86, nil, flags: [32, 8192] # CANCELED and CTRL_LEFT_ON
+        # CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE
+        @driver.long_press_keycode 86, nil, flags: [32, 4]
 
         assert_requested(:post, "#{SESSION}/appium/device/long_press_keycode", times: 1)
       end

@@ -759,7 +759,7 @@ module Appium
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
               unless flags.empty?
-                args[:flags] = flags.reduce(0) { |acc, flag| acc |= flag }
+                args[:flags] = flags.reduce(0) { |acc, flag| acc | flag }
               end
               execute :press_keycode, {}, args
             end
@@ -772,7 +772,7 @@ module Appium
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
               unless flags.empty?
-                args[:flags] = flags.reduce(0) { |acc, flag| acc |= flag }
+                args[:flags] = flags.reduce(0) { |acc, flag| acc | flag }
               end
               execute :long_press_keycode, {}, args
             end
