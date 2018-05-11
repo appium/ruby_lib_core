@@ -394,8 +394,10 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/keyevent", times: 1)
       end
 
+      # keypress
       def test_press_keycode
         stub_request(:post, "#{SESSION}/appium/device/press_keycode")
+          .with(body: { keycode: 86 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.press_keycode 86
@@ -403,13 +405,49 @@ class AppiumLibCoreTest
         assert_requested(:post, "#{SESSION}/appium/device/press_keycode", times: 1)
       end
 
+      # keypress
+      def test_press_keycode_with_flags
+        stub_request(:post, "#{SESSION}/appium/device/press_keycode")
+          .with(body: { keycode: 86, flags: 8224 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.press_keycode 86, nil, flags: [0x20, 0x2000] # CANCELED and CTRL_LEFT_ON
+
+        assert_requested(:post, "#{SESSION}/appium/device/press_keycode", times: 1)
+      end
+
+      def test_press_keycode_with_flags_with_wrong_flags
+        assert_raises ArgumentError do
+          @driver.press_keycode 86, nil, flags: 0x02
+        end
+      end
+
+      # keypress
       def test_long_press_keycode
         stub_request(:post, "#{SESSION}/appium/device/long_press_keycode")
+          .with(body: { keycode: 86 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
         @driver.long_press_keycode 86
 
         assert_requested(:post, "#{SESSION}/appium/device/long_press_keycode", times: 1)
+      end
+
+      # keypress
+      def test_long_press_keycodewith_flags
+        stub_request(:post, "#{SESSION}/appium/device/long_press_keycode")
+          .with(body: { keycode: 86, flags: 8224 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+        @driver.long_press_keycode 86, nil, flags: [32, 8192] # CANCELED and CTRL_LEFT_ON
+
+        assert_requested(:post, "#{SESSION}/appium/device/long_press_keycode", times: 1)
+      end
+
+      def test_long_press_keycode_with_flags_with_wrong_flags
+        assert_raises ArgumentError do
+          @driver.long_press_keycode 86, nil, flags: 0x02
+        end
       end
 
       def test_take_element_screenshot
