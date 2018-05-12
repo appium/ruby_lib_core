@@ -409,18 +409,27 @@ class AppiumLibCoreTest
       # keypress
       def test_press_keycode_with_flags
         stub_request(:post, "#{SESSION}/appium/device/press_keycode")
-          .with(body: { keycode: 86, flags: 44 }.to_json)
+          .with(body: { keycode: 86, metastate: 2_097_153, flags: 44 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        # CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
-        @driver.press_keycode 86, nil, flags: [0x20, 0x00000004, 0x00000008]
+        # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
+        # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE, FLAG_FROM_SYSTEM
+        @driver.press_keycode 86, metastate: [0x00000001, 0x00200000], flags: [0x20, 0x00000004, 0x00000008]
 
         assert_requested(:post, "#{SESSION}/appium/device/press_keycode", times: 1)
       end
 
+      # keypress
       def test_press_keycode_with_flags_with_wrong_flags
         assert_raises ArgumentError do
-          @driver.press_keycode 86, nil, flags: 0x02
+          @driver.press_keycode 86, flags: 0x02
+        end
+      end
+
+      # keypress
+      def test_press_keycode_with_flags_with_wrong_metastate
+        assert_raises ArgumentError do
+          @driver.press_keycode 86, metastate: 0x02
         end
       end
 
@@ -438,18 +447,27 @@ class AppiumLibCoreTest
       # keypress
       def test_long_press_keycodewith_flags
         stub_request(:post, "#{SESSION}/appium/device/long_press_keycode")
-          .with(body: { keycode: 86, flags: 36 }.to_json)
+          .with(body: { keycode: 86, metastate: 1, flags: 36 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-        # CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE
-        @driver.long_press_keycode 86, nil, flags: [32, 4]
+        # metastate is META_SHIFT_ON
+        # flags is CANCELFLAG_CANCELEDED, FLAG_KEEP_TOUCH_MODE
+        @driver.long_press_keycode 86, metastate: [1], flags: [32, 4]
 
         assert_requested(:post, "#{SESSION}/appium/device/long_press_keycode", times: 1)
       end
 
+      # keypress
       def test_long_press_keycode_with_flags_with_wrong_flags
         assert_raises ArgumentError do
-          @driver.long_press_keycode 86, nil, flags: 0x02
+          @driver.long_press_keycode 86, flags: 0x02
+        end
+      end
+
+      # keypress
+      def test_long_press_keycode_with_flags_with_wrong_metastate
+        assert_raises ArgumentError do
+          @driver.long_press_keycode 86, metastate: 0x02
         end
       end
 

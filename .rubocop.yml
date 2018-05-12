@@ -11,9 +11,9 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Enabled: false
 Metrics/CyclomaticComplexity:
-  Max: 9
+  Max: 10
 Metrics/PerceivedComplexity:
-  Max: 9
+  Max: 10
 Style/Documentation:
   Enabled: false
 Style/CommentedKeyword:
