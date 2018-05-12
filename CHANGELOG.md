@@ -3,11 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- Add `flags` in `press_keycode` and `long_press_keycode`
-   - New: `@driver.press_keycode 66, metastate: [1], flags: [32]`
-      - `metastate` should set as a keyword argument
-      - `long_press_keycode` as well
-   - Before: `@driver.press_keycode 66, 1` (Can set only metastate)
+- Has one **Breaking Change**
+    - Add `flags` in `press_keycode` and `long_press_keycode`
+       - New: `@driver.press_keycode 66, metastate: [1], flags: [0x20, 0x2000]`
+          - `metastate` should set as a keyword argument
+          - `long_press_keycode` as well
+       - Before: `@driver.press_keycode 66, 1` (Can set only metastate)
 
 ### Bug fixes
 
