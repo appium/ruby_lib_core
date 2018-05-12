@@ -224,26 +224,44 @@ module Appium
       #   @driver.keyevent 82
       #
 
-      # @!method press_keycode(key, metastate = nil)
+      # @!method press_keycode(key, metastate: [], flags: [])
       # Press keycode on the device.
       # http://developer.android.com/reference/android/view/KeyEvent.html
-      # @param [integer] key The key to press.
-      # @param [String] metastate The state the metakeys should be in when pressing the key.
+      # @param [Integer] key The key to press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+      #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
+      # @param [[Integer]] metastate: The state the metakeys should be in when pressing the key. Default is empty Array.
+      #                            Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+      #                            e.g.: META_SHIFT_ON is `1` or `0x00000001`
+      # @param [[Integer]] flags: Native Android flag value. Several flags can be combined into a single key event.
+      #                           Default is empty Array.  Can set multiple flags as Array.
+      #                           Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+      #                           e.g.: FLAG_CANCELED is `32` or `0x00000020`
       #
       # @example
       #
-      #   @driver.press_keycode 82
+      #   @driver.press_keycode 66
+      #   @driver.press_keycode 66, flags: [0x02]
+      #   @driver.press_keycode 66, metastate: [1], flags: [32]
       #
 
-      # @!method long_press_keycode(key, metastate = nil)
+      # @!method long_press_keycode(key, metastate: [], flags: [])
       # Long press keycode on the device.
       # http://developer.android.com/reference/android/view/KeyEvent.html
-      # @param [integer] key The key to long press.
-      # @param [String] metastate The state the metakeys should be in when long pressing the key.
+      # @param [Integer] key The key to long press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+      #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
+      # @param [[Integer]] metastate: The state the metakeys should be in when pressing the key. Default is empty Array.
+      #                            Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+      #                            e.g.: META_SHIFT_ON is `1` or `0x00000001`
+      # @param [[Integer]] flags: Native Android flag value. Several flags can be combined into a single key event.
+      #                           Default is empty Array. Can set multiple flags as Array.
+      #                           Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+      #                           e.g.: FLAG_CANCELED is `32` or `0x00000020`
       #
       # @example
       #
-      #   @driver.long_press_keycode 82
+      #   @driver.long_press_keycode 66
+      #   @driver.long_press_keycode 66, flags: [0x20, 0x2000]
+      #   @driver.long_press_keycode 66, metastate: [1], flags: [32, 8192]
       #
 
       # @!method push_file(path, filedata)
@@ -739,17 +757,27 @@ module Appium
           end
 
           add_endpoint_method(:press_keycode) do
-            def press_keycode(key, metastate = nil)
+            def press_keycode(key, metastate: [], flags: [])
+              raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
+              raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array
+
               args             = { keycode: key }
-              args[:metastate] = metastate if metastate
+              args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
+              args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
+
               execute :press_keycode, {}, args
             end
           end
 
           add_endpoint_method(:long_press_keycode) do
-            def long_press_keycode(key, metastate = nil)
+            def long_press_keycode(key, metastate: [], flags: [])
+              raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
+              raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array
+
               args             = { keycode: key }
-              args[:metastate] = metastate if metastate
+              args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
+              args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
+
               execute :long_press_keycode, {}, args
             end
           end
