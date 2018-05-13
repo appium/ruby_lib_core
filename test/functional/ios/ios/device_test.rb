@@ -117,7 +117,8 @@ class AppiumLibCoreTest
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
       end
 
-      def test_push_pull
+      def test_pull_file
+        # Only pulling files from application containers is supported for iOS Simulator. Provide the remote path in format @<bundle_id>/<path_to_the_file_in_its_container>
         read_file = @@driver.pull_file 'Library/AddressBook/AddressBook.sqlitedb'
         assert read_file.start_with?('SQLite format')
       end

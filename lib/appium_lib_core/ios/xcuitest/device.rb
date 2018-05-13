@@ -1,3 +1,6 @@
+require_relative 'device/performance'
+require_relative 'device/screen'
+
 module Appium
   module Core
     module Ios
@@ -157,8 +160,8 @@ module Appium
                 end
               end
 
-              add_performance
-              add_screen_recording
+              Performance.add_methods
+              Screen.add_methods
               add_battery_info
             end
 
@@ -178,54 +181,6 @@ module Appium
                           end
                   { state: state, level: response['level'] }
                 end
-              end
-            end
-
-            def add_performance
-              Appium::Core::Device.add_endpoint_method(:start_performance_record) do
-                def start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor', pid: nil)
-                  option = {}
-                  option[:timeout] = timeout
-                  option[:profileName] = profile_name
-                  option[:pid] = pid if pid
-
-                  execute_script 'mobile: startPerfRecord', option
-                end
-              end
-
-              Appium::Core::Device.add_endpoint_method(:get_performance_record) do
-                # rubocop:disable Metrics/ParameterLists
-                def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
-                                           remote_path: nil, user: nil, pass: nil, method: 'PUT')
-                  option = ::Appium::Core::Device::ScreenRecord.new(
-                    remote_path: remote_path, user: user, pass: pass, method: method
-                  ).upload_option
-
-                  option[:profileName] = profile_name
-                  result = execute_script 'mobile: stopPerfRecord', option
-
-                  File.open("#{save_file_path}.zip", 'wb') { |f| f << result.unpack('m')[0] }
-                end
-                # rubocop:enable Metrics/ParameterLists
-              end
-            end
-
-            def add_screen_recording
-              Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
-                # rubocop:disable Metrics/ParameterLists
-                def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil,
-                                           video_type: 'mp4', time_limit: '180', video_quality: 'medium')
-                  option = ::Appium::Core::Device::ScreenRecord.new(
-                    remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
-                  ).upload_option
-
-                  option[:videoType] = video_type
-                  option[:timeLimit] = time_limit
-                  option[:videoQuality] = video_quality
-
-                  execute(:start_recording_screen, {}, { options: option })
-                end
-                # rubocop:enable Metrics/ParameterLists
               end
             end
           end # class << self

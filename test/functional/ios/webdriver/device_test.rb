@@ -115,7 +115,8 @@ class AppiumLibCoreTest
       # end
 
       def test_logs
-        assert_equal %i(syslog crashlog performance server), @@driver.logs.available_types
+
+        assert @@driver.logs.available_types.include? :syslog
         assert @@driver.logs.get(:syslog)
       end
 
