@@ -20,7 +20,7 @@ class AppiumLibCoreTest
           end
 
           def test_delegate_from_appium_driver
-            assert @core.delegated_target_for_test.respond_to? :launch_app
+            assert @core.send(:delegated_target_for_test).respond_to? :launch_app
           end
 
           def parameterized_method_defined_check(array)

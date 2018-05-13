@@ -99,7 +99,7 @@ module Appium
 
       # @private
       # For testing purpose of delegate_from_appium_driver
-      def delegated_target_for_test
+      private def delegated_target_for_test
         @delegate_target
       end
 
