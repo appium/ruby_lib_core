@@ -1,3 +1,5 @@
+require_relative 'device/battery'
+
 module Appium
   module Core
     module Android
@@ -27,20 +29,7 @@ module Appium
 
           class << self
             def extended(_mod)
-              ::Appium::Core::Device.add_endpoint_method(:battery_info) do
-                def battery_info
-                  response = execute_script 'mobile: batteryInfo', {}
-
-                  state = case response['state']
-                          when 2, 3, 4, 5
-                            ::Appium::Core::Device::BatteryStatus::ANDROID[response['state']]
-                          else
-                            Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
-                            ::Appium::Core::Device::BatteryStatus::ANDROID[1] # :unknown
-                          end
-                  { state: state, level: response['level'] }
-                end
-              end
+              Battery.add_methods
             end
           end # class << self
         end # module Device

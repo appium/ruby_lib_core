@@ -5,7 +5,7 @@ module Appium
         module Bridge
           def self.for(target)
             Core::Ios::SearchContext.extend
-            target.extend Appium::Ios::Device
+            target.extend Appium::Core::Ios::Device
 
             Core::Ios::Uiautomation.patch_webdriver_element
           end

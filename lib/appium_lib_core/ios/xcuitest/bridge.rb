@@ -6,8 +6,8 @@ module Appium
           def self.for(target)
             Core::Ios::SearchContext.extend
             Core::Ios::Xcuitest::SearchContext.extend
-            target.extend Appium::Ios::Device
-            target.extend Appium::Ios::Xcuitest::Device
+            target.extend Appium::Core::Ios::Device
+            target.extend Appium::Core::Ios::Xcuitest::Device
           end
         end
       end

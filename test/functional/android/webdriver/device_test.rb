@@ -106,7 +106,7 @@ class AppiumLibCoreTest
       def test_logs
         # :logcat, :bugreport, :server in 1.7.2
         assert_equal %i(logcat bugreport server), @@driver.logs.available_types
-        assert @@driver.logs.get(:syslog)
+        assert @@driver.logs.get(:logcat)
       end
 
       def test_network_connection
