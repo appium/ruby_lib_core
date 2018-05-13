@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'webmock/minitest'
 
-# $ rake test:unit TEST=test/unit/ios/device_test.rb
+# $ rake test:unit TEST=test/unit/ios/device/w3c/definition_test.rb
 class AppiumLibCoreTest
   module IOS
     module Device
@@ -12,6 +12,14 @@ class AppiumLibCoreTest
           def setup
             @core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
             @driver ||= ios_mock_create_session_w3c
+          end
+
+          def test_delegate_driver_method
+            assert @driver.respond_to? :launch_app
+          end
+
+          def test_delegate_from_appium_driver
+            assert @core.delegated_target_for_test.respond_to? :launch_app
           end
 
           def parameterized_method_defined_check(array)

@@ -2,7 +2,7 @@ require 'test_helper'
 require 'webmock/minitest'
 require 'base64'
 
-# $ rake test:unit TEST=test/unit/android/device_test.rb
+# $ rake test:unit TEST=test/unit/android/device/mjsonwp/definition_test.rb
 class AppiumLibCoreTest
   module Android
     module Device
@@ -13,6 +13,14 @@ class AppiumLibCoreTest
           def setup
             @core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
             @driver ||= android_mock_create_session
+          end
+
+          def test_delegate_driver_method
+            assert @driver.respond_to? :launch_app
+          end
+
+          def test_delegate_from_appium_driver
+            assert @core.delegated_target_for_test.respond_to? :launch_app
           end
 
           def parameterized_method_defined_check(array)

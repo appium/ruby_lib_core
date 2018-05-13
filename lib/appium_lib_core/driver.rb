@@ -98,7 +98,15 @@ module Appium
       end
 
       # @private
+      # For testing purpose of delegate_from_appium_driver
+      def delegated_target_for_test
+        @delegate_target
+      end
+
+      # @private
       def initialize(target, opts = {})
+        @delegate_target = target # for testing purpose
+
         opts = Appium.symbolize_keys opts
         validate_keys(opts)
 
