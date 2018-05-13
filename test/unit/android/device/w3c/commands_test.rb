@@ -615,7 +615,7 @@ class AppiumLibCoreTest
 
           def test_gsm_signal
             stub_request(:post, "#{SESSION}/appium/device/gsm_signal")
-              .with(body: { signalStrengh: ::Appium::Android::Device::Emulator::GSM_SIGNALS[:good] }.to_json)
+              .with(body: { signalStrengh: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.gsm_signal :good

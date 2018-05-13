@@ -177,8 +177,8 @@ class AppiumLibCoreTest
     def ios_mock_create_session
       response = {
         status: 0, # To make bridge.dialect == :oss
-        sessionId: '1234567890',
         value: {
+          sessionId: '1234567890',
           capabilities: {
             device: 'iphone',
             browserName: 'UICatalog',

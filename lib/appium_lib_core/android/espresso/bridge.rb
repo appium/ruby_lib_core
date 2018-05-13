@@ -4,7 +4,7 @@ module Appium
       module Espresso
         module Bridge
           def self.for(target)
-            target.extend Appium::Android::Device
+            target.extend Appium::Core::Android::Device
             Core::Android::SearchContext.extend
           end
         end
