@@ -4,8 +4,6 @@ module Appium
   module Core
     module Device
       module ImageComparison
-        extend Forwardable
-
         MODE = [:matchFeatures, :getSimilarity, :matchTemplate].freeze
 
         MATCH_FEATURES = {
@@ -102,7 +100,7 @@ module Appium
         ## class << self
         ####
 
-        def self.extended
+        def self.add_methods
           ::Appium::Core::Device.add_endpoint_method(:match_images_features) do
             def match_images_features(first_image:, # rubocop:disable Metrics/ParameterLists
                                       second_image:,

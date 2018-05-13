@@ -11,6 +11,9 @@ class AppiumLibCoreTest
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
                                 app_activity: 'io.appium.android.apis.ApiDemos'
+
+        require 'pry'
+        binding.pry
       end
 
       def teardown
@@ -115,7 +118,7 @@ class AppiumLibCoreTest
         assert @@driver.app_state('io.appium.android.apis') == :not_running
 
         assert @@driver.activate_app('io.appium.android.apis').nil?
-        assert @@driver.app_state('io.appium.android.apis') == :running_in_background
+        assert @@driver.app_state('io.appium.android.apis') == :running_in_foreground
       end
 
       def test_start_activity

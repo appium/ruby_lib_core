@@ -1,9 +1,20 @@
 require_relative 'common/touch_action/touch_actions'
 require_relative 'common/touch_action/multi_touch'
+
 require_relative 'device/screen_record'
 require_relative 'device/app_state'
 require_relative 'device/clipboard_content_type'
 require_relative 'device/image_comparison'
+require_relative 'device/app_management'
+require_relative 'device/keyboard'
+require_relative 'device/file_management'
+require_relative 'device/touch_actions'
+require_relative 'device/device_lock'
+require_relative 'device/ime_actions'
+require_relative 'device/context'
+require_relative 'device/keyevent'
+require_relative 'device/setting'
+require_relative 'device/value'
 
 require 'base64'
 
@@ -489,32 +500,6 @@ module Appium
             end
           end
 
-          add_endpoint_method(:set_immediate_value) do
-            def set_immediate_value(element, *value)
-              keys = ::Selenium::WebDriver::Keys.encode(value)
-              execute :set_immediate_value, { id: element.ref }, value: Array(keys)
-            end
-          end
-
-          add_endpoint_method(:replace_value) do
-            def replace_value(element, *value)
-              keys = ::Selenium::WebDriver::Keys.encode(value)
-              execute :replace_value, { id: element.ref }, value: Array(keys)
-            end
-          end
-
-          add_endpoint_method(:get_settings) do
-            def get_settings
-              execute :get_settings, {}
-            end
-          end
-
-          add_endpoint_method(:update_settings) do
-            def update_settings(settings)
-              execute :update_settings, {}, settings: settings
-            end
-          end
-
           add_endpoint_method(:save_viewport_screenshot) do
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
@@ -527,16 +512,19 @@ module Appium
             end
           end
 
-          add_keyevent
-          add_touch_actions
-          add_ime_actions
-          add_handling_context
-          add_screen_recording
-          add_app_management
-          add_device_lock
-          add_file_management
-          add_keyboard
-          Core::Device::ImageComparison.extended
+          Value.add_methods
+          Setting.add_methods
+          KeyEvent.add_methods
+          Context.add_methods
+          ImeActions.add_methods
+          DeviceLock.add_methods
+          TouchActions.add_methods
+          FileManagement.add_methods
+          Keyboard.add_methods
+          AppManagement.add_methods
+          ScreenRecord.add_methods
+          ImageComparison.add_methods
+          AppState.add_methods
         end
 
         # def extended
@@ -576,342 +564,6 @@ module Appium
           end
           ::Appium::Core::Base::Bridge::W3C.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
-          end
-        end
-
-        def add_device_lock
-          add_endpoint_method(:lock) do
-            def lock(duration = nil)
-              opts = duration ? { seconds: duration } : {}
-              execute :lock, {}, opts
-            end
-          end
-
-          add_endpoint_method(:device_locked?) do
-            def device_locked?
-              execute :device_locked?
-            end
-          end
-
-          add_endpoint_method(:unlock) do
-            def unlock
-              execute :unlock
-            end
-          end
-        end
-
-        def add_file_management
-          add_endpoint_method(:push_file) do
-            def push_file(path, filedata)
-              encoded_data = Base64.encode64 filedata
-              execute :push_file, {}, path: path, data: encoded_data
-            end
-          end
-
-          add_endpoint_method(:pull_file) do
-            def pull_file(path)
-              data = execute :pull_file, {}, path: path
-              Base64.decode64 data
-            end
-          end
-
-          add_endpoint_method(:pull_folder) do
-            def pull_folder(path)
-              data = execute :pull_folder, {}, path: path
-              Base64.decode64 data
-            end
-          end
-        end
-
-        # rubocop:disable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-        def add_app_management
-          add_endpoint_method(:launch_app) do
-            def launch_app
-              execute :launch_app
-            end
-          end
-
-          add_endpoint_method(:close_app) do
-            def close_app
-              execute :close_app
-            end
-          end
-
-          add_endpoint_method(:close_app) do
-            def close_app
-              execute :close_app
-            end
-          end
-
-          add_endpoint_method(:reset) do
-            def reset
-              execute :reset
-            end
-          end
-
-          add_endpoint_method(:app_strings) do
-            def app_strings(language = nil)
-              opts = language ? { language: language } : {}
-              execute :app_strings, {}, opts
-            end
-          end
-
-          add_endpoint_method(:background_app) do
-            def background_app(duration = 0)
-              execute :background_app, {}, seconds: duration
-            end
-          end
-
-          add_endpoint_method(:install_app) do
-            def install_app(path,
-                            replace: nil,
-                            timeout: nil,
-                            allow_test_packages: nil,
-                            use_sdcard: nil,
-                            grant_permissions: nil)
-              args = { appPath: path }
-
-              args[:options] = {} unless options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
-
-              args[:options][:replace] = replace unless replace.nil?
-              args[:options][:timeout] = timeout unless timeout.nil?
-              args[:options][:allowTestPackages] = allow_test_packages unless allow_test_packages.nil?
-              args[:options][:useSdcard] = use_sdcard unless use_sdcard.nil?
-              args[:options][:grantPermissions] = grant_permissions unless grant_permissions.nil?
-
-              execute :install_app, {}, args
-            end
-
-            private
-
-            def options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
-              replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
-            end
-          end
-
-          add_endpoint_method(:remove_app) do
-            def remove_app(id, keep_data: nil, timeout: nil)
-              # required: [['appId'], ['bundleId']]
-              args = { appId: id }
-
-              args[:options] = {} unless keep_data.nil? || timeout.nil?
-              args[:options][:keepData] = keep_data unless keep_data.nil?
-              args[:options][:timeout] = timeout unless timeout.nil?
-
-              execute :remove_app, {}, args
-            end
-          end
-
-          add_endpoint_method(:app_installed?) do
-            def app_installed?(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :app_installed?, {}, bundleId: app_id
-            end
-          end
-
-          add_endpoint_method(:activate_app) do
-            def activate_app(app_id)
-              # required: [['appId'], ['bundleId']]
-              execute :activate_app, {}, bundleId: app_id
-            end
-          end
-
-          add_endpoint_method(:terminate_app) do
-            def terminate_app(app_id, timeout: nil)
-              # required: [['appId'], ['bundleId']]
-              #
-              args = { appId: app_id }
-
-              args[:options] = {} unless timeout.nil?
-              args[:options][:timeout] = timeout unless timeout.nil?
-
-              execute :terminate_app, {}, args
-            end
-          end
-
-          add_endpoint_method(:app_state) do
-            def app_state(app_id)
-              # required: [['appId'], ['bundleId']]
-              response = execute :app_state, {}, appId: app_id
-
-              case response
-              when 0, 1, 2, 3, 4
-                ::Appium::Core::Device::AppState::STATUS[response]
-              else
-                ::Appium::Logger.debug("Unexpected status in app_state: #{response}")
-                response
-              end
-            end
-          end
-        end
-        # rubocop:enable Metrics/ParameterLists,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
-
-        def add_keyevent
-          # Only for Selendroid
-          add_endpoint_method(:keyevent) do
-            def keyevent(key, metastate = nil)
-              args             = { keycode: key }
-              args[:metastate] = metastate if metastate
-              execute :keyevent, {}, args
-            end
-          end
-
-          add_endpoint_method(:press_keycode) do
-            def press_keycode(key, metastate: [], flags: [])
-              raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
-              raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array
-
-              args             = { keycode: key }
-              args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
-              args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
-
-              execute :press_keycode, {}, args
-            end
-          end
-
-          add_endpoint_method(:long_press_keycode) do
-            def long_press_keycode(key, metastate: [], flags: [])
-              raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
-              raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array
-
-              args             = { keycode: key }
-              args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
-              args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
-
-              execute :long_press_keycode, {}, args
-            end
-          end
-        end
-
-        def add_keyboard
-          add_endpoint_method(:hide_keyboard) do
-            def hide_keyboard(close_key = nil, strategy = nil)
-              option = {}
-
-              option[:key] = close_key || 'Done'        # default to Done key.
-              option[:strategy] = strategy || :pressKey # default to pressKey
-
-              execute :hide_keyboard, {}, option
-            end
-          end
-
-          add_endpoint_method(:is_keyboard_shown) do
-            def is_keyboard_shown # rubocop:disable Naming/PredicateName for compatibility
-              execute :is_keyboard_shown
-            end
-          end
-        end
-
-        def add_touch_actions
-          add_endpoint_method(:touch_actions) do
-            def touch_actions(actions)
-              actions = { actions: [actions].flatten }
-              execute :touch_actions, {}, actions
-            end
-          end
-
-          add_endpoint_method(:multi_touch) do
-            def multi_touch(actions)
-              execute :multi_touch, {}, actions: actions
-            end
-          end
-        end
-
-        def add_ime_actions
-          add_endpoint_method(:ime_activate) do
-            def ime_activate(ime_name)
-              # from Selenium::WebDriver::Remote::OSS
-              execute :ime_activate_engine, {}, engine: ime_name
-            end
-          end
-
-          add_endpoint_method(:ime_available_engines) do
-            def ime_available_engines
-              execute :ime_get_available_engines
-            end
-          end
-
-          add_endpoint_method(:ime_active_engine) do
-            # from Selenium::WebDriver::Remote::OSS
-            def ime_active_engine
-              execute :ime_get_active_engine
-            end
-          end
-
-          add_endpoint_method(:ime_activated) do
-            # from Selenium::WebDriver::Remote::OSS
-            def ime_activated
-              execute :ime_is_activated
-            end
-          end
-
-          add_endpoint_method(:ime_deactivate) do
-            # from Selenium::WebDriver::Remote::OSS
-            def ime_deactivate
-              execute :ime_deactivate, {}
-            end
-          end
-        end
-
-        def add_handling_context
-          add_endpoint_method(:within_context) do
-            def within_context(context)
-              existing_context = current_context
-              set_context context
-              if block_given?
-                result = yield
-                set_context existing_context
-                result
-              else
-                set_context existing_context
-              end
-            end
-          end
-
-          add_endpoint_method(:switch_to_default_context) do
-            def switch_to_default_context
-              set_context nil
-            end
-          end
-
-          add_endpoint_method(:current_context) do
-            def current_context
-              execute :current_context
-            end
-          end
-
-          add_endpoint_method(:available_contexts) do
-            def available_contexts
-              # return empty array instead of nil on failure
-              execute(:available_contexts, {}) || []
-            end
-          end
-
-          add_endpoint_method(:set_context) do
-            def set_context(context = null)
-              execute :set_context, {}, name: context
-            end
-          end
-        end
-
-        def add_screen_recording
-          add_endpoint_method(:stop_recording_screen) do
-            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
-              option = ::Appium::Core::Device::ScreenRecord.new(
-                remote_path: remote_path, user: user, pass: pass, method: method
-              ).upload_option
-
-              params = option.empty? ? {} : { options: option }
-
-              execute(:stop_recording_screen, {}, params)
-            end
-          end
-
-          add_endpoint_method(:stop_and_save_recording_screen) do
-            def stop_and_save_recording_screen(file_path)
-              base64data = execute(:stop_recording_screen, {}, {})
-              File.open(file_path, 'wb') { |f| f << Base64.decode64(base64data) }
-            end
           end
         end
       end # class << self
