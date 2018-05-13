@@ -4,7 +4,7 @@ module Appium
       module KeyEvent
         def self.add_methods
           # Only for Selendroid
-          Appium::Core::Device.add_endpoint_method(:keyevent) do
+          ::Appium::Core::Device.add_endpoint_method(:keyevent) do
             def keyevent(key, metastate = nil)
               args             = { keycode: key }
               args[:metastate] = metastate if metastate
@@ -12,7 +12,7 @@ module Appium
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:press_keycode) do
+          ::Appium::Core::Device.add_endpoint_method(:press_keycode) do
             def press_keycode(key, metastate: [], flags: [])
               raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
               raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array
@@ -25,7 +25,7 @@ module Appium
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:long_press_keycode) do
+          ::Appium::Core::Device.add_endpoint_method(:long_press_keycode) do
             def long_press_keycode(key, metastate: [], flags: [])
               raise ArgumentError, 'flags should be Array' unless flags.is_a? Array
               raise ArgumentError, 'metastates should be Array' unless metastate.is_a? Array

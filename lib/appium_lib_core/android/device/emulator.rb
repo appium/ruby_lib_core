@@ -99,13 +99,13 @@ module Appium
           ####
 
           def self.add_methods
-            Appium::Core::Device.add_endpoint_method(:send_sms) do
+            ::Appium::Core::Device.add_endpoint_method(:send_sms) do
               def send_sms(phone_number:, message:)
                 execute(:send_sms, {}, { phoneNumber: phone_number, message: message })
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:gsm_call) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_call) do
               def gsm_call(phone_number:, action:)
                 unless GSM_CALL_ACTIONS.member? action.to_sym
                   raise "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
@@ -115,7 +115,7 @@ module Appium
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:gsm_signal) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_signal) do
               def gsm_signal(signal_strength)
                 raise "#{signal_strength} should be member of #{GSM_SIGNALS} " if GSM_SIGNALS[signal_strength.to_sym].nil?
 
@@ -123,7 +123,7 @@ module Appium
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:gsm_voice) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_voice) do
               def gsm_voice(state)
                 unless GSM_VOICE_STATES.member? state.to_sym
                   raise "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
@@ -133,7 +133,7 @@ module Appium
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:set_network_speed) do
+            ::Appium::Core::Device.add_endpoint_method(:set_network_speed) do
               def set_network_speed(netspeed)
                 unless NET_SPEED.member? netspeed.to_sym
                   raise "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
@@ -143,7 +143,7 @@ module Appium
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
+            ::Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
               def set_power_capacity(percent)
                 unless (0..100).member? percent
                   raise "The  percent should be between 0 and 100. Not #{percent}."
@@ -153,7 +153,7 @@ module Appium
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:set_power_ac) do
+            ::Appium::Core::Device.add_endpoint_method(:set_power_ac) do
               def set_power_ac(state)
                 unless POWER_AC_STATE.member? state.to_sym
                   raise "The state should be member of #{POWER_AC_STATE}. Not #{state}."

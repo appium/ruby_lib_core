@@ -243,39 +243,39 @@ module Appium
 
         class << self
           def extended(_mod)
-            Appium::Core::Device.extend_webdriver_with_forwardable
+            ::Appium::Core::Device.extend_webdriver_with_forwardable
 
-            Appium::Core::Device.add_endpoint_method(:open_notifications) do
+            ::Appium::Core::Device.add_endpoint_method(:open_notifications) do
               def open_notifications
                 execute :open_notifications
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:current_activity) do
+            ::Appium::Core::Device.add_endpoint_method(:current_activity) do
               def current_activity
                 execute :current_activity
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:current_package) do
+            ::Appium::Core::Device.add_endpoint_method(:current_package) do
               def current_package
                 execute :current_package
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:get_system_bars) do
+            ::Appium::Core::Device.add_endpoint_method(:get_system_bars) do
               def get_system_bars
                 execute :get_system_bars
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
+            ::Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
               def toggle_location_services
                 execute :toggle_location_services
               end
             end
 
-            Appium::Core::Device.add_endpoint_method(:start_activity) do
+            ::Appium::Core::Device.add_endpoint_method(:start_activity) do
               def start_activity(opts)
                 raise 'opts must be a hash' unless opts.is_a? Hash
                 app_package = opts[:app_package]
@@ -296,7 +296,7 @@ module Appium
             end
 
             # Android, Override
-            Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
+            ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
               def hide_keyboard(close_key = nil, strategy = nil)
                 option = {}
 
@@ -308,7 +308,7 @@ module Appium
             end
 
             # TODO: TEST ME
-            Appium::Core::Device.add_endpoint_method(:end_coverage) do
+            ::Appium::Core::Device.add_endpoint_method(:end_coverage) do
               def end_coverage(path, intent)
                 execute :end_coverage, {}, path: path, intent: intent
               end

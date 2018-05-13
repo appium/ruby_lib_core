@@ -11,7 +11,7 @@ module Appium
         ].freeze
 
         def self.add_methods
-          Appium::Core::Device.add_endpoint_method(:app_state) do
+          ::Appium::Core::Device.add_endpoint_method(:app_state) do
             def app_state(app_id)
               # required: [['appId'], ['bundleId']]
               response = execute :app_state, {}, appId: app_id

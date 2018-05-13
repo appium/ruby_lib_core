@@ -3,44 +3,44 @@ module Appium
     module Device
       module AppManagement
         def self.add_methods # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-          Appium::Core::Device.add_endpoint_method(:launch_app) do
+          ::Appium::Core::Device.add_endpoint_method(:launch_app) do
             def launch_app
               execute :launch_app
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:close_app) do
+          ::Appium::Core::Device.add_endpoint_method(:close_app) do
             def close_app
               execute :close_app
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:close_app) do
+          ::Appium::Core::Device.add_endpoint_method(:close_app) do
             def close_app
               execute :close_app
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:reset) do
+          ::Appium::Core::Device.add_endpoint_method(:reset) do
             def reset
               execute :reset
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:app_strings) do
+          ::Appium::Core::Device.add_endpoint_method(:app_strings) do
             def app_strings(language = nil)
               opts = language ? { language: language } : {}
               execute :app_strings, {}, opts
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:background_app) do
+          ::Appium::Core::Device.add_endpoint_method(:background_app) do
             def background_app(duration = 0)
               execute :background_app, {}, seconds: duration
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:install_app) do
+          ::Appium::Core::Device.add_endpoint_method(:install_app) do
             def install_app(path, # rubocop:disable Metrics/ParameterLists
                             replace: nil,
                             timeout: nil,
@@ -67,7 +67,7 @@ module Appium
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:remove_app) do
+          ::Appium::Core::Device.add_endpoint_method(:remove_app) do
             def remove_app(id, keep_data: nil, timeout: nil)
               # required: [['appId'], ['bundleId']]
               args = { appId: id }
@@ -80,21 +80,21 @@ module Appium
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:app_installed?) do
+          ::Appium::Core::Device.add_endpoint_method(:app_installed?) do
             def app_installed?(app_id)
               # required: [['appId'], ['bundleId']]
               execute :app_installed?, {}, bundleId: app_id
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:activate_app) do
+          ::Appium::Core::Device.add_endpoint_method(:activate_app) do
             def activate_app(app_id)
               # required: [['appId'], ['bundleId']]
               execute :activate_app, {}, bundleId: app_id
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:terminate_app) do
+          ::Appium::Core::Device.add_endpoint_method(:terminate_app) do
             def terminate_app(app_id, timeout: nil)
               # required: [['appId'], ['bundleId']]
               #

@@ -3,7 +3,7 @@ module Appium
     module Device
       module Keyboard
         def self.add_methods
-          Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
+          ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
             def hide_keyboard(close_key = nil, strategy = nil)
               option = {}
 
@@ -14,7 +14,7 @@ module Appium
             end
           end
 
-          Appium::Core::Device.add_endpoint_method(:is_keyboard_shown) do
+          ::Appium::Core::Device.add_endpoint_method(:is_keyboard_shown) do
             def is_keyboard_shown # rubocop:disable Naming/PredicateName for compatibility
               execute :is_keyboard_shown
             end

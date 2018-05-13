@@ -5,7 +5,7 @@ module Appium
         module Device
           module Battery
             def self.add_methods
-              Appium::Core::Device.add_endpoint_method(:battery_info) do
+              ::Appium::Core::Device.add_endpoint_method(:battery_info) do
                 def battery_info
                   response = execute_script 'mobile: batteryInfo', {}
 
