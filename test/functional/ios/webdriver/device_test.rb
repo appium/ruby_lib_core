@@ -115,7 +115,6 @@ class AppiumLibCoreTest
       # end
 
       def test_logs
-
         assert @@driver.logs.available_types.include? :syslog
         assert @@driver.logs.get(:syslog)
       end

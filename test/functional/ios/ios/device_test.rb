@@ -118,7 +118,8 @@ class AppiumLibCoreTest
       end
 
       def test_pull_file
-        # Only pulling files from application containers is supported for iOS Simulator. Provide the remote path in format @<bundle_id>/<path_to_the_file_in_its_container>
+        # Only pulling files from application containers is supported for iOS Simulator.
+        # Provide the remote path in format @<bundle_id>/<path_to_the_file_in_its_container>
         read_file = @@driver.pull_file 'Library/AddressBook/AddressBook.sqlitedb'
         assert read_file.start_with?('SQLite format')
       end

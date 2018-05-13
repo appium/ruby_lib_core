@@ -1,5 +1,6 @@
 require_relative 'device/performance'
 require_relative 'device/screen'
+require_relative 'device/battery'
 
 module Appium
   module Core
@@ -162,26 +163,7 @@ module Appium
 
               Performance.add_methods
               Screen.add_methods
-              add_battery_info
-            end
-
-            private
-
-            def add_battery_info
-              Appium::Core::Device.add_endpoint_method(:battery_info) do
-                def battery_info
-                  response = execute_script 'mobile: batteryInfo', {}
-
-                  state = case response['state']
-                          when 1, 2, 3
-                            ::Appium::Core::Device::BatteryStatus::IOS[response['state']]
-                          else
-                            Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
-                            ::Appium::Core::Device::BatteryStatus::IOS[0] # :unknown
-                          end
-                  { state: state, level: response['level'] }
-                end
-              end
+              Battery.add_methods
             end
           end # class << self
         end # module Device

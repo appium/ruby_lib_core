@@ -10,7 +10,7 @@ module Appium
                 def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil,
                                            video_type: 'mp4', time_limit: '180', video_quality: 'medium')
                   option = ::Appium::Core::Device::ScreenRecord.new(
-                      remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
+                    remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
                   ).upload_option
 
                   option[:videoType] = video_type

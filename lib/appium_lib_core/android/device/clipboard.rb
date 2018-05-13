@@ -26,8 +26,8 @@ module Appium
                 end
 
                 params = {
-                    contentType: content_type,
-                    content: Base64.encode64(content)
+                  contentType: content_type,
+                  content: Base64.encode64(content)
                 }
                 params[:label] = label unless label.nil?
 
