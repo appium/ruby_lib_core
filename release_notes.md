@@ -1,3 +1,15 @@
+#### v1.7.0 2018-05-28
+
+- [619b964](https://github.com/appium/ruby_lib_core/commit/619b96483dc4bce50295ae831e445053e3d9f1d9) Release 1.7.0
+- [e58cd36](https://github.com/appium/ruby_lib_core/commit/e58cd36edb8e819c944c4c8b9c1b186602fc9aa0) Update CHANGELOG.md
+- [55527cc](https://github.com/appium/ruby_lib_core/commit/55527cc5135892057aa2921b2ec3a7054a90489a) set default content type (#92)
+- [9eff655](https://github.com/appium/ruby_lib_core/commit/9eff6558f321cca26855c9795e76905559c5c54f) Add tests for delegates (#90)
+- [9d0b03e](https://github.com/appium/ruby_lib_core/commit/9d0b03e77087a910ebefdadb88d765e126719e91) add ::
+- [f225bbc](https://github.com/appium/ruby_lib_core/commit/f225bbc01c271abb1ff88649ea6000b8e0fc8ec6) split one device file into multiple separated files (#89)
+- [a306f1a](https://github.com/appium/ruby_lib_core/commit/a306f1a8690d02f21c6392b0c46f6729037088a8) Refactor unit tests (#88)
+- [695c17d](https://github.com/appium/ruby_lib_core/commit/695c17d42c5b43b462f70599ae90db7dd3d8b2e0) add flags for key press (#87)
+
+
 #### v1.6.0 2018-05-08
 
 - [37a35f0](https://github.com/appium/ruby_lib_core/commit/37a35f022d35f43a9770c17e25b8fa3c57737dd6) Release 1.6.0
