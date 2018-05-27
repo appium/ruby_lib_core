@@ -3,12 +3,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.7.0] - 2018-05-28
+### Enhancements
 - Has one **Breaking Change**
     - Add `flags` in `press_keycode` and `long_press_keycode`
        - New: `@driver.press_keycode 66, metastate: [1], flags: [0x20, 0x2000]`
           - `metastate` should set as a keyword argument
           - `long_press_keycode` as well
        - Before: `@driver.press_keycode 66, 1` (Can set only metastate)
+          - How to change: add `metastate:` for the metastate argument
 - [Internal] Change directory and file structure
 - [Internal] Set default content-type
 
