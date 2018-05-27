@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
           - `long_press_keycode` as well
        - Before: `@driver.press_keycode 66, 1` (Can set only metastate)
 - [Internal] Change directory and file structure
+- [Internal] Set default content-type
 
 ### Bug fixes
 
