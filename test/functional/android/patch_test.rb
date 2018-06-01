@@ -45,7 +45,7 @@ class AppiumLibCoreTest
       @@core.wait { @@driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.type 'Pökémön'
 
       text = @@core.wait { @@driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-      assert_equal 'Left is bestPökémön', text.name
+      assert_equal 'Left is bestPökémön', text.text
     end
 
     def test_location_rel
