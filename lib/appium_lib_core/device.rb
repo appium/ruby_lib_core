@@ -277,7 +277,21 @@ module Appium
 
       # @!method push_file(path, filedata)
       # Place a file in a specific location on the device.
+      # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on real devices.
+      # On Android, the application under test should be built with debuggable flag enabled in order to get access to
+      # its container on the internal file system.
+      #
+      # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
+      # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
+      # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+      #
       # @param [String] path The absolute path on the device to store data at.
+      #                      If the path starts with application id prefix, then the file will be pushed to
+      #                      the root of the corresponding application container.
+
+      # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
+      #                      If the path starts with application id prefix, then the file will be pushed to the root of
+      #                      the corresponding application container.
       # @param [String] filedata Raw file data to be sent to the device. Converted to base64 in the method.
       #
       # @example
@@ -286,9 +300,22 @@ module Appium
       #
 
       # @!method pull_file(path)
-      # Retrieve a file from the device.  This can retrieve an absolute path or
-      # a path relative to the installed app (iOS only).
+      # Pull a file from the simulator/device.
+      # On iOS the server should have ifuse
+      # libraries installed and configured properly for this feature to work on real devices.
+      # On Android the application under test should be built with debuggable flag enabled in order to get access
+      # to its container on the internal file system.
+      #
+      # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
+      # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
+      # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+      #
       # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
+      #                      If the path starts with application id prefix, then the file will be pulled from the root
+      #                      of the corresponding application container.
+      #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
+      #                      (real devices only).
+      # @return [Base64-decoded] Base64 decoded data
       #
       # @example
       #
@@ -297,8 +324,22 @@ module Appium
       #
 
       # @!method pull_folder(path)
-      # Retrieve a folder from the device.
-      # @param [String] path absolute path to the folder
+      # Pull a folder content from the simulator/device.
+      # On iOS the server should have ifuse libraries installed and configured properly for this feature to work on real devices.
+      # On Android the application under test should be built with debuggable flag enabled in order to get access to its container
+      # on the internal file system.
+      #
+      # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
+      # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
+      # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+      #
+      # @param [String] path Absolute path to the folder.
+      #                      If the path starts with <em>@applicationId/</em> prefix, then the folder will be pulled
+      #                      from the root of the corresponding application container.
+      #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
+      #                      (real devices only).
+      #
+      # @return [Base64-decoded] Base64 decoded data which is zip archived
       #
       # @example
       #
