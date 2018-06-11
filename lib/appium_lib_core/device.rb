@@ -523,8 +523,10 @@ module Appium
           end
 
           add_endpoint_method(:device_time) do
-            def device_time
-              execute :device_time
+            def device_time(format = nil)
+              arg = {}
+              arg[:format] = format unless format.nil?
+              execute :device_time, {}, arg
             end
           end
 
