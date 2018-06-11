@@ -80,7 +80,7 @@ module Appium
       # @!method device_time
       #   Get the time on the device
       #
-      # @param [String] format Only for Android. Set a custom format for `adb date +DISPLAY_FORMAT`
+      # @param [String] format Only for Android, Appium 1.8.2+. Set a custom format for `adb date +DISPLAY_FORMAT`
       #                             +DISPLAY_FORMAT specifies display format string using these escapes:
       #                               %% literal %             %n newline              %t tab
       #                               %S seconds (00-60)       %M minute (00-59)       %m month (01-12)
