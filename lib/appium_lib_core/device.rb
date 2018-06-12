@@ -80,28 +80,15 @@ module Appium
       # @!method device_time
       #   Get the time on the device
       #
-      # @param [String] format Only for Android, Appium 1.8.2+. Set a custom format for `adb date +DISPLAY_FORMAT`
-      #                             +DISPLAY_FORMAT specifies display format string using these escapes:
-      #                               %% literal %             %n newline              %t tab
-      #                               %S seconds (00-60)       %M minute (00-59)       %m month (01-12)
-      #                               %H hour (0-23)           %I hour (01-12)         %p AM/PM
-      #                               %y short year (00-99)    %Y year                 %C century
-      #                               %a short weekday name    %A weekday name         %u day of week (1-7, 1=mon)
-      #                               %b short month name      %B month name           %Z timezone name
-      #                               %j day of year (001-366) %d day of month (01-31) %e day of month ( 1-31)
-      #                               %s seconds past the Epoch
-      #
-      #                               %U Week of year (0-53 start sunday)   %W Week of year (0-53 start monday)
-      #                               %V Week of year (1-53 start monday, week < 4 days not part of this year)
-      #
-      #                               %D = "%m/%d/%y"    %r = "%I : %M : %S %p"   %T = "%H:%M:%S"   %h = "%b"
-      #                               %x locale date     %X locale time           %c locale date/time
-      # @return [String]
+      # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get the full list of supported
+      #                        datetime format specifiers. The default format is `YYYY-MM-DDTHH:mm:ssZ`,
+      #                        which complies to ISO-8601
+      # @return [String] Formatted datetime string or the raw command output if formatting fails
       #
       # @example
       #
-      #   @driver.device_time
-      #   @driver.device_time "+%Y" #=> "2018" (Android)
+      #   @driver.device_time #=> "2018-06-12T11:13:31+02:00"
+      #   @driver.device_time "YYYY-MM-DD" #=> "2018-06-12"
       #
 
       ####

@@ -79,7 +79,7 @@ class AppiumLibCoreTest
       def test_device_time_format
         require 'date'
         # "2018"
-        assert Date.parse(@@driver.device_time('+%Y')).is_a?(Date)
+        assert Date.parse(@@driver.device_time('YYYY-MM-DD')).is_a?(Date)
       end
 
       def test_context_related
