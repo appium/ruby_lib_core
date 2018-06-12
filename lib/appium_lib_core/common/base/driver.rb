@@ -197,8 +197,30 @@ module Appium
           params[:secondImage] = File.read(png_img_path)
           params[:options] = options if options
 
-          result = self.execute(:compare_images, {}, params)
-          ::Appium::Core::ImageElement.new(self, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
+          result = begin
+            self.execute(:compare_images, {}, params)
+          rescue ::Selenium::WebDriver::Error::WebDriverError => e
+            raise ::Appium::Core::Error::NoSuchElementError if e.message.include('Cannot find any occurrences')
+            raise ::Appium::Core::Error::CoreError, e.message
+          end
+
+          if result['rect']
+            ::Appium::Core::ImageElement.new(self, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
+          else
+            raise ::Appium::Core::Error::NoSuchElementError
+          end
+        end
+
+        def find_elements_by_image(png_img_paths, match_threshol = DEFAULT_MATCH_THRESHOLD)
+          png_img_paths.reduce([]) do |acc, path|
+            begin
+              acc.push find_element_by_image(path, match_threshol)
+            rescue ::Appium::Core::Error::NoSuchElementError => e
+              ::Appium::Logger.info e
+            end
+
+            acc
+          end
         end
       end # class Driver
     end # class Base
