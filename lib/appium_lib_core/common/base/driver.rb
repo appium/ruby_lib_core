@@ -183,6 +183,23 @@ module Appium
         def session_capabilities
           @bridge.session_capabilities
         end
+
+        DEFAULT_MATCH_THRESHOLD = 0.5
+        def find_element_by_image(png_img_path, match_threshol = DEFAULT_MATCH_THRESHOLD)
+          full_image = self.screenshot_as(:base64)
+
+          options = {}
+          options[:goodMatchesFactor] = (match_threshol * 100).to_i unless match_threshol.nil?
+
+          params = {}
+          params[:mode] = :matchTemplate
+          params[:firstImage] = full_image
+          params[:secondImage] = File.read(png_img_path)
+          params[:options] = options if options
+
+          result = self.execute(:compare_images, {}, params)
+          ::Appium::Core::ImageElement.new(self, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
+        end
       end # class Driver
     end # class Base
   end # module Core
