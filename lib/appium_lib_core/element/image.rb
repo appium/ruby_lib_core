@@ -6,13 +6,12 @@ module Appium
       Rectangle = Struct.new(:x, :y, :width, :height)
       Location  = Struct.new(:latitude, :longitude, :altitude)
 
-      @data = {}
-
       def initialize(driver, x, y, width, height)
         @driver = driver
 
-        @data[:center_x] = (x + width) / 2
-        @data[:center_y] = (y + height) / 2
+        @data = {}
+        @data[:center_x] = x + width / 2
+        @data[:center_y] = y + height / 2
         @data[:x] = x
         @data[:y] = y
         @data[:width] = width
@@ -24,15 +23,15 @@ module Appium
       end
 
       def location
-        Point.new data['x'], data['y']
+        Point.new @data[:x], @data[:y]
       end
 
       def size
-        Dimension.new data['width'], data['height']
+        Dimension.new @data[:width], @data[:height]
       end
 
       def rect
-        Rectangle.new data['x'], data['y'], data['width'], data['height']
+        Rectangle.new @data[:x], @data[:y], @data[:width], @data[:height]
       end
 
       def displayed?

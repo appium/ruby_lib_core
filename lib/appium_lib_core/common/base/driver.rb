@@ -185,41 +185,34 @@ module Appium
         end
 
         DEFAULT_MATCH_THRESHOLD = 0.5
-        def find_element_by_image(png_img_path, match_threshol = DEFAULT_MATCH_THRESHOLD)
-          full_image = self.screenshot_as(:base64)
+        def find_element_by_image(png_img_path, match_threshold = DEFAULT_MATCH_THRESHOLD)
+          full_image = @bridge.screenshot
+          partial_image = Base64.encode64 File.read(png_img_path)
 
-          options = {}
-          options[:goodMatchesFactor] = (match_threshol * 100).to_i unless match_threshol.nil?
-
-          params = {}
-          params[:mode] = :matchTemplate
-          params[:firstImage] = full_image
-          params[:secondImage] = File.read(png_img_path)
-          params[:options] = options if options
-
-          result = begin
-            self.execute(:compare_images, {}, params)
-          rescue ::Selenium::WebDriver::Error::WebDriverError => e
-            raise ::Appium::Core::Error::NoSuchElementError if e.message.include('Cannot find any occurrences')
-            raise ::Appium::Core::Error::CoreError, e.message
-          end
-
-          if result['rect']
-            ::Appium::Core::ImageElement.new(self, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
-          else
+          begin
+            @bridge.find_element_by_image(self, full_image, partial_image, match_threshold)
+          rescue Selenium::WebDriver::Error::TimeOutError
             raise ::Appium::Core::Error::NoSuchElementError
+          rescue ::Selenium::WebDriver::Error::WebDriverError => e
+            raise ::Appium::Core::Error::NoSuchElementError if e.message.include?('Cannot find any occurrences')
+            raise ::Appium::Core::Error::CoreError, e.message
           end
         end
 
-        def find_elements_by_image(png_img_paths, match_threshol = DEFAULT_MATCH_THRESHOLD)
-          png_img_paths.reduce([]) do |acc, path|
-            begin
-              acc.push find_element_by_image(path, match_threshol)
-            rescue ::Appium::Core::Error::NoSuchElementError => e
-              ::Appium::Logger.info e
-            end
+        def find_elements_by_image(png_img_paths, match_threshold = DEFAULT_MATCH_THRESHOLD)
+          full_image = @bridge.screenshot
 
-            acc
+          partial_images = png_img_paths.map do |png_img_path|
+            Base64.encode64 File.read(png_img_path)
+          end
+
+          begin
+            @bridge.find_elements_by_image(self, full_image, partial_images, match_threshold)
+          rescue Selenium::WebDriver::Error::TimeOutError
+            []
+          rescue ::Selenium::WebDriver::Error::WebDriverError => e
+            return [] if e.message.include?('Cannot find any occurrences')
+            raise ::Appium::Core::Error::CoreError, e.message
           end
         end
       end # class Driver

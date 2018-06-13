@@ -84,6 +84,48 @@ module Appium
             ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
           end
 
+          def find_element_by_image(driver, full_image, partial_image, match_threshold = nil)
+
+            options = {}
+            options[:goodMatchesFactor] = (match_threshold * 100) unless match_threshold.nil?
+
+            params = {}
+            params[:mode] = :matchTemplate
+            params[:firstImage] = full_image
+            params[:secondImage] = partial_image
+            params[:options] = options if options
+
+            result = execute(:compare_images, {}, params)
+            rect = result['rect']
+
+            if rect
+              ::Appium::Core::ImageElement.new(driver, rect['x'], rect['y'], rect['width'], rect['height'])
+            else
+              nil
+            end
+          end
+
+          def find_elements_by_image(driver, full_image, partial_images, match_threshold = nil)
+            partial_images.map { |partial_image|
+              options = {}
+              options[:goodMatchesFactor] = (match_threshold * 100) unless match_threshold.nil?
+
+              params = {}
+              params[:mode] = :matchTemplate
+              params[:firstImage] = full_image
+              params[:secondImage] = partial_image
+              params[:options] = options if options
+
+              result = execute(:compare_images, {}, params)
+
+              if result['rect']
+                ::Appium::Core::ImageElement.new(driver, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
+              else
+                nil
+              end
+            }.compact
+          end
+
           # For Appium
           # override
           # called in `extend DriverExtensions::HasNetworkConnection`
