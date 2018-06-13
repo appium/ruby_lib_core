@@ -80,11 +80,15 @@ module Appium
       # @!method device_time
       #   Get the time on the device
       #
-      # @return [String]
+      # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get the full list of supported
+      #                        datetime format specifiers. The default format is `YYYY-MM-DDTHH:mm:ssZ`,
+      #                        which complies to ISO-8601
+      # @return [String] Formatted datetime string or the raw command output if formatting fails
       #
       # @example
       #
-      #   @driver.device_time
+      #   @driver.device_time #=> "2018-06-12T11:13:31+02:00"
+      #   @driver.device_time "YYYY-MM-DD" #=> "2018-06-12"
       #
 
       ####
@@ -523,8 +527,10 @@ module Appium
           end
 
           add_endpoint_method(:device_time) do
-            def device_time
-              execute :device_time
+            def device_time(format = nil)
+              arg = {}
+              arg[:format] = format unless format.nil?
+              execute :device_time, {}, arg
             end
           end
 

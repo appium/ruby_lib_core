@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add a `format` argument for `device_time` [#94](https://github.com/appium/ruby_lib_core/pull/94)
 
 ### Bug fixes
 
