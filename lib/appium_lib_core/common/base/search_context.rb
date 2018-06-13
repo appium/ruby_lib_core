@@ -40,7 +40,7 @@ module Appium
         #
         # Find all elements matching the given arguments
         #
-        # @see SearchContext#find_element
+        # @see SearchContext#find_elements
         #
         def find_elements(*args)
           how, what = extract_args(args)
@@ -48,7 +48,7 @@ module Appium
           begin
             bridge.find_elements_by by, what.to_s, ref
           rescue Selenium::WebDriver::Error::TimeOutError
-            raise Selenium::WebDriver::Error::NoSuchElementError
+            []
           end
         end
 
