@@ -86,17 +86,10 @@ module Appium
             ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
           end
 
-          def find_element_by_image(driver, full_image, partial_image, match_threshold = nil)
+          def find_element_by_image(driver:, full_image:, partial_image:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?
-
-            params = {}
-            params[:mode] = mode
-            params[:firstImage] = Base64.encode64 first_image
-            params[:secondImage] = Base64.encode64 second_image
-            params[:options] = options if options
-
-            execute(:compare_images, {}, params)
+            options[:visualize] = visualize
 
             params = {}
             params[:mode] = :matchTemplate
@@ -108,15 +101,21 @@ module Appium
             rect = result['rect']
 
             if rect
-              ::Appium::Core::ImageElement.new(driver, rect['x'], rect['y'], rect['width'], rect['height'])
+              ::Appium::Core::ImageElement.new(driver,
+                                               rect['x'],
+                                               rect['y'],
+                                               rect['width'],
+                                               rect['height'],
+                                               result['visualization'])
             else
               nil
             end
           end
 
-          def find_elements_by_image(driver, full_image, partial_images, match_threshold = nil)
+          def find_elements_by_image(driver:, full_image:, partial_images:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?
+            options[:visualize] = visualize
 
             params = {}
             params[:mode] = :matchTemplate
@@ -128,9 +127,15 @@ module Appium
 
               begin
                 result = execute(:compare_images, {}, params)
+                rect = result['rect']
 
                 if result['rect']
-                  acc.push ::Appium::Core::ImageElement.new(driver, result['rect']['x'], result['rect']['y'], result['rect']['width'], result['rect']['height'])
+                  acc.push ::Appium::Core::ImageElement.new(driver,
+                                                            rect['x'],
+                                                            rect['y'],
+                                                            rect['width'],
+                                                            rect['height'],
+                                                            result['visualization'])
                 end
               rescue ::Selenium::WebDriver::Error::WebDriverError => e
                 acc if e.message.include?('Cannot find any occurrences')

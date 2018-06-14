@@ -6,8 +6,9 @@ module Appium
       Rectangle = Struct.new(:x, :y, :width, :height)
       Location  = Struct.new(:latitude, :longitude, :altitude)
 
-      def initialize(driver, x, y, width, height)
+      def initialize(driver, x, y, width, height, visual = nil)
         @driver = driver
+        @visual = visual
 
         @data = {}
         @data[:center_x] = x + width / 2
@@ -36,6 +37,15 @@ module Appium
 
       def displayed?
         true
+      end
+
+      # Base64ed format
+      # @example
+      #
+      #     File.write 'result.png', Base64.decode64(e.visual)
+      #
+      def visual
+        @visual
       end
     end
   end
