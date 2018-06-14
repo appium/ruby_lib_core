@@ -1,3 +1,12 @@
+#### v1.7.1 2018-06-15
+
+- [84febaf](https://github.com/appium/ruby_lib_core/commit/84febaf3a5b4dff0084455556d3ffe1293b64471) Release 1.7.1
+- [6d00f73](https://github.com/appium/ruby_lib_core/commit/6d00f739e93954508c34016732907e8629ffaaf5) Update search_context.rb
+- [f40cded](https://github.com/appium/ruby_lib_core/commit/f40cdede589bf32abd78ab4e3d8c0240dfad0865) add date format for Android (#94)
+- [afc3878](https://github.com/appium/ruby_lib_core/commit/afc3878c39564317cc5f5c3057dd6375ec8772f6) appended docstring for file management (#93)
+- [2f53204](https://github.com/appium/ruby_lib_core/commit/2f5320413437c77cef233c7941d3419ab674bd5c) replace name with text
+
+
 #### v1.7.0 2018-05-28
 
 - [619b964](https://github.com/appium/ruby_lib_core/commit/619b96483dc4bce50295ae831e445053e3d9f1d9) Release 1.7.0
