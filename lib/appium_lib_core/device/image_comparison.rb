@@ -45,7 +45,7 @@ module Appium
         #     File.write 'match_images_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
         #
 
-        # @!method find_image_occurrence(full_image:, partial_image:, detector_name: 'ORB', visualize: false)
+        # @!method find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
         # Performs images matching by template to find possible occurrence of the partial image
         # in the full image with default options. Read https://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
         # for more details on this topic.
@@ -55,6 +55,7 @@ module Appium
         #                                are supported.
         # @param [Bool] visualise: Makes the endpoint to return an image, which contains the visualized result of
         #               the corresponding picture matching operation. This option is disabled by default.
+        # @param [Float] threshold: [0.5] At what normalized threshold to reject
         #
         # @example
         #     @driver.find_image_occurrence full_image: "image data 1", partial_image: "image data 2"
@@ -129,13 +130,14 @@ module Appium
           end
 
           ::Appium::Core::Device.add_endpoint_method(:find_image_occurrence) do
-            def find_image_occurrence(full_image:, partial_image:, visualize: false)
+            def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
               unless ::Appium::Core::Device::ImageComparison::MATCH_TEMPLATE[:visualize].member?(visualize)
                 raise "visualize should be #{::Appium::Core::Device::ImageComparison::MATCH_TEMPLATE[:visualize]}"
               end
 
               options = {}
               options[:visualize] = visualize
+              options[:threshold] = threshold unless threshold.nil?
 
               compare_images(mode: :matchTemplate, first_image: full_image, second_image: partial_image, options: options)
             end

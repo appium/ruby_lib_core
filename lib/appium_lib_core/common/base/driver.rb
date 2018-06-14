@@ -1,3 +1,4 @@
+require 'base64'
 require_relative 'search_context'
 
 module Appium
