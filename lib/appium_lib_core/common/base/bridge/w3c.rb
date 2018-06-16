@@ -101,15 +101,14 @@ module Appium
             rect = result['rect']
 
             if rect
-              ::Appium::Core::ImageElement.new(driver,
-                                               rect['x'],
-                                               rect['y'],
-                                               rect['width'],
-                                               rect['height'],
-                                               result['visualization'])
-            else
-              nil
+              return ::Appium::Core::ImageElement.new(driver,
+                                                      rect['x'],
+                                                      rect['y'],
+                                                      rect['width'],
+                                                      rect['height'],
+                                                      result['visualization'])
             end
+            nil
           end
 
           def find_elements_by_image(driver:, full_image:, partial_images:, match_threshold: nil, visualize: false)
@@ -122,7 +121,7 @@ module Appium
             params[:firstImage] = full_image
             params[:options] = options if options
 
-            partial_images.reduce([]) { |acc, partial_image|
+            partial_images.each_with_object([]) do |partial_image, acc|
               params[:secondImage] = partial_image
 
               begin
@@ -140,9 +139,7 @@ module Appium
               rescue ::Selenium::WebDriver::Error::WebDriverError => e
                 acc if e.message.include?('Cannot find any occurrences')
               end
-
-              acc
-            }
+            end
           end
 
           # For Appium

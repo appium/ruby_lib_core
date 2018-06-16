@@ -129,7 +129,9 @@ class AppiumLibCoreTest
       end
 
       def test_find_images
-        es = @@driver.find_elements_by_image(%w(./test/functional/data/test_element_image.png ./test/functional/data/test_has_blue.png))
+        es = @@driver.find_elements_by_image(
+          %w(./test/functional/data/test_element_image.png ./test/functional/data/test_has_blue.png)
+        )
 
         e = es[0]
         assert_equal [39, 1014], [e.location.x, e.location.y]

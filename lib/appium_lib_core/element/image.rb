@@ -6,7 +6,14 @@ module Appium
       Rectangle = Struct.new(:x, :y, :width, :height)
       Location  = Struct.new(:latitude, :longitude, :altitude)
 
-      def initialize(driver, x, y, width, height, visual = nil)
+      # Base64ed format
+      # @example
+      #
+      #     File.write 'result.png', Base64.decode64(e.visual)
+      #
+      attr_reader :visual
+
+      def initialize(driver, x, y, width, height, visual = nil) # rubocop:disable Metrics/ParameterLists
         @driver = driver
         @visual = visual
 
@@ -37,15 +44,6 @@ module Appium
 
       def displayed?
         true
-      end
-
-      # Base64ed format
-      # @example
-      #
-      #     File.write 'result.png', Base64.decode64(e.visual)
-      #
-      def visual
-        @visual
       end
     end
   end
