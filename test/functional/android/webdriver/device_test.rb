@@ -120,6 +120,26 @@ class AppiumLibCoreTest
       def test_session_capability
         assert @@driver.session_capabilities['deviceUDID'] == 'emulator-5554'
       end
+
+      def test_find_image
+        e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
+        assert_equal [39, 1014], [e.location.x, e.location.y]
+        assert_equal [326, 62], [e.size.width, e.size.height]
+        assert_equal([39, 1014, 326, 62], [e.rect.x, e.rect.y, e.rect.width, e.rect.height])
+      end
+
+      def test_find_images
+        es = @@driver.find_elements_by_image(
+          %w(./test/functional/data/test_element_image.png ./test/functional/data/test_has_blue.png)
+        )
+
+        e = es[0]
+        assert_equal [39, 1014], [e.location.x, e.location.y]
+        assert_equal [326, 62], [e.size.width, e.size.height]
+        assert_equal([39, 1014, 326, 62], [e.rect.x, e.rect.y, e.rect.width, e.rect.height])
+
+        assert_equal 2, es.size
+      end
     end
   end
 end

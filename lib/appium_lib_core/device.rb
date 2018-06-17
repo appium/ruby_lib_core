@@ -1,6 +1,8 @@
 require_relative 'common/touch_action/touch_actions'
 require_relative 'common/touch_action/multi_touch'
 
+require_relative 'element/image'
+
 require_relative 'device/screen_record'
 require_relative 'device/app_state'
 require_relative 'device/clipboard_content_type'
