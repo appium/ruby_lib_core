@@ -86,6 +86,10 @@ module Appium
             ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
           end
 
+          #
+          # @return [::Appium::Core::ImageElement|nil]
+          # @raise [::Selenium::WebDriver::Error::TimeOutError|::Selenium::WebDriver::Error::WebDriverError]
+          #
           def find_element_by_image(driver:, full_image:, partial_image:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?
@@ -111,6 +115,10 @@ module Appium
             nil
           end
 
+          #
+          # @return [[]|[::Appium::Core::ImageElement]]
+          # @raise [::Selenium::WebDriver::Error::TimeOutError|::Selenium::WebDriver::Error::WebDriverError]
+          #
           def find_elements_by_image(driver:, full_image:, partial_images:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?

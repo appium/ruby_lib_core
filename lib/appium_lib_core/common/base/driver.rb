@@ -186,11 +186,26 @@ module Appium
         end
 
         DEFAULT_MATCH_THRESHOLD = 0.5
+
+        # Return ImageElement if current view has a partial image
+        #
+        # @param [String] png_img_path A path to a partial image you'd like to find
+        # @param [Flood] match_threshold At what normalized threshold to reject
+        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
+        #                         the corresponding picture matching operation. This option is disabled by default.
+        #
+        # @return [::Appium::Core::ImageElement]
+        # @raise [::Appium::Core::Error::NoSuchElementError|::Appium::Core::Error::CoreError] No such element
+        #
+        # @example
+        #
+        #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
+        #
         def find_element_by_image(png_img_path, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           full_image = @bridge.screenshot
           partial_image = Base64.encode64 File.read(png_img_path)
 
-          begin
+          element = begin
             @bridge.find_element_by_image(driver: self,
                                           full_image: full_image,
                                           partial_image: partial_image,
@@ -202,8 +217,26 @@ module Appium
             raise ::Appium::Core::Error::NoSuchElementError if e.message.include?('Cannot find any occurrences')
             raise ::Appium::Core::Error::CoreError, e.message
           end
+          raise ::Appium::Core::Error::NoSuchElementError if element.nil?
+
+          element
         end
 
+        # Return ImageElement if current view has partial images
+        #
+        # @param [[String]] png_img_paths Paths to a partial image you'd like to find
+        # @param [Flood] match_threshold At what normalized threshold to reject
+        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
+        #                         the corresponding picture matching operation. This option is disabled by default.
+        #
+        # @return [[::Appium::Core::ImageElement]]
+        # @return [::Appium::Core::Error::CoreError]
+        #
+        # @example
+        #
+        #     e = @@driver.find_elements_by_image './test/functional/data/test_element_image.png'
+        #     e == [] # if the `e` is empty
+        #
         def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           full_image = @bridge.screenshot
 
