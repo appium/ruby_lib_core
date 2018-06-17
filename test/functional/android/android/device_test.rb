@@ -76,6 +76,11 @@ class AppiumLibCoreTest
         assert Date.parse(@@driver.device_time).is_a?(Date)
       end
 
+      def test_device_time_format
+        require 'date'
+        assert Date.parse(@@driver.device_time('YYYY-MM-DD')).is_a?(Date)
+      end
+
       def test_context_related
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click

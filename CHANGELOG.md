@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 
 ### Deprecations
 
+## [1.7.1] - 2018-06-15
+### Enhancements
+- Add a `format` argument for `device_time` [#94](https://github.com/appium/ruby_lib_core/pull/94)
+
+### Bug fixes
+- Return empty array `[]` for find_elements
+
+### Deprecations
+
 ## [1.7.0] - 2018-05-28
 ### Enhancements
 - Has one **Breaking Change**
