@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add a `ImageElement` to handle images as elements by `matchTemplate`
 
 ### Bug fixes
 
