@@ -11,6 +11,9 @@ class AppiumLibCoreTest
 
         @@driver.start_activity app_package: 'io.appium.android.apis',
                                 app_activity: 'io.appium.android.apis.ApiDemos'
+
+        require 'pry'
+        binding.pry
       end
 
       def teardown

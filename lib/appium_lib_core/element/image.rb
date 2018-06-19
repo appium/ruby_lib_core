@@ -15,8 +15,8 @@ module Appium
       #
       attr_reader :visual
 
-      def initialize(driver, x, y, width, height, visual = nil) # rubocop:disable Metrics/ParameterLists
-        @driver = driver
+      def initialize(bridge, x, y, width, height, visual = nil) # rubocop:disable Metrics/ParameterLists
+        @bridge = bridge
         @visual = visual
 
         @center_x = x + width / 2
@@ -36,7 +36,7 @@ module Appium
       #     e.click
       #
       def click
-        TouchAction.new(@driver).tap(x: @center_x, y: @center_y).perform
+        @bridge.action.move_to_location(@center_x, @center_y).click.perform
       end
 
       #
@@ -88,16 +88,14 @@ module Appium
       #-------------------------------- sugar  --------------------------------
 
       def first(full_image:, partial_image:, match_threshold: nil, visualize: false)
-        @driver.find_element_by_image(driver: @driver,
-                                      full_image: full_image,
+        @bridge.find_element_by_image(full_image: full_image,
                                       partial_image: partial_image,
                                       match_threshold: match_threshold,
                                       visualize: visualize)
       end
 
       def all(full_image:, partial_image:, match_threshold: nil, visualize: false)
-        @driver.find_elements_by_image(driver: @driver,
-                                       full_image: full_image,
+        @bridge.find_elements_by_image(full_image: full_image,
                                        partial_image: partial_image,
                                        match_threshold: match_threshold,
                                        visualize: visualize)

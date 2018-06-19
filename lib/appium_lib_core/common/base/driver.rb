@@ -206,8 +206,7 @@ module Appium
           partial_image = Base64.encode64 File.read(png_img_path)
 
           element = begin
-            @bridge.find_element_by_image(driver: self,
-                                          full_image: full_image,
+            @bridge.find_element_by_image(full_image: full_image,
                                           partial_image: partial_image,
                                           match_threshold: match_threshold,
                                           visualize: visualize)
@@ -245,8 +244,7 @@ module Appium
           end
 
           begin
-            @bridge.find_elements_by_image(driver: self,
-                                           full_image: full_image,
+            @bridge.find_elements_by_image(full_image: full_image,
                                            partial_images: partial_images,
                                            match_threshold: match_threshold,
                                            visualize: visualize)
