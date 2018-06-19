@@ -90,7 +90,7 @@ module Appium
           # @return [::Appium::Core::ImageElement|nil]
           # @raise [::Selenium::WebDriver::Error::TimeOutError|::Selenium::WebDriver::Error::WebDriverError]
           #
-          def find_element_by_image(driver:, full_image:, partial_image:, match_threshold: nil, visualize: false)
+          def find_element_by_image(full_image:, partial_image:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?
             options[:visualize] = visualize
@@ -105,7 +105,7 @@ module Appium
             rect = result['rect']
 
             if rect
-              return ::Appium::Core::ImageElement.new(driver,
+              return ::Appium::Core::ImageElement.new(self,
                                                       rect['x'],
                                                       rect['y'],
                                                       rect['width'],
@@ -119,7 +119,7 @@ module Appium
           # @return [[]|[::Appium::Core::ImageElement]]
           # @raise [::Selenium::WebDriver::Error::TimeOutError|::Selenium::WebDriver::Error::WebDriverError]
           #
-          def find_elements_by_image(driver:, full_image:, partial_images:, match_threshold: nil, visualize: false)
+          def find_elements_by_image(full_image:, partial_images:, match_threshold: nil, visualize: false)
             options = {}
             options[:threshold] = match_threshold unless match_threshold.nil?
             options[:visualize] = visualize
@@ -137,7 +137,7 @@ module Appium
                 rect = result['rect']
 
                 if result['rect']
-                  acc.push ::Appium::Core::ImageElement.new(driver,
+                  acc.push ::Appium::Core::ImageElement.new(self,
                                                             rect['x'],
                                                             rect['y'],
                                                             rect['width'],
