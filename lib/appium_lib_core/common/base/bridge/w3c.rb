@@ -13,6 +13,18 @@ module Appium
             ::Appium::Core::Commands::W3C::COMMANDS[command]
           end
 
+          def lock(duration = nil)
+            opts = duration ? { seconds: duration } : {}
+            execute :lock, {}, opts
+          end
+
+          def device_locked?
+            execute :device_locked?
+          end
+          def unlock
+            execute :unlock
+          end
+
           # Perform touch actions for W3C module.
           # Generate `touch` pointer action here and users can use this via `driver.action`
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html

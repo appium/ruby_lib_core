@@ -566,7 +566,6 @@ module Appium
           KeyEvent.add_methods
           Context.add_methods
           ImeActions.add_methods
-          DeviceLock.add_methods
           TouchActions.add_methods
           FileManagement.add_methods
           Keyboard.add_methods
@@ -616,6 +615,6 @@ module Appium
           end
         end
       end # class << self
-    end # module Device
+    end
   end # module Core
 end # module Appium

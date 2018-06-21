@@ -36,6 +36,18 @@ module Appium
           @bridge.dialect
         end
 
+        def lock(duration = nil)
+          @bridge.lock(duration)
+        end
+
+        def device_locked?
+          @bridge.device_locked?
+        end
+
+        def unlock
+          @bridge.unlock
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

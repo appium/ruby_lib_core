@@ -19,7 +19,7 @@ class AppiumLibCoreTest
           end
 
           def test_delegate_from_appium_driver
-            assert @core.send(:delegated_target_for_test).respond_to? :launch_app
+            assert @core.send(:delegated_target_for_test).respond_to? :device_locked?
           end
 
           def parameterized_method_defined_check(array)
