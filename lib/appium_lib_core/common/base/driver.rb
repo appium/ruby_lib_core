@@ -234,7 +234,7 @@ module Appium
         #
         # @example
         #
-        #     e = @@driver.find_elements_by_image './test/functional/data/test_element_image.png'
+        #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
         def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
