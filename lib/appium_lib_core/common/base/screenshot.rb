@@ -58,7 +58,7 @@ module Appium
         alias take_element_screenshot save_element_screenshot
 
         #
-        # Return a png or base64 formatted screenshot
+        # Return a PNG screenshot in the given format as a string
         #
         # @param [:base64, :png] format
         # @return String screenshot
