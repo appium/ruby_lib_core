@@ -10,8 +10,8 @@ module Appium
         def save_screenshot(png_path)
           extension = File.extname(png_path).downcase
           if extension != '.png'
-            ::Appium::Logger.warn "name used for saved screenshot does not match file type. "\
-                                  "It should end with .png extension"
+            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+                                  'It should end with .png extension'
           end
           File.open(png_path, 'wb') { |f| f << screenshot_as(:png) }
         end
@@ -55,7 +55,7 @@ module Appium
           File.open(png_path, 'wb') { |f| f << element_screenshot_as(element, :png) }
         end
         # backward compatibility
-        alias_method :take_element_screenshot, :save_element_screenshot
+        alias take_element_screenshot save_element_screenshot
 
         #
         # Return a png or base64 formatted screenshot
