@@ -477,16 +477,6 @@ module Appium
       #   @driver.switch_to_default_context
       #
 
-      # @!method take_element_screenshot(element, png_path)
-      # @param [Selenium::WebDriver::Element] element A element you'd like to take screenshot.
-      # @param [String] png_path A path to save the screenshot
-      # @return [File] Path to the screenshot.
-      #
-      # @example
-      #
-      #   @driver.take_element_screenshot(element, "fine_name.png")
-      #
-
       # @!method stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
       # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
       #                             The following protocols are supported: http/https, ftp.
@@ -536,19 +526,6 @@ module Appium
             end
           end
 
-          add_endpoint_method(:take_element_screenshot) do
-            def take_element_screenshot(element, png_path)
-              result = execute :take_element_screenshot, id: element.ref
-
-              extension = File.extname(png_path).downcase
-              if extension != '.png'
-                ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
-                                'It should end with .png extension'
-              end
-              File.open(png_path, 'wb') { |f| f << result.unpack('m')[0] }
-            end
-          end
-
           add_endpoint_method(:save_viewport_screenshot) do
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
@@ -574,6 +551,10 @@ module Appium
           ScreenRecord.add_methods
           ImageComparison.add_methods
           AppState.add_methods
+
+          # Compatibility for appium_lib
+          # TODO: Will remove
+          delegate_from_appium_driver :take_element_screenshot
         end
 
         # def extended

@@ -11,6 +11,8 @@ module Appium
       class NotSupportedAppiumServer < CoreError; end
       class NoSuchElementError < CoreError; end
 
+      class UnsupportedOperationError < CoreError; end
+
       # Server side error
       class ServerError; end
     end
