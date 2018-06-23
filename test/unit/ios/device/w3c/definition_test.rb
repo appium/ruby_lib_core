@@ -22,8 +22,15 @@ class AppiumLibCoreTest
             assert @core.send(:delegated_target_for_test).respond_to? :launch_app
           end
 
+          def delegate_from_appium_driver(key)
+            assert @core.send(:delegated_target_for_test).respond_to? key
+          end
+
           def parameterized_method_defined_check(array)
-            array.each { |v| assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v) }
+            array.each do |v|
+              assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v)
+              delegate_from_appium_driver(v)
+            end
           end
 
           def test_with_arg_definitions

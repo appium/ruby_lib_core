@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Add a `ImageElement` to handle images as elements by `matchTemplate`
+- [Internal] Define screenshot methods in appium_lib_core instead of Selenium's one
 
 ### Bug fixes
 
