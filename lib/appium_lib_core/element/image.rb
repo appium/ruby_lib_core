@@ -2,6 +2,7 @@ module Appium
   module Core
     #
     # ImageElement is an element for images by `find_element/s_by_image`
+    # Experimental feature
     #
     class ImageElement
       Point     = Struct.new(:x, :y)

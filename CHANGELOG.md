@@ -3,7 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.7.2] - 2018-06-23
+### Enhancements
 - Add a `ImageElement` to handle images as elements by `matchTemplate`
+   - Experimental feature
 - [Internal] Define screenshot methods in appium_lib_core instead of Selenium's one
 
 ### Bug fixes
