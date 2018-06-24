@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ## [1.7.2] - 2018-06-23
 ### Enhancements
+- Add `find_element_by_image` and `find_elements_by_image` to handle `ImageElement`
+   - Read [here](https://github.com/appium/ruby_lib_core/blob/a08c7c769d12316f3a410b28f93799682a111ed8/lib/appium_lib_core/common/base/driver.rb#L191-L257) for more details
 - Add a `ImageElement` to handle images as elements by `matchTemplate`
    - Experimental feature
 - [Internal] Define screenshot methods in appium_lib_core instead of Selenium's one
