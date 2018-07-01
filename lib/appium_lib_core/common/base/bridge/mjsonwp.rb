@@ -8,6 +8,7 @@ module Appium
           include ::Appium::Core::Base::Device::ImeActions
           include ::Appium::Core::Base::Device::Setting
           include ::Appium::Core::Base::Device::Context
+          include ::Appium::Core::Base::Device::Value
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

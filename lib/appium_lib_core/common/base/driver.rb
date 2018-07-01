@@ -110,6 +110,15 @@ module Appium
           @bridge.set_context(context)
         end
 
+        # Value
+        def set_immediate_value(element, *value)
+          @bridge.set_immediate_value(element, *value)
+        end
+
+        def replace_value(element, *value)
+          @bridge.replace_value(element, *value)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

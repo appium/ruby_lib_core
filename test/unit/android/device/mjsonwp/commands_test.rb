@@ -425,20 +425,23 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
 
+
           def test_set_immediate_value
             stub_request(:post, "#{SESSION}/appium/element/id/value")
+              .with(body: { value: ["abc\ue000"] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'value'
+            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
 
           def test_replace_value
             stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
+              .with(body: { value: ["abc\ue000"] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'value'
+            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end
