@@ -13,6 +13,7 @@ module Appium
           include ::Appium::Core::Base::Device::KeyEvent
           include ::Appium::Core::Base::Device::ImageComparison
           include ::Appium::Core::Base::Device::AppManagement
+          include ::Appium::Core::Base::Device::AppState
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

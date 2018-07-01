@@ -196,6 +196,11 @@ module Appium
           @bridge.terminate_app(app_id, timeout: timeout)
         end
 
+        # AppState
+        def app_state(app_id)
+          @bridge.app_state(app_id)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
