@@ -14,6 +14,7 @@ module Appium
           include ::Appium::Core::Base::Device::ImageComparison
           include ::Appium::Core::Base::Device::AppManagement
           include ::Appium::Core::Base::Device::AppState
+          include ::Appium::Core::Base::Device::ScreenRecord::Command
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

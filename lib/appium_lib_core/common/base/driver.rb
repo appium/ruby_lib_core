@@ -201,6 +201,15 @@ module Appium
           @bridge.app_state(app_id)
         end
 
+        # Screen Record
+        def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
+          @bridge.stop_recording_screen(remote_path: remote_path, user: user, pass: pass, method: method)
+        end
+
+        def stop_and_save_recording_screen(file_path)
+          @bridge.stop_and_save_recording_screen(file_path)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

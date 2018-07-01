@@ -9,6 +9,7 @@ require_relative 'device/keyevent'
 require_relative 'device/image_comparison'
 require_relative 'device/app_management'
 require_relative 'device/app_state'
+require_relative 'device/screen_record'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'

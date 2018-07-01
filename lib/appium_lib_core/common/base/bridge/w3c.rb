@@ -16,6 +16,7 @@ module Appium
           include ::Appium::Core::Base::Device::ImageComparison
           include ::Appium::Core::Base::Device::AppManagement
           include ::Appium::Core::Base::Device::AppState
+          include ::Appium::Core::Base::Device::ScreenRecord::Command
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds

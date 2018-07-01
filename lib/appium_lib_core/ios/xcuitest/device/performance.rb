@@ -20,7 +20,7 @@ module Appium
                 # rubocop:disable Metrics/ParameterLists
                 def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
                                            remote_path: nil, user: nil, pass: nil, method: 'PUT')
-                  option = ::Appium::Core::Device::ScreenRecord.new(
+                  option = ::Appium::Core::Base::Device::ScreenRecord.new(
                     remote_path: remote_path, user: user, pass: pass, method: method
                   ).upload_option
 
