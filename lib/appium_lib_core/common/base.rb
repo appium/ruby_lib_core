@@ -1,5 +1,6 @@
 require_relative 'device/device_lock'
 require_relative 'device/keyboard'
+require_relative 'device/ime_actions'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'

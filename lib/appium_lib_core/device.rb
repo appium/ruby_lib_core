@@ -10,7 +10,6 @@ require_relative 'device/image_comparison'
 require_relative 'device/app_management'
 require_relative 'device/file_management'
 require_relative 'device/touch_actions'
-require_relative 'device/ime_actions'
 require_relative 'device/context'
 require_relative 'device/keyevent'
 require_relative 'device/setting'
@@ -540,7 +539,6 @@ module Appium
           Setting.add_methods
           KeyEvent.add_methods
           Context.add_methods
-          ImeActions.add_methods
           TouchActions.add_methods
           FileManagement.add_methods
           AppManagement.add_methods
@@ -553,7 +551,8 @@ module Appium
           [
               :take_element_screenshot,
               :lock, :device_locked?, :unlock,
-              :hide_keyboard, :is_keyboard_shown
+              :hide_keyboard, :is_keyboard_shown,
+              :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate
           ].each do |key|
             delegate_from_appium_driver key
           end

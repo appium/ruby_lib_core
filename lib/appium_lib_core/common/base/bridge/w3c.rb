@@ -7,6 +7,7 @@ module Appium
         class W3C < ::Selenium::WebDriver::Remote::W3C::Bridge
           include ::Appium::Core::Base::Device::DeviceLock
           include ::Appium::Core::Base::Device::Keyboard
+          include ::Appium::Core::Base::Device::ImeActions
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
