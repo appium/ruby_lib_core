@@ -1,3 +1,5 @@
+require_relative '../device/device_lock'
+
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'
 require_relative 'base/bridge'

@@ -5,25 +5,14 @@ module Appium
     class Base
       class Bridge
         class W3C < ::Selenium::WebDriver::Remote::W3C::Bridge
+          include ::Appium::Core::Device::DeviceLock
+
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
           ::Selenium::WebDriver::PointerActions::DEFAULT_MOVE_DURATION = 0.05
 
           def commands(command)
             ::Appium::Core::Commands::W3C::COMMANDS[command]
-          end
-
-          def lock(duration = nil)
-            opts = duration ? { seconds: duration } : {}
-            execute :lock, {}, opts
-          end
-
-          def device_locked?
-            execute :device_locked?
-          end
-
-          def unlock
-            execute :unlock
           end
 
           # Perform touch actions for W3C module.
