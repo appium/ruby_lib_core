@@ -10,6 +10,8 @@ require_relative 'device/image_comparison'
 require_relative 'device/app_management'
 require_relative 'device/app_state'
 require_relative 'device/screen_record'
+require_relative 'device/battery_status'
+require_relative 'device/clipboard_content_type'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'

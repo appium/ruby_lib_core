@@ -11,10 +11,10 @@ module Appium
 
                   state = case response['state']
                           when 2, 3, 4, 5
-                            ::Appium::Core::Device::BatteryStatus::ANDROID[response['state']]
+                            ::Appium::Core::Base::Device::BatteryStatus::ANDROID[response['state']]
                           else
                             ::Appium::Logger.warn("The state is unknown or undefined: #{response['state']}")
-                            ::Appium::Core::Device::BatteryStatus::ANDROID[1] # :unknown
+                            ::Appium::Core::Base::Device::BatteryStatus::ANDROID[1] # :unknown
                           end
                   { state: state, level: response['level'] }
                 end

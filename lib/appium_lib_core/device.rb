@@ -3,7 +3,6 @@ require_relative 'common/touch_action/multi_touch'
 
 require_relative 'element/image'
 
-require_relative 'device/clipboard_content_type'
 require_relative 'device/touch_actions'
 
 require 'base64'
