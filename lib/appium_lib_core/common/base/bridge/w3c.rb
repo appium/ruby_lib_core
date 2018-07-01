@@ -216,6 +216,10 @@ module Appium
             end
           end
 
+          def take_element_screenshot(element)
+            execute :take_element_screenshot, id: element.ref
+          end
+
           private
 
           # Don't convert locators for Appium Client

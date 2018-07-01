@@ -1,3 +1,11 @@
+#### v1.7.2 2018-06-23
+
+- [72bbc01](https://github.com/appium/ruby_lib_core/commit/72bbc01dc69579c5b7dea43b6ec01fee37299ebe) Release 1.7.2
+- [5438246](https://github.com/appium/ruby_lib_core/commit/54382468e226d38f16d651b7b9f6da952d766d22) Define screenshot methods in this lib (#98)
+- [9bd9e11](https://github.com/appium/ruby_lib_core/commit/9bd9e11c20ce37a9e8e0384c09c663913aca0d15) Use bridge for imageelement(#96)
+- [7e7fba3](https://github.com/appium/ruby_lib_core/commit/7e7fba32a89ce547e81d68eb6659db464be7a60f) add image element/s (#95)
+
+
 #### v1.7.1 2018-06-15
 
 - [84febaf](https://github.com/appium/ruby_lib_core/commit/84febaf3a5b4dff0084455556d3ffe1293b64471) Release 1.7.1

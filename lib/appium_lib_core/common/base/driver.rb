@@ -1,18 +1,19 @@
 require 'base64'
 require_relative 'search_context'
+require_relative 'screenshot'
 
 module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
-        include ::Selenium::WebDriver::DriverExtensions::TakesScreenshot
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::Rotatable
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::SearchContext
+        include ::Appium::Core::Base::TakeScreenshot
 
         def initialize(opts = {})
           listener = opts.delete(:listener)
@@ -245,7 +246,7 @@ module Appium
         #
         # @example
         #
-        #     e = @@driver.find_elements_by_image './test/functional/data/test_element_image.png'
+        #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
         def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
