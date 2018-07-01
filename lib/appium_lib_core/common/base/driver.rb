@@ -119,6 +119,19 @@ module Appium
           @bridge.replace_value(element, *value)
         end
 
+        # File Management
+        def push_file(path, filedata)
+          @bridge.push_file(path, filedata)
+        end
+
+        def pull_file(path)
+          @bridge.pull_file(path)
+        end
+
+        def pull_folder(path)
+          @bridge.pull_folder(path)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
