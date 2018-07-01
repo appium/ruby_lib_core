@@ -5,18 +5,18 @@ module Appium
     class Base
       class Bridge
         class W3C < ::Selenium::WebDriver::Remote::W3C::Bridge
-          include ::Appium::Core::Base::Device::DeviceLock
-          include ::Appium::Core::Base::Device::Keyboard
-          include ::Appium::Core::Base::Device::ImeActions
-          include ::Appium::Core::Base::Device::Setting
-          include ::Appium::Core::Base::Device::Context
-          include ::Appium::Core::Base::Device::Value
-          include ::Appium::Core::Base::Device::FileManagement
-          include ::Appium::Core::Base::Device::KeyEvent
-          include ::Appium::Core::Base::Device::ImageComparison
-          include ::Appium::Core::Base::Device::AppManagement
-          include ::Appium::Core::Base::Device::AppState
-          include ::Appium::Core::Base::Device::ScreenRecord::Command
+          include Device::DeviceLock
+          include Device::Keyboard
+          include Device::ImeActions
+          include Device::Setting
+          include Device::Context
+          include Device::Value
+          include Device::FileManagement
+          include Device::KeyEvent
+          include Device::ImageComparison
+          include Device::AppManagement
+          include Device::AppState
+          include Device::ScreenRecord::Command
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
