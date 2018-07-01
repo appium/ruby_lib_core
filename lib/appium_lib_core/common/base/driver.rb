@@ -89,6 +89,27 @@ module Appium
           @bridge.ime_deactivate
         end
 
+        # Context
+        def within_context(context)
+          @bridge.within_context(context)
+        end
+
+        def switch_to_default_context
+          @bridge.switch_to_default_context
+        end
+
+        def current_context
+          @bridge.current_context
+        end
+
+        def available_contexts
+          @bridge.available_contexts
+        end
+
+        def set_context(context = null)
+          @bridge.set_context(context)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
