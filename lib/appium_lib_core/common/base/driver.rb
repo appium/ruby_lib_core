@@ -56,7 +56,7 @@ module Appium
         end
 
         def is_keyboard_shown # rubocop:disable Naming/PredicateName
-          @bridge.keyboard_shown?
+          @bridge.is_keyboard_shown
         end
 
         # Setting

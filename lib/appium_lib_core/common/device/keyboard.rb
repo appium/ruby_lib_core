@@ -12,7 +12,7 @@ module Appium
             execute :hide_keyboard, {}, option
           end
 
-          def keyboard_shown?
+          def is_keyboard_shown # rubocop:disable Naming/PredicateName
             execute :is_keyboard_shown
           end
         end # module Keyboard
