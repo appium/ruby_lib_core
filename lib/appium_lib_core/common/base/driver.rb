@@ -296,6 +296,37 @@ module Appium
 
         DEFAULT_MATCH_THRESHOLD = 0.5
 
+        # Image Comparison
+        def match_images_features(first_image:,
+                                  second_image:,
+                                  detector_name: 'ORB',
+                                  match_func: 'BruteForce',
+                                  good_matches_factor: nil,
+                                  visualize: false)
+          @bridge.match_images_features(first_image: first_image,
+                                        second_image: second_image,
+                                        detector_name: detector_name,
+                                        match_func: match_func,
+                                        good_matches_factor: good_matches_factor,
+                                        visualize: visualize)
+        end
+
+        def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
+          @bridge.find_image_occurrence(full_image: full_image,
+                                        partial_image: partial_image,
+                                        visualize: visualize,
+                                        threshold: threshold)
+        end
+
+        def get_images_similarity(first_image:, second_image:, visualize: false)
+          @bridge.get_images_similarity(first_image: first_image, second_image: second_image, visualize: visualize)
+        end
+
+        def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
+          @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
+        end
+
+
         # Return ImageElement if current view has a partial image
         #
         # @param [String] png_img_path A path to a partial image you'd like to find

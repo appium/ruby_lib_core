@@ -6,7 +6,6 @@ require_relative 'element/image'
 require_relative 'device/screen_record'
 require_relative 'device/app_state'
 require_relative 'device/clipboard_content_type'
-require_relative 'device/image_comparison'
 require_relative 'device/app_management'
 require_relative 'device/touch_actions'
 
@@ -533,7 +532,6 @@ module Appium
           TouchActions.add_methods
           AppManagement.add_methods
           ScreenRecord.add_methods
-          ImageComparison.add_methods
           AppState.add_methods
 
           # Compatibility for appium_lib
@@ -547,7 +545,8 @@ module Appium
               :within_context, :switch_to_default_context, :current_context, :available_contexts, :set_context,
               :set_immediate_value, :replace_value,
               :push_file, :pull_file, :pull_folder,
-              :keyevent, :press_keycode, :long_press_keycode
+              :keyevent, :press_keycode, :long_press_keycode,
+              :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images
           ].each do |key|
             delegate_from_appium_driver key
           end

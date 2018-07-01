@@ -11,6 +11,7 @@ module Appium
           include ::Appium::Core::Base::Device::Value
           include ::Appium::Core::Base::Device::FileManagement
           include ::Appium::Core::Base::Device::KeyEvent
+          include ::Appium::Core::Base::Device::ImageComparison
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

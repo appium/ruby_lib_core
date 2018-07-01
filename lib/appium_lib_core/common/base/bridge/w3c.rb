@@ -13,6 +13,7 @@ module Appium
           include ::Appium::Core::Base::Device::Value
           include ::Appium::Core::Base::Device::FileManagement
           include ::Appium::Core::Base::Device::KeyEvent
+          include ::Appium::Core::Base::Device::ImageComparison
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
