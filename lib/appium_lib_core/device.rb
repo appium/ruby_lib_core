@@ -553,7 +553,9 @@ module Appium
 
           # Compatibility for appium_lib
           # TODO: Will remove
-          delegate_from_appium_driver :take_element_screenshot
+          [:take_element_screenshot, :lock, :device_locked?, :unlock].each do |key|
+            delegate_from_appium_driver key
+          end
         end
 
         # def extended

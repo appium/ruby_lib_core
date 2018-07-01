@@ -21,6 +21,7 @@ module Appium
           def device_locked?
             execute :device_locked?
           end
+
           def unlock
             execute :unlock
           end
