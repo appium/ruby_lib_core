@@ -145,6 +145,57 @@ module Appium
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
+        # App Management
+        def launch_app
+          @bridge.launch_app
+        end
+
+        def close_app
+          @bridge.close_app
+        end
+
+        def reset
+          @bridge.reset
+        end
+
+        def app_strings(language = nil)
+          @bridge.app_strings(language)
+        end
+
+        def background_app(duration = 0)
+          @bridge.background_app(duration)
+        end
+
+        def install_app(path,
+                        replace: nil,
+                        timeout: nil,
+                        allow_test_packages: nil,
+                        use_sdcard: nil,
+                        grant_permissions: nil)
+          @bridge.install_app(path,
+                              replace: replace,
+                              timeout: timeout,
+                              allow_test_packages: allow_test_packages,
+                              use_sdcard: use_sdcard,
+                              grant_permissions: grant_permissions)
+        end
+
+        def remove_app(id, keep_data: nil, timeout: nil)
+          @bridge.remove_app(id, keep_data: keep_data, timeout: timeout)
+        end
+
+        def app_installed?(app_id)
+          @bridge.app_installed?(app_id)
+        end
+
+        def activate_app(app_id)
+          @bridge.activate_app(app_id)
+        end
+
+        def terminate_app(app_id, timeout: nil)
+          @bridge.terminate_app(app_id, timeout: timeout)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
