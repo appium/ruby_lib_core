@@ -55,8 +55,8 @@ module Appium
           @bridge.hide_keyboard close_key, strategy
         end
 
-        def is_keyboard_shown
-          @bridge.is_keyboard_shown
+        def is_keyboard_shown # rubocop:disable Naming/PredicateName
+          @bridge.keyboard_shown?
         end
 
         # Setting
@@ -399,7 +399,6 @@ module Appium
         def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
           @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
         end
-
 
         # Return ImageElement if current view has a partial image
         #

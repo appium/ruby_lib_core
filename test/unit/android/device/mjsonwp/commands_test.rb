@@ -425,7 +425,6 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
 
-
           def test_set_immediate_value
             stub_request(:post, "#{SESSION}/appium/element/id/value")
               .with(body: { value: ["abc\ue000"] }.to_json)
@@ -788,7 +787,7 @@ class AppiumLibCoreTest
 
           def test_ime_available_engines
             stub_request(:get, "#{SESSION}/ime/available_engines")
-              .to_return(headers: HEADER, status: 200, body: { value: %w(ime1 ime2)}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: %w(ime1 ime2) }.to_json)
 
             imes = @driver.ime_available_engines
 
@@ -798,7 +797,7 @@ class AppiumLibCoreTest
 
           def test_ime_active_engine
             stub_request(:get, "#{SESSION}/ime/active_engine")
-              .to_return(headers: HEADER, status: 200, body: { value: 'ime'}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: 'ime' }.to_json)
 
             ime = @driver.ime_active_engine
 
@@ -824,7 +823,6 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/ime/deactivate", times: 1)
           end
-
         end # class Commands
       end # module MJSONWP
     end # module Device

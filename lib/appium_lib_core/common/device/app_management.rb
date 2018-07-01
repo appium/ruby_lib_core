@@ -24,7 +24,7 @@ module Appium
             execute :background_app, {}, seconds: duration
           end
 
-          def install_app(path, # rubocop:disable Metrics/ParameterLists
+          def install_app(path,
                           replace: nil,
                           timeout: nil,
                           allow_test_packages: nil,

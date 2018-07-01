@@ -34,7 +34,7 @@ module Appium
           module Command
             def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
               option = ::Appium::Core::Base::Device::ScreenRecord.new(
-                  remote_path: remote_path, user: user, pass: pass, method: method
+                remote_path: remote_path, user: user, pass: pass, method: method
               ).upload_option
 
               params = option.empty? ? {} : { options: option }

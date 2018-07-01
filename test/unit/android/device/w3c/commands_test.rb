@@ -763,7 +763,7 @@ class AppiumLibCoreTest
 
           def test_ime_available_engines
             stub_request(:get, "#{SESSION}/ime/available_engines")
-              .to_return(headers: HEADER, status: 200, body: { value: %w(ime1 ime2)}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: %w(ime1 ime2) }.to_json)
 
             imes = @driver.ime_available_engines
 
@@ -773,7 +773,7 @@ class AppiumLibCoreTest
 
           def test_ime_active_engine
             stub_request(:get, "#{SESSION}/ime/active_engine")
-              .to_return(headers: HEADER, status: 200, body: { value: 'ime'}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: 'ime' }.to_json)
 
             ime = @driver.ime_active_engine
 
@@ -792,8 +792,8 @@ class AppiumLibCoreTest
 
           def test_ime_deactivate
             stub_request(:post, "#{SESSION}/ime/deactivate")
-                .with(body: {}.to_json)
-                .to_return(headers: HEADER, status: 200, body: { value: 'true' }.to_json)
+              .with(body: {}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: 'true' }.to_json)
 
             @driver.ime_deactivate
 

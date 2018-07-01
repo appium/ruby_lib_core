@@ -17,7 +17,6 @@ module Appium
               end
 
               ::Appium::Core::Device.add_endpoint_method(:get_performance_record) do
-                # rubocop:disable Metrics/ParameterLists
                 def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
                                            remote_path: nil, user: nil, pass: nil, method: 'PUT')
                   option = ::Appium::Core::Base::Device::ScreenRecord.new(
@@ -29,7 +28,6 @@ module Appium
 
                   File.open("#{save_file_path}.zip", 'wb') { |f| f << result.unpack('m')[0] }
                 end
-                # rubocop:enable Metrics/ParameterLists
               end
             end
           end # module Performance

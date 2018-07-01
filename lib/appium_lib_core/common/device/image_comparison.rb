@@ -102,7 +102,7 @@ module Appium
           ## class << self
           ####
 
-          def match_images_features(first_image:, # rubocop:disable Metrics/ParameterLists
+          def match_images_features(first_image:,
                                     second_image:,
                                     detector_name: 'ORB',
                                     match_func: 'BruteForce',
@@ -151,9 +151,7 @@ module Appium
           end
 
           def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
-            unless MODE.member?(mode)
-              raise "content_type should be #{MODE}"
-            end
+            raise "content_type should be #{MODE}" unless MODE.member?(mode)
 
             params = {}
             params[:mode] = mode
