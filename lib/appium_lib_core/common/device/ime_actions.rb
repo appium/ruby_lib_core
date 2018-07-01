@@ -4,7 +4,6 @@ module Appium
       module Device
         module ImeActions
           def ime_activate(ime_name)
-            # from Selenium::WebDriver::Remote::OSS
             execute :ime_activate_engine, {}, engine: ime_name
           end
 
@@ -12,17 +11,14 @@ module Appium
             execute :ime_get_available_engines
           end
 
-          # from Selenium::WebDriver::Remote::OSS
           def ime_active_engine
             execute :ime_get_active_engine
           end
 
-          # from Selenium::WebDriver::Remote::OSS
           def ime_activated
             execute :ime_is_activated
           end
 
-          # from Selenium::WebDriver::Remote::OSS
           def ime_deactivate
             execute :ime_deactivate, {}
           end

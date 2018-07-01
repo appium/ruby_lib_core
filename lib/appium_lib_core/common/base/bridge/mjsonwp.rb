@@ -6,6 +6,7 @@ module Appium
           include ::Appium::Core::Base::Device::DeviceLock
           include ::Appium::Core::Base::Device::Keyboard
           include ::Appium::Core::Base::Device::ImeActions
+          include ::Appium::Core::Base::Device::Setting
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

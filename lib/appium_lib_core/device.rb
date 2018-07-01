@@ -12,7 +12,6 @@ require_relative 'device/file_management'
 require_relative 'device/touch_actions'
 require_relative 'device/context'
 require_relative 'device/keyevent'
-require_relative 'device/setting'
 require_relative 'device/value'
 
 require 'base64'
@@ -536,7 +535,6 @@ module Appium
           end
 
           Value.add_methods
-          Setting.add_methods
           KeyEvent.add_methods
           Context.add_methods
           TouchActions.add_methods
@@ -552,7 +550,8 @@ module Appium
               :take_element_screenshot,
               :lock, :device_locked?, :unlock,
               :hide_keyboard, :is_keyboard_shown,
-              :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate
+              :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate,
+              :get_settings, :update_settings
           ].each do |key|
             delegate_from_appium_driver key
           end

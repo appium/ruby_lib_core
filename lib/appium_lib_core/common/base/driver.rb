@@ -59,6 +59,36 @@ module Appium
           @bridge.is_keyboard_shown
         end
 
+        # Setting
+        def get_settings
+          @bridge.get_settings
+        end
+
+        def update_settings(settings)
+          @bridge.update_settings(settings)
+        end
+
+        # IME
+        def ime_activate(ime_name)
+          @bridge.ime_activate(ime_name)
+        end
+
+        def ime_available_engines
+          @bridge.ime_available_engines
+        end
+
+        def ime_active_engine
+          @bridge.ime_active_engine
+        end
+
+        def ime_activated
+          @bridge.ime_activated
+        end
+
+        def ime_deactivate
+          @bridge.ime_deactivate
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
