@@ -132,6 +132,19 @@ module Appium
           @bridge.pull_folder(path)
         end
 
+        # Keyevent
+        def keyevent(key, metastate = nil)
+          @bridge.keyevent(key, metastate)
+        end
+
+        def press_keycode(key, metastate: [], flags: [])
+          @bridge.press_keycode(key, metastate: metastate, flags: flags)
+        end
+
+        def long_press_keycode(key, metastate: [], flags: [])
+          @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

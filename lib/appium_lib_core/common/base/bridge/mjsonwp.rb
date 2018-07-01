@@ -10,6 +10,7 @@ module Appium
           include ::Appium::Core::Base::Device::Context
           include ::Appium::Core::Base::Device::Value
           include ::Appium::Core::Base::Device::FileManagement
+          include ::Appium::Core::Base::Device::KeyEvent
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

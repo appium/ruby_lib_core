@@ -9,7 +9,6 @@ require_relative 'device/clipboard_content_type'
 require_relative 'device/image_comparison'
 require_relative 'device/app_management'
 require_relative 'device/touch_actions'
-require_relative 'device/keyevent'
 
 require 'base64'
 
@@ -531,7 +530,6 @@ module Appium
             end
           end
 
-          KeyEvent.add_methods
           TouchActions.add_methods
           AppManagement.add_methods
           ScreenRecord.add_methods
@@ -548,7 +546,8 @@ module Appium
               :get_settings, :update_settings,
               :within_context, :switch_to_default_context, :current_context, :available_contexts, :set_context,
               :set_immediate_value, :replace_value,
-              :push_file, :pull_file, :pull_folder
+              :push_file, :pull_file, :pull_folder,
+              :keyevent, :press_keycode, :long_press_keycode
           ].each do |key|
             delegate_from_appium_driver key
           end

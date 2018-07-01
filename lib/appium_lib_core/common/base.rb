@@ -5,6 +5,7 @@ require_relative 'device/setting'
 require_relative 'device/context'
 require_relative 'device/value'
 require_relative 'device/file_management'
+require_relative 'device/keyevent'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'
