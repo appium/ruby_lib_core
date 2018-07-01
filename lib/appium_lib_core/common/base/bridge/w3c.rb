@@ -5,6 +5,13 @@ module Appium
     class Base
       class Bridge
         class W3C < ::Selenium::WebDriver::Remote::W3C::Bridge
+          include ::Appium::Core::Base::Device::DeviceLock
+          include ::Appium::Core::Base::Device::Keyboard
+          include ::Appium::Core::Base::Device::ImeActions
+          include ::Appium::Core::Base::Device::Setting
+          include ::Appium::Core::Base::Device::Context
+          include ::Appium::Core::Base::Device::Value
+
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
           ::Selenium::WebDriver::PointerActions::DEFAULT_MOVE_DURATION = 0.05

@@ -37,6 +37,88 @@ module Appium
           @bridge.dialect
         end
 
+        # Lock
+        def lock(duration = nil)
+          @bridge.lock(duration)
+        end
+
+        def device_locked?
+          @bridge.device_locked?
+        end
+
+        def unlock
+          @bridge.unlock
+        end
+
+        # Keyboard
+        def hide_keyboard(close_key = nil, strategy = nil)
+          @bridge.hide_keyboard close_key, strategy
+        end
+
+        def is_keyboard_shown
+          @bridge.is_keyboard_shown
+        end
+
+        # Setting
+        def get_settings
+          @bridge.get_settings
+        end
+
+        def update_settings(settings)
+          @bridge.update_settings(settings)
+        end
+
+        # IME
+        def ime_activate(ime_name)
+          @bridge.ime_activate(ime_name)
+        end
+
+        def ime_available_engines
+          @bridge.ime_available_engines
+        end
+
+        def ime_active_engine
+          @bridge.ime_active_engine
+        end
+
+        def ime_activated
+          @bridge.ime_activated
+        end
+
+        def ime_deactivate
+          @bridge.ime_deactivate
+        end
+
+        # Context
+        def within_context(context)
+          @bridge.within_context(context)
+        end
+
+        def switch_to_default_context
+          @bridge.switch_to_default_context
+        end
+
+        def current_context
+          @bridge.current_context
+        end
+
+        def available_contexts
+          @bridge.available_contexts
+        end
+
+        def set_context(context = null)
+          @bridge.set_context(context)
+        end
+
+        # Value
+        def set_immediate_value(element, *value)
+          @bridge.set_immediate_value(element, *value)
+        end
+
+        def replace_value(element, *value)
+          @bridge.replace_value(element, *value)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #
