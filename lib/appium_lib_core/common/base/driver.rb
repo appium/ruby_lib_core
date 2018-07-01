@@ -210,6 +210,15 @@ module Appium
           @bridge.stop_and_save_recording_screen(file_path)
         end
 
+        # Device Handling
+        def shake
+          @bridge.shake
+        end
+
+        def device_time(format = nil)
+          @bridge.device_time(format)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

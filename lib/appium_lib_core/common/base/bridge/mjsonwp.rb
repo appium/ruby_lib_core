@@ -15,6 +15,7 @@ module Appium
           include Device::AppManagement
           include Device::AppState
           include Device::ScreenRecord::Command
+          include Device::Device
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

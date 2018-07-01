@@ -499,20 +499,6 @@ module Appium
         def extended(_mod)
           extend_webdriver_with_forwardable
 
-          add_endpoint_method(:shake) do
-            def shake
-              execute :shake
-            end
-          end
-
-          add_endpoint_method(:device_time) do
-            def device_time(format = nil)
-              arg = {}
-              arg[:format] = format unless format.nil?
-              execute :device_time, {}, arg
-            end
-          end
-
           add_endpoint_method(:save_viewport_screenshot) do
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
@@ -542,7 +528,8 @@ module Appium
               :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images,
               :launch_app, :close_app, :reset, :app_strings, :background_app, :install_app, :remove_app, :app_installed?, :activate_app, :terminate_app,
               :app_state,
-              :stop_recording_screen, :stop_and_save_recording_screen
+              :stop_recording_screen, :stop_and_save_recording_screen,
+              :shake, :device_time
           ].each do |key|
             delegate_from_appium_driver key
           end
