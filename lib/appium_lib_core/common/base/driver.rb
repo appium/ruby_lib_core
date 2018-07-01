@@ -37,6 +37,7 @@ module Appium
           @bridge.dialect
         end
 
+        # Lock
         def lock(duration = nil)
           @bridge.lock(duration)
         end
@@ -47,6 +48,15 @@ module Appium
 
         def unlock
           @bridge.unlock
+        end
+
+        # Keyboard
+        def hide_keyboard(close_key = nil, strategy = nil)
+          @bridge.hide_keyboard close_key, strategy
+        end
+
+        def is_keyboard_shown
+          @bridge.is_keyboard_shown
         end
 
         # Get the device window's size.

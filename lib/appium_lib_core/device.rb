@@ -8,7 +8,6 @@ require_relative 'device/app_state'
 require_relative 'device/clipboard_content_type'
 require_relative 'device/image_comparison'
 require_relative 'device/app_management'
-require_relative 'device/keyboard'
 require_relative 'device/file_management'
 require_relative 'device/touch_actions'
 require_relative 'device/ime_actions'
@@ -544,7 +543,6 @@ module Appium
           ImeActions.add_methods
           TouchActions.add_methods
           FileManagement.add_methods
-          Keyboard.add_methods
           AppManagement.add_methods
           ScreenRecord.add_methods
           ImageComparison.add_methods
@@ -552,7 +550,11 @@ module Appium
 
           # Compatibility for appium_lib
           # TODO: Will remove
-          [:take_element_screenshot, :lock, :device_locked?, :unlock].each do |key|
+          [
+              :take_element_screenshot,
+              :lock, :device_locked?, :unlock,
+              :hide_keyboard, :is_keyboard_shown
+          ].each do |key|
             delegate_from_appium_driver key
           end
         end

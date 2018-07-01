@@ -3,7 +3,8 @@ module Appium
     class Base
       class Bridge
         class MJSONWP < ::Selenium::WebDriver::Remote::OSS::Bridge
-          include ::Appium::Core::Device::DeviceLock
+          include ::Appium::Core::Base::Device::DeviceLock
+          include ::Appium::Core::Base::Device::Keyboard
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]
