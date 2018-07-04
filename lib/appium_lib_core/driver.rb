@@ -163,15 +163,9 @@ module Appium
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
         server_url ||= "http://127.0.0.1:#{@port}/wd/hub"
 
-        # open_timeout and read_timeout are explicit wait.
-        open_timeout = http_client_ops.delete(:open_timeout)
-        read_timeout = http_client_ops.delete(:read_timeout)
-
-        http_client = http_client_ops.delete(:http_client)
-        @http_client ||= http_client ? http_client : Appium::Core::Base::Http::Default.new
-
-        @http_client.open_timeout = open_timeout if open_timeout
-        @http_client.read_timeout = read_timeout if read_timeout
+        create_http_client http_client: http_client_ops.delete(:http_client),
+                           open_timeout: http_client_ops.delete(:open_timeout),
+                           read_timeout: http_client_ops.delete(:read_timeout)
 
         begin
           # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
@@ -196,6 +190,14 @@ module Appium
       end
 
       private
+
+      def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
+        @http_client ||= http_client ? http_client : Appium::Core::Base::Http::Default.new
+
+        # open_timeout and read_timeout are explicit wait.
+        @http_client.open_timeout = open_timeout if open_timeout
+        @http_client.read_timeout = read_timeout if read_timeout
+      end
 
       # Ignore setting default wait if the target driver has no implementation
       def set_implicit_wait_by_default(wait)
