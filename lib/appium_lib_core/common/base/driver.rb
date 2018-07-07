@@ -172,7 +172,6 @@ module Appium
           @bridge.ime_deactivate
         end
 
-
         # Perform a block within the given context, then switch back to the starting context.
         # @param [String] context The context to switch to for the duration of the block.
         #
@@ -248,7 +247,8 @@ module Appium
         end
 
         # Place a file in a specific location on the device.
-        # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on real devices.
+        # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on
+        # real devices.
         # On Android, the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
         #
@@ -296,9 +296,10 @@ module Appium
         end
 
         # Pull a folder content from the simulator/device.
-        # On iOS the server should have ifuse libraries installed and configured properly for this feature to work on real devices.
-        # On Android the application under test should be built with debuggable flag enabled in order to get access to its container
-        # on the internal file system.
+        # On iOS the server should have ifuse libraries installed and configured properly for this feature to work
+        # on real devices.
+        # On Android the application under test should be built with debuggable flag enabled in order to get access to
+        # its container on the internal file system.
         #
         # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
         # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
@@ -433,20 +434,25 @@ module Appium
           @bridge.background_app(duration)
         end
 
-        # @!method install_app(path, replace: nil, timeout: nil, allow_test_packages: nil, use_sdcard: nil, grant_permissions: nil)
         # Install the given app onto the device
         #
-        # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file, or a .zip containing one of these.
-        # @param [Boolean] replace: Only for Android. Whether to reinstall/upgrade the package if it is already present on the device under test. `true` by default
-        # @param [Integer] timeout: Only for Android. How much time to wait for the installation to complete. 60000ms by default.
-        # @param [Boolean] allow_test_packages: Only for Android. Whether to allow installation of packages marked as test in the manifest. `false` by default
+        # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
+        #                      or a .zip containing one of these.
+        # @param [Boolean] replace: Only for Android. Whether to reinstall/upgrade the package if it is already present
+        #                           on the device under test. `true` by default
+        # @param [Integer] timeout: Only for Android. How much time to wait for the installation to complete.
+        #                           60000ms by default.
+        # @param [Boolean] allow_test_packages: Only for Android. Whether to allow installation of packages marked as test
+        #                                       in the manifest. `false` by default
         # @param [Boolean] use_sdcard: Only for Android. Whether to use the SD card to install the app. `false` by default
-        # @param [Boolean] grant_permissions:  Only for Android. whether to automatically grant application permissions on Android 6+ after the installation completes. `false` by default
+        # @param [Boolean] grant_permissions: Only for Android. whether to automatically grant application permissions
+        #                                     on Android 6+ after the installation completes. `false` by default
         #
         # @example
         #
         #   @driver.install_app("/path/to/test.apk")
-        #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true, use_sdcard: false, grant_permissions: false)
+        #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true,
+        #                       use_sdcard: false, grant_permissions: false)
         #
         def install_app(path,
                         replace: nil,
@@ -463,7 +469,8 @@ module Appium
         end
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
-        # @param [Boolean] keep_data: Only for Android. Whether to keep application data and caches after it is uninstalled. `false` by default
+        # @param [Boolean] keep_data: Only for Android. Whether to keep application data and caches after it is uninstalled.
+        #                             `false` by default
         # @param [Integer] timeout: Only for Android. How much time to wait for the uninstall to complete. 20000ms by default.
         #
         # @example
@@ -500,7 +507,8 @@ module Appium
         # Terminate the specified app.
         #
         # @param [Strong] app_id BundleId for iOS or package name for Android
-        # @param [Integer] timeout: Only for Android. How much time to wait for the application termination to complete. 500ms by default.
+        # @param [Integer] timeout: Only for Android. How much time to wait for the application termination to complete.
+        #                           500ms by default.
         # @return [Boolean]
         #
         # @example
@@ -574,9 +582,9 @@ module Appium
 
         # Get the time on the device
         #
-        # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get the full list of supported
-        #                        datetime format specifiers. The default format is `YYYY-MM-DDTHH:mm:ssZ`,
-        #                        which complies to ISO-8601
+        # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get
+        #                        the full list of supported datetime format specifiers.
+        #                        The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
         # @return [String] Formatted datetime string or the raw command output if formatting fails
         #
         # @example
