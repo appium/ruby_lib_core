@@ -219,6 +219,10 @@ module Appium
             end
           end
 
+          def take_viewport_screenshot
+            execute_script('mobile: viewportScreenshot')
+          end
+
           def take_element_screenshot(element)
             execute :take_element_screenshot, id: element.ref
           end
