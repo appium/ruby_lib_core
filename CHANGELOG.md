@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.8.0] - 2018-07-07
+### Enhancements
 - Add Tizen case
 - [Internal] reduce method definition by `add_endpoint_method`
 
