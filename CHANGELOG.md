@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Add Tizen case
+- [Internal] reduce method definition by `add_endpoint_method`
 
 ### Bug fixes
 

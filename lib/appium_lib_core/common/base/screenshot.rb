@@ -77,6 +77,24 @@ module Appium
             raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
           end
         end
+
+        # @since 1.3.4
+        # @!method save_viewport_screenshot
+        # Save screenshot except for status bar while `@driver.save_screenshot` save entire screen.
+        #
+        # @example
+        #
+        #   @driver.save_viewport_screenshot 'path/to/save.png' #=> Get the File instance of viewport_screenshot
+        #
+        def save_viewport_screenshot(png_path)
+          extension = File.extname(png_path).downcase
+          if extension != '.png'
+            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+                                  'It should end with .png extension'
+          end
+          viewport_screenshot_encode64 = bridge.take_viewport_screenshot
+          File.open(png_path, 'wb') { |f| f << viewport_screenshot_encode64.unpack('m')[0] }
+        end
       end
     end
   end

@@ -5,6 +5,7 @@ module Appium
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'.freeze
 
+        # TODO: Remove the forceMjsonwp after Appium server won't need it
         FORCE_MJSONWP = :forceMjsonwp
 
         # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
