@@ -491,6 +491,7 @@ class AppiumLibCoreTest
 
           def test_touch_actions
             stub_request(:post, "#{SESSION}/touch/perform")
+              .with(body: { actions: ['actions'] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.touch_actions 'actions'
@@ -500,6 +501,7 @@ class AppiumLibCoreTest
 
           def test_multi_touch
             stub_request(:post, "#{SESSION}/touch/multi/perform")
+              .with(body: { actions: 'actions' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.multi_touch 'actions'

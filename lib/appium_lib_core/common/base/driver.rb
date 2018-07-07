@@ -219,6 +219,15 @@ module Appium
           @bridge.device_time(format)
         end
 
+        # touch actions
+        def touch_actions(actions)
+          @bridge.touch_actions(actions)
+        end
+
+        def multi_touch(actions)
+          @bridge.multi_touch(actions)
+        end
+
         # Get the device window's size.
         # @return [Selenium::WebDriver::Dimension]
         #

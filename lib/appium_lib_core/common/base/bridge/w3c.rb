@@ -18,6 +18,7 @@ module Appium
           include Device::AppState
           include Device::ScreenRecord::Command
           include Device::Device
+          include Device::TouchActions
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds

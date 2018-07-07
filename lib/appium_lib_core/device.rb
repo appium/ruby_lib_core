@@ -1,9 +1,4 @@
-require_relative 'common/touch_action/touch_actions'
-require_relative 'common/touch_action/multi_touch'
-
 require_relative 'element/image'
-
-require_relative 'device/touch_actions'
 
 require 'base64'
 
@@ -511,8 +506,6 @@ module Appium
             end
           end
 
-          TouchActions.add_methods
-
           # Compatibility for appium_lib
           # TODO: Will remove
           [
@@ -530,7 +523,8 @@ module Appium
             :install_app, :remove_app, :app_installed?, :activate_app, :terminate_app,
             :app_state,
             :stop_recording_screen, :stop_and_save_recording_screen,
-            :shake, :device_time
+            :shake, :device_time,
+            :touch_actions, :multi_touch
           ].each do |key|
             delegate_from_appium_driver key
           end
