@@ -3,20 +3,7 @@ require_relative 'common/touch_action/multi_touch'
 
 require_relative 'element/image'
 
-require_relative 'device/screen_record'
-require_relative 'device/app_state'
-require_relative 'device/clipboard_content_type'
-require_relative 'device/image_comparison'
-require_relative 'device/app_management'
-require_relative 'device/keyboard'
-require_relative 'device/file_management'
 require_relative 'device/touch_actions'
-require_relative 'device/device_lock'
-require_relative 'device/ime_actions'
-require_relative 'device/context'
-require_relative 'device/keyevent'
-require_relative 'device/setting'
-require_relative 'device/value'
 
 require 'base64'
 
@@ -512,20 +499,6 @@ module Appium
         def extended(_mod)
           extend_webdriver_with_forwardable
 
-          add_endpoint_method(:shake) do
-            def shake
-              execute :shake
-            end
-          end
-
-          add_endpoint_method(:device_time) do
-            def device_time(format = nil)
-              arg = {}
-              arg[:format] = format unless format.nil?
-              execute :device_time, {}, arg
-            end
-          end
-
           add_endpoint_method(:save_viewport_screenshot) do
             def save_viewport_screenshot(png_path)
               extension = File.extname(png_path).downcase
@@ -538,23 +511,29 @@ module Appium
             end
           end
 
-          Value.add_methods
-          Setting.add_methods
-          KeyEvent.add_methods
-          Context.add_methods
-          ImeActions.add_methods
-          DeviceLock.add_methods
           TouchActions.add_methods
-          FileManagement.add_methods
-          Keyboard.add_methods
-          AppManagement.add_methods
-          ScreenRecord.add_methods
-          ImageComparison.add_methods
-          AppState.add_methods
 
           # Compatibility for appium_lib
           # TODO: Will remove
-          delegate_from_appium_driver :take_element_screenshot
+          [
+            :take_element_screenshot,
+            :lock, :device_locked?, :unlock,
+            :hide_keyboard, :is_keyboard_shown,
+            :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate,
+            :get_settings, :update_settings,
+            :within_context, :switch_to_default_context, :current_context, :available_contexts, :set_context,
+            :set_immediate_value, :replace_value,
+            :push_file, :pull_file, :pull_folder,
+            :keyevent, :press_keycode, :long_press_keycode,
+            :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images,
+            :launch_app, :close_app, :reset, :app_strings, :background_app,
+            :install_app, :remove_app, :app_installed?, :activate_app, :terminate_app,
+            :app_state,
+            :stop_recording_screen, :stop_and_save_recording_screen,
+            :shake, :device_time
+          ].each do |key|
+            delegate_from_appium_driver key
+          end
         end
 
         # def extended
@@ -597,6 +576,6 @@ module Appium
           end
         end
       end # class << self
-    end # module Device
+    end
   end # module Core
 end # module Appium

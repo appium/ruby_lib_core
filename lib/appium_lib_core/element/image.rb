@@ -16,7 +16,7 @@ module Appium
       #
       attr_reader :visual
 
-      def initialize(bridge, x, y, width, height, visual = nil) # rubocop:disable Metrics/ParameterLists
+      def initialize(bridge, x, y, width, height, visual = nil)
         @bridge = bridge
         @visual = visual
 
