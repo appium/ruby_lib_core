@@ -38,6 +38,7 @@ module Appium
         # def extended
 
         # @private
+        # Define method in Bridges
         def add_endpoint_method(method)
           block_given? ? create_bridge_command(method, &Proc.new) : create_bridge_command(method)
 
@@ -53,19 +54,17 @@ module Appium
           end
         end
 
-        # For ruby_lib compatibility
-        # @private
+        private
+
         def delegate_from_appium_driver(method, delegation_target = :driver)
           def_delegator delegation_target, method
         end
 
-        # @private
         def delegate_driver_method(method)
           return if ::Appium::Core::Base::Driver.method_defined? method
           ::Appium::Core::Base::Driver.class_eval { def_delegator :@bridge, method }
         end
 
-        # @private
         def create_bridge_command(method)
           ::Appium::Core::Base::Bridge::MJSONWP.class_eval do
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
