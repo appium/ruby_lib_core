@@ -1,3 +1,13 @@
+#### v1.8.0 2018-07-07
+
+- [77350e6](https://github.com/appium/ruby_lib_core/commit/77350e6a23b91c84f446e1637a748ff6feb01ded) Release 1.8.0
+- [2162056](https://github.com/appium/ruby_lib_core/commit/21620568f14ed4537b43c29e2b28026795e30617) Remove dynamic method definitions (#103)
+- [a2e89bf](https://github.com/appium/ruby_lib_core/commit/a2e89bfb9d596e96bd27501a290ad0a2ff3528d4) extract create http client
+- [fb9d5e5](https://github.com/appium/ruby_lib_core/commit/fb9d5e5728745bc6a13434d9a7cedb88d08a7b8e) Add tizen (#100)
+- [0ecc90b](https://github.com/appium/ruby_lib_core/commit/0ecc90b449a3d841402fe731add8cbe2e530d325) add changelog about find_element/s_by_image
+- [a08c7c7](https://github.com/appium/ruby_lib_core/commit/a08c7c769d12316f3a410b28f93799682a111ed8) update docstring for find_elements_by_image
+
+
 #### v1.7.2 2018-06-23
 
 - [72bbc01](https://github.com/appium/ruby_lib_core/commit/72bbc01dc69579c5b7dea43b6ec01fee37299ebe) Release 1.7.2
