@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+- Fix including search context in `::Selenium::WebDriver::Elemenet`
+    - `include ::Appium::Core::Base::SearchContext` instead of `::Selenium::WebDriver::SearchContext`
 
 ### Deprecations
 

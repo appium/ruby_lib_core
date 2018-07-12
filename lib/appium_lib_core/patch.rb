@@ -4,6 +4,9 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Selenium::WebDriver::Element
+      # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
+      include ::Appium::Core::Base::SearchContext
+
       # Note: For testing .text should be used over value, and name.
 
       # Returns the value attribute
