@@ -82,21 +82,23 @@ class AppiumLibCoreTest
     end
 
     def test_search_context_in_element_class
-      expected = {class: 'class name',
-                  class_name: 'class name',
-                  css: 'css selector',
-                  id: 'id',
-                  link: 'link text',
-                  link_text: 'link text',
-                  name: 'name',
-                  partial_link_text: 'partial link text',
-                  tag_name: 'tag name',
-                  xpath: 'xpath',
-                  accessibility_id: 'accessibility id',
-                  uiautomation: '-ios uiautomation',
-                  predicate: '-ios predicate string',
-                  class_chain: '-ios class chain',
-                  uiautomator: '-android uiautomator'}
+      expected = {
+        class: 'class name',
+        class_name: 'class name',
+        css: 'css selector',
+        id: 'id',
+        link: 'link text',
+        link_text: 'link text',
+        name: 'name',
+        partial_link_text: 'partial link text',
+        tag_name: 'tag name',
+        xpath: 'xpath',
+        accessibility_id: 'accessibility id',
+        uiautomation: '-ios uiautomation',
+        predicate: '-ios predicate string',
+        class_chain: '-ios class chain',
+        uiautomator: '-android uiautomator'
+      }
       assert_equal expected, ::Selenium::WebDriver::Element::FINDERS
     end
   end
