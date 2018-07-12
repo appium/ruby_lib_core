@@ -1,3 +1,9 @@
+#### v1.8.1 2018-07-13
+
+- [d423fb4](https://github.com/appium/ruby_lib_core/commit/d423fb419e76fc4eb66845f0b59c15987592cc5f) Release 1.8.1
+- [7bf6958](https://github.com/appium/ruby_lib_core/commit/7bf6958af3fbee490731f36a23dba1ef6e0205e6) include ::Appium::Core::Base::SearchContext instead of ::Selenium::WebDriver::SearchContext (#104)
+
+
 #### v1.8.0 2018-07-07
 
 - [77350e6](https://github.com/appium/ruby_lib_core/commit/77350e6a23b91c84f446e1637a748ff6feb01ded) Release 1.8.0
