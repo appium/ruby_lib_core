@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+
+### Deprecations
+
+## [1.8.1] - 2018-07-13
+### Enhancements
+
+### Bug fixes
 - Fix including search context in `::Selenium::WebDriver::Elemenet`
     - `include ::Appium::Core::Base::SearchContext` instead of `::Selenium::WebDriver::SearchContext`
 
