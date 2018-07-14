@@ -5,6 +5,8 @@ module Appium
     # Experimental feature
     #
     class ImageElement
+      include ::Appium::Core::Base::SearchContext
+
       Point     = Struct.new(:x, :y)
       Dimension = Struct.new(:width, :height)
       Rectangle = Struct.new(:x, :y, :width, :height)
