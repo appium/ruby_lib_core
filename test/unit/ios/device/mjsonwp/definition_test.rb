@@ -67,6 +67,12 @@ class AppiumLibCoreTest
                                                 :touch_id,
                                                 :toggle_touch_id_enrollment])
           end
+
+          def test_search_context_in_element_class_ios
+            assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
+            assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
+            assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
+          end
         end # class DefinitionTest
       end # module MJSONWP
     end # module Device

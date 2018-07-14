@@ -82,24 +82,17 @@ class AppiumLibCoreTest
     end
 
     def test_search_context_in_element_class
-      expected = {
-        class: 'class name',
-        class_name: 'class name',
-        css: 'css selector',
-        id: 'id',
-        link: 'link text',
-        link_text: 'link text',
-        name: 'name',
-        partial_link_text: 'partial link text',
-        tag_name: 'tag name',
-        xpath: 'xpath',
-        accessibility_id: 'accessibility id',
-        uiautomation: '-ios uiautomation',
-        predicate: '-ios predicate string',
-        class_chain: '-ios class chain',
-        uiautomator: '-android uiautomator'
-      }
-      assert_equal expected, ::Selenium::WebDriver::Element::FINDERS
+      assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class]
+      assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class_name]
+      assert_equal 'css selector', ::Selenium::WebDriver::Element::FINDERS[:css]
+      assert_equal 'id', ::Selenium::WebDriver::Element::FINDERS[:id]
+      assert_equal 'link text', ::Selenium::WebDriver::Element::FINDERS[:link]
+      assert_equal 'link text', ::Selenium::WebDriver::Element::FINDERS[:link_text]
+      assert_equal 'name', ::Selenium::WebDriver::Element::FINDERS[:name]
+      assert_equal 'partial link text', ::Selenium::WebDriver::Element::FINDERS[:partial_link_text]
+      assert_equal 'tag name', ::Selenium::WebDriver::Element::FINDERS[:tag_name]
+      assert_equal 'xpath', ::Selenium::WebDriver::Element::FINDERS[:xpath]
+      assert_equal 'accessibility id', ::Selenium::WebDriver::Element::FINDERS[:accessibility_id]
     end
   end
 end

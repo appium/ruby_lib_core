@@ -5,8 +5,6 @@ module Appium
     # Experimental feature
     #
     class ImageElement
-      include ::Appium::Core::Base::SearchContext
-
       Point     = Struct.new(:x, :y)
       Dimension = Struct.new(:width, :height)
       Rectangle = Struct.new(:x, :y, :width, :height)
@@ -102,6 +100,10 @@ module Appium
                                        partial_image: partial_image,
                                        match_threshold: match_threshold,
                                        visualize: visualize)
+      end
+
+      def ref
+        @id
       end
     end
   end
