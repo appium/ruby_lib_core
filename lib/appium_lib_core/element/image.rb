@@ -101,10 +101,6 @@ module Appium
                                        match_threshold: match_threshold,
                                        visualize: visualize)
       end
-
-      def ref
-        @id
-      end
     end
   end
 end

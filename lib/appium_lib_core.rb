@@ -13,7 +13,7 @@ require_relative 'appium_lib_core/android_espresso'
 require_relative 'appium_lib_core/ios'
 require_relative 'appium_lib_core/ios_xcuitest'
 
-# Call patch after require other files
+# Call patch after requiring other files
 require_relative 'appium_lib_core/patch'
 
 module Appium
