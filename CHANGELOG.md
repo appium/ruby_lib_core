@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Bug fixes
 
 ### Deprecations
+- Remove warning of camelCase capability for W3C format
 
 ## [1.8.1] - 2018-07-13
 ### Enhancements
