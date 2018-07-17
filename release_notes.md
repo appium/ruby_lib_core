@@ -1,3 +1,11 @@
+#### v1.8.2 2018-07-17
+
+- [4053425](https://github.com/appium/ruby_lib_core/commit/40534256de7b9ace04a6c13f56c4c2abf696c81a) Release 1.8.2
+- [3bc3b37](https://github.com/appium/ruby_lib_core/commit/3bc3b370b1f5d38c5e2301279cea96ecc466c485) Remove redundant code (#109)
+- [4ee5ddb](https://github.com/appium/ruby_lib_core/commit/4ee5ddb6a3c2037f2a4b60fca12e677b96b1043a) can set packages over http (#108)
+- [634d003](https://github.com/appium/ruby_lib_core/commit/634d003bdeeeddfca9422b910c197f0530dc49bb) tweak include (#105)
+
+
 #### v1.8.1 2018-07-13
 
 - [d423fb4](https://github.com/appium/ruby_lib_core/commit/d423fb419e76fc4eb66845f0b59c15987592cc5f) Release 1.8.1
