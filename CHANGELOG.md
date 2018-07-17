@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+
+### Deprecations
+
+## [1.8.2] - 2018-07-17
+### Enhancements
+
+### Bug fixes
 - Available packages over HTTP [#106](https://github.com/appium/ruby_lib_core/issues/106)
 
 ### Deprecations
