@@ -114,9 +114,9 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core.start_driver(server_url: server_url) # start driver
-     #
+      #     @core = Appium::Core.for(self, opts)
+      #     @core.start_driver(server_url: server_url)
+      #
       def self.for(target, opts = {})
         new(target, opts)
       end
