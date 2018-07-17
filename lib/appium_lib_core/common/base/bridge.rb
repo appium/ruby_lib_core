@@ -122,8 +122,6 @@ module Appium
 
           capabilities = capabilities.__send__(:capabilities) unless capabilities.is_a?(Hash)
 
-          warn_if_camel_case(capabilities)
-
           capabilities.each do |name, value|
             next if value.nil?
             next if value.is_a?(String) && value.empty?
@@ -138,14 +136,6 @@ module Appium
         end
 
         private
-
-        def warn_if_camel_case(caps)
-          warn_caps = caps.collect { |key, _value| key =~ /_([a-z])/ ? key : nil }.compact
-          return if warn_caps.empty?
-
-          warn_message = warn_caps.join(', ')
-          ::Appium::Logger.warn("Please define capability key names: #{warn_message} as camelCase for W3C Appium Server")
-        end
 
         def camel_case(str)
           str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
