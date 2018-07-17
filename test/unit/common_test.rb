@@ -81,7 +81,7 @@ class AppiumLibCoreTest
         driver
       end
 
-      def test_create_session_force_mjsonwp_with_http_package
+      def test_create_session_force_mjsonwp_with_source_package
         response = {
           status: 0, # To make bridge.dialect == :oss
           value: {
@@ -89,7 +89,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'sauce-storage:test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis'
@@ -99,7 +99,7 @@ class AppiumLibCoreTest
         http_caps = {
           platformName: :android,
           automationName: 'uiautomator2',
-          app: 'http://example.com/test.apk.zip',
+          app: 'sauce-storage:test/functional/app/api.apk',
           platformVersion: '7.1.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis'
@@ -119,7 +119,7 @@ class AppiumLibCoreTest
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
         assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 20_000 }.to_json, times: 1)
 
-        assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
+        assert_equal 'sauce-storage:test/functional/app/api.apk', core.caps[:app]
       end
 
       def test_create_session_w3c
