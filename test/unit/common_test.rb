@@ -81,6 +81,47 @@ class AppiumLibCoreTest
         driver
       end
 
+      def test_create_session_force_mjsonwp_with_http_package
+        response = {
+          status: 0, # To make bridge.dialect == :oss
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: 'uiautomator2',
+              app: 'test/functional/app/api.apk',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis'
+            }
+          }
+        }.to_json
+        http_caps = {
+          platformName: :android,
+          automationName: 'uiautomator2',
+          app: 'http://example.com/test.apk.zip',
+          platformVersion: '7.1.1',
+          deviceName: 'Android Emulator',
+          appPackage: 'io.appium.android.apis'
+        }
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .with(body: { desiredCapabilities: http_caps }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: response)
+
+        stub_request(:post, "#{Mock::SESSION}/timeouts/implicit_wait")
+          .with(body: { ms: 20_000 }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
+
+        core = ::Appium::Core.for(self, { caps: http_caps.merge({ forceMjsonwp: true }), appium_lib: {} })
+        core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 20_000 }.to_json, times: 1)
+
+        assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
+      end
+
       def test_create_session_w3c
         response = { value: RESPONSE_BASE_VALUE }.to_json
 
@@ -98,6 +139,56 @@ class AppiumLibCoreTest
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
         assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 20_000 }.to_json, times: 1)
         driver
+      end
+
+      def test_create_session_w3c_with_http_package
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: 'uiautomator2',
+              app: 'http://example.com/test.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis'
+            }
+          }
+        }.to_json
+        http_caps = {
+          platformName: :android,
+          automationName: 'uiautomator2',
+          app: 'http://example.com/test.apk.zip',
+          platformVersion: '7.1.1',
+          deviceName: 'Android Emulator',
+          appPackage: 'io.appium.android.apis'
+        }
+
+        appium_prefix_http_caps = {
+          platformName: :android,
+          'appium:automationName' => 'uiautomator2',
+          'appium:app' => 'http://example.com/test.apk.zip',
+          'appium:platformVersion' => '7.1.1',
+          'appium:deviceName' => 'Android Emulator',
+          'appium:appPackage' => 'io.appium.android.apis'
+        }
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .with(body: { desiredCapabilities: http_caps,
+                        capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [{}] } }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: response)
+
+        stub_request(:post, "#{Mock::SESSION}/timeouts")
+          .with(body: { implicit: 20_000 }.to_json)
+          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
+
+        core = ::Appium::Core.for(self, { caps: http_caps, appium_lib: {} })
+        core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 20_000 }.to_json, times: 1)
+
+        assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
       end
 
       def test_add_appium_prefix_compatible_with_oss
