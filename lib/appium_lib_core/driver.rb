@@ -1,3 +1,5 @@
+require 'uri'
+
 module Appium
   module Core
     class Driver
@@ -92,6 +94,28 @@ module Appium
       #            }
       #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
       #     @core.start_driver(server_url: server_url) # start driver
+      #
+      #     # Start iOS driver with .zip file over HTTP
+      #     opts = {
+      #              caps: {
+      #                platformName: :ios,
+      #                platformVersion: '11.0',
+      #                deviceName: 'iPhone Simulator',
+      #                automationName: 'XCUITest',
+      #                app: 'http://example.com/path/to/MyiOS.app.zip'
+      #              },
+      #              appium_lib: {
+      #                server_url: "http://custom-host:8080/wd/hub.com",
+      #                export_session: false,
+      #                port: 8080,
+      #                wait: 0,
+      #                wait_timeout: 20,
+      #                wait_interval: 0.3,
+      #                listener: nil,
+      #              }
+      #            }
+      #     @core = Appium::Core.for(self, opts)
+      #     @core.start_driver(server_url: server_url)
       #
       def self.for(target, opts = {})
         new(target, opts)
@@ -366,6 +390,8 @@ module Appium
       # The path can be local or remote for Sauce.
       def set_app_path
         return unless @caps && @caps[:app] && !@caps[:app].empty?
+        return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
+
         @caps[:app] = File.expand_path(@caps[:app])
       end
 
