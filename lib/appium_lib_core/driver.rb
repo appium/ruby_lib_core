@@ -387,12 +387,19 @@ module Appium
 
       # @private
       # Path to the .apk, .app or .app.zip.
-      # The path can be local or remote for Sauce.
+      # The path can be local, HTTP/S, Windows Share and other path like `sauce-storage:`.
+      # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
         return unless @caps && @caps[:app] && !@caps[:app].empty?
         return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
 
-        @caps[:app] = File.expand_path(@caps[:app])
+        app_path = File.expand_path(@caps[:app])
+        @caps[:app] = if File.exist? app_path
+                        app_path
+                      else
+                        ::Appium::Logger.info("Use #{@caps[:app]} directly")
+                        @caps[:app]
+                      end
       end
 
       # @private
