@@ -394,11 +394,12 @@ module Appium
         return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
 
         app_path = File.expand_path(@caps[:app])
-        if File.exist? app_path
-          @caps[:app] = app_path
-        else
-          ::Appium::Logger.info("Use #{@caps[:app]} directly")
-        end
+        @caps[:app] = if File.exist? app_path
+                        app_path
+                      else
+                        ::Appium::Logger.info("Use #{@caps[:app]} directly")
+                        @caps[:app]
+                      end
       end
 
       # @private
