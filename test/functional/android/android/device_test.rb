@@ -57,7 +57,7 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.background_app 5 }
 
         e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
-        assert_equal 'App', e.name
+        assert_equal 'App', e.text
 
         @@driver.background_app(-1)
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
@@ -68,7 +68,7 @@ class AppiumLibCoreTest
         @@driver.reset
 
         e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
-        assert_equal 'App', e.name
+        assert_equal 'App', e.text
       end
 
       def test_device_time
@@ -117,10 +117,10 @@ class AppiumLibCoreTest
         assert @@driver.app_state('io.appium.android.apis') == :running_in_foreground
 
         assert @@driver.terminate_app('io.appium.android.apis')
-        assert @@driver.app_state('io.appium.android.apis') == :not_running
+        @@core.wait { assert @@driver.app_state('io.appium.android.apis') == :not_running }
 
         assert @@driver.activate_app('io.appium.android.apis').nil?
-        assert @@driver.app_state('io.appium.android.apis') == :running_in_foreground
+        @@core.wait { assert @@driver.app_state('io.appium.android.apis') == :running_in_foreground }
       end
 
       def test_start_activity

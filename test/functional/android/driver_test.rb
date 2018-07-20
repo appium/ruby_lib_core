@@ -35,12 +35,12 @@ class AppiumLibCoreTest
 
     def test_wait_true
       e = @@core.wait_true { @@driver.find_element :accessibility_id, 'Content' }
-      assert e.name
+      assert e.text
     end
 
     def test_wait
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Content' }
-      assert_equal 'Content', e.name
+      assert_equal 'Content', e.text
     end
 
     # TODO: call @driver.quit after tests

@@ -182,7 +182,7 @@ module Appium
         #   end # The result of `find_element :tag, "button"`
         #
         def within_context(context)
-          @bridge.within_context(context)
+          block_given? ? @bridge.within_context(context, &Proc.new) : @bridge.within_context(context)
         end
 
         # Change to the default context. This is equivalent to `set_context nil`.
