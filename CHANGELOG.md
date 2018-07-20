@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.8.3] - 2018-07-20
+### Enhancements
 - Relax the logic of `:app` capability
 
 ### Bug fixes
