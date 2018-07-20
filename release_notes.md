@@ -1,3 +1,10 @@
+#### v1.8.3 2018-07-20
+
+- [e84eb3a](https://github.com/appium/ruby_lib_core/commit/e84eb3aefef8f5c6973d7fda207bc53e53ceb7ad) Release 1.8.3
+- [758f5b1](https://github.com/appium/ruby_lib_core/commit/758f5b1821f73d23adca1523b3b3507625a55d76) fix within context block (#111)
+- [c3999f9](https://github.com/appium/ruby_lib_core/commit/c3999f910e1e2fabe8badf558c44b33e56b048d4) use :app without modifications (#110)
+
+
 #### v1.8.2 2018-07-17
 
 - [4053425](https://github.com/appium/ruby_lib_core/commit/40534256de7b9ace04a6c13f56c4c2abf696c81a) Release 1.8.2
