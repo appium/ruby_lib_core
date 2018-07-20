@@ -30,7 +30,7 @@ class ScriptTest
     end
 
     def test_implemented_w3c_commands
-      assert_equal 116, @c.implemented_w3c_commands.length
+      assert_equal 117, @c.implemented_w3c_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_w3c_commands.first
 
       # pick up an arbitrary command
@@ -54,7 +54,7 @@ class ScriptTest
     end
 
     def test_webdriver_w3c_commands
-      assert_equal 46, @c.webdriver_w3c_commands.length
+      assert_equal 47, @c.webdriver_w3c_commands.length
       assert_equal ['session', [:post]], @c.webdriver_w3c_commands.first
 
       # pick up an arbitrary command

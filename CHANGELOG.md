@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Relax the logic of `:app` capability
 
 ### Bug fixes
+- Fix `within_context`
 
 ### Deprecations
 
