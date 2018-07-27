@@ -5,6 +5,14 @@ module Appium
     class Base
       class Bridge
         class W3C < ::Selenium::WebDriver::Remote::W3C::Bridge
+          def self.silence_warnings_redefining(&block)
+            warn_level = $VERBOSE
+            $VERBOSE = nil
+            result = block.call
+            $VERBOSE = warn_level
+            result
+          end
+
           include Device::DeviceLock
           include Device::Keyboard
           include Device::ImeActions
@@ -22,7 +30,7 @@ module Appium
 
           # Used for default duration of each touch actions
           # Override from 250 milliseconds to 50 milliseconds
-          ::Selenium::WebDriver::PointerActions::DEFAULT_MOVE_DURATION = 0.05
+          W3C.silence_warnings_redefining { ::Selenium::WebDriver::PointerActions::DEFAULT_MOVE_DURATION = 0.05 }
 
           def commands(command)
             ::Appium::Core::Commands::W3C::COMMANDS[command]
