@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- silence warning for pointeractions [#113](https://github.com/appium/ruby_lib_core/pull/113)
 
 ### Bug fixes
 
