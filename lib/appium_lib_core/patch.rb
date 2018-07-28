@@ -7,14 +7,14 @@ module Appium
       # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::SearchContext
 
-      # Returns the value of attributes
+      # Returns the value of attributes like below. Read each platform to know more details.
       #
       # uiautomator2: https://github.com/appium/appium-uiautomator2-server/blob/203cc7e57ce477f3cff5d95b135d1b3450a6033a/app/src/main/java/io/appium/uiautomator2/utils/Attribute.java#L19
       #     checkable, checked, class, clickable, content-desc, enabled, focusable, focused
       #     long-clickable, package, password, resource-id, scrollable, selection-start, selection-end
       #     selected, text, bounds, index
       #
-      # XCUITest automation name support below attributes
+      # XCUITest automation name supports below attributes.
       #     UID, accessibilityContainer, accessible, enabled, frame,
       #     label, name, rect, type, value, visible, wdAccessibilityContainer,
       #     wdAccessible, wdEnabled, wdFrame, wdLabel, wdName, wdRect, wdType,
