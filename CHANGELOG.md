@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.8.4] - 2018-07-28
+### Enhancements
 - silence warning for pointeractions [#113](https://github.com/appium/ruby_lib_core/pull/113)
 - Use method missing to get attributes like `e.resource_id` instead of `e.attribute 'resource-id'` [#116](https://github.com/appium/ruby_lib_core/pull/116)
 - Set `'~> 3.5', '< 3.14'`
