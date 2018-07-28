@@ -13,21 +13,11 @@ class AppiumLibCoreTest
       save_reports(@@driver)
     end
 
-    def test_value
+    def test_method_missing_attributes
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }
 
       assert_equal 'Buttons', e.value
-    end
-
-    def test_name
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }
-
       assert_equal 'Buttons', e.name
-    end
-
-    def test_label
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }
-
       assert_equal 'Buttons', e.label
     end
 
