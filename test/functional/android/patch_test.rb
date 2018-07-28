@@ -16,25 +16,13 @@ class AppiumLibCoreTest
       save_reports(@@driver)
     end
 
-    def test_value
-      skip "Android doesn't support"
+    def test_method_missing_attributes
       e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
 
-      assert_equal 'App', e.value
-    end
-
-    def test_name
-      skip "Android doesn't support"
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
-
-      assert_equal 'App', e.name
-    end
-
-    def test_label
-      skip "Android doesn't support"
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
-
-      assert_equal 'App', e.label
+      assert_equal 'App', e.text
+      assert_equal 'App', e.enabled
+      assert_equal 'App', e.focused
+      assert_equal 'App', e.content_desc
     end
 
     def test_type

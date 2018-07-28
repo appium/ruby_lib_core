@@ -7,47 +7,33 @@ module Appium
       # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::SearchContext
 
-      # Note: For testing .text should be used over value, and name.
-
-      # Returns the value attribute
+      # Returns the value of attributes
       #
-      # Fixes NoMethodError: undefined method `value' for Selenium::WebDriver::Element for iOS
+      # uiautomator2: https://github.com/appium/appium-uiautomator2-server/blob/203cc7e57ce477f3cff5d95b135d1b3450a6033a/app/src/main/java/io/appium/uiautomator2/utils/Attribute.java#L19
+      #     checkable, checked, class, clickable, content-desc, enabled, focusable, focused
+      #     long-clickable, package, password, resource-id, scrollable, selection-start, selection-end
+      #     selected, text, bounds, index
+      #
+      # XCUITest automation name support below attributes
+      #     UID, accessibilityContainer, accessible, enabled, frame,
+      #     label, name, rect, type, value, visible, wdAccessibilityContainer,
+      #     wdAccessible, wdEnabled, wdFrame, wdLabel, wdName, wdRect, wdType,
+      #     wdUID, wdValue, wdVisible
+      #
       # @return [String]
       #
       # @example
       #
       #   e = @driver.find_element :accessibility_id, 'something'
       #   e.value
+      #   e.resource_id # call `e.attribute "resource-id"`
       #
-      def value
-        attribute :value
+      def method_missing(method_name)
+        respond_to?(method_name) ? attribute(method_name.to_s.tr('_', '-')) : super
       end
 
-      # Returns the name attribute
-      #
-      # Fixes NoMethodError: undefined method `name' for Selenium::WebDriver::Element for iOS
-      # @return [String]
-      #
-      # @example
-      #
-      #   e = @driver.find_element :accessibility_id, 'something'
-      #   e.name
-      #
-      def name
-        attribute :name
-      end
-
-      # Enable access to iOS accessibility label
-      # accessibility identifier is supported as 'name'
-      # @return [String]
-      #
-      # @example
-      #
-      #   e = @driver.find_element :accessibility_id, 'something'
-      #   e.label
-      #
-      def label
-        attribute :label
+      def respond_to_missing?(*)
+        true
       end
 
       # Alias for type
