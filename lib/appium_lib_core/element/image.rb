@@ -5,27 +5,17 @@ module Appium
     # Experimental feature
     #
     class ImageElement
-      Point     = Struct.new(:x, :y)
-      Dimension = Struct.new(:width, :height)
-      Rectangle = Struct.new(:x, :y, :width, :height)
-
-      # Base64ed format
-      # @example
-      #
-      #     File.write 'result.png', Base64.decode64(e.visual)
-      #
-      attr_reader :visual
-
-      def initialize(bridge, x, y, width, height, visual = nil)
+      def initialize(bridge, id)
         @bridge = bridge
-        @visual = visual
+        @id = id
+      end
 
-        @center_x = x + width / 2
-        @center_y = y + height / 2
-        @x = x
-        @y = y
-        @width = width
-        @height = height
+      def inspect
+        format '#<%s:0x%x id=%s>', self.class, hash * 2, @id.inspect
+      end
+
+      def hash
+        @id.hash ^ @bridge.hash
       end
 
       #
@@ -37,7 +27,15 @@ module Appium
       #     e.click
       #
       def click
-        @bridge.action.move_to_location(@center_x, @center_y).click.perform
+        bridge.click_element @id
+      end
+
+      #
+      # Submit this element
+      #
+
+      def submit
+        bridge.submit_element @id
       end
 
       #
@@ -51,7 +49,7 @@ module Appium
       #     assert_equal [39, 1014], [e.location.x, e.location.y]
       #
       def location
-        Point.new @x, @y
+        bridge.element_location @id
       end
 
       #
@@ -65,7 +63,7 @@ module Appium
       #         assert_equal [326, 62], [e.size.width, e.size.height]
       #
       def size
-        Dimension.new @width, @height
+        bridge.element_size @id
       end
 
       #
@@ -79,11 +77,11 @@ module Appium
       #         assert_equal([39, 1014, 326, 62], [e.rect.x, e.rect.y, e.rect.width, e.rect.height])
       #
       def rect
-        Rectangle.new @x, @y, @width, @height
+        bridge.element_rect @id
       end
 
       def displayed?
-        true
+        bridge.element_displayed? @id
       end
 
       #-------------------------------- sugar  --------------------------------
@@ -101,6 +99,10 @@ module Appium
                                        match_threshold: match_threshold,
                                        visualize: visualize)
       end
+
+      private
+
+      attr_reader :bridge
     end
   end
 end
