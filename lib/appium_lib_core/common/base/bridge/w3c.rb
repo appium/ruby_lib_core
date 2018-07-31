@@ -109,6 +109,17 @@ module Appium
             ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
           end
 
+
+          def find_element_by_image(partial_image)
+            id = execute :find_element, {}, { using: :image, value: partial_image }
+            ::Appium::Core::ImageElement.new self, element_id_from(id)
+          end
+
+          def find_elements_by_image(partial_image)
+            ids = execute :find_elements, {}, { using: :image, value: partial_image }
+            ids.map { |id| ::Appium::Core::ImageElement.new self, element_id_from(id) }
+          end
+
           #
           # @return [::Appium::Core::ImageElement|nil]
           # @raise [::Selenium::WebDriver::Error::TimeOutError|::Selenium::WebDriver::Error::WebDriverError]
