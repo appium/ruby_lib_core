@@ -800,6 +800,7 @@ module Appium
         #
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
+        # TODO: will wrap find_element_by_image
         def find_element_by_image(png_img_path, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           full_image = @bridge.screenshot
           partial_image = Base64.encode64 File.read(png_img_path)
@@ -820,6 +821,19 @@ module Appium
           element
         end
 
+        def find_element_by_image(png_img_path)
+          template = Base64.encode64 File.read(png_img_path)
+          @bridge.find_element_by_image(:image, template)
+        end
+
+        def find_elements_by_image(png_img_paths)
+          templates = png_img_paths.map do |png_img_path|
+            Base64.encode64 File.read(png_img_path)
+          end
+
+          @bridge.find_elements_by_image(:image, templates)
+        end
+
         # Return ImageElement if current view has partial images
         #
         # @param [[String]] png_img_paths Paths to a partial image you'd like to find
@@ -835,6 +849,7 @@ module Appium
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
+        # TODO: will wrap find_elements_by_image
         def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           full_image = @bridge.screenshot
 
