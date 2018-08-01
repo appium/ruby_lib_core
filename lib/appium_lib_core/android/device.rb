@@ -202,6 +202,11 @@ module Appium
         #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
         #                             For example, "1280x720"
         # @param [String] time_limit: Recording time. 180 seconds is by default.
+        #                             Since Appium 1.8.2 the time limit can be up to 1800 seconds (30 minutes).
+        #                             Appium will automatically try to merge the 3-minutes chunks recorded
+        #                             by the screenrecord utility, however, this requires FFMPEG utility
+        #                             to be installed and available in PATH on the server machine. If the utility is not
+        #                             present then the most recent screen recording chunk is going to be returned as the result.
         # @param [String] bit_rate: The video bit rate for the video, in megabits per second.
         #                           4 Mbp/s(4000000) is by default for Android API level below 27. 20 Mb/s(20000000) for API level 27 and above.
         # @param [Boolean] bug_report: Set it to `true` in order to display additional information on the video overlay,
