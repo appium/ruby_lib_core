@@ -27,7 +27,7 @@ module Appium
       #     e.click
       #
       def click
-        bridge.click_element @id
+        @bridge.click_element @id
       end
 
       #
@@ -35,7 +35,7 @@ module Appium
       #
 
       def submit
-        bridge.submit_element @id
+        @bridge.submit_element @id
       end
 
       #
@@ -49,7 +49,7 @@ module Appium
       #     assert_equal [39, 1014], [e.location.x, e.location.y]
       #
       def location
-        bridge.element_location @id
+        @bridge.element_location @id
       end
 
       #
@@ -63,7 +63,7 @@ module Appium
       #         assert_equal [326, 62], [e.size.width, e.size.height]
       #
       def size
-        bridge.element_size @id
+        @bridge.element_size @id
       end
 
       #
@@ -77,11 +77,11 @@ module Appium
       #         assert_equal([39, 1014, 326, 62], [e.rect.x, e.rect.y, e.rect.width, e.rect.height])
       #
       def rect
-        bridge.element_rect @id
+        @bridge.element_rect @id
       end
 
       def displayed?
-        bridge.element_displayed? @id
+        @bridge.element_displayed? @id
       end
 
       #-------------------------------- sugar  --------------------------------
@@ -99,10 +99,6 @@ module Appium
                                        match_threshold: match_threshold,
                                        visualize: visualize)
       end
-
-      private
-
-      attr_reader :bridge
     end
   end
 end
