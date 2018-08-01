@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Update documentation about `start_recording_screen`
 
 ### Bug fixes
 
