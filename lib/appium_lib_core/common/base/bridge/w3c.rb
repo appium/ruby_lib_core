@@ -109,7 +109,6 @@ module Appium
             ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
           end
 
-
           def find_element_by_image(by, partial_image, _parent = nil)
             id = execute :find_element, {}, { using: by, value: partial_image }
             ::Appium::Core::ImageElement.new self, element_id_from(id)

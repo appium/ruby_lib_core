@@ -12,9 +12,9 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        @@driver.update_settings({fixImageFindScreenshotDims: false,
-                                  fixImageTemplateSize: true,
-                                  autoUpdateImageElementPosition: true})
+        @@driver.update_settings({ fixImageFindScreenshotDims: false,
+                                   fixImageTemplateSize: true,
+                                   autoUpdateImageElementPosition: true })
 
         template = Base64.encode64 File.read('./test/functional/data/test_button_image_ios.png')
         e = @@driver.find_element :image, template
@@ -29,8 +29,8 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        @@driver.update_settings({fixImageTemplateSize: true,
-                                  autoUpdateImageElementPosition: true})
+        @@driver.update_settings({ fixImageTemplateSize: true,
+                                   autoUpdateImageElementPosition: true })
 
         template = Base64.encode64 File.read('./test/functional/data/test_arrow_multiple_ios.png')
         e = @@driver.find_elements :image, template
