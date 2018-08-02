@@ -84,6 +84,10 @@ module Appium
         @bridge.element_displayed? @id
       end
 
+      def ref
+        @id
+      end
+
       #-------------------------------- sugar  --------------------------------
 
       def first(full_image:, partial_image:, match_threshold: nil, visualize: false)

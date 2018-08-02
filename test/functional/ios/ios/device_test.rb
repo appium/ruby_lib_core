@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'base64'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
 # rubocop:disable Style/ClassVars
@@ -8,23 +9,39 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
         @@driver ||= @@core.start_driver
-
-        require 'pry'
-        binding.pry
       end
 
       def test_image_element
-        require 'base64'
+        @@driver.update_settings({fixImageFindScreenshotDims: false,
+                                  fixImageTemplateSize: true,
+                                  autoUpdateImageElementPosition: true})
 
         template = Base64.encode64 File.read('./test/functional/data/test_button_image_ios.png')
         e = @@driver.find_element :image, template
 
-        e.inspect
-        e.hash
-        e.location
-        e.size
-        e.rect
-        e.displayed?
+        assert e.inspect
+        assert e.hash
+        assert e.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert e.location
+        assert e.size
+        assert e.rect
+        assert e.displayed?
+      end
+
+      def test_image_elements
+        @@driver.update_settings({fixImageTemplateSize: true,
+                                  autoUpdateImageElementPosition: true})
+
+        template = Base64.encode64 File.read('./test/functional/data/test_arrow_multiple_ios.png')
+        e = @@driver.find_elements :image, template
+
+        assert e[0].inspect
+        assert e[0].hash
+        assert e[0].ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert e[0].location
+        assert e[0].size
+        assert e[0].rect
+        assert e[0].displayed?
       end
 
       def teardown

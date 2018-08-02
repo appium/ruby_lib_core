@@ -112,13 +112,6 @@ module Appium
 
           def find_element_by_image(by, partial_image, _parent = nil)
             id = execute :find_element, {}, { using: by, value: partial_image }
-
-            # TODO: remove
-            require 'pry'
-            binding.pry
-
-            puts id
-
             ::Appium::Core::ImageElement.new self, element_id_from(id)
           end
 
