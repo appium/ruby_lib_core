@@ -8,6 +8,23 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
         @@driver ||= @@core.start_driver
+
+        require 'pry'
+        binding.pry
+      end
+
+      def test_image_element
+        require 'base64'
+
+        template = Base64.encode64 File.read('./test/functional/data/test_button_image_ios.png')
+        e = @@driver.find_element :image, template
+
+        e.inspect
+        e.hash
+        e.location
+        e.size
+        e.rect
+        e.displayed?
       end
 
       def teardown
