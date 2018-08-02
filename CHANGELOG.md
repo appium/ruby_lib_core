@@ -3,10 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Support `find_element/s :image, partial_image`
 
 ### Bug fixes
 
 ### Deprecations
+- Deprecate experimental `find_element/s_by_image` in favor of `find_element/s :image, partial_image`
 
 ## [1.8.4] - 2018-07-28
 ### Enhancements

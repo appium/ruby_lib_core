@@ -5,6 +5,8 @@ module Appium
     # Experimental feature
     #
     class ImageElement
+      include ::Appium::Core::Base::SearchContext
+
       def initialize(bridge, id)
         @bridge = bridge
         @id = id
@@ -90,19 +92,15 @@ module Appium
 
       #-------------------------------- sugar  --------------------------------
 
-      def first(full_image:, partial_image:, match_threshold: nil, visualize: false)
-        @bridge.find_element_by_image(full_image: full_image,
-                                      partial_image: partial_image,
-                                      match_threshold: match_threshold,
-                                      visualize: visualize)
-      end
+      #
+      #   element.first(id: 'foo')
+      #
+      alias first find_element
 
-      def all(full_image:, partial_image:, match_threshold: nil, visualize: false)
-        @bridge.find_elements_by_image(full_image: full_image,
-                                       partial_image: partial_image,
-                                       match_threshold: match_threshold,
-                                       visualize: visualize)
-      end
+      #
+      #   element.all(class: 'bar')
+      #
+      alias all find_elements
     end
   end
 end
