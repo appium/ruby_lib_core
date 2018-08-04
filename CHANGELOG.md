@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Update documentation about `start_recording_screen`
+- Port `send_keys/type` for active element
 - Support `find_element/s :image, partial_image`
 
 ### Bug fixes
