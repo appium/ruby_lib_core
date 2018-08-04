@@ -8,7 +8,8 @@ All notable changes to this project will be documented in this file.
 ### Bug fixes
 
 ### Deprecations
-- Deprecate experimental `find_element/s_by_image` in favor of `find_element/s :image, partial_image`
+- Deprecate experimental `ImageElement` in favor of `Element`
+    - Anyone does not need to care this
 
 ## [1.8.4] - 2018-07-28
 ### Enhancements
