@@ -26,7 +26,11 @@ module Appium
         # iOS can find with a [UIAutomation command](https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930).
         # iOS, only for XCUITest(WebDriverAgent), can find with a [class chain]( https://github.com/facebook/WebDriverAgent/wiki/Queries)
         #
-        # @see
+        # Find with image.
+        # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
         # @overload find_element(how, what)
         #   @param [Symbol, String] how The method to find the element by
@@ -44,8 +48,8 @@ module Appium
         #     find_elements :accessibility_id, 'Animation'
         #     find_elements :accessibility_id, 'Animation'
         #
-        #     # with base64 partial image. All platforms.
-        #     find_elements :accessibility_id, 'Animation'
+        #     # with base64 encoded template image. All platforms.
+        #     find_elements :image, Base64.encode64(File.read(file_path))
         #
         #     # For Android
         #     ## With uiautomator

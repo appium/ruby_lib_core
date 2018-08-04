@@ -786,7 +786,11 @@ module Appium
           @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
         end
 
-        # Return ImageElement if current view has a partial image
+        # @since Appium 1.8.2
+        # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
         # @param [String] png_img_path A path to a partial image you'd like to find
         #
@@ -794,6 +798,8 @@ module Appium
         #
         # @example
         #
+        #     @@driver.update_settings({ fixImageFindScreenshotDims: false, fixImageTemplateSize: true,
+        #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
         def find_element_by_image(png_img_path)
@@ -801,7 +807,11 @@ module Appium
           find_element :image, template
         end
 
-        # Return ImageElement if current view has partial images
+        # @since Appium 1.8.2
+        # Return elements if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
         # @param [String] png_img_path A path to a partial image you'd like to find
         #
@@ -809,6 +819,8 @@ module Appium
         #
         # @example
         #
+        #     @@driver.update_settings({ fixImageFindScreenshotDims: false, fixImageTemplateSize: true,
+        #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
