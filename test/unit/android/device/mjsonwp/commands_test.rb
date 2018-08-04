@@ -159,6 +159,16 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/appium/device/is_keyboard_shown", times: 1)
           end
 
+          def test_send_keys_for_active_elements
+            stub_request(:post, "#{SESSION}/keys")
+              .to_return(headers: HEADER, status: 200, body: { value: ['h','a','p','p','y',' ','t','e','s','t','i','n','g'] }.to_json)
+
+            @driver.send_keys 'happy testing'
+            @driver.type 'happy testing'
+
+            assert_requested(:post, "#{SESSION}/keys", times: 2)
+          end
+
           def test_get_network_connection
             stub_request(:get, "#{SESSION}/network_connection")
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)

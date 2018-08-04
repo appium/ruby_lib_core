@@ -30,7 +30,7 @@ class ScriptTest
     end
 
     def test_implemented_w3c_commands
-      assert_equal 117, @c.implemented_w3c_commands.length
+      assert_equal 118, @c.implemented_w3c_commands.length
       assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_w3c_commands.first
 
       # pick up an arbitrary command

@@ -99,6 +99,18 @@ module Appium
           @bridge.is_keyboard_shown
         end
 
+        # Send keys for a current active element
+        # @param [String] key Input text
+        #
+        # @example
+        #
+        #   @driver.send_keys 'happy testing!'
+        #
+        def send_keys(*key)
+          @bridge.send_keys_to_active_element(key)
+        end
+        alias type send_keys
+
         # Get appium Settings for current test session
         #
         # @example
