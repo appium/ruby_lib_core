@@ -161,7 +161,8 @@ class AppiumLibCoreTest
 
           def test_send_keys_for_active_elements
             stub_request(:post, "#{SESSION}/keys")
-              .to_return(headers: HEADER, status: 200, body: { value: ['h','a','p','p','y',' ','t','e','s','t','i','n','g'] }.to_json)
+              .to_return(headers: HEADER, status: 200, body:
+                { value: ['h', 'a', 'p', 'p', 'y', ' ', 't', 'e', 's', 't', 'i', 'n', 'g'] }.to_json)
 
             @driver.send_keys 'happy testing'
             @driver.type 'happy testing'
