@@ -22,9 +22,14 @@ class AppiumLibCoreTest
         assert e.inspect
         assert e.hash
         assert e.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
-        assert e.location
-        assert e.size
-        assert e.rect
+        assert e.location.x
+        assert e.location.y
+        assert e.size.width
+        assert e.size.height
+        assert e.rect.x
+        assert e.rect.y
+        assert e.rect.width
+        assert e.rect.height
         assert e.displayed?
       end
 
