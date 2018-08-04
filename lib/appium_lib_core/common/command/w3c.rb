@@ -33,6 +33,8 @@ module Appium
             ime_deactivate:            [:post, 'session/:session_id/ime/deactivate'.freeze],
             ime_activate_engine:       [:post, 'session/:session_id/ime/activate'.freeze],
 
+            send_keys_to_active_element: [:post, 'session/:session_id/keys'.freeze],
+
             ### Logs
             get_available_log_types:   [:get, 'session/:session_id/log/types'.freeze],
             get_log:                   [:post, 'session/:session_id/log'.freeze]
