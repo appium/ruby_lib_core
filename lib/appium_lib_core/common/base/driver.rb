@@ -802,24 +802,6 @@ module Appium
         #
         def find_element_by_image(png_img_path, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           warn '[DEPRECATION] find_elements_by_image will be removed. Please use find_element/s(:image, png_img_path) instead.'
-
-          full_image = @bridge.screenshot
-          partial_image = Base64.encode64 File.read(png_img_path)
-
-          element = begin
-            @bridge.find_element_by_image_deprecated(full_image: full_image,
-                                                     partial_image: partial_image,
-                                                     match_threshold: match_threshold,
-                                                     visualize: visualize)
-          rescue Selenium::WebDriver::Error::TimeOutError
-            raise ::Appium::Core::Error::NoSuchElementError
-          rescue ::Selenium::WebDriver::Error::WebDriverError => e
-            raise ::Appium::Core::Error::NoSuchElementError if e.message.include?('Cannot find any occurrences')
-            raise ::Appium::Core::Error::CoreError, e.message
-          end
-          raise ::Appium::Core::Error::NoSuchElementError if element.nil?
-
-          element
         end
 
         # Return ImageElement if current view has partial images
@@ -839,24 +821,6 @@ module Appium
         #
         def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
           warn '[DEPRECATION] find_elements_by_image will be removed. Please use find_element/s(:image, png_img_path) instead.'
-
-          full_image = @bridge.screenshot
-
-          partial_images = png_img_paths.map do |png_img_path|
-            Base64.encode64 File.read(png_img_path)
-          end
-
-          begin
-            @bridge.find_elements_by_image_deprecated(full_image: full_image,
-                                                      partial_images: partial_images,
-                                                      match_threshold: match_threshold,
-                                                      visualize: visualize)
-          rescue Selenium::WebDriver::Error::TimeOutError
-            []
-          rescue ::Selenium::WebDriver::Error::WebDriverError => e
-            return [] if e.message.include?('Cannot find any occurrences')
-            raise ::Appium::Core::Error::CoreError, e.message
-          end
         end
       end # class Driver
     end # class Base

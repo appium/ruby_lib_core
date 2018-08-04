@@ -77,11 +77,7 @@ module Appium
           how, what = extract_args(args)
           by = _set_by_from_finders(how)
           begin
-            if FINDERS[:image] == by
-              bridge.find_element_by_image by, what.to_s, ref
-            else
-              bridge.find_element_by by, what.to_s, ref
-            end
+            bridge.find_element_by by, what.to_s, ref
           rescue Selenium::WebDriver::Error::TimeOutError
             raise Selenium::WebDriver::Error::NoSuchElementError
           end
@@ -96,11 +92,7 @@ module Appium
           how, what = extract_args(args)
           by = _set_by_from_finders(how)
           begin
-            if FINDERS[:image] == by
-              bridge.find_elements_by_image by, what.to_s, ref
-            else
-              bridge.find_elements_by by, what.to_s, ref
-            end
+            bridge.find_elements_by by, what.to_s, ref
           rescue Selenium::WebDriver::Error::TimeOutError
             []
           end
