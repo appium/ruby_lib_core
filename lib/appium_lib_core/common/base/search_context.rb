@@ -6,6 +6,7 @@ module Appium
 
         FINDERS = ::Selenium::WebDriver::SearchContext::FINDERS.merge(
           accessibility_id: 'accessibility id',
+          image: '-image',
           # Android
           uiautomator: '-android uiautomator',
           # iOS
@@ -25,6 +26,12 @@ module Appium
         # iOS can find with a [UIAutomation command](https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930).
         # iOS, only for XCUITest(WebDriverAgent), can find with a [class chain]( https://github.com/facebook/WebDriverAgent/wiki/Queries)
         #
+        # Find with image.
+        # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
+        #
         # @overload find_element(how, what)
         #   @param [Symbol, String] how The method to find the element by
         #   @param [String] what The locator to use
@@ -35,9 +42,14 @@ module Appium
         # @return [Element]
         # @raise [Error::NoSuchElementError] if the element doesn't exist
         #
-        # @example Find element with accessibility id
+        # @example Find element with each keys
+        #
+        #     # with accessibility id. All platforms.
         #     find_elements :accessibility_id, 'Animation'
         #     find_elements :accessibility_id, 'Animation'
+        #
+        #     # with base64 encoded template image. All platforms.
+        #     find_elements :image, Base64.encode64(File.read(file_path))
         #
         #     # For Android
         #     ## With uiautomator
@@ -100,8 +112,7 @@ module Appium
         private
 
         def _set_by_from_finders(how)
-          finders = FINDERS
-          by = finders[how.to_sym]
+          by = FINDERS[how.to_sym]
           raise ArgumentError, "cannot find element by #{how.inspect}" unless by
           by
         end

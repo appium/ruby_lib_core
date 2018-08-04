@@ -102,6 +102,7 @@ class AppiumLibCoreTest
       assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
       assert_equal '-windows uiautomation', ::Selenium::WebDriver::Element::FINDERS[:windows_uiautomation]
       assert_equal '-tizen uiautomation', ::Selenium::WebDriver::Element::FINDERS[:tizen_uiautomation]
+      assert_equal '-image', ::Selenium::WebDriver::Element::FINDERS[:image]
     end
   end
 end

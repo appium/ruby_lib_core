@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 - Update documentation about `start_recording_screen`
 - Port `send_keys/type` for active element
+- Support `find_element/s :image, partial_image`
 
 ### Bug fixes
 
 ### Deprecations
+- Deprecate experimental `ImageElement` in favor of `Element`
+    - Anyone does not need to care this
 
 ## [1.8.4] - 2018-07-28
 ### Enhancements

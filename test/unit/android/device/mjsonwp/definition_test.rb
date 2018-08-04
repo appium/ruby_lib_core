@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'webmock/minitest'
-require 'base64'
 
 # $ rake test:unit TEST=test/unit/android/device/mjsonwp/definition_test.rb
 class AppiumLibCoreTest
