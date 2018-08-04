@@ -16,8 +16,7 @@ class AppiumLibCoreTest
                                    fixImageTemplateSize: true,
                                    autoUpdateImageElementPosition: true })
 
-        template = Base64.encode64 File.read('./test/functional/data/test_button_image_ios.png')
-        e = @@driver.find_element :image, template
+        e = @@driver.find_element_by_image './test/functional/data/test_button_image_ios.png'
 
         assert e.inspect
         assert e.hash
@@ -37,8 +36,7 @@ class AppiumLibCoreTest
         @@driver.update_settings({ fixImageTemplateSize: true,
                                    autoUpdateImageElementPosition: true })
 
-        template = Base64.encode64 File.read('./test/functional/data/test_arrow_multiple_ios.png')
-        e = @@driver.find_elements :image, template
+        e = @@driver.find_elements_by_image './test/functional/data/test_arrow_multiple_ios.png'
 
         assert e[0].inspect
         assert e[0].hash

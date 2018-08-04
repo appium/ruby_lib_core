@@ -26,6 +26,8 @@ module Appium
         # iOS can find with a [UIAutomation command](https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930).
         # iOS, only for XCUITest(WebDriverAgent), can find with a [class chain]( https://github.com/facebook/WebDriverAgent/wiki/Queries)
         #
+        # @see
+        #
         # @overload find_element(how, what)
         #   @param [Symbol, String] how The method to find the element by
         #   @param [String] what The locator to use
@@ -36,8 +38,13 @@ module Appium
         # @return [Element]
         # @raise [Error::NoSuchElementError] if the element doesn't exist
         #
-        # @example Find element with accessibility id
+        # @example Find element with each keys
+        #
+        #     # with accessibility id. All platforms.
         #     find_elements :accessibility_id, 'Animation'
+        #     find_elements :accessibility_id, 'Animation'
+        #
+        #     # with base64 partial image. All platforms.
         #     find_elements :accessibility_id, 'Animation'
         #
         #     # For Android

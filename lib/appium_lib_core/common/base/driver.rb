@@ -789,38 +789,32 @@ module Appium
         # Return ImageElement if current view has a partial image
         #
         # @param [String] png_img_path A path to a partial image you'd like to find
-        # @param [Flood] match_threshold At what normalized threshold to reject
-        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
-        #                         the corresponding picture matching operation. This option is disabled by default.
         #
-        # @return [::Appium::Core::ImageElement]
-        # @raise [::Appium::Core::Error::NoSuchElementError|::Appium::Core::Error::CoreError] No such element
+        # @return [::Selenium::WebDriver::Element]
         #
         # @example
         #
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
-        def find_element_by_image(png_img_path, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
-          warn '[DEPRECATION] find_elements_by_image will be removed. Please use find_element/s(:image, png_img_path) instead.'
+        def find_element_by_image(png_img_path)
+          template = Base64.encode64 File.read png_img_path
+          find_element :image, template
         end
 
         # Return ImageElement if current view has partial images
         #
-        # @param [[String]] png_img_paths Paths to a partial image you'd like to find
-        # @param [Flood] match_threshold At what normalized threshold to reject
-        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
-        #                         the corresponding picture matching operation. This option is disabled by default.
+        # @param [String] png_img_path A path to a partial image you'd like to find
         #
-        # @return [[::Appium::Core::ImageElement]]
-        # @return [::Appium::Core::Error::CoreError]
+        # @return [::Selenium::WebDriver::Element]
         #
         # @example
         #
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
-        def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
-          warn '[DEPRECATION] find_elements_by_image will be removed. Please use find_element/s(:image, png_img_path) instead.'
+        def find_elements_by_image(png_img_path)
+          template = Base64.encode64 File.read png_img_path
+          find_elements :image, template
         end
       end # class Driver
     end # class Base
