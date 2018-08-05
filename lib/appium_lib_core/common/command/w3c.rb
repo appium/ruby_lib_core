@@ -9,10 +9,6 @@ module Appium
             status:                    [:get, 'status'.freeze],
             is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze],
 
-            # FIXME: remove after apply https://github.com/SeleniumHQ/selenium/pull/5249
-            # The fix will be included in selenium-3.8.2
-            get_page_source:           [:get, 'session/:session_id/source'.freeze],
-
             get_timeouts:              [:get, 'session/:session_id/timeouts'.freeze],
 
             ## Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
