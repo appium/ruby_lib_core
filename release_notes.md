@@ -1,3 +1,13 @@
+#### v1.9.0 2018-08-05
+
+- [cc9e378](https://github.com/appium/ruby_lib_core/commit/cc9e378eba22eb448feec764d6227aff1647aaba) Release 1.9.0
+- [7b44bf7](https://github.com/appium/ruby_lib_core/commit/7b44bf70bba97532daabb9b496bbe36618d77593) use default_move_duration (#115)
+- [590e798](https://github.com/appium/ruby_lib_core/commit/590e7981f924524ba40b9d918b41af22cf14cc59) Add image strategy (#119)
+- [24d2a62](https://github.com/appium/ruby_lib_core/commit/24d2a6265bc351e6e2ca3d410c597ad9b744c072) port send keys for an active element (#122)
+- [283059f](https://github.com/appium/ruby_lib_core/commit/283059f971b4a4aeda707de0542c3991accac128) update (#121)
+- [c188829](https://github.com/appium/ruby_lib_core/commit/c1888292bb28fead792824d8bb7b3a0df94ee891) gather search contexts (#118)
+
+
 #### v1.8.4 2018-07-28
 
 - [1775354](https://github.com/appium/ruby_lib_core/commit/1775354f201658243737a0a455fe4123ce2e87a7) Release 1.8.4
