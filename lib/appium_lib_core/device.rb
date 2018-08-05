@@ -1,7 +1,3 @@
-require_relative 'element/image'
-
-require 'base64'
-
 module Appium
   module Core
     module Device

@@ -149,6 +149,17 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/appium/device/display_density", times: 1)
           end
 
+          def test_send_keys_for_active_elements
+            stub_request(:post, "#{SESSION}/keys")
+              .to_return(headers: HEADER, status: 200, body:
+                { value: ['h', 'a', 'p', 'p', 'y', ' ', 't', 'e', 's', 't', 'i', 'n', 'g'] }.to_json)
+
+            @driver.send_keys 'happy testing'
+            @driver.type 'happy testing'
+
+            assert_requested(:post, "#{SESSION}/keys", times: 2)
+          end
+
           def test_is_keyboard_shown
             stub_request(:get, "#{SESSION}/appium/device/is_keyboard_shown")
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
@@ -816,6 +827,16 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/element", times: 1)
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
+          end
+
+          def test_method_missing
+            stub_request(:get, "#{SESSION}/element/id/attribute/content-desc")
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+            e.content_desc
+
+            assert_requested(:get, "#{SESSION}/element/id/attribute/content-desc", times: 1)
           end
         end # class CommandsTest
       end # module W3C

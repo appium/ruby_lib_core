@@ -5,7 +5,6 @@ module Appium
         module Bridge
           def self.for(target)
             target.extend Appium::Core::Android::Device
-            Core::Android::SearchContext.extend
           end
         end
       end

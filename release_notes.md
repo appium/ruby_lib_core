@@ -1,3 +1,11 @@
+#### v1.8.4 2018-07-28
+
+- [1775354](https://github.com/appium/ruby_lib_core/commit/1775354f201658243737a0a455fe4123ce2e87a7) Release 1.8.4
+- [0770f63](https://github.com/appium/ruby_lib_core/commit/0770f639a59c6662aa8aee30a2b594625873177c) set < 3.14 (#117)
+- [443f089](https://github.com/appium/ruby_lib_core/commit/443f08985a44980e6a0e6cfc2886975efe279914) use method missing for getting attributes (#116)
+- [cdef904](https://github.com/appium/ruby_lib_core/commit/cdef904201651dee6cec2f5750d37903c7cb26fb) silence warning for pointeractions (#113)
+
+
 #### v1.8.3 2018-07-20
 
 - [e84eb3a](https://github.com/appium/ruby_lib_core/commit/e84eb3aefef8f5c6973d7fda207bc53e53ceb7ad) Release 1.8.3

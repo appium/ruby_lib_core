@@ -79,10 +79,6 @@ class AppiumLibCoreTest
                                                 :get_clipboard,
                                                 :set_clipboard])
           end
-
-          def test_search_context_in_element_class_for_android
-            assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
-          end
         end # class DefinitionTest
       end # module W3C
     end # module Device

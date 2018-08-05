@@ -84,6 +84,16 @@ class AppiumLibCoreTest
             assert_equal :unplugged, info[:state]
             assert_equal 0.5, info[:level]
           end
+
+          def test_method_missing
+            stub_request(:get, "#{SESSION}/element/id/attribute/name")
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+            e.name
+
+            assert_requested(:get, "#{SESSION}/element/id/attribute/name", times: 1)
+          end
         end # class CommandsTest
       end # module W3C
     end # module Device

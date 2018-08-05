@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'webmock/minitest'
-require 'base64'
 
 # $ rake test:unit TEST=test/unit/android/device/mjsonwp/definition_test.rb
 class AppiumLibCoreTest
@@ -79,10 +78,6 @@ class AppiumLibCoreTest
                                                 :get_performance_data,
                                                 :get_clipboard,
                                                 :set_clipboard])
-          end
-
-          def test_search_context_in_element_class_for_android
-            assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
           end
         end
       end # module MJSONWP

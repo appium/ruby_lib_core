@@ -99,6 +99,18 @@ module Appium
           @bridge.is_keyboard_shown
         end
 
+        # Send keys for a current active element
+        # @param [String] key Input text
+        #
+        # @example
+        #
+        #   @driver.send_keys 'happy testing!'
+        #
+        def send_keys(*key)
+          @bridge.send_keys_to_active_element(key)
+        end
+        alias type send_keys
+
         # Get appium Settings for current test session
         #
         # @example
@@ -786,73 +798,47 @@ module Appium
           @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
         end
 
-        # Return ImageElement if current view has a partial image
+        # @since Appium 1.8.2
+        # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
         # @param [String] png_img_path A path to a partial image you'd like to find
-        # @param [Flood] match_threshold At what normalized threshold to reject
-        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
-        #                         the corresponding picture matching operation. This option is disabled by default.
         #
-        # @return [::Appium::Core::ImageElement]
-        # @raise [::Appium::Core::Error::NoSuchElementError|::Appium::Core::Error::CoreError] No such element
+        # @return [::Selenium::WebDriver::Element]
         #
         # @example
         #
+        #     @@driver.update_settings({ fixImageFindScreenshotDims: false, fixImageTemplateSize: true,
+        #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
-        def find_element_by_image(png_img_path, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
-          full_image = @bridge.screenshot
-          partial_image = Base64.encode64 File.read(png_img_path)
-
-          element = begin
-            @bridge.find_element_by_image(full_image: full_image,
-                                          partial_image: partial_image,
-                                          match_threshold: match_threshold,
-                                          visualize: visualize)
-          rescue Selenium::WebDriver::Error::TimeOutError
-            raise ::Appium::Core::Error::NoSuchElementError
-          rescue ::Selenium::WebDriver::Error::WebDriverError => e
-            raise ::Appium::Core::Error::NoSuchElementError if e.message.include?('Cannot find any occurrences')
-            raise ::Appium::Core::Error::CoreError, e.message
-          end
-          raise ::Appium::Core::Error::NoSuchElementError if element.nil?
-
-          element
+        def find_element_by_image(png_img_path)
+          template = Base64.encode64 File.read png_img_path
+          find_element :image, template
         end
 
-        # Return ImageElement if current view has partial images
+        # @since Appium 1.8.2
+        # Return elements if current view has a partial image. The logic depends on template matching by OpenCV.
+        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # You can handle settings for the comparision following below.
+        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
-        # @param [[String]] png_img_paths Paths to a partial image you'd like to find
-        # @param [Flood] match_threshold At what normalized threshold to reject
-        # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
-        #                         the corresponding picture matching operation. This option is disabled by default.
+        # @param [String] png_img_path A path to a partial image you'd like to find
         #
-        # @return [[::Appium::Core::ImageElement]]
-        # @return [::Appium::Core::Error::CoreError]
+        # @return [::Selenium::WebDriver::Element]
         #
         # @example
         #
+        #     @@driver.update_settings({ fixImageFindScreenshotDims: false, fixImageTemplateSize: true,
+        #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
-        def find_elements_by_image(png_img_paths, match_threshold: DEFAULT_MATCH_THRESHOLD, visualize: false)
-          full_image = @bridge.screenshot
-
-          partial_images = png_img_paths.map do |png_img_path|
-            Base64.encode64 File.read(png_img_path)
-          end
-
-          begin
-            @bridge.find_elements_by_image(full_image: full_image,
-                                           partial_images: partial_images,
-                                           match_threshold: match_threshold,
-                                           visualize: visualize)
-          rescue Selenium::WebDriver::Error::TimeOutError
-            []
-          rescue ::Selenium::WebDriver::Error::WebDriverError => e
-            return [] if e.message.include?('Cannot find any occurrences')
-            raise ::Appium::Core::Error::CoreError, e.message
-          end
+        def find_elements_by_image(png_img_path)
+          template = Base64.encode64 File.read png_img_path
+          find_elements :image, template
         end
       end # class Driver
     end # class Base

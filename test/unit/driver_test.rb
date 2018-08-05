@@ -93,6 +93,16 @@ class AppiumLibCoreTest
       assert_equal 'tag name', ::Selenium::WebDriver::Element::FINDERS[:tag_name]
       assert_equal 'xpath', ::Selenium::WebDriver::Element::FINDERS[:xpath]
       assert_equal 'accessibility id', ::Selenium::WebDriver::Element::FINDERS[:accessibility_id]
+      assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
+      assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
+      assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
+      assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
+      assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
+      assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
+      assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
+      assert_equal '-windows uiautomation', ::Selenium::WebDriver::Element::FINDERS[:windows_uiautomation]
+      assert_equal '-tizen uiautomation', ::Selenium::WebDriver::Element::FINDERS[:tizen_uiautomation]
+      assert_equal '-image', ::Selenium::WebDriver::Element::FINDERS[:image]
     end
   end
 end
