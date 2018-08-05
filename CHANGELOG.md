@@ -3,16 +3,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- Update documentation about `start_recording_screen`
-- Port `send_keys/type` for active element
-- Support `find_element/s :image, partial_image`
-- Requires `selenium-webdriver 3.14+` because of W3C actions
 
 ### Bug fixes
 
 ### Deprecations
-- Deprecate experimental `ImageElement` in favor of `Element`
-    - Anyone does not need to care this
+
+## [1.9.0] - 2018-08-05
+### Enhancements
+- Update documentation about `start_recording_screen`
+- Port `send_keys/type` for active element [#122](https://github.com/appium/ruby_lib_core/pull/122)
+- Support `find_element/s :image, partial_image` [#119](https://github.com/appium/ruby_lib_core/pull/119)
+- Requires `selenium-webdriver 3.14+` because of W3C actions [#115](https://github.com/appium/ruby_lib_core/pull/115)
+
+### Bug fixes
+
+### Deprecations
+- [Internal] Deprecate experimental `ImageElement` in favor of `Element`
 
 ## [1.8.4] - 2018-07-28
 ### Enhancements
