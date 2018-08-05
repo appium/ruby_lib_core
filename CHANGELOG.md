@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Update documentation about `start_recording_screen`
 - Port `send_keys/type` for active element
 - Support `find_element/s :image, partial_image`
+- Requires `selenium-webdriver 3.14+` because of W3C actions
 
 ### Bug fixes
 
