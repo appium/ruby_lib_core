@@ -82,6 +82,7 @@ class AppiumLibCoreTest
     end
 
     def test_search_context_in_element_class
+      assert_equal 19, ::Selenium::WebDriver::Element::FINDERS.length
       assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class]
       assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class_name]
       assert_equal 'css selector', ::Selenium::WebDriver::Element::FINDERS[:css]
@@ -94,6 +95,7 @@ class AppiumLibCoreTest
       assert_equal 'xpath', ::Selenium::WebDriver::Element::FINDERS[:xpath]
       assert_equal 'accessibility id', ::Selenium::WebDriver::Element::FINDERS[:accessibility_id]
       assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
+      assert_equal '-android viewtag', ::Selenium::WebDriver::Element::FINDERS[:android_viewtag]
       assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
       assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
       assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]

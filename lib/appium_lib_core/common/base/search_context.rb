@@ -5,18 +5,19 @@ module Appium
         # referenced: ::Selenium::WebDriver::SearchContext
 
         FINDERS = ::Selenium::WebDriver::SearchContext::FINDERS.merge(
-          accessibility_id: 'accessibility id',
-          image: '-image',
+          accessibility_id:     'accessibility id',
+          image:                '-image',
           # Android
-          uiautomator: '-android uiautomator',
+          uiautomator:          '-android uiautomator', # Unavailable in Espresso
+          android_viewtag:      '-android viewtag',     # Available in Espresso
           # iOS
-          uiautomation: '-ios uiautomation',
-          predicate: '-ios predicate string',
-          class_chain: '-ios class chain',
+          uiautomation:         '-ios uiautomation',
+          predicate:            '-ios predicate string',
+          class_chain:          '-ios class chain',
           # Windows
           windows_uiautomation: '-windows uiautomation',
           # Tizen
-          tizen_uiautomation: '-tizen uiautomation'
+          tizen_uiautomation:   '-tizen uiautomation'
         )
 
         #
@@ -54,6 +55,8 @@ module Appium
         #     # For Android
         #     ## With uiautomator
         #     find_elements :uiautomator, 'new UiSelector().clickable(true)'
+        #     ## With viewtag, but only for Espresso
+        #     find_elements :android_viewtag, 'new UiSelector().clickable(true)'
         #
         #     # For iOS
         #     ## With :predicate
@@ -113,7 +116,7 @@ module Appium
 
         def _set_by_from_finders(how)
           by = FINDERS[how.to_sym]
-          raise ArgumentError, "cannot find element by #{how.inspect}" unless by
+          raise ArgumentError, "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}." unless by
           by
         end
 
