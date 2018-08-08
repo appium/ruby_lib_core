@@ -9,7 +9,7 @@ module Appium
           image:                '-image',
           # Android
           uiautomator:          '-android uiautomator', # Unavailable in Espresso
-          android_viewtag:      '-android viewtag',     # Available in Espresso
+          viewtag:              '-android viewtag',     # Available in Espresso
           # iOS
           uiautomation:         '-ios uiautomation',
           predicate:            '-ios predicate string',
@@ -56,7 +56,7 @@ module Appium
         #     ## With uiautomator
         #     find_elements :uiautomator, 'new UiSelector().clickable(true)'
         #     ## With viewtag, but only for Espresso
-        #     find_elements :android_viewtag, 'new UiSelector().clickable(true)'
+        #     find_elements :viewtag, 'new UiSelector().clickable(true)'
         #
         #     # For iOS
         #     ## With :predicate

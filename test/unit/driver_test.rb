@@ -95,7 +95,7 @@ class AppiumLibCoreTest
       assert_equal 'xpath', ::Selenium::WebDriver::Element::FINDERS[:xpath]
       assert_equal 'accessibility id', ::Selenium::WebDriver::Element::FINDERS[:accessibility_id]
       assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
-      assert_equal '-android viewtag', ::Selenium::WebDriver::Element::FINDERS[:android_viewtag]
+      assert_equal '-android viewtag', ::Selenium::WebDriver::Element::FINDERS[:viewtag]
       assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
       assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
       assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
