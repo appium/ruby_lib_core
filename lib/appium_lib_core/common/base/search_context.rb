@@ -56,6 +56,7 @@ module Appium
         #     ## With uiautomator
         #     find_elements :uiautomator, 'new UiSelector().clickable(true)'
         #     ## With viewtag, but only for Espresso
+        #     ## `setTag`/`getTag` in https://developer.android.com/reference/android/view/View
         #     find_elements :viewtag, 'new UiSelector().clickable(true)'
         #
         #     # For iOS
