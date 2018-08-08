@@ -804,7 +804,7 @@ module Appium
         # You can handle settings for the comparision following below.
         # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
-        # @param [String] png_img_path A path to a partial image you'd like to find
+        # @param [String] img_path A path to a partial image you'd like to find
         #
         # @return [::Selenium::WebDriver::Element]
         #
@@ -814,8 +814,8 @@ module Appium
         #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
-        def find_element_by_image(png_img_path)
-          template = Base64.encode64 File.read png_img_path
+        def find_element_by_image(img_path)
+          template = Base64.encode64 File.read img_path
           find_element :image, template
         end
 
@@ -825,7 +825,7 @@ module Appium
         # You can handle settings for the comparision following below.
         # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
         #
-        # @param [String] png_img_path A path to a partial image you'd like to find
+        # @param [String] img_path A path to a partial image you'd like to find
         #
         # @return [::Selenium::WebDriver::Element]
         #
@@ -836,8 +836,8 @@ module Appium
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
         #     e == [] # if the `e` is empty
         #
-        def find_elements_by_image(png_img_path)
-          template = Base64.encode64 File.read png_img_path
+        def find_elements_by_image(img_path)
+          template = Base64.encode64 File.read img_path
           find_elements :image, template
         end
       end # class Driver
