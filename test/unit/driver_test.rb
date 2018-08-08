@@ -83,26 +83,24 @@ class AppiumLibCoreTest
 
     def test_search_context_in_element_class
       assert_equal 19, ::Selenium::WebDriver::Element::FINDERS.length
-      assert_equal({
-                       class: 'class name',
-                       class_name: 'class name',
-                       css: 'css selector',
-                       id: 'id',
-                       link: 'link text',
-                       link_text: 'link text',
-                       name: 'name',
-                       partial_link_text: 'partial link text',
-                       tag_name: 'tag name',
-                       xpath: 'xpath',
-                       accessibility_id: 'accessibility id',
-                       image: '-image',
-                       uiautomator: '-android uiautomator',
-                       viewtag: '-android viewtag', uiautomation: '-ios uiautomation',
-                       predicate: '-ios predicate string',
-                       class_chain: '-ios class chain',
-                       windows_uiautomation: '-windows uiautomation',
-                       tizen_uiautomation: '-tizen uiautomation' },
-                   ::Selenium::WebDriver::Element::FINDERS)
+      assert_equal({ class: 'class name',
+                     class_name: 'class name',
+                     css: 'css selector',
+                     id: 'id',
+                     link: 'link text',
+                     link_text: 'link text',
+                     name: 'name',
+                     partial_link_text: 'partial link text',
+                     tag_name: 'tag name',
+                     xpath: 'xpath',
+                     accessibility_id: 'accessibility id',
+                     image: '-image',
+                     uiautomator: '-android uiautomator',
+                     viewtag: '-android viewtag', uiautomation: '-ios uiautomation',
+                     predicate: '-ios predicate string',
+                     class_chain: '-ios class chain',
+                     windows_uiautomation: '-windows uiautomation',
+                     tizen_uiautomation: '-tizen uiautomation' }, ::Selenium::WebDriver::Element::FINDERS)
     end
   end
 end
