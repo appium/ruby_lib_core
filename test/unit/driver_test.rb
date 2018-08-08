@@ -82,27 +82,25 @@ class AppiumLibCoreTest
     end
 
     def test_search_context_in_element_class
-      assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class]
-      assert_equal 'class name', ::Selenium::WebDriver::Element::FINDERS[:class_name]
-      assert_equal 'css selector', ::Selenium::WebDriver::Element::FINDERS[:css]
-      assert_equal 'id', ::Selenium::WebDriver::Element::FINDERS[:id]
-      assert_equal 'link text', ::Selenium::WebDriver::Element::FINDERS[:link]
-      assert_equal 'link text', ::Selenium::WebDriver::Element::FINDERS[:link_text]
-      assert_equal 'name', ::Selenium::WebDriver::Element::FINDERS[:name]
-      assert_equal 'partial link text', ::Selenium::WebDriver::Element::FINDERS[:partial_link_text]
-      assert_equal 'tag name', ::Selenium::WebDriver::Element::FINDERS[:tag_name]
-      assert_equal 'xpath', ::Selenium::WebDriver::Element::FINDERS[:xpath]
-      assert_equal 'accessibility id', ::Selenium::WebDriver::Element::FINDERS[:accessibility_id]
-      assert_equal '-android uiautomator', ::Selenium::WebDriver::Element::FINDERS[:uiautomator]
-      assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
-      assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
-      assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
-      assert_equal '-ios uiautomation', ::Selenium::WebDriver::Element::FINDERS[:uiautomation]
-      assert_equal '-ios predicate string', ::Selenium::WebDriver::Element::FINDERS[:predicate]
-      assert_equal '-ios class chain', ::Selenium::WebDriver::Element::FINDERS[:class_chain]
-      assert_equal '-windows uiautomation', ::Selenium::WebDriver::Element::FINDERS[:windows_uiautomation]
-      assert_equal '-tizen uiautomation', ::Selenium::WebDriver::Element::FINDERS[:tizen_uiautomation]
-      assert_equal '-image', ::Selenium::WebDriver::Element::FINDERS[:image]
+      assert_equal 19, ::Selenium::WebDriver::Element::FINDERS.length
+      assert_equal({ class: 'class name',
+                     class_name: 'class name',
+                     css: 'css selector',
+                     id: 'id',
+                     link: 'link text',
+                     link_text: 'link text',
+                     name: 'name',
+                     partial_link_text: 'partial link text',
+                     tag_name: 'tag name',
+                     xpath: 'xpath',
+                     accessibility_id: 'accessibility id',
+                     image: '-image',
+                     uiautomator: '-android uiautomator',
+                     viewtag: '-android viewtag', uiautomation: '-ios uiautomation',
+                     predicate: '-ios predicate string',
+                     class_chain: '-ios class chain',
+                     windows_uiautomation: '-windows uiautomation',
+                     tizen_uiautomation: '-tizen uiautomation' }, ::Selenium::WebDriver::Element::FINDERS)
     end
   end
 end

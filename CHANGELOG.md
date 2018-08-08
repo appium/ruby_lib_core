@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add `:viewtag` for Espresso driver [appium-espresso-driver#189](https://github.com/appium/appium-espresso-driver/pull/189)
 
 ### Bug fixes
 
