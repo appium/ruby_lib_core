@@ -4,8 +4,6 @@ require 'appium_lib_core'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
-require 'socket'
-require 'timeout'
 
 $VERBOSE = nil
 
