@@ -7,7 +7,7 @@ class AppiumLibCoreTest
   module Ios
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
+        @@core ||= ::Appium::Core.for(self, Caps.ios)
         @@driver ||= @@core.start_driver
       end
 
@@ -140,7 +140,7 @@ class AppiumLibCoreTest
         @@driver.remove_app 'com.example.apple-samplecode.UICatalog'
         assert !@@driver.app_installed?('com.example.apple-samplecode.UICatalog')
 
-        @@driver.install_app Caps::IOS_OPS[:caps][:app]
+        @@driver.install_app Caps.ios[:caps][:app]
         assert @@driver.app_installed?('com.example.apple-samplecode.UICatalog')
       end
 

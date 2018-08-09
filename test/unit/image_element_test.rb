@@ -5,7 +5,7 @@ class AppiumLibCoreTest
     include AppiumLibCoreTest::Mock
 
     def setup
-      @core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
+      @core ||= ::Appium::Core.for(self, Caps.ios)
     end
 
     def test_mjsonwp

@@ -6,7 +6,7 @@ class AppiumLibCoreTest
   module WebDriver
     class W3CActionsTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
+        @@core ||= ::Appium::Core.for(self, Caps.android)
         @@driver ||= @@core.start_driver
 
         @@driver.start_activity app_package: 'io.appium.android.apis',

@@ -5,7 +5,7 @@ require 'test_helper'
 class AppiumLibCoreTest
   class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
+      @@core ||= ::Appium::Core.for(self, Caps.android)
       @@driver ||= @@core.start_driver
 
       @@driver.start_activity app_package: 'io.appium.android.apis',

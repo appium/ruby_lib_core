@@ -10,7 +10,7 @@ class AppiumLibCoreTest
           include AppiumLibCoreTest::Mock
 
           def setup
-            @core ||= ::Appium::Core.for(self, Caps::IOS_OPS)
+            @core ||= ::Appium::Core.for(self, Caps.ios)
             @driver ||= ios_mock_create_session
           end
 

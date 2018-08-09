@@ -6,7 +6,7 @@ class AppiumLibCoreTest
   module Android
     class SearchContextTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
+        @@core ||= ::Appium::Core.for(self, Caps.android)
         @@driver ||= @@core.start_driver
       end
 

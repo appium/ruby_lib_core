@@ -10,7 +10,7 @@ class AppiumLibCoreTest
           include AppiumLibCoreTest::Mock
 
           def setup
-            @core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
+            @core ||= ::Appium::Core.for(self, Caps.android)
             @driver ||= android_mock_create_session_w3c
           end
 
