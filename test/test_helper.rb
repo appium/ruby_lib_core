@@ -4,6 +4,7 @@ require 'appium_lib_core'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
+
 $VERBOSE = nil
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
@@ -32,51 +33,79 @@ class AppiumLibCoreTest
 end
 
 class AppiumLibCoreTest
-  module Caps
+  class Caps
+    def self.ios
+      new.ios
+    end
+
+    def self.android
+      new.android
+    end
+
     # Require a simulator which OS version is 10.3, for example.
-    IOS_OPS = {
-      caps: {
-        platformName: :ios,
-        automationName: 'XCUITest',
-        app: 'test/functional/app/UICatalog.app',
-        platformVersion: '10.3',
-        deviceName: 'iPhone Simulator',
-        useNewWDA: true,
-        useJSONSource: true,
-        someCapability: 'some_capability',
-        newCommandTimeout: 120
-      },
-      appium_lib: {
-        export_session: true,
-        wait: 30,
-        wait_timeout: 20,
-        wait_interval: 1
+    def ios
+      wda_local_port = get_wda_local_port
+      device_name = parallel? ? "iPhone 6 - #{wda_local_port}" : 'iPhone 6'
+
+      {
+        caps: {
+          platformName: :ios,
+          automationName: 'XCUITest',
+          app: 'test/functional/app/UICatalog.app',
+          platformVersion: '10.3',
+          deviceName: device_name,
+          useNewWDA: true,
+          useJSONSource: true,
+          someCapability: 'some_capability',
+          newCommandTimeout: 120,
+          wdaLocalPort: wda_local_port
+        },
+        appium_lib: {
+          export_session: true,
+          wait: 30,
+          wait_timeout: 20,
+          wait_interval: 1
+        }
       }
-    }.freeze
+    end
 
     # Require a real device or an emulator.
     # We should update platformVersion and deviceName to fit your environment.
-    ANDROID_OPS = {
-      caps: {
-        platformName: :android,
-        automationName: 'uiautomator2',
-        app: 'test/functional/app/api.apk',
-        platformVersion: '8.1.0',
-        deviceName: 'Android Emulator',
-        appPackage: 'io.appium.android.apis',
-        appActivity: 'io.appium.android.apis.ApiDemos',
-        someCapability: 'some_capability',
-        unicodeKeyboard: true,
-        resetKeyboard: true,
-        newCommandTimeout: 300
-      },
-      appium_lib: {
-        export_session: true,
-        wait: 30,
-        wait_timeout: 20,
-        wait_interval: 1
+    def android
+      {
+        caps: {
+          platformName: :android,
+          automationName: 'uiautomator2',
+          app: 'test/functional/app/api.apk',
+          platformVersion: '8.1.0',
+          deviceName: 'Android Emulator',
+          appPackage: 'io.appium.android.apis',
+          appActivity: 'io.appium.android.apis.ApiDemos',
+          someCapability: 'some_capability',
+          unicodeKeyboard: true,
+          resetKeyboard: true,
+          newCommandTimeout: 300
+        },
+        appium_lib: {
+          export_session: true,
+          wait: 30,
+          wait_timeout: 20,
+          wait_interval: 1
+        }
       }
-    }.freeze
+    end
+
+    def parallel?
+      ENV['PARALLEL']
+    end
+
+    def get_wda_local_port
+      # TEST_ENV_NUMBER is provided by parallel_tests gem
+      # The number is '', '2', '3',...
+      number = ENV['TEST_ENV_NUMBER'] || ''
+      core_number = number.empty? ? 0 : number.to_i - 1
+      [8100, 8101][core_number]
+    end
   end
 
   module Mock

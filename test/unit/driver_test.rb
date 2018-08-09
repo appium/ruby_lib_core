@@ -5,7 +5,7 @@ class AppiumLibCoreTest
     include AppiumLibCoreTest::Mock
 
     def setup
-      @core ||= ::Appium::Core.for(self, Caps::ANDROID_OPS)
+      @core ||= ::Appium::Core.for(self, Caps.android)
     end
 
     class ExampleDriver

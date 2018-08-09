@@ -5,8 +5,8 @@ class AppiumLibCoreTest
   module WebDriver
     class CreateSessionTestTest < AppiumLibCoreTest::Function::TestCase
       def test_mjsonwp
-        caps = Caps::ANDROID_OPS[:caps].merge({ forceMjsonwp: true })
-        new_caps = Caps::ANDROID_OPS.merge({ caps: caps })
+        caps = Caps.android[:caps].merge({ forceMjsonwp: true })
+        new_caps = Caps.android.merge({ caps: caps })
         core = ::Appium::Core.for(self, new_caps)
 
         driver = core.start_driver
@@ -18,8 +18,8 @@ class AppiumLibCoreTest
 
       # Require Appium 1.7.2+
       def test_w3c
-        caps = Caps::ANDROID_OPS[:caps].merge({ forceMjsonwp: false })
-        new_caps = Caps::ANDROID_OPS.merge({ caps: caps })
+        caps = Caps.android[:caps].merge({ forceMjsonwp: false })
+        new_caps = Caps.android.merge({ caps: caps })
         core = ::Appium::Core.for(self, new_caps)
 
         driver = core.start_driver
@@ -31,7 +31,7 @@ class AppiumLibCoreTest
 
       # Require Appium 1.7.2+
       def test_w3c_default
-        caps = Caps::ANDROID_OPS
+        caps = Caps.android
         core = ::Appium::Core.for(self, caps)
 
         driver = core.start_driver
