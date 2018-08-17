@@ -115,7 +115,7 @@ module Appium
         #
         # @example
         #
-        #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
+        #   @driver.get_settings
         #
         def get_settings
           @bridge.get_settings
