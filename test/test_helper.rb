@@ -87,6 +87,7 @@ class AppiumLibCoreTest
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
+          disableWindowAnimation: true,
           newCommandTimeout: 300
         },
         appium_lib: {
