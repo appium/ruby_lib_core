@@ -401,6 +401,28 @@ class AppiumLibCoreTest
         assert !result[:level].nil?
       end
 
+      def test_file_management
+        test_file = 'test/functional/data/test_element_image.png'
+        sdcard_path = '/sdcard/Pictures'
+        sdcard_file_path = "#{sdcard_path}/test_element_image.png"
+
+        file = File.read test_file
+        @@driver.push_file sdcard_file_path, file
+
+        read_file = @@driver.pull_file sdcard_file_path
+        File.write 'test.png', read_file
+
+        assert_equal File.size(test_file), File.size('test.png')
+
+        folder = @@driver.pull_folder sdcard_path
+        File.write 'pic_folder.zip', folder
+
+        assert File.exist?('pic_folder.zip')
+
+        File.delete 'test.png'
+        File.delete 'pic_folder.zip'
+      end
+
       private
 
       def scroll_to(text)
