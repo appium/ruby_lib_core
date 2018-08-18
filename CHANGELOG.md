@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Add missing `take_viewport_screenshot` for mjsonwp [#127](https://github.com/appium/ruby_lib_core/pull/127)
 
 ### Bug fixes
+- [internal] Fix raising error in `set_implicit_wait_by_default` [#130](https://github.com/appium/ruby_lib_core/issues/130)
 
 ### Deprecations
 
