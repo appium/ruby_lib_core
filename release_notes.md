@@ -1,3 +1,16 @@
+#### v1.9.1 2018-08-20
+
+- [7bcc947](https://github.com/appium/ruby_lib_core/commit/7bcc947d93c0617e45e89e94e901bedcbbf21d80) Release 1.9.1
+- [221e837](https://github.com/appium/ruby_lib_core/commit/221e8370b1a55b6c15ceb870df5c789175ab4d12) Fix raising error format and remove unnecessary fixme (#131)
+- [48d3a59](https://github.com/appium/ruby_lib_core/commit/48d3a59b2c35c1c9fd919ed5332b2a1a1ca452cf) add file management tests (#129)
+- [0aa625f](https://github.com/appium/ruby_lib_core/commit/0aa625fad89ffa1d22f87494bf4282082c555a40) fix wrong example
+- [f761985](https://github.com/appium/ruby_lib_core/commit/f76198545c020a0b95ad4faf097df1380c96df9a) tweak screenshot tests (#127)
+- [6abc03b](https://github.com/appium/ruby_lib_core/commit/6abc03b58ec5b6d5d19228aaeab0bc8d9a85dae1) add simplecov (#126)
+- [16681d2](https://github.com/appium/ruby_lib_core/commit/16681d2f82cde25c8491695f710ec28a5d10329f) change to instance style (#125)
+- [29abb31](https://github.com/appium/ruby_lib_core/commit/29abb31225b984ed36f1fedf34b694c970d581ce) remove png prefix
+- [987526d](https://github.com/appium/ruby_lib_core/commit/987526dfece92317e9aa7a5c26cea2f69bfe0bf0) Add view tag (#124)
+
+
 #### v1.9.0 2018-08-05
 
 - [cc9e378](https://github.com/appium/ruby_lib_core/commit/cc9e378eba22eb448feec764d6227aff1647aaba) Release 1.9.0
