@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [1.9.1] - 2018-08-20
+### Enhancements
 - Add `:viewtag` for Espresso driver [appium-espresso-driver#189](https://github.com/appium/appium-espresso-driver/pull/189)
 - Add missing `take_viewport_screenshot` for mjsonwp [#127](https://github.com/appium/ruby_lib_core/pull/127)
 
