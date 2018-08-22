@@ -1,3 +1,9 @@
+#### v1.9.2 2018-08-23
+
+- [2c6ac55](https://github.com/appium/ruby_lib_core/commit/2c6ac55a0d351a6801ff2c4b80988adcdd8b44c8) Release 1.9.2
+- [cf257ff](https://github.com/appium/ruby_lib_core/commit/cf257ff5559795a100517a5d0775e975fe8aa266) fix unexpected method missing (#132)
+
+
 #### v1.9.1 2018-08-20
 
 - [7bcc947](https://github.com/appium/ruby_lib_core/commit/7bcc947d93c0617e45e89e94e901bedcbbf21d80) Release 1.9.1
