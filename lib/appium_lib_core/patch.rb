@@ -29,7 +29,14 @@ module Appium
       #   e.resource_id # call `e.attribute "resource-id"`
       #
       def method_missing(method_name)
-        respond_to?(method_name) ? attribute(method_name.to_s.tr('_', '-')) : super
+        white_list = [:content_desc, :long_clickable, :resource_id, :selection_start, :selection_end]
+        attribute_name = white_list.include?(method_name) ? method_name.to_s.tr('_', '-') : method_name
+
+        ignore_list = [:to_hash]
+
+        unless ignore_list.include? method_name
+          respond_to?(method_name) ? attribute(attribute_name) : super
+        end
       end
 
       def respond_to_missing?(*)
