@@ -34,9 +34,9 @@ module Appium
 
         ignore_list = [:to_hash]
 
-        unless ignore_list.include? method_name
-          respond_to?(method_name) ? attribute(attribute_name) : super
-        end
+        return if ignore_list.include? method_name
+
+        respond_to?(method_name) ? attribute(attribute_name) : super
       end
 
       def respond_to_missing?(*)
