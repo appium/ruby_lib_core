@@ -20,9 +20,7 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'App' }
 
       assert_equal 'App', e.text
-      assert_equal 'App', e.enabled
-      assert_equal 'App', e.focused
-      assert_equal 'App', e.content_desc
+      assert_equal 'false', e.focused
     end
 
     def test_type

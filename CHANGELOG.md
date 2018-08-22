@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+
+### Deprecations
+
+## [1.9.2] - 2018-08-23
+### Enhancements
+
+### Bug fixes
 - fix unexpedted method missing against `:to_hash`
 
 ### Deprecations
