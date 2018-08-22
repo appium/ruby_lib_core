@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
-- fix unexpedted method missing against `:to_hash`
+- fix unexpedted method missing against `:to_hash` in Element
 
 ### Deprecations
 
