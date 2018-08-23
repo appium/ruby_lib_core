@@ -7,15 +7,15 @@ class AppiumLibCoreTest
     class SearchContextTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(self, Caps.android)
-        @@driver ||= @@core.start_driver
+        @driver = @@core.start_driver
       end
 
       def teardown
-        save_reports(@@driver)
+        save_reports(@driver)
       end
 
       def test_uiautomation
-        e = @@driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
+        e = @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
 
         assert e.size > 10
       end

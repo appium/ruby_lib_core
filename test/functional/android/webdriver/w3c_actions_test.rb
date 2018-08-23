@@ -7,27 +7,24 @@ class AppiumLibCoreTest
     class W3CActionsTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(self, Caps.android)
-        @@driver ||= @@core.start_driver
-
-        @@driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: 'io.appium.android.apis.ApiDemos'
+        @driver = @@core.start_driver
       end
 
       def teardown
-        save_reports(@@driver)
+        save_reports(@driver)
       end
 
       def test_tap
-        skip if @@driver.dialect == :oss
+        skip if @driver.dialect == :oss
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Views') }
-        @@driver.action.click(el).perform
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        @driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Custom') }
-        # same as @@driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
+        # same as @driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
 
         rect = el.rect
-        @@driver
+        @driver
           .action
           .move_to(el)
           .pointer_down(:left)
@@ -37,7 +34,7 @@ class AppiumLibCoreTest
 
         # Scroll a bit without elements
         rect = el.rect
-        @@driver
+        @driver
           .action
           .move_to_location(rect.x, rect.y)
           .pointer_down(:left)
@@ -45,7 +42,7 @@ class AppiumLibCoreTest
           .release.perform
         assert rect.y > el.rect.y
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'ImageButton') }
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.text
       end
     end
