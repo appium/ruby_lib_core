@@ -125,17 +125,17 @@ class AppiumLibCoreTest
         assert_equal '.ApiDemos', e
 
         @driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: '.accessibility.AccessibilityNodeProviderActivity'
+                               app_activity: '.accessibility.AccessibilityNodeProviderActivity'
         e = @@core.wait { @driver.current_activity }
         assert true, e.include?('Node')
 
         @driver.start_activity app_package: 'com.android.settings', app_activity: '.Settings',
-                                app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
+                               app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
         e = @@core.wait { @driver.current_activity }
         assert true, e.include?('Settings')
 
         @driver.start_activity app_package: 'io.appium.android.apis',
-                                app_activity: '.ApiDemos'
+                               app_activity: '.ApiDemos'
       end
 
       def test_current_package
@@ -237,8 +237,8 @@ class AppiumLibCoreTest
 
         assert_equal [%w(user kernel), %w(0 0)],
                      @driver.get_performance_data(package_name: 'io.appium.android.apis',
-                                                   data_type: 'cpuinfo',
-                                                   data_read_timeout: 10)
+                                                  data_type: 'cpuinfo',
+                                                  data_read_timeout: 10)
       end
 
       def test_get_system_bars
@@ -429,8 +429,8 @@ class AppiumLibCoreTest
         args.each_with_index do |arg, index|
           begin
             elem = @driver.find_element :uiautomator,
-                                         'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
-                                             ".scrollIntoView(#{arg}.instance(0));"
+                                        'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
+                                        ".scrollIntoView(#{arg}.instance(0));"
             return elem
           rescue StandardError => e
             raise e if index == args.size - 1

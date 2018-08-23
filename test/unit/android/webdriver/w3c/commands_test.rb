@@ -148,26 +148,28 @@ class AppiumLibCoreTest
                 id: 'mouse',
                 actions: [{
                   type: 'pointerMove',
-                  duration:50,
-                  x:0,
-                  y:0,
+                  duration: 50,
+                  x: 0,
+                  y: 0,
                   origin: {
-                      'element-6066-11e4-a52e-4f735466cecf' => 'id'
+                    'element-6066-11e4-a52e-4f735466cecf' => 'id'
                   }
                 }, {
-                  type:'pointerDown',
-                  button:0
+                  type: 'pointerDown',
+                  button: 0
                 }, {
-                  type:'pointerMove',
-                  duration:50,
-                  x:0,
-                  y:5,
-                  origin:'viewport'
+                  type: 'pointerMove',
+                  duration: 50,
+                  x: 0,
+                  y: 5,
+                  origin: 'viewport'
                 }, {
-                  type:'pointerUp',
-                  button:0
+                  type: 'pointerUp',
+                  button: 0
                 }],
-                  parameters: {'pointerType':'mouse'}
+                parameters: {
+                  pointerType: 'mouse'
+                }
               }]
             }
 
