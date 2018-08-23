@@ -140,6 +140,50 @@ class AppiumLibCoreTest
 
             assert_requested(:get, SESSION.to_s, times: 1)
           end
+
+          def test_w3c_actions
+            action_body = {
+              actions: [{
+                type: 'pointer',
+                id: 'mouse',
+                actions: [{
+                  type: 'pointerMove',
+                  duration:50,
+                  x:0,
+                  y:0,
+                  origin: {
+                      'element-6066-11e4-a52e-4f735466cecf' => 'id'
+                  }
+                }, {
+                  type:'pointerDown',
+                  button:0
+                }, {
+                  type:'pointerMove',
+                  duration:50,
+                  x:0,
+                  y:5,
+                  origin:'viewport'
+                }, {
+                  type:'pointerUp',
+                  button:0
+                }],
+                  parameters: {'pointerType':'mouse'}
+              }]
+            }
+
+            stub_request(:post, "#{SESSION}/actions")
+              .with(body: action_body.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver
+              .action
+              .move_to(::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'))
+              .pointer_down(:left)
+              .move_to_location(0, 10 - 5)
+              .release.perform
+
+            assert_requested(:post, "#{SESSION}/actions", times: 1)
+          end
         end # class CommandsTest
       end # module W3C
     end # module WebDriver
