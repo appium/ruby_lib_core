@@ -43,10 +43,10 @@ class AppiumLibCoreTest
           .pointer_down(:left)
           .move_to_location(0, rect.y - rect.height)
           .release.perform
-        assert rect.y < el.rect.y
+        assert rect.y > el.rect.y
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'ImageButton') }
-        assert_equal 'ImageButton', el.name
+        assert_equal 'ImageButton', el.text
       end
     end
   end
