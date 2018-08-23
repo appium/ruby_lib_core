@@ -78,40 +78,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/orientation", times: 1)
           end
 
-          def test_accept_alert
-            stub_request(:get, "#{SESSION}/alert/text")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-            stub_request(:post, "#{SESSION}/alert/accept")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.switch_to.alert.accept
-
-            assert_requested(:post, "#{SESSION}/alert/accept", times: 1)
-            assert_requested(:get, "#{SESSION}/alert/text", times: 1)
-          end
-
-          def test_dismiss_alert
-            stub_request(:get, "#{SESSION}/alert/text")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-            stub_request(:post, "#{SESSION}/alert/dismiss")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.switch_to.alert.dismiss
-
-            assert_requested(:post, "#{SESSION}/alert/dismiss", times: 1)
-            assert_requested(:get, "#{SESSION}/alert/text", times: 1)
-          end
-
-          def test_implicit_wait
-            stub_request(:post, "#{SESSION}/timeouts")
-              .with(body: { implicit: 30_000 }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.manage.timeouts.implicit_wait = 30
-
-            assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 2)
-          end
-
           def test_active_element
             stub_request(:get, "#{SESSION}/element/active")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
@@ -119,15 +85,6 @@ class AppiumLibCoreTest
             @driver.switch_to.active_element
 
             assert_requested(:get, "#{SESSION}/element/active", times: 1)
-          end
-
-          def test_get_timeouts
-            stub_request(:get, "#{SESSION}/timeouts")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.get_timeouts
-
-            assert_requested(:get, "#{SESSION}/timeouts", times: 1)
           end
 
           def test_session_capabilities
@@ -139,52 +96,6 @@ class AppiumLibCoreTest
             assert capability['sample_key'] == 'xxx'
 
             assert_requested(:get, SESSION.to_s, times: 1)
-          end
-
-          def test_w3c_actions
-            action_body = {
-              actions: [{
-                type: 'pointer',
-                id: 'mouse',
-                actions: [{
-                  type: 'pointerMove',
-                  duration: 50,
-                  x: 0,
-                  y: 0,
-                  origin: {
-                    'element-6066-11e4-a52e-4f735466cecf' => 'id'
-                  }
-                }, {
-                  type: 'pointerDown',
-                  button: 0
-                }, {
-                  type: 'pointerMove',
-                  duration: 50,
-                  x: 0,
-                  y: 5,
-                  origin: 'viewport'
-                }, {
-                  type: 'pointerUp',
-                  button: 0
-                }],
-                parameters: {
-                  pointerType: 'mouse'
-                }
-              }]
-            }
-
-            stub_request(:post, "#{SESSION}/actions")
-              .with(body: action_body.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-            @driver
-              .action
-              .move_to(::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'))
-              .pointer_down(:left)
-              .move_to_location(0, 10 - 5)
-              .release.perform
-
-            assert_requested(:post, "#{SESSION}/actions", times: 1)
           end
         end # class CommandsTest
       end # module W3C

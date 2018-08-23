@@ -84,39 +84,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/orientation", times: 1)
           end
 
-          def test_accept_alert
-            stub_request(:get, "#{SESSION}/alert_text")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-            stub_request(:post, "#{SESSION}/accept_alert")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.switch_to.alert.accept
-
-            assert_requested(:post, "#{SESSION}/accept_alert", times: 1)
-            assert_requested(:get, "#{SESSION}/alert_text", times: 1)
-          end
-
-          def test_dismiss_alert
-            stub_request(:get, "#{SESSION}/alert_text")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-            stub_request(:post, "#{SESSION}/dismiss_alert")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.switch_to.alert.dismiss
-
-            assert_requested(:post, "#{SESSION}/dismiss_alert", times: 1)
-            assert_requested(:get, "#{SESSION}/alert_text", times: 1)
-          end
-
-          def test_implicit_wait
-            stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
-
-            @driver.manage.timeouts.implicit_wait = 30
-
-            assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 2)
-          end
-
           def test_active_element
             stub_request(:post, "#{SESSION}/element/active")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)

@@ -919,16 +919,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/element", times: 1)
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
           end
-
-          def test_method_missing
-            stub_request(:get, "#{SESSION}/element/id/attribute/content-desc")
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
-            e.content_desc
-
-            assert_requested(:get, "#{SESSION}/element/id/attribute/content-desc", times: 1)
-          end
         end # class CommandsTest
       end # module W3C
     end # module Device
