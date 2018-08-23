@@ -80,7 +80,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: 'uiautomator2',
           app: 'test/functional/app/api.apk',
-          platformVersion: '8.1.0',
+          platformVersion: '7.1.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
           appActivity: 'io.appium.android.apis.ApiDemos',

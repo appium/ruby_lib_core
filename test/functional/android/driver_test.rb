@@ -6,11 +6,11 @@ class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @@core ||= ::Appium::Core.for(self, Caps.android)
-      @@driver ||= @@core.start_driver
+      @driver = @@core.start_driver
     end
 
     def teardown
-      save_reports(@@driver)
+      save_reports(@driver)
     end
 
     def test_appium_server_version
@@ -34,12 +34,12 @@ class AppiumLibCoreTest
     end
 
     def test_wait_true
-      e = @@core.wait_true { @@driver.find_element :accessibility_id, 'Content' }
+      e = @@core.wait_true { @driver.find_element :accessibility_id, 'Content' }
       assert e.text
     end
 
     def test_wait
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'Content' }
+      e = @@core.wait { @driver.find_element :accessibility_id, 'Content' }
       assert_equal 'Content', e.text
     end
 
