@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- use `autoload` to load Android/iOS modules
 
 ### Bug fixes
 

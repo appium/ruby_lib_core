@@ -6,13 +6,6 @@ require_relative 'appium_lib_core/driver'
 
 require_relative 'appium_lib_core/device'
 
-require_relative 'appium_lib_core/android'
-require_relative 'appium_lib_core/android_uiautomator2'
-require_relative 'appium_lib_core/android_espresso'
-
-require_relative 'appium_lib_core/ios'
-require_relative 'appium_lib_core/ios_xcuitest'
-
 # Call patch after requiring other files
 require_relative 'appium_lib_core/patch'
 
