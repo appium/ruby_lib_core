@@ -2,6 +2,17 @@ require 'uri'
 
 module Appium
   module Core
+    module Android
+      autoload :Uiautomator1, 'appium_lib_core/android'
+      autoload :Uiautomator2, 'appium_lib_core/android_uiautomator2'
+      autoload :Espresso, 'appium_lib_core/android_espresso'
+    end
+
+    module Ios
+      autoload :Uiautomation, 'appium_lib_core/ios'
+      autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
+    end
+
     class Driver
       include Waitable
       # Selenium webdriver capabilities
