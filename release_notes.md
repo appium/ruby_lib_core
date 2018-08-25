@@ -1,3 +1,15 @@
+#### v2.0.0 2018-08-25
+
+- [6761ec3](https://github.com/appium/ruby_lib_core/commit/6761ec3c29c762ad5617cd42cce4eaa098f81491) Release 2.0.0
+- [e2feb5e](https://github.com/appium/ruby_lib_core/commit/e2feb5e864358ed4eb4cb61914724c1d951c34ce) get rid of self from Appium::Core.for(self, opts) (#136)
+- [b1c7137](https://github.com/appium/ruby_lib_core/commit/b1c7137bebe1fc1eed869c12eecece493e206c7b) use autoload (#135)
+- [04dc656](https://github.com/appium/ruby_lib_core/commit/04dc656486d1b19d6ea63c1f9dd8e8ab51c26e86) separate unit tests
+- [1174ad1](https://github.com/appium/ruby_lib_core/commit/1174ad1cd08091277547fb12ca5bdb7f571d9ab3) separate test cases
+- [862e587](https://github.com/appium/ruby_lib_core/commit/862e587c50171e35d04f6a5c0645bf6159dfad96) Update tests for espresso aswell (#134)
+- [80c7b1b](https://github.com/appium/ruby_lib_core/commit/80c7b1bc5660ce32b939b237c38ffd5ef34d75e3) just return missing methods (#133)
+- [a1b7591](https://github.com/appium/ruby_lib_core/commit/a1b7591c4be8bbcea6449e8af33c20cf081b8545) tweak changelog
+
+
 #### v1.9.2 2018-08-23
 
 - [2c6ac55](https://github.com/appium/ruby_lib_core/commit/2c6ac55a0d351a6801ff2c4b80988adcdd8b44c8) Release 1.9.2
