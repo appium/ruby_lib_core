@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 ### Bug fixes
 
 ### Deprecations
+- `@core = Appium::Core.for(self, opts)` is deprecated in favor of `@core = Appium::Core.for(opts)`
+    - Call `extend Appium::Core::Device` if you'd like to extend methods defined in `Appium::Core`
 
 ## [1.9.2] - 2018-08-23
 ### Enhancements
