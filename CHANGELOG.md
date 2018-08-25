@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.0.0] - 2018-08-25
+
+This release has a breaking change for creating core. Thus, I've bumped the major version.
+
+### Enhancements
 - use `autoload` to load Android/iOS modules
 
 ### Bug fixes
