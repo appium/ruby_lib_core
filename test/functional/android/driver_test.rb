@@ -5,7 +5,7 @@ require 'test_helper'
 class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @@core ||= ::Appium::Core.for(self, Caps.android)
+      @@core ||= ::Appium::Core.for(Caps.android)
       @driver = @@core.start_driver
     end
 

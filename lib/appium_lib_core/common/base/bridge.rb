@@ -67,7 +67,7 @@ module Appium
         #       wait: 30
         #     }
         #   }
-        #   core = ::Appium::Core.for(self, caps)
+        #   core = ::Appium::Core.for(caps)
         #   driver = core.start_driver #=> driver.dialect == :oss
         #
         # @example
@@ -85,7 +85,7 @@ module Appium
         #       wait: 30
         #     }
         #   }
-        #   core = ::Appium::Core.for(self, caps)
+        #   core = ::Appium::Core.for(caps)
         #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
         #
         def create_session(desired_capabilities)

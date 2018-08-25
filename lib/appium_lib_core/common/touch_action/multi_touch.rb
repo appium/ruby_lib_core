@@ -9,7 +9,7 @@ module Appium
     #
     # @example
     #
-    #   @driver = Appium::Core.for(self, opts).start_driver
+    #   @driver = Appium::Core.for(opts).start_driver
     #   action_1 = TouchAction.new(@driver).press(x: 45, y: 100).wait(5).release
     #   action_2 = TouchAction.new(@driver).tap(element: el, x: 50, y:5, count: 3)
     #

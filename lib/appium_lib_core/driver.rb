@@ -103,7 +103,7 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
+      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
       #     @core.start_driver(server_url: server_url) # start driver
       #
       #     # Start iOS driver with .zip file over HTTP
@@ -125,11 +125,11 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core = Appium::Core.for(self, opts)
+      #     @core = Appium::Core.for(opts)
       #     @core.start_driver(server_url: server_url)
       #
-      def self.for(target, opts = {})
-        new(target, opts)
+      def self.for(opts = {})
+        new(opts)
       end
 
       # @private
@@ -139,8 +139,8 @@ module Appium
       end
 
       # @private
-      def initialize(target, opts = {})
-        @delegate_target = target # for testing purpose
+      def initialize(opts = {})
+        @delegate_target = self # for testing purpose
 
         opts = Appium.symbolize_keys opts
         validate_keys(opts)
@@ -152,7 +152,7 @@ module Appium
         set_appium_device
         set_automation_name
 
-        extend_for(device: @device, automation_name: @automation_name, target: target)
+        extend_for(device: @device, automation_name: @automation_name)
 
         self # rubocop:disable Lint/Void
       end
@@ -190,8 +190,8 @@ module Appium
       #              }
       #            }
       #
-      #     @core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
-      #     @driver = @core.start_driver
+      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub"
       #
 
       def start_driver(server_url: nil,
@@ -318,9 +318,9 @@ module Appium
       private
 
       # @private
-      def extend_for(device:, automation_name:, target:)
-        target.extend Appium::Core
-        target.extend Appium::Core::Device
+      def extend_for(device:, automation_name:)
+        self.extend Appium::Core
+        self.extend Appium::Core::Device
 
         case device
         when :android
@@ -352,7 +352,7 @@ module Appium
           Appium::Logger.warn('no device matched')
         end
 
-        target
+        self
       end
 
       # @private

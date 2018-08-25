@@ -68,7 +68,7 @@ opts = {
     wait: 30
   }
 }
-@core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
+@core = Appium::Core.for(opts) # create a core driver with `opts`
 @driver = @core.start_driver
 
 # Launch iPhone Simulator and `MyiOS.app`
