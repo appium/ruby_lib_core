@@ -319,8 +319,8 @@ module Appium
 
       # @private
       def extend_for(device:, automation_name:)
-        self.extend Appium::Core
-        self.extend Appium::Core::Device
+        extend Appium::Core
+        extend Appium::Core::Device
 
         case device
         when :android
