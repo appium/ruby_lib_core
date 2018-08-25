@@ -6,7 +6,7 @@ class AppiumLibCoreTest
   module WebDriver
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps.android)
+        @@core ||= ::Appium::Core.for(Caps.android)
         @driver = @@core.start_driver
       end
 

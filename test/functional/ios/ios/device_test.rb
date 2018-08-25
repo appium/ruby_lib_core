@@ -7,7 +7,7 @@ class AppiumLibCoreTest
   module Ios
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps.ios)
+        @@core ||= ::Appium::Core.for(Caps.ios)
         @@driver ||= @@core.start_driver
       end
 

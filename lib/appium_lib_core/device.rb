@@ -7,7 +7,7 @@ module Appium
         def extended(_mod)
           extend_webdriver_with_forwardable
 
-          # Compatibility for appium_lib
+          # Compatibility for appium_lib. Below command are extended by `extend Appium::Core::Deivce`in appium_lib.
           # TODO: Will remove
           [
             :take_element_screenshot, :save_viewport_screenshot,

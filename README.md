@@ -27,8 +27,8 @@ Run functional tests which require the Appium server and real device, Simulator/
 
 - Start Appium server
  ```bash
-$ npm install -g appium
-$ appium
+$ npm install -g appium opencv4nodejs
+$ appium --relaxed-security # To run all tests in rocal
 ```
 
 - Conduct tests
@@ -68,7 +68,7 @@ opts = {
     wait: 30
   }
 }
-@core = Appium::Core.for(self, opts) # create a core driver with `opts` and extend methods into `self`
+@core = Appium::Core.for(opts) # create a core driver with `opts`
 @driver = @core.start_driver
 
 # Launch iPhone Simulator and `MyiOS.app`

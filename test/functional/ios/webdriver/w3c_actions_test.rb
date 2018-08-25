@@ -6,7 +6,7 @@ class AppiumLibCoreTest
   module WebDriver
     class W3CActionsTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(self, Caps.ios)
+        @@core ||= ::Appium::Core.for(Caps.ios)
         @@driver ||= @@core.start_driver
       end
 
