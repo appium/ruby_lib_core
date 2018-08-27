@@ -24,6 +24,18 @@ class AppiumLibCoreTest
         rect = el.rect
         @@driver.action.click_and_hold(el).move_to_location(rect.x, rect.y + 500).release.perform
       end
+
+      def test_scroll
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
+        @@driver.action.click(el).perform
+
+        while
+          el = @@core.wait { @@driver.find_element(:xpath, "//XCUIElementTypeStaticText[@name='Style Default']/parent::*") }
+          visibility = el.visible
+          break if visibility == "true"
+          @@driver.execute_script('mobile: scroll', direction: 'down')
+        end
+      end
     end
   end
 end
