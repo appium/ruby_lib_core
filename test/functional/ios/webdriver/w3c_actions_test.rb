@@ -29,10 +29,13 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
         @@driver.action.click(el).perform
 
-        while
-          el = @@core.wait { @@driver.find_element(:xpath, "//XCUIElementTypeStaticText[@name='Style Default']/parent::*") }
+        [1, 2, 3, 4, 5].each do |value|
+          puts "try #{value} times"
+          el = @@core.wait do
+            @@driver.find_element(:xpath, "//XCUIElementTypeStaticText[@name='Style Default']/parent::*")
+          end
           visibility = el.visible
-          break if visibility == "true"
+          break if visibility == 'true'
           @@driver.execute_script('mobile: scroll', direction: 'down')
         end
       end
