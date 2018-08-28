@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Enhancements
 
 ### Bug fixes
+- Fix desired capability for W3C protocol under selenium grid environment [#137](https://github.com/appium/ruby_lib_core/issues/137)
 
 ### Deprecations
 
