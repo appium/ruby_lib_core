@@ -67,7 +67,7 @@ class AppiumLibCoreTest
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
           .with(body: { desiredCapabilities: CAPS,
-                        capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
+                        capabilities: { firstMatch: [APPIUM_PREFIX_CAPS] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
@@ -127,7 +127,7 @@ class AppiumLibCoreTest
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
           .with(body: { desiredCapabilities: CAPS,
-                        capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
+                        capabilities: { firstMatch: [APPIUM_PREFIX_CAPS] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
@@ -175,7 +175,7 @@ class AppiumLibCoreTest
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
           .with(body: { desiredCapabilities: http_caps,
-                        capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [{}] } }.to_json)
+                        capabilities: { firstMatch: [appium_prefix_http_caps] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
