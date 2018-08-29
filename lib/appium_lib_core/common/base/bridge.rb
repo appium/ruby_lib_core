@@ -19,13 +19,13 @@ module Appium
         # @return [Bridge::MJSONWP, Bridge::W3C]
         #
         def self.handshake(**opts)
-          desired_capabilities = opts.delete(:desired_capabilities)
+          desired_capabilities = opts.delete(:desired_capabilities) { ::Selenium::WebDriver::Remote::Capabilities.new }
 
           if desired_capabilities.is_a?(Symbol)
             unless ::Selenium::WebDriver::Remote::Capabilities.respond_to?(desired_capabilities)
               raise ::Selenium::WebDriver::Error::WebDriverError, "invalid desired capability: #{desired_capabilities.inspect}"
             end
-            desired_capabilities = Remote::Capabilities.__send__(desired_capabilities)
+            desired_capabilities = ::Selenium::WebDriver::Remote::Capabilities.__send__(desired_capabilities)
           end
 
           bridge = new(opts)
@@ -192,8 +192,7 @@ module Appium
             {
               desiredCapabilities: desired_capabilities,
               capabilities: {
-                alwaysMatch: w3c_capabilities,
-                firstMatch: [{}]
+                firstMatch: [w3c_capabilities]
               }
             }
           end
