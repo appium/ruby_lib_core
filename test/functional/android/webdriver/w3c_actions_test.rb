@@ -45,6 +45,22 @@ class AppiumLibCoreTest
         el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.text
       end
+
+      def test_multiple_actions
+        f1 = @driver.action.add_pointer_input(:touch, 'finger')
+        f1.create_pointer_move(duration: 0, x: 100, y: 100)
+        f1.create_pointer_down(:left)
+        f1.create_pointer_move(duration: 0.5, x: -50, y: 0)
+        f1.create_pointer_up(:left)
+
+        f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        f2.create_pointer_move(duration: 0, x: 100, y: 100)
+        f2.create_pointer_down(:left)
+        f2.create_pointer_move(duration: 0.5, x: 50, y: 0)
+        f2.create_pointer_up(:left)
+
+        @driver.send_actions [f1, f2]
+      end
     end
   end
 end

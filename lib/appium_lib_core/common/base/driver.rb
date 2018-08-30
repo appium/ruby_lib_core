@@ -798,6 +798,36 @@ module Appium
           @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
         end
 
+        # For multiple actions
+        # [{:type=>:pointer,
+        #   :id=>"finger",
+        #   :actions=>
+        #    [{:type=>:pointerMove, :duration=>0, :x=>100, :y=>100, :origin=>nil},
+        #     {:type=>:pointerDown, :button=>0},
+        #     {:type=>:pointerMove, :duration=>500, :x=>-50, :y=>0, :origin=>nil},
+        #     {:type=>:pointerUp, :button=>0}],
+        #   :parameters=>{:pointerType=>:touch}}]
+        #
+        # #=>
+        # [{:type=>:pointer,
+        #   :id=>"finger",
+        #   :actions=>
+        #    [{:type=>:pointerMove, :duration=>0, :x=>100, :y=>100},
+        #     {:type=>:pointerDown, :button=>0},
+        #     {:type=>:pointerMove, :duration=>500, :x=>-50, :y=>0},
+        #     {:type=>:pointerUp, :button=>0}],
+        #   :parameters=>{:pointerType=>:touch}}]
+        def send_actions(data)
+          data = data.map(&:encode).compact.each do |action|
+            action[:actions].each do |v|
+              v.delete :origin  if  v[:origin].nil?
+              v.delete :element if  v[:element].nil?
+            end
+          end
+
+          @bridge.send_actions(data)
+        end
+
         # @since Appium 1.8.2
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
         # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
