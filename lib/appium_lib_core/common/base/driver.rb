@@ -799,24 +799,29 @@ module Appium
         end
 
         # For multiple actions
-        # [{:type=>:pointer,
-        #   :id=>"finger",
-        #   :actions=>
-        #    [{:type=>:pointerMove, :duration=>0, :x=>100, :y=>100, :origin=>nil},
-        #     {:type=>:pointerDown, :button=>0},
-        #     {:type=>:pointerMove, :duration=>500, :x=>-50, :y=>0, :origin=>nil},
-        #     {:type=>:pointerUp, :button=>0}],
-        #   :parameters=>{:pointerType=>:touch}}]
+        # @param [Array] data Array of actions
+        # @return nil|error
         #
-        # #=>
-        # [{:type=>:pointer,
-        #   :id=>"finger",
-        #   :actions=>
-        #    [{:type=>:pointerMove, :duration=>0, :x=>100, :y=>100},
-        #     {:type=>:pointerDown, :button=>0},
-        #     {:type=>:pointerMove, :duration=>500, :x=>-50, :y=>0},
-        #     {:type=>:pointerUp, :button=>0}],
-        #   :parameters=>{:pointerType=>:touch}}]
+        # @example: Zoom
+        #
+        #    f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        #    f1.create_pointer_move(duration: 1, x: 200, y: 500,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f1.create_pointer_down(:left)
+        #    f1.create_pointer_move(duration: 1, x: 200, y: 200,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f1.create_pointer_up(:left)
+        #
+        #    f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        #    f2.create_pointer_move(duration: 1, x: 200, y: 500,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f2.create_pointer_down(:left)
+        #    f2.create_pointer_move(duration: 1, x: 200, y: 800,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f2.create_pointer_up(:left)
+        #
+        #    @driver.send_actions [f1, f2] #=> `nil` if the action succeed
+        #
         def send_actions(data)
           @bridge.send_actions data.map(&:encode).compact
         end
