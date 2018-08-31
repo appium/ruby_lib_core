@@ -798,6 +798,34 @@ module Appium
           @bridge.compare_images(mode: mode, first_image: first_image, second_image: second_image, options: options)
         end
 
+        # For multiple actions
+        # @param [Array] data Array of actions
+        # @return nil|error
+        #
+        # @example: Zoom
+        #
+        #    f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        #    f1.create_pointer_move(duration: 1, x: 200, y: 500,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f1.create_pointer_down(:left)
+        #    f1.create_pointer_move(duration: 1, x: 200, y: 200,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f1.create_pointer_up(:left)
+        #
+        #    f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        #    f2.create_pointer_move(duration: 1, x: 200, y: 500,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f2.create_pointer_down(:left)
+        #    f2.create_pointer_move(duration: 1, x: 200, y: 800,
+        #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+        #    f2.create_pointer_up(:left)
+        #
+        #    @driver.send_actions [f1, f2] #=> `nil` if the action succeed
+        #
+        def send_actions(data)
+          @bridge.send_actions data.map(&:encode).compact
+        end
+
         # @since Appium 1.8.2
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
         # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
