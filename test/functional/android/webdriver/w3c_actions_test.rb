@@ -47,8 +47,20 @@ class AppiumLibCoreTest
       end
 
       def test_multiple_actions
-        f1 = @driver.action('figure1').move_to_location(100, 100).pointer_down(:left).move_to_location(50, 0).pointer_up(:left)
-        f2 = @driver.action('figure2').move_to_location(100, 100).pointer_down(:left).move_to_location(150, 0).pointer_up(:left)
+        f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        f1.create_pointer_move(duration: 0.5, x: 100, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+        f1.create_pointer_down(:left)
+        f1.create_pointer_move(duration: 1, x: 0, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+        f1.create_pointer_up(:left)
+
+        f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        f2.create_pointer_move(duration: 0.5, x: 100, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+        f2.create_pointer_down(:left)
+        f2.create_pointer_move(duration: 1, x: 200, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+        f2.create_pointer_up(:left)
+
+        require 'pry'
+        binding.pry
 
         @driver.send_actions [f1, f2]
       end

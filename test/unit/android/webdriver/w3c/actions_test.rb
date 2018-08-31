@@ -18,7 +18,7 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: 'pointer',
-                id: 'touch',
+                id: 'mouse',
                 actions: [{
                   type: 'pointerMove',
                   duration: 50,
@@ -41,7 +41,7 @@ class AppiumLibCoreTest
                   button: 0
                 }],
                 parameters: {
-                  pointerType: 'touch'
+                  pointerType: 'mouse'
                 }
               }]
             }
@@ -64,21 +64,21 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: :pointer,
-                id: 'figure1',
+                id: 'finger1',
                 actions: [
                   { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
-                  { type: :pointerMove, duration: 50, x: -50, y: 0, origin: 'viewport' },
+                  { type: :pointerMove, duration: 50, x: 50, y: 100, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
                 parameters: { pointerType: :touch }
               }, {
                 type: :pointer,
-                id:  'figure2',
+                id:  'finger2',
                 actions: [
                   { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
-                  { type: :pointerMove, duration: 50, x: 50, y: 0, origin: 'viewport' },
+                  { type: :pointerMove, duration: 50, x: 150, y: 100, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
                 parameters: { pointerType: :touch }
@@ -89,8 +89,17 @@ class AppiumLibCoreTest
               .with(body: action_body.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            f1 = @driver.action('figure1').move_to_location(100, 100).pointer_down(:left).move_to_location(-50, 0).pointer_up(:left)
-            f2 = @driver.action('figure2').move_to_location(100, 100).pointer_down(:left).move_to_location(50, 0).pointer_up(:left)
+            f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+            f1.create_pointer_move(duration: 0.05, x: 100, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+            f1.create_pointer_down(:left)
+            f1.create_pointer_move(duration: 0.05, x: 50, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+            f1.create_pointer_up(:left)
+
+            f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+            f2.create_pointer_move(duration: 0.05, x: 100, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+            f2.create_pointer_down(:left)
+            f2.create_pointer_move(duration: 0.05, x: 150, y: 100, origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT )
+            f2.create_pointer_up(:left)
 
             @driver.send_actions [f1, f2]
 
