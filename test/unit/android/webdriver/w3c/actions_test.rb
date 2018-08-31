@@ -18,7 +18,7 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: 'pointer',
-                id: 'mouse',
+                id: 'touch',
                 actions: [{
                   type: 'pointerMove',
                   duration: 50,
@@ -41,7 +41,7 @@ class AppiumLibCoreTest
                   button: 0
                 }],
                 parameters: {
-                  pointerType: 'mouse'
+                  pointerType: 'touch'
                 }
               }]
             }
@@ -64,21 +64,21 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: :pointer,
-                id: 'finger',
+                id: 'figure1',
                 actions: [
-                  { type: :pointerMove, duration: 0, x: 100, y: 100 },
+                  { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
-                  { type: :pointerMove, duration: 500, x: -50, y: 0 },
+                  { type: :pointerMove, duration: 50, x: -50, y: 0, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
                 parameters: { pointerType: :touch }
               }, {
                 type: :pointer,
-                id:  'finger2',
+                id:  'figure2',
                 actions: [
-                  { type: :pointerMove, duration: 0, x: 100, y: 100 },
+                  { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
-                  { type: :pointerMove, duration: 500, x: 50, y: 0 },
+                  { type: :pointerMove, duration: 50, x: 50, y: 0, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
                 parameters: { pointerType: :touch }
@@ -89,17 +89,8 @@ class AppiumLibCoreTest
               .with(body: action_body.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            f1 = @driver.action.add_pointer_input(:touch, 'finger')
-            f1.create_pointer_move(duration: 0, x: 100, y: 100)
-            f1.create_pointer_down(:left)
-            f1.create_pointer_move(duration: 0.5, x: -50, y: 0)
-            f1.create_pointer_up(:left)
-
-            f2 = @driver.action.add_pointer_input(:touch, 'finger2')
-            f2.create_pointer_move(duration: 0, x: 100, y: 100)
-            f2.create_pointer_down(:left)
-            f2.create_pointer_move(duration: 0.5, x: 50, y: 0)
-            f2.create_pointer_up(:left)
+            f1 = @driver.action('figure1').move_to_location(100, 100).pointer_down(:left).move_to_location(-50, 0).pointer_up(:left)
+            f2 = @driver.action('figure2').move_to_location(100, 100).pointer_down(:left).move_to_location(50, 0).pointer_up(:left)
 
             @driver.send_actions [f1, f2]
 

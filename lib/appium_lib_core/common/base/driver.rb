@@ -609,6 +609,10 @@ module Appium
         end
 
         # touch actions
+        def action(name = 'touch', async = false)
+          @bridge.action(name, async)
+        end
+
         def touch_actions(actions)
           @bridge.touch_actions(actions)
         end
@@ -818,14 +822,7 @@ module Appium
         #     {:type=>:pointerUp, :button=>0}],
         #   :parameters=>{:pointerType=>:touch}}]
         def send_actions(data)
-          data = data.map(&:encode).compact.each do |action|
-            action[:actions].each do |v|
-              v.delete :origin  if  v[:origin].nil?
-              v.delete :element if  v[:element].nil?
-            end
-          end
-
-          @bridge.send_actions(data)
+          @bridge.send_actions(data.flat_map { |v| v.devices.map(&:encode).compact })
         end
 
         # @since Appium 1.8.2

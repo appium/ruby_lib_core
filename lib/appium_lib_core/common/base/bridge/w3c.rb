@@ -36,10 +36,18 @@ module Appium
           #     element = @driver.find_element(:id, "some id")
           #     @driver.action.click(element).perform # The `click` is a part of `PointerActions`
           #
-          def action(async = false)
-            # Used for default duration of each touch actions
-            # Override from 250 milliseconds to 50 milliseconds
-            action_builder = super
+          # def action(async = false)
+          #   # Used for default duration of each touch actions
+          #   # Override from 250 milliseconds to 50 milliseconds
+          #   action_builder = super
+          #   action_builder.default_move_duration = 0.05
+          #   action_builder
+          # end
+          def action(name = 'touch', async = false)
+            action_builder = ::Selenium::WebDriver::W3CActionBuilder.new self,
+                                                                         ::Selenium::WebDriver::Interactions.pointer(:touch, name: name),
+                                                                         ::Selenium::WebDriver::Interactions.key('keyboard'),
+                                 async
             action_builder.default_move_duration = 0.05
             action_builder
           end
