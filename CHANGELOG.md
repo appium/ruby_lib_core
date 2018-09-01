@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add `Appium::Core::Base::Driver#perform_actions` to send multiple actions. See `test_multiple_actions` as an example.
 
 ### Bug fixes
 - Fix desired capability for W3C protocol under selenium grid environment [#137](https://github.com/appium/ruby_lib_core/issues/137)
