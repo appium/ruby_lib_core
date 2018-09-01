@@ -1,3 +1,13 @@
+#### v2.0.1 2018-09-01
+
+- [f0382b5](https://github.com/appium/ruby_lib_core/commit/f0382b5e30a43e187cb47504d82a7a5b6829c1d4) Release 2.0.1
+- [d8e4ba2](https://github.com/appium/ruby_lib_core/commit/d8e4ba2138ee2a914b669d1a10718dbc30781bcb) rename and tweak multiple actions (#141)
+- [de2d747](https://github.com/appium/ruby_lib_core/commit/de2d747a62c0fc118bedc6c4e4fb84f4acb00e5b) add send_actions for w3c multiple actions (#140)
+- [bbbc6f5](https://github.com/appium/ruby_lib_core/commit/bbbc6f559f97aaac9521338a9b2ff5261955362a) fix capabilities for selenium grid (#138)
+- [02a61ce](https://github.com/appium/ruby_lib_core/commit/02a61ce17939fea039f65e8f25092a864b7b12d8) fix rubocop
+- [9439031](https://github.com/appium/ruby_lib_core/commit/9439031445fa23c15463fbf04de157152d2d5b08) add scrolling for ios
+
+
 #### v2.0.0 2018-08-25
 
 - [6761ec3](https://github.com/appium/ruby_lib_core/commit/6761ec3c29c762ad5617cd42cce4eaa098f81491) Release 2.0.0
