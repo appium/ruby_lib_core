@@ -68,6 +68,7 @@ class AppiumLibCoreTest
                 actions: [
                   { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
+                  { type: :pause, duration: 50 },
                   { type: :pointerMove, duration: 50, x: 50, y: 100, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
@@ -78,6 +79,7 @@ class AppiumLibCoreTest
                 actions: [
                   { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
+                  { type: :pause, duration: 50 },
                   { type: :pointerMove, duration: 50, x: 150, y: 100, origin: 'viewport' },
                   { type: :pointerUp, button: 0 }
                 ],
@@ -93,6 +95,7 @@ class AppiumLibCoreTest
             f1.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_down(:left)
+            f1.create_pause(0.05)
             f1.create_pointer_move(duration: 0.05, x: 50, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_up(:left)
@@ -101,13 +104,23 @@ class AppiumLibCoreTest
             f2.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f2.create_pointer_down(:left)
+            f2.create_pause(0.05)
             f2.create_pointer_move(duration: 0.05, x: 150, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f2.create_pointer_up(:left)
 
-            @driver.send_actions [f1, f2]
+            @driver.perform_actions [f1, f2]
 
             assert_requested(:post, "#{SESSION}/actions", times: 1)
+            assert_equal [], f1.actions
+            assert_equal [], f2.actions
+          end
+
+          def test_w3c__multiple_actions_no_array
+            error = assert_raises ArgumentError do
+              @driver.perform_actions 'string'
+            end
+            assert_equal '\'string\' must be Array', error.message
           end
         end # class CommandsTest
       end # module W3C

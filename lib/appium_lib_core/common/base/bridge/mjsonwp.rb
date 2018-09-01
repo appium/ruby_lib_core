@@ -29,6 +29,10 @@ module Appium
           def take_viewport_screenshot
             execute_script('mobile: viewportScreenshot')
           end
+
+          def send_actions(_data)
+            raise Error::UnsupportedOperationError, '#send_actions has not been supported in MJSONWP'
+          end
         end # class MJSONWP
       end # class Bridge
     end # class Base
