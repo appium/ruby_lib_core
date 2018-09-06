@@ -60,13 +60,26 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/source", times: 1)
           end
 
-          def test_location
+          def test_get_location
             stub_request(:get, "#{SESSION}/location")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+              .with(body: '')
+              .to_return(headers: HEADER, status: 200, body: { value: { latitude: 1, longitude: 1, altitude: 1 } }.to_json)
 
-            @driver.location
+            l = @driver.location
 
             assert_requested(:get, "#{SESSION}/location", times: 1)
+            assert_equal [1, 1, 1], [l.latitude, l.longitude, l.altitude]
+          end
+
+          def test_set_location
+            stub_request(:post, "#{SESSION}/location")
+              .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0 } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.location = ::Selenium::WebDriver::Location.new(1.0, 1.0, 1.0)
+            @driver.set_location 1, 1, 1
+
+            assert_requested(:post, "#{SESSION}/location", times: 2)
           end
 
           def test_rotate
