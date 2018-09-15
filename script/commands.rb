@@ -31,10 +31,10 @@ module Script
     # @return [String] The file path in which has saved `routes.js`.
     #
     def get_mjsonwp_routes(to_path = './mjsonwp_routes.js')
-      uri = URI 'https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/mjsonwp/routes.js?raw=1'
+      uri = URI 'https://raw.githubusercontent.com/appium/appium-base-driver/master/lib/protocol/routes.js?raw=1'
       result = Net::HTTP.get uri
 
-      File.delete to_path
+      File.delete to_path if File.exist? to_path
       File.write to_path, result
       to_path
     end
