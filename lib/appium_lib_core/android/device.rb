@@ -325,7 +325,7 @@ module Appium
             Network.add_methods
             Clipboard.add_methods
             Emulator.add_methods
-            AuthenticatesByFinger.add_methods
+            Authentication.add_methods
           end
         end
       end # module Device

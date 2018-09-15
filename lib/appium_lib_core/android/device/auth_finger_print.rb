@@ -2,7 +2,7 @@ module Appium
   module Core
     module Android
       module Device
-        module AuthenticatesByFinger
+        module Authentication
           # @!method finger_print(finger_id)
           #     Authenticate users by using their finger print scans on supported emulators.
           #
