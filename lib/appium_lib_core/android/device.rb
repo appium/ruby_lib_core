@@ -241,6 +241,16 @@ module Appium
         #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
         #
 
+        # @!method finger_print(finger_id)
+        #     Authenticate users by using their finger print scans on supported emulators.
+        #
+        # @param [Integer] finger_id Finger prints stored in Android Keystore system (from 1 to 10)
+        #
+        # @example
+        #
+        #   @driver.finger_print 1
+        #
+
         ####
         ## class << self
         ####

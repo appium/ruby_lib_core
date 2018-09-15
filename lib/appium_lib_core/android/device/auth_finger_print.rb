@@ -3,15 +3,6 @@ module Appium
     module Android
       module Device
         module Authentication
-          # @!method finger_print(finger_id)
-          #     Authenticate users by using their finger print scans on supported emulators.
-          #
-          # @param [Integer] finger_id Finger prints stored in Android Keystore system (from 1 to 10)
-          #
-          # @example
-          #
-          #   @driver.finger_print 1
-          #
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:finger_print) do
               def finger_print(finger_id)
