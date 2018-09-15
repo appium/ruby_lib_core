@@ -3,6 +3,7 @@ require_relative 'device/clipboard'
 require_relative 'device/network'
 require_relative 'device/performance'
 require_relative 'device/screen'
+require_relative 'device/auth_finger_print'
 
 module Appium
   module Core
@@ -324,6 +325,7 @@ module Appium
             Network.add_methods
             Clipboard.add_methods
             Emulator.add_methods
+            AuthenticatesByFinger.add_methods
           end
         end
       end # module Device
