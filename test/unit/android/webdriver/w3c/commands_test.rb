@@ -110,6 +110,21 @@ class AppiumLibCoreTest
 
             assert_requested(:get, SESSION.to_s, times: 1)
           end
+
+          def test_finger_print
+            stub_request(:post, "#{SESSION}/appium/device/finger_print")
+              .with(body: { fingerprintId: 1 }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: { finger: 'name' } }.to_json)
+
+            error = assert_raises ArgumentError do
+              @driver.finger_print 0
+            end
+            assert_equal 'finger_id should be integer between 1 to 10. Not 0', error.message
+
+            @driver.finger_print 1
+
+            assert_requested(:post, "#{SESSION}/appium/device/finger_print", times: 1)
+          end
         end # class CommandsTest
       end # module W3C
     end # module WebDriver

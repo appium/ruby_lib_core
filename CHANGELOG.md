@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add finger print feature for Android emulators [#13](https://github.com/appium/ruby_lib_core/issues/13)
 
 ### Bug fixes
 

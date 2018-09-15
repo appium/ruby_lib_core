@@ -42,6 +42,7 @@ module Appium
         pull_folder:                [:post, 'session/:session_id/appium/device/pull_folder'.freeze],
         get_clipboard:              [:post, 'session/:session_id/appium/device/get_clipboard'.freeze],
         set_clipboard:              [:post, 'session/:session_id/appium/device/set_clipboard'.freeze],
+        finger_print:               [:post, 'session/:session_id/appium/device/finger_print'.freeze],
         get_settings:               [:get,  'session/:session_id/appium/settings'.freeze],
         update_settings:            [:post, 'session/:session_id/appium/settings'.freeze],
         stop_recording_screen:      [:post, 'session/:session_id/appium/stop_recording_screen'.freeze],
