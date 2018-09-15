@@ -114,7 +114,7 @@ class AppiumLibCoreTest
           def test_finger_print
             stub_request(:post, "#{SESSION}/appium/device/finger_print")
               .with(body: { fingerprintId: 1 }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: {finger: 'name'} }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: { finger: 'name' } }.to_json)
 
             error = assert_raises ArgumentError do
               @driver.finger_print 0

@@ -13,7 +13,6 @@ Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are fatal
 
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
-
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 
