@@ -9,7 +9,6 @@ module Appium
     end
 
     module Ios
-      autoload :Uiautomation, 'appium_lib_core/ios'
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
@@ -335,10 +334,14 @@ module Appium
         when :ios
           case automation_name
           when :xcuitest
-            ::Appium::Core::Ios::Xcuitest::Bridge.for(self)
-          else # default and UIAutomation
-            ::Appium::Core::Ios::Uiautomation::Bridge.for(self)
+            # Nothing to do
+            Appium::Logger.debug('xcuitest')
+          else # Use XCUITest as a default value from client side
+            @automation_name = :xcuitest
+            Appium::Logger.warn('Continue to work with XCUITest as automationName')
           end
+
+          ::Appium::Core::Ios::Xcuitest::Bridge.for(self)
         when :mac
           # no Mac specific extentions
           Appium::Logger.debug('mac')
