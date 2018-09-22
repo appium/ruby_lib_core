@@ -62,7 +62,8 @@ class AppiumLibCoreTest
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
-          wdaLocalPort: wda_local_port
+          wdaLocalPort: wda_local_port,
+          waitForQuiescence: false
         },
         appium_lib: {
           export_session: true,
