@@ -43,6 +43,25 @@ class AppiumLibCoreTest
       assert_equal 'Content', e.text
     end
 
+    # @since Appium 1.9.2
+    def test_mobile_perform_action
+      @driver.find_element(:accessibility_id, 'App').click
+      @driver.find_element(:accessibility_id, 'Activity').click
+      @driver.find_element(:accessibility_id, 'Custom Title').click
+
+      e = @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit'
+      e.click
+
+      assert_equal 'Left is best', e.text
+      assert_equal 'true', e.focused
+
+      @driver.execute_script 'mobile: performEditorAction', { action: 'normal' }
+      assert_equal 'false', e.focused
+
+      new_element = @driver.find_element :xpath, '//*[@focused="true"]'
+      assert_equal 'Right is always right', new_element.text
+    end
+
     # TODO: call @driver.quit after tests
   end
 end
