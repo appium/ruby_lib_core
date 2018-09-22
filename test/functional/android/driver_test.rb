@@ -43,7 +43,7 @@ class AppiumLibCoreTest
       assert_equal 'Content', e.text
     end
 
-    # @since Appium 1.9.1
+    # @since Appium 1.9.2
     def test_mobile_perform_action
       @driver.find_element(:accessibility_id, 'App').click
       @driver.find_element(:accessibility_id, 'Activity').click
