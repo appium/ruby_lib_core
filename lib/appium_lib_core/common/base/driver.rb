@@ -94,10 +94,12 @@ module Appium
         #
         # @example
         #   @driver.is_keyboard_shown # false
+        #   @driver.keyboard_shown?   # true
         #
-        def is_keyboard_shown # rubocop:disable Naming/PredicateName
+        def keyboard_shown?
           @bridge.is_keyboard_shown
         end
+        alias is_keyboard_shown keyboard_shown?
 
         # Send keys for a current active element
         # @param [String] key Input text
@@ -233,16 +235,18 @@ module Appium
         # @example
         #
         #   @driver.set_context "NATIVE_APP"
+        #   @driver.context = "NATIVE_APP"
         #
-        def set_context(context = null)
+        def context=(context = null)
           @bridge.set_context(context)
         end
+        alias set_context context=
 
         # Set the value to element directly
         #
         # @example
         #
-        #   set_immediate_value element, 'hello'
+        #   @driver.set_immediate_value element, 'hello'
         #
         def set_immediate_value(element, *value)
           @bridge.set_immediate_value(element, *value)

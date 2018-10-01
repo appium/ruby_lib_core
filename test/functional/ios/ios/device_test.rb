@@ -119,7 +119,7 @@ class AppiumLibCoreTest
 
         assert_equal 'NATIVE_APP', @@driver.current_context
 
-        @@driver.set_context contexts.last
+        @@driver.context = contexts.last
         assert_match 'NATIVE_APP', @@driver.current_context
 
         @@driver.switch_to_default_context

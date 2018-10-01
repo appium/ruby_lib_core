@@ -221,7 +221,7 @@ class AppiumLibCoreTest
 
         @driver.ime_activate 'com.android.inputmethod.latin/.LatinIME'
 
-        assert @driver.is_keyboard_shown
+        assert @driver.keyboard_shown?
 
         @@core.wait { @driver.hide_keyboard }
         sleep 1 # wait animation
