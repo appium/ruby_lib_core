@@ -1,3 +1,15 @@
+#### v2.0.2 2018-10-02
+
+- [8a1c128](https://github.com/appium/ruby_lib_core/commit/8a1c1282ecdff628d3cd6508dbf455a9884a816d) Release 2.0.2
+- [7519e45](https://github.com/appium/ruby_lib_core/commit/7519e45792fa618254c89f1ac9f4245718b8b3ea) add aliases (#145)
+- [ba9dd3c](https://github.com/appium/ruby_lib_core/commit/ba9dd3c06e128421a256a06638483f584df6b59f) add test_mobile_perform_action (#144)
+- [1ee07f2](https://github.com/appium/ruby_lib_core/commit/1ee07f28e9213380cb3e222ddad19d508c56df24) move a place of finger_print
+- [672929f](https://github.com/appium/ruby_lib_core/commit/672929fed1a8a58b4462f4787218524f888b003c) tweak module name
+- [4e2bfc0](https://github.com/appium/ruby_lib_core/commit/4e2bfc01f9771eba0a39bce7b2048f3586e726fe) add finger print feature (#142)
+- [ee6756b](https://github.com/appium/ruby_lib_core/commit/ee6756b77d9d3b36c3a7bd7f3d758607b8c74a4b) update command check rake task
+- [e5e889b](https://github.com/appium/ruby_lib_core/commit/e5e889b3510dc7e4c7f11be0b53dcfef20f95769) add tests for location in webdriver commands
+
+
 #### v2.0.1 2018-09-01
 
 - [f0382b5](https://github.com/appium/ruby_lib_core/commit/f0382b5e30a43e187cb47504d82a7a5b6829c1d4) Release 2.0.1
