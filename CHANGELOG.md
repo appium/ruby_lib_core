@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Enhancements
 - Add finger print feature for Android emulators [#13](https://github.com/appium/ruby_lib_core/issues/13)
+- Add `keyboard_shown?` and `context=` as aliases of `is_keyboard_shown` and `set_contex`
 
 ### Bug fixes
 
