@@ -81,18 +81,19 @@ class AppiumLibCoreTest
       assert_equal 999_999, @core.http_client.read_timeout
     end
 
+    # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
       assert_equal 19, ::Selenium::WebDriver::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
-                     css: 'css selector',
+                     css: 'css selector',                    # Defined in W3C spec
                      id: 'id',
-                     link: 'link text',
-                     link_text: 'link text',
+                     link: 'link text',                      # Defined in W3C spec
+                     link_text: 'link text',                 # Defined in W3C spec
                      name: 'name',
-                     partial_link_text: 'partial link text',
-                     tag_name: 'tag name',
-                     xpath: 'xpath',
+                     partial_link_text: 'partial link text', # Defined in W3C spec
+                     tag_name: 'tag name',                   # Defined in W3C spec
+                     xpath: 'xpath',                         # Defined in W3C spec
                      accessibility_id: 'accessibility id',
                      image: '-image',
                      uiautomator: '-android uiautomator',
