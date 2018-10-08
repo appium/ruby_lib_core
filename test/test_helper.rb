@@ -79,6 +79,9 @@ class AppiumLibCoreTest
     def android
       {
         caps: {
+          # Chrome browser
+          # browserName: 'chrome',
+          # chromeOptions: {androidPackage: 'com.android.chrome'},
           platformName: :android,
           automationName: 'uiautomator2',
           app: 'test/functional/app/api.apk',
