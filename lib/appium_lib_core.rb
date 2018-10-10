@@ -22,7 +22,7 @@ module Appium
       key = begin
         pair[0].to_sym
       rescue StandardError => e
-        ::Appium::Logger.debug(e.message)
+        ::Appium::Logger.warn(e.message)
         pair[0]
       end
 
