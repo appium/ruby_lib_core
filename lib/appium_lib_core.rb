@@ -17,12 +17,18 @@ module Appium
   # @param [Hash] hash Hash value to make symbolise
   def self.symbolize_keys(hash)
     raise 'symbolize_keys requires a hash' unless hash.is_a? Hash
-    result = {}
-    hash.each do |key, value|
-      key = key.to_sym rescue key # rubocop:disable Style/RescueModifier
-      result[key] = value.is_a?(Hash) ? symbolize_keys(value) : value
+
+    hash.each_with_object({}) do |pair, acc|
+      key = begin
+        pair[0].to_sym
+      rescue StandardError => e
+        ::Appium::Logger.debug(e.message)
+        pair[0]
+      end
+
+      value = pair[1]
+      acc[key] = value.is_a?(Hash) ? symbolize_keys(value) : value
     end
-    result
   end
 
   module Core
