@@ -72,8 +72,17 @@ module Appium
 
           # For Appium
           # override
-          def element_attribute(element, name)
+          def element_displayed?(element)
             # For W3C
+            # https://github.com/SeleniumHQ/selenium/commit/b618499adcc3a9f667590652c5757c0caa703289
+            # execute_atom :isDisplayed, element
+            execute :is_element_displayed, id: element.ref
+          end
+
+          # For Appium
+          # override
+          def element_attribute(element, name)
+            # For W3C in Selenium Client
             # execute_atom :getAttribute, element, name
             execute :get_element_attribute, id: element.ref, name: name
           end
