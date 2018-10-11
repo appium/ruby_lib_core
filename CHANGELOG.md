@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Set `'selenium-webdriver', '~> 3.14.1'`
 
 ### Bug fixes
 
