@@ -40,7 +40,7 @@ $ rake test:func:ios     # iOS
 
 #### Run parallel tests with parallel_tests gem
 
-- Create iPhone simulators named `iPhone 6 - 8100` and `iPhone 6 - 8101`
+- Create iPhone simulators named `iPhone 8 - 8100` and `iPhone 8 - 8101`
 - Run iOS functional tests with below command
 
 ```

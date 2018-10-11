@@ -46,17 +46,17 @@ class AppiumLibCoreTest
       new.android
     end
 
-    # Require a simulator which OS version is 10.3, for example.
+    # Require a simulator which OS version is 11.4, for example.
     def ios
       wda_local_port = get_wda_local_port
-      device_name = parallel? ? "iPhone 6 - #{wda_local_port}" : 'iPhone 6'
+      device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
       {
         caps: {
           platformName: :ios,
           automationName: 'XCUITest',
           app: 'test/functional/app/UICatalog.app',
-          platformVersion: '10.3',
+          platformVersion: '11.4',
           deviceName: device_name,
           useNewWDA: true,
           useJSONSource: true,
@@ -220,7 +220,7 @@ class AppiumLibCoreTest
           capabilities: {
             device: 'iphone',
             browserName: 'UICatalog',
-            sdkVersion: '10.3.1',
+            sdkVersion: '11.4',
             CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
           }
         }
@@ -247,7 +247,7 @@ class AppiumLibCoreTest
           capabilities: {
             device: 'iphone',
             browserName: 'UICatalog',
-            sdkVersion: '10.3.1',
+            sdkVersion: '11.4',
             CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
           }
         }

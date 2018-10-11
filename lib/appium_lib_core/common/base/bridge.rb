@@ -58,7 +58,7 @@ module Appium
         #       platformName: :ios,
         #       automationName: 'XCUITest',
         #       app: 'test/functional/app/UICatalog.app',
-        #       platformVersion: '10.3',
+        #       platformVersion: '11.4',
         #       deviceName: 'iPhone Simulator',
         #       useNewWDA: true,
         #       forceMjsonwp: true
@@ -77,7 +77,7 @@ module Appium
         #       platformName: :ios,
         #       automationName: 'XCUITest',
         #       app: 'test/functional/app/UICatalog.app',
-        #       platformVersion: '10.3',
+        #       platformVersion: '11.4',
         #       deviceName: 'iPhone Simulator',
         #       useNewWDA: true,
         #     },
