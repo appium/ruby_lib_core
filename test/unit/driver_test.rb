@@ -45,7 +45,7 @@ class AppiumLibCoreTest
 
     def test_verify_appium_core_base_capabilities_create_capabilities
       caps = ::Appium::Core::Base::Capabilities.create_capabilities(platformName:    'ios',
-                                                                    platformVersion: '10.3',
+                                                                    platformVersion: '11.4',
                                                                     automationName:  'XCUITest',
                                                                     deviceName:      'iPhone Simulator',
                                                                     app:             'test/functional/app/UICatalog.app',
@@ -54,7 +54,7 @@ class AppiumLibCoreTest
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
-      assert_equal '10.3', caps_with_json['platformVersion']
+      assert_equal '11.4', caps_with_json['platformVersion']
       assert_equal 'test/functional/app/UICatalog.app', caps_with_json['app']
       assert_equal 'XCUITest', caps_with_json['automationName']
       assert_equal 'iPhone Simulator', caps_with_json['deviceName']
@@ -62,7 +62,7 @@ class AppiumLibCoreTest
       assert_equal 'someCapability2', caps_with_json['someCapability2']
 
       assert_equal 'ios', caps[:platformName]
-      assert_equal '10.3', caps[:platformVersion]
+      assert_equal '11.4', caps[:platformVersion]
       assert_equal 'test/functional/app/UICatalog.app', caps[:app]
       assert_equal 'XCUITest', caps[:automationName]
       assert_equal 'iPhone Simulator', caps[:deviceName]
