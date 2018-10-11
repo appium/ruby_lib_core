@@ -1,3 +1,14 @@
+#### v2.0.3 2018-10-11
+
+- [9afbc4c](https://github.com/appium/ruby_lib_core/commit/9afbc4c929a1b9d882e441bf456036cf3386d0ae) Release 2.0.3
+- [a626518](https://github.com/appium/ruby_lib_core/commit/a62651825dffdd3be52619f5497e1b36dfbb0ce5) use selenium 3.14.1 (#150)
+- [8677335](https://github.com/appium/ruby_lib_core/commit/8677335f18e6687d5aa32c91c41b6adcdfee564f) bump test ios version (#148)
+- [381a9d2](https://github.com/appium/ruby_lib_core/commit/381a9d2106ce7e0b4e1c28334b70181eb9377d4e) add tests for symbolize_keys (#146)
+- [b54ce1e](https://github.com/appium/ruby_lib_core/commit/b54ce1ebc7a562d6c9b31d3d3da1556694827bcc) add caps for chrome
+- [bdccc0f](https://github.com/appium/ruby_lib_core/commit/bdccc0f374a60388b081fc3ccd556ff94ac7c428) add comments for w3c spec in search context
+- [8f2cf1d](https://github.com/appium/ruby_lib_core/commit/8f2cf1d4aec26a94683250736f8aa9cfed0a8a3d) tweak default wait time
+
+
 #### v2.0.2 2018-10-02
 
 - [8a1c128](https://github.com/appium/ruby_lib_core/commit/8a1c1282ecdff628d3cd6508dbf455a9884a816d) Release 2.0.2
