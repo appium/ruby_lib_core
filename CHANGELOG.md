@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.0.3] - 2018-10-11
+### Enhancements
 - Set `'selenium-webdriver', '~> 3.14.1'`
 
 ### Bug fixes
