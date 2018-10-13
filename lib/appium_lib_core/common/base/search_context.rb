@@ -7,6 +7,7 @@ module Appium
         FINDERS = ::Selenium::WebDriver::SearchContext::FINDERS.merge(
           accessibility_id:     'accessibility id',
           image:                '-image',
+          custom:               '-custom',
           # Android
           uiautomator:          '-android uiautomator', # Unavailable in Espresso
           viewtag:              '-android viewtag',     # Available in Espresso

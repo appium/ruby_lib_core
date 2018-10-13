@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- Add custom locator in the future work
+    - https://github.com/appium/appium-base-driver/pull/268/
+    ```
+    @driver.find_element :custom, "f:foo"
+
+    ```
 
 ### Bug fixes
 
