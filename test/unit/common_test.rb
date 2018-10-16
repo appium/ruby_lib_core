@@ -16,7 +16,7 @@ class AppiumLibCoreTest
         capabilities: {
           platformName: :android,
           automationName: 'uiautomator2',
-          app: 'test/functional/app/api.apk',
+          app: 'test/functional/app/api.apk.zip',
           platformVersion: '7.1.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis'
@@ -26,7 +26,7 @@ class AppiumLibCoreTest
       CAPS = {
         platformName: :android,
         automationName: 'uiautomator2',
-        app: "#{Dir.pwd}/test/functional/app/api.apk",
+        app: "#{Dir.pwd}/test/functional/app/api.apk.zip",
         platformVersion: '7.1.1',
         deviceName: 'Android Emulator',
         appPackage: 'io.appium.android.apis'
@@ -35,7 +35,7 @@ class AppiumLibCoreTest
       APPIUM_PREFIX_CAPS = {
         platformName: :android,
         'appium:automationName' => 'uiautomator2',
-        'appium:app' => "#{Dir.pwd}/test/functional/app/api.apk",
+        'appium:app' => "#{Dir.pwd}/test/functional/app/api.apk.zip",
         'appium:platformVersion' => '7.1.1',
         'appium:deviceName' => 'Android Emulator',
         'appium:appPackage' => 'io.appium.android.apis'
@@ -89,7 +89,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: 'uiautomator2',
-              app: 'sauce-storage:test/functional/app/api.apk',
+              app: 'sauce-storage:test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis'
@@ -99,7 +99,7 @@ class AppiumLibCoreTest
         http_caps = {
           platformName: :android,
           automationName: 'uiautomator2',
-          app: 'sauce-storage:test/functional/app/api.apk',
+          app: 'sauce-storage:test/functional/app/api.apk.zip',
           platformVersion: '7.1.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis'
@@ -119,7 +119,7 @@ class AppiumLibCoreTest
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
         assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 20_000 }.to_json, times: 1)
 
-        assert_equal 'sauce-storage:test/functional/app/api.apk', core.caps[:app]
+        assert_equal 'sauce-storage:test/functional/app/api.apk.zip', core.caps[:app]
       end
 
       def test_create_session_w3c
@@ -195,7 +195,7 @@ class AppiumLibCoreTest
         cap = {
           platformName: :ios,
           automationName: 'XCUITest',
-          app: 'test/functional/app/UICatalog.app',
+          app: 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
@@ -209,7 +209,7 @@ class AppiumLibCoreTest
           proxy: nil,
           platformName: :ios,
           'appium:automationName' => 'XCUITest',
-          'appium:app' => 'test/functional/app/UICatalog.app',
+          'appium:app' => 'test/functional/app/UICatalog.app.zip',
           'appium:platformVersion' => '11.4',
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
@@ -225,7 +225,7 @@ class AppiumLibCoreTest
         cap = {
           platformName: :ios,
           automationName: 'XCUITest',
-          'appium:app' => 'test/functional/app/UICatalog.app',
+          'appium:app' => 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
@@ -238,7 +238,7 @@ class AppiumLibCoreTest
           proxy: nil,
           platformName: :ios,
           'appium:automationName' => 'XCUITest',
-          'appium:app' => 'test/functional/app/UICatalog.app',
+          'appium:app' => 'test/functional/app/UICatalog.app.zip',
           'appium:platformVersion' => '11.4',
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
