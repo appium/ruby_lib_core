@@ -55,7 +55,7 @@ class AppiumLibCoreTest
         caps: {
           platformName: :ios,
           automationName: 'XCUITest',
-          app: 'test/functional/app/UICatalog.app',
+          app: 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
           deviceName: device_name,
           useNewWDA: true,
@@ -84,7 +84,7 @@ class AppiumLibCoreTest
           # chromeOptions: {androidPackage: 'com.android.chrome'},
           platformName: :android,
           automationName: 'uiautomator2',
-          app: 'test/functional/app/api.apk',
+          app: 'test/functional/app/api.apk.zip',
           platformVersion: '8.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
@@ -186,7 +186,7 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: 'uiautomator2',
-            app: 'test/functional/app/api.apk',
+            app: 'test/functional/app/api.apk.zip',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',

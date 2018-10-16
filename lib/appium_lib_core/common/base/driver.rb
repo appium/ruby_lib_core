@@ -747,7 +747,7 @@ module Appium
         #   #      "desired"=>
         #   #          {"platformName"=>"android",
         #   #           "automationName"=>"uiautomator2",
-        #   #           "app"=>"/path/to/app/api.apk",
+        #   #           "app"=>"/path/to/app/api.apk.zip",
         #   #           "platformVersion"=>"8.1.0",
         #   #           "deviceName"=>"Android Emulator",
         #   #           "appPackage"=>"io.appium.android.apis",
@@ -756,7 +756,7 @@ module Appium
         #   #           "unicodeKeyboard"=>true,
         #   #           "resetKeyboard"=>true},
         #   #      "automationName"=>"uiautomator2",
-        #   #      "app"=>"/path/to/app/api.apk",
+        #   #      "app"=>"/path/to/app/api.apk.zip",
         #   #      "platformVersion"=>"8.1.0",
         #   #      "deviceName"=>"emulator-5554",
         #   #      "appPackage"=>"io.appium.android.apis",
