@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.0.4] - 2018-10-19
+### Enhancements
 - Add custom locator in the future work: [element-finding-plugins](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/element-finding-plugins.md)
     - https://github.com/appium/appium-base-driver/pull/268/
     ```
