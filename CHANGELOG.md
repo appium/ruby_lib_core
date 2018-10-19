@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
-- Add custom locator in the future work
+- Add custom locator in the future work: [element-finding-plugins](https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/element-finding-plugins.md)
     - https://github.com/appium/appium-base-driver/pull/268/
     ```
     @driver.find_element :custom, "f:foo"
