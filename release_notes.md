@@ -1,3 +1,10 @@
+#### v2.0.4 2018-10-19
+
+- [e0db5f9](https://github.com/appium/ruby_lib_core/commit/e0db5f9fb1ae6178fb16254d76d429bceaecdae4) Release 2.0.4
+- [70d71cd](https://github.com/appium/ruby_lib_core/commit/70d71cd5ca026f22bb9b22159f6e14629505430f) zip test app (#152)
+- [6222a62](https://github.com/appium/ruby_lib_core/commit/6222a62fb6e9d2f13d8deea7e27cb3d11bee86d4) add custom locator (#151)
+
+
 #### v2.0.3 2018-10-11
 
 - [9afbc4c](https://github.com/appium/ruby_lib_core/commit/9afbc4c929a1b9d882e441bf456036cf3386d0ae) Release 2.0.3
