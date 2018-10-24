@@ -317,7 +317,7 @@ module Appium
                 option = {}
 
                 option[:key] = close_key if close_key
-                option[:strategy] = strategy || :tapOutside # default to pressKey
+                option[:strategy] = strategy if strategy
 
                 execute :hide_keyboard, {}, option
               end

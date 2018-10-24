@@ -26,6 +26,7 @@ class AppiumLibCoreTest
 
           def test_hide_keyboard
             stub_request(:post, "#{SESSION}/appium/device/hide_keyboard")
+              .with(body: { key: 'Finished' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.hide_keyboard 'Finished'

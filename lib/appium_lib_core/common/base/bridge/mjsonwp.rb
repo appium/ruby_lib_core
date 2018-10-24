@@ -27,6 +27,7 @@ module Appium
           end
 
           def take_viewport_screenshot
+            # TODO: this hasn't been supported by Espresso driver
             execute_script('mobile: viewportScreenshot')
           end
 
