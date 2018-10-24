@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Enhancements
+- [internal] No longer send `strategy: :tapOutside` as default value in Android
 
 ### Bug fixes
 
