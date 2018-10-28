@@ -60,6 +60,8 @@ namespace :android do
   desc('Generate and launch android emulators')
   task :gen_device  do |_t, _args|
     SWARMER_VERSION = '0.2.4'
+    CPU_ARCHITECTURE = 'x86'
+    IMAGE = 'google_apis'
     ANDROID_API = 27
     system %W(
       curl
@@ -70,8 +72,8 @@ namespace :android do
     cmds = (1..3).reduce([]) do |acc, number|
       acc << %W(
         --emulator-name test#{number}
-        --package "system-images;android-#{ANDROID_API};google_apis;x86"
-        --android-abi google_apis/x86
+        --package "system-images;android-#{ANDROID_API};#{IMAGE};#{CPU_ARCHITECTURE}"
+        --android-abi #{IMAGE}/#{CPU_ARCHITECTURE}
         --path-to-config-ini test/functional/android/emulator_config.ini
         --emulator-start-options -netdelay none -netspeed full -screen touch -prop persist.sys.language=en -prop persist.sys.country=US
       ).join(' ')

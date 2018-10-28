@@ -43,6 +43,7 @@ $ rake test:func:ios     # iOS
 
 ```
 # Generate 3 emulators. Running 3 emulators require much machine power.
+# It requires an image which is for Google Play and x86 CPU architecture's image.
 $ bundle exec rake android:gen_device
 $ PARALLEL=1 bundle exec parallel_test test/functional/android -n 3
 ```
