@@ -79,12 +79,6 @@ class AppiumLibCoreTest
     def android
       {
         caps: {
-          # Chrome browser
-          # browserName: 'chrome',
-          # chromeOptions: {androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking']},
-          # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
-          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
-          # autoWebviewTimeout: 10000,
           platformName: :android,
           automationName: 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',

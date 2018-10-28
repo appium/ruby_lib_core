@@ -23,7 +23,6 @@ class AppiumLibCoreTest
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
         # same as @driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
 
-        # Scroll a bit without elements
         rect1 = el.rect.dup
         @driver
           .action
