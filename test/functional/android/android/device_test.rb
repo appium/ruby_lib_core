@@ -51,7 +51,7 @@ class AppiumLibCoreTest
       end
 
       def test_background_reset
-        @@core.wait { @driver.background_app 5 }
+        @driver.background_app 3
 
         e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
@@ -78,6 +78,7 @@ class AppiumLibCoreTest
         assert Date.parse(@driver.device_time('YYYY-MM-DD')).is_a?(Date)
       end
 
+      # TODO: Add chrome driver since No Chromedriver found that can automate Chrome '61.0.3163'. happens
       def test_context_related
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click
@@ -219,7 +220,17 @@ class AppiumLibCoreTest
         @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
         @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
 
-        @driver.ime_activate 'com.android.inputmethod.latin/.LatinIME'
+        latin_android = 'com.android.inputmethod.latin/.LatinIME'
+        latin_google = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
+        imes = @driver.ime_available_engines
+        ime_latin = if imes.member? latin_android # Android O-
+                      latin_android
+                    elsif imes.member? latin_google # Android O+
+                      latin_google
+                    else
+                      imes.first
+                    end
+        @driver.ime_activate ime_latin
 
         assert @driver.keyboard_shown?
 
@@ -344,51 +355,6 @@ class AppiumLibCoreTest
         @driver.set_clipboard(content: input, label: 'Note')
 
         assert_equal input, @driver.get_clipboard
-      end
-
-      def test_image_comparison_match_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
-
-        match_result = @driver.match_images_features first_image: image1, second_image: image2
-        assert_equal %w(points1 rect1 points2 rect2 totalCount count), match_result.keys
-
-        match_result_visual = @driver.match_images_features first_image: image1, second_image: image2, visualize: true
-        assert_equal %w(points1 rect1 points2 rect2 totalCount count visualization), match_result_visual.keys
-        File.write 'match_result_visual.png', Base64.decode64(match_result_visual['visualization'])
-        assert File.size? 'match_result_visual.png'
-
-        File.delete 'match_result_visual.png'
-      end
-
-      def test_image_comparison_find_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
-
-        find_result = @driver.find_image_occurrence full_image: image1, partial_image: image2
-        assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
-
-        find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization), find_result_visual.keys
-        File.write 'find_result_visual.png', Base64.decode64(find_result_visual['visualization'])
-        assert File.size? 'find_result_visual.png'
-
-        File.delete 'find_result_visual.png'
-      end
-
-      def test_image_comparison_get_images_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
-
-        get_images_result = @driver.get_images_similarity first_image: image1, second_image: image2
-        assert_equal({ 'score' => 0.891606867313385 }, get_images_result)
-
-        get_images_result_visual = @driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
-        assert_equal %w(score visualization), get_images_result_visual.keys
-        File.write 'get_images_result_visual.png', Base64.decode64(get_images_result_visual['visualization'])
-        assert File.size? 'get_images_result_visual.png'
-
-        File.delete 'get_images_result_visual.png'
       end
 
       def test_battery_info
