@@ -39,7 +39,14 @@ $ rake test:func:ios     # iOS
 ```
 
 #### Run parallel tests with parallel_tests gem
+#### Android
+- Generate and launch Android emulators named `emulator-5554` and `emulator-5556`
 
+```
+PARALLEL=1 bundle exec parallel_test test/functional/android -n 2
+```
+
+##### iOS
 - Create iPhone simulators named `iPhone 8 - 8100` and `iPhone 8 - 8101`
 - Run iOS functional tests with below command
 
