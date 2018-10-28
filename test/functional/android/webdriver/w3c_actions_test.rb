@@ -23,24 +23,26 @@ class AppiumLibCoreTest
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
         # same as @driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
 
-        rect = el.rect
+        # Scroll a bit without elements
+        rect1 = el.rect.dup
         @driver
           .action
           .move_to(el)
           .pointer_down(:left)
-          .move_to_location(0, rect.y - rect.height)
-          .release.perform
-        assert rect.y > el.rect.y
+          .move_to_location(0, rect1.y - rect1.height)
+          .release
+          .perform
+        assert rect1.y > el.rect.y
 
-        # Scroll a bit without elements
-        rect = el.rect
+        rect2 = el.rect.dup
         @driver
           .action
-          .move_to_location(rect.x, rect.y)
+          .move_to_location(rect2.x, rect2.y)
           .pointer_down(:left)
-          .move_to_location(0, rect.y - rect.height)
-          .release.perform
-        assert rect.y > el.rect.y
+          .move_to_location(0, rect2.y - rect2.height * 2)
+          .release
+          .perform
+        assert rect2.y > el.rect.y
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.text

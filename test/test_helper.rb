@@ -81,7 +81,10 @@ class AppiumLibCoreTest
         caps: {
           # Chrome browser
           # browserName: 'chrome',
-          # chromeOptions: {androidPackage: 'com.android.chrome'},
+          # chromeOptions: {androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking']},
+          # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
+          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
+          # autoWebviewTimeout: 10000,
           platformName: :android,
           automationName: 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
@@ -93,7 +96,41 @@ class AppiumLibCoreTest
           unicodeKeyboard: true,
           resetKeyboard: true,
           disableWindowAnimation: true,
-          newCommandTimeout: 300
+          newCommandTimeout: 300,
+          systemPort: 8200,
+          language: 'en',
+          locale: 'US'
+        },
+        appium_lib: {
+          export_session: true,
+          wait: 30,
+          wait_timeout: 20,
+          wait_interval: 1
+        }
+      }
+    end
+
+    def android_web
+      {
+        caps: {
+          browserName: :chrome,
+          platformName: :android,
+          automationName: 'uiautomator2',
+          chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
+          # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
+          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
+          # autoWebviewTimeout: 10000,
+          chromedriverUseSystemExecutable: true,
+          platformVersion: '8.1',
+          deviceName: 'Android Emulator',
+          someCapability: 'some_capability',
+          unicodeKeyboard: true,
+          resetKeyboard: true,
+          disableWindowAnimation: true,
+          newCommandTimeout: 300,
+          systemPort: 8200,
+          language: 'en',
+          locale: 'US'
         },
         appium_lib: {
           export_session: true,
