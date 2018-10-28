@@ -12,6 +12,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
+        @@core.quit_driver
       end
 
       def test_window_size
@@ -64,7 +65,7 @@ class AppiumLibCoreTest
 
         @driver.reset
 
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+        e = @@core.wait(timeout: 60) { @driver.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
       end
 

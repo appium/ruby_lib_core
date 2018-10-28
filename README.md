@@ -40,10 +40,11 @@ $ rake test:func:ios     # iOS
 
 #### Run parallel tests with parallel_tests gem
 #### Android
-- Generate and launch Android emulators named `emulator-5554` and `emulator-5556`
 
 ```
-PARALLEL=1 bundle exec parallel_test test/functional/android -n 2
+# Generate 3 emulators. Running 3 emulators require much machine power.
+$ bundle exec rake android:gen_device
+$ PARALLEL=1 bundle exec parallel_test test/functional/android -n 3
 ```
 
 ##### iOS
@@ -51,7 +52,7 @@ PARALLEL=1 bundle exec parallel_test test/functional/android -n 2
 - Run iOS functional tests with below command
 
 ```
-PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
+$ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 ```
 
 ## Run a test case

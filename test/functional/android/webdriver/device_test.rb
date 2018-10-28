@@ -12,6 +12,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
+        @@core.quit_driver
       end
 
       def test_capabilities
@@ -20,9 +21,7 @@ class AppiumLibCoreTest
 
       def test_remote_status
         status = @driver.remote_status
-
         assert !status['build']['version'].nil?
-        assert !status['build']['revision'].nil?
       end
 
       # TODO: replace_value
@@ -115,7 +114,7 @@ class AppiumLibCoreTest
       end
 
       def test_session_capability
-        assert @driver.session_capabilities['deviceUDID'] == 'emulator-5554'
+        assert @driver.session_capabilities['deviceUDID'].start_with? 'emulator-'
       end
     end
   end

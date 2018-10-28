@@ -14,6 +14,8 @@ class AppiumLibCoreTest
         assert_equal :oss, driver.dialect
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
+
+        core.quit_driver
       end
 
       # Require Appium 1.7.2+
@@ -27,6 +29,8 @@ class AppiumLibCoreTest
         assert_equal :w3c, driver.dialect
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
+
+        core.quit_driver
       end
 
       # Require Appium 1.7.2+
@@ -39,6 +43,8 @@ class AppiumLibCoreTest
         assert_equal :w3c, driver.dialect
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
+
+        core.quit_driver
       end
     end
   end
