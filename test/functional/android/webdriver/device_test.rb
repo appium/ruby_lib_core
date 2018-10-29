@@ -39,9 +39,36 @@ class AppiumLibCoreTest
       end
 
       def test_page_source
-        s_source = @driver.page_source
+        require 'rexml/document'
 
-        assert s_source.include?('o.appium.android.apis')
+        expected = %w(
+          hierarchy
+          android.widget.FrameLayout
+          android.view.ViewGroup
+          android.widget.FrameLayout
+          android.view.ViewGroup
+          android.widget.TextView
+          android.widget.FrameLayout
+          android.widget.ListView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+          android.widget.TextView
+        )
+
+        s_source = @driver.page_source
+        xml = REXML::Document.new s_source
+
+        assert s_source.include?('io.appium.android.apis')
+        assert_equal expected, xml[1].elements.each('//*'){ |v| v }.map{ |v| v.name }
       end
 
       # def test_location

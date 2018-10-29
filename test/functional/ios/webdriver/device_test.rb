@@ -48,16 +48,22 @@ class AppiumLibCoreTest
 
       def test_page_source
         require 'json'
+        require 'rexml/document'
+
         response = Net::HTTP.get(URI('http://localhost:8100/source'))
         source = JSON.parse(response)['value']
+        xml = REXML::Document.new source
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
+        assert xml[2].elements.each('//*'){ |v| v }.map{ |v| v.name } == 77
 
         s_source = @@driver.page_source
+        s_xml = REXML::Document.new s_source
 
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
+        assert s_xml[2].elements.each('//*'){ |v| v }.map{ |v| v.name } == 81
       end
 
       def test_location
