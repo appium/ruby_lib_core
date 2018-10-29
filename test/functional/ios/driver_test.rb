@@ -43,6 +43,16 @@ class AppiumLibCoreTest
       assert_equal 'UICatalog', e.name
     end
 
+    def test_click_back
+      e = @@driver.find_element :accessibility_id, 'Alerts'
+      e.click
+      error = assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
+        e.click
+      end
+      assert error.message 'does not exist'
+      @@driver.back
+    end
+
     # TODO: call @driver.quit after tests
   end
 end

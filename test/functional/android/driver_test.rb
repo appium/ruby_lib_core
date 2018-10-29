@@ -44,6 +44,16 @@ class AppiumLibCoreTest
       assert_equal 'Content', e.text
     end
 
+    def test_click_back
+      e = @driver.find_element :accessibility_id, 'Content'
+      e.click
+      error = assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
+        e.click
+      end
+      assert error.message 'does not exist'
+      @driver.back
+    end
+
     # @since Appium 1.9.2
     def test_mobile_perform_action
       @driver.find_element(:accessibility_id, 'App').click
