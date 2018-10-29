@@ -56,6 +56,33 @@ namespace :test do
   end
 end
 
+namespace :android do
+  desc('Generate and launch android emulators')
+  task :gen_device  do |_t, _args|
+    SWARMER_VERSION = '0.2.4'
+    CPU_ARCHITECTURE = 'x86'
+    IMAGE = 'google_apis'
+    ANDROID_API = 27
+    system %W(
+      curl
+      --fail
+      --location https://jcenter.bintray.com/com/gojuno/swarmer/swarmer/#{SWARMER_VERSION}/swarmer-#{SWARMER_VERSION}.jar
+      --output /tmp/swarmer.jar
+    ).join(' ')
+    cmds = (1..3).reduce([]) do |acc, number|
+      acc << %W(
+        --emulator-name test#{number}
+        --package "system-images;android-#{ANDROID_API};#{IMAGE};#{CPU_ARCHITECTURE}"
+        --android-abi #{IMAGE}/#{CPU_ARCHITECTURE}
+        --path-to-config-ini test/functional/android/emulator_config.ini
+        --emulator-start-options -netdelay none -netspeed full -screen touch -prop persist.sys.language=en -prop persist.sys.country=US
+      ).join(' ')
+    end
+
+    system %W(java -jar /tmp/swarmer.jar start).concat(cmds).flatten.join(' ')
+  end
+end
+
 desc('Generate yardoc')
 YARD::Rake::YardocTask.new do |t|
   t.files   = %w(lib/**/*.rb)

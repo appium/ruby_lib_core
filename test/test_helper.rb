@@ -82,7 +82,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
-          platformVersion: '8.1',
+          udid: get_udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
           appActivity: 'io.appium.android.apis.ApiDemos',
@@ -91,7 +91,7 @@ class AppiumLibCoreTest
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: 8200,
+          systemPort: get_system_port,
           language: 'en',
           locale: 'US'
         },
@@ -115,14 +115,14 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
           # autoWebviewTimeout: 10000,
           chromedriverUseSystemExecutable: true,
-          platformVersion: '8.1',
+          udid: get_udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: 8200,
+          systemPort: get_system_port,
           language: 'en',
           locale: 'US'
         },
@@ -139,12 +139,26 @@ class AppiumLibCoreTest
       ENV['PARALLEL']
     end
 
+    private
+
     def get_wda_local_port
       # TEST_ENV_NUMBER is provided by parallel_tests gem
       # The number is '', '2', '3',...
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       [8100, 8101][core_number]
+    end
+
+    def get_system_port
+      number = ENV['TEST_ENV_NUMBER'] || ''
+      core_number = number.empty? ? 0 : number.to_i - 1
+      [8200, 8201, 8202][core_number]
+    end
+
+    def get_udid_name
+      number = ENV['TEST_ENV_NUMBER'] || ''
+      core_number = number.empty? ? 0 : number.to_i - 1
+      %w(emulator-5554 emulator-5556 emulator-5558)[core_number]
     end
   end
 

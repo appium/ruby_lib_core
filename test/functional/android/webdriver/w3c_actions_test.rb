@@ -12,6 +12,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
+        @@core.quit_driver
       end
 
       def test_tap
