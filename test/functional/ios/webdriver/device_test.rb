@@ -56,14 +56,14 @@ class AppiumLibCoreTest
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert xml[2].elements.each('//*'){ |v| v }.map(&:name) == 77
+        assert xml[2].elements.each('//*') { |v| v }.map(&:name) == 77
 
         s_source = @@driver.page_source
         s_xml = REXML::Document.new s_source
 
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
-        assert s_xml[2].elements.each('//*'){ |v| v }.map(&:name) == 81
+        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name) == 81
       end
 
       def test_location
