@@ -80,7 +80,7 @@ class AppiumLibCoreTest
       {
         caps: {
           platformName: :android,
-          automationName: 'uiautomator2',
+          automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
           udid: get_udid_name,
           deviceName: 'Android Emulator',
@@ -109,7 +109,7 @@ class AppiumLibCoreTest
         caps: {
           browserName: :chrome,
           platformName: :android,
-          automationName: 'uiautomator2',
+          automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
