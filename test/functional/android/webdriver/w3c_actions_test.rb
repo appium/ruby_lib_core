@@ -48,6 +48,8 @@ class AppiumLibCoreTest
         assert_equal 'ImageButton', el.text
       end
 
+      # TODO: add @driver.action.double_click(el).perform
+
       # Note: Works with Espresso Driver
       def test_multiple_actions
         f1 = @driver.action.add_pointer_input(:touch, 'finger1')
