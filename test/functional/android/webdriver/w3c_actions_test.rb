@@ -99,15 +99,15 @@ class AppiumLibCoreTest
 
         rect1 = el.rect.dup
         @driver
-            .action
-            .move_to(el)
-            .pointer_down(:left)
-            .pointer_down(:left)
-            .pointer_down(:left)
-            .move_to_location(0, rect1.y - rect1.height)
-            .release
-            .release
-            .perform
+          .action
+          .move_to(el)
+          .pointer_down(:left)
+          .pointer_down(:left)
+          .pointer_down(:left)
+          .move_to_location(0, rect1.y - rect1.height)
+          .release
+          .release
+          .perform
         assert rect1.y > el.rect.y
       end
 
