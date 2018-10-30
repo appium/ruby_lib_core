@@ -8,6 +8,9 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
         @driver = @@core.start_driver
+
+        require 'pry'
+        binding.pry
       end
 
       def teardown
@@ -68,7 +71,7 @@ class AppiumLibCoreTest
         xml = REXML::Document.new s_source
 
         assert s_source.include?('io.appium.android.apis')
-        assert_equal expected, xml[1].elements.each('//*'){ |v| v }.map{ |v| v.name }
+        assert_equal expected, xml[1].elements.each('//*'){ |v| v }.map(&:name)
       end
 
       # def test_location
