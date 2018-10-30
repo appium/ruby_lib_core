@@ -1,7 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
+### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.0.5] - 2018-10-30
 ### Enhancements
 - [internal] No longer send `strategy: :tapOutside` as default value in Android
 
