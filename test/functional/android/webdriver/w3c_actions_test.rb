@@ -15,14 +15,13 @@ class AppiumLibCoreTest
         @@core.quit_driver
       end
 
-      def test_tap
+      def test_tap_scroll
         skip if @driver.dialect == :oss
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
         @driver.action.click(el).perform
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
-        # same as @driver.action.click_and_hold(el).move_to_location(0, 700).release.perform
 
         rect1 = el.rect.dup
         @driver
@@ -39,13 +38,79 @@ class AppiumLibCoreTest
           .action
           .move_to_location(rect2.x, rect2.y)
           .pointer_down(:left)
-          .move_to_location(0, rect2.y - rect2.height * 2)
+          .move_to_location(0, rect2.y - rect2.height * 3) # gone the element
           .release
           .perform
-        assert rect2.y > el.rect.y
+
+        @driver.manage.timeouts.implicit_wait = 3
+        assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
+          @driver.find_element(:accessibility_id, 'Custom')
+        end
+        @driver.manage.timeouts.implicit_wait = @@core.default_wait
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.text
+      end
+
+      def test_double_tap
+        skip if @driver.dialect == :oss
+
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        @driver.action.click(el).perform
+
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Buttons') }
+        @driver.action.click(el).perform
+
+        el = @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle')
+        assert_equal 'OFF', el.text
+        @driver.action.click(el).perform
+
+        assert_equal 'ON', el.text
+
+        # double tap action with pause
+        action_builder = @driver.action
+        input = action_builder.pointer_inputs[0]
+        action_builder
+          .move_to(el)
+          .pointer_down(:left)
+          .pause(input, 0.05) # seconds
+          .pointer_up(:left)
+          .pause(input, 0.05) # seconds
+          .pointer_down(:left)
+          .pause(input, 0.05) # seconds
+          .pointer_up(:left)
+          .perform
+        assert_equal 'ON', el.text
+
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+          @driver.action.double_click(el).perform
+        end
+        assert error.message.include?('You cannot perform')
+      end
+
+      def test_actions_with_many_down_up
+        skip if @driver.dialect == :oss
+
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        @driver.action.click_and_hold(el).release.perform
+
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
+
+        rect1 = el.rect.dup
+
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+          @driver
+            .action
+            .move_to(el)
+            .pointer_down(:left) # should insert pause
+            .pointer_down(:left)
+            .pointer_down(:left)
+            .move_to_location(0, rect1.y - rect1.height)
+            .release
+            .release
+            .perform
+        end
+        assert error.message.include?('You cannot perform')
       end
 
       # Note: Works with Espresso Driver

@@ -57,8 +57,18 @@ namespace :test do
 end
 
 namespace :android do
+  desc('uninstall all of test apks from a test device')
+  task :uninstall_test_apks do |_t, _args|
+    `adb uninstall io.appium.uiautomator2.server.test`
+    `adb uninstall io.appium.uiautomator2.server`
+    `adb uninstall io.appium.settings`
+    `adb uninstall io.appium.android.ime`
+    `adb uninstall io.appium.espressoserver.test`
+  end
+
+
   desc('Generate and launch android emulators')
-  task :gen_device  do |_t, _args|
+  task :gen_device do |_t, _args|
     SWARMER_VERSION = '0.2.4'
     CPU_ARCHITECTURE = 'x86'
     IMAGE = 'google_apis'

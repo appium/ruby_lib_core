@@ -34,7 +34,8 @@ $ appium --relaxed-security # To run all tests in local
 - Conduct tests
  ```bash
 $ bundle install
-$ rake test:func:android # Andorid 
+$ rake test:func:android # Andorid, uiautomator2
+$ AUTOMATION_NAME=espresso rake test:func:android # Andorid, uiautomator2
 $ rake test:func:ios     # iOS
 ```
 
