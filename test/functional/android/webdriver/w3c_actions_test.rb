@@ -39,10 +39,15 @@ class AppiumLibCoreTest
           .action
           .move_to_location(rect2.x, rect2.y)
           .pointer_down(:left)
-          .move_to_location(0, rect2.y - rect2.height * 2)
+          .move_to_location(0, rect2.y - rect2.height * 3) # gone the element
           .release
           .perform
-        assert rect2.y > el.rect.y
+
+        @driver.manage.timeouts.implicit_wait = 3
+        assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
+          @driver.find_element(:accessibility_id, 'Custom')
+        end
+        @driver.manage.timeouts.implicit_wait = @@core.default_wait
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
         assert_equal 'ImageButton', el.text
