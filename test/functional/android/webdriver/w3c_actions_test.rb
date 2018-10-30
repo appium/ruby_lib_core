@@ -38,8 +38,6 @@ class AppiumLibCoreTest
           .action
           .move_to_location(rect2.x, rect2.y)
           .pointer_down(:left)
-          .pointer_down(:left)
-          .pointer_down(:left)
           .move_to_location(0, rect2.y - rect2.height * 3) # gone the element
           .release
           .perform
@@ -75,40 +73,44 @@ class AppiumLibCoreTest
         action_builder
           .move_to(el)
           .pointer_down(:left)
-          .pause(input, 0.5) # seconds
+          .pause(input, 0.05) # seconds
           .pointer_up(:left)
-          .pause(input, 0.5) # seconds
+          .pause(input, 0.05) # seconds
           .pointer_down(:left)
-          .pause(input, 0.5) # seconds
+          .pause(input, 0.05) # seconds
           .pointer_up(:left)
           .perform
         assert_equal 'ON', el.text
 
-        # build in double click
-        @driver.action.double_click(el).perform
-        assert_equal 'ON', el.text
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+          @driver.action.double_click(el).perform
+        end
+        assert error.message.include?('You cannot perform')
       end
 
       def test_actions_with_many_down_up
         skip if @driver.dialect == :oss
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
-        @driver.action.click(el).perform
+        @driver.action.click_and_hold(el).release.perform
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
 
         rect1 = el.rect.dup
-        @driver
-          .action
-          .move_to(el)
-          .pointer_down(:left)
-          .pointer_down(:left)
-          .pointer_down(:left)
-          .move_to_location(0, rect1.y - rect1.height)
-          .release
-          .release
-          .perform
-        assert rect1.y > el.rect.y
+
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+          @driver
+            .action
+            .move_to(el)
+            .pointer_down(:left) # should insert pause
+            .pointer_down(:left)
+            .pointer_down(:left)
+            .move_to_location(0, rect1.y - rect1.height)
+            .release
+            .release
+            .perform
+        end
+        assert error.message.include?('You cannot perform')
       end
 
       # Note: Works with Espresso Driver
