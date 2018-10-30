@@ -1,3 +1,16 @@
+#### v2.0.5 2018-10-30
+
+- [3197865](https://github.com/appium/ruby_lib_core/commit/31978651941fb169b2d63bb35aeb6005622ca9bc) Release 2.0.5
+- [fd9d4f5](https://github.com/appium/ruby_lib_core/commit/fd9d4f58e352b087a2b58b05aa7a8dbd764e6e36) fix typo
+- [daa28da](https://github.com/appium/ruby_lib_core/commit/daa28dae06edb67a483fbc5843ca885f6a8bae08) use &: operator
+- [cef57da](https://github.com/appium/ruby_lib_core/commit/cef57dafa8b18fcd9b0a00edc2f9075f8fea4f5f) add size check in page source for easy regression
+- [633cc0f](https://github.com/appium/ruby_lib_core/commit/633cc0f37b8232c17d7bfdd22c63b38dbf6cbcfb) add a test of state element reference error
+- [10558f2](https://github.com/appium/ruby_lib_core/commit/10558f26b3c983f218ce1ba21bd1be96516b7329) Add parallel android tests (#156)
+- [72a1827](https://github.com/appium/ruby_lib_core/commit/72a18279fa4f52c2791901c93dd9d5e0c2491834) separate test cases which depends on other libraries, improvements (#155)
+- [585b151](https://github.com/appium/ruby_lib_core/commit/585b15110675d6943776ba147dd4b22b6e5e6b22) Remove default value (#154)
+- [a0b4685](https://github.com/appium/ruby_lib_core/commit/a0b4685b2722088575d50bcb77c8fc4cb6548d71) add version number in changelog
+
+
 #### v2.0.4 2018-10-19
 
 - [e0db5f9](https://github.com/appium/ruby_lib_core/commit/e0db5f9fb1ae6178fb16254d76d429bceaecdae4) Release 2.0.4
