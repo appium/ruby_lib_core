@@ -28,7 +28,7 @@ Run functional tests which require the Appium server and real device, Simulator/
 - Start Appium server
  ```bash
 $ npm install -g appium opencv4nodejs
-$ appium --relaxed-security # To run all tests in rocal
+$ appium --relaxed-security # To run all tests in local
 ```
 
 - Conduct tests
