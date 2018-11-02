@@ -93,7 +93,8 @@ class AppiumLibCoreTest
           newCommandTimeout: 300,
           systemPort: get_system_port,
           language: 'en',
-          locale: 'US'
+          locale: 'US',
+          adbExecTimeout: 5_000, # 5 sec
         },
         appium_lib: {
           export_session: true,
