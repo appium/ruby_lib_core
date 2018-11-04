@@ -46,6 +46,10 @@ class AppiumLibCoreTest
       new.android
     end
 
+    def self.android_web
+      new.android_web
+    end
+
     # Require a simulator which OS version is 11.4, for example.
     def ios
       wda_local_port = get_wda_local_port
@@ -95,6 +99,12 @@ class AppiumLibCoreTest
           language: 'en',
           locale: 'US',
           adbExecTimeout: 5_000, # 5 sec
+          # An emulator 8.1 has Chrome/61.0.3163.98
+          # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
+          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
+          chromeOptions: {
+            args: ['--disable-popup-blocking']
+          }
         },
         appium_lib: {
           export_session: true,
@@ -113,9 +123,9 @@ class AppiumLibCoreTest
           automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
-          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver",
-          # autoWebviewTimeout: 10000,
-          chromedriverUseSystemExecutable: true,
+          # An emulator 8.1 has Chrome/61.0.3163.98
+          # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
+          # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           udid: get_udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
