@@ -50,7 +50,7 @@ class AppiumLibCoreTest
       error = assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
         e.click
       end
-      assert error.message 'does not exist'
+      assert_equal 'does not exist', error.message
       @driver.back
     end
 
