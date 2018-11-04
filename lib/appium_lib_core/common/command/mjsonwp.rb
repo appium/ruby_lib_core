@@ -1,3 +1,4 @@
+# rubocop:disable Layout/AlignHash
 module Appium
   module Core
     module Commands
@@ -12,3 +13,4 @@ module Appium
     end # module Commands
   end # module Core
 end # Appium
+# rubocop:enable Layout/AlignHash

@@ -135,9 +135,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_network_speed) do
               def set_network_speed(netspeed)
-                unless NET_SPEED.member? netspeed.to_sym
-                  raise "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
-                end
+                raise "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}." unless NET_SPEED.member? netspeed.to_sym
 
                 execute(:set_network_speed, {}, { netspeed: netspeed })
               end
@@ -145,9 +143,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
               def set_power_capacity(percent)
-                unless (0..100).member? percent
-                  raise "The  percent should be between 0 and 100. Not #{percent}."
-                end
+                raise "The  percent should be between 0 and 100. Not #{percent}." unless (0..100).member? percent
 
                 execute(:set_power_capacity, {}, { percent: percent })
               end

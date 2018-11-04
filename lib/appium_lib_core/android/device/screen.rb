@@ -24,6 +24,7 @@ module Appium
 
                 unless bug_report.nil?
                   raise 'bug_report should be true or false' unless [true, false].member?(bug_report)
+
                   option[:bugReport] = bug_report
                 end
 

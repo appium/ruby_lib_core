@@ -294,10 +294,13 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:start_activity) do
               def start_activity(opts)
                 raise 'opts must be a hash' unless opts.is_a? Hash
+
                 app_package = opts[:app_package]
                 raise 'app_package is required' unless app_package
+
                 app_activity = opts[:app_activity]
                 raise 'app_activity is required' unless app_activity
+
                 app_wait_package  = opts.fetch(:app_wait_package, '')
                 app_wait_activity = opts.fetch(:app_wait_activity, '')
 

@@ -25,6 +25,7 @@ module Appium
             unless ::Selenium::WebDriver::Remote::Capabilities.respond_to?(desired_capabilities)
               raise ::Selenium::WebDriver::Error::WebDriverError, "invalid desired capability: #{desired_capabilities.inspect}"
             end
+
             desired_capabilities = ::Selenium::WebDriver::Remote::Capabilities.__send__(desired_capabilities)
           end
 
@@ -105,9 +106,7 @@ module Appium
             end
           end
 
-          unless @session_id
-            raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload'
-          end
+          raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
           json_create(oss_status, value)
         end

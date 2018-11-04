@@ -16,6 +16,8 @@ Metrics/PerceivedComplexity:
   Max: 10
 Metrics/ParameterLists:
   Max: 6
+Lint/NestedMethodDefinition:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/CommentedKeyword:
@@ -24,9 +26,9 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 Style/BracesAroundHashParameters:
   Enabled: false
-Lint/NestedMethodDefinition:
+Style/SymbolArray:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
-Style/SymbolArray:
+Naming/MemoizedInstanceVariableName:
   Enabled: false

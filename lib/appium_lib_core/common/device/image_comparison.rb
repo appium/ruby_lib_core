@@ -111,12 +111,12 @@ module Appium
             unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
               raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
             end
+
             unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
               raise "match_func should be #{MATCH_FEATURES[:match_func]}"
             end
-            unless MATCH_FEATURES[:visualize].member?(visualize)
-              raise "visualize should be #{MATCH_FEATURES[:visualize]}"
-            end
+
+            raise "visualize should be #{MATCH_FEATURES[:visualize]}" unless MATCH_FEATURES[:visualize].member?(visualize)
 
             options = {}
             options[:detectorName] = detector_name.to_s.upcase
@@ -128,9 +128,7 @@ module Appium
           end
 
           def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
-            unless MATCH_TEMPLATE[:visualize].member?(visualize)
-              raise "visualize should be #{MATCH_TEMPLATE[:visualize]}"
-            end
+            raise "visualize should be #{MATCH_TEMPLATE[:visualize]}" unless MATCH_TEMPLATE[:visualize].member?(visualize)
 
             options = {}
             options[:visualize] = visualize
@@ -140,9 +138,7 @@ module Appium
           end
 
           def get_images_similarity(first_image:, second_image:, visualize: false)
-            unless GET_SIMILARITY[:visualize].member?(visualize)
-              raise "visualize should be #{GET_SIMILARITY[:visualize]}"
-            end
+            raise "visualize should be #{GET_SIMILARITY[:visualize]}" unless GET_SIMILARITY[:visualize].member?(visualize)
 
             options = {}
             options[:visualize] = visualize

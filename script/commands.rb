@@ -40,7 +40,7 @@ module Script
     end
 
     # @private
-    HTTP_METHOD_MATCH = /GET:|POST:|DELETE:|PUT:|PATCH:/
+    HTTP_METHOD_MATCH = /GET:|POST:|DELETE:|PUT:|PATCH:/.freeze
     # @private
     WD_HUB_PREFIX_MATCH = "'/wd/hub/".freeze
 
