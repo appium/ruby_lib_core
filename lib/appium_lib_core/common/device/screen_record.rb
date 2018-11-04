@@ -28,6 +28,7 @@ module Appium
             return if force_restart.nil?
 
             raise 'force_restart should be true or false' unless [true, false].member?(force_restart)
+
             @upload_option[:forceRestart] = force_restart
           end
 

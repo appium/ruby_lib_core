@@ -44,11 +44,11 @@ class AppiumLibCoreTest
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
-      caps = ::Appium::Core::Base::Capabilities.create_capabilities(platformName:    'ios',
+      caps = ::Appium::Core::Base::Capabilities.create_capabilities(platformName: 'ios',
                                                                     platformVersion: '11.4',
-                                                                    automationName:  'XCUITest',
-                                                                    deviceName:      'iPhone Simulator',
-                                                                    app:             'test/functional/app/UICatalog.app.zip',
+                                                                    automationName: 'XCUITest',
+                                                                    deviceName: 'iPhone Simulator',
+                                                                    app: 'test/functional/app/UICatalog.app.zip',
                                                                     some_capability1: 'some_capability1',
                                                                     someCapability2: 'someCapability2')
 

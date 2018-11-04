@@ -76,3 +76,4 @@ class AppiumLibCoreTest
     # TODO: call @driver.quit after tests
   end
 end
+# rubocop:enable Style/ClassVars

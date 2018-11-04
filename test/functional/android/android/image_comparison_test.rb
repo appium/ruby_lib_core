@@ -62,3 +62,4 @@ class AppiumLibCoreTest
     end
   end
 end
+# rubocop:enable Style/ClassVars

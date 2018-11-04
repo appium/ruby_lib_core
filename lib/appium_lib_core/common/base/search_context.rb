@@ -4,6 +4,7 @@ module Appium
       module SearchContext
         # referenced: ::Selenium::WebDriver::SearchContext
 
+        # rubocop:disable Layout/AlignHash
         FINDERS = ::Selenium::WebDriver::SearchContext::FINDERS.merge(
           accessibility_id:     'accessibility id',
           image:                '-image',
@@ -20,6 +21,7 @@ module Appium
           # Tizen
           tizen_uiautomation:   '-tizen uiautomation'
         )
+        # rubocop:enable Layout/AlignHash
 
         #
         # Find the first element matching the given arguments
@@ -119,6 +121,7 @@ module Appium
         def _set_by_from_finders(how)
           by = FINDERS[how.to_sym]
           raise ArgumentError, "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}." unless by
+
           by
         end
 
@@ -129,15 +132,12 @@ module Appium
           when 1
             arg = args.first
 
-            unless arg.respond_to?(:shift)
-              raise ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift"
-            end
+            raise ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift" unless arg.respond_to?(:shift)
 
             # this will be a single-entry hash, so use #shift over #first or #[]
             arr = arg.dup.shift
-            unless arr.size == 2
-              raise ArgumentError, "expected #{arr.inspect} to have 2 elements"
-            end
+
+            raise ArgumentError, "expected #{arr.inspect} to have 2 elements" unless arr.size == 2
 
             arr
           else

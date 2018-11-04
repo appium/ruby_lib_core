@@ -45,6 +45,7 @@ module Appium
         # @private CoreBridge
         def extend_webdriver_with_forwardable
           return if ::Appium::Core::Base::Driver.is_a? Forwardable
+
           ::Appium::Core::Base::Driver.class_eval do
             extend Forwardable
           end
@@ -58,6 +59,7 @@ module Appium
 
         def delegate_driver_method(method)
           return if ::Appium::Core::Base::Driver.method_defined? method
+
           ::Appium::Core::Base::Driver.class_eval { def_delegator :@bridge, method }
         end
 

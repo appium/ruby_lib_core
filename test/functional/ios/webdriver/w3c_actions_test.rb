@@ -36,9 +36,11 @@ class AppiumLibCoreTest
           end
           visibility = el.visible
           break if visibility == 'true'
+
           @@driver.execute_script('mobile: scroll', direction: 'down')
         end
       end
     end
   end
 end
+# rubocop:enable Style/ClassVars

@@ -20,11 +20,11 @@ module Appium
 
     hash.each_with_object({}) do |pair, acc|
       key = begin
-        pair[0].to_sym
-      rescue StandardError => e
-        ::Appium::Logger.warn(e.message)
-        pair[0]
-      end
+              pair[0].to_sym
+            rescue StandardError => e
+              ::Appium::Logger.warn(e.message)
+              pair[0]
+            end
 
       value = pair[1]
       acc[key] = value.is_a?(Hash) ? symbolize_keys(value) : value

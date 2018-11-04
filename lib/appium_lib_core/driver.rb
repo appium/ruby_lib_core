@@ -132,11 +132,15 @@ module Appium
         new(opts)
       end
 
+      private
+
       # @private
       # For testing purpose of delegate_from_appium_driver
-      private def delegated_target_for_test
+      def delegated_target_for_test
         @delegate_target
       end
+
+      public
 
       # @private
       def initialize(opts = {})
@@ -227,7 +231,7 @@ module Appium
       private
 
       def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client ||= http_client ? http_client : Appium::Core::Base::Http::Default.new
+        @http_client ||= http_client || Appium::Core::Base::Http::Default.new
 
         # open_timeout and read_timeout are explicit wait.
         @http_client.open_timeout = open_timeout if open_timeout
@@ -257,7 +261,7 @@ module Appium
       #
       def quit_driver
         @driver.quit
-      rescue # rubocop:disable Lint/RescueWithoutErrorClass
+      rescue # rubocop:disable Style/RescueStandardError
         nil
       end
 
@@ -284,6 +288,7 @@ module Appium
         @driver.remote_status
       rescue Selenium::WebDriver::Error::ServerError => e
         raise ::Appium::Core::Error::ServerError unless e.message.include?('status code 500')
+
         # driver.remote_status returns 500 error for using selenium grid
         {}
       end
@@ -444,6 +449,7 @@ module Appium
       # @private
       def set_automation_name_if_nil
         return unless @automation_name.nil?
+
         @automation_name = if @driver.capabilities['automationName']
                              @driver.capabilities['automationName'].downcase.strip.intern
                            end

@@ -1,3 +1,4 @@
+# rubocop:disable Layout/AlignHash
 module Appium
   module Core
     # ref: https://github.com/appium/appium-base-driver/blob/master/lib/mjsonwp/routes.js
@@ -87,3 +88,4 @@ module Appium
     end # module Commands
   end # module Core
 end # module Appium
+# rubocop:enable Layout/AlignHash

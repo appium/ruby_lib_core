@@ -68,3 +68,4 @@ module Appium
     end
   end # module Core
 end # module Appium
+# rubocop:enable Style/ClassAndModuleChildren

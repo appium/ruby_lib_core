@@ -75,7 +75,7 @@ class AppiumLibCoreTest
                 parameters: { pointerType: :touch }
               }, {
                 type: :pointer,
-                id:  'finger2',
+                id: 'finger2',
                 actions: [
                   { type: :pointerMove, duration: 50, x: 100, y: 100, origin: 'viewport' },
                   { type: :pointerDown, button: 0 },
