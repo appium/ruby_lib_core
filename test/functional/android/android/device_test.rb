@@ -79,7 +79,6 @@ class AppiumLibCoreTest
         assert Date.parse(@driver.device_time('YYYY-MM-DD')).is_a?(Date)
       end
 
-      # TODO: Add chrome driver since No Chromedriver found that can automate Chrome '61.0.3163'. happens
       def test_context_related
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click
