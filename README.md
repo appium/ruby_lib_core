@@ -88,7 +88,7 @@ opts = {
 - Run the script
 ```bash
 # shell 1
-$ appium
+$ appium --log-level warn:error # show only warning and error logs
 
 # shell 2
 $ ruby test.rb
