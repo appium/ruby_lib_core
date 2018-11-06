@@ -281,6 +281,9 @@ module Appium
         #
         #   @driver.push_file "/file/to/path", "data"
         #
+        #   file = File.read "your/path/to/test_image.png"
+        #   @driver.push_file "/sdcard/Pictures", file # Push a file binary to /sdcard/Pictures path in Android
+        #
         def push_file(path, filedata)
           @bridge.push_file(path, filedata)
         end
