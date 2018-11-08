@@ -1,3 +1,20 @@
+#### v2.0.6 2018-11-08
+
+- [b7ede91](https://github.com/appium/ruby_lib_core/commit/b7ede919a26b4d83b88955cb7d595a8538f5c146) Release 2.0.6
+- [3f04490](https://github.com/appium/ruby_lib_core/commit/3f04490b6c64f38cbc191ac2e4486eefbe3ea727) add desc in some rake tasks
+- [c4670c2](https://github.com/appium/ruby_lib_core/commit/c4670c2a275042d6297067f810de01d00be2333f) Allow update pi versioning (#159)
+- [2dd19fa](https://github.com/appium/ruby_lib_core/commit/2dd19fa70b2fbf4684776ebcd438f133d426a91a) Update mobile_command.md
+- [f8af2e3](https://github.com/appium/ruby_lib_core/commit/f8af2e3e8dbff2e6616c554db6394b42c588ddeb) append a test of push file
+- [442e787](https://github.com/appium/ruby_lib_core/commit/442e787851dfd47a7a0b4caed7f4712444c6ebac) tweak readme
+- [7183715](https://github.com/appium/ruby_lib_core/commit/718371524cbc977b2bf8b0b242f95ba92ca5037a) bump and fix rubocop (#158)
+- [6b9f74d](https://github.com/appium/ruby_lib_core/commit/6b9f74d0b66ebf4a512dee77fa4657230ee27990) remove one todo
+- [3a42bc3](https://github.com/appium/ruby_lib_core/commit/3a42bc301f76466266efa31b7919f6418fc9680b) fix rubocop
+- [92712d4](https://github.com/appium/ruby_lib_core/commit/92712d4dcca1da3902e5aeea8e7eb78c3a116f17) add chrome option into helper
+- [2bfc6b5](https://github.com/appium/ruby_lib_core/commit/2bfc6b53034ab5076fdea3dd67fb01445ab8d7ed) add MjpegServerTest
+- [a84aa18](https://github.com/appium/ruby_lib_core/commit/a84aa18291d003655584262872004c3c835fa70d) add adbExecTimeout as an example for test
+- [6400a8d](https://github.com/appium/ruby_lib_core/commit/6400a8def717cc1deb8933e23c4bfa253cc3e1e6) increase w3c functional tests for android (#157)
+
+
 #### v2.0.5 2018-10-30
 
 - [3197865](https://github.com/appium/ruby_lib_core/commit/31978651941fb169b2d63bb35aeb6005622ca9bc) Release 2.0.5
