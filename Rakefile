@@ -105,10 +105,11 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.fail_on_error = true
 end
 
-desc("print commands which haven't implemented yet.")
+desc("print commands which Ruby client has not implemented them yet.")
 namespace :commands do
   require './script/commands'
 
+  desc('Mobile JSON protocol')
   task :mjsonwp do |_t, _args|
     c = Script::CommandsChecker.new
     c.get_mjsonwp_routes
@@ -116,6 +117,7 @@ namespace :commands do
     c.all_diff_commands_mjsonwp.each { |key, value| puts("command: #{key}, method: #{value}") }
   end
 
+  desc('W3C protocol')
   task :w3c do |_t, _args|
     c = Script::CommandsChecker.new
     c.get_mjsonwp_routes
