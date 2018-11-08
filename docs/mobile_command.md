@@ -3,6 +3,8 @@
 Appium has `mobile:` command.
 We can invoke them via `execute_script` command with `mobile:` arguments.
 
+- root:
+    - https://github.com/appium/appium/blob/master/commands-yml/commands/mobile-command.yml
 - Android:
     - https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android
 - iOS:
