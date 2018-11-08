@@ -4,6 +4,7 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Allow selenium update following Pi versioning like 3.141.0
 - [internal] Update dev libraries
 
 ### Bug fixes
