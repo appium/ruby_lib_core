@@ -4,6 +4,13 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.0.6] - 2018-11-08
+### Enhancements
 - Allow selenium update following Pi versioning like 3.141.0
 - [internal] Update dev libraries
 
