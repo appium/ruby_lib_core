@@ -19,22 +19,28 @@ class AppiumLibCoreTest
       require 'pry' # Will remove after finishing creating a test scenario
       binding.pry
 
-      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'yes', bundleId: 'com.apple.mobilecal'})
+      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'unset', bundleId: 'com.example.apple-samplecode.UICatalog'})
+# open settings => go to calendar => No UICatalog
+      assert @@driver.execute_script('mobile: getPermission', {service: 'calendar',bundleId: 'com.example.apple-samplecode.UICatalog'}) == 'unset'
 
-      @@driver.activate_app('com.apple.mobilecal')
+      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'yes', bundleId: 'com.example.apple-samplecode.UICatalog'})
+      # open settings => go to calendar => Exist UICatalog
+      assert @@driver.execute_script('mobile: getPermission', {service: 'calendar',bundleId: 'com.example.apple-samplecode.UICatalog'}) == 'yes'
 
-      @@driver.find_element(:accessibility_id, 'Continue').click # TODO: if it exist, we tap the button
-      # Alert must not appear since the permission already allowed
-      error = assert_raises ::Selenium::WebDriver::Error::NoSuchAlertError do
-        @@driver.switch_to.alert.text
-      end
-      assert_equal 'unknown error', error.message
-      @@driver.terminate_app('com.apple.mobilecal')
+      @@driver.activate_app('com.apple.settings')
 
-      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'unset', bundleId: 'com.apple.mobilecal'})
-      @@driver.activate_app('com.apple.mobilecal')
+      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'no', bundleId: 'com.example.apple-samplecode.UICatalog'})
+      # open settings => go to calendar => No UICatalog
+      assert @@driver.execute_script('mobile: getPermission', {service: 'calendar',bundleId: 'com.example.apple-samplecode.UICatalog'}) == 'no'
+
+      # Privacy => Calendars => UICatalog's switch
+
+      # Note: Once we change the status, we never back to "unset"
+      @@driver.execute_script('mobile: setPermission', {service: 'calendar', state: 'unset', bundleId: 'com.example.apple-samplecode.UICatalog'})
 
       assert @@driver.switch_to.alert.text.include?('Allow “Calendar” to access your location while you are using the app?')
+
+      # applesimutils --byId 3CB9E12B-419C-49B1-855A-45322861F1F7  --bundle com.apple.mobilecal --setPermissions calendar=yes
     end
 
   end
