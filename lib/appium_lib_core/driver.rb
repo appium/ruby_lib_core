@@ -273,8 +273,9 @@ module Appium
       #   @core.appium_server_version
       #     {
       #         "build" => {
-      #             "version" => "0.18.1",
-      #             "revision" => "d242ebcfd92046a974347ccc3a28f0e898595198"
+      #             "version" => "1.9.2",
+      #             "git-sha" => "fd7c7fd19d3896719616cd970229d73e63b5271a",
+      #             "built" => "2018-11-08 12:24:02 +0900"
       #         }
       #     }
       #

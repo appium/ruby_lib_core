@@ -15,8 +15,9 @@ class AppiumLibCoreTest
       end
 
       # Can view via http://localhost:9100 by default
-      # @since Appium 1.9.2
       def test_config
+        skip 'It requires Appium 1.9.2' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.9.2')
+
         @@driver.update_settings({ mjpegServerScreenshotQuality: 10, mjpegServerFramerate: 1 })
         @@driver.update_settings({ mjpegServerScreenshotQuality: 0, mjpegServerFramerate: -100 })
         @@driver.update_settings({ mjpegServerScreenshotQuality: -10, mjpegServerFramerate: 60 })

@@ -37,6 +37,15 @@ class AppiumLibCoreTest
 end
 
 class AppiumLibCoreTest
+  def self.required_appium_version?(core_driver, required)
+    version = core_driver.appium_server_version
+
+    return false if version.empty?
+
+    v = version['build']['version'].split('-') # 1.9.2-beta.2
+    v >= required.to_s
+  end
+
   class Caps
     def self.ios
       new.ios
