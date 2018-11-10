@@ -15,6 +15,7 @@ class AppiumLibCoreTest
       end
 
       # Can view via http://localhost:9100 by default
+      # @since Appium 1.9.2
       def test_config
         @@driver.update_settings({ mjpegServerScreenshotQuality: 10, mjpegServerFramerate: 1 })
         @@driver.update_settings({ mjpegServerScreenshotQuality: 0, mjpegServerFramerate: -100 })
