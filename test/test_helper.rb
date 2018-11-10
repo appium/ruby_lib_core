@@ -37,6 +37,15 @@ class AppiumLibCoreTest
 end
 
 class AppiumLibCoreTest
+  def self.required_appium_version?(core_driver, required)
+    version = core_driver.appium_server_version
+
+    return false if version.empty?
+
+    v = version['build']['version'].split('-') # 1.9.2-beta.2
+    v >= required.to_s
+  end
+
   class Caps
     def self.ios
       new.ios
@@ -67,7 +76,9 @@ class AppiumLibCoreTest
           someCapability: 'some_capability',
           newCommandTimeout: 120,
           wdaLocalPort: wda_local_port,
-          waitForQuiescence: false
+          # `true`, which is the default value, is faster to finishing launching part in many cases
+          # But sometimes `false` is necessary. It leads regressions sometimes though.
+          waitForQuiescence: true
         },
         appium_lib: {
           export_session: true,
