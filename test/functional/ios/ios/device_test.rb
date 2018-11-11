@@ -204,11 +204,16 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element :accessibility_id, 'Gray' }
         rect = el.rect
 
-        Appium::Core::TouchAction.new(@@driver).swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 500, duration: 500).perform
+        Appium::Core::TouchAction
+          .new(@@driver)
+          .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 500, duration: 500)
+          .perform
         assert rect.x == el.rect.x
         assert rect.y == el.rect.y
 
-        touch_action = Appium::Core::TouchAction.new(@@driver).swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 300, duration: 500)
+        touch_action = Appium::Core::TouchAction
+                       .new(@@driver)
+                       .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 300, duration: 500)
 
         assert_equal :press, touch_action.actions[0][:action]
         assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])

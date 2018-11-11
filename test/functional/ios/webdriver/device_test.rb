@@ -49,7 +49,7 @@ class AppiumLibCoreTest
         require 'json'
         require 'rexml/document'
 
-        response = Net::HTTP.get(URI("http://localhost:#{@@driver.capabilities["wdaLocalPort"]}/source"))
+        response = Net::HTTP.get(URI("http://localhost:#{@@driver.capabilities['wdaLocalPort']}/source"))
         source = JSON.parse(response)['value']
         xml = REXML::Document.new source
 
