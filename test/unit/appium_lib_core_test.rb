@@ -23,5 +23,55 @@ class AppiumLibCoreTest
 
       assert_equal 'symbolize_keys requires a hash', e.message
     end
+
+    def test_url_param
+      opts = {
+        url: 'http://custom-host:8080/wd/hub.com',
+        caps: {
+          platformName: :ios,
+          platformVersion: '11.0',
+          deviceName: 'iPhone Simulator',
+          automationName: 'XCUITest',
+          app: '/path/to/MyiOS.app'
+        }
+      }
+      @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+    end
+
+    def test_url_server_url
+      opts = {
+        caps: {
+          platformName: :ios,
+          platformVersion: '11.0',
+          deviceName: 'iPhone Simulator',
+          automationName: 'XCUITest',
+          app: '/path/to/MyiOS.app'
+        },
+        appium_lib: {
+          server_url: 'http://custom-host:8080/wd/hub.com'
+        }
+      }
+      @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+    end
+
+    def test_url_is_prior_than_server_url
+      opts = {
+        url: 'http://custom-host1:8080/wd/hub.com',
+        caps: {
+          platformName: :ios,
+          platformVersion: '11.0',
+          deviceName: 'iPhone Simulator',
+          automationName: 'XCUITest',
+          app: '/path/to/MyiOS.app'
+        },
+        appium_lib: {
+          server_url: 'http://custom-host2:8080/wd/hub.com'
+        }
+      }
+      @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      assert_equal 'http://custom-host1:8080/wd/hub.com', @core.custom_url
+    end
   end
 end

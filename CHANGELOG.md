@@ -4,6 +4,14 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Support below style _1_, has _url_ parameter, in addition to style _2_ 
+    ```
+    # 1
+    Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", caps: {...}, appium_lib: {...}
+    
+    # 2
+    Appium::Core.for caps: {...}, appium_lib: {...}
+    ```
 
 ### Bug fixes
 

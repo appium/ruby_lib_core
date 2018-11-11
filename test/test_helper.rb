@@ -42,8 +42,8 @@ class AppiumLibCoreTest
 
     return false if version.empty?
 
-    v = version['build']['version'].split('-') # 1.9.2-beta.2
-    v >= required.to_s
+    v = version['build']['version'].split('-') # 1.9.2-beta.2 => ['1.9.2', 'beta.2']
+    v[0] >= required.to_s
   end
 
   class Caps
@@ -71,7 +71,7 @@ class AppiumLibCoreTest
           app: 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
           deviceName: device_name,
-          useNewWDA: true,
+          # useNewWDA: true,
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,

@@ -22,7 +22,6 @@ class AppiumLibCoreTest
         status = @@driver.remote_status
 
         assert !status['build']['version'].nil?
-        assert !status['build']['revision'].nil?
       end
 
       # TODO: replave_value
@@ -50,20 +49,20 @@ class AppiumLibCoreTest
         require 'json'
         require 'rexml/document'
 
-        response = Net::HTTP.get(URI('http://localhost:8100/source'))
+        response = Net::HTTP.get(URI("http://localhost:#{@@driver.capabilities['wdaLocalPort']}/source"))
         source = JSON.parse(response)['value']
         xml = REXML::Document.new source
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert xml[2].elements.each('//*') { |v| v }.map(&:name) == 77 # rubocop:disable Lint/Void:
+        assert xml[2].elements.each('//*') { |v| v }.map(&:name).size == 80 # rubocop:disable Lint/Void:
 
         s_source = @@driver.page_source
         s_xml = REXML::Document.new s_source
 
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
-        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name) == 81 # rubocop:disable Lint/Void:
+        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size == 78 # rubocop:disable Lint/Void:
       end
 
       def test_location
@@ -72,10 +71,10 @@ class AppiumLibCoreTest
         altitude = 75
         @@driver.set_location(latitude, longitude, altitude)
 
-        loc = @@driver.location # check the location
-        assert_equal 100, loc.latitude
-        assert_equal 100, loc.longitude
-        assert_equal 75, loc.altitude
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownMethodError do
+          @@driver.location
+        end
+        assert error.message.include? 'Method has not yet been implemented'
       end
 
       def test_accept_alert
@@ -107,11 +106,10 @@ class AppiumLibCoreTest
       def test_rotate
         assert_equal :portrait, @@driver.orientation
 
-        @@driver.rotation = :landscape
-        assert_equal :landscape, @@driver.orientation
-
-        @@driver.rotation = :portrait
-        assert_equal :portrait, @@driver.orientation
+        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+          @@driver.rotation = :landscape
+        end
+        assert error.message.include? 'Unable To Rotate Device'
       end
 
       # TODO: add an async execuite test case
