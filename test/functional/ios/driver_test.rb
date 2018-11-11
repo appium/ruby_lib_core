@@ -17,11 +17,10 @@ class AppiumLibCoreTest
       v = @@core.appium_server_version
 
       refute_nil v['build']['version']
-      refute_nil v['build']['revision']
     end
 
     def test_platform_version
-      assert_equal [10, 3], @@core.platform_version
+      assert_equal [11, 4], @@core.platform_version
     end
 
     def test_screenshot
@@ -46,10 +45,10 @@ class AppiumLibCoreTest
     def test_click_back
       e = @@driver.find_element :accessibility_id, 'Alerts'
       e.click
-      error = assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
+      error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
         e.click
       end
-      assert error.message 'does not exist'
+      assert error.message.include? ' is not visible on the screen and thus is not interactable'
       @@driver.back
     end
 

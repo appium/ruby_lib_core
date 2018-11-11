@@ -7,7 +7,7 @@ class AppiumLibCoreTest
     class W3CActionsTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(Caps.ios)
-        @@driver ||= @@core.start_driver
+        @@driver = @@core.start_driver
       end
 
       def teardown
@@ -29,8 +29,7 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
         @@driver.action.click(el).perform
 
-        [1, 2, 3, 4, 5].each do |value|
-          puts "try #{value} times"
+        [1, 2, 3, 4, 5].each do |_value|
           el = @@core.wait do
             @@driver.find_element(:xpath, "//XCUIElementTypeStaticText[@name='Style Default']/parent::*")
           end
