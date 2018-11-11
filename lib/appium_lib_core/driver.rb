@@ -51,6 +51,7 @@ module Appium
 
       # Appium's server port. 4723 is by default.
       # Provide Appium::Drive like { appium_lib: { port: 8080 } }
+      # `:custom_url` is prior than `:port` if `:custom_url` is set.
       # @return [Integer]
       attr_reader :port
       DEFAULT_APPIUM_PORT = 4723
@@ -81,6 +82,11 @@ module Appium
       #
       # @example
       #
+      #     # format1
+      #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
+      #     @core = Appium::Core.for url: "url", caps: {...}, appium_lib: {...}
+      #
+      #
       #     require 'rubygems'
       #     require 'appium_lib_core'
       #
@@ -94,7 +100,6 @@ module Appium
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                server_url: "http://custom-host:8080/wd/hub.com",
       #                export_session: false,
       #                port: 8080,
       #                wait: 0,
@@ -104,7 +109,7 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core.start_driver(server_url: server_url) # start driver
+      #     @core.start_driver # Connect to `http://127.0.0.1:8080/wd/hub`
       #
       #     # Start iOS driver with .zip file over HTTP
       #     opts = {
@@ -116,9 +121,8 @@ module Appium
       #                app: 'http://example.com/path/to/MyiOS.app.zip'
       #              },
       #              appium_lib: {
-      #                server_url: "http://custom-host:8080/wd/hub.com",
+      #                server_url: 'http://custom-host:8080/wd/hub.com',
       #                export_session: false,
-      #                port: 8080,
       #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
@@ -126,7 +130,28 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts)
-      #     @core.start_driver(server_url: server_url)
+      #     @core.start_driver # Connect to `http://custom-host:8080/wd/hub.com`
+      #
+      #     # Start iOS driver as another format. `url` is available like below
+      #     opts = {
+      #              url: "http://custom-host:8080/wd/hub.com",
+      #              caps: {
+      #                platformName: :ios,
+      #                platformVersion: '11.0',
+      #                deviceName: 'iPhone Simulator',
+      #                automationName: 'XCUITest',
+      #                app: '/path/to/MyiOS.app'
+      #              },
+      #              appium_lib: {
+      #                export_session: false,
+      #                wait: 0,
+      #                wait_timeout: 20,
+      #                wait_interval: 0.3,
+      #                listener: nil,
+      #              }
+      #            }
+      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      #     @core.start_driver # start driver with `url`. Connect to `http://custom-host:8080/wd/hub.com`
       #
       def self.for(opts = {})
         new(opts)
@@ -149,6 +174,7 @@ module Appium
         opts = Appium.symbolize_keys opts
         validate_keys(opts)
 
+        @custom_url = opts.delete :url
         @caps = get_caps(opts)
 
         set_appium_lib_specific_values(get_appium_lib_opts(opts))
@@ -200,7 +226,7 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-        server_url ||= "http://127.0.0.1:#{@port}/wd/hub"
+        @custom_url ||= server_url || "http://127.0.0.1:#{@port}/wd/hub"
 
         create_http_client http_client: http_client_ops.delete(:http_client),
                            open_timeout: http_client_ops.delete(:open_timeout),
@@ -210,7 +236,7 @@ module Appium
           # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
           @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
                                                      desired_capabilities: @caps,
-                                                     url: server_url,
+                                                     url: @custom_url,
                                                      listener: @listener)
 
           # export session
@@ -412,7 +438,7 @@ module Appium
 
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
-        @custom_url = appium_lib_opts.fetch :server_url, false
+        @custom_url ||= appium_lib_opts.fetch :server_url, nil
         @default_wait = appium_lib_opts.fetch :wait, 20
 
         # bump current session id into a particular file
