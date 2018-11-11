@@ -243,7 +243,7 @@ module Appium
           # export session
           write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
-          raise "ERROR: Unable to connect to Appium. Is the server running on #{server_url}?"
+          raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
 
         # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
