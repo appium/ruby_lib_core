@@ -82,9 +82,10 @@ module Appium
       #
       # @example
       #
-      #     # format1
+      #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     @core = Appium::Core.for url: "url", caps: {...}, appium_lib: {...}
+      #     # format 2
+      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", caps: {...}, appium_lib: {...}
       #
       #
       #     require 'rubygems'
@@ -109,7 +110,7 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core.start_driver # Connect to `http://127.0.0.1:8080/wd/hub`
+      #     @core.start_driver # Connect to `http://127.0.0.1:8080/wd/hub` because of `port: 8080`
       #
       #     # Start iOS driver with .zip file over HTTP
       #     opts = {
