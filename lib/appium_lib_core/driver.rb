@@ -432,7 +432,7 @@ module Appium
         @caps[:app] = if File.exist? app_path
                         app_path
                       else
-                        ::Appium::Logger.info("Use #{@caps[:app]} directly")
+                        ::Appium::Logger.warn("Use #{@caps[:app]} directly since #{app_path} does not exist.")
                         @caps[:app]
                       end
       end
