@@ -78,7 +78,8 @@ class AppiumLibCoreTest
           wdaLocalPort: wda_local_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
-          waitForQuiescence: true
+          waitForQuiescence: true,
+          reduceMotion: true
         },
         appium_lib: {
           export_session: true,
