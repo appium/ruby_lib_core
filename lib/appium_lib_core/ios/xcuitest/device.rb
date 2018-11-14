@@ -57,7 +57,7 @@ module Appium
           # @param [String] time_limit: Recording time. 180 seconds is by default.
           # @param [String] video_quality: The video encoding quality (low, medium, high, photo - defaults to medium).
           # @param [String] video_fps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
-          #                            is too slow or too fast. Defaults to 10.
+          #                            is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
           #
           # @example
           #
