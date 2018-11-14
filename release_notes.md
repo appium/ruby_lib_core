@@ -1,3 +1,13 @@
+#### v2.1.0 2018-11-14
+
+- [6dafbd6](https://github.com/appium/ruby_lib_core/commit/6dafbd6cbc270f94a5e8b2ea5a779b644fdc3cdf) Release 2.1.0
+- [995cd5b](https://github.com/appium/ruby_lib_core/commit/995cd5b2b27ef9a52a877835c6cfa5cf79e24183) sync video_fps (#162)
+- [c1b9ee8](https://github.com/appium/ruby_lib_core/commit/c1b9ee8eb413a6bc2f4c8d37a1225eaedea210b1) add reduceMotion
+- [8f26efd](https://github.com/appium/ruby_lib_core/commit/8f26efd29656aa4d79c9e2d2c5d1846f7339f67c) make no app warning
+- [a549a8a](https://github.com/appium/ruby_lib_core/commit/a549a8ab1977e86bc29533a829cd9bc69067d24e) Add url param like selenium-webdriver (#161)
+- [6603750](https://github.com/appium/ruby_lib_core/commit/66037503fc83155b40af56221f0f0762f7803d58) add mobile permission commands (#160)
+
+
 #### v2.0.6 2018-11-08
 
 - [b7ede91](https://github.com/appium/ruby_lib_core/commit/b7ede919a26b4d83b88955cb7d595a8538f5c146) Release 2.0.6
