@@ -4,6 +4,13 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.1.0] - 2018-11-14
+### Enhancements
 - Support below style _1_, has _url_ parameter, in addition to style _2_ 
     ```
     # 1
