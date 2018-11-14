@@ -12,6 +12,7 @@ Read `release_notes.md` for commit level details.
     # 2
     Appium::Core.for caps: {...}, appium_lib: {...}
     ```
+- Add `videoFps` param for screen recording in iOS(XCUITest) to sync with Appium 1.9.2
 
 ### Bug fixes
 
