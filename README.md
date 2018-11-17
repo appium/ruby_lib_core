@@ -5,6 +5,11 @@
 
 [![Build Status](https://travis-ci.org/appium/ruby_lib_core.svg?branch=master)](https://travis-ci.org/appium/ruby_lib_core)
 
+
+This library is a Ruby client for Appium.  The gem is available via [appium_lib_core](https://rubygems.org/gems/appium_lib_core).
+
+This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings) and adapts WebDriver APIs for Appium. [ruby_lib](https://github.com/appium/ruby_lib) calls all of Appium/Selenium related APIs via this core library. It works instance based driver.
+
 # Documentation
 
 - http://www.rubydoc.info/github/appium/ruby_lib_core
