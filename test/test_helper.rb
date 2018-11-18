@@ -138,6 +138,8 @@ class AppiumLibCoreTest
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
+          # Or `npm install --chromedriver_version="2.24"` and
+          # chromedriverUseSystemExecutable: true,
           udid: get_udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',

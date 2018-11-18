@@ -7,6 +7,9 @@ class AppiumLibCoreTest
     def setup
       @@core ||= ::Appium::Core.for(Caps.android)
       @driver = @@core.start_driver
+
+      require 'pry'
+      binding.pry
     end
 
     def teardown
