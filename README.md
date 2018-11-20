@@ -72,7 +72,7 @@ require 'rubygems'
 require 'appium_lib_core'
 
 opts = {
-  caps: {
+  desired_capabilities: { # or { caps: {....} }
     platformName: :ios,
     platformVersion: '11.0',
     deviceName: 'iPhone Simulator',

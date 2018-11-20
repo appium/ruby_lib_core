@@ -84,8 +84,8 @@ module Appium
       #
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     # format 2
-      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", caps: {...}, appium_lib: {...}
+      #     # format 2. `desired_capabilities:` is also available instead of `caps:`. Either is fine.
+      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}, appium_lib: {...}
       #
       #
       #     require 'rubygems'
@@ -113,8 +113,9 @@ module Appium
       #     @core.start_driver # Connect to `http://127.0.0.1:8080/wd/hub` because of `port: 8080`
       #
       #     # Start iOS driver with .zip file over HTTP
+      #     #  `desired_capabilities:` is also available instead of `caps:`. Either is fine.
       #     opts = {
-      #              caps: {
+      #              desired_capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -136,7 +137,7 @@ module Appium
       #     # Start iOS driver as another format. `url` is available like below
       #     opts = {
       #              url: "http://custom-host:8080/wd/hub.com",
-      #              caps: {
+      #              desired_capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -392,7 +393,8 @@ module Appium
       def validate_keys(opts)
         flatten_ops = flatten_hash_keys(opts)
 
-        raise Error::NoCapabilityError unless opts.member?(:caps)
+        raise Error::NoCapabilityError unless opts.member?(:caps) || opts.member?(:desired_capabilities)
+
         if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
           raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
         end
@@ -412,7 +414,7 @@ module Appium
 
       # @private
       def get_caps(opts)
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || {})
+        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:desired_capabilities] || {})
       end
 
       # @private

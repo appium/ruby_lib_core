@@ -65,7 +65,7 @@ class AppiumLibCoreTest
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
       {
-        caps: {
+        caps: { # :desiredCapabilities is also available
           platformName: :ios,
           automationName: 'XCUITest',
           app: 'test/functional/app/UICatalog.app.zip',
@@ -94,7 +94,7 @@ class AppiumLibCoreTest
     # We should update platformVersion and deviceName to fit your environment.
     def android
       {
-        caps: {
+        desired_capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',

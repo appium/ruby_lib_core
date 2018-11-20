@@ -4,6 +4,16 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- `desired_capabilities:` is available in addition to `caps:` as a capability
+    ```ruby
+    # case 1
+    opts = { caps: { }, appium_lib: { } }
+    @driver = Appium::Core.for(opts).start_driver
+
+    # case 2
+    opts = { desired_capabilities: { }, appium_lib: { } }
+    @driver = Appium::Core.for(opts).start_driver
+    ```
 
 ### Bug fixes
 
