@@ -807,8 +807,6 @@ module Appium
           @bridge.session_capabilities
         end
 
-        DEFAULT_MATCH_THRESHOLD = 0.5
-
         # Image Comparison
         def match_images_features(first_image:,
                                   second_image:,
