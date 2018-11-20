@@ -41,7 +41,7 @@ class AppiumLibCoreTest
 
     def test_url_server_url
       opts = {
-        caps: {
+        desired_capabilities: {
           platformName: :ios,
           platformVersion: '11.0',
           deviceName: 'iPhone Simulator',
