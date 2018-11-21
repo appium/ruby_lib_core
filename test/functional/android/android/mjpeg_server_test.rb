@@ -19,7 +19,7 @@ class AppiumLibCoreTest
         File.delete to_path if File.exist? to_path
 
         @@driver.start_recording_screen time_limit: '2'
-        @driver.find_element(:accessibility_id, 'App').click
+        @@driver.find_element(:accessibility_id, 'App').click
         sleep 2 # second
         @@driver.stop_and_save_recording_screen to_path
         assert File.exist? to_path
