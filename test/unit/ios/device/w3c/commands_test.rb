@@ -34,7 +34,7 @@ class AppiumLibCoreTest
 
           def test_start_recording_screen
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-              .with(body: { options: { videoType: 'mp4', timeLimit: '180', videoQuality: 'medium' } }.to_json)
+              .with(body: { options: { videoType: 'mjpeg', timeLimit: '180', videoQuality: 'medium' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
             @driver.start_recording_screen
@@ -44,10 +44,12 @@ class AppiumLibCoreTest
 
           def test_start_recording_screen_custom
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-              .with(body: { options: { videoType: 'h265', timeLimit: '60', videoQuality: 'medium', videoFps: '50' } }.to_json)
+              .with(body: { options: {
+                videoType: 'libx264', timeLimit: '60', videoQuality: 'medium', videoFps: '50', videoScale: '320:240'
+              } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
-            @driver.start_recording_screen video_type: 'h265', time_limit: '60', video_fps: '50'
+            @driver.start_recording_screen video_type: 'libx264', time_limit: '60', video_fps: '50', video_scale: '320:240'
 
             assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
           end

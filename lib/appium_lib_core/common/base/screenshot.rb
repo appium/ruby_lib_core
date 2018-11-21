@@ -78,7 +78,7 @@ module Appium
           end
         end
 
-        # @since 1.3.4
+        # @since Appium 1.3.4
         # @!method save_viewport_screenshot
         # Save screenshot except for status bar while `@driver.save_screenshot` save entire screen.
         #

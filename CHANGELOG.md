@@ -14,6 +14,8 @@ Read `release_notes.md` for commit level details.
     opts = { desired_capabilities: { }, appium_lib: { } }
     @driver = Appium::Core.for(opts).start_driver
     ```
+- Update `start_recording_screen` for iOS, Appium 1.10.0
+    - Add `:video_scale` and update `:video_type`
 
 ### Bug fixes
 
@@ -29,7 +31,7 @@ Read `release_notes.md` for commit level details.
     # 2
     Appium::Core.for caps: {...}, appium_lib: {...}
     ```
-- Add `videoFps` param for screen recording in iOS(XCUITest) to sync with Appium 1.9.2
+- Add `:video_fps` param for screen recording in iOS(XCUITest) to sync with Appium 1.10.0
 
 ### Bug fixes
 

@@ -583,6 +583,12 @@ module Appium
         #
         # @example
         #
+        #    # iOS
+        #    @driver.start_recording_screen video_type: 'libx264'
+        #    @driver.stop_and_save_recording_screen 'example.mp4' # Video type `libx264` can be play as `.mp4` video
+        #
+        #    # Android
+        #    @driver.start_recording_screen
         #    @driver.stop_and_save_recording_screen 'example.mp4'
         #
         def stop_and_save_recording_screen(file_path)

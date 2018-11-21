@@ -7,7 +7,7 @@ module Appium
         module Device
           extend Forwardable
 
-          # @since 1.6.0
+          # @since Appium 1.6.0
           # @!method battery_info
           #
           # Get battery information.

@@ -36,7 +36,13 @@ module Appium
           #   @driver.background_app(-1) #=> the app never come back. https://github.com/appium/appium/issues/7741
           #
 
-          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mp4', time_limit: '180', video_quality: 'medium')
+          # @since Appium 1.9.1
+          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mjpeg', time_limit: '180', video_quality: 'medium', video_scale: '320:240')
+          #
+          # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
+          # (ffmpeg utility is required: 'brew install ffmpeg').
+          # We would recommend to play the video by VLC or Mplayer if you can not play the video with other video players.
+          #
           # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
           #                             The following protocols are supported: http/https, ftp.
           #                             Null or empty string value (the default setting) means the content of resulting
@@ -51,21 +57,24 @@ module Appium
           # @param [Boolean] force_restart: Whether to try to catch and upload/return the currently running screen recording
           #                                 (`false`, the default setting on server) or ignore the result of it
           #                                 and start a new recording immediately (`true`).
-          # @param [String] video_type: The format of the screen capture to be recorded.
-          #                            Available formats: "h264", "mp4" or "fmp4". Default is "mp4".
-          #                            Only works for Simulator.
+          # @param [String] video_type: The video codec type used for encoding of the be recorded screen capture.
+          #                             Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
+          #                             'mjpeg' by default.
           # @param [String] time_limit: Recording time. 180 seconds is by default.
           # @param [String] video_quality: The video encoding quality (low, medium, high, photo - defaults to medium).
           # @param [String] video_fps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
           #                            is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+          # @param [String] video_scale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
+          #                              No scale is applied by default.
           #
           # @example
           #
           #    @driver.start_recording_screen
-          #    @driver.start_recording_screen video_type: 'h264', time_limit: '260'
+          #    @driver.start_recording_screen video_type: 'mjpeg', time_limit: '260'
+          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get `.mp4` video
           #
 
-          # @since 1.3.4
+          # @since Appium 1.3.4
           # @!method start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
           #
           # This is a blocking application.
@@ -88,7 +97,7 @@ module Appium
           #   @driver.start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
           #
 
-          # @since 1.3.4
+          # @since Appium 1.3.4
           # @!method get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor', remote_path: nil, user: nil, pass: nil, method: 'PUT')
           #
           # This is a blocking application.
@@ -115,7 +124,7 @@ module Appium
           #   @driver.get_performance_record
           #   @driver.get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor')
 
-          # @since 1.6.0
+          # @since Appium 1.6.0
           # @!method battery_info
           #
           # Get battery information.
