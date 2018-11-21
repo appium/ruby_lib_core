@@ -7,12 +7,12 @@ module Appium
           {
             # ::Appium::Core::Base::Commands::OSS has the following commands and Appium also use them.
             # Delegated to ::Appium::Core::Base::Commands::OSS commands
-            status:                    [:get, 'status'.freeze],
-            is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze],
+            status:                    [:get, 'status'.freeze], # https://w3c.github.io/webdriver/#dfn-status
+            is_element_displayed:      [:get, 'session/:session_id/element/:id/displayed'.freeze], # hint: https://w3c.github.io/webdriver/#element-displayedness
 
-            get_timeouts:              [:get, 'session/:session_id/timeouts'.freeze],
+            get_timeouts:              [:get, 'session/:session_id/timeouts'.freeze], # https://w3c.github.io/webdriver/#get-timeouts
 
-            ## Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
+            # Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
             ### Session capability
             get_capabilities:          [:get, 'session/:session_id'.freeze],
 

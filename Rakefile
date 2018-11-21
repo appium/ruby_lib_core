@@ -66,12 +66,11 @@ namespace :android do
     `adb uninstall io.appium.espressoserver.test`
   end
 
-
   desc('Generate and launch android emulators')
   task :gen_device do |_t, _args|
-    SWARMER_VERSION = '0.2.4'
-    CPU_ARCHITECTURE = 'x86'
-    IMAGE = 'google_apis'
+    SWARMER_VERSION = '0.2.4'.freeze
+    CPU_ARCHITECTURE = 'x86'.freeze
+    IMAGE = 'google_apis'.freeze
     ANDROID_API = 27
     system %W(
       curl
@@ -89,13 +88,13 @@ namespace :android do
       ).join(' ')
     end
 
-    system %W(java -jar /tmp/swarmer.jar start).concat(cmds).flatten.join(' ')
+    system %w(java -jar /tmp/swarmer.jar start).concat(cmds).flatten.join(' ')
   end
 end
 
 desc('Generate yardoc')
 YARD::Rake::YardocTask.new do |t|
-  t.files   = %w(lib/**/*.rb)
+  t.files = %w(lib/**/*.rb)
 end
 
 desc('Execute RuboCop static code analysis')
@@ -105,7 +104,7 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.fail_on_error = true
 end
 
-desc("print commands which Ruby client has not implemented them yet.")
+desc('print commands which Ruby client has not implemented them yet')
 namespace :commands do
   require './script/commands'
 

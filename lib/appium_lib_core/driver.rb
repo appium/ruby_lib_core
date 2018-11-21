@@ -86,6 +86,8 @@ module Appium
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
       #     # format 2. `desired_capabilities:` is also available instead of `caps:`. Either is fine.
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}, appium_lib: {...}
+      #     # format 3. `appium_lib: {...}` can be blank
+      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}
       #
       #
       #     require 'rubygems'
