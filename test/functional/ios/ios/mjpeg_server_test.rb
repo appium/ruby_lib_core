@@ -23,6 +23,16 @@ class AppiumLibCoreTest
         @@driver.update_settings({ mjpegServerScreenshotQuality: -10, mjpegServerFramerate: 60 })
         @@driver.update_settings({ mjpegServerScreenshotQuality: 100, mjpegServerFramerate: 60 })
       end
+
+      def test_start_recording_screen
+        to_path = 'recorded_file_ios.mp4'
+        File.delete to_path if File.exist? to_path
+
+        @@driver.start_recording_screen time_limit: '2'
+        sleep 5 # second
+        @@driver.stop_and_save_recording_screen to_path
+        assert File.exist? to_path
+      end
     end
   end
 end
