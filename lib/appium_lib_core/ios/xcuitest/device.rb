@@ -70,7 +70,7 @@ module Appium
           #
           #    @driver.start_recording_screen
           #    @driver.start_recording_screen video_type: 'mjpeg', time_limit: '260'
-          #    @driver.start_recording_screen video_type: 'mpeg4', time_limit: '260' # mpeg4 is available via `ffmpeg -codecs`
+          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get `.mp4` video
           #
 
           # @since Appium 1.3.4

@@ -25,11 +25,11 @@ class AppiumLibCoreTest
       end
 
       def test_start_recording_screen
-        to_path = 'recorded_file_ios.mp4'
+        to_path = 'recorded_file_ios.avi'
         File.delete to_path if File.exist? to_path
 
-        @@driver.start_recording_screen time_limit: '2'
-        sleep 5 # second
+        @@driver.start_recording_screen time_limit: '2', video_type: 'mjpeg'
+        sleep 3 # second
         @@driver.stop_and_save_recording_screen to_path
         assert File.exist? to_path
       end
