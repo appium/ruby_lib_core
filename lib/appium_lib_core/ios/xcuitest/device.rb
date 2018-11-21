@@ -41,6 +41,7 @@ module Appium
           #
           # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
           # (ffmpeg utility is required: 'brew install ffmpeg').
+          # We would recommend to play the video by VLC or Mplayer if you can not play the video with other video players.
           #
           # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
           #                             The following protocols are supported: http/https, ftp.
