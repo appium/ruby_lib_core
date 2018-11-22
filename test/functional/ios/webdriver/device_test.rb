@@ -130,18 +130,27 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       def test_screenshot_quality
         lower_image_path = 'lower.png'
+        lower_again_image_path = 'lower_again.png'
         higher_image_path = 'higher.png'
 
         File.delete lower_image_path if File.exist? lower_image_path
+        File.delete lower_again_image_path if File.exist? lower_again_image_path
         File.delete higher_image_path if File.exist? higher_image_path
 
+        # screenshotQuality: 2  by default
         @@driver.save_screenshot lower_image_path
 
         @@driver.update_settings({ screenshotQuality: 0 })
         @@driver.save_screenshot higher_image_path
 
         @@driver.update_settings({ screenshotQuality: 2 })
+        @@driver.save_screenshot lower_again_image_path
+
         assert File.size(lower_image_path) < File.size(higher_image_path)
+
+        # lowest quality is almost under 52KB
+        assert File.size(lower_image_path) < 52_000
+        assert File.size(lower_again_image_path) < 52_000
       end
     end
   end
