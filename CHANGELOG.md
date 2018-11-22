@@ -4,6 +4,13 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.1.1] - 2018-11-23
+### Enhancements
 - `desired_capabilities:` is available in addition to `caps:` as a capability
     ```ruby
     # case 1
