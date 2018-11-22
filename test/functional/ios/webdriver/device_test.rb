@@ -146,11 +146,12 @@ class AppiumLibCoreTest
         @@driver.update_settings({ screenshotQuality: 2 })
         @@driver.save_screenshot lower_again_image_path
 
-        assert File.size(lower_image_path) < File.size(higher_image_path)
+        assert File.size(lower_image_path) != File.size(higher_image_path)
+        assert_equal File.size(lower_again_image_path), File.size(lower_image_path)
 
-        # lowest quality (the value is 2) is almost under 52KB
-        assert File.size(lower_image_path) < 52_000
-        assert File.size(lower_again_image_path) < 52_000
+        # make sure the screenshot is png
+        assert Base64.encode64(File.read(lower_image_path)).start_with?('iVBOR')
+        assert Base64.encode64(File.read(higher_image_path)).start_with?('iVBOR')
       end
     end
   end
