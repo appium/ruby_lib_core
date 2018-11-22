@@ -127,6 +127,7 @@ class AppiumLibCoreTest
         assert !@@driver.session_capabilities['udid'].nil?
       end
 
+      # @since Appium 1.10.0
       def test_screenshot_quality
         lower_image_path = 'lower.png'
         higher_image_path = 'higher.png'

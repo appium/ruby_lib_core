@@ -54,7 +54,7 @@ class AppiumLibCoreTest
       @driver.back
     end
 
-    # @since Appium 1.9.2
+    # @since Appium 1.10.0
     def test_mobile_perform_action
       @driver.find_element(:accessibility_id, 'App').click
       @driver.find_element(:accessibility_id, 'Activity').click
