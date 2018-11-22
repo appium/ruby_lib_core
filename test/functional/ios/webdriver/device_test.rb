@@ -55,14 +55,14 @@ class AppiumLibCoreTest
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert xml[2].elements.each('//*') { |v| v }.map(&:name).size == 80 # rubocop:disable Lint/Void:
+        assert_equal 80, xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
 
         s_source = @@driver.page_source
         s_xml = REXML::Document.new s_source
 
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
-        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size == 78 # rubocop:disable Lint/Void:
+        assert_equal 78, s_xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
       end
 
       def test_location
@@ -125,6 +125,22 @@ class AppiumLibCoreTest
 
       def test_session_capability
         assert !@@driver.session_capabilities['udid'].nil?
+      end
+
+      def test_screenshot_quality
+        lower_image_path = 'lower.png'
+        higher_image_path = 'higher.png'
+
+        File.delete lower_image_path if File.exist? lower_image_path
+        File.delete higher_image_path if File.exist? higher_image_path
+
+        @@driver.save_screenshot lower_image_path
+
+        @@driver.update_settings({ screenshotQuality: 0 })
+        @@driver.save_screenshot higher_image_path
+
+        @@driver.update_settings({ screenshotQuality: 2 })
+        assert File.size(lower_image_path) < File.size(higher_image_path)
       end
     end
   end
