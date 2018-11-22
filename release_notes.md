@@ -1,3 +1,21 @@
+#### v2.1.1 2018-11-23
+
+- [56e3904](https://github.com/appium/ruby_lib_core/commit/56e39043a9cd65205dd75632863d5911fac80d96) Release 2.1.1
+- [64bea89](https://github.com/appium/ruby_lib_core/commit/64bea89301606d984de1a6d0b926ebe3c4f81e99) update screenshot test for ios (#166)
+- [4790685](https://github.com/appium/ruby_lib_core/commit/4790685b6ee8b3a34539da5ed2612b3171ecb2cf) append https://help.apple.com/instruments/mac/current/#
+- [0600769](https://github.com/appium/ruby_lib_core/commit/0600769e945349c9bb598a3a4af4381c53313699) update test_start_performance_record_and_stop
+- [69080b1](https://github.com/appium/ruby_lib_core/commit/69080b16e1c02a729b8edf56efabf4dde9e76e23) Add screenshot quality tests (#165)
+- [e1d6b11](https://github.com/appium/ruby_lib_core/commit/e1d6b11da52b2472240307b063f171c23b98c78c) Add tests for mjpeg and recording screen (#164)
+- [8042627](https://github.com/appium/ruby_lib_core/commit/804262784ba9e444a6c28952d99d5c9dfdf6e9a1) tweak rubocop in Rakefile
+- [eff797d](https://github.com/appium/ruby_lib_core/commit/eff797df68b318b3895d2ee5249540070f3365ba) make desired_capabilities name available in the capability (#163)
+- [de80883](https://github.com/appium/ruby_lib_core/commit/de808835203efc9e52a9efbc3121a10a1cb4c3d5) remove unused const
+- [2a398c5](https://github.com/appium/ruby_lib_core/commit/2a398c54d680851f8b2dc3b6bea8fe3a1e052fdb) remove pry
+- [d07be96](https://github.com/appium/ruby_lib_core/commit/d07be96e1c25a6262703d778a4246c989fd03de6) add a --chromedriver_version in _web
+- [fd46ae8](https://github.com/appium/ruby_lib_core/commit/fd46ae870efd21467ff2c6228fc2012d71b2e307) add a description for this
+- [6e4dbe7](https://github.com/appium/ruby_lib_core/commit/6e4dbe72adb1b788daa639853fa1b8cbfb304a91) add one note for start_recording_screen
+- [6b74a67](https://github.com/appium/ruby_lib_core/commit/6b74a67b9cbadadaf8e721866f5a4a539ea20b31) remove unneeded line in doc
+
+
 #### v2.1.0 2018-11-14
 
 - [6dafbd6](https://github.com/appium/ruby_lib_core/commit/6dafbd6cbc270f94a5e8b2ea5a779b644fdc3cdf) Release 2.1.0
