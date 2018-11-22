@@ -77,7 +77,8 @@ module Appium
           # @since Appium 1.3.4
           # @!method start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
           #
-          # This is a blocking application.
+          # This is a blocking application. Read https://help.apple.com/instruments/mac/current/ to understand the profiler.
+          #
           # @param [Integer|String] timeout: The maximum count of milliseconds to record the profiling information.
           # @param [String] profile_name: The name of existing performance profile to apply.
           #                               Execute `instruments -s` to show the list of available profiles.
