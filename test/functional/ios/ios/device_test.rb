@@ -280,18 +280,23 @@ class AppiumLibCoreTest
         assert !File.exist?(file.path)
       end
 
+      # Requires --relaxed-security server flag
       def test_start_performance_record_and_stop
-        @@driver.start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor')
+        file_path = './test_start_performance_record_and_stop.zip'
+        File.delete file_path if File.exist? file_path
 
-        sleep 3
+        @@driver.start_performance_record(timeout: 300_000, profile_name: 'Time Profiler')
 
+        @@driver.find_element(:accessibility_id, 'Buttons').click
+        sleep 2
+        @@driver.back
+        sleep 1
+
+        # Get .zip file
         file = @@driver.get_performance_record(save_file_path: './test_start_performance_record_and_stop',
-                                               profile_name: 'Activity Monitor')
+                                               profile_name: 'Time Profiler')
 
         assert File.exist?(file.path)
-
-        File.delete file.path
-        assert !File.exist?(file.path)
       end
 
       def test_clipbord
