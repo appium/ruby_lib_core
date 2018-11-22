@@ -7,7 +7,7 @@ class AppiumLibCoreTest
       save_reports(@driver)
     end
 
-    # @since Appium 1.10.2
+    # @since Appium 1.10.0
     # Requires simulator
     def test_permission
       caps = Caps.ios.dup
