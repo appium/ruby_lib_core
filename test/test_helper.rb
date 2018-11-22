@@ -79,7 +79,8 @@ class AppiumLibCoreTest
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
-          reduceMotion: true
+          reduceMotion: true,
+          screenshotQuality: 2 # The lowest quality screenshots
         },
         appium_lib: {
           export_session: true,
