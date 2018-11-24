@@ -493,7 +493,7 @@ module Appium
 
       # @private
       def default_tmp_appium_lib_session
-        ::Appium::Core::Base.platform.windows? ? 'C:\\\\Windows\\Temp' : '/tmp/appium_lib_session'
+        ::Appium::Core::Base.platform.windows? ? 'C:\\\\Windows\\Temp\\appium_lib_session' : '/tmp/appium_lib_session'
       end
 
       # @private
