@@ -2,7 +2,11 @@ require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/mobile_commands_test.rb
 class AppiumLibCoreTest
-  class DriverTest < AppiumLibCoreTest::Function::TestCase
+  class MobileCommandsTest < AppiumLibCoreTest::Function::TestCase
+    def setup
+      @core = ::Appium::Core.for(Caps.ios)
+    end
+
     def teardown
       save_reports(@driver)
     end
@@ -32,6 +36,31 @@ class AppiumLibCoreTest
       @driver.find_element(:accessibility_id, 'Photos').click
       el = @driver.find_element(:accessibility_id, 'Never')
       assert_equal 'Never', el.value
+    end
+
+    # @since Appium 1.10.0
+    def test_siri
+      @driver = @core.start_driver
+      assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
+      assert_equal :running_in_background_suspended, @driver.app_state('com.apple.SiriViewService')
+
+      @driver.execute_script 'mobile: activateSiri', { text: 'hello, siri' }
+
+      assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
+      assert @driver.app_state('com.apple.SiriViewService') == :running_in_background
+
+      @driver.activate_app 'com.example.apple-samplecode.UICatalog'
+      assert_equal :running_in_background_suspended, @driver.app_state('com.apple.SiriViewService')
+    end
+
+    def test_source
+      @driver = @core.start_driver
+
+      json = @driver.execute_script 'mobile: source', { format: :json }
+      xml = @driver.execute_script 'mobile: source', { format: :xml }
+
+      assert !json.empty?
+      assert !xml.empty?
     end
   end
 end
