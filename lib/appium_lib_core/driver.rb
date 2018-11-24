@@ -441,6 +441,10 @@ module Appium
                       end
       end
 
+      def tmp_session_path
+
+      end
+
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
         @custom_url ||= appium_lib_opts.fetch :server_url, nil
@@ -448,7 +452,7 @@ module Appium
 
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
-        @export_session_path = appium_lib_opts.fetch :export_session_path, '/tmp/appium_lib_session'
+        @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
 
         @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 
@@ -488,7 +492,13 @@ module Appium
       end
 
       # @private
+      def default_tmp_appium_lib_session
+        ::Appium::Core::Base.platform.windows? ? 'C:\\\\Windows\\Temp' : '/tmp/appium_lib_session'
+      end
+
+      # @private
       def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
+        export_path.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
         File.write(export_path, session_id)
       rescue IOError => e
         ::Appium::Logger.warn e

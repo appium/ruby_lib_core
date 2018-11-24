@@ -18,7 +18,7 @@ class AppiumLibCoreTest
                                    fixImageTemplateSize: true,
                                    autoUpdateImageElementPosition: true })
 
-        e = @@driver.find_element_by_image './test/functional/data/test_button_image_ios.png'
+        e = @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_button_image_ios.png')
 
         assert e.inspect
         assert e.hash
@@ -40,7 +40,7 @@ class AppiumLibCoreTest
         @@driver.update_settings({ fixImageTemplateSize: true,
                                    autoUpdateImageElementPosition: true })
 
-        e = @@driver.find_elements_by_image './test/functional/data/test_arrow_multiple_ios.png'
+        e = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_arrow_multiple_ios.png')
 
         assert e[0].inspect
         assert e[0].hash
@@ -272,7 +272,7 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
-        file = @@driver.save_viewport_screenshot './ios_viewport_screenshot_test.png'
+        file = @@driver.save_viewport_screenshot AppiumLibCoreTest.path_of('ios_viewport_screenshot_test.png')
 
         assert File.exist?(file.path)
 
@@ -282,7 +282,7 @@ class AppiumLibCoreTest
 
       # Requires --relaxed-security server flag
       def test_start_performance_record_and_stop
-        file_path = './test_start_performance_record_and_stop.zip'
+        file_path = AppiumLibCoreTest.path_of('test_start_performance_record_and_stop.zip')
         File.delete file_path if File.exist? file_path
 
         @@driver.start_performance_record(timeout: 300_000, profile_name: 'Time Profiler')
@@ -293,7 +293,7 @@ class AppiumLibCoreTest
         sleep 1
 
         # Get .zip file
-        file = @@driver.get_performance_record(save_file_path: './test_start_performance_record_and_stop',
+        file = @@driver.get_performance_record(save_file_path: AppiumLibCoreTest.path_of('test_start_performance_record_and_stop'),
                                                profile_name: 'Time Profiler')
 
         assert File.exist?(file.path)

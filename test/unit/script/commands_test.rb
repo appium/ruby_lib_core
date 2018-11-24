@@ -8,7 +8,7 @@ class ScriptTest
     end
 
     def test_get_all_command_path
-      @c.get_all_command_path './test/unit/script/test_routes.js'
+      @c.get_all_command_path AppiumLibCoreTest.path_of('test/unit/script/test_routes.js')
       assert_equal 143, @c.spec_commands.length
       assert_equal ['status', [:get]], @c.spec_commands.first
       assert_equal %i(get post delete), @c.spec_commands['session/:session_id/cookie']
