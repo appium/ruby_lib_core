@@ -24,7 +24,7 @@ class AppiumLibCoreTest
     end
 
     def test_screenshot
-      file = @@core.screenshot './ios_test.png'
+      file = @@core.screenshot 'ios_test.png'
 
       assert File.exist?(file.path)
 

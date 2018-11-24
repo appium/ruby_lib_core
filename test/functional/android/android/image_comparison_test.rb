@@ -16,8 +16,8 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_match_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
+        image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
+        image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         match_result = @driver.match_images_features first_image: image1, second_image: image2
         assert_equal %w(points1 rect1 points2 rect2 totalCount count), match_result.keys
@@ -31,8 +31,8 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_find_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
+        image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
+        image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         find_result = @driver.find_image_occurrence full_image: image1, partial_image: image2
         assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
@@ -46,8 +46,8 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_get_images_result
-        image1 = File.read './test/functional/data/test_normal.png'
-        image2 = File.read './test/functional/data/test_has_blue.png'
+        image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
+        image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         get_images_result = @driver.get_images_similarity first_image: image1, second_image: image2
         assert_equal({ 'score' => 0.891606867313385 }, get_images_result)

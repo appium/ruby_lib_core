@@ -4,6 +4,8 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Add `::Appium::Core::Base.platform` to call `::Selenium::WebDriver::Platform`
+    - Can identify platform using `::Appium::Core::Base.platform.windows?` for example
 
 ### Bug fixes
 

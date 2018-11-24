@@ -346,7 +346,7 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
-        file = @driver.save_viewport_screenshot './android_viewport_screenshot_test.png'
+        file = @driver.save_viewport_screenshot 'android_viewport_screenshot_test.png'
 
         assert File.exist?(file.path)
 

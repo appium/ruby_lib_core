@@ -46,6 +46,12 @@ class AppiumLibCoreTest
     v[0] >= required.to_s
   end
 
+  def self.path_of(path)
+    path_dup = path.dup
+    path_dup.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
+    path_dup
+  end
+
   class Caps
     def self.ios
       new.ios
