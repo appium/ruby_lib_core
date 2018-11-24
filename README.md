@@ -2,9 +2,9 @@
 
 [![Gem Version](https://badge.fury.io/rb/appium_lib_core.svg)](https://badge.fury.io/rb/appium_lib_core)
 
-
-[![Build Status](https://travis-ci.org/appium/ruby_lib_core.svg?branch=master)](https://travis-ci.org/appium/ruby_lib_core)
-
+| Travis, Ubuntu | Azure, Windows |
+|:---:|:---:|
+|[![Build Status](https://travis-ci.org/appium/ruby_lib_core.svg?branch=master)](https://travis-ci.org/appium/ruby_lib_core)|[![Build Status](https://dev.azure.com/kazucocoa/ruby_lib_core_windows/_apis/build/status/appium.ruby_lib_core)](https://dev.azure.com/kazucocoa/ruby_lib_core_windows/_build/latest?definitionId=4)|
 
 This library is a Ruby client for Appium.  The gem is available via [appium_lib_core](https://rubygems.org/gems/appium_lib_core).
 
