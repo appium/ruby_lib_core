@@ -11,8 +11,8 @@ steps:
 - script: gem install bundler
   displayName: 'Install bundler'
 - script: bundle install --retry=3 --jobs=4
-  displayName: 'bundle install'
+  displayName: 'Call bundle install'
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
-  displayName: 'bundle re-install eventmachine for Windows'
+  displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
 - script: bundle exec parallel_test test/unit/ -n 4
   displayName: 'bundle exec parallel_test test/unit/ -n 4'
