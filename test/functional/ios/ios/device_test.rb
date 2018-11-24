@@ -293,8 +293,10 @@ class AppiumLibCoreTest
         sleep 1
 
         # Get .zip file
-        file = @@driver.get_performance_record(save_file_path: AppiumLibCoreTest.path_of('test_start_performance_record_and_stop'),
-                                               profile_name: 'Time Profiler')
+        file = @@driver.get_performance_record(
+          save_file_path: AppiumLibCoreTest.path_of('test_start_performance_record_and_stop'),
+          profile_name: 'Time Profiler'
+        )
 
         assert File.exist?(file.path)
       end

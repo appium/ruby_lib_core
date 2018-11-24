@@ -441,10 +441,6 @@ module Appium
                       end
       end
 
-      def tmp_session_path
-
-      end
-
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
         @custom_url ||= appium_lib_opts.fetch :server_url, nil
