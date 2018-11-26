@@ -7,7 +7,7 @@ module Appium
             def self.add_methods
               ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
                 # rubocop:disable Metrics/ParameterLists
-                def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil,
+                def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil,
                                            video_type: 'mjpeg', time_limit: '180', video_quality: 'medium',
                                            video_fps: nil, video_scale: nil)
                   option = ::Appium::Core::Base::Device::ScreenRecord.new(
