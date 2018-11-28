@@ -10,6 +10,8 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- `:offset_x` and `:offset_y` in `TouchAction#swipe` is deprecated in favor of `:end_x` and `:end_y`
+
 
 ## [2.1.1] - 2018-11-23
 ### Enhancements

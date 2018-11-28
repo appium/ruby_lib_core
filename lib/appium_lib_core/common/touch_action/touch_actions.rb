@@ -142,15 +142,6 @@ module Appium
         end_x   = opts.fetch :end_x, 0
         end_y   = opts.fetch :end_y, 0
 
-        if opts[:offset_x]
-          ::Appium::Logger.warn('[DEPRECATED] :offset_x was renamed to :end_x to indicate as an absolute point.')
-          end_x = opts.fetch :offset_x, 0
-        end
-        if opts[:offset_y]
-          ::Appium::Logger.warn('[DEPRECATED] :offset_y was renamed to :end_y to indicate as an absolute point.')
-          end_y = opts.fetch :offset_y, 0
-        end
-
         duration = opts.fetch :duration, 200
 
         press x: start_x, y: start_y
