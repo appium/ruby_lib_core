@@ -68,7 +68,7 @@ class AppiumLibCoreTest
         xml = REXML::Document.new s_source
 
         assert s_source.include?('io.appium.android.apis')
-        assert_equal expected, xml[1].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
+        assert_equal expected, xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
       end
 
       # def test_location
