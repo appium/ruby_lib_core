@@ -4,6 +4,13 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.2.0] - 2018-12-01
+### Enhancements
 - Add `::Appium::Core::Base.platform` to call `::Selenium::WebDriver::Platform`
     - Can identify platform using `::Appium::Core::Base.platform.windows?` for example
 
@@ -11,7 +18,6 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 - `:offset_x` and `:offset_y` in `TouchAction#swipe` is deprecated in favor of `:end_x` and `:end_y`
-
 
 ## [2.1.1] - 2018-11-23
 ### Enhancements
