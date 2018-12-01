@@ -1,3 +1,14 @@
+#### v2.2.0 2018-12-01
+
+- [fe495cc](https://github.com/appium/ruby_lib_core/commit/fe495cc66f8ed3744590488b6d1508ce47f6190a) Release 2.2.0
+- [1321251](https://github.com/appium/ruby_lib_core/commit/1321251a2af7c4a629931e5310370915e2031930) tweak tests
+- [3a99ab9](https://github.com/appium/ruby_lib_core/commit/3a99ab93239b375f921b777068d53444980fcedd) remove deprecation code (#171)
+- [85e332d](https://github.com/appium/ruby_lib_core/commit/85e332d854d124b97c266145f1d503a7fe0fb9b9) add mobile command func tests (#170)
+- [e96b628](https://github.com/appium/ruby_lib_core/commit/e96b628f50b3a53309539746b48fb027b34e26b4) add put
+- [3e21f36](https://github.com/appium/ruby_lib_core/commit/3e21f3621e5ebf432a41ad25ce7e50dcfea973dc) Add azure pipeline to run tests on windows (#169)
+- [44a0fff](https://github.com/appium/ruby_lib_core/commit/44a0fff997e1308d3885d710a04d251b0e64211e) add siri func test for mobile command (#167)
+
+
 #### v2.1.1 2018-11-23
 
 - [56e3904](https://github.com/appium/ruby_lib_core/commit/56e39043a9cd65205dd75632863d5911fac80d96) Release 2.1.1
