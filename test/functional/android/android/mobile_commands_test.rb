@@ -36,15 +36,10 @@ class AppiumLibCoreTest
 
         el = @driver.find_element(:accessibility_id, 'Views')
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script('mobile: openDrawer', { element: el.ref, gravity: 1 })
-        end
-        assert error.message.include? ' Could not open drawer'
-
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script('mobile: closeDrawer', { element: el.ref, gravity: 1 })
-        end
-        assert error.message.include? ' Could not close drawer'
+        assert_mobile_command_error 'mobile: openDrawer', { element: el.ref, gravity: 1 },
+                                    'Could not open drawer'
+        assert_mobile_command_error 'mobile: closeDrawer', { element: el.ref, gravity: 1 },
+                                    'Could not close drawer'
       end
 
       # @since Appium 1.11.0 (Newer than 1.10.0)
@@ -89,21 +84,13 @@ class AppiumLibCoreTest
 
         el = @driver.find_element(:accessibility_id, 'Views')
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: navigateTo', { element: el.ref, menuItemId: -100 }
-        end
-        assert error.message.include? 'must be a non-negative number'
-
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: navigateTo', { element: el.ref, menuItemId: 'no element' }
-        end
-        assert error.message.include? 'must be a non-negative number'
-
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: -100 },
+                                    'must be a non-negative number'
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: 'no element' },
+                                    'must be a non-negative number'
         # A test demo apk has no the element
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: navigateTo', { element: el.ref, menuItemId: 10 }
-        end
-        assert error.message.include? 'Could not navigate to menu item 10'
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: 10 },
+                                    'Could not navigate to menu item 10'
       end
 
       # @since Appium 1.11.0 (Newer than 1.10.0)
@@ -114,36 +101,29 @@ class AppiumLibCoreTest
 
         el = @driver.find_element(:accessibility_id, 'Views')
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: -100 }
-        end
-        assert error.message.include? 'be a non-negative integer'
-
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollTo: 'right' }
-        end
-        assert error.message.include? 'Could not perform scroll to on element'
-
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollTo: '' }
-        end
-        assert error.message.include? 'Invalid scrollTo parameters'
-
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: -100 }
-        end
-        assert error.message.include? 'be a non-negative integer'
-
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: 'right' },
+                                    'Could not perform scroll to on element'
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: '' },
+                                    'Invalid scrollTo parameters'
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollToPage: -100 },
+                                    'be a non-negative integer'
         error = assert_raises ::Selenium::WebDriver::Error::InvalidArgumentError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref  }
+          @driver.execute_script 'mobile: scrollToPage', { element: el.ref }
         end
         assert error.message.include? "Must provide either 'scrollTo' or 'scrollToPage'"
 
         # A test demo apk has no the element
+        assert_mobile_command_error 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2 },
+                                    'Could not perform scroll to on element'
+      end
+
+      private
+
+      def assert_mobile_command_error(command, args, expected_message)
         error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2 }
+          @driver.execute_script command, args
         end
-        assert error.message.include? 'Could not perform scroll to on element'
+        assert error.message.include? expected_message
       end
     end
   end
