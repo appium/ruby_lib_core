@@ -73,7 +73,7 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         time_el = @driver.find_element(:class, 'android.widget.TimePicker')
-        @driver.execute_script('mobile: setTime', { hours: 11, minutes: 00, element: time_el.ref })
+        @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.ref })
         assert @driver.find_element(:id, 'io.appium.android.apis:id/dateDisplay').text == '11:00'
 
         time_el = @driver.find_element(:class, 'android.widget.TimePicker')
