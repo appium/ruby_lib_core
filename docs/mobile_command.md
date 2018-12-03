@@ -22,3 +22,13 @@ args = { timeout: 60 * 1000, profileName: 'Activity Monitor' }
 
 @driver.execute_script 'mobile: stopPerfRecord', { profileName: 'Activity Monitor' }
 ```
+
+Mobile commands return their error messages. As a selenium client, it usually handles as unknown error.
+To handle it, we would recommend you to handle the error based on the error message.
+
+```ruby
+error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+  @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: -100 }
+end
+assert error.message.include? 'be a non-negative integer'
+```
