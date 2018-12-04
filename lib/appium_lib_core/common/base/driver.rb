@@ -101,6 +101,7 @@ module Appium
         end
         alias is_keyboard_shown keyboard_shown?
 
+        # [DEPRECATION]
         # Send keys for a current active element
         # @param [String] key Input text
         #
@@ -109,6 +110,7 @@ module Appium
         #   @driver.send_keys 'happy testing!'
         #
         def send_keys(*key)
+          warn '[DEPRECATION] Driver#send_keys is deprecated in W3C spec. Use driver.action.<command>.perform instead'
           @bridge.send_keys_to_active_element(key)
         end
         alias type send_keys
