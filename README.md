@@ -99,6 +99,10 @@ $ appium --log-level warn:error # show only warning and error logs
 $ ruby test.rb
 ```
 
+# Development
+- Demo app
+    - https://android.googlesource.com/platform/development/+/master/samples/ApiDemos
+
 # Release
 Use [appium_thor](https://github.com/appium/appium_thor) to release this gem.
 

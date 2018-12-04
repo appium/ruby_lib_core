@@ -57,8 +57,8 @@ class AppiumLibCoreTest
       new.ios
     end
 
-    def self.android
-      new.android
+    def self.android(activity_name = nil)
+      new.android(activity_name)
     end
 
     def self.android_web
@@ -99,7 +99,7 @@ class AppiumLibCoreTest
 
     # Require a real device or an emulator.
     # We should update platformVersion and deviceName to fit your environment.
-    def android
+    def android(activity_name = nil)
       {
         desired_capabilities: { # :caps is also available
           platformName: :android,
@@ -108,7 +108,7 @@ class AppiumLibCoreTest
           udid: get_udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
-          appActivity: 'io.appium.android.apis.ApiDemos',
+          appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
