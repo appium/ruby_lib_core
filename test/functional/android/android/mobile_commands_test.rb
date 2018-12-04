@@ -16,11 +16,11 @@ class AppiumLibCoreTest
       def test_toast
         skip unless @core.automation_name == :espresso
 
+        caps = Caps.android 'io.appium.android.apis.view.SecureView'
+        @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        @driver.find_element(:accessibility_id, 'Views').click
-        @driver.find_element(:accessibility_id, 'Secure View').click
-        @driver.find_element(:id, 'id/secure_view_toast_button').click
+        @driver.find_element(:id, 'io.appium.android.apis:id/secure_view_toast_button').click
 
         assert @driver.execute_script 'mobile: isToastVisible', { text: 'A toast', isRegexp: true }
 
@@ -46,8 +46,7 @@ class AppiumLibCoreTest
       def test_datepicker
         skip unless @core.automation_name == :espresso
 
-        caps = Caps.android.dup
-        caps[:desired_capabilities][:appActivity] = 'io.appium.android.apis.view.DateWidgets1'
+        caps = Caps.android 'io.appium.android.apis.view.DateWidgets1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
@@ -62,8 +61,7 @@ class AppiumLibCoreTest
       def test_timepicker
         skip unless @core.automation_name == :espresso
 
-        caps = Caps.android.dup
-        caps[:desired_capabilities][:appActivity] = 'io.appium.android.apis.view.DateWidgets2'
+        caps = Caps.android 'io.appium.android.apis.view.DateWidgets2'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
@@ -94,6 +92,7 @@ class AppiumLibCoreTest
       end
 
       # @since Appium 1.11.0 (Newer than 1.10.0)
+      # It can work with `ViewPager` https://developer.android.com/reference/android/support/v4/view/ViewPager
       def test_scroll_page_on_view_pager
         skip unless @core.automation_name == :espresso
 
@@ -115,6 +114,19 @@ class AppiumLibCoreTest
         # A test demo apk has no the element
         assert_mobile_command_error 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2 },
                                     'Could not perform scroll to on element'
+      end
+
+      # @since Appium 1.11.0 (Newer than 1.10.0)
+      # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
+      def test_backdoor
+        skip unless @core.automation_name == :espresso
+
+        caps = Caps.android 'io.appium.android.apis.view.TextSwitcher1'
+        @core = ::Appium::Core.for(caps)
+        @driver = @core.start_driver
+
+        assert_mobile_command_error 'mobile: backdoor', { target: :activity, methods: [{ name: 'noMethod', args: [] }] },
+                                    'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
       end
 
       private
