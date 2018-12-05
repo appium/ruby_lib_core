@@ -112,7 +112,7 @@ class AppiumLibCoreTest
         assert error.message.include? "Must provide either 'scrollTo' or 'scrollToPage'"
 
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2 },
+        assert_mobile_command_error 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2, smoothScroll: true },
                                     'Could not perform scroll to on element'
       end
 
