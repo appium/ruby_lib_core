@@ -1,3 +1,13 @@
+#### v2.2.1 2018-12-08
+
+- [0b46567](https://github.com/appium/ruby_lib_core/commit/0b46567c2abc764b80c72516429038d7b1805107) Release 2.2.1
+- [ff222bd](https://github.com/appium/ruby_lib_core/commit/ff222bd419caccba7ffad8a9e14a07d21261ef8b) Fix warning (#174)
+- [1cefd42](https://github.com/appium/ruby_lib_core/commit/1cefd426eccf693dfe4a990b387cbfa6384e9f55) add smoothScroll
+- [2a3ea37](https://github.com/appium/ruby_lib_core/commit/2a3ea372c855f9d81112785384545a3fccfa72a3) Add tests (#173)
+- [116e78a](https://github.com/appium/ruby_lib_core/commit/116e78a79a8b4c56d508937a6df24ded7526a63b) Add mobile command examples in test (#172)
+- [3c566a8](https://github.com/appium/ruby_lib_core/commit/3c566a8573f3b4ca43ff0e6c9faf2f7a6fa08d0e) fix rubocop
+
+
 #### v2.2.0 2018-12-01
 
 - [fe495cc](https://github.com/appium/ruby_lib_core/commit/fe495cc66f8ed3744590488b6d1508ce47f6190a) Release 2.2.0
