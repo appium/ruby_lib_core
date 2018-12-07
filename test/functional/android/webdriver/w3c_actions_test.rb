@@ -42,6 +42,9 @@ class AppiumLibCoreTest
           .release
           .perform
 
+        # TODO:
+        # Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: was raised in Espresso
+
         @driver.manage.timeouts.implicit_wait = 3
         assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
           @driver.find_element(:accessibility_id, 'Custom')

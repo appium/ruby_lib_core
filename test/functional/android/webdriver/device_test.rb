@@ -68,7 +68,12 @@ class AppiumLibCoreTest
         xml = REXML::Document.new s_source
 
         assert s_source.include?('io.appium.android.apis')
-        assert_equal expected, xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
+
+        if @@core.automation_name == :espresso
+          assert_equal 130, xml[2].elements.each('//*') { |v| v }.map(&:name).size
+        else
+          assert_equal expected, xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
+        end
       end
 
       # def test_location
@@ -107,7 +112,7 @@ class AppiumLibCoreTest
         # assert @driver.switch_to.alert.dismiss
 
         # Because the results depends on OS version.
-        @@core.wait { assert_equal 'CANCEL', @driver.find_element(:id, 'android:id/button2').name.upcase }
+        @@core.wait { assert_equal 'CANCEL', @driver.find_element(:id, 'android:id/button2').text.upcase }
         assert @driver.find_element(:id, 'android:id/button2').click
       end
 
