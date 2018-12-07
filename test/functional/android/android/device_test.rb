@@ -405,7 +405,11 @@ class AppiumLibCoreTest
         else
           text = %("#{text}")
           rid  = resource_id(text, "new UiSelector().resourceId(#{text});")
-          args = rid.empty? ? ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"] : [rid]
+          args = if rid.empty?
+                   ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"]
+                 else
+                   [rid]
+                 end
           args.each_with_index do |arg, index|
             begin
               elem = @driver.find_element :uiautomator,

@@ -70,7 +70,7 @@ class AppiumLibCoreTest
         assert s_source.include?('io.appium.android.apis')
 
         if @@core.automation_name == :espresso
-          assert_equal 130, xml[2].elements.each('//*') { |v| v }.map(&:name).size
+          assert_equal 130, xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
         else
           assert_equal expected, xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
         end
