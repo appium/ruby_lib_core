@@ -6,6 +6,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+- Reduce warnings for method definitions
 
 ### Deprecations
 
