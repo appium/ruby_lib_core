@@ -62,7 +62,8 @@ class AppiumLibCoreTest
 
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
-        assert_equal 78, s_xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
+
+        assert [78, 81].include?(s_xml[2].elements.each('//*') { |v| v }.map(&:name).size) # rubocop:disable Lint/Void:
       end
 
       def test_location

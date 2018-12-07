@@ -54,6 +54,8 @@ module Appium
         private
 
         def delegate_from_appium_driver(method, delegation_target = :driver)
+          return if ::Appium::Core::Device.method_defined? method
+
           def_delegator delegation_target, method
         end
 
@@ -65,9 +67,11 @@ module Appium
 
         def create_bridge_command(method)
           ::Appium::Core::Base::Bridge::MJSONWP.class_eval do
+            undef_method method if method_defined? method
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
           end
           ::Appium::Core::Base::Bridge::W3C.class_eval do
+            undef_method method if method_defined? method
             block_given? ? class_eval(&Proc.new) : define_method(method) { execute method }
           end
         end

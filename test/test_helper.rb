@@ -8,7 +8,6 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
 
-$VERBOSE = nil
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are fatal
 
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
