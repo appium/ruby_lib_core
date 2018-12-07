@@ -16,6 +16,8 @@ module Script
     # - webdriver_w3c_commands: ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
     #
     def initialize
+      @spec_commands = nil
+
       @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::MJSONWP::COMMANDS
       @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::W3C::COMMANDS
       @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS

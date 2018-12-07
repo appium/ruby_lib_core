@@ -2,12 +2,12 @@ require 'test_helper'
 require 'webmock/minitest'
 require 'base64'
 
-# $ rake test:unit TEST=test/unit/android/device/mjsonwp/commands_test.rb
+# $ rake test:unit TEST=test/unit/android/device/mjsonwp/image_comparison_test.rb
 class AppiumLibCoreTest
   module Android
     module Device
       module MJSONWP
-        class CommandsTest < Minitest::Test
+        class ImageComparisonTest < Minitest::Test
           include AppiumLibCoreTest::Mock
 
           def setup

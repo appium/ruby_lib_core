@@ -273,12 +273,14 @@ class AppiumLibCoreTest
 
       def test_press_keycode
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        assert @driver.press_keycode(176)
+        result = @driver.press_keycode(176) # it does not raise error
+        assert result || result.nil?
       end
 
       def test_long_press_keycode
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        assert @driver.long_press_keycode(176)
+        result = @driver.long_press_keycode(176) # it does not raise error
+        assert result || result.nil?
       end
 
       def test_open_notifications
@@ -346,6 +348,8 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
+        skip 'Espresso does not support battery_info' if @@core.automation_name == :espresso
+
         file = @driver.save_viewport_screenshot 'android_viewport_screenshot_test.png'
 
         assert File.exist?(file.path)
@@ -363,6 +367,8 @@ class AppiumLibCoreTest
       end
 
       def test_battery_info
+        skip 'Espresso does not support battery_info' if @@core.automation_name == :espresso
+
         result = @driver.battery_info
 
         assert !result[:state].nil?
@@ -394,17 +400,25 @@ class AppiumLibCoreTest
       private
 
       def scroll_to(text)
-        text = %("#{text}")
-        rid  = resource_id(text, "new UiSelector().resourceId(#{text});")
-        args = rid.empty? ? ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"] : [rid]
-        args.each_with_index do |arg, index|
-          begin
-            elem = @driver.find_element :uiautomator,
-                                        'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
-                                        ".scrollIntoView(#{arg}.instance(0));"
-            return elem
-          rescue StandardError => e
-            raise e if index == args.size - 1
+        if @@core.automation_name == :espresso
+          @driver.find_element :accessibility_id, text
+        else
+          text = %("#{text}")
+          rid  = resource_id(text, "new UiSelector().resourceId(#{text});")
+          args = if rid.empty?
+                   ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"]
+                 else
+                   [rid]
+                 end
+          args.each_with_index do |arg, index|
+            begin
+              elem = @driver.find_element :uiautomator,
+                                          'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
+                                          ".scrollIntoView(#{arg}.instance(0));"
+              return elem
+            rescue StandardError => e
+              raise e if index == args.size - 1
+            end
           end
         end
       end

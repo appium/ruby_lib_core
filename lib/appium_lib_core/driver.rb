@@ -174,6 +174,7 @@ module Appium
       # @private
       def initialize(opts = {})
         @delegate_target = self # for testing purpose
+        @automation_name = nil # initialise before `set_automation_name`
 
         opts = Appium.symbolize_keys opts
         validate_keys(opts)
@@ -332,7 +333,7 @@ module Appium
       #     @core.platform_version #=> [10,1,1]
       #
       def platform_version
-        p_version = @driver.capabilities['platformVersion']
+        p_version = @driver.capabilities['platformVersion'] || @driver.session_capabilities['platformVersion']
         p_version.split('.').map(&:to_i)
       end
 
