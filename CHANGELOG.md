@@ -6,6 +6,13 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+
+### Deprecations
+
+## [2.2.1] - 2018-12-08
+### Enhancements
+
+### Bug fixes
 - Reduce warnings for method definitions
 
 ### Deprecations
