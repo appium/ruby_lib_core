@@ -23,8 +23,8 @@ module Appium
               payload                   = JSON.generate(command_hash)
               headers['Content-Length'] = payload.bytesize.to_s if [:post, :put].include?(verb)
 
-              Logger.error("   >>> #{url} | #{payload}")
-              Logger.error("     > #{headers.inspect}")
+              Logger.info("   >>> #{url} | #{payload}")
+              Logger.debug("     > #{headers.inspect}")
             elsif verb == :post
               payload = '{}'
               headers['Content-Length'] = '2'
