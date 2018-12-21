@@ -1,3 +1,10 @@
+#### v2.2.2 2018-12-22
+
+- [6415256](https://github.com/appium/ruby_lib_core/commit/6415256f9808a92e5d82e9556e9533db9273f2fa) Release 2.2.2
+- [a1a3f09](https://github.com/appium/ruby_lib_core/commit/a1a3f0902dfa9c664a1c656cbee15cb18ba978a7) tweak skiping opencv4nodejs
+- [5fcba56](https://github.com/appium/ruby_lib_core/commit/5fcba566be04a3eb0f7ea565005d6ec50cc9b882) tweak http request header (#176)
+
+
 #### v2.2.1 2018-12-08
 
 - [0b46567](https://github.com/appium/ruby_lib_core/commit/0b46567c2abc764b80c72516429038d7b1805107) Release 2.2.1
