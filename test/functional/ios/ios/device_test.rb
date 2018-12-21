@@ -12,7 +12,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        skip 'Requres `npm install -g appium opencv4nodejs`' if `which opencv4nodejs`.empty?
+        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         @@driver.update_settings({ fixImageFindScreenshotDims: false,
                                    fixImageTemplateSize: true,
@@ -35,7 +35,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        skip 'Requres `npm install -g appium opencv4nodejs`' if `which opencv4nodejs`.empty?
+        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         @@driver.update_settings({ fixImageTemplateSize: true,
                                    autoUpdateImageElementPosition: true })

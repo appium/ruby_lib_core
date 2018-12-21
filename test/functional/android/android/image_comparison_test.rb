@@ -16,7 +16,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_match_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' if `which opencv4nodejs`.empty?
+        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
@@ -33,7 +33,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_find_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' if `which opencv4nodejs`.empty?
+        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
@@ -50,7 +50,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_get_images_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' if `which opencv4nodejs`.empty?
+        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
