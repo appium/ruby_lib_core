@@ -4,6 +4,7 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Tweak header like `appium/ruby_lib_core/2.2.1 (selenium/3.141.0 (ruby macosx))`
 
 ### Bug fixes
 

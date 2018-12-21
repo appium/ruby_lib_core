@@ -8,7 +8,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
 
-Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are fatal
+Appium::Logger.level = ::Logger::ERROR # Show Logger logs only they are error
 
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
