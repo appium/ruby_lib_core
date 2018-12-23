@@ -12,6 +12,22 @@ class AppiumLibCoreTest
         save_reports(@driver)
       end
 
+      def test_select_picker_wheel
+        @driver = @core.start_driver
+        @driver.find_element(:id, 'Pickers').click
+
+        elements = @driver.find_elements :class, 'XCUIElementTypePickerWheel'
+        assert_equal 'John Appleseed', elements[0].value
+
+        args = { element: elements[0].ref, order: :next }
+        @driver.execute_script 'mobile: selectPickerWheelValue', args
+        assert_equal 'Serena Auroux', elements[0].value
+
+        args = { element: elements[0].ref, order: :previous }
+        @driver.execute_script 'mobile: selectPickerWheelValue', args
+        assert_equal 'John Appleseed', elements[0].value
+      end
+
       # @since Appium 1.10.0
       # Requires simulator
       def test_permission
@@ -46,7 +62,7 @@ class AppiumLibCoreTest
         siri_state = @driver.app_state('com.apple.SiriViewService')
         assert [:running_in_background_suspended, :not_running].include? siri_state
 
-        @driver.execute_script 'mobile: activateSiri', { text: 'hello, siri' }
+        @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
         e = @driver.find_element :accessibility_id, 'hello, siri'
         assert_equal 'hello, siri', e.text
