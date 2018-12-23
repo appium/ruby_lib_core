@@ -151,8 +151,8 @@ class AppiumLibCoreTest
         assert_equal File.size(lower_again_image_path), File.size(lower_image_path)
 
         # make sure the screenshot is png
-        assert Base64.encode64(File.read(lower_image_path)).start_with?('iVBOR')
-        assert Base64.encode64(File.read(higher_image_path)).start_with?('iVBOR')
+        assert Base64.strict_encode64(File.read(lower_image_path)).start_with?('iVBOR')
+        assert Base64.strict_encode64(File.read(higher_image_path)).start_with?('iVBOR')
       end
     end
   end

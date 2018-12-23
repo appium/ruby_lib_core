@@ -53,7 +53,7 @@ module Appium
         #     find_elements :accessibility_id, 'Animation'
         #
         #     # with base64 encoded template image. All platforms.
-        #     find_elements :image, Base64.encode64(File.read(file_path))
+        #     find_elements :image, Base64.strict_encode64(File.read(file_path))
         #
         #     # For Android
         #     ## With uiautomator

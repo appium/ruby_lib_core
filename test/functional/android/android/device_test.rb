@@ -150,7 +150,8 @@ class AppiumLibCoreTest
       end
 
       def test_push_and_pull_file
-        file = 'A Fine Day'
+        file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
+          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
         path = '/data/local/tmp/remote.txt'
         @@core.wait do
           @driver.push_file path, file

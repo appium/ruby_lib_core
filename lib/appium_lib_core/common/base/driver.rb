@@ -862,7 +862,7 @@ module Appium
         #     e = @@driver.find_element_by_image './test/functional/data/test_element_image.png'
         #
         def find_element_by_image(img_path)
-          template = Base64.encode64 File.read img_path
+          template = Base64.strict_encode64 File.read img_path
           find_element :image, template
         end
 
@@ -884,7 +884,7 @@ module Appium
         #     e == [] # if the `e` is empty
         #
         def find_elements_by_image(img_path)
-          template = Base64.encode64 File.read img_path
+          template = Base64.strict_encode64 File.read img_path
           find_elements :image, template
         end
       end # class Driver

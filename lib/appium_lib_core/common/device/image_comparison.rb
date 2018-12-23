@@ -151,8 +151,8 @@ module Appium
 
             params = {}
             params[:mode] = mode
-            params[:firstImage] = Base64.encode64 first_image
-            params[:secondImage] = Base64.encode64 second_image
+            params[:firstImage] = Base64.strict_encode64 first_image
+            params[:secondImage] = Base64.strict_encode64 second_image
             params[:options] = options if options
 
             execute(:compare_images, {}, params)
