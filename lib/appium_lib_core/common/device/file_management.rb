@@ -6,7 +6,7 @@ module Appium
       module Device
         module FileManagement
           def push_file(path, filedata)
-            encoded_data = Base64.encode64 filedata
+            encoded_data = Base64.strict_encode64 filedata
             execute :push_file, {}, path: path, data: encoded_data
           end
 

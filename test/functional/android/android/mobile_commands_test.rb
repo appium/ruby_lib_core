@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# $ rake test:func:ios TEST=test/functional/android/android/mobile_commands_test.rb
+# $ rake test:func:android TEST=test/functional/android/android/mobile_commands_test.rb
 class AppiumLibCoreTest
   module Android
     class MobileCommandsTest < AppiumLibCoreTest::Function::TestCase

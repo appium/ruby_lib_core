@@ -28,6 +28,25 @@ class AppiumLibCoreTest
         assert_equal 'John Appleseed', elements[0].value
       end
 
+      def test_pasteboard
+        @driver ||= @core.start_driver
+
+        message = 'happy appium'
+
+        args = { content: message }
+        @driver.execute_script 'mobile: setPasteboard', args
+        assert_equal message, @driver.get_clipboard
+
+        # Base64 which follows RFC 2045 inserts new line every 60 chars
+        # Ruby client sends it as RFC 4648 (Base64.strict_encode64)
+        message = 'ハッピー testing GgoAAAANSUhEUgAAAu4AAAU2CAIAAABFtaRRAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAA'
+        args = { content: message, encoding: 'utf-8' }
+        @driver.execute_script 'mobile: setPasteboard', args
+
+        # Ruby decode the string as ASCII-8BIT in Base64.encode64
+        assert_equal message, @driver.get_clipboard.force_encoding('utf-8')
+      end
+
       # @since Appium 1.10.0
       # Requires simulator
       def test_permission

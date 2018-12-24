@@ -27,7 +27,7 @@ module Appium
 
                 params = {
                   contentType: content_type,
-                  content: Base64.encode64(content)
+                  content: Base64.strict_encode64(content)
                 }
 
                 execute(:set_clipboard, {}, params)
