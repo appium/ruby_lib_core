@@ -32,3 +32,5 @@ Naming/AccessorMethodName:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false
