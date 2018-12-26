@@ -30,7 +30,7 @@ class AppiumLibCoreTest
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
 
-        core.quit_driver
+        driver.quit # We can quit driver in this way as well
       end
 
       # Require Appium 1.7.2+
