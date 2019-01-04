@@ -41,8 +41,7 @@ class AppiumLibCoreTest
 
     return false if version.empty?
 
-    v = version['build']['version'].split('-') # 1.9.2-beta.2 => ['1.9.2', 'beta.2']
-    v[0] >= required.to_s
+    Gem::Version.new(version['build']['version']) >= Gem::Version.new(required.to_s)
   end
 
   def self.path_of(path)
