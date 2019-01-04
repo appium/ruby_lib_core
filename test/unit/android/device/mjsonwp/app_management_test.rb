@@ -160,7 +160,8 @@ class AppiumLibCoreTest
             stub_request(:post, "#{SESSION}/appium/device/app_state")
               .to_return(headers: HEADER, status: 200, body: { value: 1 }.to_json)
 
-            state = @driver.app_state 'com.app.id'
+            # query_app_state and app_state should be accepted
+            state = @driver.query_app_state 'com.app.id'
 
             assert_requested(:post, "#{SESSION}/appium/device/app_state", times: 1)
             assert_equal :not_running, state
