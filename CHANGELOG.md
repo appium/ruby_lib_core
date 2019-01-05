@@ -7,7 +7,8 @@ Read `release_notes.md` for commit level details.
 - Use `Base64.strict_encode64` when this client sends `Base64` encoded data to server
     - Follows RFC 4648 format. It should not affect server side which is front Appium node server
     - Continues to decode base 64 data following `decode64` to accept RFC 2045 format
-    
+- Add `query_app_state` as an alias of `app_state` to get application status
+
 ### Bug fixes
 
 ### Deprecations

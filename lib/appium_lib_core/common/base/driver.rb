@@ -557,10 +557,13 @@ module Appium
         # @example
         #
         #      @driver.app_state("io.appium.bundle") #=> :not_running
+        #      # Compatibility for other clients
+        #      @driver.query_app_state("io.appium.bundle") #=> :not_running
         #
         def app_state(app_id)
           @bridge.app_state(app_id)
         end
+        alias query_app_state app_state
 
         # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
         #                             The following protocols are supported: http/https, ftp.
