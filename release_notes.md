@@ -1,3 +1,14 @@
+#### v2.3.0 2019-01-07
+
+- [b1b66a4](https://github.com/appium/ruby_lib_core/commit/b1b66a4745b8769bdcd860d7489326933bce5ff6) Release 2.3.0
+- [680577d](https://github.com/appium/ruby_lib_core/commit/680577d83356fc19d5fc435d5e49f0fea3c1442a) add alias for app_state (#180)
+- [a590511](https://github.com/appium/ruby_lib_core/commit/a5905115a9f45aa1e2da4977ecf35c9755f3da95) add screen recording (#179)
+- [f4693af](https://github.com/appium/ruby_lib_core/commit/f4693afbec54a9d4331e17dfc8ea4d0b12848921) add driver.quit
+- [2c0f092](https://github.com/appium/ruby_lib_core/commit/2c0f09249e2f83add708c6cdb5a93f1964e61a1c) add ruby 2.6.0 into travis (#178)
+- [ffe14bd](https://github.com/appium/ruby_lib_core/commit/ffe14bd8263becfc4cac1446dba62ca6544c886b) Sends strict base64 format to server (#177)
+- [f1ddf27](https://github.com/appium/ruby_lib_core/commit/f1ddf277b35e672040be43fd4d708c06ce7d367e) add test for picker wheel for ios
+
+
 #### v2.2.2 2018-12-22
 
 - [6415256](https://github.com/appium/ruby_lib_core/commit/6415256f9808a92e5d82e9556e9533db9273f2fa) Release 2.2.2
