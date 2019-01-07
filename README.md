@@ -67,37 +67,36 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 2. Run the following script.
 
 - `test.rb`
- ```ruby
-require 'rubygems'
-require 'appium_lib_core'
-
-opts = {
-  desired_capabilities: { # or { caps: {....} }
-    platformName: :ios,
-    platformVersion: '11.0',
-    deviceName: 'iPhone Simulator',
-    automationName: 'XCUITest',
-    app: '/path/to/MyiOS.app'
-  },
-  appium_lib: {
-    wait: 30
-  }
-}
-@core = Appium::Core.for(opts) # create a core driver with `opts`
-@driver = @core.start_driver
-
-# Launch iPhone Simulator and `MyiOS.app`
-@driver.find_element(:accessibility_id, 'some accessibility') # find an element
-```
-
+    ```ruby
+    require 'rubygems'
+    require 'appium_lib_core'
+    
+    opts = {
+      desired_capabilities: { # or { caps: {....} }
+        platformName: :ios,
+        platformVersion: '11.0',
+        deviceName: 'iPhone Simulator',
+        automationName: 'XCUITest',
+        app: '/path/to/MyiOS.app'
+      },
+      appium_lib: {
+        wait: 30
+      }
+    }
+    @core = Appium::Core.for(opts) # create a core driver with `opts`
+    @driver = @core.start_driver
+    
+    # Launch iPhone Simulator and `MyiOS.app`
+    @driver.find_element(:accessibility_id, 'some accessibility') # find an element
+    ```
 - Run the script
-```bash
-# shell 1
-$ appium --log-level warn:error # show only warning and error logs
-
-# shell 2
-$ ruby test.rb
-```
+    ```bash
+    # shell 1
+    $ appium --log-level warn:error # show only warning and error logs
+    
+    # shell 2
+    $ ruby test.rb
+    ```
 
 # Development
 - Demo app

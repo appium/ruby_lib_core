@@ -56,8 +56,8 @@ module Appium
       #
       # Sends a ping frame with an optional message and fires the callback when a matching pong is received.
       #
-      # @params [String] message A message to send ping.
-      # @params [Block] &callback
+      # @param [String] message A message to send ping.
+      # @param [Block] &callback
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -70,7 +70,7 @@ module Appium
       # Accepts either a String or an Array of byte-sized integers and sends a text or binary message over the connection
       # to the other peer; binary data must be encoded as an Array.
       #
-      # @params [String|Array] message A message to send a text or binary message over the connection
+      # @param [String|Array] message A message to send a text or binary message over the connection
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -82,8 +82,8 @@ module Appium
 
       # Closes the connection, sending the given status code and reason text, both of which are optional.
       #
-      # @params [Integer] code: A status code to send to the peer with close signal. Default is nil.
-      # @params [String] reason: A reason to send to the peer with close signal. Default is 'close from ruby_lib_core'.
+      # @param [Integer] code: A status code to send to the peer with close signal. Default is nil.
+      # @param [String] reason: A reason to send to the peer with close signal. Default is 'close from ruby_lib_core'.
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
