@@ -383,8 +383,11 @@ module Appium
           # no windows specific extentions
           Appium::Logger.debug('windows')
         when :tizen
-          # no tizen specific extentions
+          # https://github.com/Samsung/appium-tizen-driver
           Appium::Logger.debug('tizen')
+        when :youiengine
+          # https://github.com/YOU-i-Labs/appium-youiengine-driver
+          Appium::Logger.debug('YouiEngine')
         else
           Appium::Logger.warn('no device matched')
         end
