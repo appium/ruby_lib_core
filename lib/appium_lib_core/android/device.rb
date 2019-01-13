@@ -60,10 +60,14 @@ module Appium
         # @!method get_network_connection
         #   Get the device network connection current status
         #   See set_network_connection method for return value
+        #   Same as `#network_connection_type` in selenium-webdriver.
+        #
+        #   Returns a key of {:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0} in `#network_connection_type`
+        #   Returns a number of the mode in `#get_network_connection`
         #
         # @example
         #
-        #   @driver.network_connection_type #=> 6
+        #   @driver.network_connection_type #=> :all
         #   @driver.get_network_connection  #=> 6
         #
 
@@ -143,7 +147,10 @@ module Appium
 
         # @!method set_network_connection(mode)
         # Set the device network connection mode
+        # Same as `#network_connection_type` in selenium-webdriver.
+        #
         # @param [String] mode Bit mask that represent the network mode
+        # Or the key matched with `{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}`
         #
         #   Value (Alias)      | Data | Wifi | Airplane Mode
         #   -------------------------------------------------
@@ -156,7 +163,8 @@ module Appium
         # @example
         #
         #   @driver.set_network_connection 1
-        #   @driver.network_connection_type = 1
+        #   @driver.set_network_connection :airplane_mode
+        #   @driver.network_connection_type = :airplane_mode # As selenium-webdriver
         #
 
         # @!method get_performance_data_types

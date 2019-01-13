@@ -200,9 +200,18 @@ class AppiumLibCoreTest
 
           def test_set_network_connection
             stub_request(:post, "#{SESSION}/network_connection")
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: {type: 1} }.to_json)
 
             @driver.set_network_connection 1
+
+            assert_requested(:post, "#{SESSION}/network_connection", times: 1)
+          end
+
+          def test_set_network_connection_key
+            stub_request(:post, "#{SESSION}/network_connection")
+                .to_return(headers: HEADER, status: 200, body: { value: {type: 6} }.to_json)
+
+            @driver.set_network_connection :all
 
             assert_requested(:post, "#{SESSION}/network_connection", times: 1)
           end
