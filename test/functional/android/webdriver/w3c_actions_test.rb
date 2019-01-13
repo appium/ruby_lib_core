@@ -42,11 +42,14 @@ class AppiumLibCoreTest
           .release
           .perform
 
-        # TODO: Selenium::WebDriver::Error::MoveTargetOutOfBoundsError: was raised in Espresso
-
         @driver.manage.timeouts.implicit_wait = 3
-        assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
-          @driver.find_element(:accessibility_id, 'Custom')
+
+        if @@core.automation_name == :espresso
+          # Skip in espresso, since espresso show a target element in recyclerview even it is out of the view
+        else
+          assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
+            @driver.find_element(:accessibility_id, 'Custom')
+          end
         end
         @driver.manage.timeouts.implicit_wait = @@core.default_wait
 
@@ -84,10 +87,14 @@ class AppiumLibCoreTest
           .perform
         assert_equal 'ON', el.text
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.action.double_click(el).perform
+        if @@core.automation_name == :espresso
+          # Skip in espresso, since espresso show a target element in recyclerview even it is out of the view
+        else
+          error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+            @driver.action.double_click(el).perform
+          end
+          assert error.message.include?('You cannot perform')
         end
-        assert error.message.include?('You cannot perform')
       end
 
       def test_actions_with_many_down_up
@@ -100,14 +107,35 @@ class AppiumLibCoreTest
 
         rect1 = el.rect.dup
 
+        if @@core.automation_name == :espresso
+          _espresso_do_actions_with_many_down_up el, rect1
+        else
+          _uiautomator2_do_actions_with_many_down_up el, rect1
+        end
+      end
+
+      def _espresso_do_actions_with_many_down_up(element, rect)
+        @driver
+          .action
+          .move_to(element)
+          .pointer_down(:left) # should insert pause
+          .pointer_down(:left)
+          .pointer_down(:left)
+          .move_to_location(0, rect.y - rect.height)
+          .release
+          .release
+          .perform
+      end
+
+      def _uiautomator2_do_actions_with_many_down_up(element, rect)
         error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
           @driver
             .action
-            .move_to(el)
+            .move_to(element)
             .pointer_down(:left) # should insert pause
             .pointer_down(:left)
             .pointer_down(:left)
-            .move_to_location(0, rect1.y - rect1.height)
+            .move_to_location(0, rect.y - rect.height)
             .release
             .release
             .perform

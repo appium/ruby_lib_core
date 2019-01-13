@@ -1,4 +1,4 @@
-limodule Appium
+module Appium
   module Core
     module Android
       module Device
