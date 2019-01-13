@@ -1,3 +1,11 @@
+#### v2.3.1 2019-01-13
+
+- [12ace90](https://github.com/appium/ruby_lib_core/commit/12ace906df63a8e4d4377b402ada2d90bd7509af) Release 2.3.1
+- [d104fc9](https://github.com/appium/ruby_lib_core/commit/d104fc91e849dc183267ecd3a4074e9fa1c94a38) Tweak test cases for espresso (#181)
+- [4e65bda](https://github.com/appium/ruby_lib_core/commit/4e65bdae1c044263a78fe715d63458d47707bd5a) add youiengine to leave a log in create session
+- [acef11c](https://github.com/appium/ruby_lib_core/commit/acef11c37666abca7da93a6e613a92307fad4fd4) tweak yardoc format
+
+
 #### v2.3.0 2019-01-07
 
 - [b1b66a4](https://github.com/appium/ruby_lib_core/commit/b1b66a4745b8769bdcd860d7489326933bce5ff6) Release 2.3.0
