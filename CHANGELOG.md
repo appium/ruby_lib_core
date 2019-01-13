@@ -4,9 +4,16 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.3.1] - 2019-01-13
+### Enhancements
 - `set_network_connection` accepts keys as same as `network_connection_type` in addition to numbers
     - `{ :airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0 }`
-    - Read documentation more
+    - Read [documentation](https://www.rubydoc.info/github/appium/ruby_lib_core/master/Appium/Core/Android/Device#set_network_connection-instance_method) more
 
 ### Bug fixes
 
