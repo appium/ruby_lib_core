@@ -40,7 +40,7 @@ class AppiumLibCoreTest
 
         @driver.launch_app
         e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
-        assert_equal 'App', e.name
+        assert_equal 'App', e.text
       end
 
       def test_lock_unlock
@@ -167,6 +167,8 @@ class AppiumLibCoreTest
 
       # check
       def test_settings
+        skip 'Espresso has not implemented settings api yet' if @@core.automation_name == :espresso
+
         assert_equal(false, @driver.get_settings['ignoreUnimportantViews'])
 
         @driver.update_settings('ignoreUnimportantViews' => true)
@@ -349,7 +351,7 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
-        skip 'Espresso does not support battery_info' if @@core.automation_name == :espresso
+        skip 'Espresso does not support save_viewport_screenshot' if @@core.automation_name == :espresso
 
         file = @driver.save_viewport_screenshot 'android_viewport_screenshot_test.png'
 

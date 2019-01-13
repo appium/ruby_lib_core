@@ -47,15 +47,16 @@ class AppiumLibCoreTest
     def test_click_back
       e = @driver.find_element :accessibility_id, 'Content'
       e.click
-      error = assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
+      assert_raises ::Selenium::WebDriver::Error::StaleElementReferenceError do
         e.click
       end
-      assert error.message.include?('does not exist')
       @driver.back
     end
 
     # @since Appium 1.10.0
     def test_mobile_perform_action
+      skip 'Espresso is unstable to get attributes' if @@core.automation_name == :espresso
+
       @driver.find_element(:accessibility_id, 'App').click
       @driver.find_element(:accessibility_id, 'Activity').click
       @driver.find_element(:accessibility_id, 'Custom Title').click

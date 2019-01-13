@@ -70,7 +70,7 @@ class AppiumLibCoreTest
         assert s_source.include?('io.appium.android.apis')
 
         if @@core.automation_name == :espresso
-          assert_equal 130, xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
+          assert xml[1].elements.each('//*') { |v| v }.map(&:name).size >= 20 # rubocop:disable Lint/Void:
         else
           assert_equal expected, xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
         end
@@ -97,8 +97,9 @@ class AppiumLibCoreTest
         # 'Could not proxy. Proxy error: Could not proxy command to remote server. Original error: 404 - ""'
         # assert @driver.switch_to.alert.text.start_with?('Lorem ipsum dolor sit aie consectetur')
         # assert @driver.switch_to.alert.dismiss
-        @@core.wait { assert_equal 'OK', @driver.find_element(:id, 'android:id/button1').name.upcase }
-        assert @driver.find_element(:id, 'android:id/button1').click
+        @@core.wait { assert_equal 'OK', @driver.find_element(:id, 'android:id/button1').text.upcase }
+        result = @driver.find_element(:id, 'android:id/button1').click
+        assert result.nil? || result.empty?
       end
 
       def test_dismiss_alert
@@ -113,7 +114,8 @@ class AppiumLibCoreTest
 
         # Because the results depends on OS version.
         @@core.wait { assert_equal 'CANCEL', @driver.find_element(:id, 'android:id/button2').text.upcase }
-        assert @driver.find_element(:id, 'android:id/button2').click
+        result = @driver.find_element(:id, 'android:id/button2').click
+        assert result.nil? || result.empty?
       end
 
       def test_implicit_wait

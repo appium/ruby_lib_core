@@ -24,12 +24,12 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_network_connection) do
               def set_network_connection(mode)
-                # TODO. Update set_network_connection as well
-                # connection_type = {airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}
-                # raise ArgumentError, 'Invalid connection type' unless type_to_values.keys.include? mode
-                # type = connection_type[mode]
-                # execute :set_network_connection, {}, type: type
-                execute :set_network_connection, {}, type: mode
+                # same as ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
+                # But this method accept number
+                connection_type = { airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0 }
+                type = connection_type.key?(mode) ? connection_type[mode] : mode.to_i
+
+                execute :set_network_connection, {}, type: type
               end
             end
 
