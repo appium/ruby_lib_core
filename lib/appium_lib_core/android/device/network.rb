@@ -1,4 +1,4 @@
-module Appium
+limodule Appium
   module Core
     module Android
       module Device
@@ -25,9 +25,9 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:set_network_connection) do
               def set_network_connection(mode)
                 # same as ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-
-                connection_type = {airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}
-                type = connection_type.keys.include? mode ? connection_type[mode] : mode.to_i
+                # But this method accept number
+                connection_type = { airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0 }
+                type = connection_type.key?(mode) ? connection_type[mode] : mode.to_i
 
                 execute :set_network_connection, {}, type: type
               end
