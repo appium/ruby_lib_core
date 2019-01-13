@@ -88,7 +88,7 @@ class AppiumLibCoreTest
         assert_equal 'ON', el.text
 
         if @@core.automation_name == :espresso
-          # Skip in espresso, since espresso show a target element in recyclerview even it is out of the view
+          # Skip in espresso, since espresso brings the target element in the view on recyclerview even it is out of the view
         else
           error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
             @driver.action.double_click(el).perform
