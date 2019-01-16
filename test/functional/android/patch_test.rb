@@ -6,12 +6,11 @@ class AppiumLibCoreTest
   class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @@core ||= ::Appium::Core.for(Caps.android)
-      @driver = @@core.start_driver
+      @driver = @@core.start_driver # Launch test servers without calling delete session before a new create session
     end
 
     def teardown
       save_reports(@driver)
-      @driver.quit
     end
 
     def test_method_missing_attributes
