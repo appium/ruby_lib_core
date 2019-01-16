@@ -99,7 +99,7 @@ class AppiumLibCoreTest
         # assert @driver.switch_to.alert.dismiss
         @@core.wait { assert_equal 'OK', @driver.find_element(:id, 'android:id/button1').text.upcase }
         result = @driver.find_element(:id, 'android:id/button1').click
-        assert result.nil? || result.empty?
+        assert result.nil? || result
       end
 
       def test_dismiss_alert
@@ -115,7 +115,7 @@ class AppiumLibCoreTest
         # Because the results depends on OS version.
         @@core.wait { assert_equal 'CANCEL', @driver.find_element(:id, 'android:id/button2').text.upcase }
         result = @driver.find_element(:id, 'android:id/button2').click
-        assert result.nil? || result.empty?
+        assert result.nil? || result
       end
 
       def test_implicit_wait
