@@ -6,6 +6,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+- Inherit CoreError for ServerError in order to handle it as an exception
 
 ### Deprecations
 
