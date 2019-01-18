@@ -14,7 +14,7 @@ module Appium
       class UnsupportedOperationError < CoreError; end
 
       # Server side error
-      class ServerError; end
+      class ServerError < CoreError; end
     end
   end
 end
