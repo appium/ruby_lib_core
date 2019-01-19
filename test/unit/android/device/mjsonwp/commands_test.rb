@@ -161,11 +161,29 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/appium/settings", times: 1)
           end
 
+          def test_settings_get
+            stub_request(:get, "#{SESSION}/appium/settings")
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.settings.get
+
+            assert_requested(:get, "#{SESSION}/appium/settings", times: 1)
+          end
+
           def test_update_settings
             stub_request(:post, "#{SESSION}/appium/settings")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.update_settings(sample: 'value')
+
+            assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
+          end
+
+          def test_settings_update
+            stub_request(:post, "#{SESSION}/appium/settings")
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.settings.update(sample: 'value')
 
             assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
           end

@@ -57,10 +57,12 @@ module Appium
         # @example
         #
         #   @driver.device_locked?
+        #   @driver.locked?
         #
-        def device_locked?
+        def locked?
           @bridge.device_locked?
         end
+        alias device_locked? locked?
 
         # Unlock the device
         #
@@ -115,17 +117,33 @@ module Appium
         end
         alias type send_keys
 
-        # Get appium Settings for current test session
+        # Get Settings instance to call get/update.
+        #
+        # @example
+        #
+        #   @driver.settings.get
+        #   @driver.settings.update('allowInvisibleElements': true)
+        #
+        def settings
+          @driver_settings ||= DriverSettings.new(@bridge)
+        end
+
+        # Get appium Settings for current test session.
+        # Alias of @driver.settings.get
         #
         # @example
         #
         #   @driver.get_settings
+        #   @driver.settings.get
         #
         def get_settings
-          @bridge.get_settings
+          @driver_settings ||= DriverSettings.new(@bridge)
+          @driver_settings.get
         end
 
         # Update Appium Settings for current test session
+        # Alias of @driver.settings#update
+        #
         # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
         #
         # @example
@@ -133,8 +151,27 @@ module Appium
         #   @driver.update_settings('allowInvisibleElements': true)
         #
         def update_settings(settings)
-          @bridge.update_settings(settings)
+          @driver_settings ||= DriverSettings.new(@bridge)
+          @driver_settings.update settings
         end
+
+        private
+
+        class DriverSettings
+          def initialize(bridge)
+            @bridge = bridge
+          end
+
+          def get
+            @bridge.get_settings
+          end
+
+          def update(settings)
+            @bridge.update_settings(settings)
+          end
+        end
+
+        public
 
         # Android only. Make an engine that is available active.
         # @param [String] ime_name The IME owning the activity [required]

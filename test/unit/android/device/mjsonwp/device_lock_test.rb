@@ -24,6 +24,15 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/device/is_locked", times: 1)
           end
 
+          def test_locked?
+            stub_request(:post, "#{SESSION}/appium/device/is_locked")
+              .to_return(headers: HEADER, status: 200, body: { value: 'true' }.to_json)
+
+            @driver.locked?
+
+            assert_requested(:post, "#{SESSION}/appium/device/is_locked", times: 1)
+          end
+
           def test_unlock
             stub_request(:post, "#{SESSION}/appium/device/unlock")
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
