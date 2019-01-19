@@ -24,7 +24,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/ime/activate", times: 1)
           end
 
-
           def test_activate_ime
             stub_request(:post, "#{SESSION}/ime/activate")
               .with(body: { engine: 'engine name' }.to_json)

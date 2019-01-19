@@ -117,6 +117,21 @@ module Appium
         end
         alias type send_keys
 
+        class DriverSettings
+          # @private this class is private
+          def initialize(bridge)
+            @bridge = bridge
+          end
+
+          def get
+            @bridge.get_settings
+          end
+
+          def update(settings)
+            @bridge.update_settings(settings)
+          end
+        end
+
         # Returns an instance of DriverSettings to call get/update.
         #
         # @example
@@ -156,23 +171,8 @@ module Appium
         end
         alias update_settings settings=
 
-        private
-
-        class DriverSettings
-          def initialize(bridge)
-            @bridge = bridge
-          end
-
-          def get
-            @bridge.get_settings
-          end
-
-          def update(settings)
-            @bridge.update_settings(settings)
-          end
-        end
-
         class DeviceIME
+          # @private this class is private
           def initialize(bridge)
             @bridge = bridge
           end
@@ -197,8 +197,6 @@ module Appium
             @bridge.ime_deactivate
           end
         end
-
-        public
 
         # Returns an instance of DeviceIME
         #
