@@ -4,6 +4,10 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Add alias for some method calls
+    1. IME: e.g. `@driver.ime.activate` in addition to  `@driver.ime_activate`
+    2. Settings: e.g. `@driver.settings = { ... }` and  `@driver.settings.update(...)` in addition to `@driver.update_settings(...)`
+    3. Locked: `@driver.locked?` in addition to `@driver.device_locked?`
 
 ### Bug fixes
 - Inherit CoreError for ServerError in order to handle it as an exception
