@@ -131,6 +131,7 @@ module Appium
             @bridge.update_settings(settings)
           end
         end
+        private_constant :DriverSettings
 
         # Returns an instance of DriverSettings to call get/update.
         #
@@ -197,6 +198,7 @@ module Appium
             @bridge.ime_deactivate
           end
         end
+        private_constant :DeviceIME
 
         # Returns an instance of DeviceIME
         #
