@@ -57,10 +57,12 @@ module Appium
         # @example
         #
         #   @driver.device_locked?
+        #   @driver.locked?
         #
-        def device_locked?
+        def locked?
           @bridge.device_locked?
         end
+        alias device_locked? locked?
 
         # Unlock the device
         #
@@ -115,56 +117,136 @@ module Appium
         end
         alias type send_keys
 
-        # Get appium Settings for current test session
+        class DriverSettings
+          # @private this class is private
+          def initialize(bridge)
+            @bridge = bridge
+          end
+
+          def get
+            @bridge.get_settings
+          end
+
+          def update(settings)
+            @bridge.update_settings(settings)
+          end
+        end
+        private_constant :DriverSettings
+
+        # Returns an instance of DriverSettings to call get/update.
+        #
+        # @example
+        #
+        #   @driver.settings.get
+        #   @driver.settings.update('allowInvisibleElements': true)
+        #
+        def settings
+          @driver_settings ||= DriverSettings.new(@bridge)
+        end
+
+        # Get appium Settings for current test session.
+        # Alias of @driver.settings.get
         #
         # @example
         #
         #   @driver.get_settings
+        #   @driver.settings.get
         #
         def get_settings
-          @bridge.get_settings
+          settings.get
         end
 
         # Update Appium Settings for current test session
-        # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
+        # Alias of @driver.settings#update
+        #
+        # @param [Hash] value Settings to update, keys are settings, values to value to set each setting to
         #
         # @example
         #
         #   @driver.update_settings('allowInvisibleElements': true)
+        #   @driver.settings.update('allowInvisibleElements': true)
+        #   @driver.settings = { 'allowInvisibleElements': true }
         #
-        def update_settings(settings)
-          @bridge.update_settings(settings)
+        def settings=(value)
+          settings.update(value)
+        end
+        alias update_settings settings=
+
+        class DeviceIME
+          # @private this class is private
+          def initialize(bridge)
+            @bridge = bridge
+          end
+
+          def activate(ime_name)
+            @bridge.ime_activate(ime_name)
+          end
+
+          def available_engines
+            @bridge.ime_available_engines
+          end
+
+          def active_engine
+            @bridge.ime_active_engine
+          end
+
+          def activated?
+            @bridge.ime_activated
+          end
+
+          def deactivate
+            @bridge.ime_deactivate
+          end
+        end
+        private_constant :DeviceIME
+
+        # Returns an instance of DeviceIME
+        #
+        # @example
+        #
+        #   @driver.ime.activate engine: 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime.available_engines #=> Get the list of IME installed in the target device
+        #   @driver.ime.active_engine #=> Get the current active IME such as 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime.activated #=> True if IME is activated
+        #   @driver.ime.deactivate #=> Deactivate current IME engine
+        #
+        def ime
+          @device_ime ||= DeviceIME.new(@bridge)
         end
 
         # Android only. Make an engine that is available active.
+        #
         # @param [String] ime_name The IME owning the activity [required]
         #
         # @example
         #
-        #   ime_activate engine: 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime_activate engine: 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime.activate engine: 'com.android.inputmethod.latin/.LatinIME'
         #
         def ime_activate(ime_name)
-          @bridge.ime_activate(ime_name)
+          ime.activate(ime_name)
         end
 
         # Android only. List all available input engines on the machine.
         #
         # @example
         #
-        #   ime_available_engines #=> Get the list of IME installed in the target device
+        #   @driver.ime_available_engines #=> Get the list of IME installed in the target device
+        #   @driver.ime.available_engines #=> Get the list of IME installed in the target device
         #
         def ime_available_engines
-          @bridge.ime_available_engines
+          ime.available_engines
         end
 
         # Android only. Get the name of the active IME engine.
         #
         # @example
         #
-        #   ime_active_engine #=> Get the current active IME such as 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime_active_engine #=> Get the current active IME such as 'com.android.inputmethod.latin/.LatinIME'
+        #   @driver.ime.active_engine #=> Get the current active IME such as 'com.android.inputmethod.latin/.LatinIME'
         #
         def ime_active_engine
-          @bridge.ime_active_engine
+          ime.active_engine
         end
 
         # @!method ime_activated
@@ -172,20 +254,22 @@ module Appium
         #
         # @example
         #
-        #   ime_activated #=> True if IME is activated
+        #   @driver.ime_activated #=> True if IME is activated
+        #   @driver.ime.activated #=> True if IME is activated
         #
         def ime_activated
-          @bridge.ime_activated
+          ime.activated?
         end
 
         # Android only. De-activates the currently-active IME engine.
         #
         # @example
         #
-        #   ime_deactivate #=> Deactivate current IME engine
+        #   @driver.ime_deactivate #=> Deactivate current IME engine
+        #   @driver.ime.deactivate #=> Deactivate current IME engine
         #
         def ime_deactivate
-          @bridge.ime_deactivate
+          ime.deactivate
         end
 
         # Perform a block within the given context, then switch back to the starting context.
