@@ -17,7 +17,7 @@ Read `release_notes.md` for commit level details.
     3. Locked: `@driver.locked?` in addition to `@driver.device_locked?`
 
 ### Bug fixes
-- Inherit CoreError for ServerError in order to handle it as an exception
+-  `ServerError` inherits `CoreError` in order to handle it as an exception
 
 ### Deprecations
 
