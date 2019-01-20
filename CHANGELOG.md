@@ -4,9 +4,16 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.3.2] - 2019-01-20
+### Enhancements
 - Add alias for some method calls
-    1. IME: e.g. `@driver.ime.activate` in addition to  `@driver.ime_activate`
-    2. Settings: e.g. `@driver.settings = { ... }` and  `@driver.settings.update(...)` in addition to `@driver.update_settings(...)`
+    1. IME: e.g. `@driver.ime.activate` in addition to  `@driver.ime_activate` [rubydoc](https://www.rubydoc.info/github/appium/ruby_lib_core/master/Appium/Core/Base/Driver#ime-instance_method)
+    2. Settings: e.g. `@driver.settings = { ... }` and  `@driver.settings.update(...)` in addition to `@driver.update_settings(...)` [rubydoc](https://www.rubydoc.info/github/appium/ruby_lib_core/master/Appium/Core/Base/Driver#settings-instance_method)
     3. Locked: `@driver.locked?` in addition to `@driver.device_locked?`
 
 ### Bug fixes
