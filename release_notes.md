@@ -1,3 +1,12 @@
+#### v2.3.2 2019-01-20
+
+- [77aa44a](https://github.com/appium/ruby_lib_core/commit/77aa44a930335d64dd8f8107f93f131f4983c578) Release 2.3.2
+- [d6967b1](https://github.com/appium/ruby_lib_core/commit/d6967b193cc4b5d040bccf6290fadc566c14aa3b) Add alias for ime, settings and device locked (#183)
+- [9abb158](https://github.com/appium/ruby_lib_core/commit/9abb158510ce871d4d3a2b35eb3aed7e43344c20) Server error (#182)
+- [76b1cc2](https://github.com/appium/ruby_lib_core/commit/76b1cc2d42e953b6dc7800549ad664262acca717) add a comment for creating session without deleting previous session
+- [e304e54](https://github.com/appium/ruby_lib_core/commit/e304e54c9e0c5e043fdb943c7eff952d2cd5a1fe) add teardown
+
+
 #### v2.3.1 2019-01-13
 
 - [12ace90](https://github.com/appium/ruby_lib_core/commit/12ace906df63a8e4d4377b402ada2d90bd7509af) Release 2.3.1
