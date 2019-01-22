@@ -9,6 +9,14 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [2.3.3] - 2019-01-22
+### Enhancements
+
+### Bug fixes
+- Add `*args, &block` in method missing in `Selenium::WebDriver::Element` [#184](https://github.com/appium/ruby_lib_core/pull/184)
+
+### Deprecations
+
 ## [2.3.2] - 2019-01-20
 ### Enhancements
 - Add alias for some method calls
