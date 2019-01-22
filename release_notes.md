@@ -1,3 +1,10 @@
+#### v2.3.3 2019-01-22
+
+- [867d55f](https://github.com/appium/ruby_lib_core/commit/867d55f2e77c17c3576a56df687fba0e02063530) Release 2.3.3
+- [3f77722](https://github.com/appium/ruby_lib_core/commit/3f77722aef0c4e80f05904a01d28632cb07549ff) fix method_missing not having the correct signature (#184)
+- [99579f8](https://github.com/appium/ruby_lib_core/commit/99579f8597e927cf0154afedbd916001d4d99e70) tweak changelog
+
+
 #### v2.3.2 2019-01-20
 
 - [77aa44a](https://github.com/appium/ruby_lib_core/commit/77aa44a930335d64dd8f8107f93f131f4983c578) Release 2.3.2
