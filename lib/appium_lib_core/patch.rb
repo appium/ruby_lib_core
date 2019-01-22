@@ -28,7 +28,7 @@ module Appium
       #   e.value
       #   e.resource_id # call `e.attribute "resource-id"`
       #
-      def method_missing(method_name)
+      def method_missing(method_name, *args, &block)
         ignore_list = [:to_hash]
         return if ignore_list.include? method_name
 
