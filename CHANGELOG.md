@@ -6,6 +6,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+- Stop sending blank value in `start_activity`
 
 ### Deprecations
 
