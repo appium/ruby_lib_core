@@ -135,17 +135,15 @@ class AppiumLibCoreTest
         e = @@core.wait { @driver.current_activity }
         assert true, e.include?('Node')
 
-        if @@core.automation_name == :espresso
-          @driver.start_activity app_package: 'io.appium.android.apis', app_activity: '.ApiDemos',
-                                 app_wait_activity: '.ApiDemos'
-        else
-          @driver.start_activity app_package: 'com.android.settings', app_activity: '.Settings',
-                                 app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
-          e = @@core.wait { @driver.current_activity }
-          assert true, e.include?('Settings')
+        # Espresso cannot launch my root launched activity: https://github.com/appium/appium-espresso-driver/pull/378#discussion_r250034209
+        return if @@core.automation_name == :espresso
 
-          @driver.start_activity app_package: 'io.appium.android.apis', app_activity: '.ApiDemos'
-        end
+        @driver.start_activity app_package: 'com.android.settings', app_activity: '.Settings',
+                               app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
+        e = @@core.wait { @driver.current_activity }
+        assert true, e.include?('Settings')
+
+        @driver.start_activity app_package: 'io.appium.android.apis', app_activity: '.ApiDemos'
       end
 
       def test_current_package

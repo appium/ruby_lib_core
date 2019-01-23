@@ -303,22 +303,26 @@ module Appium
               def start_activity(opts)
                 raise 'opts must be a hash' unless opts.is_a? Hash
 
+                option = {}
+
                 app_package = opts[:app_package]
                 raise 'app_package is required' unless app_package
 
                 app_activity = opts[:app_activity]
                 raise 'app_activity is required' unless app_activity
 
-                app_wait_package  = opts.fetch(:app_wait_package, '')
-                app_wait_activity = opts.fetch(:app_wait_activity, '')
+                option[:appPackage] = app_package
+                option[:appActivity] = app_activity
+
+                app_wait_package  = opts.fetch(:app_wait_package, nil)
+                app_wait_activity = opts.fetch(:app_wait_activity, nil)
+                option[:appWaitPackage] = app_wait_package if app_wait_package
+                option[:appWaitActivity] = app_wait_activity if app_wait_activity
 
                 unknown_opts = opts.keys - %i(app_package app_activity app_wait_package app_wait_activity)
                 raise "Unknown options #{unknown_opts}" unless unknown_opts.empty?
 
-                execute :start_activity, {}, appPackage: app_package,
-                                             appActivity: app_activity,
-                                             appWaitPackage: app_wait_package,
-                                             appWaitActivity: app_wait_activity
+                execute :start_activity, {}, option
               end
             end
 
