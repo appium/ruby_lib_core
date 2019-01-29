@@ -88,7 +88,6 @@ class AppiumLibCoreTest
         },
         appium_lib: {
           export_session: true,
-          wait: 0,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -121,7 +120,8 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           chromeOptions: {
             args: ['--disable-popup-blocking']
-          }
+          },
+          uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
           export_session: true,
@@ -158,7 +158,6 @@ class AppiumLibCoreTest
         },
         appium_lib: {
           export_session: true,
-          wait: 30,
           wait_timeout: 20,
           wait_interval: 1
         }
