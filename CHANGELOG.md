@@ -4,6 +4,9 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Breaking changes
+    - Set implicit wait zero by default
+    - Can configure `wait: 20` as `appium_lib` capability to keep the behaviour before this change
 
 ### Bug fixes
 

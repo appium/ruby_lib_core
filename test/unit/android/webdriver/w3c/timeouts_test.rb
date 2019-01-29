@@ -21,7 +21,7 @@ class AppiumLibCoreTest
 
             @driver.manage.timeouts.implicit_wait = 30
 
-            assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 2)
+            assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
           end
 
           def test_get_timeouts

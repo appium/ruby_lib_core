@@ -71,7 +71,7 @@ class AppiumLibCoreTest
     end
 
     def test_default_wait
-      assert_equal 30, @core.default_wait
+      assert_equal 0, @core.default_wait
     end
 
     def test_default_timeout_for_http_client
