@@ -158,6 +158,8 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- Use `XCUITest` automation name instead of non or `appium` automation name for iOS platform
+    - Since Appium no longer supports under Xcode 8
 
 ## [2.0.1] - 2018-09-01
 ### Enhancements
