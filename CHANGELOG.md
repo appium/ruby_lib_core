@@ -4,6 +4,7 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- Add 3D touch option for `TouchAction#press` [appium/WebDriverAgent#79](https://github.com/appium/WebDriverAgent/pull/79)
 
 ### Bug fixes
 - Stop sending blank value in `start_activity`
