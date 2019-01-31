@@ -4,6 +4,13 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [2.3.4] - 2019-01-31
+### Enhancements
 - Add 3D touch option for `TouchAction#press` [appium/WebDriverAgent#79](https://github.com/appium/WebDriverAgent/pull/79)
 
 ### Bug fixes
