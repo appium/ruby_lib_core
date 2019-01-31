@@ -1,3 +1,11 @@
+#### v2.3.4 2019-01-31
+
+- [f217263](https://github.com/appium/ruby_lib_core/commit/f217263febd2bd3d6c8663f440d7959096492f7a) Release 2.3.4
+- [04e5851](https://github.com/appium/ruby_lib_core/commit/04e58517403f215d6d5a27adac815248d15ac23d) add pressure option for touch action (#187)
+- [6676e1f](https://github.com/appium/ruby_lib_core/commit/6676e1fa5ad7dfac4895033ad4a571eeb17697ff) Donotsend unused value start activity (#185)
+- [513400f](https://github.com/appium/ruby_lib_core/commit/513400f087e3091cff7801f924d90e5ee8118213) tweak start activity test
+
+
 #### v2.3.3 2019-01-22
 
 - [867d55f](https://github.com/appium/ruby_lib_core/commit/867d55f2e77c17c3576a56df687fba0e02063530) Release 2.3.3
