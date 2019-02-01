@@ -6,6 +6,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+- Fix potential override of `AppManagement#background_app`
 
 ### Deprecations
 
