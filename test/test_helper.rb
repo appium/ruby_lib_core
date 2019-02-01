@@ -71,7 +71,7 @@ class AppiumLibCoreTest
       {
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
-          automationName: 'XCUITest',
+          automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           app: 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
           deviceName: device_name,
@@ -101,7 +101,7 @@ class AppiumLibCoreTest
       {
         desired_capabilities: { # :caps is also available
           platformName: :android,
-          automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
+          automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
           udid: get_udid_name,
           deviceName: 'Android Emulator',
@@ -137,7 +137,7 @@ class AppiumLibCoreTest
         caps: {
           browserName: :chrome,
           platformName: :android,
-          automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
+          automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
@@ -212,7 +212,7 @@ class AppiumLibCoreTest
             warnings: {},
             desired: {
               platformName: 'Android',
-              automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
+              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               app: '/test/apps/ApiDemos-debug.apk',
@@ -221,7 +221,7 @@ class AppiumLibCoreTest
               resetKeyboard: true
             },
             platformName: 'Android',
-            automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
+            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
             platformVersion: '7.1.1',
             deviceName: 'emulator-5554',
             app: '/test/apps/ApiDemos-debug.apk',
@@ -260,7 +260,7 @@ class AppiumLibCoreTest
           sessionId: '1234567890',
           capabilities: {
             platformName: :android,
-            automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
+            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
             app: 'test/functional/app/api.apk.zip',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',

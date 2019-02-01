@@ -419,7 +419,7 @@ class AppiumLibCoreTest
           end
 
           def test_get_battery_info
-            skip('espresso does not have this method') if @core.automation_name == :espresso
+            skip('Only uiautomator2 has this method') unless @core.automation_name == :uiautomator2
 
             stub_request(:post, "#{SESSION}/execute")
               .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
