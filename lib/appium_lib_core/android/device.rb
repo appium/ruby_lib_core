@@ -326,7 +326,7 @@ module Appium
               end
             end
 
-            # Android, Override
+            # Android, Override included method in bridge
             ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
               def hide_keyboard(close_key = nil, strategy = nil)
                 option = {}
@@ -335,6 +335,13 @@ module Appium
                 option[:strategy] = strategy if strategy
 
                 execute :hide_keyboard, {}, option
+              end
+            end
+
+            # Android, Override included method in bridge
+            ::Appium::Core::Device.add_endpoint_method(:background_app) do
+              def background_app(duration = 0)
+                execute :background_app, {}, seconds: duration
               end
             end
 

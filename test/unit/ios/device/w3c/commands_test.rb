@@ -33,6 +33,8 @@ class AppiumLibCoreTest
           end
 
           def test_start_recording_screen
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
               .with(body: { options: { videoType: 'mjpeg', timeLimit: '180', videoQuality: 'medium' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
@@ -43,6 +45,8 @@ class AppiumLibCoreTest
           end
 
           def test_start_recording_screen_custom
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
               .with(body: { options: {
                 videoType: 'libx264', timeLimit: '60', videoQuality: 'medium', videoFps: '50', videoScale: '320:240'
@@ -55,6 +59,8 @@ class AppiumLibCoreTest
           end
 
           def test_stop_recording_screen_default
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
               .with(body: {}.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
@@ -65,6 +71,8 @@ class AppiumLibCoreTest
           end
 
           def test_stop_recording_screen_custom
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
               .with(body: { options:
                                 { remotePath: 'https://example.com', user: 'user name', pass: 'pass', method: 'PUT' } }.to_json)
@@ -76,6 +84,8 @@ class AppiumLibCoreTest
           end
 
           def test_get_battery_info
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/execute/sync")
               .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { state: 1, level: 0.5 } }.to_json)
@@ -95,6 +105,22 @@ class AppiumLibCoreTest
             e.name
 
             assert_requested(:get, "#{SESSION}/element/id/attribute/name", times: 1)
+          end
+
+          def test_background_app
+            if @core.automation_name == :xcuitest
+              stub_request(:post, "#{SESSION}/appium/app/background")
+                .with(body: { seconds: { timeout: 0 } }.to_json)
+                .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+            else
+              stub_request(:post, "#{SESSION}/appium/app/background")
+                .with(body: { seconds: 0 }.to_json)
+                .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+            end
+
+            @driver.background_app 0
+
+            assert_requested(:post, "#{SESSION}/appium/app/background", times: 1)
           end
         end # class CommandsTest
       end # module W3C
