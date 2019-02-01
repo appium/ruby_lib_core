@@ -420,6 +420,8 @@ class AppiumLibCoreTest
           end
 
           def test_get_battery_info
+            skip('espresso does not have this method') if @core.automation_name == :espresso
+
             stub_request(:post, "#{SESSION}/execute/sync")
               .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { state: 5, level: 0.5 } }.to_json)

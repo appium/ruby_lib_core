@@ -14,6 +14,7 @@ before_install:
 script:
   - bundle exec rake rubocop
   - bundle exec parallel_test test/unit/ -n 4
+  - AUTOMATION_NAME=espresso bundle exec parallel_test test/unit/android -n 4
 
 notifications:
   email:

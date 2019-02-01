@@ -212,7 +212,7 @@ class AppiumLibCoreTest
             warnings: {},
             desired: {
               platformName: 'Android',
-              automationName: 'uiautomator2',
+              automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               app: '/test/apps/ApiDemos-debug.apk',
@@ -221,7 +221,7 @@ class AppiumLibCoreTest
               resetKeyboard: true
             },
             platformName: 'Android',
-            automationName: 'uiautomator2',
+            automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
             platformVersion: '7.1.1',
             deviceName: 'emulator-5554',
             app: '/test/apps/ApiDemos-debug.apk',
@@ -260,7 +260,7 @@ class AppiumLibCoreTest
           sessionId: '1234567890',
           capabilities: {
             platformName: :android,
-            automationName: 'uiautomator2',
+            automationName: ENV['AUTOMATION_NAME'] || 'uiautomator2',
             app: 'test/functional/app/api.apk.zip',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
