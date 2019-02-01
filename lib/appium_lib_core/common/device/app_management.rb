@@ -20,8 +20,9 @@ module Appium
             execute :app_strings, {}, opts
           end
 
-          def background_app(duration = 0)
-            execute :background_app, {}, seconds: duration
+          def background_app(duration = 0) # rubocop:disable Lint/UnusedMethodArgument
+            # Should override in each driver
+            raise NotImplementedError
           end
 
           def install_app(path,

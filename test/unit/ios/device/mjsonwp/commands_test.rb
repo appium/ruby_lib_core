@@ -99,6 +99,26 @@ class AppiumLibCoreTest
             assert_equal :full, info[:state]
             assert_equal 1.0, info[:level]
           end
+
+          def test_method_missing
+            stub_request(:get, "#{SESSION}/element/id/attribute/name")
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+            e.name
+
+            assert_requested(:get, "#{SESSION}/element/id/attribute/name", times: 1)
+          end
+
+          def test_background_app
+            stub_request(:post, "#{SESSION}/appium/app/background")
+              .with(body: { seconds: { timeout: 0 } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.background_app 0
+
+            assert_requested(:post, "#{SESSION}/appium/app/background", times: 1)
+          end
         end # class CommandsTest
       end # module MJSONWP
     end # module Device

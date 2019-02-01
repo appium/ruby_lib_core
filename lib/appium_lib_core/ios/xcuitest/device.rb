@@ -150,7 +150,7 @@ module Appium
 
           class << self
             def extended(_mod)
-              # Override
+              # Xcuitest, Override included method in bridge
               ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
                 def hide_keyboard(close_key = nil, strategy = nil)
                   option = {}
@@ -162,7 +162,7 @@ module Appium
                 end
               end
 
-              # Override
+              # Xcuitest, Override included method in bridge
               ::Appium::Core::Device.add_endpoint_method(:background_app) do
                 def background_app(duration = 0)
                   # https://github.com/appium/ruby_lib/issues/500, https://github.com/appium/appium/issues/7741
