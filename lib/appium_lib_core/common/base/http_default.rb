@@ -25,7 +25,7 @@ module Appium
           def update_sending_request_to(scheme:, host:, port:, path:)
             return @server_url unless validate_url_param(scheme, host, port, path)
 
-            # Add / if they does not have
+            # Add / if `path` does not have it
             path = path.start_with?('/') ? path : "/#{path}"
             path = path.end_with?('/') ? path : "#{path}/"
 
