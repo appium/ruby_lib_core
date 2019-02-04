@@ -4,6 +4,17 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 ### Enhancements
+- [Experimental] Add `direct_connect` capability for the Ruby client in order to handle `directConnect` capability in a create session response by Appium server
+    - Update http client following `directConnectProtocol`, `directConnectHost`, `directConnectPort` and `directConnectPath`
+      if `direct_connect` capability for ruby_lib_core is `true`
+    - This will resolve a performance issue if a user has a proxy server to handle requests from client to Appium server.
+      With this feature, the user can send requests directly to the Appium server after create session skipping the proxy server.
+      ```
+      # create session
+      client <---> proxy server <---> appium server <> devices
+      # Following requests after the create session
+      client <----------------------> appium server <> devices
+      ```
 
 ### Bug fixes
 - Fix potential override of `AppManagement#background_app`
