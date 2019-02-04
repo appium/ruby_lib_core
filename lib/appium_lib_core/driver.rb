@@ -245,10 +245,10 @@ module Appium
                                                      listener: @listener)
 
           if @direct_connect
-            @driver.sending_request_to(protocol: @driver.capabilities['directConnectProtocol'],
-                                       host: @driver.capabilities['directConnectHost'],
-                                       port: @driver.capabilities['directConnectPort'],
-                                       path: @driver.capabilities['directConnectPath'])
+            @driver.update_sending_request_to(protocol: @driver.capabilities['directConnectProtocol'],
+                                              host: @driver.capabilities['directConnectHost'],
+                                              port: @driver.capabilities['directConnectPort'],
+                                              path: @driver.capabilities['directConnectPath'])
           end
 
           # export session

@@ -38,7 +38,7 @@ module Appium
         end
 
         # Can change target URL, custom URL
-        def sending_request_to(protocol:, host:, port:, path:)
+        def update_sending_request_to(protocol:, host:, port:, path:)
           @bridge.http.update_sending_request_to(scheme: protocol,
                                                  host: host,
                                                  port: port,
