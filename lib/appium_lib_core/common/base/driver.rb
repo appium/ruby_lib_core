@@ -37,7 +37,16 @@ module Appium
           @bridge.dialect
         end
 
-        # Can change target URL, custom URL
+        # Update `server_url` and HTTP clients following this arguments, protocol, host, port and path.
+        # After this method, `@bridge.http` will be a new instance following them instead of `server_url` which is
+        # set before creating session.
+        #
+        # @example
+        #
+        #     driver = core.start_driver server_url: 'http://example1.com:8000/wd/hub # @bridge.http is for `http://example1.com:8000/wd/hub/`
+        #     driver.update_sending_request_to protocol: 'https', host: 'example2.com', port: 9000, path: '/wd/hub'
+        #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for `https://example2.com:9000/wd/hub/`
+        #
         def update_sending_request_to(protocol:, host:, port:, path:)
           @bridge.http.update_sending_request_to(scheme: protocol,
                                                  host: host,

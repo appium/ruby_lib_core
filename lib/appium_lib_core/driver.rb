@@ -75,6 +75,16 @@ module Appium
       # @return [Appium::Core::Base::Driver]
       attr_reader :driver
 
+      # [Experimental feature]
+      # Enable an experimental feature updating Appium HTTP client following `directConnectProtocol`, `directConnectHost`,
+      # `directConnectPort` and `directConnectPath` after session creation if the server returns them as a part of the response
+      # capability in _create session_.
+      #
+      # Ignore them if this parameter is `false`. Defaults to false.
+      #
+      # @return [Bool]
+      attr_reader :direct_connect
+
       # Creates a new global driver and extend particular methods to `target`
       # @param [Class] target Extend particular methods to this target.
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
