@@ -79,6 +79,23 @@ class AppiumLibCoreTest
 
       assert_equal 999_999, @core.http_client.open_timeout
       assert_equal 999_999, @core.http_client.read_timeout
+      uri = @driver.send(:bridge).http.send(:server_url)
+      assert_equal 'http', uri.scheme
+      assert_equal '127.0.0.1', uri.host
+      assert_equal 4723, uri.port
+      assert_equal '/wd/hub/', uri.path
+    end
+
+    def test_default_timeout_for_http_client_with_direct
+      driver = android_mock_create_session_w3c_direct(::Appium::Core.for(Caps.android_direct))
+
+      assert_equal 999_999, driver.send(:bridge).http.open_timeout
+      assert_equal 999_999, driver.send(:bridge).http.read_timeout
+      uri = driver.send(:bridge).http.send(:server_url)
+      assert_equal 'http', uri.scheme
+      assert_equal 'localhost', uri.host
+      assert_equal 8888, uri.port
+      assert_equal '/wd/hub/', uri.path
     end
 
     # https://www.w3.org/TR/webdriver1/

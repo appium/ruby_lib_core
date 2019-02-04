@@ -244,6 +244,13 @@ module Appium
                                                      url: @custom_url,
                                                      listener: @listener)
 
+          if @direct_connect
+            @driver.sending_request_to(protocol: @driver.capabilities['directConnectProtocol'],
+                                       host: @driver.capabilities['directConnectHost'],
+                                       port: @driver.capabilities['directConnectPort'],
+                                       path: @driver.capabilities['directConnectPath'])
+          end
+
           # export session
           write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
@@ -453,6 +460,8 @@ module Appium
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
+
+        @direct_connect = appium_lib_opts.fetch :direct_access, false
 
         @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 
