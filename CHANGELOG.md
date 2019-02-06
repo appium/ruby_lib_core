@@ -11,8 +11,30 @@ Ruby client sets `0` seconds as implicit wait by default from this release since
 - Breaking changes
     - Set implicit wait zero by default
         - Can configure `wait: 20` as `appium_lib` capability to keep the behaviour
+- [Experimental] Add `direct_connect` capability for the Ruby client in order to handle `directConnect` capability in a create session response by Appium server
+    - Update http client following `directConnectProtocol`, `directConnectHost`, `directConnectPort` and `directConnectPath`
+      if `direct_connect` capability for ruby_lib_core is `true`
+    - This will resolve a performance issue if a user has a proxy server to handle requests from client to Appium server.
+      With this feature, the user can send requests directly to the Appium server after create session skipping the proxy server.
+      ```
+      # create session
+      client <---> proxy server <---> appium server <> devices
+      # Following requests after the create session
+      client <----------------------> appium server <> devices
+      ```
 
 ### Bug fixes
+- Fix potential override of `AppManagement#background_app`
+
+### Deprecations
+
+## [2.3.4] - 2019-01-31
+### Enhancements
+- Add 3D touch option for `TouchAction#press` [appium/WebDriverAgent#79](https://github.com/appium/WebDriverAgent/pull/79)
+    - `:pressure` option
+
+### Bug fixes
+- Stop sending blank value in `start_activity`
 
 ### Deprecations
 

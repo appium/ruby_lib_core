@@ -64,9 +64,14 @@ module Appium
       # @option opts [WebDriver::Element] :element (Optional) Element to press within.
       # @option opts [integer] :x x co-ordinate to press on
       # @option opts [integer] :y y co-ordinate to press on
+      # @option opts [Float] pressure (iOS Only) press as force touch.
+      #                                          See the description of `force` property on Apple's UITouch class
+      #                                          (https://developer.apple.com/documentation/uikit/uitouch?language=objc)
+      #                                          for more details on possible value ranges.
       def press(opts)
         args = opts.select { |k, _v| %i(element x y).include? k }
         args = args_with_ele_ref(args)
+        args[:pressure] = opts.delete(:pressure) unless opts[:pressure].nil?
         chain_method(:press, args)
       end
 

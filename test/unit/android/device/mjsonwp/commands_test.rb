@@ -217,9 +217,21 @@ class AppiumLibCoreTest
 
           def test_start_activity
             stub_request(:post, "#{SESSION}/appium/device/start_activity")
+              .with(body: { appPackage: 'package', appActivity: 'activity' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+            @driver.start_activity(app_activity: 'activity', app_package: 'package')
+
+            assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
+          end
+
+          def test_start_activity_with_wait
+            stub_request(:post, "#{SESSION}/appium/device/start_activity")
+              .with(body: { appPackage: 'package', appActivity: 'activity',
+                            appWaitPackage: 'wait_package', appWaitActivity: 'wait_activity' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.start_activity(app_activity: 'activity', app_package: 'package')
+            @driver.start_activity(app_activity: 'activity', app_package: 'package',
+                                   app_wait_package: 'wait_package', app_wait_activity: 'wait_activity')
 
             assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
           end
@@ -407,6 +419,8 @@ class AppiumLibCoreTest
           end
 
           def test_get_battery_info
+            skip('Only uiautomator2 has this method') unless @core.automation_name == :uiautomator2
+
             stub_request(:post, "#{SESSION}/execute")
               .with(body: { script: 'mobile: batteryInfo', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { state: 2, level: 1.0 } }.to_json)

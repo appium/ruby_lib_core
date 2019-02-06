@@ -62,6 +62,7 @@ class AppiumLibCoreTest
 
           def test_background_app
             stub_request(:post, "#{SESSION}/appium/app/background")
+              .with(body: { seconds: 0 }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.background_app 0
