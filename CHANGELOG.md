@@ -4,6 +4,14 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 
+### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.0.0] - 2019-02-06
+
 This release has a breaking change about an implicit wait.
 Ruby client sets `0` seconds as implicit wait by default instead of `20` seconds.
 The behaviour follows the default spec in WebDriver.
