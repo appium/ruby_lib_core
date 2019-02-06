@@ -1,3 +1,13 @@
+#### v3.0.0 2019-02-06
+
+- [ba653c3](https://github.com/appium/ruby_lib_core/commit/ba653c3be70bad3b9a9e233121b4b3a9455fa287) Release 3.0.0
+- [77e7cd2](https://github.com/appium/ruby_lib_core/commit/77e7cd2f58bcc1fb368f9721fe071b210e071435) Release 3.0.0
+- [1315dae](https://github.com/appium/ruby_lib_core/commit/1315dae75712b65707b8b519228860d6d89ac96c) set default zero implicit wait (#186)
+- [61a927f](https://github.com/appium/ruby_lib_core/commit/61a927f6e6f15b718cf6b4bfb8a26242e571a2f9) Experimental add direct host (#189)
+- [c9fff7b](https://github.com/appium/ruby_lib_core/commit/c9fff7b3e12eaa20a55742460147d7694f61658d) Improve override background (#188)
+- [1e588c8](https://github.com/appium/ruby_lib_core/commit/1e588c87842f3844763e6c9559087302219280ab) update changelog
+
+
 #### v2.3.4 2019-01-31
 
 - [f217263](https://github.com/appium/ruby_lib_core/commit/f217263febd2bd3d6c8663f440d7959096492f7a) Release 2.3.4
