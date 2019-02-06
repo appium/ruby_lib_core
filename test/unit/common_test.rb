@@ -52,13 +52,13 @@ class AppiumLibCoreTest
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts/implicit_wait")
-          .with(body: { ms: 20_000 }.to_json)
+          .with(body: { ms: 0 }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = ::Appium::Core.for({ caps: CAPS.merge({ forceMjsonwp: true }), appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 20_000 }.to_json, times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 0 }.to_json, times: 1)
         driver
       end
 
@@ -71,13 +71,13 @@ class AppiumLibCoreTest
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 20_000 }.to_json)
+          .with(body: { implicit: 0 }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = ::Appium::Core.for({ caps: CAPS.merge({ forceMjsonwp: false }), appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 20_000 }.to_json, times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
         driver
       end
 
@@ -110,14 +110,14 @@ class AppiumLibCoreTest
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts/implicit_wait")
-          .with(body: { ms: 20_000 }.to_json)
+          .with(body: { ms: 0 }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         core = ::Appium::Core.for({ caps: http_caps.merge({ forceMjsonwp: true }), appium_lib: {} })
         core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 20_000 }.to_json, times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts/implicit_wait", body: { ms: 0 }.to_json, times: 1)
 
         assert_equal 'sauce-storage:test/functional/app/api.apk.zip', core.caps[:app]
       end
@@ -131,13 +131,13 @@ class AppiumLibCoreTest
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 20_000 }.to_json)
+          .with(body: { implicit: 0 }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 20_000 }.to_json, times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
         driver
       end
 
@@ -179,14 +179,14 @@ class AppiumLibCoreTest
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 20_000 }.to_json)
+          .with(body: { implicit: 0 }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         core = ::Appium::Core.for({ caps: http_caps, appium_lib: {} })
         core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 20_000 }.to_json, times: 1)
+        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
 
         assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
       end

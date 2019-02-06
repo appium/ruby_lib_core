@@ -92,7 +92,6 @@ class AppiumLibCoreTest
         },
         appium_lib: {
           export_session: true,
-          wait: 30,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -125,11 +124,12 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           chromeOptions: {
             args: ['--disable-popup-blocking']
-          }
+          },
+          uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
           export_session: true,
-          wait: 30,
+          wait: 0,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -175,7 +175,6 @@ class AppiumLibCoreTest
         },
         appium_lib: {
           export_session: true,
-          wait: 30,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -261,7 +260,7 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 30_000 }.to_json)
+        .with(body: { ms: 0 }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
       driver = @core.start_driver
@@ -294,13 +293,13 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 30_000 }.to_json)
+        .with(body: { implicit: 0 }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
 
@@ -360,7 +359,7 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 30_000 }.to_json)
+        .with(body: { ms: 0 }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
       driver = @core.start_driver
@@ -387,13 +386,13 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 30_000 }.to_json)
+        .with(body: { implicit: 0 }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
   end

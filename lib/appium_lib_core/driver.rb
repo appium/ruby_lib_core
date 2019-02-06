@@ -43,11 +43,12 @@ module Appium
       # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
       attr_reader :export_session_path
 
-      # Default wait time for elements to appear
-      # Returns the default client side wait. 20 seconds is by default.
+      # Default wait time for elements to appear in Appium server side.
+      # Returns the default client side wait. 0 seconds is by default. Users should handle the timeout stuff in user-side.
       # Provide Appium::Drive like { appium_lib: { wait: 30 } }
       # @return [Integer]
       attr_reader :default_wait
+      DEFAULT_IMPLICIT_WAIT = 0
 
       # Appium's server port. 4723 is by default.
       # Provide Appium::Drive like { appium_lib: { port: 8080 } }
@@ -465,7 +466,7 @@ module Appium
       # @private
       def set_appium_lib_specific_values(appium_lib_opts)
         @custom_url ||= appium_lib_opts.fetch :server_url, nil
-        @default_wait = appium_lib_opts.fetch :wait, 20
+        @default_wait = appium_lib_opts.fetch :wait, DEFAULT_IMPLICIT_WAIT
 
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
