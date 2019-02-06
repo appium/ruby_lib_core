@@ -5,10 +5,11 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 This release has a breaking change about an implicit wait.
-Ruby client sets `0` seconds as implicit wait by default from this release since it is the default spec behaviour in WebDriver while Ruby client had set `20` seconds for it.
+Ruby client sets `0` seconds as implicit wait by default instead of `20` seconds.
+The behaviour follows the default spec in WebDriver.
 
 ### Enhancements
-- Breaking changes
+- **Breaking changes**
     - Set implicit wait zero by default
         - Can configure `wait: 20` as `appium_lib` capability to keep the behaviour
 - [Experimental] Add `direct_connect` capability for the Ruby client in order to handle `directConnect` capability in a create session response by Appium server
