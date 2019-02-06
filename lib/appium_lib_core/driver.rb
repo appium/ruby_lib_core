@@ -75,6 +75,16 @@ module Appium
       # @return [Appium::Core::Base::Driver]
       attr_reader :driver
 
+      # [Experimental feature]
+      # Enable an experimental feature updating Appium HTTP client following `directConnectProtocol`, `directConnectHost`,
+      # `directConnectPort` and `directConnectPath` after session creation if the server returns them as a part of the response
+      # capability in _create session_.
+      #
+      # Ignore them if this parameter is `false`. Defaults to false.
+      #
+      # @return [Bool]
+      attr_reader :direct_connect
+
       # Creates a new global driver and extend particular methods to `target`
       # @param [Class] target Extend particular methods to this target.
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
@@ -243,6 +253,13 @@ module Appium
                                                      desired_capabilities: @caps,
                                                      url: @custom_url,
                                                      listener: @listener)
+
+          if @direct_connect
+            @driver.update_sending_request_to(protocol: @driver.capabilities['directConnectProtocol'],
+                                              host: @driver.capabilities['directConnectHost'],
+                                              port: @driver.capabilities['directConnectPort'],
+                                              path: @driver.capabilities['directConnectPath'])
+          end
 
           # export session
           write_session_id(@driver.session_id, @export_session_path) if @export_session
@@ -453,6 +470,8 @@ module Appium
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
+
+        @direct_connect = appium_lib_opts.fetch :direct_access, false
 
         @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
 

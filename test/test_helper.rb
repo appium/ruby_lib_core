@@ -59,6 +59,10 @@ class AppiumLibCoreTest
       new.android(activity_name)
     end
 
+    def self.android_direct
+      new.android_direct
+    end
+
     def self.android_web
       new.android_web
     end
@@ -128,6 +132,19 @@ class AppiumLibCoreTest
           wait: 30,
           wait_timeout: 20,
           wait_interval: 1
+        }
+      }
+    end
+
+    def android_direct
+      {
+        desired_capabilities: android[:desired_capabilities],
+        appium_lib: {
+          export_session: true,
+          wait: 30,
+          wait_timeout: 20,
+          wait_interval: 1,
+          direct_access: true
         }
       }
     end
@@ -284,6 +301,44 @@ class AppiumLibCoreTest
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
       assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
+      driver
+    end
+
+    def android_mock_create_session_w3c_direct(core)
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+            app: 'test/functional/app/api.apk.zip',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator',
+            appPackage: 'io.appium.android.apis',
+            appActivity: 'io.appium.android.apis.ApiDemos',
+            someCapability: 'some_capability',
+            unicodeKeyboard: true,
+            resetKeyboard: true,
+            directConnectProtocol: 'http',
+            directConnectHost: 'localhost',
+            directConnectPort: '8888',
+            directConnectPath: '/wd/hub'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+        .with(body: { implicit: 30_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+                       body: { implicit: 30_000 }.to_json, times: 1)
       driver
     end
 
