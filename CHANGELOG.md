@@ -18,9 +18,9 @@ The behaviour follows the default spec in WebDriver.
 
 ### Enhancements
 - **Breaking changes**
-    - Set implicit wait zero by default
+    - Set implicit wait zero by default [#186](https://github.com/appium/ruby_lib_core/pull/186)
         - Can configure `wait: 20` as `appium_lib` capability to keep the behaviour
-- [Experimental] Add `direct_connect` capability for the Ruby client in order to handle `directConnect` capability in a create session response by Appium server
+- [Experimental] Add `direct_connect` capability for the Ruby client in order to handle `directConnect` capability in a create session response by Appium server [#189](https://github.com/appium/ruby_lib_core/pull/189)
     - Update http client following `directConnectProtocol`, `directConnectHost`, `directConnectPort` and `directConnectPath`
       if `direct_connect` capability for ruby_lib_core is `true`
     - This will resolve a performance issue if a user has a proxy server to handle requests from client to Appium server.
@@ -33,7 +33,7 @@ The behaviour follows the default spec in WebDriver.
       ```
 
 ### Bug fixes
-- Fix potential override of `AppManagement#background_app`
+- Fix potential override of `AppManagement#background_app` [#188](https://github.com/appium/ruby_lib_core/pull/188)
 
 ### Deprecations
 
