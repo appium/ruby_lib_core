@@ -12,13 +12,14 @@ module Appium
           # Android
           uiautomator:          '-android uiautomator', # Unavailable in Espresso
           viewtag:              '-android viewtag',     # Available in Espresso
+          data_matcher:         '-android datamatcher', # Available in Espresso
           # iOS
           uiautomation:         '-ios uiautomation',
           predicate:            '-ios predicate string',
           class_chain:          '-ios class chain',
-          # Windows
+          # Windows with windows prefix
           windows_uiautomation: '-windows uiautomation',
-          # Tizen
+          # Tizen with Tizen prefix
           tizen_uiautomation:   '-tizen uiautomation'
         )
         # rubocop:enable Layout/AlignHash
