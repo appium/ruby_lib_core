@@ -12,13 +12,14 @@ module Appium
           # Android
           uiautomator:          '-android uiautomator', # Unavailable in Espresso
           viewtag:              '-android viewtag',     # Available in Espresso
+          data_matcher:         '-android datamatcher', # Available in Espresso
           # iOS
           uiautomation:         '-ios uiautomation',
           predicate:            '-ios predicate string',
           class_chain:          '-ios class chain',
-          # Windows
+          # Windows with windows prefix
           windows_uiautomation: '-windows uiautomation',
-          # Tizen
+          # Tizen with Tizen prefix
           tizen_uiautomation:   '-tizen uiautomation'
         )
         # rubocop:enable Layout/AlignHash
@@ -49,47 +50,49 @@ module Appium
         # @example Find element with each keys
         #
         #     # with accessibility id. All platforms.
-        #     find_elements :accessibility_id, 'Animation'
-        #     find_elements :accessibility_id, 'Animation'
+        #     @driver.find_elements :accessibility_id, 'Animation'
+        #     @driver.find_elements :accessibility_id, 'Animation'
         #
         #     # with base64 encoded template image. All platforms.
-        #     find_elements :image, Base64.strict_encode64(File.read(file_path))
+        #     @driver.find_elements :image, Base64.strict_encode64(File.read(file_path))
         #
         #     # For Android
         #     ## With uiautomator
-        #     find_elements :uiautomator, 'new UiSelector().clickable(true)'
+        #     @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
         #     ## With viewtag, but only for Espresso
         #     ## `setTag`/`getTag` in https://developer.android.com/reference/android/view/View
-        #     find_elements :viewtag, 'new UiSelector().clickable(true)'
+        #     @driver.find_elements :viewtag, 'new UiSelector().clickable(true)'
+        #     # With data_matcher. The argument should be JSON format.
+        #     @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
         #
         #     # For iOS
         #     ## With :predicate
-        #     find_elements :predicate, "isWDVisible == 1"
-        #     find_elements :predicate, 'wdName == "Buttons"'
-        #     find_elements :predicate, 'wdValue == "SearchBar" AND isWDDivisible == 1'
+        #     @driver.find_elements :predicate, "isWDVisible == 1"
+        #     @driver.find_elements :predicate, 'wdName == "Buttons"'
+        #     @driver.find_elements :predicate, 'wdValue == "SearchBar" AND isWDDivisible == 1'
         #
         #     ## With Class Chain
         #     ### select the third child button of the first child window element
-        #     find_elements :class_chain, 'XCUIElementTypeWindow/XCUIElementTypeButton[3]'
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow/XCUIElementTypeButton[3]'
         #     ### select all the children windows
-        #     find_elements :class_chain, 'XCUIElementTypeWindow'
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow'
         #     ### select the second last child of the second child window
-        #     find_elements :class_chain, 'XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]'
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]'
         #     ### matching predicate. <code>`</code> is the mark.
-        #     find_elements :class_chain, 'XCUIElementTypeWindow[`visible = 1][`name = "bla"`]'
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[`visible = 1][`name = "bla"`]'
         #     ### containing predicate. `$` is the mark.
         #     ### Require appium-xcuitest-driver 2.54.0+. PR: https://github.com/facebook/WebDriverAgent/pull/707/files
-        #     find_elements :class_chain, 'XCUIElementTypeWindow[$name = \"bla$$$bla\"$]'
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[$name = \"bla$$$bla\"$]'
         #     e = find_element :class_chain, "**/XCUIElementTypeWindow[$name == 'Buttons'$]"
         #     e.tag_name #=> "XCUIElementTypeWindow"
         #     e = find_element :class_chain, "**/XCUIElementTypeStaticText[$name == 'Buttons'$]"
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
         #     # For Windows
-        #     find_elements :windows_uiautomation, '....'
+        #     @driver.find_elements :windows_uiautomation, '....'
         #
         #     # For Tizen
-        #     find_elements :tizen_uiautomation, '....'
+        #     @driver.find_elements :tizen_uiautomation, '....'
         #
         def find_element(*args)
           how, what = extract_args(args)
