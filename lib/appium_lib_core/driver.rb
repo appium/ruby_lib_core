@@ -87,7 +87,6 @@ module Appium
       attr_reader :direct_connect
 
       # Creates a new global driver and extend particular methods to `target`
-      # @param [Class] target Extend particular methods to this target.
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
       # @return [Driver]
       #

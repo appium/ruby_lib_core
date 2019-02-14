@@ -10,14 +10,14 @@ module Appium
       # Uses eventmachine to wait response from the peer. The eventmachine works on a thread. The thread will exit
       # with close method.
       #
-      # @param [String] url: URL to establish web socket connection. If the URL has no port, the client use:
-      #                       `ws`: 80, `wss`: 443 ports.
-      # @param [Array] protocols: An array of strings representing acceptable subprotocols for use over the socket.
-      #                           The driver will negotiate one of these to use via the Sec-WebSocket-Protocol header
-      #                           if supported by the other peer. Default is nil.
-      #                           The protocols is equal to https://github.com/faye/faye-websocket-ruby/ 's one for client.
-      # @param [Hash] options: Initialize options for Faye client. Read https://github.com/faye/faye-websocket-ruby#initialization-options
-      #                        for more details. Default is `{}`.
+      # @param [String] url URL to establish web socket connection. If the URL has no port, the client use:
+      #                     `ws`: 80, `wss`: 443 ports.
+      # @param [Array] protocols An array of strings representing acceptable subprotocols for use over the socket.
+      #                          The driver will negotiate one of these to use via the Sec-WebSocket-Protocol header
+      #                          if supported by the other peer. Default is nil.
+      #                          The protocols is equal to https://github.com/faye/faye-websocket-ruby/ 's one for client.
+      # @param [Hash] options Initialize options for Faye client. Read https://github.com/faye/faye-websocket-ruby#initialization-options
+      #                       for more details. Default is `{}`.
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -57,7 +57,7 @@ module Appium
       # Sends a ping frame with an optional message and fires the callback when a matching pong is received.
       #
       # @param [String] message A message to send ping.
-      # @param [Block] &callback
+      # @param [Block] callback
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -82,8 +82,8 @@ module Appium
 
       # Closes the connection, sending the given status code and reason text, both of which are optional.
       #
-      # @param [Integer] code: A status code to send to the peer with close signal. Default is nil.
-      # @param [String] reason: A reason to send to the peer with close signal. Default is 'close from ruby_lib_core'.
+      # @param [Integer] code A status code to send to the peer with close signal. Default is nil.
+      # @param [String] reason A reason to send to the peer with close signal. Default is 'close from ruby_lib_core'.
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")

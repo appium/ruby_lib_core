@@ -37,13 +37,13 @@ module Appium
           #
 
           # @since Appium 1.9.1
-          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mjpeg', time_limit: '180', video_quality: 'medium', video_scale: '320:240')
+          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mjpeg', video_fps: nil, time_limit: '180', video_quality: 'medium', video_scale: '320:240')
           #
           # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
           # (ffmpeg utility is required: 'brew install ffmpeg').
           # We would recommend to play the video by VLC or Mplayer if you can not play the video with other video players.
           #
-          # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
+          # @param [String] remote_path The path to the remote location, where the resulting video should be uploaded.
           #                             The following protocols are supported: http/https, ftp.
           #                             Null or empty string value (the default setting) means the content of resulting
           #                             file should be encoded as Base64 and passed as the endpount response value.
@@ -51,21 +51,21 @@ module Appium
           #                             fit into the available process memory.
           #                             This option only has an effect if there is screen recording process in progreess
           #                             and `forceRestart` parameter is not set to `true`.
-          # @param [String] user: The name of the user for the remote authentication.
-          # @param [String] pass: The password for the remote authentication.
-          # @param [String] method: The http multipart upload method name. The 'PUT' one is used by default.
-          # @param [Boolean] force_restart: Whether to try to catch and upload/return the currently running screen recording
-          #                                 (`false`, the default setting on server) or ignore the result of it
-          #                                 and start a new recording immediately (`true`).
-          # @param [String] video_type: The video codec type used for encoding of the be recorded screen capture.
-          #                             Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
-          #                             'mjpeg' by default.
-          # @param [String] time_limit: Recording time. 180 seconds is by default.
-          # @param [String] video_quality: The video encoding quality (low, medium, high, photo - defaults to medium).
-          # @param [String] video_fps: The Frames Per Second rate of the recorded video. Change this value if the resulting video
-          #                            is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
-          # @param [String] video_scale: The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-          #                              No scale is applied by default.
+          # @param [String] user The name of the user for the remote authentication.
+          # @param [String] pass The password for the remote authentication.
+          # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
+          # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
+          #                                (`false`, the default setting on server) or ignore the result of it
+          #                                and start a new recording immediately (`true`).
+          # @param [String] video_type The video codec type used for encoding of the be recorded screen capture.
+          #                            Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
+          #                            'mjpeg' by default.
+          # @param [String] time_limit Recording time. 180 seconds is by default.
+          # @param [String] video_quality The video encoding quality (low, medium, high, photo - defaults to medium).
+          # @param [String] video_fps The Frames Per Second rate of the recorded video. Change this value if the resulting video
+          #                           is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+          # @param [String] video_scale The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
+          #                             No scale is applied by default.
           #
           # @example
           #
@@ -75,21 +75,21 @@ module Appium
           #
 
           # @since Appium 1.3.4
-          # @!method start_performance_record(timeout: 300000, profile_name: 'Activity Monitor')
+          # @!method start_performance_record(timeout: 300000, profile_name: 'Activity Monitor', pid: nil)
           #
           # This is a blocking application. Read https://help.apple.com/instruments/mac/current/ to understand the profiler.
           #
-          # @param [Integer|String] timeout: The maximum count of milliseconds to record the profiling information.
-          # @param [String] profile_name: The name of existing performance profile to apply.
-          #                               Execute `instruments -s` to show the list of available profiles.
-          #                               Note, that not all profiles are supported on mobile devices.
-          # @param [Integer|String] pid: The ID of the process to measure the performance for.
-          #                              Set it to `current` in order to measure the performance of
-          #                              the process, which belongs to the currently active application.
-          #                              All processes running on the device are measured if
-          #                              pid is unset (the default setting). Setting process ID while
-          #                              device under test is Simulator might require `instruments` to be launched
-          #                              with sudo privileges, which is not supported and will throw a timeout exception.
+          # @param [Integer|String] timeout The maximum count of milliseconds to record the profiling information.
+          # @param [String] profile_name The name of existing performance profile to apply.
+          #                              Execute `instruments -s` to show the list of available profiles.
+          #                              Note, that not all profiles are supported on mobile devices.
+          # @param [Integer|String] pid The ID of the process to measure the performance for.
+          #                             Set it to `current` in order to measure the performance of
+          #                             the process, which belongs to the currently active application.
+          #                             All processes running on the device are measured if
+          #                             pid is unset (the default setting). Setting process ID while
+          #                             device under test is Simulator might require `instruments` to be launched
+          #                             with sudo privileges, which is not supported and will throw a timeout exception.
           # @return nil
           #
           # @example
@@ -103,22 +103,19 @@ module Appium
           #
           # This is a blocking application.
           #
-          # @param [String] save_file_path: A path to save data as zipped .trace file
-          # @param [String] profile_name: The name of existing performance profile to apply.
-          #                               Execute `instruments -s` to show the list of available profiles.
-          #                               Note, that not all profiles are supported on mobile devices.
-          # @param [String] save_file_path: The name of existing performance profile to apply.
+          # @param [String] save_file_path A path to save data as zipped .trace file
+          # @param [String] profile_name The name of existing performance profile to apply.
           #                              Execute `instruments -s` to show the list of available profiles.
           #                              Note, that not all profiles are supported on mobile devices.
-          # @param [String] remote_path: The path to the remote location, where the resulting zipped .trace file should be uploaded.
-          #                              The following protocols are supported: http/https, ftp.
-          #                              Null or empty string value (the default setting) means the content of resulting
-          #                              file should be zipped, encoded as Base64 and passed as the endpount response value.
-          #                              An exception will be thrown if the generated file is too big to
-          #                              fit into the available process memory.
-          # @param [String] user: The name of the user for the remote authentication. Only works if `remotePath` is provided.
-          # @param [String] pass: The password for the remote authentication. Only works if `remotePath` is provided.
-          # @param [String] method: The http multipart upload method name. Only works if `remotePath` is provided.
+          # @param [String] remote_path The path to the remote location, where the resulting zipped .trace file should be uploaded.
+          #                             The following protocols are supported: http/https, ftp.
+          #                             Null or empty string value (the default setting) means the content of resulting
+          #                             file should be zipped, encoded as Base64 and passed as the endpount response value.
+          #                             An exception will be thrown if the generated file is too big to
+          #                             fit into the available process memory.
+          # @param [String] user The name of the user for the remote authentication. Only works if `remotePath` is provided.
+          # @param [String] pass The password for the remote authentication. Only works if `remotePath` is provided.
+          # @param [String] method The http multipart upload method name. Only works if `remotePath` is provided.
           #
           # @example
           #
