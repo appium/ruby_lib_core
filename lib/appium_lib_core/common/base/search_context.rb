@@ -46,7 +46,8 @@ module Appium
         #
         # <code>{ name: '<name>', args: ['arg1', 'arg2', '...'], class: '<optional class>' }</code>
         #
-        # - _name_: The name of a method to invoke. The method must return a Hamcrest `Matcher`
+        # - _name_: The name of a method to invoke. The method must return
+        # a Hamcrest {http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html Matcher}
         # - _args_: The args provided to the method
         # - _class_: The class name that the method is part of (defaults to <code>org.hamcrest.Matchers</code>).
         # Can be fully qualified, or simple, and simple defaults to <code>androidx.test.espresso.matcher</code> package
