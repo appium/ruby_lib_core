@@ -371,9 +371,11 @@ module Appium
         # On Android, the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
         #
-        # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
-        # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
-        # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
+        #
+        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
+        #
+        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pushed to the root of
@@ -397,9 +399,11 @@ module Appium
         # On Android the application under test should be built with debuggable flag enabled in order to get access
         # to its container on the internal file system.
         #
-        # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
-        # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
-        # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
+        #
+        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
+        #
+        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pulled from the root
@@ -423,9 +427,9 @@ module Appium
         # On Android the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
         #
-        # @see https://github.com/libimobiledevice/ifuse iFuse GitHub page6
-        # @see https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ
-        # @see https://developer.android.com/studio/debug/ 'Debug Your App' developer article
+        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
+        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
+        # {https://developer.android.com/studio/debug/ 'Debug Your App' developer article}
         #
         # @param [String] path Absolute path to the folder.
         #                      If the path starts with <em>@applicationId/</em> prefix, then the folder will be pulled
@@ -460,13 +464,13 @@ module Appium
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
-        # @param [[Integer]] metastate: The state the metakeys should be in when pressing the key. Default is empty Array.
-        #                            Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
-        #                            e.g.: META_SHIFT_ON is `1` or `0x00000001`
-        # @param [[Integer]] flags: Native Android flag value. Several flags can be combined into a single key event.
-        #                           Default is empty Array.  Can set multiple flags as Array.
-        #                           Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                           e.g.: FLAG_CANCELED is `32` or `0x00000020`
+        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        #                              Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+        #                              e.g.: META_SHIFT_ON is `1` or `0x00000001`
+        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        #                          Default is empty Array.  Can set multiple flags as Array.
+        #                          Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                          e.g.: FLAG_CANCELED is `32` or `0x00000020`
         #
         # @example
         #
@@ -482,13 +486,13 @@ module Appium
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to long press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
-        # @param [[Integer]] metastate: The state the metakeys should be in when pressing the key. Default is empty Array.
-        #                            Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
-        #                            e.g.: META_SHIFT_ON is `1` or `0x00000001`
-        # @param [[Integer]] flags: Native Android flag value. Several flags can be combined into a single key event.
-        #                           Default is empty Array. Can set multiple flags as Array.
-        #                           Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                           e.g.: FLAG_CANCELED is `32` or `0x00000020`
+        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        #                              Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+        #                              e.g.: META_SHIFT_ON is `1` or `0x00000001`
+        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        #                          Default is empty Array. Can set multiple flags as Array.
+        #                          Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                          e.g.: FLAG_CANCELED is `32` or `0x00000020`
         #
         # @example
         #
@@ -560,15 +564,15 @@ module Appium
         #
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
-        # @param [Boolean] replace: Only for Android. Whether to reinstall/upgrade the package if it is already present
-        #                           on the device under test. `true` by default
-        # @param [Integer] timeout: Only for Android. How much time to wait for the installation to complete.
-        #                           60000ms by default.
-        # @param [Boolean] allow_test_packages: Only for Android. Whether to allow installation of packages marked as test
-        #                                       in the manifest. `false` by default
-        # @param [Boolean] use_sdcard: Only for Android. Whether to use the SD card to install the app. `false` by default
-        # @param [Boolean] grant_permissions: Only for Android. whether to automatically grant application permissions
-        #                                     on Android 6+ after the installation completes. `false` by default
+        # @param [Boolean] replace Only for Android. Whether to reinstall/upgrade the package if it is already present
+        #                          on the device under test. `true` by default
+        # @param [Integer] timeout Only for Android. How much time to wait for the installation to complete.
+        #                          60000ms by default.
+        # @param [Boolean] allow_test_packages Only for Android. Whether to allow installation of packages marked as test
+        #                                      in the manifest. `false` by default
+        # @param [Boolean] use_sdcard Only for Android. Whether to use the SD card to install the app. `false` by default
+        # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
+        #                                    on Android 6+ after the installation completes. `false` by default
         #
         # @example
         #
@@ -591,9 +595,9 @@ module Appium
         end
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
-        # @param [Boolean] keep_data: Only for Android. Whether to keep application data and caches after it is uninstalled.
+        # @param [Boolean] keep_data Only for Android. Whether to keep application data and caches after it is uninstalled.
         #                             `false` by default
-        # @param [Integer] timeout: Only for Android. How much time to wait for the uninstall to complete. 20000ms by default.
+        # @param [Integer] timeout Only for Android. How much time to wait for the uninstall to complete. 20000ms by default.
         #
         # @example
         #
@@ -629,8 +633,8 @@ module Appium
         # Terminate the specified app.
         #
         # @param [Strong] app_id BundleId for iOS or package name for Android
-        # @param [Integer] timeout: Only for Android. How much time to wait for the application termination to complete.
-        #                           500ms by default.
+        # @param [Integer] timeout Only for Android. How much time to wait for the application termination to complete.
+        #                          500ms by default.
         # @return [Boolean]
         #
         # @example
@@ -666,15 +670,15 @@ module Appium
         end
         alias query_app_state app_state
 
-        # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
+        # @param [String] remote_path The path to the remote location, where the resulting video should be uploaded.
         #                             The following protocols are supported: http/https, ftp.
         #                             Null or empty string value (the default setting) means the content of resulting
         #                             file should be encoded as Base64 and passed as the endpoint response value.
         #                             An exception will be thrown if the generated media file is too big to
         #                             fit into the available process memory.
-        # @param [String] user: The name of the user for the remote authentication.
-        # @param [String] pass: The password for the remote authentication.
-        # @param [String] method: The http multipart upload method name. The 'PUT' one is used by default.
+        # @param [String] user The name of the user for the remote authentication.
+        # @param [String] pass The password for the remote authentication.
+        # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
         #
         # @example
         #
@@ -951,9 +955,10 @@ module Appium
 
         # @since Appium 1.8.2
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
-        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        #
         # You can handle settings for the comparision following below.
-        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
+        # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
@@ -972,9 +977,10 @@ module Appium
 
         # @since Appium 1.8.2
         # Return elements if current view has a partial image. The logic depends on template matching by OpenCV.
-        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
+        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        #
         # You can handle settings for the comparision following below.
-        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
+        # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #

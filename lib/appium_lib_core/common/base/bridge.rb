@@ -49,7 +49,7 @@ module Appium
         # If `desired_capabilities` has `forceMjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
         # If `forceMjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
         #
-        # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
+        # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] desired_capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
         #
         # @example

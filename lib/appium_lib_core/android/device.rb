@@ -60,9 +60,9 @@ module Appium
         # @!method get_network_connection
         #   Get the device network connection current status
         #   See set_network_connection method for return value
-        #   Same as `#network_connection_type` in selenium-webdriver.
+        #   Same as #network_connection_type in selenium-webdriver.
         #
-        #   Returns a key of {:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0} in `#network_connection_type`
+        #   Returns a key of <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code> in #network_connection_type
         #   Returns a number of the mode in `#get_network_connection`
         #
         # @example
@@ -150,7 +150,7 @@ module Appium
         # Same as `#network_connection_type` in selenium-webdriver.
         #
         # @param [String] mode Bit mask that represent the network mode
-        # Or the key matched with `{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}`
+        # Or the key matched with <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code>
         #
         #   Value (Alias)      | Data | Wifi | Airplane Mode
         #   -------------------------------------------------
@@ -189,8 +189,8 @@ module Appium
         #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
         #
 
-        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000')
-        # @param [String] remote_path: The path to the remote location, where the resulting video should be uploaded.
+        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000', bug_report: nil)
+        # @param [String] remote_path The path to the remote location, where the resulting video should be uploaded.
         #                             The following protocols are supported: http/https, ftp.
         #                             Null or empty string value (the default setting) means the content of resulting
         #                             file should be encoded as Base64 and passed as the endpoint response value.
@@ -198,29 +198,29 @@ module Appium
         #                             fit into the available process memory.
         #                             This option only has an effect if there is screen recording process in progress
         #                             and `forceRestart` parameter is not set to `true`.
-        # @param [String] user: The name of the user for the remote authentication.
-        # @param [String] pass: The password for the remote authentication.
-        # @param [String] method: The http multipart upload method name. The 'PUT' one is used by default.
-        # @param [Boolean] force_restart: Whether to try to catch and upload/return the currently running screen recording
+        # @param [String] user The name of the user for the remote authentication.
+        # @param [String] pass The password for the remote authentication.
+        # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
+        # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
         #                                 (`false`, the default setting on server) or ignore the result of it
         #                                 and start a new recording immediately (`true`).
         #
-        # @param [String] video_size: The format is widthxheight.
-        #                             The default value is the device's native display resolution (if supported),
-        #                             1280x720 if not. For best results,
-        #                             use a size supported by your device's Advanced Video Coding (AVC) encoder.
-        #                             For example, "1280x720"
-        # @param [String] time_limit: Recording time. 180 seconds is by default.
-        #                             Since Appium 1.8.2 the time limit can be up to 1800 seconds (30 minutes).
-        #                             Appium will automatically try to merge the 3-minutes chunks recorded
-        #                             by the screenrecord utility, however, this requires FFMPEG utility
-        #                             to be installed and available in PATH on the server machine. If the utility is not
-        #                             present then the most recent screen recording chunk is going to be returned as the result.
-        # @param [String] bit_rate: The video bit rate for the video, in megabits per second.
-        #                           4 Mbp/s(4000000) is by default for Android API level below 27. 20 Mb/s(20000000) for API level 27 and above.
-        # @param [Boolean] bug_report: Set it to `true` in order to display additional information on the video overlay,
-        #                              such as a timestamp, that is helpful in videos captured to illustrate bugs.
-        #                              This option is only supported since API level 27 (Android P).
+        # @param [String] video_size The format is widthxheight.
+        #                            The default value is the device's native display resolution (if supported),
+        #                            1280x720 if not. For best results,
+        #                            use a size supported by your device's Advanced Video Coding (AVC) encoder.
+        #                            For example, "1280x720"
+        # @param [String] time_limit Recording time. 180 seconds is by default.
+        #                            Since Appium 1.8.2 the time limit can be up to 1800 seconds (30 minutes).
+        #                            Appium will automatically try to merge the 3-minutes chunks recorded
+        #                            by the screenrecord utility, however, this requires FFMPEG utility
+        #                            to be installed and available in PATH on the server machine. If the utility is not
+        #                            present then the most recent screen recording chunk is going to be returned as the result.
+        # @param [String] bit_rate The video bit rate for the video, in megabits per second.
+        #                          4 Mbp/s(4000000) is by default for Android API level below 27. 20 Mb/s(20000000) for API level 27 and above.
+        # @param [Boolean] bug_report Set it to `true` in order to display additional information on the video overlay,
+        #                             such as a timestamp, that is helpful in videos captured to illustrate bugs.
+        #                             This option is only supported since API level 27 (Android P).
         #
         # @example
         #

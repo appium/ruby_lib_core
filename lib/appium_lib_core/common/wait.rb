@@ -14,11 +14,11 @@ module Appium
         #
         # If only a number is provided then it's treated as the timeout value.
         #
-        # @param [Integer] timeout: Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-        # @param [Integer] interval: Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-        # @param [String] message: Exception message if timed out.
-        # @param [Array, Exception] ignored: Exceptions to ignore while polling (default: Exception)
-        # @param [Object, NilClass] object: Object to evaluate block against
+        # @param [Integer] timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+        # @param [Integer] interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+        # @param [String] message Exception message if timed out.
+        # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+        # @param [Object, NilClass] object Object to evaluate block against
         #
         # @example
         #
@@ -58,11 +58,11 @@ module Appium
         #
         # If only a number is provided then it's treated as the timeout value.
         #
-        # @param [Integer] timeout: Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-        # @param [Integer] interval: Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-        # @param [String] message: Exception message if timed out.
-        # @param [Array, Exception] ignored: Exceptions to ignore while polling (default: Exception)
-        # @param [Object, NilClass] object: Object to evaluate block against
+        # @param [Integer] timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+        # @param [Integer] interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+        # @param [String] message Exception message if timed out.
+        # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+        # @param [Object, NilClass] object Object to evaluate block against
         #
         # @example
         #
@@ -114,10 +114,10 @@ module Appium
       #
       # If only a number is provided then it's treated as the timeout value.
       #
-      # @param [Integer] timeout: Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @param [Integer] interval: Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @param [String] message: Exception message if timed out.
-      # @param [Array, Exception] ignored: Exceptions to ignore while polling (default: Exception)
+      # @param [Integer] timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+      # @param [Integer] interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+      # @param [String] message Exception message if timed out.
+      # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
       #
       # @example
       #
@@ -136,10 +136,10 @@ module Appium
       #
       # If only a number is provided then it's treated as the timeout value.
       #
-      # @param [Integer] timeout: Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
-      # @param [Integer] interval: Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
-      # @param [String] message: Exception message if timed out.
-      # @param [Array, Exception] ignored: Exceptions to ignore while polling (default: Exception)
+      # @param [Integer] timeout Seconds to wait before timing out. Set default by `appium_wait_timeout` (30).
+      # @param [Integer] interval Seconds to sleep between polls. Set default by `appium_wait_interval` (0.5).
+      # @param [String] message Exception message if timed out.
+      # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
       #
       # @example
       #

@@ -24,18 +24,36 @@ module Appium
         )
         # rubocop:enable Layout/AlignHash
 
+        # rubocop:disable Metrics/LineLength
         #
         # Find the first element matching the given arguments
         #
-        # Android can find with uiautomator like a [UISelector](http://developer.android.com/tools/help/uiautomator/UiSelector.html).
-        # iOS can find with a [UIAutomation command](https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930).
-        # iOS, only for XCUITest(WebDriverAgent), can find with a [class chain]( https://github.com/facebook/WebDriverAgent/wiki/Queries)
+        # - Android can find with uiautomator like a {http://developer.android.com/tools/help/uiautomator/UiSelector.html UISelector}.
+        # - iOS can find with a {https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930 UIAutomation command}.
+        # - iOS, only for XCUITest(WebDriverAgent), can find with a {https://github.com/facebook/WebDriverAgent/wiki/Queries class chain}
         #
-        # Find with image.
+        # == Find with image
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
-        # @see https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md
-        # You can handle settings for the comparision following below.
-        # @see https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6
+        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        #
+        # You can handle settings for the comparision following {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 here}
+        #
+        # == Espresso datamatcher
+        # Espresso has an {https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf _onData_ matcher} for more reference
+        # that allows you to target adapters instead of Views. This method find methods based on reflections
+        #
+        # This is a selector strategy that allows users to pass a selector of the form:
+        #
+        # <code>{ name: '<name>', args: ['arg1', 'arg2', '...'], class: '<optional class>' }</code>
+        #
+        # - _name_: The name of a method to invoke. The method must return a Hamcrest `Matcher`
+        # - _args_: The args provided to the method
+        # - _class_: The class name that the method is part of (defaults to <code>org.hamcrest.Matchers</code>).
+        # Can be fully qualified, or simple, and simple defaults to <code>androidx.test.espresso.matcher</code> package
+        # (e.g.: <code>class=CursorMatchers</code> fully qualified is <code>class=androidx.test.espresso.matcher.CursorMatchers</code>
+        #
+        # See example how to send datamatcher in Ruby client
+        #
         #
         # @overload find_element(how, what)
         #   @param [Symbol, String] how The method to find the element by
@@ -94,6 +112,7 @@ module Appium
         #     # For Tizen
         #     @driver.find_elements :tizen_uiautomation, '....'
         #
+        # rubocop:enable Metrics/LineLength
         def find_element(*args)
           how, what = extract_args(args)
           by = _set_by_from_finders(how)
