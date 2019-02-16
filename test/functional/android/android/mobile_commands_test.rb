@@ -129,6 +129,52 @@ class AppiumLibCoreTest
                                     'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
       end
 
+      # @since Appium 1.12.0 (Espresso driver 1.8.0~)
+      def test_webatom
+        skip unless @core.automation_name == :espresso
+
+        caps = Caps.android 'io.appium.android.apis.view.WebView1'
+        @core = ::Appium::Core.for(caps)
+        @driver = @core.start_driver
+
+        el = @driver.find_element :id, 'wv1'
+
+        @driver.execute_script 'mobile: webAtoms', {
+          webviewElement: el.ref,
+          forceJavascriptEnabled: true,
+          methodChain: [
+            { name: 'withElement', atom: { name: 'findElement', locator: { using: 'ID', value: 'i_am_a_textbox' } } },
+            { name: 'perform', atom: { name: 'webKeys', args: 'Hello world' } },
+            { name: 'withElement', atom: { name: 'findElement', locator: { using: 'ID', value: 'i am a link' } } },
+            { name: 'perform', atom: 'webClick' }
+          ]
+        }
+
+        # Can use `atom` defined in https://developer.android.com/reference/android/support/test/espresso/web/webdriver/DriverAtoms
+        # Locator: https://developer.android.com/reference/androidx/test/espresso/web/webdriver/Locator
+        @driver.execute_script 'mobile: webAtoms', {
+          webviewElement: el.ref,
+          forceJavascriptEnabled: true,
+          methodChain: [{
+            name: 'withElement',
+            atom: { name: 'findElement', locator: { using: 'XPATH', value: '/html/body' } }
+          }]
+        }
+
+        # Raises an error if the method cannot find any DriverAtoms or necessary arguments
+        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
+          @driver.execute_script 'mobile: webAtoms', {
+            webviewElement: el.ref,
+            forceJavascriptEnabled: true,
+            methodChain: [{
+              name: 'withElement',
+              atom: { name: 'findElement', locator: { using: 'ERROR', value: '/html/body' } }
+            }]
+          }
+        end
+        assert error.message.include? "Cannot execute method on 'androidx.test.espresso.web.webdriver.DriverAtoms'."
+      end
+
       private
 
       def assert_mobile_command_error(command, args, expected_message)
