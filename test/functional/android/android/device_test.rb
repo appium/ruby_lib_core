@@ -402,7 +402,6 @@ class AppiumLibCoreTest
         File.delete 'pic_folder.zip'
       end
 
-
       def test_image_element
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
