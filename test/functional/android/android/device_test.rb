@@ -405,6 +405,8 @@ class AppiumLibCoreTest
       def test_image_element
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
+        @driver.rotation = :portrait
+
         el = @driver.find_element :accessibility_id, 'NFC'
         @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
 
@@ -441,10 +443,12 @@ class AppiumLibCoreTest
       def test_image_elements
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        el = @driver.find_element :accessibility_id, 'NFC'
-        @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
+        @driver.rotation = :landscape
 
-        image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc.png')
+        el = @driver.find_element :accessibility_id, 'App'
+        @driver.save_element_screenshot el, 'test/functional/data/test_android_app.png'
+
+        image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_app.png')
         image_element = image_elements[0]
 
         assert image_element.inspect
@@ -471,7 +475,7 @@ class AppiumLibCoreTest
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
 
-        assert @driver.find_element :accessibility_id, 'TechFilter'
+        assert @driver.find_element :accessibility_id, 'Action Bar'
         @driver.back
       end
 
