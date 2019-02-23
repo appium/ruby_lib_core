@@ -441,9 +441,6 @@ class AppiumLibCoreTest
       def test_image_elements
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        # @@driver.update_settings({ fixImageTemplateSize: true,
-        #                            autoUpdateImageElementPosition: true })
-
         el = @driver.find_element :accessibility_id, 'NFC'
         @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
 
