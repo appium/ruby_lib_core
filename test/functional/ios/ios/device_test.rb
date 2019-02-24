@@ -11,48 +11,85 @@ class AppiumLibCoreTest
         @@driver ||= @@core.start_driver
       end
 
+      def teardown
+        save_reports(@@driver)
+      end
+
       def test_image_element
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        @@driver.update_settings({ fixImageFindScreenshotDims: false,
-                                   fixImageTemplateSize: true,
-                                   autoUpdateImageElementPosition: true })
+        @@driver.update_settings({ fixScaleTemplateImage: true })
 
-        e = @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_button_image_ios.png')
+        el = @@driver.find_element :accessibility_id, 'Buttons'
+        @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
-        assert e.inspect
-        assert e.hash
-        assert e.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
-        assert e.location.x
-        assert e.location.y
-        assert e.size.width
-        assert e.size.height
-        assert e.rect.x
-        assert e.rect.y
-        assert e.rect.width
-        assert e.rect.height
-        assert e.displayed?
+        image_element = @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
+
+        assert image_element.inspect
+        assert image_element.hash
+        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+
+        el_location = el.location
+        image_location = image_element.location
+        assert_in_delta el_location.x, image_location.x, 1
+        assert_in_delta el_location.y, image_location.y, 1
+
+        el_size = el.size
+        image_size = image_element.size
+        assert_in_delta el_size.width, image_size.width, 1
+        assert_in_delta el_size.height, image_size.height, 1
+
+        el_rect = el.rect
+        image_rect = image_element.rect
+        assert_in_delta el_rect.x, image_rect.x, 1
+        assert_in_delta el_rect.y, image_rect.y, 1
+        assert_in_delta el_rect.width, image_rect.width, 1
+        assert_in_delta el_rect.height, image_rect.height, 1
+
+        assert_equal el.displayed?, image_element.displayed?
+        image_element.click
+
+        assert @@driver.find_element :accessibility_id, 'Gray'
+        @@driver.back
       end
 
       def test_image_elements
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        @@driver.update_settings({ fixImageTemplateSize: true,
-                                   autoUpdateImageElementPosition: true })
+        @@driver.update_settings({ fixScaleTemplateImage: true })
 
-        e = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_arrow_multiple_ios.png')
+        el = @@driver.find_element :accessibility_id, 'Buttons'
+        @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
-        assert e[0].inspect
-        assert e[0].hash
-        assert e[0].ref =~ /\Aappium-image-element-[a-z0-9\-]+/
-        assert e[0].location
-        assert e[0].size
-        assert e[0].rect
-        assert e[0].displayed?
-      end
+        image_elements = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
+        image_element = image_elements[0]
 
-      def teardown
-        save_reports(@@driver)
+        assert image_element.inspect
+        assert image_element.hash
+        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+
+        el_location = el.location
+        image_location = image_element.location
+        assert_in_delta el_location.x, image_location.x, 1
+        assert_in_delta el_location.y, image_location.y, 1
+
+        el_size = el.size
+        image_size = image_element.size
+        assert_in_delta el_size.width, image_size.width, 1
+        assert_in_delta el_size.height, image_size.height, 1
+
+        el_rect = el.rect
+        image_rect = image_element.rect
+        assert_in_delta el_rect.x, image_rect.x, 1
+        assert_in_delta el_rect.y, image_rect.y, 1
+        assert_in_delta el_rect.width, image_rect.width, 1
+        assert_in_delta el_rect.height, image_rect.height, 1
+
+        assert_equal el.displayed?, image_element.displayed?
+        image_element.click
+
+        assert @@driver.find_element :accessibility_id, 'Gray'
+        @@driver.back
       end
 
       def test_window_size
