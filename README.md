@@ -97,6 +97,11 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
     # shell 2
     $ ruby test.rb
     ```
+    
+### Capabilities
+
+Read [Appium/Core/Driver](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
+
 
 # Development
 - Demo app
