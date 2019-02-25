@@ -28,7 +28,7 @@ module Appium
         @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
 
-        @direct_connect = appium_lib_opts.fetch :direct_access, false
+        @direct_connect = appium_lib_opts.fetch :direct_connect, false
 
         @port = appium_lib_opts.fetch :port, Driver::DEFAULT_APPIUM_PORT
 
