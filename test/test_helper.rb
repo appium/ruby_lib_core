@@ -144,7 +144,7 @@ class AppiumLibCoreTest
           wait: 30,
           wait_timeout: 20,
           wait_interval: 1,
-          direct_access: true
+          direct_connect: true
         }
       }
     end

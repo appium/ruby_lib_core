@@ -12,9 +12,8 @@ module Appium
               "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
           }.freeze
 
-          # Update `server_url` to.
-          # Set `@http` as nil to re-create http client for the server_url
-          # @private
+          # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
+          # Set <code>@http</code> as nil to re-create http client for the <code>server_url</code>
           #
           # @param [string] scheme A scheme to update server_url to
           # @param [string] host A host to update server_url to

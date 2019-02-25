@@ -13,6 +13,41 @@ module Appium
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
+    # This options affects only client side as <code>:appium_lib</code> key.<br>
+    # Read {::Appium::Core::Driver} about each attribute
+    class Options
+      attr_reader :custom_url, :default_wait, :export_session, :export_session_path,
+                  :port, :wait_timeout, :wait_interval, :listener,
+                  :direct_connect
+
+      def initialize(appium_lib_opts)
+        @custom_url = appium_lib_opts.fetch :server_url, nil
+        @default_wait = appium_lib_opts.fetch :wait, Driver::DEFAULT_IMPLICIT_WAIT
+
+        # bump current session id into a particular file
+        @export_session = appium_lib_opts.fetch :export_session, false
+        @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
+
+        @direct_connect = appium_lib_opts.fetch :direct_connect, false
+
+        @port = appium_lib_opts.fetch :port, Driver::DEFAULT_APPIUM_PORT
+
+        # timeout and interval used in ::Appium::Comm.wait/wait_true
+        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
+        @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
+
+        # to pass it in Selenium.new.
+        # `listener = opts.delete(:listener)` is called in Selenium::Driver.new
+        @listener = appium_lib_opts.fetch :listener, nil
+      end
+
+      private
+
+      def default_tmp_appium_lib_session
+        ::Appium::Core::Base.platform.windows? ? 'C:\\\\Windows\\Temp\\appium_lib_session' : '/tmp/appium_lib_session'
+      end
+    end
+
     class Driver
       include Waitable
       # Selenium webdriver capabilities
@@ -43,7 +78,8 @@ module Appium
       # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
       attr_reader :export_session_path
 
-      # Default wait time for elements to appear in Appium server side. Defaults to {::Appium::Core::Driver::DEFAULT_IMPLICIT_WAIT}.<br>
+      # Default wait time for elements to appear in Appium server side.
+      # Defaults to {::Appium::Core::Driver::DEFAULT_IMPLICIT_WAIT}.<br>
       # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
       # @return [Integer]
       attr_reader :default_wait
@@ -77,7 +113,9 @@ module Appium
 
       # <b>[Experimental feature]</b><br>
       # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.<br>
-      # If your Selenium/Appium server decorates the new session capabilities response with the following keys:
+      # This works with {Appium::Core::Base::Http::Default}.
+      #
+      # If your Selenium/Appium server decorates the new session capabilities response with the following keys:<br>
       # - <code>directConnectProtocol</code>
       # - <code>directConnectHost</code>
       # - <code>directConnectPort</code>
@@ -88,8 +126,15 @@ module Appium
       # @return [Bool]
       attr_reader :direct_connect
 
-      # Creates a new global driver and extend particular methods to <code>target</code>
+      # Creates a new driver and extend particular methods
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
+      # @option opts [Hash] :caps Appium capabilities. Prior than :desired_capabilities
+      # @option opts [Hash] :desired_capabilities The same as :caps.
+      #                                           This param is for compatibility with Selenium WebDriver format
+      # @option opts [Appium::Core::Options] :appium_lib Capabilities affect only ruby client
+      # @option opts [String] :url The same as :custom_url in :appium_lib.
+      #                            This param is for compatibility with Selenium WebDriver format
+      #
       # @return [Driver]
       #
       # @example
@@ -465,25 +510,25 @@ module Appium
       end
 
       # @private
+      # Below capabilities are set only for client side.
       def set_appium_lib_specific_values(appium_lib_opts)
-        @custom_url ||= appium_lib_opts.fetch :server_url, nil
-        @default_wait = appium_lib_opts.fetch :wait, DEFAULT_IMPLICIT_WAIT
+        opts = Options.new appium_lib_opts
 
-        # bump current session id into a particular file
-        @export_session = appium_lib_opts.fetch :export_session, false
-        @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
+        @custom_url ||= opts.custom_url # Keep existence capability if it's already provided
 
-        @direct_connect = appium_lib_opts.fetch :direct_access, false
+        @default_wait = opts.default_wait
 
-        @port = appium_lib_opts.fetch :port, DEFAULT_APPIUM_PORT
+        @export_session = opts.export_session
+        @export_session_path = opts.export_session_path
 
-        # timeout and interval used in ::Appium::Comm.wait/wait_true
-        @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
-        @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
+        @port = opts.port
 
-        # to pass it in Selenium.new.
-        # `listener = opts.delete(:listener)` is called in Selenium::Driver.new
-        @listener = appium_lib_opts.fetch :listener, nil
+        @wait_timeout  = opts.wait_timeout
+        @wait_interval = opts.wait_interval
+
+        @listener = opts.listener
+
+        @direct_connect = opts.direct_connect
       end
 
       # @private
@@ -510,11 +555,6 @@ module Appium
         @automation_name = if @driver.capabilities['automationName']
                              @driver.capabilities['automationName'].downcase.strip.intern
                            end
-      end
-
-      # @private
-      def default_tmp_appium_lib_session
-        ::Appium::Core::Base.platform.windows? ? 'C:\\\\Windows\\Temp\\appium_lib_session' : '/tmp/appium_lib_session'
       end
 
       # @private
