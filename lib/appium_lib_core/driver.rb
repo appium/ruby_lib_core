@@ -27,13 +27,13 @@ module Appium
       # @return [Symbol] :android and :ios, for example
       attr_reader :device
 
-      # Automation name sent to appium server or received from server
-      # If automation_name is nil, it is not set both client side and server side.
+      # Automation name sent to appium server or received by server.<br>
+      # If automation_name is <code>nil</code>, it is not set both client side and server side.
       # @return [Hash]
       attr_reader :automation_name
 
-      # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.
-      # False is by default and then "http://127.0.0.1:#{port}/wd/hub" is used.
+      # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
+      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub<code>.
       # @return [String]
       attr_reader :custom_url
 
@@ -43,29 +43,28 @@ module Appium
       # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
       attr_reader :export_session_path
 
-      # Default wait time for elements to appear in Appium server side.
-      # Returns the default client side wait. 0 seconds is by default. Users should handle the timeout stuff in user-side.
-      # Provide Appium::Drive like { appium_lib: { wait: 30 } }
+      # Default wait time for elements to appear in Appium server side. Defaults to {::Appium::Core::Driver::DEFAULT_IMPLICIT_WAIT}.<br>
+      # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
       # @return [Integer]
       attr_reader :default_wait
       DEFAULT_IMPLICIT_WAIT = 0
 
-      # Appium's server port. 4723 is by default.
-      # Provide Appium::Drive like { appium_lib: { port: 8080 } }
-      # `:custom_url` is prior than `:port` if `:custom_url` is set.
+      # Appium's server port. 4723 is by default. Defaults to {::Appium::Core::Driver::DEFAULT_APPIUM_PORT}.<br>
+      # Provide <code>{ appium_lib: { port: 8080 } }</code> to {::Appium::Core.for}.
+      # <code>:custom_url</code> is prior than <code>:port</code> if <code>:custom_url</code> is set.
       # @return [Integer]
       attr_reader :port
       DEFAULT_APPIUM_PORT = 4723
 
-      # Return a time wait timeout. 30 seconds is by default.
-      # Wait time for ::Appium::Core::Base::Wait, wait and wait_true
-      # Provide Appium::Drive like { appium_lib: { wait_timeout: 20 } }
+      # Return a time wait timeout. 30 seconds is by default {::Appium::Core::Wait::DEFAULT_TIMEOUT}.<br>
+      # Wait time for {::Appium::Core::Base::Wait}, wait and wait_true.<br>
+      # Provide <code>{ appium_lib: { wait_timeout: 20 } }</code> to {::Appium::Core.for}.
       # @return [Integer]
       attr_reader :wait_timeout
 
-      # Return a time to wait interval. 0.5 seconds is by default.
-      # Wait interval time for ::Appium::Core::Base::Wait, wait and wait_true
-      # Provide Appium::Drive like { appium_lib: { wait_interval: 0.1 } }
+      # Return a time to wait interval. 0.5 seconds is by default {::Appium::Core::Wait::DEFAULT_INTERVAL}.<br>
+      # Wait interval time for {::Appium::Core::Base::Wait}, wait and wait_true.<br>
+      # Provide <code>{ appium_lib: { wait_interval: 0.1 } }</code> to {::Appium::Core.for}.
       # @return [Integer]
       attr_reader :wait_interval
 
@@ -76,17 +75,20 @@ module Appium
       # @return [Appium::Core::Base::Driver]
       attr_reader :driver
 
-      # [Experimental feature]
-      # Enable an experimental feature updating Appium HTTP client following `directConnectProtocol`, `directConnectHost`,
-      # `directConnectPort` and `directConnectPath` after session creation if the server returns them as a part of the response
-      # capability in _create session_.
+      # <b>[Experimental feature]</b><br>
+      # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.<br>
+      # If your Selenium/Appium server decorates the new session capabilities response with the following keys:
+      # - <code>directConnectProtocol</code>
+      # - <code>directConnectHost</code>
+      # - <code>directConnectPort</code>
+      # - <code>directConnectPath</code>
       #
-      # Ignore them if this parameter is `false`. Defaults to false.
+      # Ignore them if this parameter is <code>false</code>. Defaults to false.
       #
       # @return [Bool]
       attr_reader :direct_connect
 
-      # Creates a new global driver and extend particular methods to `target`
+      # Creates a new global driver and extend particular methods to <code>target</code>
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
       # @return [Driver]
       #
