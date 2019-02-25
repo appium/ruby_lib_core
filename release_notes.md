@@ -1,3 +1,16 @@
+#### v3.0.1 2019-02-25
+
+- [8a63795](https://github.com/appium/ruby_lib_core/commit/8a63795df8ac9caa9a5e2208b69211a7db841108) Release 3.0.1
+- [4d20509](https://github.com/appium/ruby_lib_core/commit/4d20509acca21e75e8e30a127be52b0c9c75f7a4) Separate appium lib (#194)
+- [4c5ff26](https://github.com/appium/ruby_lib_core/commit/4c5ff26b1eb4439f7b8185e91429a3f315cd736a) tweak yardoc
+- [22730a7](https://github.com/appium/ruby_lib_core/commit/22730a7dcfcc843c3030f4c89e3f9ee8fbf5c194) add strict find image (#193)
+- [f6a3f7f](https://github.com/appium/ruby_lib_core/commit/f6a3f7f6eed308652265bd9527cf584e271292f2) add webatom example (#192)
+- [3cd8585](https://github.com/appium/ruby_lib_core/commit/3cd8585b22d4a97958e6df0a29573d8b699e0c98) add a link to matcher
+- [1dad363](https://github.com/appium/ruby_lib_core/commit/1dad3639c879b221480c7181b8f0fa74c6a1f6ae) clean yardoc style (#191)
+- [712f6b1](https://github.com/appium/ruby_lib_core/commit/712f6b1d614369a35eb9cdf39a8661bd558158ce) add android datamatcher (#190)
+- [caa9a9f](https://github.com/appium/ruby_lib_core/commit/caa9a9f7c97fe134166ff1fc629a1a62523d3db4) add links for issues in changelog
+
+
 #### v3.0.0 2019-02-06
 
 - [ba653c3](https://github.com/appium/ruby_lib_core/commit/ba653c3be70bad3b9a9e233121b4b3a9455fa287) Release 3.0.0
