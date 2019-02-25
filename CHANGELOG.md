@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.0.1] - 2019-02-25
+
+### Enhancements
 - Add `:data_matcher` find_element/s attribute [appium-espresso-driver#386](https://github.com/appium/appium-espresso-driver/pull/386)
 
 ### Bug fixes
