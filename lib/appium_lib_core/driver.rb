@@ -112,7 +112,8 @@ module Appium
       attr_reader :driver
 
       # <b>[Experimental feature]</b><br>
-      # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.
+      # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.<br>
+      # This works with {Appium::Core::Base::Http::Default}.
       #
       # If your Selenium/Appium server decorates the new session capabilities response with the following keys:<br>
       # - <code>directConnectProtocol</code>
