@@ -129,7 +129,9 @@ module Appium
         #   @driver.send_keys 'happy testing!'
         #
         def send_keys(*key)
-          warn '[DEPRECATION] Driver#send_keys is deprecated in W3C spec. Use driver.action.<command>.perform instead'
+          ::Appium::Logger.warn(
+            '[DEPRECATION] Driver#send_keys is deprecated in W3C spec. Use driver.action.<command>.perform instead'
+          )
           @bridge.send_keys_to_active_element(key)
         end
         alias type send_keys
