@@ -55,7 +55,7 @@ class AppiumLibCoreTest
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert_equal 80, xml[2].elements.each('//*') { |v| v }.map(&:name).size # rubocop:disable Lint/Void:
+        assert_in_delta 80, xml[2].elements.each('//*') { |v| v }.map(&:name).size, 5 # rubocop:disable Lint/Void:
 
         s_source = @@driver.page_source
         s_xml = REXML::Document.new s_source

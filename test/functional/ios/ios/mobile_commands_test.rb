@@ -83,7 +83,7 @@ class AppiumLibCoreTest
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
-        e = @driver.find_element :accessibility_id, 'hello, siri'
+        e = @core.wait { @driver.find_element :accessibility_id, 'hello, siri' }
         assert_equal 'hello, siri', e.text
 
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')

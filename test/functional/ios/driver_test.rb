@@ -45,9 +45,12 @@ class AppiumLibCoreTest
     def test_click_back
       e = @@driver.find_element :accessibility_id, 'Alerts'
       e.click
-      error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+      sleep 1 # wait for animation
+      error = assert_raises do
         e.click
       end
+      assert [::Selenium::WebDriver::Error::UnknownError,
+              ::Selenium::WebDriver::Error::InvalidSelectorError].include? error.class
       assert error.message.include? ' is not visible on the screen and thus is not interactable'
       @@driver.back
     end
