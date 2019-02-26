@@ -24,7 +24,7 @@ module Appium
           def update_sending_request_to(scheme:, host:, port:, path:)
             return @server_url unless validate_url_param(scheme, host, port, path)
 
-            Logger.debug("[experimental] This feature, #{__method__}, is an experimental")
+            ::Appium::Logger.debug("[experimental] This feature, #{__method__}, is an experimental")
 
             # Add / if `path` does not have it
             path = path.start_with?('/') ? path : "/#{path}"
@@ -37,7 +37,11 @@ module Appium
           private
 
           def validate_url_param(scheme, host, port, path)
-            !(scheme.nil? || host.nil? || port.nil? || path.nil?)
+            return true unless [scheme, host, port, path].include?(nil)
+
+            message = "Given parameters are scheme: '#{scheme}', host: '#{host}', port: '#{port}', path: '#{path}'"
+            ::Appium::Logger.warn(message)
+            false
           end
 
           public
@@ -53,8 +57,8 @@ module Appium
               payload                   = JSON.generate(command_hash)
               headers['Content-Length'] = payload.bytesize.to_s if [:post, :put].include?(verb)
 
-              Logger.info("   >>> #{url} | #{payload}")
-              Logger.debug("     > #{headers.inspect}")
+              ::Appium::Logger.info("   >>> #{url} | #{payload}")
+              ::Appium::Logger.debug("     > #{headers.inspect}")
             elsif verb == :post
               payload = '{}'
               headers['Content-Length'] = '2'
