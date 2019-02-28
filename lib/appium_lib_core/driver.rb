@@ -48,6 +48,35 @@ module Appium
       end
     end
 
+    # DirectConnections has capabilities of directConnect
+    class DirectConnections
+      KEYS = {
+        protocol: 'directConnectProtocol',
+        host: 'directConnectHost',
+        port: 'directConnectPort',
+        path: 'directConnectPath'
+      }.freeze
+
+      # @return [string] Returns a protocol such as http/https
+      attr_reader :protocol
+
+      # @return [string] Returns a host name such as io.appium
+      attr_reader :host
+
+      # @return [integer] Returns a port number such as 443
+      attr_reader :port
+
+      # @return [string] Returns a path for webdriver such as <code>/hub/wd</code>
+      attr_reader :path
+
+      def initialize(capabilities)
+        @protocol = capabilities[KEYS[:protocol]]
+        @host = capabilities[KEYS[:host]]
+        @port = capabilities[KEYS[:port]]
+        @path = capabilities[KEYS[:path]]
+      end
+    end
+
     class Driver
       include Waitable
       # Selenium webdriver capabilities
@@ -302,10 +331,8 @@ module Appium
                                                      listener: @listener)
 
           if @direct_connect
-            @driver.update_sending_request_to(protocol: @driver.capabilities['directConnectProtocol'],
-                                              host: @driver.capabilities['directConnectHost'],
-                                              port: @driver.capabilities['directConnectPort'],
-                                              path: @driver.capabilities['directConnectPath'])
+            d_c = DirectConnections.new(@driver.capabilities)
+            @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
           end
 
           # export session
