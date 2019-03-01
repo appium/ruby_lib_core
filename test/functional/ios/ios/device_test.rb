@@ -18,7 +18,7 @@ class AppiumLibCoreTest
       def test_image_element
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        @@driver.update_settings({ fixScaleTemplateImage: true })
+        @@driver.update_settings({ fixImageTemplateScale: true })
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
@@ -56,7 +56,7 @@ class AppiumLibCoreTest
       def test_image_elements
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        @@driver.update_settings({ fixScaleTemplateImage: true })
+        @@driver.update_settings({ fixImageTemplateScale: true })
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
