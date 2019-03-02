@@ -403,7 +403,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         @driver.rotation = :portrait
 
@@ -441,7 +441,7 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
         @driver.rotation = :landscape
 
@@ -477,6 +477,42 @@ class AppiumLibCoreTest
 
         assert @driver.find_element :accessibility_id, 'Action Bar'
         @driver.back
+      end
+
+      def test_template_scale_ratio
+        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+
+        @driver.rotation = :portrait
+
+        el = @driver.find_element :accessibility_id, 'NFC'
+        @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
+
+        @driver.update_settings({ defaultImageTemplateScale: 4 })
+
+        image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
+        assert image_element.inspect
+        assert image_element.hash
+        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+
+        el_location = el.location
+        image_location = image_element.location
+        assert_in_delta el_location.x, image_location.x, 3
+        assert_in_delta el_location.y, image_location.y, 3
+
+        el_size = el.size
+        image_size = image_element.size
+        assert_in_delta el_size.width, image_size.width, 3
+        assert_in_delta el_size.height, image_size.height, 3
+
+        el_rect = el.rect
+        image_rect = image_element.rect
+        assert_in_delta el_rect.x, image_rect.x, 3
+        assert_in_delta el_rect.y, image_rect.y, 3
+        assert_in_delta el_rect.width, image_rect.width, 3
+        assert_in_delta el_rect.height, image_rect.height, 3
+
+        assert_equal el.displayed?, image_element.displayed?
+        image_element.click
       end
 
       private
