@@ -119,7 +119,8 @@ module Appium
               def gsm_signal(signal_strength)
                 raise "#{signal_strength} should be member of #{GSM_SIGNALS} " if GSM_SIGNALS[signal_strength.to_sym].nil?
                 
-                execute(:gsm_signal, {}, { signalStrength: GSM_SIGNALS[signal_strength], signalStrengh: GSM_SIGNALS[signal_strength] })
+                execute(:gsm_signal, {}, { signalStrength: GSM_SIGNALS[signal_strength],
+                                           signalStrengh: GSM_SIGNALS[signal_strength] })
               end
             end
 
