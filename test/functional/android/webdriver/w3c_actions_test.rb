@@ -1,4 +1,17 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'test_helper'
+require 'functional/common_w3c_actions'
 
 # $ rake test:func:android TEST=test/functional/android/webdriver/w3c_actions_test.rb
 # rubocop:disable Style/ClassVars
@@ -33,14 +46,7 @@ class AppiumLibCoreTest
           .perform
         assert rect1.y > el.rect.y
 
-        rect2 = el.rect.dup
-        @driver
-          .action
-          .move_to_location(rect2.x, rect2.y)
-          .pointer_down(:left)
-          .move_to_location(0, rect2.y - rect2.height * 3) # gone the element
-          .release
-          .perform
+        w3c_scroll @driver
 
         @driver.manage.timeouts.implicit_wait = 3
 
@@ -53,8 +59,8 @@ class AppiumLibCoreTest
         end
         @driver.manage.timeouts.implicit_wait = @@core.default_wait
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'ImageButton') }
-        assert_equal 'ImageButton', el.text
+        el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
+        assert_equal 'Lists', el.text
       end
 
       def test_double_tap
