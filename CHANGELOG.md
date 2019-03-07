@@ -10,6 +10,17 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [3.0.2] - 2019-03-07
+
+### Enhancements
+- Append more examples for use case in `test/functional` as functional test cases
+
+### Bug fixes
+- [internal] Fixed typo in `Emulator#gsm_signal` [#196](https://github.com/appium/ruby_lib_core/pull/196)
+    - Thanks [khanhdodang](https://github.com/khanhdodang)
+
+### Deprecations
+
 ## [3.0.1] - 2019-02-25
 
 ### Enhancements
