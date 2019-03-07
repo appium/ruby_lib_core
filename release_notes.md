@@ -1,3 +1,15 @@
+#### v3.0.2 2019-03-07
+
+- [e2f6010](https://github.com/appium/ruby_lib_core/commit/e2f601086f9daf377270a780d5300687be37ada0) Release 3.0.2
+- [90c57cd](https://github.com/appium/ruby_lib_core/commit/90c57cd20013a8d94a479cf8066ff68c2aeef4fe) Add w3c common actions scroll (#197)
+- [f95a17d](https://github.com/appium/ruby_lib_core/commit/f95a17d28eb50798eefdd8685cdfb4113472318f) Fixed typo signalStrengh (#196)
+- [253c92e](https://github.com/appium/ruby_lib_core/commit/253c92ee3cf04eac4cbcd9014cc916f5b8cb29d6) add tests for find by image with scaled ratio
+- [dfc4ca3](https://github.com/appium/ruby_lib_core/commit/dfc4ca37c23cd9cd53690ce0ca9c8981f2747355) fix the name of settings
+- [3a811b5](https://github.com/appium/ruby_lib_core/commit/3a811b5004452e82d3915f6c8c6fb87b83cf00b1) define DirectConnections to handle direct connections
+- [ae32597](https://github.com/appium/ruby_lib_core/commit/ae32597662b02511c0dfed065890fd4d61e51a28) tweak wait
+- [eda0b26](https://github.com/appium/ruby_lib_core/commit/eda0b26085dcb86bf24deb2f778d2ec4b5a7fdc1) tweak appium logger (#195)
+
+
 #### v3.0.1 2019-02-25
 
 - [8a63795](https://github.com/appium/ruby_lib_core/commit/8a63795df8ac9caa9a5e2208b69211a7db841108) Release 3.0.1
