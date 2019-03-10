@@ -1,3 +1,17 @@
+# frozen_string_literal: true
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'uri'
 
 module Appium
@@ -314,6 +328,12 @@ module Appium
       #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
       #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub"
       #
+      #     # Attach custom HTTP client
+      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub",
+      #                                  http_client_ops: { http_client: Your:Http:Client.new,
+      #                                                     open_timeout: 1_000,
+      #                                                     read_timeout: 1_000 }
+      #
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
@@ -353,7 +373,7 @@ module Appium
       private
 
       def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client ||= http_client || Appium::Core::Base::Http::Default.new
+        @http_client = http_client || Appium::Core::Base::Http::Default.new
 
         # open_timeout and read_timeout are explicit wait.
         @http_client.open_timeout = open_timeout if open_timeout
@@ -586,7 +606,7 @@ module Appium
 
       # @private
       def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
-        export_path.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
+        export_path = export_path.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
         File.write(export_path, session_id)
       rescue IOError => e
         ::Appium::Logger.warn e

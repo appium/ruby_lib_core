@@ -1,3 +1,17 @@
+# frozen_string_literal: true
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'simplecov'
 SimpleCov.start
 
@@ -12,7 +26,7 @@ Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
+ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
@@ -46,7 +60,7 @@ class AppiumLibCoreTest
 
   def self.path_of(path)
     path_dup = path.dup
-    path_dup.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
+    path_dup = path_dup.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
     path_dup
   end
 
@@ -69,7 +83,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios
-      wda_local_port = get_wda_local_port
+      wda_local_port = _wda_local_port
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
       {
@@ -106,7 +120,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
-          udid: get_udid_name,
+          udid: _udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
           appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
@@ -115,7 +129,7 @@ class AppiumLibCoreTest
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: get_system_port,
+          systemPort: _system_port,
           language: 'en',
           locale: 'US',
           adbExecTimeout: 10_000, # 10 sec
@@ -162,14 +176,14 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           # Or `npm install --chromedriver_version="2.24"` and
           # chromedriverUseSystemExecutable: true,
-          udid: get_udid_name,
+          udid: _udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: get_system_port,
+          systemPort: _system_port,
           language: 'en',
           locale: 'US'
         },
@@ -187,7 +201,7 @@ class AppiumLibCoreTest
 
     private
 
-    def get_wda_local_port
+    def _wda_local_port
       # TEST_ENV_NUMBER is provided by parallel_tests gem
       # The number is '', '2', '3',...
       number = ENV['TEST_ENV_NUMBER'] || ''
@@ -195,13 +209,13 @@ class AppiumLibCoreTest
       [8100, 8101][core_number]
     end
 
-    def get_system_port
+    def _system_port
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       [8200, 8201, 8202][core_number]
     end
 
-    def get_udid_name
+    def _udid_name
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       %w(emulator-5554 emulator-5556 emulator-5558)[core_number]
@@ -210,7 +224,7 @@ class AppiumLibCoreTest
 
   module Mock
     HEADER = { 'Content-Type' => 'application/json; charset=utf-8', 'Cache-Control' => 'no-cache' }.freeze
-    SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'.freeze
+    SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
 
     def android_mock_create_session
       response = {

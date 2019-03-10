@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
 Metrics/LineLength:
   Max: 128
 Metrics/MethodLength:
@@ -28,9 +28,14 @@ Style/BracesAroundHashParameters:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+# TODO: will remove after stopping support 2.2
+Style/NumericPredicate:
+  Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - test/**/*
 Layout/RescueEnsureAlignment:
   Enabled: false
