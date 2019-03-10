@@ -174,7 +174,7 @@ module Appium
         #   @driver.settings.update('allowInvisibleElements': true)
         #
         def settings
-          @driver_settings ||= DriverSettings.new(@bridge)
+          @driver_settings ||= DriverSettings.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
         end
 
         # Get appium Settings for current test session.
@@ -244,7 +244,7 @@ module Appium
         #   @driver.ime.deactivate #=> Deactivate current IME engine
         #
         def ime
-          @device_ime ||= DeviceIME.new(@bridge)
+          @device_ime ||= DeviceIME.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
         end
 
         # Android only. Make an engine that is available active.

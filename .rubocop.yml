@@ -33,6 +33,8 @@ Style/NumericPredicate:
 Naming/AccessorMethodName:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - test/**/*
 Layout/RescueEnsureAlignment:
   Enabled: false

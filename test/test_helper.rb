@@ -83,7 +83,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios
-      wda_local_port = get_wda_local_port
+      wda_local_port = _wda_local_port
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
       {
@@ -120,7 +120,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
-          udid: get_udid_name,
+          udid: _udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
           appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
@@ -129,7 +129,7 @@ class AppiumLibCoreTest
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: get_system_port,
+          systemPort: _system_port,
           language: 'en',
           locale: 'US',
           adbExecTimeout: 10_000, # 10 sec
@@ -176,14 +176,14 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           # Or `npm install --chromedriver_version="2.24"` and
           # chromedriverUseSystemExecutable: true,
-          udid: get_udid_name,
+          udid: _udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: get_system_port,
+          systemPort: _system_port,
           language: 'en',
           locale: 'US'
         },
@@ -201,7 +201,7 @@ class AppiumLibCoreTest
 
     private
 
-    def get_wda_local_port
+    def _wda_local_port
       # TEST_ENV_NUMBER is provided by parallel_tests gem
       # The number is '', '2', '3',...
       number = ENV['TEST_ENV_NUMBER'] || ''
@@ -209,13 +209,13 @@ class AppiumLibCoreTest
       [8100, 8101][core_number]
     end
 
-    def get_system_port
+    def _system_port
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       [8200, 8201, 8202][core_number]
     end
 
-    def get_udid_name
+    def _udid_name
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       %w(emulator-5554 emulator-5556 emulator-5558)[core_number]
