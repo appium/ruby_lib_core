@@ -60,7 +60,7 @@ module Appium
           end
 
           msg = message_for timeout, message
-          msg << " (#{last_error.message})" if last_error
+          msg += " (#{last_error.message})" if last_error
 
           raise TimeoutError, msg
         end
@@ -105,7 +105,7 @@ module Appium
           end
 
           msg = message_for timeout, message
-          msg << " (#{last_error.message})" if last_error
+          msg += " (#{last_error.message})" if last_error
 
           raise TimeoutError, msg
         end
@@ -114,7 +114,7 @@ module Appium
 
         def message_for(timeout, message)
           msg = "timed out after #{timeout} seconds"
-          msg << ", #{message}" if message
+          msg += ", #{message}" if message
           msg
         end
       end # self
