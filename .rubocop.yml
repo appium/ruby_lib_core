@@ -28,6 +28,7 @@ Style/BracesAroundHashParameters:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+# TODO: will remove after stopping support 2.2
 Style/NumericPredicate:
   Enabled: false
 Naming/AccessorMethodName:
