@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
 Metrics/LineLength:
   Max: 128
 Metrics/MethodLength:
@@ -27,6 +27,8 @@ Style/PercentLiteralDelimiters:
 Style/BracesAroundHashParameters:
   Enabled: false
 Style/SymbolArray:
+  Enabled: false
+Style/NumericPredicate:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
