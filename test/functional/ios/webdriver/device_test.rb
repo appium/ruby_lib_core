@@ -162,7 +162,8 @@ class AppiumLibCoreTest
         @@driver.save_screenshot lower_again_image_path
 
         assert File.size(lower_image_path) != File.size(higher_image_path)
-        assert_equal File.size(lower_again_image_path), File.size(lower_image_path)
+        # Image size can differ. (Depends on process to store it)
+        assert_in_delta File.size(lower_again_image_path), File.size(lower_image_path), 500
 
         # make sure the screenshot is png
         assert Base64.strict_encode64(File.read(lower_image_path)).start_with?('iVBOR')
