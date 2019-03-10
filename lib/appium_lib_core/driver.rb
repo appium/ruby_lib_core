@@ -606,7 +606,7 @@ module Appium
 
       # @private
       def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
-        export_path.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
+        export_path = export_path.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
         File.write(export_path, session_id)
       rescue IOError => e
         ::Appium::Logger.warn e

@@ -60,7 +60,7 @@ class AppiumLibCoreTest
 
   def self.path_of(path)
     path_dup = path.dup
-    path_dup.tr!('/', '\\') if ::Appium::Core::Base.platform.windows?
+    path_dup = path_dup.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
     path_dup
   end
 
