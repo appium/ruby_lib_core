@@ -1,3 +1,9 @@
+#### v3.0.3 2019-03-11
+
+- [b2dc0d9](https://github.com/appium/ruby_lib_core/commit/b2dc0d9ce3ef156da0b40b5e70ec0abd9c493d5a) Release 3.0.3
+- [fd2cbde](https://github.com/appium/ruby_lib_core/commit/fd2cbde5466a144ce8dccfc6cf330b969bcc8fd3) Bump target rubyversion 2.3 rubocop (#198)
+
+
 #### v3.0.2 2019-03-07
 
 - [e2f6010](https://github.com/appium/ruby_lib_core/commit/e2f601086f9daf377270a780d5300687be37ada0) Release 3.0.2
