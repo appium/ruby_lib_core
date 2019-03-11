@@ -10,6 +10,15 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [3.0.3] - 2019-03-11
+
+### Enhancements
+- [internal] Bump Rubocop target Ruby version to Ruby 2.3
+
+### Bug fixes
+
+### Deprecations
+
 ## [3.0.2] - 2019-03-07
 
 ### Enhancements
