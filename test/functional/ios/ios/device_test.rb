@@ -37,7 +37,9 @@ class AppiumLibCoreTest
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
-        image_element = @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
+        # sometimes animation affects here
+        image_element =
+          @@core.wait { @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png') }
 
         assert image_element.inspect
         assert image_element.hash
