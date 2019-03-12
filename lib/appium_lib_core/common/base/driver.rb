@@ -427,7 +427,8 @@ module Appium
         #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
         #                      (real devices only).
         #                      Only pulling files from application containers is supported for iOS Simulator.
-        #                      Provide the remote path in format <code>@bundle.identifier:container_type/relative_path_in_container</code>
+        #                      Provide the remote path in format
+        #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
         #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data
@@ -452,7 +453,7 @@ module Appium
         #
         # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
         #
-        # {https://developer.android.com/studio/debug/ 'Debug Your App' developer article}
+        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Absolute path to the folder.
         #                      If the path starts with <em>@applicationId/</em> prefix, then the folder will be pulled
@@ -460,7 +461,8 @@ module Appium
         #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
         #                      (real devices only).
         #                      Only pulling files from application containers is supported for iOS Simulator.
-        #                      Provide the remote path in format <code>@bundle.identifier:container_type/relative_path_in_container</code>
+        #                      Provide the remote path in format
+        #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
         #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data which is zip archived
