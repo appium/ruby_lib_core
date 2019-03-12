@@ -426,12 +426,17 @@ module Appium
         #                      of the corresponding application container.
         #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
         #                      (real devices only).
+        #                      Only pulling files from application containers is supported for iOS Simulator.
+        #                      Provide the remote path in format <code>@bundle.identifier:container_type/relative_path_in_container</code>
+        #                      (Make sure this in ifuse doc)
+        #
         # @return [Base64-decoded] Base64 decoded data
         #
         # @example
         #
         #   @driver.pull_file '/local/data/some/path'     #=> Get the file at that path
         #   @driver.pull_file 'Shenanigans.app/some/file' #=> Get 'some/file' from the install location of Shenanigans.app
+        #   @driver.pull_file '@com.appium.example/Documents/file.txt' #=> Get 'file.txt' in @com.appium.example/Documents
         #
         def pull_file(path)
           @bridge.pull_file(path)
@@ -444,7 +449,9 @@ module Appium
         # its container on the internal file system.
         #
         # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
+        #
         # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
+        #
         # {https://developer.android.com/studio/debug/ 'Debug Your App' developer article}
         #
         # @param [String] path Absolute path to the folder.
@@ -452,12 +459,16 @@ module Appium
         #                      from the root of the corresponding application container.
         #                      Otherwise the root folder is considered as / on Android and on iOS it is a media folder root
         #                      (real devices only).
+        #                      Only pulling files from application containers is supported for iOS Simulator.
+        #                      Provide the remote path in format <code>@bundle.identifier:container_type/relative_path_in_container</code>
+        #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data which is zip archived
         #
         # @example
         #
         #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
+        #   @driver.pull_file '@com.appium.example/Documents' #=> Get 'Documents' in @com.appium.example
         #
         def pull_folder(path)
           @bridge.pull_folder(path)
