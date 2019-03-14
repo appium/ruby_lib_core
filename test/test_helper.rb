@@ -119,13 +119,15 @@ class AppiumLibCoreTest
         }
       }
 
-      cap = _set_xctestrun(real_device, cap.dup, platform_version)
-      cap = _set_ios_real_device(cap.dup) if real_device
+      cap = add_xctestrun(real_device, cap.dup, platform_version)
+      cap = add_ios_real_device(cap.dup) if real_device
       cap
     end
 
-    def _set_xctestrun(real_device, caps, platform_version)
-      # for use_xctestrun_file
+    private
+
+    # for use_xctestrun_file
+    def add_xctestrun(real_device, caps, platform_version)
       build_product = File.expand_path('tmp/Build/Products/')
       xctestrun_path = if real_device
                          "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun"
@@ -142,8 +144,8 @@ class AppiumLibCoreTest
       caps
     end
 
-    def _set_ios_real_device(caps)
-      # For real devices
+    # For real devices
+    def add_ios_real_device(caps)
       update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
       xcode_signing_id = 'iPhone Developer'
       xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
@@ -154,6 +156,8 @@ class AppiumLibCoreTest
 
       caps
     end
+
+    public
 
     # Require a real device or an emulator.
     # We should update platformVersion and deviceName to fit your environment.
