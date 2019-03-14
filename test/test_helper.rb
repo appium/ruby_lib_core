@@ -92,18 +92,6 @@ class AppiumLibCoreTest
       derived_data_path = File.expand_path('tmp')
       File.mkdir(derived_data_path) unless File.exist? derived_data_path
 
-      # for use_xctestrun_file
-      build_product = File.expand_path('tmp/Build/Products/')
-      xctestrun_path = real_device ?
-                         "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun" :
-                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{platform_version}-x86_64.xctestrun"
-      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
-
-      # For real devices
-      update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
-      xcode_signing_id = 'iPhone Developer'
-      xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
-
       cap = {
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
@@ -131,18 +119,40 @@ class AppiumLibCoreTest
         }
       }
 
-      if use_xctestrun_file
-        cap[:caps][:bootstrapPath] = build_product
-        cap[:caps][:useXctestrunFile] = use_xctestrun_file
-      end
-
-      if real_device
-        cap[:caps][:xcodeSigningId] = xcode_signing_id
-        cap[:caps][:xcodeOrgId] = xcode_org_id
-        cap[:caps][:updatedWDABundleId] = update_wda_bundleid
-      end
-
+      cap = _set_xctestrun(real_device, cap.dup, platform_version)
+      cap = _set_ios_real_device(cap.dup) if real_device
       cap
+    end
+
+    def _set_xctestrun(real_device, caps, platform_version)
+      # for use_xctestrun_file
+      build_product = File.expand_path('tmp/Build/Products/')
+      xctestrun_path = if real_device
+                         "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun"
+                       else
+                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{platform_version}-x86_64.xctestrun"
+                       end
+      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+
+      if use_xctestrun_file
+        caps[:caps][:bootstrapPath] = build_product
+        caps[:caps][:useXctestrunFile] = use_xctestrun_file
+      end
+
+      caps
+    end
+
+    def _set_ios_real_device(caps)
+      # For real devices
+      update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
+      xcode_signing_id = 'iPhone Developer'
+      xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
+
+      caps[:caps][:xcodeSigningId] = xcode_signing_id
+      caps[:caps][:xcodeOrgId] = xcode_org_id
+      caps[:caps][:updatedWDABundleId] = update_wda_bundleid
+
+      caps
     end
 
     # Require a real device or an emulator.
