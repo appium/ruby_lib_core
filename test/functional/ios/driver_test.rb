@@ -34,7 +34,7 @@ class AppiumLibCoreTest
     end
 
     def test_platform_version
-      assert_equal [11, 4], @@core.platform_version
+      assert_equal [12, 1], @@core.platform_version
     end
 
     def test_screenshot

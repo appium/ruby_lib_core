@@ -90,7 +90,7 @@ class AppiumLibCoreTest
       real_device = ENV['REAL'] ? true : false
 
       derived_data_path = File.expand_path('tmp')
-      File.mkdir(derived_data_path) unless File.exist? derived_data_path
+      Dir.mkdir(derived_data_path) unless File.exist? derived_data_path
 
       cap = {
         caps: { # :desiredCapabilities is also available
@@ -105,7 +105,7 @@ class AppiumLibCoreTest
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
-          wdaLocalPort: 9000,
+          wdaLocalPort: wda_local_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,

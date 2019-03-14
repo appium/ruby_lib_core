@@ -12,6 +12,9 @@ namespace :test do
   namespace :func do
     desc('Run all iOS related tests in test directory')
     Rake::TestTask.new(:ios) do |t|
+      tmp_build = File.expand_path('tmp/Build/Products/')
+      puts "#{tmp_build} is used for tests. Make sure they are not older version" if File.exist?(tmp_build)
+
       t.libs << 'test'
       t.libs << 'lib'
       t.test_files = FileList['test/functional/ios/**/*_test.rb']
