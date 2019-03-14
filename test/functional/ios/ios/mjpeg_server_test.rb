@@ -20,8 +20,8 @@ class AppiumLibCoreTest
   module Ios
     class MjpegServerTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core ||= ::Appium::Core.for(Caps.ios)
-        @@driver ||= @@core.start_driver
+        @@core = ::Appium::Core.for(Caps.ios)
+        @@driver = @@core.start_driver
       end
 
       def teardown

@@ -19,8 +19,8 @@ require 'test_helper'
 class AppiumLibCoreTest
   class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @@core ||= ::Appium::Core.for(Caps.ios)
-      @@driver ||= @@core.start_driver
+      @@core = ::Appium::Core.for(Caps.ios)
+      @@driver = @@core.start_driver
     end
 
     def teardown

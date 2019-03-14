@@ -19,8 +19,8 @@ require 'test_helper'
 class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @@core ||= ::Appium::Core.for(Caps.ios)
-      @@driver ||= @@core.start_driver
+      @@core = ::Appium::Core.for(Caps.ios)
+      @@driver = @@core.start_driver
     end
 
     def teardown
@@ -34,7 +34,7 @@ class AppiumLibCoreTest
     end
 
     def test_platform_version
-      assert_equal [11, 4], @@core.platform_version
+      assert_equal [12, 1], @@core.platform_version
     end
 
     def test_screenshot

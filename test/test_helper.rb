@@ -83,17 +83,25 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios
+      platform_version = '12.1'
       wda_local_port = _wda_local_port
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
-      {
+      real_device = ENV['REAL'] ? true : false
+
+      derived_data_path = File.expand_path('tmp')
+      Dir.mkdir(derived_data_path) unless File.exist? derived_data_path
+
+      cap = {
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           app: 'test/functional/app/UICatalog.app.zip',
-          platformVersion: '11.4',
+          udid: 'auto',
+          platformVersion: platform_version,
+          derivedDataPath: derived_data_path,
           deviceName: device_name,
-          # useNewWDA: true,
+          useNewWDA: true,
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
@@ -110,6 +118,41 @@ class AppiumLibCoreTest
           wait_interval: 1
         }
       }
+
+      cap = _set_xctestrun(real_device, cap.dup, platform_version)
+      cap = _set_ios_real_device(cap.dup) if real_device
+      cap
+    end
+
+    def _set_xctestrun(real_device, caps, platform_version)
+      # for use_xctestrun_file
+      build_product = File.expand_path('tmp/Build/Products/')
+      xctestrun_path = if real_device
+                         "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun"
+                       else
+                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{platform_version}-x86_64.xctestrun"
+                       end
+      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+
+      if use_xctestrun_file
+        caps[:caps][:bootstrapPath] = build_product
+        caps[:caps][:useXctestrunFile] = use_xctestrun_file
+      end
+
+      caps
+    end
+
+    def _set_ios_real_device(caps)
+      # For real devices
+      update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
+      xcode_signing_id = 'iPhone Developer'
+      xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
+
+      caps[:caps][:xcodeSigningId] = xcode_signing_id
+      caps[:caps][:xcodeOrgId] = xcode_org_id
+      caps[:caps][:updatedWDABundleId] = update_wda_bundleid
+
+      caps
     end
 
     # Require a real device or an emulator.
@@ -129,6 +172,7 @@ class AppiumLibCoreTest
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
+          autoGrantPermissions: true,
           systemPort: _system_port,
           language: 'en',
           locale: 'US',
