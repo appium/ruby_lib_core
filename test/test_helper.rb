@@ -83,21 +83,41 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios
+      platform_version = '12.1'
       wda_local_port = _wda_local_port
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
 
-      {
+      real_device = ENV['REAL'] ? true : false
+
+      derived_data_path = File.expand_path('tmp')
+      File.mkdir(derived_data_path) unless File.exist? derived_data_path
+
+      # for use_xctestrun_file
+      build_product = File.expand_path('tmp/Build/Products/')
+      xctestrun_path = real_device ?
+                         "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun" :
+                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{platform_version}-x86_64.xctestrun"
+      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+
+      # For real devices
+      update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
+      xcode_signing_id = 'iPhone Developer'
+      xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
+
+      cap = {
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           app: 'test/functional/app/UICatalog.app.zip',
-          platformVersion: '11.4',
+          udid: 'auto',
+          platformVersion: platform_version,
+          derivedDataPath: derived_data_path,
           deviceName: device_name,
-          # useNewWDA: true,
+          useNewWDA: true,
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
-          wdaLocalPort: wda_local_port,
+          wdaLocalPort: 9000,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
@@ -110,6 +130,19 @@ class AppiumLibCoreTest
           wait_interval: 1
         }
       }
+
+      if use_xctestrun_file
+        cap[:caps][:bootstrapPath] = build_product
+        cap[:caps][:useXctestrunFile] = use_xctestrun_file
+      end
+
+      if real_device
+        cap[:caps][:xcodeSigningId] = xcode_signing_id
+        cap[:caps][:xcodeOrgId] = xcode_org_id
+        cap[:caps][:updatedWDABundleId] = update_wda_bundleid
+      end
+
+      cap
     end
 
     # Require a real device or an emulator.
@@ -129,6 +162,7 @@ class AppiumLibCoreTest
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
+          autoGrantPermissions: true,
           systemPort: _system_port,
           language: 'en',
           locale: 'US',
