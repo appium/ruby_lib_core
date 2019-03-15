@@ -89,9 +89,6 @@ class AppiumLibCoreTest
 
       real_device = ENV['REAL'] ? true : false
 
-      derived_data_path = File.expand_path('tmp')
-      Dir.mkdir(derived_data_path) unless File.exist? derived_data_path
-
       cap = {
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
@@ -99,7 +96,6 @@ class AppiumLibCoreTest
           app: 'test/functional/app/UICatalog.app.zip',
           udid: 'auto',
           platformVersion: platform_version,
-          derivedDataPath: derived_data_path,
           deviceName: device_name,
           useNewWDA: true,
           useJSONSource: true,
@@ -119,16 +115,22 @@ class AppiumLibCoreTest
         }
       }
 
-      cap = add_xctestrun(real_device, cap.dup, platform_version)
-      cap = add_ios_real_device(cap.dup) if real_device
+      xcode_org_id = ENV['ORG_ID'] || ''
+      cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
+      cap = add_xctestrun(real_device, cap.dup, xcode_org_id, platform_version)
+
       cap
     end
 
     private
 
     # for use_xctestrun_file
-    def add_xctestrun(real_device, caps, platform_version)
-      build_product = File.expand_path('tmp/Build/Products/')
+    def add_xctestrun(real_device, caps, xcode_org_id, platform_version)
+      derived_data_path = File.expand_path("tmp/#{xcode_org_id}")
+      FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
+      caps[:caps][:derivedDataPath] = derived_data_path
+
+      build_product = File.expand_path("#{derived_data_path}/Build/Products/")
       xctestrun_path = if real_device
                          "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun"
                        else
@@ -145,10 +147,9 @@ class AppiumLibCoreTest
     end
 
     # For real devices
-    def add_ios_real_device(caps)
+    def add_ios_real_device(caps, xcode_org_id)
       update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
       xcode_signing_id = 'iPhone Developer'
-      xcode_org_id = ENV['ORG_ID'] || 'xxxxxxx'
 
       caps[:caps][:xcodeSigningId] = xcode_signing_id
       caps[:caps][:xcodeOrgId] = xcode_org_id

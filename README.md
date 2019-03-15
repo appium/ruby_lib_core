@@ -31,17 +31,27 @@ $ bundle exec parallel_test test/unit/
 Run functional tests which require the Appium server and real device, Simulator/Emulator.
 
 - Start Appium server
- ```bash
+```bash
 $ npm install -g appium opencv4nodejs
 $ appium --relaxed-security # To run all tests in local
 ```
 
 - Conduct tests
- ```bash
+```bash
 $ bundle install
 $ rake test:func:android # Andorid, uiautomator2
 $ AUTOMATION_NAME_DROID=espresso rake test:func:android # Andorid, uiautomator2
 $ rake test:func:ios     # iOS
+```
+
+#### Real device for iOS
+
+- You should pre-install [UICatalog](https://github.com/appium/ios-uicatalog) in iOS with a particular `bundleId`
+    - Set the `bundleId` instead of `app` in `test/test_helper#ios`
+
+```bash
+# Create derivedDataPath in "/tmp/#{org_id}" and reuse xctestrun in the directory
+$ REAL=true WDA_BUNDLEID="ios.appium.WebDriverAgentRunner" ORG_ID=XXXXXXX rake test:func:ios
 ```
 
 #### Run parallel tests with parallel_tests gem
