@@ -151,6 +151,7 @@ class AppiumLibCoreTest
       update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
       xcode_signing_id = 'iPhone Developer'
 
+      # Can use 'xcodeConfigFile' also if we set the cap properly
       caps[:caps][:xcodeSigningId] = xcode_signing_id
       caps[:caps][:xcodeOrgId] = xcode_org_id
       caps[:caps][:updatedWDABundleId] = update_wda_bundleid
