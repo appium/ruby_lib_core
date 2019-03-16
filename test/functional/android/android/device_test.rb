@@ -248,6 +248,8 @@ class AppiumLibCoreTest
         @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
         @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
         @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
+        # make sure to show keyboard
+        @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.click
 
         latin_android = 'com.android.inputmethod.latin/.LatinIME'
         latin_google = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
