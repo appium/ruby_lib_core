@@ -177,6 +177,11 @@ class AppiumLibCoreTest
       end
 
       def test_pull_folder
+        file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
+          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
+        path = '/data/local/tmp/remote.txt'
+        @driver.push_file path, file
+
         data = @driver.pull_folder '/data/local/tmp'
         assert data.length > 100
       end
