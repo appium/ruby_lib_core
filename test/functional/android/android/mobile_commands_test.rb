@@ -26,6 +26,42 @@ class AppiumLibCoreTest
         save_reports(@driver)
       end
 
+      # @since Appium 1.12.0
+      def test_permissions
+        @driver = @core.start_driver
+
+        package = 'io.appium.android.apis'
+        type = {
+          denied: 'denied',
+          granted: 'granted',
+          requested: 'requested'
+        }
+
+        action = {
+          grant: 'grant',
+          revoke: 'revoke'
+        }
+
+        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
+        assert granted_permissions.size == 14
+
+        assert @driver.execute_script('mobile: getPermissions', { type: type[:denied], appPackage: package }).empty?
+        assert @driver.execute_script('mobile: getPermissions', { type: type[:requested], appPackage: package }).size == 14
+
+        permissions = ['android.permission.READ_CONTACTS']
+        @driver.execute_script 'mobile: changePermissions',
+                               { action: action[:revoke], appPackage: package, permissions: permissions }
+
+        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
+        assert !granted_permissions.member?(permissions.first)
+
+        @driver.execute_script 'mobile: changePermissions',
+                               { action: action[:grant], appPackage: package, permissions: permissions }
+
+        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
+        assert granted_permissions.member?(permissions.first)
+      end
+
       # @since Appium 1.10.0
       def test_toast
         skip unless @core.automation_name == :espresso
