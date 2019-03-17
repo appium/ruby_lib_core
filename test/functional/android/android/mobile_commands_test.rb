@@ -42,23 +42,29 @@ class AppiumLibCoreTest
           revoke: 'revoke'
         }
 
-        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
-        assert granted_permissions.size == 14
-
-        assert @driver.execute_script('mobile: getPermissions', { type: type[:denied], appPackage: package }).empty?
-        assert @driver.execute_script('mobile: getPermissions', { type: type[:requested], appPackage: package }).size == 14
-
         permissions = ['android.permission.READ_CONTACTS']
+
+        granted_permissions = @driver.execute_script 'mobile: getPermissions',
+                                                     { type: type[:granted], appPackage: package }
+        assert granted_permissions.member?(permissions.first)
+
+        assert @driver.execute_script('mobile: getPermissions',
+                                      { type: type[:denied], appPackage: package }).empty?
+        assert @driver.execute_script('mobile: getPermissions',
+                                      { type: type[:requested], appPackage: package }).member?(permissions.first)
+
         @driver.execute_script 'mobile: changePermissions',
                                { action: action[:revoke], appPackage: package, permissions: permissions }
 
-        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
+        granted_permissions = @driver.execute_script 'mobile: getPermissions',
+                                                     { type: type[:granted], appPackage: package }
         assert !granted_permissions.member?(permissions.first)
 
         @driver.execute_script 'mobile: changePermissions',
                                { action: action[:grant], appPackage: package, permissions: permissions }
 
-        granted_permissions = @driver.execute_script 'mobile: getPermissions', { type: type[:granted], appPackage: package }
+        granted_permissions = @driver.execute_script 'mobile: getPermissions',
+                                                     { type: type[:granted], appPackage: package }
         assert granted_permissions.member?(permissions.first)
       end
 
