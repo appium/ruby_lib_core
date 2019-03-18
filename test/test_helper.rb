@@ -115,9 +115,9 @@ class AppiumLibCoreTest
         }
       }
 
-      xcode_org_id = ENV['ORG_ID'] || ''
+      xcode_org_id = ENV['ORG_ID'] || 'Simulator'
       cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
-      cap = add_xctestrun(real_device, cap.dup, xcode_org_id, platform_version)
+      cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
 
       cap
     end
@@ -125,16 +125,18 @@ class AppiumLibCoreTest
     private
 
     # for use_xctestrun_file
-    def add_xctestrun(real_device, caps, xcode_org_id, platform_version)
+    def add_xctestrun(real_device, caps, xcode_org_id)
+      xcode_sdk_version = /iPhoneOS([0-9\.]+)\.sdk/.match(`xcodebuild -version -sdk`)[1]
+
       derived_data_path = File.expand_path("tmp/#{xcode_org_id}")
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
       caps[:caps][:derivedDataPath] = derived_data_path
 
       build_product = File.expand_path("#{derived_data_path}/Build/Products/")
       xctestrun_path = if real_device
-                         "#{build_product}/WebDriverAgentRunner_iphoneos#{platform_version}-arm64.xctestrun"
+                         "#{build_product}/WebDriverAgentRunner_iphoneos#{xcode_sdk_version}-arm64.xctestrun"
                        else
-                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{platform_version}-x86_64.xctestrun"
+                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{xcode_sdk_version}-x86_64.xctestrun"
                        end
       use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
 
