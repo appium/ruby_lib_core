@@ -80,6 +80,8 @@ module Appium
           #                           is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
           # @param [String] video_scale The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
           #                             No scale is applied by default.
+          # @param [String] pixel_format Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
+          #                              For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264".
           #
           # @example
           #
