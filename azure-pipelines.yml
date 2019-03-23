@@ -5,6 +5,9 @@
 pool:
   vmImage: 'vs2017-win2016'
 
+variables:
+  UNIT_TEST: true
+
 steps:
 - task: UseRubyVersion@0
   inputs:
@@ -19,5 +22,5 @@ steps:
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
   displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
 
-- script: UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
+- script: bundle exec parallel_test test/unit/ -n 4
   displayName: 'bundle exec parallel_test test/unit/ -n 4'
