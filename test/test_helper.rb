@@ -93,11 +93,13 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
+          # Should handle bundleId properly in real or simulator
+          # bundleId: 'io.appium.apple-samplecode.UICatalog',
           app: 'test/functional/app/UICatalog.app.zip',
           udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name,
-          useNewWDA: true,
+          useNewWDA: false,
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
