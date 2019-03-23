@@ -93,9 +93,6 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: :ios,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
-          # Should handle bundleId properly in real or simulator
-          # bundleId: 'io.appium.apple-samplecode.UICatalog',
-          app: 'test/functional/app/UICatalog.app.zip',
           udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name,
@@ -116,6 +113,12 @@ class AppiumLibCoreTest
           wait_interval: 1
         }
       }
+
+      if ENV['BUNDLE_ID'].nil?
+        cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+      else
+        cap[:caps][:app] = 'test/functional/app/UICatalog.app.zip'
+      end
 
       if ENV['UNIT_TEST'].nil?
         xcode_org_id = ENV['ORG_ID'] || 'Simulator'

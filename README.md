@@ -51,7 +51,7 @@ $ rake test:func:ios     # iOS
 
 ```bash
 # Create derivedDataPath in "/tmp/#{org_id}" and reuse xctestrun in the directory
-$ REAL=true WDA_BUNDLEID="ios.appium.WebDriverAgentRunner" ORG_ID=XXXXXXX rake test:func:ios
+$ REAL=true BUNDLE_ID='target-bundleid' WDA_BUNDLEID="ios.appium.WebDriverAgentRunner" ORG_ID=XXXXXXX rake test:func:ios
 ```
 
 #### Run parallel tests with parallel_tests gem
