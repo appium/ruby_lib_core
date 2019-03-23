@@ -9,6 +9,13 @@ Read `release_notes.md` for commit level details.
 
 ### Bug fixes
 
+## [3.0.4] - 2019-03-24
+
+### Enhancements
+- Add `pixelFormat` argument in screen record for iOS
+
+### Bug fixes
+
 ### Deprecations
 
 ## [3.0.3] - 2019-03-11
