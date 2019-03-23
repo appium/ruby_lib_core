@@ -1,3 +1,27 @@
+#### v3.0.4 2019-03-24
+
+- [c430740](https://github.com/appium/ruby_lib_core/commit/c43074089a9ecf18bdd3e5022530117fefcae8ab) Release 3.0.4
+- [7691c07](https://github.com/appium/ruby_lib_core/commit/7691c0771703f6ac207a0828c93790efcaaa8300) update android sample app (#203)
+- [3d3a0a8](https://github.com/appium/ruby_lib_core/commit/3d3a0a80da62925e61b0c5197a1a87f119e4002a) add UNIT_TEST=true (#202)
+- [c49f3ac](https://github.com/appium/ruby_lib_core/commit/c49f3ac31ecf9a978608eeb7f94e988974e57bfc) add UNIT_TEST=true into azure
+- [2bcfb17](https://github.com/appium/ruby_lib_core/commit/2bcfb1753df3a7adb0ac2a09274445dd31870447) switchable app and bundleid
+- [3fd2088](https://github.com/appium/ruby_lib_core/commit/3fd2088e0d2c0fa14bacdeed95c421995cd0a8b5) skip xcodebuild
+- [b3079da](https://github.com/appium/ruby_lib_core/commit/b3079dab4096d67fccfa9808898c5cf074d0a776) make useNewWDA false to make tests faster
+- [0f608a0](https://github.com/appium/ruby_lib_core/commit/0f608a03b464dfe71203fadac0854e5663eb9ec0) tweak xctestrun
+- [9deda0e](https://github.com/appium/ruby_lib_core/commit/9deda0eca62c145af6a70b826a52fb05f52ac3a2) Add pixel format (#200)
+- [9585b16](https://github.com/appium/ruby_lib_core/commit/9585b16104052cb4f9f175c59f08d3bc6992a64f) make permissions tests robust
+- [3410a98](https://github.com/appium/ruby_lib_core/commit/3410a98bd67ea18b4c64e3ffe61a6b439a5d1040) add tests for mobile permission commands
+- [59ba947](https://github.com/appium/ruby_lib_core/commit/59ba9475002279918038d148d9ae449e49a7aa05) make sure show keyboard
+- [9769c8e](https://github.com/appium/ruby_lib_core/commit/9769c8e4fa7ed55eefb37fc5cac04457775f5b56) add push before pull folder
+- [150d8c3](https://github.com/appium/ruby_lib_core/commit/150d8c32e71d107da4236726b22afc8343aa68d8) add a comment
+- [0da4dbf](https://github.com/appium/ruby_lib_core/commit/0da4dbffa2637ee0746c06ff5d0a432359e61850) insert org id in the path to builds
+- [934f4f8](https://github.com/appium/ruby_lib_core/commit/934f4f8f98b8056aa0b3c0d243b862cb1af1e43a) tweak private/public
+- [73ab471](https://github.com/appium/ruby_lib_core/commit/73ab4718a616c49676eadc88cc3ecf9e39a81e67) Add useXctestrunFile for ios func tests to reduce the running time (#199)
+- [d2767a8](https://github.com/appium/ruby_lib_core/commit/d2767a82c7ac101c82546e08884e020565add099) fix rubocop
+- [175ab43](https://github.com/appium/ruby_lib_core/commit/175ab43df3e3b503f4465e4432cc1497845d3658) add ifues description
+- [6ed85d7](https://github.com/appium/ruby_lib_core/commit/6ed85d769f685b1fd15c3b977320e867b1be21dd) add wait in order to make this test reliable
+
+
 #### v3.0.3 2019-03-11
 
 - [b2dc0d9](https://github.com/appium/ruby_lib_core/commit/b2dc0d9ce3ef156da0b40b5e70ec0abd9c493d5a) Release 3.0.3
