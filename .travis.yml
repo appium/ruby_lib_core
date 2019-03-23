@@ -13,9 +13,9 @@ before_install:
 
 script:
   - bundle exec rake rubocop
-  - bundle exec parallel_test test/unit/ -n 4
-  - AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
-  - AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+  - UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
+  - UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
+  - UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
 
 notifications:
   email:

@@ -117,9 +117,11 @@ class AppiumLibCoreTest
         }
       }
 
-      xcode_org_id = ENV['ORG_ID'] || 'Simulator'
-      cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
-      cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
+      if ENV['UNIT_TEST'].nil?
+        xcode_org_id = ENV['ORG_ID'] || 'Simulator'
+        cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
+        cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
+      end
 
       cap
     end
