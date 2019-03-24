@@ -120,7 +120,7 @@ class AppiumLibCoreTest
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
       end
 
-      unless ENV['UNIT_TEST'].nil?
+      unless ENV['UNIT_TEST']
         xcode_org_id = ENV['ORG_ID'] || 'Simulator'
         cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
         cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
