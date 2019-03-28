@@ -116,6 +116,7 @@ class AppiumLibCoreTest
 
       if ENV['BUNDLE_ID'].nil?
         cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
+                             # Use https://github.com/KazuCocoa/tv-example as a temporary
                              'test/functional/app/tv-example.zip'
                            else
                              'test/functional/app/UICatalog.app.zip'
