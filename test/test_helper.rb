@@ -91,7 +91,7 @@ class AppiumLibCoreTest
 
       cap = {
         caps: { # :desiredCapabilities is also available
-          platformName: :ios,
+          platformName: :ios, # or :tvos
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           udid: 'auto',
           platformVersion: platform_version,
@@ -139,11 +139,14 @@ class AppiumLibCoreTest
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
       caps[:caps][:derivedDataPath] = derived_data_path
 
+      platform_name = caps[:caps][:platformName].downcase
+      runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
+
       build_product = File.expand_path("#{derived_data_path}/Build/Products/")
       xctestrun_path = if real_device
-                         "#{build_product}/WebDriverAgentRunner_iphoneos#{xcode_sdk_version}-arm64.xctestrun"
+                         "#{build_product}/#{runnner_prefix}os#{xcode_sdk_version}-arm64.xctestrun"
                        else
-                         "#{build_product}/WebDriverAgentRunner_iphonesimulator#{xcode_sdk_version}-x86_64.xctestrun"
+                         "#{build_product}/#{runnner_prefix}simulator#{xcode_sdk_version}-x86_64.xctestrun"
                        end
       use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
 
