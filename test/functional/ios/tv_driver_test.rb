@@ -43,9 +43,10 @@ class AppiumLibCoreTest
       assert_equal :running_in_foreground, @driver.app_state(test_package)
 
       @driver.execute_script 'mobile: pressButton', { name: 'Home' }
-      assert @core.wait_true do
+      result = @core.wait_true do
         @driver.app_state(test_package) == :running_in_background_suspended
       end
+      assert result
     end
   end
 end

@@ -85,7 +85,12 @@ class AppiumLibCoreTest
     def ios(platform_name = :ios)
       platform_version = '12.1'
       wda_local_port = _wda_local_port
-      device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
+      device_name = if platform_name.downcase == :tvos
+                      'Apple TV'
+                    else
+                      parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
+                    end
+
 
       real_device = ENV['REAL'] ? true : false
 
@@ -93,7 +98,7 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
-          udid: '0ED4E295-DC67-4365-9C26-82ED8E933381',
+          udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name,
           useNewWDA: false,
