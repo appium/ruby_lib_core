@@ -65,8 +65,8 @@ class AppiumLibCoreTest
   end
 
   class Caps
-    def self.ios
-      new.ios
+    def self.ios(platform_name = :ios)
+      new.ios(platform_name)
     end
 
     def self.android(activity_name = nil)
@@ -82,7 +82,7 @@ class AppiumLibCoreTest
     end
 
     # Require a simulator which OS version is 11.4, for example.
-    def ios
+    def ios(platform_name = :ios)
       platform_version = '12.1'
       wda_local_port = _wda_local_port
       device_name = parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
@@ -91,9 +91,9 @@ class AppiumLibCoreTest
 
       cap = {
         caps: { # :desiredCapabilities is also available
-          platformName: :ios, # or :tvos
+          platformName: platform_name,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
-          udid: 'auto',
+          udid: '0ED4E295-DC67-4365-9C26-82ED8E933381',
           platformVersion: platform_version,
           deviceName: device_name,
           useNewWDA: false,
@@ -115,7 +115,11 @@ class AppiumLibCoreTest
       }
 
       if ENV['BUNDLE_ID'].nil?
-        cap[:caps][:app] = 'test/functional/app/UICatalog.app.zip'
+        cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
+                             'test/functional/app/tv-example.zip'
+                           else
+                             'test/functional/app/UICatalog.app.zip'
+                           end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
       end
