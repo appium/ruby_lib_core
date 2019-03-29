@@ -84,13 +84,7 @@ class AppiumLibCoreTest
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
       platform_version = '12.1'
-      wda_local_port = _wda_local_port
-      device_name = if platform_name.downcase == :tvos
-                      'Apple TV'
-                    else
-                      parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
-                    end
-
+      wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
 
@@ -100,12 +94,12 @@ class AppiumLibCoreTest
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name,
+          deviceName: device_name(platform_name, wda_port),
           useNewWDA: false,
           useJSONSource: true,
           someCapability: 'some_capability',
           newCommandTimeout: 120,
-          wdaLocalPort: wda_local_port,
+          wdaLocalPort: wda_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
@@ -140,6 +134,14 @@ class AppiumLibCoreTest
     end
 
     private
+
+    def device_name(platform_name, wda_local_port)
+      if platform_name.downcase == :tvos
+        'Apple TV'
+      else
+        parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
+      end
+    end
 
     # for use_xctestrun_file
     def add_xctestrun(real_device, caps, xcode_org_id)
@@ -191,7 +193,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
-          udid: _udid_name,
+          udid: udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
           appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
@@ -201,7 +203,7 @@ class AppiumLibCoreTest
           disableWindowAnimation: true,
           newCommandTimeout: 300,
           autoGrantPermissions: true,
-          systemPort: _system_port,
+          systemPort: system_port,
           language: 'en',
           locale: 'US',
           adbExecTimeout: 10_000, # 10 sec
@@ -248,14 +250,14 @@ class AppiumLibCoreTest
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           # Or `npm install --chromedriver_version="2.24"` and
           # chromedriverUseSystemExecutable: true,
-          udid: _udid_name,
+          udid: udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
           unicodeKeyboard: true,
           resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
-          systemPort: _system_port,
+          systemPort: system_port,
           language: 'en',
           locale: 'US'
         },
@@ -273,7 +275,7 @@ class AppiumLibCoreTest
 
     private
 
-    def _wda_local_port
+    def wda_local_port
       # TEST_ENV_NUMBER is provided by parallel_tests gem
       # The number is '', '2', '3',...
       number = ENV['TEST_ENV_NUMBER'] || ''
@@ -281,13 +283,13 @@ class AppiumLibCoreTest
       [8100, 8101][core_number]
     end
 
-    def _system_port
+    def system_port
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       [8200, 8201, 8202][core_number]
     end
 
-    def _udid_name
+    def udid_name
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
       %w(emulator-5554 emulator-5556 emulator-5558)[core_number]
