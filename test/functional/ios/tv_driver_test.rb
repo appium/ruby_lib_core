@@ -28,6 +28,8 @@ class AppiumLibCoreTest
     end
 
     def test_launch_app
+      skip 'Only tvOS platform' unless @core.caps[:platformName] == :tvos
+
       test_package = 'com.kazucocoa.tv-example'
 
       e = @driver.find_element :name, 'Second'
