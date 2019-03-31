@@ -1,3 +1,11 @@
+#### v3.1.0 2019-03-31
+
+- [b1944d8](https://github.com/appium/ruby_lib_core/commit/b1944d8c219fb3744cd337770baa7dd5c20dfd36) Release 3.1.0
+- [289940b](https://github.com/appium/ruby_lib_core/commit/289940bf1b2da0b9cc6e34874fb950379515b2c5) Add tvos (#204)
+- [a947a0a](https://github.com/appium/ruby_lib_core/commit/a947a0a7f4c26931a3cbe8e21084f7008ac63fd0) fix .nil? check
+- [8a35c6e](https://github.com/appium/ruby_lib_core/commit/8a35c6ea99c78e41070a23579a1aae17b67399aa) fix test helper
+
+
 #### v3.0.4 2019-03-24
 
 - [c430740](https://github.com/appium/ruby_lib_core/commit/c43074089a9ecf18bdd3e5022530117fefcae8ab) Release 3.0.4
