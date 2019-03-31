@@ -11,9 +11,9 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Enabled: false
 Metrics/CyclomaticComplexity:
-  Max: 10
+  Max: 12
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 12
 Metrics/ParameterLists:
   Max: 6
 Lint/NestedMethodDefinition:

@@ -480,7 +480,7 @@ module Appium
           else # default and UiAutomator
             ::Appium::Core::Android::Uiautomator1::Bridge.for(self)
           end
-        when :ios
+        when :ios, :tvos
           case automation_name
           when :xcuitest
             ::Appium::Core::Ios::Xcuitest::Bridge.for(self)
@@ -584,14 +584,14 @@ module Appium
         @device = @caps[:platformName]
         return @device unless @device
 
-        @device = @device.is_a?(Symbol) ? @device : @device.downcase.strip.intern
+        @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
       end
 
       # @private
       def set_automation_name
         @automation_name = @caps[:automationName] if @caps[:automationName]
         @automation_name = if @automation_name
-                             @automation_name.is_a?(Symbol) ? @automation_name : @automation_name.downcase.strip.intern
+                             @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
                            end
       end
 

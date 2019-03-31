@@ -5,7 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Add `pixelFormat` argument in screen record for iOS
+- `tvOS` platform support
 
 ### Bug fixes
 
