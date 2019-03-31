@@ -9,6 +9,19 @@ Read `release_notes.md` for commit level details.
 
 ### Bug fixes
 
+### Deprecations
+
+## [3.1.0] - 2019-03-31
+
+### Enhancements
+- `tvOS` platform support
+    - `platformName: :tvos, automationName: :xcuitest` can work for iOS tvOS
+    - It requires Appium 1.13
+
+### Bug fixes
+
+### Deprecations
+
 ## [3.0.4] - 2019-03-24
 
 ### Enhancements
