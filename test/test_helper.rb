@@ -65,8 +65,8 @@ class AppiumLibCoreTest
   end
 
   class Caps
-    def self.ios(platform_name = :ios)
-      new.ios(platform_name)
+    def self.ios(device_type = :ios)
+      new.ios(device_type)
     end
 
     def self.android(activity_name = nil)
@@ -82,7 +82,7 @@ class AppiumLibCoreTest
     end
 
     # Require a simulator which OS version is 11.4, for example.
-    def ios(platform_name = :ios)
+    def ios(device_type = :ios)
       platform_version = '12.1'
       wda_port = wda_local_port
 
@@ -90,11 +90,11 @@ class AppiumLibCoreTest
 
       cap = {
         caps: { # :desiredCapabilities is also available
-          platformName: platform_name,
+          platformName: :ios,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
           udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name(platform_name, wda_port),
+          deviceName: device_name(device_type, wda_port),
           useNewWDA: false,
           useJSONSource: true,
           someCapability: 'some_capability',
@@ -113,8 +113,10 @@ class AppiumLibCoreTest
         }
       }
 
+      cap[:caps][:deviceType] = :tv if device_type == :tv
+
       if ENV['BUNDLE_ID'].nil?
-        cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
+        cap[:caps][:app] = if device_type == :tv
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
                              'test/functional/app/tv-example.zip'
                            else
@@ -135,8 +137,8 @@ class AppiumLibCoreTest
 
     private
 
-    def device_name(platform_name, wda_local_port)
-      if platform_name.downcase == :tvos
+    def device_name(device_type, wda_local_port)
+      if device_type.downcase == :tv
         'Apple TV'
       else
         parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
@@ -151,8 +153,8 @@ class AppiumLibCoreTest
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
       caps[:caps][:derivedDataPath] = derived_data_path
 
-      platform_name = caps[:caps][:platformName].downcase
-      runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
+      device_type = caps[:caps][:deviceType] ? caps[:caps][:deviceType].downcase : :ios
+      runnner_prefix = device_type == :tv ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
 
       build_product = File.expand_path("#{derived_data_path}/Build/Products/")
       xctestrun_path = if real_device

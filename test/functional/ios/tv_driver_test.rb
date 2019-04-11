@@ -18,7 +18,7 @@ require 'test_helper'
 class AppiumLibCoreTest
   class TvDriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @core = ::Appium::Core.for(Caps.ios(:tvos))
+      @core = ::Appium::Core.for(Caps.ios(:tv))
 
       @driver = @core.start_driver
     end
@@ -28,7 +28,7 @@ class AppiumLibCoreTest
     end
 
     def test_launch_app
-      skip 'Only tvOS platform' unless @core.caps[:platformName] == :tvos
+      skip 'Only tvOS platform' unless @core.caps[:deviceType] == :tv
 
       test_package = 'com.kazucocoa.tv-example'
 
