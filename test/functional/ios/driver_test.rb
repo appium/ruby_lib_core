@@ -64,6 +64,7 @@ class AppiumLibCoreTest
         e.click
       end
       assert [::Selenium::WebDriver::Error::UnknownError,
+              ::Selenium::WebDriver::Error::ElementNotVisibleError,
               ::Selenium::WebDriver::Error::InvalidSelectorError].include? error.class
       assert error.message.include? ' is not visible on the screen and thus is not interactable'
       @@driver.back
