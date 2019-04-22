@@ -147,7 +147,7 @@ class AppiumLibCoreTest
     def add_xctestrun(real_device, caps, xcode_org_id)
       xcode_sdk_version = /iPhoneOS([0-9\.]+)\.sdk/.match(`xcodebuild -version -sdk`)[1]
 
-      derived_data_path = File.expand_path("tmp/#{xcode_org_id}")
+      derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
       caps[:caps][:derivedDataPath] = derived_data_path
 
@@ -172,6 +172,11 @@ class AppiumLibCoreTest
 
     # For real devices
     def add_ios_real_device(caps, xcode_org_id)
+      if ENV['XCODE_CONFIG_FILE']
+        caps[:caps][:xcodeConfigFile] = ENV['XCODE_CONFIG_FILE']
+        return caps
+      end
+
       update_wda_bundleid = ENV['WDA_BUNDLEID'] || 'com.facebook.WebDriverAgentRunner'
       xcode_signing_id = 'iPhone Developer'
 

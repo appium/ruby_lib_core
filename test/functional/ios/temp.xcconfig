@@ -1,0 +1,6 @@
+PRODUCT_BUNDLE_IDENTIFIER = com.example.WebDriverAgentRunner
+CODE_SIGN_IDENTITY = iPhone Developer
+DEVELOPMENT_TEAM = XXXXXXXXX
+PROVISIONING_PROFILE = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+PROVISIONING_PROFILE_SPECIFIER =
+CODE_SIGN_STYLE = Automatic

@@ -52,6 +52,10 @@ $ rake test:func:ios     # iOS
 ```bash
 # Create derivedDataPath in "/tmp/#{org_id}" and reuse xctestrun in the directory
 $ REAL=true BUNDLE_ID='target-bundleid' WDA_BUNDLEID="ios.appium.WebDriverAgentRunner" ORG_ID=XXXXXXX rake test:func:ios
+
+# Run with xcconfig file. The template is in 'test/functional/ios/temp.xcconfig'
+# The PROVISIONING_PROFILE is in '~/Library/MobileDevice/Provisioning\ Profiles/'
+$ REAL=true XCODE_CONFIG_FILE='/path/to/xcconfig' ORG_ID=XXXXXXX rake test:func:ios
 ```
 
 #### Run parallel tests with parallel_tests gem
