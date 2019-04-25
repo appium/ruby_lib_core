@@ -1,3 +1,13 @@
+#### v3.1.1 2019-04-26
+
+- [10ebb89](https://github.com/appium/ruby_lib_core/commit/10ebb89716b641293f69d75213c6408a8605b4f9) Release 3.1.1
+- [1832c2b](https://github.com/appium/ruby_lib_core/commit/1832c2bcb796e1544d203dfdadea362f7a6e866c) catch Selenium::WebDriver::Error::TimeoutError
+- [469a3e4](https://github.com/appium/ruby_lib_core/commit/469a3e445dab4e00471f91325791909485816dcb) tweak test cases
+- [afe43d2](https://github.com/appium/ruby_lib_core/commit/afe43d2797e06f635b2e7de6faa8bf97e1139ca3) Merge branch 'master' of github.com:appium/ruby_lib_core
+- [c272e1a](https://github.com/appium/ruby_lib_core/commit/c272e1a944e899a011bfd479501b5d420f48a338) add an example of xcodeconfigfile usage
+- [afcdabe](https://github.com/appium/ruby_lib_core/commit/afcdabee718b2a5aabfd24fa3a2ebc9f4ef044ca) add not visible error
+
+
 #### v3.1.0 2019-03-31
 
 - [b1944d8](https://github.com/appium/ruby_lib_core/commit/b1944d8c219fb3744cd337770baa7dd5c20dfd36) Release 3.1.0
