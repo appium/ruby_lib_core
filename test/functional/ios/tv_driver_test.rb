@@ -49,6 +49,9 @@ class AppiumLibCoreTest
         @driver.app_state(test_package) == :running_in_background_suspended
       end
       assert result
+
+      e1 = @driver.switch_to.active_element
+      assert_equal 'Settings', e1.label
     end
   end
 end
