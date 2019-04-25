@@ -5,7 +5,15 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- `tvOS` platform support
+
+### Bug fixes
+
+### Deprecations
+
+## [3.1.1] - 2019-04-26
+
+### Enhancements
+- [internal] Catch `Selenium::WebDriver::Error::TimeoutError` which will be used instead of `Selenium::WebDriver::Error::TimeOutError`
 
 ### Bug fixes
 
