@@ -40,9 +40,7 @@ module Appium
             :stop_recording_screen, :stop_and_save_recording_screen,
             :shake, :device_time,
             :touch_actions, :multi_touch
-          ].each do |key|
-            delegate_from_appium_driver key
-          end
+          ].each(&method(:delegate_from_appium_driver))
         end
 
         # def extended
