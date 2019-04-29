@@ -16,8 +16,8 @@ steps:
 - script: gem install bundler
   displayName: 'Install bundler'
 
-- script: bundle install --retry=3 --jobs=4
-  displayName: 'Call bundle install'
+- script: bundle update --retry=3 --jobs=4
+  displayName: 'Call bundle update'
 
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
   displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
