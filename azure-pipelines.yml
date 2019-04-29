@@ -11,10 +11,10 @@ variables:
 steps:
 - task: UseRubyVersion@0
   inputs:
-    versionSpec: '>= 2.5'
+    versionSpec: '2.4.3'
 
-- script: gem install bundler
-  displayName: 'Install bundler'
+- script: gem install bundler ffi:1.10.0
+  displayName: 'Gem install bundler and ffi for Windows environment'
 
 - script: bundle install --retry=3 --jobs=4
   displayName: 'Call bundle install'
@@ -22,5 +22,5 @@ steps:
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
   displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
 
-- script: bundle exec parallel_test test/unit/ -n 4
-  displayName: 'bundle exec parallel_test test/unit/ -n 4'
+- script: parallel_test test/unit/ -n 4
+  displayName: 'Run parallel_test test/unit/ -n 4'
