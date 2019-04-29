@@ -11,10 +11,13 @@ variables:
 steps:
 - task: UseRubyVersion@0
   inputs:
-    versionSpec: '>= 2.6.2'
+    versionSpec: '>= 2.5'
+
+- script: gem install bundler ffi -v 1.0.0
+  displayName: 'Gem install bundler'
 
 - script: bundle install --retry=3 --jobs=4
-  displayName: 'Call install update'
+  displayName: 'Call bundle install'
 
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
   displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
