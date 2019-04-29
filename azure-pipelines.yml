@@ -13,7 +13,7 @@ steps:
   inputs:
     versionSpec: '2.4.3'
 
-- script: gem install bundler
+- script: gem install bundler ffi:1.10.0
   displayName: 'Gem install bundler'
 
 - script: bundle install --retry=3 --jobs=4
