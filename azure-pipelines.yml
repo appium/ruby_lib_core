@@ -11,9 +11,9 @@ variables:
 steps:
 - task: UseRubyVersion@0
   inputs:
-    versionSpec: '>= 2.5'
+    versionSpec: '2.4.3'
 
-- script: gem install bundler ffi:1.0.0
+- script: gem install bundler
   displayName: 'Gem install bundler'
 
 - script: bundle install --retry=3 --jobs=4
