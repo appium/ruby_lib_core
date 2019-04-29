@@ -13,11 +13,11 @@ steps:
   inputs:
     versionSpec: '>= 2.5'
 
-- script: gem install bundler
-  displayName: 'Install bundler'
+- script: gem install bundler ffi
+  displayName: 'Install bundler and ffi (it needs on windows environment)'
 
-- script: bundle update --retry=3 --jobs=4
-  displayName: 'Call bundle update'
+- script: bundle install --retry=3 --jobs=4
+  displayName: 'Call install update'
 
 - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
   displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
