@@ -131,7 +131,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:gsm_signal) do
               def gsm_signal(signal_strength)
-                raise "#{signal_strength} should be member of #{GSM_SIGNALS} " if GSM_SIGNALS[signal_strength.to_sym].nil?
+                raise "#{signal_strength} should be member of #{GSM_SIGNALS.keys} " if GSM_SIGNALS[signal_strength.to_sym].nil?
 
                 execute(:gsm_signal, {}, { signalStrength: GSM_SIGNALS[signal_strength],
                                            signalStrengh: GSM_SIGNALS[signal_strength] })
@@ -158,7 +158,9 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
               def set_power_capacity(percent)
-                raise "The  percent should be between 0 and 100. Not #{percent}." unless (0..100).member? percent
+                unless (0..100).member? percent
+                  ::Appium::Logger.warn "The  percent should be between 0 and 100. Not #{percent}."
+                end
 
                 execute(:set_power_capacity, {}, { percent: percent })
               end

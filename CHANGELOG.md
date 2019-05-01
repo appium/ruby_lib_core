@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- [internal] Tweak error messages in emulator module
 
 ### Bug fixes
 
