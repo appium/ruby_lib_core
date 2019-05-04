@@ -93,11 +93,15 @@ class AppiumLibCoreTest
 
           def test_get_system_bars
             stub_request(:get, "#{SESSION}/appium/device/system_bars")
-              .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: {
+                statusBar: { visible: true, x: 0, y: 0, width: 1080, height: 63 },
+                navigationBar: { visible: true, x: 0, y: 1794, width: 1080, height: 126 }
+              } }.to_json)
 
-            @driver.get_system_bars
+            info = @driver.get_system_bars
 
             assert_requested(:get, "#{SESSION}/appium/device/system_bars", times: 1)
+            assert_equal({ 'visible' => true, 'x' => 0, 'y' => 0, 'width' => 1080, 'height' => 63 }, info['statusBar'])
           end
 
           def test_get_display_density

@@ -69,7 +69,7 @@ class AppiumLibCoreTest
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert_in_delta 80, xml[2].elements.each('//*') { |v| v }.map(&:name).size, 5 # rubocop:disable Lint/Void:
+        assert xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
 
         s_source = @@driver.page_source
         s_xml = REXML::Document.new s_source
@@ -77,7 +77,8 @@ class AppiumLibCoreTest
         assert s_source.include?('AppiumAUT')
         assert s_source.include?('XCUIElementTypeApplication type')
 
-        assert [78, 81].include?(s_xml[2].elements.each('//*') { |v| v }.map(&:name).size) # rubocop:disable Lint/Void:
+        # Roughly matching...
+        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
       end
 
       def test_location
