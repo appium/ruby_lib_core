@@ -15,21 +15,59 @@
 require 'test_helper'
 require 'base64'
 
-# $ rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
-# rubocop:disable Style/ClassVars
+# $ rake test:func:ios TEST=test/functional/ios/ios/device_wda_attachment_test.rb
 class AppiumLibCoreTest
   module Ios
     class DeviceWDAAttachmentTest < AppiumLibCoreTest::Function::TestCase
       def setup
         # will add test ad an attachment
-        @@core = ::Appium::Core.for(Caps.ios)
-        @@driver = @@core.start_driver
+        ios_caps = Caps.ios.dup
+        ios_caps[:caps][:useNewWDA] = true
+        @core = ::Appium::Core.for(ios_caps)
+        @driver = @core.start_driver
       end
 
       def teardown
-        save_reports(@@driver)
+        save_reports(@driver)
+      end
+
+      def test_localhost_wda_agent_url
+        status = JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
+
+        # Run with webDriverAgentUrl
+        current_host = status['ios']['ip']
+        current_port = @core.caps[:wdaLocalPort]
+
+        new_ios_caps = Caps.ios.dup
+        new_ios_caps[:caps][:useNewWDA] = false
+        new_ios_caps[:caps][:webDriverAgentUrl] = "http://#{current_host}:#{current_port}"
+        new_ios_caps[:caps].delete :wdaLocalPort
+        new_ios_caps[:caps].delete :derivedDataPath
+        new_ios_caps[:caps].delete :bootstrapPath
+        new_ios_caps[:caps].delete :useXctestrunFile
+
+        new_core = ::Appium::Core.for(new_ios_caps)
+        @driver = new_core.start_driver
+        # Make sure if the driver works
+        assert @driver.remote_status
+
+        @driver.quit
+        # WDA should not stop by `quit` if `webDriverAgentUrl` exists
+        assert_equal status, JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
+
+        # Create the original driver again
+        @driver = @core.start_driver
+        status = JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
+        current_host = status['ios']['ip']
+        current_port = @core.caps[:wdaLocalPort]
+
+        @driver.quit
+
+        # WDA should stop
+        assert_raises Errno::ECONNREFUSED do
+          JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
+        end
       end
     end
   end
 end
-# rubocop:enable Style/ClassVars
