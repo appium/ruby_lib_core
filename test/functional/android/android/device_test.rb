@@ -310,6 +310,8 @@ class AppiumLibCoreTest
       end
 
       def test_open_notifications
+        skip unless @@core.automation_name == :espresso
+
         # test & comments from https://github.com/appium/appium/blob/master/test/functional/android/apidemos/notifications-specs.js#L19
         # get to the notification page
         @@core.wait { scroll_to('App').click }
