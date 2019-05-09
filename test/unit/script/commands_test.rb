@@ -36,8 +36,7 @@ class ScriptTest
 
     # depends on webdriver-version... (number of commands)
     def test_implemented_mjsonwp_commands
-      assert_equal 146, @c.implemented_mjsonwp_commands.length
-      assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_mjsonwp_commands.first
+      assert_equal ['sessions', [:get]], @c.implemented_mjsonwp_commands.first
 
       # pick up an arbitrary command
       assert_equal %i(get post), @c.implemented_mjsonwp_commands['session/:session_id/alert_text']
@@ -45,22 +44,20 @@ class ScriptTest
 
     def test_implemented_w3c_commands
       # assert_equal 119, @c.implemented_w3c_commands.length
-      assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_w3c_commands.first
+      assert_equal ['sessions', [:get]], @c.implemented_w3c_commands.first
 
       # pick up an arbitrary command
       assert_equal %i(get post), @c.implemented_w3c_commands['session/:session_id/alert/text']
     end
 
     def test_implemented_core_commands
-      assert_equal 60, @c.implemented_core_commands.length
-      assert_equal ['session/:session_id/contexts', [:get]], @c.implemented_core_commands.first
+      assert_equal ['sessions', [:get]], @c.implemented_core_commands.first
 
       # pick up an arbitrary command
       assert_equal [:post], @c.implemented_core_commands['session/:session_id/appium/device/pull_folder']
     end
 
     def test_webdriver_oss_commands
-      assert_equal 86, @c.webdriver_oss_commands.length
       assert_equal ['session/:session_id', %i(get delete)], @c.webdriver_oss_commands.first
 
       # pick up an arbitrary command

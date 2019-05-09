@@ -20,6 +20,7 @@ module Appium
       # Some commands differ for each driver.
       COMMAND = {
         # common
+        get_all_sessions:           [:get,  'sessions'],
         available_contexts:         [:get,  'session/:session_id/contexts'],
         set_context:                [:post, 'session/:session_id/context'],
         current_context:            [:get,  'session/:session_id/context'],

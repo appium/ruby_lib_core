@@ -36,6 +36,11 @@ module Appium
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]
           end
 
+          # Returns all available sessions on the Appium server instance
+          def sessions
+            execute :get_all_sessions
+          end
+
           def take_element_screenshot(element)
             execute :take_element_screenshot, id: element.ref
           end
