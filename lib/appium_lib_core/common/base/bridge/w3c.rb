@@ -36,6 +36,11 @@ module Appium
             ::Appium::Core::Commands::W3C::COMMANDS[command]
           end
 
+          # Returns all available sessions on the Appium server instance
+          def sessions
+            execute :get_all_sessions
+          end
+
           # Perform touch actions for W3C module.
           # Generate `touch` pointer action here and users can use this via `driver.action`
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html

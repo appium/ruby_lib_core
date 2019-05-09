@@ -952,6 +952,18 @@ module Appium
           @bridge.session_capabilities
         end
 
+        # Returns available sessions on the Appium server
+        #
+        # @return [[Hash]]
+        #
+        # @example
+        #
+        #   @driver.sessions #=> [{'id' => 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3', 'capabilities' => { capabilities as Hash }}]
+        #
+        def sessions
+          @bridge.sessions
+        end
+
         # Image Comparison
         def match_images_features(first_image:,
                                   second_image:,
