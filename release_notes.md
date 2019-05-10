@@ -1,3 +1,14 @@
+#### v3.1.2 2019-05-10
+
+- [ba2e889](https://github.com/appium/ruby_lib_core/commit/ba2e889434a7405d5caac2adec08536cb6c07415) Release 3.1.2
+- [9479f26](https://github.com/appium/ruby_lib_core/commit/9479f26e716dcd65eddd51cd6139acaadd5aa361) add get sessions (#208)
+- [48a53f2](https://github.com/appium/ruby_lib_core/commit/48a53f2689fa0ee4ec7b54b8eda063d59278d51a) Add test wda attachment (#207)
+- [2d8a8f3](https://github.com/appium/ruby_lib_core/commit/2d8a8f3433f6774a1cc2d76028269ca006ca5273) tweak unit test
+- [b936d01](https://github.com/appium/ruby_lib_core/commit/b936d014c1ba2babd79e860df41a2beb8fa22d8d) tweak error messages in emulator module
+- [a17be27](https://github.com/appium/ruby_lib_core/commit/a17be27a008dc142e32b3bf745c262be15b1c940) install ffi in Azure env (#206)
+- [2ef736a](https://github.com/appium/ruby_lib_core/commit/2ef736a63e86130db819abeef420a82cadca459f) follow method reference
+
+
 #### v3.1.1 2019-04-26
 
 - [10ebb89](https://github.com/appium/ruby_lib_core/commit/10ebb89716b641293f69d75213c6408a8605b4f9) Release 3.1.1
