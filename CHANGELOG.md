@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.1.2] - 2019-05-10
+
+### Enhancements
 - Add `sessions` command to get all available sessions on the Appium server
 - [internal] Tweak error messages in emulator module
 
