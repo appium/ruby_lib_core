@@ -412,12 +412,12 @@ class AppiumLibCoreTest
         @driver.push_file sdcard_file_path, file
 
         read_file = @driver.pull_file sdcard_file_path
-        File.write 'test.png', read_file
+        File.open('test.png', 'wb') { |f| f << read_file }
 
         assert_equal File.size(test_file), File.size('test.png')
 
         folder = @driver.pull_folder sdcard_path
-        File.write 'pic_folder.zip', folder
+        File.open('pic_folder.zip', 'wb') { |f| f << folder }
 
         assert File.exist?('pic_folder.zip')
 
