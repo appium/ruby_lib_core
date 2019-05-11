@@ -436,8 +436,10 @@ module Appium
         # @example
         #
         #   decoded_file = @driver.pull_file '/local/data/some/path'     #=> Get the file at that path
-        #   decoded_file = @driver.pull_file 'Shenanigans.app/some/file' #=> Get 'some/file' from the install location of Shenanigans.app
-        #   decoded_file = @driver.pull_file '@com.appium.example/Documents/file.txt' #=> Get 'file.txt' in @com.appium.example/Documents
+        #   decoded_file = @driver.pull_file 'Shenanigans.app/some/file'
+        #                  #=> Get 'some/file' from the install location of Shenanigans.app
+        #   decoded_file = @driver.pull_file '@com.appium.example/Documents/file.txt'
+        #                  #=> Get 'file.txt' in @com.appium.example/Documents
         #   File.open('proper_filename', 'wb') { |f| f<< decoded_file }
         #
         def pull_file(path)
