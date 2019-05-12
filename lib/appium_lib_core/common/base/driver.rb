@@ -435,9 +435,12 @@ module Appium
         #
         # @example
         #
-        #   @driver.pull_file '/local/data/some/path'     #=> Get the file at that path
-        #   @driver.pull_file 'Shenanigans.app/some/file' #=> Get 'some/file' from the install location of Shenanigans.app
-        #   @driver.pull_file '@com.appium.example/Documents/file.txt' #=> Get 'file.txt' in @com.appium.example/Documents
+        #   decoded_file = @driver.pull_file '/local/data/some/path'     #=> Get the file at that path
+        #   decoded_file = @driver.pull_file 'Shenanigans.app/some/file'
+        #                  #=> Get 'some/file' from the install location of Shenanigans.app
+        #   decoded_file = @driver.pull_file '@com.appium.example/Documents/file.txt'
+        #                  #=> Get 'file.txt' in @com.appium.example/Documents
+        #   File.open('proper_filename', 'wb') { |f| f<< decoded_file }
         #
         def pull_file(path)
           @bridge.pull_file(path)
@@ -469,8 +472,9 @@ module Appium
         #
         # @example
         #
-        #   @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
-        #   @driver.pull_file '@com.appium.example/Documents' #=> Get 'Documents' in @com.appium.example
+        #   decoded_file = @driver.pull_folder '/data/local/tmp' #=> Get the folder at that path
+        #   decoded_file = @driver.pull_file '@com.appium.example/Documents' #=> Get 'Documents' in @com.appium.example
+        #   File.open('proper_filename', 'wb') { |f| f<< decoded_file }
         #
         def pull_folder(path)
           @bridge.pull_folder(path)

@@ -24,11 +24,11 @@ class AppiumLibCoreTest
     class ImageComparisionTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
-        @driver = @@core.start_driver
+        @@driver = @@core.start_driver
       end
 
       def teardown
-        save_reports(@driver)
+        save_reports(@@driver)
       end
 
       def test_image_comparison_match_result
@@ -42,7 +42,7 @@ class AppiumLibCoreTest
 
         match_result_visual = @@driver.match_images_features first_image: image1, second_image: image2, visualize: true
         assert_equal %w(points1 rect1 points2 rect2 totalCount count visualization), match_result_visual.keys
-        File.write 'match_result_visual.png', Base64.decode64(match_result_visual['visualization'])
+        File.open('match_result_visual.png', 'wb') { |f| f << Base64.decode64(match_result_visual['visualization']) }
         assert File.size? 'match_result_visual.png'
 
         File.delete 'match_result_visual.png'
@@ -59,7 +59,7 @@ class AppiumLibCoreTest
 
         find_result_visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
         assert_equal %w(rect visualization), find_result_visual.keys
-        File.write 'find_result_visual.png', Base64.decode64(find_result_visual['visualization'])
+        File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 
         File.delete 'find_result_visual.png'
@@ -76,7 +76,7 @@ class AppiumLibCoreTest
 
         get_images_result_visual = @@driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
         assert_equal %w(score visualization), get_images_result_visual.keys
-        File.write 'get_images_result_visual.png', Base64.decode64(get_images_result_visual['visualization'])
+        File.open('get_images_result_visual.png', 'wb') { |f| f << Base64.decode64(get_images_result_visual['visualization']) }
         assert File.size? 'get_images_result_visual.png'
 
         File.delete 'get_images_result_visual.png'
