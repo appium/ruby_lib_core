@@ -113,9 +113,11 @@ class AppiumLibCoreTest
 
         json = @driver.execute_script 'mobile: source', { format: :json }
         xml = @driver.execute_script 'mobile: source', { format: :xml }
+        description = @driver.execute_script 'mobile: source', { format: :description }
 
         assert !json.empty?
         assert !xml.empty?
+        assert !description.empty? # get a vanilla xcuitest description data
       end
     end
   end
