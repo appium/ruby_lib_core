@@ -82,6 +82,8 @@ class AppiumLibCoreTest
       end
 
       def test_location
+        skip 'skip because set_location is unstable on CI' if ENV['CI']
+
         latitude = 100
         longitude = 100
         altitude = 75
@@ -162,13 +164,17 @@ class AppiumLibCoreTest
         @@driver.update_settings({ screenshotQuality: 2 })
         @@driver.save_screenshot lower_again_image_path
 
-        assert File.size(lower_image_path) != File.size(higher_image_path)
-        # Image size can differ. (Depends on process to store it)
-        assert_in_delta File.size(lower_again_image_path), File.size(lower_image_path), 500
+        lower_image_base64 = Base64.strict_encode64(File.read(lower_image_path))
+        lower_again_image_base64 = Base64.strict_encode64(File.read(lower_again_image_path))
+        higher_image_base64 = Base64.strict_encode64(File.read(higher_image_path))
+
+        assert lower_image_base64 != higher_image_base64
+        assert lower_again_image_base64 != higher_image_base64
 
         # make sure the screenshot is png
-        assert Base64.strict_encode64(File.read(lower_image_path)).start_with?('iVBOR')
-        assert Base64.strict_encode64(File.read(higher_image_path)).start_with?('iVBOR')
+        assert lower_image_base64.start_with?('iVBOR')
+        assert lower_again_image_base64.start_with?('iVBOR')
+        assert higher_image_base64.start_with?('iVBOR')
       end
     end
   end
