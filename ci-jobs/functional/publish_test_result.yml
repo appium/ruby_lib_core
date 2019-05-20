@@ -1,0 +1,6 @@
+steps:
+- task: PublishTestResults@2
+  condition: always()
+  inputs:
+    testResultsFiles: 'test/reports/TEST-AppiumLibCoreTest*.xml'
+    testRunTitle: ${{ parameters.title }}

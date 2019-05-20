@@ -2,25 +2,25 @@
 # Package your Ruby project.
 # Add steps that install rails, analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
-pool:
-  vmImage: 'vs2017-win2016'
-
-variables:
-  UNIT_TEST: true
-
-steps:
-- task: UseRubyVersion@0
-  inputs:
-    versionSpec: '2.4.3'
-
-- script: gem install bundler ffi:1.10.0
-  displayName: 'Gem install bundler and ffi for Windows environment'
-
-- script: bundle install --retry=3 --jobs=4
-  displayName: 'Call bundle install'
-
-- script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
-  displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
-
-- script: parallel_test test/unit/ -n 4
-  displayName: 'Run parallel_test test/unit/ -n 4'
+jobs:
+  - template: ./ci-jobs/functional_test.yml
+  - job: Run_unit_tests_on_Windows_environment
+    pool:
+      vmImage: 'vs2017-win2016'
+    variables:
+      UNIT_TEST: true
+    steps:
+      - task: UseRubyVersion@0
+        inputs:
+          versionSpec: '2.4.3'
+      - script: gem install bundler ffi:1.10.0
+        displayName: 'Gem install bundler and ffi for Windows environment'
+      - script: bundle install --retry=3 --jobs=4
+        displayName: 'Call bundle install'
+      - script: gem uninstall --force eventmachine && gem install eventmachine --platform ruby
+        displayName: 'bundle re-install eventmachine for Windows because of Windows environment issue'
+      - script: parallel_test test/unit/ -n 4
+        displayName: 'Run parallel_test test/unit/ -n 4'
+      - template: ./ci-jobs/functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'Run_unit_tests_on_Windows_environment'

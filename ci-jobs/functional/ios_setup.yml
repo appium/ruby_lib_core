@@ -1,0 +1,20 @@
+steps:
+- script: sudo xcode-select -s /Applications/Xcode_${{ parameters.xcodeVersion }}.app/Contents/Developer
+  displayName: Xcode Select ${{ parameters.xcodeVersion }}
+- task: NodeTool@0
+  inputs:
+    versionSpec: 11.x
+  displayName: Install Node 11.x
+- script: xcrun simctl list
+  displayName: List Installed Simulators
+- script: npm install -g appium@beta
+  displayName: Install appium beta
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '2.4' # so far, bundler does not work over 2.5 since it raises openssl error
+- script: appium --relaxed-security &
+  displayName: Run Appium in background
+- script: |
+    gem install bundler;
+    bundle install --retry=3 --jobs=4 --path vendor/bundle;
+  displayName: Install Gems

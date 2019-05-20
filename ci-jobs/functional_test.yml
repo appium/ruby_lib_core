@@ -1,0 +1,119 @@
+# jobs for functional test
+jobs:
+  # Run unit tests on different Node versions
+  - job: func_test_ios_base
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/driver_test.rb
+        bundle exec rake test:func:ios TEST=test/functional/ios/patch_test.rb;
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS'
+
+  - job: func_test_ios_webdriver1
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/create_session_test.rb;
+        bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/w3c_actions_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_webdriver1'
+
+  - job: func_test_ios_webdriver2
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/device_test.rb;
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_webdriver2'
+
+  - job: func_test_ios_ios1
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_ios1'
+
+  - job: func_test_ios_ios2
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/device_wda_attachment_test.rb;
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/image_comparison_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_ios2'
+
+  - job: func_test_ios_ios3
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.1
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/mjpeg_server_test.rb;
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/mobile_commands_test.rb;
+        bundle exec rake test:func:ios TEST=test/functional/ios/ios/search_context_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_ios3'
+
+  - job: func_test_ios_tvos
+    pool:
+      vmImage: 'macOS-10.14'
+    variables:
+      CI: 'true'
+    steps:
+    - template: ./functional/ios_setup.yml
+      parameters:
+        xcodeVersion: 10.2
+    - script: |
+        bundle exec rake test:func:ios TEST=test/functional/ios/tv_driver_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_iOS_tv'

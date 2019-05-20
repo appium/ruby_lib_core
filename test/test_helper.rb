@@ -24,7 +24,7 @@ require 'minitest'
 
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
+Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
 
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
@@ -83,7 +83,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '12.1'
+      platform_version = platform_name == :tvos ? '12.2' : '12.1'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
