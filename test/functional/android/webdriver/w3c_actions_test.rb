@@ -171,7 +171,7 @@ class AppiumLibCoreTest
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f2.create_pointer_up(:left)
 
-        @driver.perform_actions [f1, f2]
+        @@core.wait { @driver.perform_actions [f1, f2] }
       end
     end
   end

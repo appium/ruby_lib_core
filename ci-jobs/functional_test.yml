@@ -1,15 +1,19 @@
 # jobs for functional test
+parameters:
+  vmImage: 'macOS-10.14'
+
 jobs:
   # Run unit tests on different Node versions
   - job: func_test_ios_base
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/driver_test.rb
         bundle exec rake test:func:ios TEST=test/functional/ios/patch_test.rb;
@@ -20,13 +24,14 @@ jobs:
 
   - job: func_test_ios_webdriver1
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/create_session_test.rb;
         bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/w3c_actions_test.rb
@@ -37,13 +42,14 @@ jobs:
 
   - job: func_test_ios_webdriver2
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/webdriver/device_test.rb;
       displayName: Run tests
@@ -53,13 +59,14 @@ jobs:
 
   - job: func_test_ios_ios1
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
       displayName: Run tests
@@ -69,13 +76,14 @@ jobs:
 
   - job: func_test_ios_ios2
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/ios/device_wda_attachment_test.rb;
         bundle exec rake test:func:ios TEST=test/functional/ios/ios/image_comparison_test.rb
@@ -86,13 +94,14 @@ jobs:
 
   - job: func_test_ios_ios3
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.1
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/ios/mjpeg_server_test.rb;
         bundle exec rake test:func:ios TEST=test/functional/ios/ios/mobile_commands_test.rb;
@@ -104,16 +113,118 @@ jobs:
 
   - job: func_test_ios_tvos
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: ${{ parameters.vmImage }}
     variables:
-      CI: 'true'
+      CI: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: 10.2
+    - template: ./functional/run_appium.yml
     - script: |
         bundle exec rake test:func:ios TEST=test/functional/ios/tv_driver_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
       parameters:
         xcodeVersion: 'Run_func_test_on_iOS_tv'
+
+  - job: func_test_android_base
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+    - template: ./functional/android_setup.yml
+    - template: ./functional/run_appium.yml
+    - script: |
+        bundle exec rake test:func:android TEST=test/functional/android/driver_test.rb;
+        bundle exec rake test:func:android TEST=test/functional/android/patch_test.rb
+      displayName: Run tests
+    - template: ./functional/publish_test_result.yml
+      parameters:
+        xcodeVersion: 'Run_func_test_on_android_base'
+
+  - job: func_test_android_webdriver
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: |
+          bundle exec rake test:func:android TEST=test/functional/android/webdriver/create_session_test.rb;
+          bundle exec rake test:func:android TEST=test/functional/android/webdriver/device_test.rb;
+          bundle exec rake test:func:android TEST=test/functional/android/webdriver/w3c_actions_test.rb
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'Run_func_test_on_android_base'
+
+  - job: func_test_android_android1
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: |
+          bundle exec rake test:func:android TEST=test/functional/android/android/device_test.rb;
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'func_test_android_android1'
+
+  - job: func_test_android_android2
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: |
+          bundle exec rake test:func:android TEST=test/functional/android/android/image_comparison_test.rb;
+          bundle exec rake test:func:android TEST=test/functional/android/android/mjpeg_server_test.rb;
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'func_test_android_android2'
+
+  - job: func_test_android_android3
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: |
+          bundle exec rake test:func:android TEST=test/functional/android/android/mobile_commands_test.rb;
+          bundle exec rake test:func:android TEST=test/functional/android/android/search_context_test.rb
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'func_test_android_android3'
+
+  - job: func_test_android_android4
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: true
+      ANDROID_SDK_VERSION: 28
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: |
+          bundle exec rake test:func:android TEST=test/functional/android/android/device_data_test.rb;
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
+        parameters:
+          xcodeVersion: 'func_test_android_android4'
