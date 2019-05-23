@@ -1,0 +1,3 @@
+steps:
+- script: bash ci-jobs/functional/start-emulator.sh
+  displayName: Create and run Emulator
