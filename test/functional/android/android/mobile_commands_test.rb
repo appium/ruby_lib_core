@@ -183,6 +183,15 @@ class AppiumLibCoreTest
 
         assert_mobile_command_error 'mobile: backdoor', { target: :activity, methods: [{ name: 'noMethod', args: [] }] },
                                     'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
+
+        e = @driver.find_elements :class, 'android.widget.TextView'
+        assert_equal "0", e.last.text
+
+        type = @driver.execute_script 'mobile: backdoor', { target: :element, elementId: e.last.ref, methods: [{ name: "getTypeface" }] }
+        assert type['mStyle']
+        assert type['mSupportedAxes'].nil?
+        assert type['mWeight']
+        assert type['native_instance']
       end
 
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
