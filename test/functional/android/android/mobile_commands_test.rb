@@ -190,9 +190,6 @@ class AppiumLibCoreTest
         type = @driver.execute_script('mobile: backdoor',
                                       { target: :element, elementId: e.last.ref, methods: [{ name: 'getTypeface' }] })
         assert type['mStyle']
-        assert type['mSupportedAxes'].nil?
-        assert type['mWeight']
-        assert type['native_instance']
       end
 
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
