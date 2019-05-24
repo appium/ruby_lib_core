@@ -185,9 +185,10 @@ class AppiumLibCoreTest
                                     'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
 
         e = @driver.find_elements :class, 'android.widget.TextView'
-        assert_equal "0", e.last.text
+        assert_equal '0', e.last.text
 
-        type = @driver.execute_script 'mobile: backdoor', { target: :element, elementId: e.last.ref, methods: [{ name: "getTypeface" }] }
+        type = @driver.execute_script('mobile: backdoor',
+                                      { target: :element, elementId: e.last.ref, methods: [{ name: 'getTypeface' }] })
         assert type['mStyle']
         assert type['mSupportedAxes'].nil?
         assert type['mWeight']
