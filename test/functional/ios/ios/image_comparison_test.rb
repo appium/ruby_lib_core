@@ -85,7 +85,7 @@ class AppiumLibCoreTest
       def test_image_element
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
 
-        @@driver.update_settings({ fixImageTemplateScale: true })
+        @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: true })
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
@@ -97,6 +97,7 @@ class AppiumLibCoreTest
         assert image_element.inspect
         assert image_element.hash
         assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert !image_element.visual.nil?
 
         el_location = el.location
         image_location = image_element.location
@@ -120,6 +121,11 @@ class AppiumLibCoreTest
 
         assert @@driver.find_element :accessibility_id, 'Gray'
         @@driver.back
+
+        @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: false })
+        image_element =
+            @@core.wait { @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png') }
+        assert_nil image_element.visual
       end
 
       def test_image_elements
