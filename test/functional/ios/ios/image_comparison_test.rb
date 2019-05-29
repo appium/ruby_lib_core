@@ -124,7 +124,7 @@ class AppiumLibCoreTest
 
         @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: false })
         image_element =
-            @@core.wait { @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png') }
+          @@core.wait { @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png') }
         assert_nil image_element.visual
       end
 
