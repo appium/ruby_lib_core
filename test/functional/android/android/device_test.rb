@@ -62,7 +62,7 @@ class AppiumLibCoreTest
         assert @driver.device_locked?
 
         @driver.unlock
-        assert !@driver.device_locked?
+        @@core.wait { assert !@driver.device_locked? }
       end
 
       def test_background_reset
