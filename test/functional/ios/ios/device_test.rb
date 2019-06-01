@@ -140,7 +140,7 @@ class AppiumLibCoreTest
         assert read_file.start_with?('SQLite format')
 
         # for real device
-        # data = @@driver.pull_file '@com.apple.Keynote/Documents/Documents'
+        # data = @@driver.pull_file '@com.apple.Keynote:documents/Documents'
         # File.open('higher_from_pull.png', 'wb') { |f| f<< data }
       end
 
@@ -153,7 +153,7 @@ class AppiumLibCoreTest
         # e.g.  '@com.apple.Keynote/Documents/yourfile.png' will be _On My iPhone/<app name>/yourfile.png_ in Files app.
         # for real device
         # data = File.read '/Users/kazu/GitHub/ruby_lib_core/higher.png'
-        # @@driver.push_file '@com.apple.Keynote/Documents/higher.png', data
+        # @@driver.push_file '@com.apple.Keynote:documents/higher.png', data
       end
 
       def test_pull_folder
@@ -161,7 +161,7 @@ class AppiumLibCoreTest
         assert data.length > 1
 
         # for real device
-        # data = @@driver.pull_folder '@com.apple.Keynote/Documents'
+        # data = @@driver.pull_folder '@com.apple.Keynote:documents/'
         # File.open('pulled_data.zip', 'wb') { |f| f<< data }
       end
 
