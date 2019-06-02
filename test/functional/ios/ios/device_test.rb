@@ -138,16 +138,28 @@ class AppiumLibCoreTest
         # Provide the remote path in format @<bundle_id>/<path_to_the_file_in_its_container>
         read_file = @@driver.pull_file 'Library/AddressBook/AddressBook.sqlitedb'
         assert read_file.start_with?('SQLite format')
+
+        # for real device
+        # data = @@driver.pull_file '@com.apple.Keynote:documents/higher_from_pull.png'
+        # File.open('higher_from_pull.png', 'wb') { |f| f<< data }
       end
 
       def test_push_file
         skip
         # @driver.push_file path, filedata
+
+        # for real device
+        # data = File.read '/Users/kazu/GitHub/ruby_lib_core/higher.png'
+        # @@driver.push_file '@com.apple.Keynote:documents/higher.png', data
       end
 
       def test_pull_folder
         data = @@driver.pull_folder 'Library/AddressBook'
         assert data.length > 1
+
+        # for real device
+        # data = @@driver.pull_folder '@com.apple.Keynote:documents/'
+        # File.open('pulled_data.zip', 'wb') { |f| f<< data }
       end
 
       def test_settings
