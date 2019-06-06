@@ -35,7 +35,7 @@ class AppiumLibCoreTest
 
         args = { element: elements[0].ref, order: :next }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
-        assert_equal 'Serena Auroux', elements[0].value
+        assert_equal 'Serena Auroux', elements[0].value # "Chris Armstrong"???
 
         args = { element: elements[0].ref, order: :previous }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
@@ -49,7 +49,7 @@ class AppiumLibCoreTest
 
         args = { content: message }
         @driver.execute_script 'mobile: setPasteboard', args
-        assert_equal message, @driver.get_clipboard
+        assert_equal message, @driver.get_clipboard # does not work? Make sure this is because of iOS 13 or Xcode 11
 
         # Base64 which follows RFC 2045 inserts new line every 60 chars
         # Ruby client sends it as RFC 4648 (Base64.strict_encode64)
@@ -101,7 +101,7 @@ class AppiumLibCoreTest
         assert_equal 'hello, siri', e.text
 
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
-        assert @driver.app_state('com.apple.SiriViewService') == :running_in_background
+        assert @driver.app_state('com.apple.SiriViewService') == :running_in_background # not working??
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'
         sleep 1 # wait a bit for switching siri service with the test target app

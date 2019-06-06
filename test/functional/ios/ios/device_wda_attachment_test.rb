@@ -64,7 +64,7 @@ class AppiumLibCoreTest
         @driver.quit
 
         # WDA should stop
-        assert_raises Errno::ECONNREFUSED do
+        assert_raises(Errno::ECONNREFUSED || Errno::EINVAL) do
           JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
         end
       end

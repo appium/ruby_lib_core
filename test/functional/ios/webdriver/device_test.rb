@@ -45,7 +45,7 @@ class AppiumLibCoreTest
 
         e = @@core.wait { @@driver.find_element :name, '<enter text>' }
         e.click
-        @@driver.set_immediate_value e, 'hello'
+        @@driver.set_immediate_value e, 'hello' # Selenium::WebDriver::Error::ElementNotInteractableError:         Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on the screen and thus is not interactable
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
@@ -99,7 +99,7 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text } # No???? Actual is ""
         assert @@driver.switch_to.alert.accept
 
         @@driver.back
@@ -110,7 +110,7 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text } # No???? Actual is ""
         assert @@driver.switch_to.alert.dismiss
 
         @@driver.back
