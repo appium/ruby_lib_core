@@ -35,7 +35,9 @@ class AppiumLibCoreTest
 
         args = { element: elements[0].ref, order: :next }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
-        assert_equal 'Serena Auroux', elements[0].value # "Chris Armstrong"???
+        # 'Chris Armstrong' is the next. 'Serena Auroux' is 2 steps next.
+        # iOS 13.0 selects 'chris armstrong' (expected) while iOS 12.x selects 'Serena Auroux' sometimes
+        assert ['Chris Armstrong', 'Serena Auroux'].elements[0].value
 
         args = { element: elements[0].ref, order: :previous }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
