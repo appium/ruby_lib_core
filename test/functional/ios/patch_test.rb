@@ -54,7 +54,7 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
       location = e.location_rel(@@driver)
 
-      assert_equal '65.5 / 375.0', location.x
+      assert_equal '65.5 / 375.0', location.x # Actual: "56.0 / 320.0" ?? on iOS13?
       assert_equal '196.5 / 667.0', location.y
     end
   end
