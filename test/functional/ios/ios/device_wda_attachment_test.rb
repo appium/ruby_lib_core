@@ -64,8 +64,11 @@ class AppiumLibCoreTest
         @driver.quit
 
         # WDA should stop
-        assert_raises(Errno::ECONNREFUSED || Errno::EINVAL) do
+        begin
           JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
+          assert false, 'should be raise exception such as Errno::ECONNREFUSED'
+        rescue Exception # rubocop:disable Lint/RescueException
+          assert true
         end
       end
     end
