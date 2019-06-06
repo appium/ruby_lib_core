@@ -46,8 +46,9 @@ class AppiumLibCoreTest
         # FIXME?: Failed to find an element with Xcode 11 x iOS 12.1
         e = @@core.wait { @@driver.find_element :name, '<enter text>' }
         e.click
-        # FIXME?: Below happens if software keyboard is toggled off
-        # Selenium::WebDriver::Error::ElementNotInteractableError:         Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on the screen and thus is not interactable
+        # FIXME?: Below happens if software keyboard is toggled off on simulator. Can we force enable them?
+        # Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on
+        # the screen and thus is not interactable
         # The visibility is false...
         @@driver.set_immediate_value e, 'hello'
 
