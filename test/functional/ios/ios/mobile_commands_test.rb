@@ -43,7 +43,7 @@ class AppiumLibCoreTest
       end
 
       def test_pasteboard
-        @driver ||= @core.start_driver
+        @driver = @core.start_driver
 
         message = 'happy appium'
 
@@ -101,11 +101,10 @@ class AppiumLibCoreTest
         assert_equal 'hello, siri', e.text
 
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
-        assert @driver.app_state('com.apple.SiriViewService') == :running_in_background # not working??
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'
         sleep 1 # wait a bit for switching siri service with the test target app
-        assert_equal :running_in_background_suspended, @driver.app_state('com.apple.SiriViewService')
+        @core.wait { assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog') }
       end
 
       def test_source

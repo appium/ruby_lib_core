@@ -43,9 +43,13 @@ class AppiumLibCoreTest
       def test_set_immediate_value
         @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }.click
 
+        # FIXME?: Failed to find an element with Xcode 11 x iOS 12.1
         e = @@core.wait { @@driver.find_element :name, '<enter text>' }
         e.click
-        @@driver.set_immediate_value e, 'hello' # Selenium::WebDriver::Error::ElementNotInteractableError:         Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on the screen and thus is not interactable
+        # FIXME?: Below happens if software keyboard is toggled off
+        # Selenium::WebDriver::Error::ElementNotInteractableError:         Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on the screen and thus is not interactable
+        # The visibility is false...
+        @@driver.set_immediate_value e, 'hello'
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
