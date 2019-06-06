@@ -83,7 +83,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name == :tvos ? '13.0' : '12.1'
+      platform_version = platform_name == :tvos ? '12.2' : '12.1'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false

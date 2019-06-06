@@ -40,7 +40,7 @@ class AppiumLibCoreTest
       e.click
 
       text = @@core.wait { @@driver.find_element :name, '<enter text>' }
-      text.type 'hello' # "Normal" Any ??
+      text.type 'hello'
 
       text = @@core.wait { @@driver.find_element :name, 'Normal' }
 

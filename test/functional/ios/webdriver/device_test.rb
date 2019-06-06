@@ -103,7 +103,7 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text } # No???? Actual is ""
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
         assert @@driver.switch_to.alert.accept
 
         @@driver.back
@@ -114,7 +114,7 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
         @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text } # No???? Actual is ""
+        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
         assert @@driver.switch_to.alert.dismiss
 
         @@driver.back
