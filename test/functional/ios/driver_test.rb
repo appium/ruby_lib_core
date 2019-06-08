@@ -72,6 +72,8 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_default_keyboard_pref
+      skip 'til WDA 0.0.6 will be released'
+
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.activate_app('com.apple.Preferences')
