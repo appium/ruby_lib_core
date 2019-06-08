@@ -80,11 +80,11 @@ class AppiumLibCoreTest
 
         eles = @@driver.find_elements :class, 'XCUIElementTypeSwitch'
         switches_status = eles.each_with_object({}) { |e, acc| acc[e.name] = e.value }
-        assert_equal '0', switches_status['Auto-Correction']
-        assert_equal '0', switches_status['Predictive']
       ensure
         @@driver.activate_app(bundle_id)
       end
+      assert_equal '0', switches_status['Auto-Correction']
+      assert_equal '0', switches_status['Predictive']
     end
 
     # TODO: call @driver.quit after tests
