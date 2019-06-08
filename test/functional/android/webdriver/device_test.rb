@@ -69,17 +69,17 @@ class AppiumLibCoreTest
         end
       end
 
-      # def test_location
-      #   latitude = 100
-      #   longitude = 100
-      #   altitude = 75
-      #   @driver.set_location(latitude, longitude, altitude)
-      #
-      #   loc = @driver.location # check the location
-      #   assert_equal 100, loc.latitude
-      #   assert_equal 100, loc.longitude
-      #   assert_equal 75, loc.altitude
-      # end
+      def test_location
+        latitude = 100
+        longitude = 100
+        altitude = 75
+        @driver.set_location(latitude, longitude, altitude)
+
+        loc = @driver.location # check the location
+        assert_equal 100, loc.latitude
+        assert_equal 100, loc.longitude
+        assert_equal 75, loc.altitude
+      end
 
       def test_accept_alert
         @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
