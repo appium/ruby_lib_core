@@ -72,7 +72,7 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_default_keyboard_pref
-      bundle_id =  @@driver.session_capabilities['CFBundleIdentifier']
+      bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.activate_app('com.apple.Preferences')
         @@driver.find_element(:accessibility_id, 'General').click
