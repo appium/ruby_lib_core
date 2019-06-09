@@ -37,7 +37,7 @@ class AppiumLibCoreTest
         @driver.execute_script 'mobile: selectPickerWheelValue', args
         # 'Chris Armstrong' is the next. 'Serena Auroux' is 2 steps next.
         # iOS 13.0 selects 'chris armstrong' (expected) while iOS 12.x selects 'Serena Auroux' sometimes
-        assert ['Chris Armstrong', 'Serena Auroux'].elements[0].value
+        assert ['Chris Armstrong', 'Serena Auroux'].include?(elements[0].value)
 
         args = { element: elements[0].ref, order: :previous }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
@@ -99,9 +99,10 @@ class AppiumLibCoreTest
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
-        e = @core.wait { @driver.find_element :accessibility_id, 'hello, siri' }
-        assert_equal 'hello, siri', e.text
-
+        # Siri returns below element if it has connection issue
+        # <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" ....
+        #   name="...having a problem with the connection. Please try again in a little bit." ...>
+        @core.wait { @driver.find_element :class_chain, '**/*[`name == "com.apple.ace.assistant"`]' }
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'

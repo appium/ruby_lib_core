@@ -17,14 +17,14 @@ namespace :test do
 
       t.libs << 'test'
       t.libs << 'lib'
-      t.test_files = FileList['test/functional/ios/**/*_test.rb']
+      t.test_files = FileList[ENV['TESTS'] ? ENV['TESTS'].split(',') : 'test/functional/ios/**/*_test.rb']
     end
 
     desc('Run all Android related tests in test directory')
     Rake::TestTask.new(:android) do |t|
       t.libs << 'test'
       t.libs << 'lib'
-      t.test_files = FileList['test/functional/android/**/*_test.rb']
+      t.test_files = FileList[ENV['TESTS'] ? ENV['TESTS'].split(',') : 'test/functional/android/**/*_test.rb']
     end
   end
 
@@ -32,7 +32,7 @@ namespace :test do
   Rake::TestTask.new(:unit) do |t|
     t.libs << 'test'
     t.libs << 'lib'
-    t.test_files = FileList['test/unit/**/*_test.rb']
+    t.test_files = FileList[ENV['TESTS'] ? ENV['TESTS'].split(',') : 'test/unit/**/*_test.rb']
   end
 
   namespace :unit do

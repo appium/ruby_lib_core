@@ -70,6 +70,25 @@ class AppiumLibCoreTest
       @@driver.back
     end
 
+    # @since Appium 1.14.0
+    def test_default_keyboard_pref
+      skip 'til WDA 0.0.6 will be released'
+
+      bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
+      begin
+        @@driver.activate_app('com.apple.Preferences')
+        @@driver.find_element(:accessibility_id, 'General').click
+        @@driver.find_element(:accessibility_id, 'Keyboard').click
+
+        eles = @@driver.find_elements :class, 'XCUIElementTypeSwitch'
+        switches_status = eles.each_with_object({}) { |e, acc| acc[e.name] = e.value }
+      ensure
+        @@driver.activate_app(bundle_id)
+      end
+      assert_equal '0', switches_status['Auto-Correction']
+      assert_equal '0', switches_status['Predictive']
+    end
+
     # TODO: call @driver.quit after tests
   end
 end
