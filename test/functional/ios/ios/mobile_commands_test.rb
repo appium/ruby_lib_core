@@ -99,22 +99,10 @@ class AppiumLibCoreTest
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
-        # siri appears
-        assistant_el = @core.wait { @driver.find_element :name, 'com.apple.ace.assistant' }
-        assert assistant_el
-
-        e = @core.wait do
-          @driver.find_element :class_chain,
-                               '**/*[`name == "com.apple.ace.assistant"`]/**/*[`type == "XCUIElementTypeButton" ' \
-                                   'or type == "XCUIElementTypeStaticText"`]'
-        end
-
         # Siri returns below element if it has connection issue
         # <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" ....
         #   name="...having a problem with the connection. Please try again in a little bit." ...>
-        element_text = e.text
-        assert(element_text == 'hello, siri' || element_text.include?('I’m having a problem with the connection'))
-
+        @core.wait { @driver.find_element :class_chain, '**/*[`name == "com.apple.ace.assistant"`]' }
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'
