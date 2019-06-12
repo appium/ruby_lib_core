@@ -236,9 +236,9 @@ class AppiumLibCoreTest
 
           def test_start_activity
             stub_request(:post, "#{SESSION}/appium/device/start_activity")
-              .with(body: { appPackage: 'package', appActivity: 'activity' }.to_json)
+              .with(body: { appPackage: 'package', appActivity: 'activity', intentAction: 'action.MAIN' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-            @driver.start_activity(app_activity: 'activity', app_package: 'package')
+            @driver.start_activity(app_activity: 'activity', app_package: 'package', intent_action: 'action.MAIN')
 
             assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
           end
@@ -246,11 +246,13 @@ class AppiumLibCoreTest
           def test_start_activity_with_wait
             stub_request(:post, "#{SESSION}/appium/device/start_activity")
               .with(body: { appPackage: 'package', appActivity: 'activity',
-                            appWaitPackage: 'wait_package', appWaitActivity: 'wait_activity' }.to_json)
+                            appWaitPackage: 'wait_package', appWaitActivity: 'wait_activity',
+                            intentAction: 'action.MAIN', dontStopAppOnReset: true }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.start_activity(app_activity: 'activity', app_package: 'package',
-                                   app_wait_package: 'wait_package', app_wait_activity: 'wait_activity')
+                                   app_wait_package: 'wait_package', app_wait_activity: 'wait_activity',
+                                   intent_action: 'action.MAIN', dont_stop_app_on_reset: true)
 
             assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
           end

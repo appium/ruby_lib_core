@@ -152,6 +152,11 @@ module Appium
         # @option opts [String] :app_activity The target activity [required]
         # @option opts [String] :app_wait_package The package to start before the target package [optional]
         # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
+        # @option opts [String] :intent_action The intent action to give it when start the target activity [optional]
+        # @option opts [String] :intent_category The intent category to give it when start the target activity [optional]
+        # @option opts [String] :intent_flags The intent flag to give it when start the target activity [optional]
+        # @option opts [String] :optional_intent_arguments The optional intent action to give it when start the target activity [optional]
+        # @option opts [String] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
         #
         # @example
         #
@@ -333,8 +338,17 @@ module Appium
                 option[:appWaitPackage] = app_wait_package if app_wait_package
                 option[:appWaitActivity] = app_wait_activity if app_wait_activity
 
-                unknown_opts = opts.keys - %i(app_package app_activity app_wait_package app_wait_activity)
-                raise "Unknown options #{unknown_opts}" unless unknown_opts.empty?
+                intent_action = opts.fetch(:intent_action, nil)
+                intent_category = opts.fetch(:intent_category, nil)
+                intent_flags = opts.fetch(:intent_flags, nil)
+                optional_intent_arguments = opts.fetch(:optional_intent_arguments, nil)
+                dont_stop_app_on_reset = opts.fetch(:dont_stop_app_on_reset, nil)
+
+                option[:intentAction] = intent_action if intent_action
+                option[:intentCategory] = intent_category if intent_category
+                option[:intentFlags] = intent_flags if intent_flags
+                option[:optionalIntentArguments] = optional_intent_arguments if optional_intent_arguments
+                option[:dontStopAppOnReset] = dont_stop_app_on_reset if dont_stop_app_on_reset
 
                 execute :start_activity, {}, option
               end
