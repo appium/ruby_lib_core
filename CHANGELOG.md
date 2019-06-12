@@ -5,6 +5,8 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add arguments for `start_activity`
+    - `intentAction`, `intentCategory`, `intentFlags`, `dontStopAppOnReset`
 
 ### Bug fixes
 
