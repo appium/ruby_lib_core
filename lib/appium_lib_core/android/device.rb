@@ -147,16 +147,20 @@ module Appium
         # @!method start_activity(opts)
         # Android only. Start a new activity within the current app or launch a new app and start the target activity.
         #
+        # Read https://developer.android.com/studio/command-line/adb#IntentSpec for each flags.
+        #
         # @param opts [Hash] Options
         # @option opts [String] :app_package The package owning the activity [required]
         # @option opts [String] :app_activity The target activity [required]
         # @option opts [String] :app_wait_package The package to start before the target package [optional]
         # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
-        # @option opts [String] :intent_action The intent action to give it when start the target activity [optional]
-        # @option opts [String] :intent_category The intent category to give it when start the target activity [optional]
-        # @option opts [String] :intent_flags The intent flag to give it when start the target activity [optional]
+        # @option opts [String] :intent_action The intent action to give it when start the target activity (`-a`) [optional]
+        # @option opts [String] :intent_category The intent category to give it when start the target activity (`-c`) [optional]
+        # @option opts [String] :intent_flags The intent flag to give it when start the target activity (`-f`) [optional]
         # @option opts [String] :optional_intent_arguments The optional intent action to give it when start the target activity [optional]
-        # @option opts [String] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
+        #                                                  You can set arbitrary arguments with space as string.
+        #                                                  e.g. `'--ez your_extra_bool bool --ei your_extra_int 1'`
+        # @option opts [bool] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
         #
         # @example
         #
