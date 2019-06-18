@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.1.3] - 2019-06-18
+
+### Enhancements
 - Add arguments for `start_activity`
     - `intentAction`, `intentCategory`, `intentFlags`, `dontStopAppOnReset`
 
@@ -205,11 +213,11 @@ The behaviour follows the default spec in WebDriver.
 
 ## [2.1.0] - 2018-11-14
 ### Enhancements
-- Support below style _1_, has _url_ parameter, in addition to style _2_ 
+- Support below style _1_, has _url_ parameter, in addition to style _2_
     ```
     # 1
     Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", caps: {...}, appium_lib: {...}
-    
+
     # 2
     Appium::Core.for caps: {...}, appium_lib: {...}
     ```
@@ -501,7 +509,7 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 
 ## [1.3.4] - 2018-03-21
 ### Enhancements
-- Add `save_viewport_screenshot` which get screenshot except for status bar. 
+- Add `save_viewport_screenshot` which get screenshot except for status bar.
     - https://github.com/search?q=org%3Aappium+viewportScreenshot&type=Code
 - [iOS] Add `start_performance_record` and `get_performance_record`
 
@@ -543,7 +551,7 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
             Appium::Core::TouchAction.new(@driver)
               .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 500, duration: 500)
               .perform
-        
+
             # Tap (75, 500) and move the point to (75, 1000) with duration 500ms.
             Appium::Core::TouchAction.new(@driver)
               .swipe(start_x: 75, start_y: 500, offset_x: 75, offset_y: 1000, duration: 500)
