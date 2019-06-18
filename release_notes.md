@@ -1,3 +1,19 @@
+#### v3.1.3 2019-06-18
+
+- [a63da6b](https://github.com/appium/ruby_lib_core/commit/a63da6b9e410d83fe1e1d35a89c430da0eae76b6) Release 3.1.3
+- [b979325](https://github.com/appium/ruby_lib_core/commit/b9793257e489edf3ab71b8a371d8e52543040106) add arguments for start activity (#220)
+- [5bae56a](https://github.com/appium/ruby_lib_core/commit/5bae56a6d073b22845cbc9c0ace7bbcea22cffa1) fix Azure running methods (#219)
+- [a880589](https://github.com/appium/ruby_lib_core/commit/a880589fead59741bba081ebb8053e748feda7c5) test: remove comment-out (#218)
+- [c9062c4](https://github.com/appium/ruby_lib_core/commit/c9062c4b744263d790c7de17263cbd4645cdefc6) add mobile command on espresso driver (#213)
+- [75e3d16](https://github.com/appium/ruby_lib_core/commit/75e3d163511d2c809a8268e6fc569e3be1bd1be4) tweak func tests for ios13 (#217)
+- [8104874](https://github.com/appium/ruby_lib_core/commit/8104874f3372a3ea1c5096adf2e8da4de008fe11) add examples for push/pull data for ios (#216)
+- [b379841](https://github.com/appium/ruby_lib_core/commit/b3798414cda497019c33e7ef89ac882a7ad11a67) bump ruby ver on windows, Azure (#215)
+- [bb7ba46](https://github.com/appium/ruby_lib_core/commit/bb7ba461fc1afb78cb5d5d3425c989fb6c438585) add android functional tests on azure (#211)
+- [d104623](https://github.com/appium/ruby_lib_core/commit/d1046235dbfa1690bab522f8ae16893622582117) Add running func tests for iOS on Azure (#210)
+- [ecd16c3](https://github.com/appium/ruby_lib_core/commit/ecd16c37072c173f9f0d8260ebc024e3c402e125) append an item in source test
+- [371f653](https://github.com/appium/ruby_lib_core/commit/371f65379c896af070216e5dce9737edf3cca4de) Km/follow file wb mode (#209)
+
+
 #### v3.1.2 2019-05-10
 
 - [ba2e889](https://github.com/appium/ruby_lib_core/commit/ba2e889434a7405d5caac2adec08536cb6c07415) Release 3.1.2
