@@ -32,9 +32,10 @@ class AppiumLibCoreTest
       def test_uiautomation
         skip 'Espresso does not support uiautomator' if @@core.automation_name == :espresso
 
-        e = @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
-
-        assert e.size > 10
+        @@core.wait do
+          e = @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
+          assert e.size > 10
+        end
       end
 
       def test_viewtag
