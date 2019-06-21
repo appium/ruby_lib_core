@@ -27,11 +27,9 @@ module Appium
           end
 
           def execute_driver(script: '', type: 'webdriverio', timeout: nil)
-            option = {}
+            option = {script: script, type: type}
 
-            option['script'] = script
-            option['type'] = type
-            option['timeout'] = timeout if timeout
+            option[:timeout] = timeout if timeout
 
             response = execute :execute_driver, {}, option
             Result.new(response)

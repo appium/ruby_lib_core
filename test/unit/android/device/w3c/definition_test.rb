@@ -91,7 +91,8 @@ class AppiumLibCoreTest
                                                 :set_network_connection,
                                                 :get_performance_data,
                                                 :get_clipboard,
-                                                :set_clipboard])
+                                                :set_clipboard,
+                                                :execute_driver])
           end
         end # class DefinitionTest
       end # module W3C

@@ -61,7 +61,7 @@ class AppiumLibCoreTest
             r = @driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
 
             assert_requested(:post, "#{SESSION}/appium/execute_driver", times: 1)
-            assert_equal(nil, r.result)
+            assert_nil(r.result)
             assert_equal({ 'log' => [], 'warn' => ['warning message'], 'error' => [] }, r.logs)
           end
         end # class DeviceLockTest
