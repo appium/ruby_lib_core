@@ -54,6 +54,13 @@ module Appium
           def send_actions(_data)
             raise Error::UnsupportedOperationError, '#send_actions has not been supported in MJSONWP'
           end
+
+          # For Appium
+          # @param [Hash] id The id which can get as a response from server
+          # @return [::Selenium::WebDriver::Element]
+          def convert_to_element(id)
+            ::Selenium::WebDriver::Element.new self, element_id_from(id)
+          end
         end # class MJSONWP
       end # class Bridge
     end # class Base

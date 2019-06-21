@@ -72,8 +72,6 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_default_keyboard_pref
-      skip 'til WDA 0.0.6 will be released'
-
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.activate_app('com.apple.Preferences')
@@ -89,6 +87,7 @@ class AppiumLibCoreTest
       assert_equal '0', switches_status['Predictive']
     end
 
+    # @since Appium 1.14.0
     def test_batch
       script = <<~SCRIPT
         const status = await driver.status();
@@ -98,17 +97,35 @@ class AppiumLibCoreTest
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
       assert(r.result.first['build'])
-      assert('"warning message', r.logs['warn'])
+      assert('warning message', r.logs['warn'].first)
     end
 
+    # @since Appium 1.14.0
     def test_batch_only_return
       script = <<~SCRIPT
-        return [];
       SCRIPT
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio')
-      assert(r.result.empty?)
-      assert('"warning message', r.logs['warn'])
+      assert(r.result.nil?)
+      assert([], r.logs['warn'])
+    end
+
+    # @since Appium 1.14.0
+    def test_batch_combination_ruby_script
+      script = <<~SCRIPT
+        console.warn('warning message');
+        const element = await driver.findElement('accessibility id', 'Buttons');
+        const rect = await driver.getElementRect(element.ELEMENT);
+        return [element, rect];
+      SCRIPT
+
+      r = @@driver.execute_driver(script: script, type: 'webdriverio')
+      ele = @@driver.convert_to_element(r.result.first)
+      rect = ele.rect
+      assert_equal(rect.x, r.result[1]['x'])
+      assert_equal(rect.y, r.result[1]['y'])
+      assert_equal(rect.width, r.result[1]['width'])
+      assert_equal(rect.height, r.result[1]['height'])
     end
 
     # TODO: call @driver.quit after tests

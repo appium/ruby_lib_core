@@ -1045,7 +1045,7 @@ module Appium
 
         # @since Appium 1.14.0
         #
-        # @param [String] script
+        # @param [String] script the string consisting of the script itself
         # @param [String] type
         # @param [Integer] timeout
         #
@@ -1053,6 +1053,19 @@ module Appium
         #
         def execute_driver(script: '', type: 'webdriverio', timeout: nil)
           @bridge.execute_driver(script: script, type: type, timeout: timeout)
+        end
+
+        # Convert vanilla element response to ::Selenium::WebDriver::Element
+        #
+        # @param [Hash] id The id which can get as a response from server
+        # @return [::Selenium::WebDriver::Element]
+        #
+        # @example
+        #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx", "ELEMENT"=>"xxxx"}
+        #     ele = @driver.convert_to_element(response) #=> ::Selenium::WebDriver::Element
+        #
+        def convert_to_element(id)
+          @bridge.convert_to_element id
         end
       end # class Driver
     end # class Base

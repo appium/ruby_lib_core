@@ -135,6 +135,13 @@ module Appium
           end
 
           # For Appium
+          # @param [Hash] id The id which can get as a response from server
+          # @return [::Selenium::WebDriver::Element]
+          def convert_to_element(id)
+            ::Selenium::WebDriver::Element.new self, element_id_from(id)
+          end
+
+          # For Appium
           # override
           # called in `extend DriverExtensions::HasNetworkConnection`
           def network_connection

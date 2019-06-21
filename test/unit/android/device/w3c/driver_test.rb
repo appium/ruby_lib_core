@@ -30,42 +30,39 @@ class AppiumLibCoreTest
 
           def test_batch_no_timeout
             script = <<~SCRIPT
-              const timeouts = await driver.getTimeouts();
               const status = await driver.status();
-              return [timeouts, status];
+              return status;
             SCRIPT
 
             stub_request(:post, "#{SESSION}/appium/execute_driver")
               .with(body: { script: script, type: 'webdriverio' }.to_json)
               .to_return(headers: HEADER, status: 200, body: {
-                value: { result: { command: 250, implicit: 0 }, logs: { log: [], warn: [], error: [] } }
+                value: { result: { build: 'version' }, logs: { log: [], warn: [], error: [] } }
               }.to_json)
 
-            result = @driver.execute_driver(script: script, type: 'webdriverio')
+            r = @driver.execute_driver(script: script, type: 'webdriverio')
 
             assert_requested(:post, "#{SESSION}/appium/execute_driver", times: 1)
-            assert_equal({ command: 250, implicit: 0 }, JSON.parse(result['result']))
-            assert_equal({ log: [], warn: [], error: [] }, JSON.parse(result['logs']))
+            assert_equal({ 'build' => 'version' }, r.result)
+            assert_equal({ 'log' => [], 'warn' => [], 'error' => [] }, r.logs)
           end
 
           def test_batch
             script = <<~SCRIPT
-              const timeouts = await driver.getTimeouts();
-              const status = await driver.status();
-              return [timeouts, status];
+              console.warn('warning message');
             SCRIPT
 
             stub_request(:post, "#{SESSION}/appium/execute_driver")
               .with(body: { script: script, type: 'webdriverio', timeout: 1000 }.to_json)
               .to_return(headers: HEADER, status: 200, body: {
-                value: { result: { command: 250, implicit: 0 }, logs: { log: [], warn: [], error: [] } }
+                value: { result: nil, logs: { log: [], warn: ['warning message'], error: [] } }
               }.to_json)
 
-            result = @driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
+            r = @driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
 
             assert_requested(:post, "#{SESSION}/appium/execute_driver", times: 1)
-            assert_equal({ command: 250, implicit: 0 }, JSON.parse(result['result']))
-            assert_equal({ log: [], warn: [], error: [] }, JSON.parse(result['logs']))
+            assert_equal(nil, r.result)
+            assert_equal({ 'log' => [], 'warn' => ['warning message'], 'error' => [] }, r.logs)
           end
         end # class DeviceLockTest
       end # module W3C
