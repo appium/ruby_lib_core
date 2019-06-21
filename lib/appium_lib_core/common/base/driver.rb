@@ -1049,7 +1049,7 @@ module Appium
         # @param [String] type
         # @param [Integer] timeout
         #
-        # @return [Hash]
+        # @return [Appium::Core::Base::Device::Execute::Result]
         #
         def execute_driver(script: '', type: 'webdriverio', timeout: nil)
           @bridge.execute_driver(script: script, type: type, timeout: timeout)

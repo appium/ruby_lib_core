@@ -90,14 +90,25 @@ class AppiumLibCoreTest
     end
 
     def test_batch
-      script =<<-SCRIPT
-const timeouts = await driver.getTimeouts();
-const status = await driver.status();
-return [timeouts, status];
+      script = <<~SCRIPT
+        const status = await driver.status();
+        console.warn('warning message');
+        return [status];
       SCRIPT
 
-      result = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
+      r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
+      assert(r.result.first['build'])
+      assert('"warning message', r.logs['warn'])
+    end
 
+    def test_batch_only_return
+      script = <<~SCRIPT
+        return [];
+      SCRIPT
+
+      r = @@driver.execute_driver(script: script, type: 'webdriverio')
+      assert(r.result.empty?)
+      assert('"warning message', r.logs['warn'])
     end
 
     # TODO: call @driver.quit after tests

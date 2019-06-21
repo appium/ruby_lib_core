@@ -17,6 +17,15 @@ module Appium
     class Base
       module Device
         module Execute
+          class Result
+            attr_reader :result, :logs
+
+            def initialize(response)
+              @result = response['result']
+              @logs = response['logs']
+            end
+          end
+
           def execute_driver(script: '', type: 'webdriverio', timeout: nil)
             option = {}
 
@@ -24,7 +33,8 @@ module Appium
             option['type'] = type
             option['timeout'] = timeout if timeout
 
-            execute :execute_driver, {}, option
+            response = execute :execute_driver, {}, option
+            Result.new(response)
           end
         end # module Execute
       end # module Device

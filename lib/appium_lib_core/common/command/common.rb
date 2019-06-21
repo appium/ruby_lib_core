@@ -65,7 +65,7 @@ module Appium
         start_recording_screen:     [:post, 'session/:session_id/appium/start_recording_screen'],
         compare_images:             [:post, 'session/:session_id/appium/compare_images'],
         is_keyboard_shown:          [:get,  'session/:session_id/appium/device/is_keyboard_shown'],
-        execute_driver:             [:post,  'session/:session_id/appium/execute_driver']
+        execute_driver:             [:post, 'session/:session_id/appium/execute_driver']
       }.freeze
 
       COMMAND_ANDROID = {
