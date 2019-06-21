@@ -31,7 +31,7 @@ module Appium
           include Device::ScreenRecord::Command
           include Device::Device
           include Device::TouchActions
-          include Device::Execute
+          include Device::ExecuteDriver
 
           def commands(command)
             ::Appium::Core::Commands::MJSONWP::COMMANDS[command]

@@ -1045,11 +1045,31 @@ module Appium
 
         # @since Appium 1.14.0
         #
-        # @param [String] script the string consisting of the script itself
-        # @param [String] type
-        # @param [Integer] timeout
+        # Run a set of script against the current session, allowing execution of many commands in one Appium request.
+        # Supports {https://webdriver.io/docs/api.html WebdriverIO} API so far.
+        # Read {http://appium.io/docs/en/commands/session/execute-driver command API} for more details
+        # such as acceptable scripts and the output.
         #
-        # @return [Appium::Core::Base::Device::Execute::Result]
+        # @param [String] script The string consisting of the script itself
+        # @param [String] type The name of the script type.
+        #                      Defaults to 'webdriverio'. Depends on server implementation which type is supported.
+        # @param [Integer] timeout The number of `ms` Appium should wait for the script to finish
+        #                          before killing it due to timeout.
+        #
+        # @return [Appium::Core::Base::Device::ExecuteDriver::Result] The script result parsed by
+        #                          Appium::Core::Base::Device::ExecuteDriver::Result.
+        #
+        #
+        # @example
+        #      script = <<~SCRIPT
+        #        const status = await driver.status();
+        #        console.warn('warning message');
+        #        return [status];
+        #      SCRIPT
+        #      r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
+        #      r        #=> An instance of Appium::Core::Base::Device::ExecuteDriver::Result
+        #      r.result #=> The `result` key part as the result of the script
+        #      r.logs   #=> The `logs` key part as `{'log' => [], 'warn' => [], 'error' => []}`
         #
         def execute_driver(script: '', type: 'webdriverio', timeout: nil)
           @bridge.execute_driver(script: script, type: type, timeout: timeout)
@@ -1063,6 +1083,7 @@ module Appium
         # @example
         #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx", "ELEMENT"=>"xxxx"}
         #     ele = @driver.convert_to_element(response) #=> ::Selenium::WebDriver::Element
+        #     ele.rect #=> Can get the rect of the element
         #
         def convert_to_element(id)
           @bridge.convert_to_element id

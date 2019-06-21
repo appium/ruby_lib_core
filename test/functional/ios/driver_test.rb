@@ -89,10 +89,10 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_batch
-      script = <<~SCRIPT
-        const status = await driver.status();
-        console.warn('warning message');
-        return [status];
+      script = <<-SCRIPT
+const status = await driver.status();
+console.warn('warning message');
+return [status];
       SCRIPT
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
@@ -102,7 +102,7 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_batch_only_return
-      script = <<~SCRIPT
+      script = <<-SCRIPT
       SCRIPT
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio')
@@ -112,14 +112,14 @@ class AppiumLibCoreTest
 
     # @since Appium 1.14.0
     def test_batch_combination_ruby_script
-      script = <<~SCRIPT
-        console.warn('warning message');
-        const element = await driver.findElement('accessibility id', 'Buttons');
-        const rect = await driver.getElementRect(element.ELEMENT);
-        return [element, rect];
+      script = <<-SCRIPT
+console.warn('warning message');
+const element = await driver.findElement('accessibility id', 'Buttons');
+const rect = await driver.getElementRect(element.ELEMENT);
+return [element, rect];
       SCRIPT
 
-      r = @@driver.execute_driver(script: script, type: 'webdriverio')
+      r = @@driver.execute_driver(script: script)
       ele = @@driver.convert_to_element(r.result.first)
       rect = ele.rect
       assert_equal(rect.x, r.result[1]['x'])

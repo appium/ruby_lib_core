@@ -18,6 +18,8 @@ Metrics/ParameterLists:
   Max: 6
 Lint/NestedMethodDefinition:
   Enabled: false
+Layout/IndentHeredoc:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/CommentedKeyword:

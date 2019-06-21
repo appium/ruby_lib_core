@@ -16,7 +16,7 @@ module Appium
   module Core
     class Base
       module Device
-        module Execute
+        module ExecuteDriver
           class Result
             attr_reader :result, :logs
 
