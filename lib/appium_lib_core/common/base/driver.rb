@@ -1047,8 +1047,8 @@ module Appium
         #
         # Run a set of script against the current session, allowing execution of many commands in one Appium request.
         # Supports {https://webdriver.io/docs/api.html WebdriverIO} API so far.
-        # Read {http://appium.io/docs/en/commands/session/execute-driver command API} for more details
-        # such as acceptable scripts and the output.
+        # Please read {http://appium.io/docs/en/commands/session/execute-driver command API} for more details
+        # about acceptable scripts and the output.
         #
         # @param [String] script The string consisting of the script itself
         # @param [String] type The name of the script type.
