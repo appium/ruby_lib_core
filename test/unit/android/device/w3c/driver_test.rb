@@ -28,7 +28,7 @@ class AppiumLibCoreTest
             @driver ||= android_mock_create_session_w3c
           end
 
-          def test_batch
+          def test_batch_no_timeout
             script = <<~SCRIPT
               const timeouts = await driver.getTimeouts();
               const status = await driver.status();
@@ -48,7 +48,7 @@ class AppiumLibCoreTest
             assert_equal({ log: [], warn: [], error: [] }, JSON.parse(result['logs']))
           end
 
-          def test_batch_no_timeout
+          def test_batch
             script = <<~SCRIPT
               const timeouts = await driver.getTimeouts();
               const status = await driver.status();
