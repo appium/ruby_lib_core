@@ -39,7 +39,8 @@ module Appium
             :app_state,
             :stop_recording_screen, :stop_and_save_recording_screen,
             :shake, :device_time,
-            :touch_actions, :multi_touch
+            :touch_actions, :multi_touch,
+            :execute_driver
           ].each(&method(:delegate_from_appium_driver))
         end
 

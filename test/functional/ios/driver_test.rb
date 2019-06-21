@@ -89,6 +89,17 @@ class AppiumLibCoreTest
       assert_equal '0', switches_status['Predictive']
     end
 
+    def test_batch
+      script =<<-SCRIPT
+const timeouts = await driver.getTimeouts();
+const status = await driver.status();
+return [timeouts, status];
+      SCRIPT
+
+      result = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
+
+    end
+
     # TODO: call @driver.quit after tests
   end
 end

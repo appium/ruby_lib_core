@@ -31,6 +31,7 @@ module Appium
           include Device::ScreenRecord::Command
           include Device::Device
           include Device::TouchActions
+          include Device::Execute
 
           def commands(command)
             ::Appium::Core::Commands::W3C::COMMANDS[command]

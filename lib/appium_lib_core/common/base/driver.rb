@@ -1042,6 +1042,18 @@ module Appium
           template = Base64.strict_encode64 File.read img_path
           find_elements :image, template
         end
+
+        # @since Appium 1.14.0
+        #
+        # @param [String] script
+        # @param [String] type
+        # @param [Integer] timeout
+        #
+        # @return [Hash]
+        #
+        def execute_driver(script: '', type: 'webdriverio', timeout: nil)
+          @bridge.execute_driver(script: script, type: type, timeout: timeout)
+        end
       end # class Driver
     end # class Base
   end # module Core
