@@ -58,7 +58,7 @@ console.warn('warning message');
                 value: { result: nil, logs: { log: [], warn: ['warning message'], error: [] } }
               }.to_json)
 
-            r = @driver.execute_driver(script: script, type: 'webdriverio', timeout: 1000)
+            r = @driver.execute_driver(script: script, type: 'webdriverio', timeout_ms: 1000)
 
             assert_requested(:post, "#{SESSION}/appium/execute_driver", times: 1)
             assert_nil(r.result)

@@ -1053,12 +1053,14 @@ module Appium
         # @param [String] script The string consisting of the script itself
         # @param [String] type The name of the script type.
         #                      Defaults to 'webdriverio'. Depends on server implementation which type is supported.
-        # @param [Integer] timeout The number of `ms` Appium should wait for the script to finish
+        # @param [Integer] timeout_ms The number of `ms` Appium should wait for the script to finish
         #                          before killing it due to timeout.
         #
         # @return [Appium::Core::Base::Device::ExecuteDriver::Result] The script result parsed by
         #                          Appium::Core::Base::Device::ExecuteDriver::Result.
         #
+        # @raise [::Selenium::WebDriver::Error::UnknownError] If something error happens in the script.
+        #                                                     It has the original message.
         #
         # @example
         #      script = <<~SCRIPT
@@ -1071,8 +1073,8 @@ module Appium
         #      r.result #=> The `result` key part as the result of the script
         #      r.logs   #=> The `logs` key part as `{'log' => [], 'warn' => [], 'error' => []}`
         #
-        def execute_driver(script: '', type: 'webdriverio', timeout: nil)
-          @bridge.execute_driver(script: script, type: type, timeout: timeout)
+        def execute_driver(script: '', type: 'webdriverio', timeout_ms: nil)
+          @bridge.execute_driver(script: script, type: type, timeout_ms: timeout_ms)
         end
 
         # Convert vanilla element response to ::Selenium::WebDriver::Element

@@ -95,7 +95,7 @@ console.warn('warning message');
 return [status];
       SCRIPT
 
-      r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
+      r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout_ms: 10_000)
       assert(r.result.first['build'])
       assert('warning message', r.logs['warn'].first)
     end
