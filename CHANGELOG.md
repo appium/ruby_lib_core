@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `execute_driver` to run a batch script on Appium 1.14.0+
 
 ### Bug fixes
 

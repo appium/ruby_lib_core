@@ -82,7 +82,8 @@ class AppiumLibCoreTest
                                                 :touch_actions,
                                                 :multi_touch,
                                                 :touch_id,
-                                                :toggle_touch_id_enrollment])
+                                                :toggle_touch_id_enrollment,
+                                                :execute_driver])
           end
         end # class DefinitionTest
       end # module W3C

@@ -18,6 +18,9 @@ Metrics/ParameterLists:
   Max: 6
 Lint/NestedMethodDefinition:
   Enabled: false
+# TODO: Replace <<- with <<~ after dropping Ruby 2.2
+Layout/IndentHeredoc:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/CommentedKeyword:
