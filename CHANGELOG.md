@@ -5,7 +5,16 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Add `execute_driver` to run a batch script on Appium 1.14.0+
+
+### Bug fixes
+
+### Deprecations
+
+## [3.2.0] - 2019-06-27
+
+### Enhancements
+- Add `execute_driver` to run a batch script
+    - It requires Appium version which has `execute_driver` support 
 
 ### Bug fixes
 
