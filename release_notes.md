@@ -1,3 +1,12 @@
+#### v3.2.0 2019-06-27
+
+- [2f6ca23](https://github.com/appium/ruby_lib_core/commit/2f6ca23847de85fb8134f09da627391b4a66a544) Release 3.2.0
+- [9376bf2](https://github.com/appium/ruby_lib_core/commit/9376bf2b3d573798ad1d335ca84954b5b5b15abe) add execuite_driver (#222)
+- [8b70c86](https://github.com/appium/ruby_lib_core/commit/8b70c866f12f6341dfe204c3b4b1fa8946bbe305) add visual check for find by elemenet (#214)
+- [f8338b9](https://github.com/appium/ruby_lib_core/commit/f8338b9386e478c498a1d6bdc4386d9590d3efa3) make uia test simple
+- [b641af8](https://github.com/appium/ruby_lib_core/commit/b641af85d1e01a620d0f8cc2d033728947c92afc) wrap with wait
+
+
 #### v3.1.3 2019-06-18
 
 - [a63da6b](https://github.com/appium/ruby_lib_core/commit/a63da6b9e410d83fe1e1d35a89c430da0eae76b6) Release 3.1.3
