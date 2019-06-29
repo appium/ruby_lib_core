@@ -9,6 +9,10 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- `Driver#set_immediate_value(element, *value)`
+    - Use `Element#immediate_value(*value)` instead
+- `Driver#replace_value(element, *value)`
+    - Use `Element#replace_value(*value)` instead
 
 ## [3.2.0] - 2019-06-27
 

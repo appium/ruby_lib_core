@@ -56,6 +56,26 @@ module Appium
       # Alias for type
       alias type send_keys
 
+      # Set the value to element directly
+      #
+      # @example
+      #
+      #   @driver.immediate_value 'hello'
+      #
+      def immediate_value(*value)
+        @bridge.set_immediate_value(self, *value)
+      end
+
+      # Replace the value to element directly
+      #
+      # @example
+      #
+      #   @driver.replace_value 'hello'
+      #
+      def replace_value(*value)
+        @bridge.replace_value(self, *value)
+      end
+
       # For use with location_rel.
       #
       # @return [::Selenium::WebDriver::Point] the relative x, y in a struct. ex: { x: 0.50, y: 0.20 }

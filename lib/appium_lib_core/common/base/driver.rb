@@ -368,6 +368,8 @@ module Appium
         #   @driver.set_immediate_value element, 'hello'
         #
         def set_immediate_value(element, *value)
+          ::Appium::Logger.warn '[DEPRECATION] driver#set_immediate_value(element, *value) is deprecated. ' \
+            'Use Element#immediate_value(*value) instead'
           @bridge.set_immediate_value(element, *value)
         end
 
@@ -375,9 +377,11 @@ module Appium
         #
         # @example
         #
-        #   replace_value element, 'hello'
+        #   @driver.replace_value element, 'hello'
         #
         def replace_value(element, *value)
+          ::Appium::Logger.warn '[DEPRECATION] driver#replace_value(element, *value) is deprecated. ' \
+            'Use Element#replace_value(*value) instead'
           @bridge.replace_value(element, *value)
         end
 
