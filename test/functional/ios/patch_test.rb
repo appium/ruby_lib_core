@@ -52,10 +52,23 @@ class AppiumLibCoreTest
 
     def test_location_rel
       e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
-      location = e.location_rel(@@driver)
+      location = e.location_rel
 
       assert_equal '65.5 / 375.0', location.x # Actual: "56.0 / 320.0" ?? on iOS13?
       assert_equal '196.5 / 667.0', location.y
+    end
+
+    def test_immediate_value
+      e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
+      e.click
+
+      text = @@core.wait { @@driver.find_element :name, '<enter text>' }
+      text.immediate_value('hello')
+
+      text = @@core.wait { @@driver.find_element :name, 'Normal' }
+      assert_equal 'hello', text.value
+      assert_equal 'Normal', text.name
+      @@driver.back
     end
   end
 end

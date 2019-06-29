@@ -56,6 +56,26 @@ module Appium
       # Alias for type
       alias type send_keys
 
+      # Set the value to element directly
+      #
+      # @example
+      #
+      #   @driver.immediate_value 'hello'
+      #
+      def immediate_value(*value)
+        @bridge.set_immediate_value(self, *value)
+      end
+
+      # Replace the value to element directly
+      #
+      # @example
+      #
+      #   @driver.replace_value 'hello'
+      #
+      def replace_value(*value)
+        @bridge.replace_value(self, *value)
+      end
+
       # For use with location_rel.
       #
       # @return [::Selenium::WebDriver::Point] the relative x, y in a struct. ex: { x: 0.50, y: 0.20 }
@@ -63,9 +83,13 @@ module Appium
       # @example
       #
       #   e = @driver.find_element :accessibility_id, 'something'
-      #   e.location_rel @driver
+      #   e.location_rel
       #
-      def location_rel(driver)
+      def location_rel(driver = nil)
+        unless driver
+          ::Appium::Logger.warn '[DEPRECATION] No longer need arguments. Call element.location_rel without arguments'
+        end
+
         rect = self.rect
         location_x = rect.x.to_f
         location_y = rect.y.to_f
@@ -76,7 +100,7 @@ module Appium
         center_x = location_x + (size_width / 2.0)
         center_y = location_y + (size_height / 2.0)
 
-        w = driver.window_size
+        w = @bridge.manage.window.size
         ::Selenium::WebDriver::Point.new "#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}"
       end
     end
