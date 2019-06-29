@@ -83,13 +83,9 @@ module Appium
       # @example
       #
       #   e = @driver.find_element :accessibility_id, 'something'
-      #   e.location_rel
+      #   e.location_rel @driver
       #
-      def location_rel(driver = nil)
-        unless driver
-          ::Appium::Logger.warn '[DEPRECATION] No longer need arguments. Call element.location_rel without arguments'
-        end
-
+      def location_rel(driver)
         rect = self.rect
         location_x = rect.x.to_f
         location_y = rect.y.to_f
@@ -100,7 +96,7 @@ module Appium
         center_x = location_x + (size_width / 2.0)
         center_y = location_y + (size_height / 2.0)
 
-        w = @bridge.manage.window.size
+        w = driver.window_size
         ::Selenium::WebDriver::Point.new "#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}"
       end
     end

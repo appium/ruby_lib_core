@@ -47,7 +47,7 @@ class AppiumLibCoreTest
 
     def test_location_rel
       e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
-      location = e.location_rel
+      location = e.location_rel @driver
 
       assert_match %r{\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z}, location.x
       assert_match %r{\A[0-9]+\.[0-9]+ \/ [0-9]+\.[0-9]+\z}, location.y

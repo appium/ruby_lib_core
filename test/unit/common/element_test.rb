@@ -46,7 +46,7 @@ class AppiumLibCoreTest
         } }.to_json)
 
       e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
-      location = e.location_rel
+      location = e.location_rel @driver
 
       assert_requested(:get, "#{SESSION}/element/id/rect", times: 1)
       assert_requested(:get, "#{SESSION}/window/rect", times: 1)

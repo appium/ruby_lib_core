@@ -13,8 +13,6 @@ Read `release_notes.md` for commit level details.
     - Use `Element#immediate_value(*value)` instead
 - `Driver#replace_value(element, *value)`
     - Use `Element#replace_value(*value)` instead
-- `Element#location_rel(driver)`
-    - Use `Element#location_rel` instead
 
 ## [3.2.0] - 2019-06-27
 
