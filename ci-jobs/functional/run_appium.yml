@@ -3,10 +3,10 @@ steps:
   inputs:
     versionSpec: 11.x
   displayName: Install Node 11.x
-- script: npm install -g appium@beta --chromedriver_version='2.44'
+- script: |
+    npm install -g appium@beta --chromedriver_version='2.44'
+    cat /usr/local/lib/node_modules/appium/npm-shrinkwrap.json
   displayName: Install appium beta
-- script: cat /usr/local/lib/node_modules/appium/npm-shrinkwrap.json
-  displayName: Show appium dependencies
 - script: npm install -g mjpeg-consumer
   displayName: Install MJPEG Consumer
 - task: UseRubyVersion@0
