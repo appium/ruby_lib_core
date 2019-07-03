@@ -5,7 +5,7 @@ steps:
   displayName: Install Node 11.x
 - script: |
     npm install -g appium@beta --chromedriver_version='2.44'
-    cat /usr/local/lib/node_modules/appium/npm-shrinkwrap.json
+    ls /usr/local/lib/node_modules/appium/
   displayName: Install appium beta
 - script: npm install -g mjpeg-consumer
   displayName: Install MJPEG Consumer
