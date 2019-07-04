@@ -3,12 +3,12 @@ steps:
   inputs:
     versionSpec: 11.x
   displayName: Install Node 11.x
-- script: |
-    npm install -g appium@beta --chromedriver_version='2.44'
-    ls /usr/local/lib/node_modules/appium/
+- script: npm install -g appium@beta --chromedriver_version='2.44'
   displayName: Install appium beta
 - script: npm install -g mjpeg-consumer
   displayName: Install MJPEG Consumer
+- script: npm list --depth 2 -g || echo 'ok'
+  displayName: Installed node dependencies
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '2.4' # so far, bundler does not work over 2.5 since it raises openssl error
