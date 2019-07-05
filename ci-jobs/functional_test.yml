@@ -78,6 +78,8 @@ jobs:
       parameters:
         xcodeVersion: 10.1
     - template: ./functional/run_appium.yml
+    - script: npm install -g appium opencv4nodejs@4.17.0
+      displayName: Install opencv4nodejs@4.17.0
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/image_comparison_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
