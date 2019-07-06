@@ -165,7 +165,7 @@ class AppiumLibCoreTest
         # This session has `screenshotQuality: 2` capability
         @@driver.save_screenshot lower_image_path
 
-        @@driver.update_settings({ screenshotQuality: 0 })a
+        @@driver.update_settings({ screenshotQuality: 0 })
         @@driver.save_screenshot higher_image_path
 
         @@driver.update_settings({ screenshotQuality: 2 })
