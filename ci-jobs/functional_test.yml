@@ -9,6 +9,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -25,6 +26,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -41,6 +43,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -57,6 +60,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -73,6 +77,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -89,6 +94,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -107,6 +113,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: true
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -124,6 +131,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
     - template: ./functional/android_setup.yml
     - template: ./functional/run_appium.yml
@@ -139,6 +147,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -154,6 +163,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -169,6 +179,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -184,6 +195,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -199,6 +211,7 @@ jobs:
     variables:
       CI: true
       ANDROID_SDK_VERSION: 28
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -215,6 +228,7 @@ jobs:
       CI: true
       ANDROID_SDK_VERSION: 28
       AUTOMATION_NAME_DROID: espresso
+      IGNORE_VERSION_SKIP: true
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
