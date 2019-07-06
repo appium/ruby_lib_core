@@ -71,7 +71,7 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
-        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.10.0')
+        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@core, '1.10.0')
 
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
@@ -96,7 +96,7 @@ class AppiumLibCoreTest
       def test_siri
         @driver = @core.start_driver
 
-        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.10.0')
+        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@core, '1.10.0')
 
         assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
         siri_state = @driver.app_state('com.apple.SiriViewService')
@@ -130,7 +130,7 @@ class AppiumLibCoreTest
       def test_device_info
         @driver = @core.start_driver
 
-        skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.15.0')
+        skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@core, '1.15.0')
 
         assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
       end
