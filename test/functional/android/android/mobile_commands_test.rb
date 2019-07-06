@@ -29,6 +29,7 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0
       def test_permissions
         @driver = @core.start_driver
+        skip 'It requires Appium 1.12.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.12.0')
 
         package = 'io.appium.android.apis'
         type = {
@@ -71,6 +72,7 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       def test_toast
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.10.0')
 
         caps = Caps.android 'io.appium.android.apis.view.SecureView'
         @core = ::Appium::Core.for(caps)
@@ -84,9 +86,10 @@ class AppiumLibCoreTest
         assert !@driver.execute_script('mobile: isToastVisible', { text: 'A toast', isRegexp: true })
       end
 
-      # @since Appium 1.11.0 (Newer than 1.10.0)
+      # @since Appium 1.11.0
       def test_drawer
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         @driver = @core.start_driver
 
@@ -101,6 +104,7 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_datepicker
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets1'
         @core = ::Appium::Core.for(caps)
@@ -116,6 +120,7 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_timepicker
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets2'
         @core = ::Appium::Core.for(caps)
@@ -133,6 +138,7 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_navigate_to
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         @driver = @core.start_driver
 
@@ -151,6 +157,7 @@ class AppiumLibCoreTest
       # It can work with `ViewPager` https://developer.android.com/reference/android/support/v4/view/ViewPager
       def test_scroll_page_on_view_pager
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         @driver = @core.start_driver
 
@@ -176,6 +183,7 @@ class AppiumLibCoreTest
       # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
       def test_backdoor
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.11.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.11.0')
 
         caps = Caps.android 'io.appium.android.apis.view.TextSwitcher1'
         @core = ::Appium::Core.for(caps)
@@ -195,6 +203,7 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
       def test_webatom
         skip unless @core.automation_name == :espresso
+        skip 'It requires Appium 1.12.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.12.0')
 
         caps = Caps.android 'io.appium.android.apis.view.WebView1'
         @core = ::Appium::Core.for(caps)
@@ -236,6 +245,10 @@ class AppiumLibCoreTest
           }
         end
         assert error.message.include? "Cannot execute method on 'androidx.test.espresso.web.webdriver.DriverAtoms'."
+      end
+
+      def test_device_info
+        assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
       end
 
       private

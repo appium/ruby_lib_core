@@ -152,6 +152,8 @@ class AppiumLibCoreTest
 
       # @since Appium 1.10.0
       def test_screenshot_quality
+        skip 'It requires Appium 1.10.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.10.0')
+
         lower_image_path = 'lower.png'
         lower_again_image_path = 'lower_again.png'
         higher_image_path = 'higher.png'

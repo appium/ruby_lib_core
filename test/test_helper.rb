@@ -51,6 +51,8 @@ end
 
 class AppiumLibCoreTest
   def self.required_appium_version?(core_driver, required)
+    return true if ENV['IGNORE_VERSION_SKIP']
+
     version = core_driver.appium_server_version
 
     return false if version.empty?

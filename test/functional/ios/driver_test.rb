@@ -34,7 +34,8 @@ class AppiumLibCoreTest
     end
 
     def test_platform_version
-      assert_equal [12, 1], @@core.platform_version
+      # Just make sure the value is not nil
+      assert @@core.platform_version
     end
 
     def test_screenshot
@@ -70,8 +71,10 @@ class AppiumLibCoreTest
       @@driver.back
     end
 
-    # @since Appium 1.14.0
+    # @since Appium 1.15.0
     def test_default_keyboard_pref
+      skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.15.0')
+
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.activate_app('com.apple.Preferences')
@@ -87,8 +90,10 @@ class AppiumLibCoreTest
       assert_equal '0', switches_status['Predictive']
     end
 
-    # @since Appium 1.14.0
+    # @since Appium 1.15.0
     def test_batch
+      skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.15.0')
+
       script = <<-SCRIPT
 const status = await driver.status();
 console.warn('warning message');
@@ -100,8 +105,10 @@ return [status];
       assert('warning message', r.logs['warn'].first)
     end
 
-    # @since Appium 1.14.0
+    # @since Appium 1.15.0
     def test_batch_only_return
+      skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.15.0')
+
       script = <<-SCRIPT
       SCRIPT
 
@@ -110,8 +117,10 @@ return [status];
       assert([], r.logs['warn'])
     end
 
-    # @since Appium 1.14.0
+    # @since Appium 1.15.0
     def test_batch_combination_ruby_script
+      skip 'It requires Appium 1.15.0' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.15.0')
+
       script = <<-SCRIPT
 console.warn('warning message');
 const element = await driver.findElement('accessibility id', 'Buttons');
