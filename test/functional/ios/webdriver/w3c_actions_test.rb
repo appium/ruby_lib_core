@@ -31,6 +31,7 @@ class AppiumLibCoreTest
 
       def test_tap
         skip if @@driver.dialect == :oss
+        skip_as_appium_version @@driver, '1.8.0'
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
@@ -42,6 +43,7 @@ class AppiumLibCoreTest
 
       def test_scroll
         skip if @@driver.dialect == :oss
+        skip_as_appium_version @@driver, '1.8.0'
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
         @@driver.action.click(el).perform
@@ -59,6 +61,7 @@ class AppiumLibCoreTest
 
       def test_scroll2
         skip if @@driver.dialect == :oss
+        skip_as_appium_version @@driver, '1.9.0' # fix scroll actions
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
         @@driver.action.click(el).perform

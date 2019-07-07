@@ -32,6 +32,7 @@ class AppiumLibCoreTest
 
       def test_tap_scroll
         skip if @driver.dialect == :oss
+        skip_as_appium_version @driver, '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
         @driver.action.click(el).perform
@@ -67,6 +68,7 @@ class AppiumLibCoreTest
 
       def test_double_tap
         skip if @driver.dialect == :oss
+        skip_as_appium_version @driver, '1.10.0' # unstable on 1.9.1-
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
         @driver.action.click(el).perform
@@ -107,6 +109,7 @@ class AppiumLibCoreTest
 
       def test_actions_with_many_down_up
         skip if @driver.dialect == :oss
+        skip_as_appium_version @driver, '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
         @driver.action.click_and_hold(el).release.perform
@@ -153,6 +156,8 @@ class AppiumLibCoreTest
 
       # Note: Works with Espresso Driver
       def test_multiple_actions
+        skip_as_appium_version @driver, '1.8.0'
+
         f1 = @driver.action.add_pointer_input(:touch, 'finger1')
         f1.create_pointer_move(duration: 1, x: 200, y: 500,
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
