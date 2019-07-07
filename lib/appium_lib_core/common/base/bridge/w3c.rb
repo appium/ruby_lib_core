@@ -166,7 +166,16 @@ module Appium
           # For Appium
           # No implementation for W3C webdriver module
           # called in `extend DriverExtensions::HasLocation`
-          def set_location(lat, lon, alt)
+          # It has below code as well. We should consider the same context in Selenium 4 as backward compatibility.
+          #
+          #     def location=(loc)
+          #       # note: Location  = Struct.new(:latitude, :longitude, :altitude)
+          #       raise TypeError, "expected #{Location}, got #{loc.inspect}:#{loc.class}" unless loc.is_a?(Location)
+          #
+          #       @bridge.set_location loc.latitude, loc.longitude, loc.altitude
+          #     end
+          #
+          def set_location(lat, lon, alt = 0.0)
             loc = { latitude: lat, longitude: lon, altitude: alt }
             execute :set_location, {}, { location: loc }
           end
