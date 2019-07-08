@@ -86,6 +86,7 @@ class AppiumLibCoreTest
 
       def test_viewport_screenshot
         skip 'Espresso does not support save_viewport_screenshot' if @@core.automation_name == :espresso
+        skip_as_appium_version '1.8.0'
 
         file = @driver.save_viewport_screenshot 'android_viewport_screenshot_test.png'
 

@@ -32,8 +32,9 @@ class AppiumLibCoreTest
         core.quit_driver
       end
 
-      # Require Appium 1.7.2+
       def test_w3c
+        skip_as_appium_version '1.8.0'
+
         caps = Caps.android[:desired_capabilities].merge({ forceMjsonwp: false })
         new_caps = Caps.android.merge({ caps: caps })
         core = ::Appium::Core.for(new_caps)
@@ -47,8 +48,9 @@ class AppiumLibCoreTest
         driver.quit # We can quit driver in this way as well
       end
 
-      # Require Appium 1.7.2+
       def test_w3c_default
+        skip_as_appium_version '1.8.0'
+
         caps = Caps.android
         core = ::Appium::Core.for(caps)
 

@@ -29,7 +29,7 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0
       def test_permissions
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.12.0'
+        skip_as_appium_version '1.12.0'
 
         package = 'io.appium.android.apis'
         type = {
@@ -72,12 +72,11 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       def test_toast
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.10.0'
 
         caps = Caps.android 'io.appium.android.apis.view.SecureView'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.10.0'
-
         @driver.find_element(:id, 'io.appium.android.apis:id/secure_view_toast_button').click
 
         assert @driver.execute_script 'mobile: isToastVisible', { text: 'A toast', isRegexp: true }
@@ -89,9 +88,9 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0
       def test_drawer
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
 
         el = @driver.find_element(:accessibility_id, 'Views')
 
@@ -104,11 +103,11 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_datepicker
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version'1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
 
         @driver.find_element(:accessibility_id, 'change the date').click
 
@@ -120,11 +119,11 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_timepicker
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets2'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
 
         time_el = @driver.find_element(:class, 'android.widget.TimePicker')
         @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.ref })
@@ -138,10 +137,9 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_navigate_to
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version'1.11.0'
 
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
-
         el = @driver.find_element(:accessibility_id, 'Views')
 
         assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: -100 },
@@ -157,10 +155,9 @@ class AppiumLibCoreTest
       # It can work with `ViewPager` https://developer.android.com/reference/android/support/v4/view/ViewPager
       def test_scroll_page_on_view_pager
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
-
         el = @driver.find_element(:accessibility_id, 'Views')
 
         assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: 'right' },
@@ -183,11 +180,11 @@ class AppiumLibCoreTest
       # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
       def test_backdoor
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.TextSwitcher1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.11.0'
 
         assert_mobile_command_error 'mobile: backdoor', { target: :activity, methods: [{ name: 'noMethod', args: [] }] },
                                     'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
@@ -203,11 +200,11 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
       def test_webatom
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.12.0'
 
         caps = Caps.android 'io.appium.android.apis.view.WebView1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.12.0'
 
         el = @driver.find_element :id, 'wv1'
 
@@ -248,9 +245,9 @@ class AppiumLibCoreTest
       end
 
       def test_device_info
-        @driver = @core.start_driver
-        skip_as_appium_version @driver, '1.10.0'
+        skip_as_appium_version '1.10.0'
 
+        @driver = @core.start_driver
         assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
       end
 

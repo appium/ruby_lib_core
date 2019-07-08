@@ -46,15 +46,13 @@ class AppiumLibCoreTest
         driver.save_screenshot "#{base_path}/#{name}-failed.png"
       end
 
-      def skip_as_appium_version(driver, required_version)
-        return true if ENV['IGNORE_VERSION_SKIP']
-
-        version = driver.remote_status
-
-        return false if version.empty?
+      # Calls 'skip' if the appium version is not satisfied the version
+      def skip_as_appium_version(required_version)
+        return if ENV['IGNORE_VERSION_SKIP']
+        return if AppiumLibCoreTest.appium_version == 'beta'
 
         # rubocop:disable Style/GuardClause
-        if Gem::Version.new(version['build']['version']) < Gem::Version.new(required_version.to_s)
+        if AppiumLibCoreTest.appium_version < Gem::Version.new(required_version.to_s)
           skip "Appium #{required_version} is required"
         end
         # rubocop:enable Style/GuardClause
@@ -68,6 +66,10 @@ class AppiumLibCoreTest
     path_dup = path.dup
     path_dup = path_dup.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
     path_dup
+  end
+
+  def self.appium_version
+    ENV['APPIUM_VERSION'] || 'beta'
   end
 
   class Caps
@@ -199,7 +201,7 @@ class AppiumLibCoreTest
     # Require a real device or an emulator.
     # We should update platformVersion and deviceName to fit your environment.
     def android(activity_name = nil)
-      {
+      cap = {
         desired_capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
@@ -224,7 +226,6 @@ class AppiumLibCoreTest
           chromeOptions: {
             args: ['--disable-popup-blocking']
           },
-          'settings[trackScrollEvents]' => false,
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
@@ -234,6 +235,13 @@ class AppiumLibCoreTest
           wait_interval: 1
         }
       }
+
+      # settins in caps should work over Appium 1.13.0
+      if cap[:desired_capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
+        cap[:desired_capabilities]['settings[trackScrollEvents]'] = false
+      end
+
+      cap
     end
 
     def android_direct

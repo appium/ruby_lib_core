@@ -60,7 +60,7 @@ class AppiumLibCoreTest
 
     # @since Appium 1.10.0
     def test_mobile_perform_action
-      skip_as_appium_version @driver, '1.10.0'
+      skip_as_appium_version '1.10.0'
       skip 'Espresso is unstable to get attributes' if @@core.automation_name == :espresso
 
       @driver.find_element(:accessibility_id, 'App').click

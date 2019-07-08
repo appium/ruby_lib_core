@@ -30,8 +30,9 @@ class AppiumLibCoreTest
         assert driver.capabilities['forceMjsonwp'].nil?
       end
 
-      # Require Appium 1.7.2+
       def test_w3c
+        skip_as_appium_version '1.8.0'
+
         caps = Caps.ios[:caps].merge({ forceMjsonwp: false })
         new_caps = Caps.ios.merge({ caps: caps })
         core = ::Appium::Core.for(new_caps)
@@ -43,8 +44,9 @@ class AppiumLibCoreTest
         assert driver.capabilities['forceMjsonwp'].nil?
       end
 
-      # Require Appium 1.7.2+
       def test_w3c_default
+        skip_as_appium_version '1.8.0'
+
         caps = Caps.ios
         core = ::Appium::Core.for(caps)
 

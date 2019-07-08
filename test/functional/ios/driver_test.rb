@@ -58,7 +58,7 @@ class AppiumLibCoreTest
     end
 
     def test_click_back
-      skip_as_appium_version @@driver, '1.8.0' # 1.7.2- have a bit different behaviour
+      skip_as_appium_version '1.8.0' # 1.7.2- have a bit different behaviour
 
       e = @@driver.find_element :accessibility_id, 'Alerts'
       e.click
@@ -75,7 +75,7 @@ class AppiumLibCoreTest
 
     # @since Appium 1.15.0
     def test_default_keyboard_pref
-      skip_as_appium_version @@driver, '1.15.0'
+      skip_as_appium_version '1.15.0'
 
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
@@ -94,7 +94,7 @@ class AppiumLibCoreTest
 
     # @since Appium 1.15.0
     def test_batch
-      skip_as_appium_version @@driver, '1.15.0'
+      skip_as_appium_version '1.15.0'
 
       script = <<-SCRIPT
 const status = await driver.status();
@@ -109,7 +109,7 @@ return [status];
 
     # @since Appium 1.15.0
     def test_batch_only_return
-      skip_as_appium_version @@driver, '1.15.0'
+      skip_as_appium_version '1.15.0'
 
       script = <<-SCRIPT
       SCRIPT
@@ -121,7 +121,7 @@ return [status];
 
     # @since Appium 1.15.0
     def test_batch_combination_ruby_script
-      skip_as_appium_version @@driver, '1.15.0'
+      skip_as_appium_version '1.15.0'
 
       script = <<-SCRIPT
 console.warn('warning message');
