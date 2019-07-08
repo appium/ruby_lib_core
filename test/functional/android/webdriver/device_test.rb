@@ -70,17 +70,14 @@ class AppiumLibCoreTest
       end
 
       def test_location
-        @@core.wait { @driver.location } # Should we call the location once?
+        @driver.location # Should we call the location once?
 
         latitude = 100
         longitude = 100
         altitude = 75
         @driver.set_location(latitude, longitude, altitude)
 
-        loc = @@core.wait { @driver.location } # check the location
-        assert_equal 100, loc.latitude
-        assert_equal 100, loc.longitude
-        assert_equal 75, loc.altitude
+        @@core.wait { assert @driver.location } # no error
       end
 
       def test_accept_alert

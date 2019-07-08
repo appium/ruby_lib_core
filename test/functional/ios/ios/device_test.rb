@@ -124,6 +124,8 @@ class AppiumLibCoreTest
       end
 
       def test_app_management
+        skip_as_appium_version '1.10.0'
+
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
 
         assert @@driver.terminate_app('com.example.apple-samplecode.UICatalog')
@@ -295,6 +297,8 @@ class AppiumLibCoreTest
       end
 
       def test_clipbord
+        skip_as_appium_version '1.8.0'
+
         input = 'happy testing'
 
         @@driver.set_clipboard(content: input)

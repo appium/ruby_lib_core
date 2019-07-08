@@ -48,7 +48,7 @@ class AppiumLibCoreTest
 
       # Calls 'skip' if the appium version is not satisfied the version
       def skip_as_appium_version(required_version)
-        return if ENV['IGNORE_VERSION_SKIP'] == 'true'
+        return if ENV['IGNORE_VERSION_SKIP'].nil? || ENV['IGNORE_VERSION_SKIP'] == 'true'
         return if AppiumLibCoreTest.appium_version == 'beta'
 
         # rubocop:disable Style/GuardClause

@@ -72,6 +72,7 @@ class AppiumLibCoreTest
         assert_equal 'App', e.text
 
         @driver.background_app(-1)
+        sleep 1 # to wait the app has gone
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @driver.find_element :accessibility_id, 'App'
         end

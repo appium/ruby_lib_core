@@ -45,8 +45,9 @@ class AppiumLibCoreTest
       end
 
       def test_pasteboard
-        @driver = @core.start_driver
         skip_as_appium_version '1.9.0'
+
+        @driver = @core.start_driver
 
         message = 'happy appium'
 
@@ -67,12 +68,12 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       # Requires simulator
       def test_permission
+        skip_as_appium_version '1.10.0'
+
         caps = Caps.ios.dup
         caps[:caps][:permissions] = '{"com.example.apple-samplecode.UICatalog": { "calendar": "YES", "photos": "no" }}'
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
-
-        skip_as_appium_version '1.10.0'
 
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
@@ -95,9 +96,9 @@ class AppiumLibCoreTest
 
       # @since Appium 1.10.0
       def test_siri
-        @driver = @core.start_driver
-
         skip_as_appium_version '1.10.0'
+
+        @driver = @core.start_driver
 
         assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
         siri_state = @driver.app_state('com.apple.SiriViewService')
@@ -129,8 +130,9 @@ class AppiumLibCoreTest
       end
 
       def test_device_info
-        @driver = @core.start_driver
         skip_as_appium_version '1.15.0'
+
+        @driver = @core.start_driver
 
         assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
       end

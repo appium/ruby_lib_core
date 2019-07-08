@@ -79,6 +79,8 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 ## CI
 
 - Runs on CI environment (on Azure)
+    - Non `IGNORE_VERSION_SKIP` or `IGNORE_VERSION_SKIP=true` runs all tests ignoring `skip` them by Appium versions
+    - `IGNORE_VERSION_SKIP=false` skips the following tests if the Appium version is lower than the requirement  
 
 ```
 $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android

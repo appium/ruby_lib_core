@@ -92,7 +92,7 @@ class AppiumLibCoreTest
 
         @driver = @core.start_driver
 
-        el = @driver.find_element(:accessibility_id, 'Views')
+        el = @core.wait {@driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: openDrawer', { element: el.ref, gravity: 1 },
                                     'Could not open drawer'
@@ -109,7 +109,7 @@ class AppiumLibCoreTest
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        @driver.find_element(:accessibility_id, 'change the date').click
+        @core.wait { @driver.find_element(:accessibility_id, 'change the date') }.click
 
         date_picker = @driver.find_element(:id, 'android:id/datePicker')
         @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, element: date_picker.ref })
@@ -125,7 +125,7 @@ class AppiumLibCoreTest
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        time_el = @driver.find_element(:class, 'android.widget.TimePicker')
+        time_el = @core.wait { @driver.find_element(:class, 'android.widget.TimePicker') }
         @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.ref })
         assert @driver.find_element(:id, 'io.appium.android.apis:id/dateDisplay').text == '11:00'
 
@@ -140,7 +140,8 @@ class AppiumLibCoreTest
         skip_as_appium_version'1.11.0'
 
         @driver = @core.start_driver
-        el = @driver.find_element(:accessibility_id, 'Views')
+
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: -100 },
                                     'must be a non-negative number'
@@ -158,7 +159,7 @@ class AppiumLibCoreTest
         skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
-        el = @driver.find_element(:accessibility_id, 'Views')
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: 'right' },
                                     'Could not perform scroll to on element'
@@ -206,7 +207,7 @@ class AppiumLibCoreTest
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        el = @driver.find_element :id, 'wv1'
+        el = @core.wait { @driver.find_element(:id, 'wv1') }
 
         @driver.execute_script 'mobile: webAtoms', {
           webviewElement: el.ref,
@@ -255,7 +256,7 @@ class AppiumLibCoreTest
 
       def assert_mobile_command_error(command, args, expected_message)
         error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script command, args
+          @core.wait { @driver.execute_script(command, args) }
         end
         assert error.message.include? expected_message
       end
