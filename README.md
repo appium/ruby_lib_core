@@ -76,6 +76,14 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/android -n 3
 $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 ```
 
+## CI
+
+- Runs on CI environment (on Azure)
+
+```
+$ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
+```
+
 ## Run a test case
 1. Launch the Appium server locally.
 2. Run the following script.

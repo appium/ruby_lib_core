@@ -91,7 +91,7 @@ class AppiumLibCoreTest
       end
 
       def test_location
-        skip 'skip because set_location is unstable on CI' if ENV['CI']
+        skip 'skip because set_location is unstable on CI' if ci?
 
         latitude = 100
         longitude = 100
