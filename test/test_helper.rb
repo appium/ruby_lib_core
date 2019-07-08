@@ -224,6 +224,7 @@ class AppiumLibCoreTest
           chromeOptions: {
             args: ['--disable-popup-blocking']
           },
+          'settings[trackScrollEvents]' => false,
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
