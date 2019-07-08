@@ -52,7 +52,7 @@ class AppiumLibCoreTest
         return if AppiumLibCoreTest.appium_version == 'beta'
 
         # rubocop:disable Style/GuardClause
-        if AppiumLibCoreTest.appium_version < Gem::Version.new(required_version.to_s)
+        if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
           skip "Appium #{required_version} is required"
         end
         # rubocop:enable Style/GuardClause
