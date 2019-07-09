@@ -24,9 +24,12 @@ jobs:
       - template: ./ci-jobs/functional/publish_test_result.yml
         parameters:
           xcodeVersion: 'Run_unit_tests_on_Windows_environment'
+
+# Runs tests nightly to make sure they works against appium@beta
 schedules:
   - cron: "0 0 * * *"
     displayName: Daily Nightly build (UTC)
     branches:
       include:
         - master
+    always: true
