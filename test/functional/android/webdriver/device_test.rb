@@ -76,6 +76,7 @@ class AppiumLibCoreTest
         @driver.set_location(latitude, longitude, altitude)
 
         return if ci?
+
         # Here has been improved in Appium 1.14.0, but it is still unstable on Emulator...
         loc = @@core.wait { @driver.location } # check the location
         assert_equal 100, loc.latitude
