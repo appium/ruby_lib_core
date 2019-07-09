@@ -92,7 +92,7 @@ class AppiumLibCoreTest
 
         @driver = @core.start_driver
 
-        el = @core.wait {@driver.find_element(:accessibility_id, 'Views') }
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: openDrawer', { element: el.ref, gravity: 1 },
                                     'Could not open drawer'
@@ -103,7 +103,7 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_datepicker
         skip unless @core.automation_name == :espresso
-        skip_as_appium_version'1.11.0'
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets1'
         @core = ::Appium::Core.for(caps)
@@ -137,7 +137,7 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_navigate_to
         skip unless @core.automation_name == :espresso
-        skip_as_appium_version'1.11.0'
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
 
