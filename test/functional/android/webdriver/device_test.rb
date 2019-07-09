@@ -70,14 +70,17 @@ class AppiumLibCoreTest
       end
 
       def test_location
-        @driver.location # Should we call the location once?
-
         latitude = 100
         longitude = 100
         altitude = 75
         @driver.set_location(latitude, longitude, altitude)
 
-        @@core.wait { assert @driver.location } # no error
+        return if ci?
+        # Here has been improved in Appium 1.14.0, but it is still unstable on Emulator...
+        loc = @@core.wait { @driver.location } # check the location
+        assert_equal 100, loc.latitude
+        assert_equal 100, loc.longitude
+        assert_equal 75, loc.altitude
       end
 
       def test_accept_alert
