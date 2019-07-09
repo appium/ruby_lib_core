@@ -4,7 +4,7 @@
 
 | Travis, Ubuntu | Azure, Windows and functional tests |
 |:---:|:---:|
-|[![Build Status](https://travis-ci.org/appium/ruby_lib_core.svg?branch=master)](https://travis-ci.org/appium/ruby_lib_core)|[![Build Status](https://dev.azure.com/kazucocoa/ruby_lib_core_windows/_apis/build/status/appium.ruby_lib_core)](https://dev.azure.com/kazucocoa/ruby_lib_core_windows/_build/latest?definitionId=4)|
+|[![Build Status](https://travis-ci.org/appium/ruby_lib_core.svg?branch=master)](https://travis-ci.org/appium/ruby_lib_core)|[![Build Status](https://dev.azure.com/kazucocoa/ruby_lib_core/_apis/build/status/ruby_lib_core?branchName=master)](https://dev.azure.com/kazucocoa/ruby_lib_core/_build/latest?definitionId=9&branchName=master)|
 
 This library is a Ruby client for Appium.  The gem is available via [appium_lib_core](https://rubygems.org/gems/appium_lib_core).
 
