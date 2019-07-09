@@ -19,8 +19,6 @@ class AppiumLibCoreTest
   class TvDriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
       @core = ::Appium::Core.for(Caps.ios(:tvos))
-
-      @driver = @core.start_driver
     end
 
     def teardown
@@ -29,6 +27,12 @@ class AppiumLibCoreTest
 
     def test_launch_app
       skip 'Only tvOS platform' unless @core.caps[:platformName] == :tvos
+
+      begin
+        @driver = @core.start_driver
+      rescue ::Selenium::WebDriver::Error::SessionNotCreatedError => e
+        skip 'Appium requires version 1.13.0+' if e.message.include?('tvos not part of iOS')
+      end
 
       test_package = 'com.kazucocoa.tv-example'
 

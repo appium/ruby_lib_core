@@ -45,6 +45,8 @@ class AppiumLibCoreTest
       end
 
       def test_pasteboard
+        skip_as_appium_version '1.9.0'
+
         @driver = @core.start_driver
 
         message = 'happy appium'
@@ -66,6 +68,8 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       # Requires simulator
       def test_permission
+        skip_as_appium_version '1.10.0'
+
         caps = Caps.ios.dup
         caps[:caps][:permissions] = '{"com.example.apple-samplecode.UICatalog": { "calendar": "YES", "photos": "no" }}'
         core = ::Appium::Core.for(caps)
@@ -92,7 +96,10 @@ class AppiumLibCoreTest
 
       # @since Appium 1.10.0
       def test_siri
+        skip_as_appium_version '1.10.0'
+
         @driver = @core.start_driver
+
         assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
         siri_state = @driver.app_state('com.apple.SiriViewService')
         assert [:running_in_background_suspended, :not_running].include? siri_state
@@ -120,6 +127,14 @@ class AppiumLibCoreTest
         assert !json.empty?
         assert !xml.empty?
         assert !description.empty? # get a vanilla xcuitest description data
+      end
+
+      def test_device_info
+        skip_as_appium_version '1.15.0'
+
+        @driver = @core.start_driver
+
+        assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
       end
     end
   end

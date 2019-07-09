@@ -68,6 +68,16 @@ class AppiumLibCoreTest
         require 'json'
         require 'rexml/document'
 
+        # On the session
+        s_source = @@driver.page_source
+        s_xml = REXML::Document.new s_source
+
+        assert s_source.include?('AppiumAUT')
+        assert s_source.include?('XCUIElementTypeApplication type')
+
+        # non session
+        skip_as_appium_version '1.8.0' # No session source had an issue in 1.7.1
+
         response = Net::HTTP.get(URI("http://localhost:#{@@driver.capabilities['wdaLocalPort']}/source"))
         source = JSON.parse(response)['value']
         xml = REXML::Document.new source
@@ -76,18 +86,12 @@ class AppiumLibCoreTest
         assert source.include?('XCUIElementTypeApplication type')
         assert xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
 
-        s_source = @@driver.page_source
-        s_xml = REXML::Document.new s_source
-
-        assert s_source.include?('AppiumAUT')
-        assert s_source.include?('XCUIElementTypeApplication type')
-
         # Roughly matching...
         assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
       end
 
       def test_location
-        skip 'skip because set_location is unstable on CI' if ENV['CI']
+        skip 'skip because set_location is unstable on CI' if ci?
 
         latitude = 100
         longitude = 100
@@ -129,6 +133,8 @@ class AppiumLibCoreTest
       def test_rotate
         assert_equal :portrait, @@driver.orientation
 
+        skip_as_appium_version '1.9.0' # Error message handles over 1.9.0
+
         error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
           @@driver.rotation = :landscape
         end
@@ -152,6 +158,8 @@ class AppiumLibCoreTest
 
       # @since Appium 1.10.0
       def test_screenshot_quality
+        skip_as_appium_version '1.10.0'
+
         lower_image_path = 'lower.png'
         lower_again_image_path = 'lower_again.png'
         higher_image_path = 'higher.png'

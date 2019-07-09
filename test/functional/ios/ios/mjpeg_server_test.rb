@@ -30,7 +30,7 @@ class AppiumLibCoreTest
 
       # Can view via http://localhost:9100 by default
       def test_config
-        skip 'It requires Appium 1.9.2' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.9.2')
+        skip_as_appium_version '1.9.2'
 
         @@driver.update_settings({ mjpegServerScreenshotQuality: 10, mjpegServerFramerate: 1 })
         @@driver.update_settings({ mjpegServerScreenshotQuality: 0, mjpegServerFramerate: -100 })
@@ -51,7 +51,7 @@ class AppiumLibCoreTest
       end
 
       def test_start_recording_screen_2
-        skip 'It requires Appium 1.9.2' unless AppiumLibCoreTest.required_appium_version?(@@core, '1.9.2')
+        skip_as_appium_version '1.9.2'
 
         to_path = 'recorded_file_ios_2.mp4'
         File.delete to_path if File.exist? to_path

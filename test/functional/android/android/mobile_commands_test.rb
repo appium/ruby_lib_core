@@ -29,6 +29,7 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0
       def test_permissions
         @driver = @core.start_driver
+        skip_as_appium_version '1.12.0'
 
         package = 'io.appium.android.apis'
         type = {
@@ -71,11 +72,11 @@ class AppiumLibCoreTest
       # @since Appium 1.10.0
       def test_toast
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.10.0'
 
         caps = Caps.android 'io.appium.android.apis.view.SecureView'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
-
         @driver.find_element(:id, 'io.appium.android.apis:id/secure_view_toast_button').click
 
         assert @driver.execute_script 'mobile: isToastVisible', { text: 'A toast', isRegexp: true }
@@ -84,13 +85,14 @@ class AppiumLibCoreTest
         assert !@driver.execute_script('mobile: isToastVisible', { text: 'A toast', isRegexp: true })
       end
 
-      # @since Appium 1.11.0 (Newer than 1.10.0)
+      # @since Appium 1.11.0
       def test_drawer
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
 
-        el = @driver.find_element(:accessibility_id, 'Views')
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: openDrawer', { element: el.ref, gravity: 1 },
                                     'Could not open drawer'
@@ -101,12 +103,13 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_datepicker
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        @driver.find_element(:accessibility_id, 'change the date').click
+        @core.wait { @driver.find_element(:accessibility_id, 'change the date') }.click
 
         date_picker = @driver.find_element(:id, 'android:id/datePicker')
         @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, element: date_picker.ref })
@@ -116,12 +119,13 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_timepicker
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.DateWidgets2'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        time_el = @driver.find_element(:class, 'android.widget.TimePicker')
+        time_el = @core.wait { @driver.find_element(:class, 'android.widget.TimePicker') }
         @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.ref })
         assert @driver.find_element(:id, 'io.appium.android.apis:id/dateDisplay').text == '11:00'
 
@@ -133,10 +137,11 @@ class AppiumLibCoreTest
       # @since Appium 1.11.0 (Newer than 1.10.0)
       def test_navigate_to
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
 
-        el = @driver.find_element(:accessibility_id, 'Views')
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: -100 },
                                     'must be a non-negative number'
@@ -151,10 +156,10 @@ class AppiumLibCoreTest
       # It can work with `ViewPager` https://developer.android.com/reference/android/support/v4/view/ViewPager
       def test_scroll_page_on_view_pager
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         @driver = @core.start_driver
-
-        el = @driver.find_element(:accessibility_id, 'Views')
+        el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
         assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: 'right' },
                                     'Could not perform scroll to on element'
@@ -176,6 +181,7 @@ class AppiumLibCoreTest
       # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
       def test_backdoor
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.11.0'
 
         caps = Caps.android 'io.appium.android.apis.view.TextSwitcher1'
         @core = ::Appium::Core.for(caps)
@@ -195,12 +201,13 @@ class AppiumLibCoreTest
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
       def test_webatom
         skip unless @core.automation_name == :espresso
+        skip_as_appium_version '1.12.0'
 
         caps = Caps.android 'io.appium.android.apis.view.WebView1'
         @core = ::Appium::Core.for(caps)
         @driver = @core.start_driver
 
-        el = @driver.find_element :id, 'wv1'
+        el = @core.wait { @driver.find_element(:id, 'wv1') }
 
         @driver.execute_script 'mobile: webAtoms', {
           webviewElement: el.ref,
@@ -238,11 +245,18 @@ class AppiumLibCoreTest
         assert error.message.include? "Cannot execute method on 'androidx.test.espresso.web.webdriver.DriverAtoms'."
       end
 
+      def test_device_info
+        skip_as_appium_version '1.10.0'
+
+        @driver = @core.start_driver
+        assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
+      end
+
       private
 
       def assert_mobile_command_error(command, args, expected_message)
         error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @driver.execute_script command, args
+          @driver.execute_script(command, args)
         end
         assert error.message.include? expected_message
       end

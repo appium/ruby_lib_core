@@ -124,6 +124,8 @@ class AppiumLibCoreTest
       end
 
       def test_app_management
+        skip_as_appium_version '1.10.0'
+
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
 
         assert @@driver.terminate_app('com.example.apple-samplecode.UICatalog')
@@ -223,6 +225,8 @@ class AppiumLibCoreTest
       end
 
       def test_touch_id
+        skip_as_appium_version '1.10.0' # unstable under 1.10.0-
+
         assert_nil @@driver.toggle_touch_id_enrollment
         assert_nil @@driver.toggle_touch_id_enrollment(true)
         assert_nil @@driver.toggle_touch_id_enrollment(false)
@@ -259,6 +263,8 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
+        skip_as_appium_version '1.8.0'
+
         file = @@driver.save_viewport_screenshot AppiumLibCoreTest.path_of('ios_viewport_screenshot_test.png')
 
         assert File.exist?(file.path)
@@ -269,6 +275,8 @@ class AppiumLibCoreTest
 
       # Requires --relaxed-security server flag
       def test_start_performance_record_and_stop
+        skip_as_appium_version '1.9.1'
+
         file_path = AppiumLibCoreTest.path_of('test_start_performance_record_and_stop.zip')
         File.delete file_path if File.exist? file_path
 
@@ -289,6 +297,8 @@ class AppiumLibCoreTest
       end
 
       def test_clipbord
+        skip_as_appium_version '1.8.0'
+
         input = 'happy testing'
 
         @@driver.set_clipboard(content: input)
@@ -301,6 +311,8 @@ class AppiumLibCoreTest
       end
 
       def test_battery_info
+        skip_as_appium_version '1.8.0'
+
         result = @@driver.battery_info
 
         assert !result[:state].nil?

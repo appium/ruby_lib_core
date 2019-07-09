@@ -33,6 +33,7 @@ class AppiumLibCoreTest
 
       def test_image_comparison_match_result
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
@@ -50,6 +51,7 @@ class AppiumLibCoreTest
 
       def test_image_comparison_find_result
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
@@ -67,6 +69,7 @@ class AppiumLibCoreTest
 
       def test_image_comparison_get_images_result
         skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
         image2 = File.read './test/functional/data/test_has_blue.png'
@@ -84,6 +87,7 @@ class AppiumLibCoreTest
 
       def test_image_element
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: true })
 
@@ -130,6 +134,7 @@ class AppiumLibCoreTest
 
       def test_image_elements
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         @@driver.update_settings({ fixImageTemplateScale: true })
 
@@ -169,6 +174,7 @@ class AppiumLibCoreTest
 
       def test_template_scale_ratio
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
+        skip_as_appium_version '1.9.0'
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
