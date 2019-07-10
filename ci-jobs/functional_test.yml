@@ -17,7 +17,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: 10.2
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
       displayName: Run tests
@@ -35,7 +35,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: 10.2
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
       displayName: Run tests
