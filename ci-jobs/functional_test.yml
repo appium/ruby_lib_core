@@ -1,6 +1,10 @@
 # jobs for functional test
 parameters:
   vmImage: 'macOS-10.14'
+  vmImageForIOS: 'macOS-10.13' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
+  xcodeForIOS: 10.1
+  xcodeForTVOS: 10.2
+  androidSDK: 28
   appiumVersion: 'beta'
   ignoreVersionSkip: true
   CI: true
@@ -9,7 +13,7 @@ jobs:
   # Run unit tests on different Node versions
   - job: func_test_ios_base
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -17,7 +21,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
       displayName: Run tests
@@ -27,7 +31,7 @@ jobs:
 
   - job: func_test_ios_webdriver1
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -35,7 +39,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
       displayName: Run tests
@@ -45,7 +49,7 @@ jobs:
 
   - job: func_test_ios_webdriver2
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -53,7 +57,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/device_test.rb
       displayName: Run tests
@@ -63,7 +67,7 @@ jobs:
 
   - job: func_test_ios_ios1
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -71,7 +75,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_test.rb
       displayName: Run tests
@@ -81,7 +85,7 @@ jobs:
 
   - job: func_test_ios_ios2
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -89,7 +93,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: npm install -g appium opencv4nodejs@4.17.0
       displayName: Install opencv4nodejs@4.17.0
@@ -101,7 +105,7 @@ jobs:
 
   - job: func_test_ios_ios3
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageForIOS }}
     variables:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
@@ -109,7 +113,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.1
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - script: brew install ffmpeg && brew tap wix/brew && brew install wix/brew/applesimutils
       displayName: Install ffmpeg and applesimutils
     - template: ./functional/run_appium.yml
@@ -129,7 +133,7 @@ jobs:
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
-        xcodeVersion: 10.2
+        xcodeVersion: ${{ parameters.xcodeForTVOS }}
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/tv_driver_test.rb
       displayName: Run tests
@@ -142,7 +146,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -159,7 +163,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -176,7 +180,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -193,7 +197,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -210,7 +214,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -227,7 +231,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
@@ -244,7 +248,7 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
     variables:
       CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: 28
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
