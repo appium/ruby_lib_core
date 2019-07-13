@@ -15,7 +15,7 @@
 module Appium
   module Core
     # Perform a series of gestures, one after another.  Gestures are chained
-    # together and only performed when `perform()` is called. Default is conducted by global driver.
+    # together and only performed when +perform()+ is called. Default is conducted by global driver.
     #
     # Each method returns the object itself, so calls can be chained.
     #
@@ -45,7 +45,7 @@ module Appium
 
       # Move to the given co-ordinates.
       #
-      # `move_to`'s `x` and `y` have two case. One is working as coordinate, the other is working as offset.
+      # +move_to+'s +x+ and +y+ have two case. One is working as coordinate, the other is working as offset.
       #
       # @param opts [Hash] Options
       # @option opts [integer] :x x co-ordinate to move to if element isn't set. Works as an absolute if x is set with Element.
@@ -57,7 +57,7 @@ module Appium
       end
 
       # Press down for a specific duration.
-      # Alternatively, you can use `press(...).wait(...).release()` instead of `long_press` if duration doesn't work well.
+      # Alternatively, you can use +press(...).wait(...).release()+ instead of +long_press+ if duration doesn't work well.
       # https://github.com/appium/ruby_lib/issues/231#issuecomment-269895512
       # e.g. Appium::TouchAction.new.press(x: 280, y: 530).wait(2000).release.perform
       #
@@ -72,14 +72,14 @@ module Appium
         chain_method(:longPress, args) # longPress is what the appium server expects
       end
 
-      # Press a finger onto the screen.  Finger will stay down until you call `release`.
+      # Press a finger onto the screen.  Finger will stay down until you call +release+.
       #
       # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to press within.
       # @option opts [integer] :x x co-ordinate to press on
       # @option opts [integer] :y y co-ordinate to press on
       # @option opts [Float] pressure (iOS Only) press as force touch.
-      #                                          See the description of `force` property on Apple's UITouch class
+      #                                          See the description of +force+ property on Apple's UITouch class
       #                                          (https://developer.apple.com/documentation/uikit/uitouch?language=objc)
       #                                          for more details on possible value ranges.
       def press(opts)
@@ -101,7 +101,7 @@ module Appium
       end
 
       # Touch a point on the screen.
-      # Alternatively, you can use `press(...).release.perform` instead of `tap(...).perform`.
+      # Alternatively, you can use +press(...).release.perform+ instead of +tap(...).perform+.
       #
       # @param opts [Hash] Options
       # @option opts [WebDriver::Element] :element (Optional) Element to restrict scope too.

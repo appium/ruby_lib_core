@@ -25,13 +25,13 @@ module Appium
       # with close method.
       #
       # @param [String] url URL to establish web socket connection. If the URL has no port, the client use:
-      #                     `ws`: 80, `wss`: 443 ports.
+      #                     +ws+: 80, +wss+: 443 ports.
       # @param [Array] protocols An array of strings representing acceptable subprotocols for use over the socket.
       #                          The driver will negotiate one of these to use via the Sec-WebSocket-Protocol header
       #                          if supported by the other peer. Default is nil.
       #                          The protocols is equal to https://github.com/faye/faye-websocket-ruby/ 's one for client.
       # @param [Hash] options Initialize options for Faye client. Read https://github.com/faye/faye-websocket-ruby#initialization-options
-      #                       for more details. Default is `{}`.
+      #                       for more details. Default is +{}+.
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
@@ -127,7 +127,7 @@ module Appium
       # In general, users should customise only message_data
 
       #
-      # Fires when the socket receives a message. The message gas one `data` attribute and this method can handle the data.
+      # Fires when the socket receives a message. The message gas one +data+ attribute and this method can handle the data.
       # The data is either a String (for text frames) or an Array of byte-sized integers (for binary frames).
       #
       # Default is just put a debug message and puts the result on standard out.
@@ -149,11 +149,11 @@ module Appium
       end
 
       #
-      # Fires when either the client or the server closes the connection. The method gets `code` and `reason` attributes.
+      # Fires when either the client or the server closes the connection. The method gets +code+ and +reason+ attributes.
       # They expose the status code and message sent by the peer that closed the connection.
       #
       # Default is just put a error message.
-      # The methods also clear `client` instance and stop the eventmachine which is called in initialising this class.
+      # The methods also clear +client+ instance and stop the eventmachine which is called in initialising this class.
       #
       def handle_close(code, reason)
         ::Appium::Logger.debug %W(#{self.class} :close #{code} #{reason})

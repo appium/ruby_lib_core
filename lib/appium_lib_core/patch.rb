@@ -40,7 +40,7 @@ module Appium
       #
       #   e = @driver.find_element :accessibility_id, 'something'
       #   e.value
-      #   e.resource_id # call `e.attribute "resource-id"`
+      #   e.resource_id # call 'e.attribute "resource-id"'
       #
       def method_missing(method_name, *args, &block)
         ignore_list = [:to_hash]

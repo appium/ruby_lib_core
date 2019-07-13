@@ -93,7 +93,7 @@ module Appium
         #     ## With uiautomator
         #     @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
         #     ## With viewtag, but only for Espresso
-        #     ## `setTag`/`getTag` in https://developer.android.com/reference/android/view/View
+        #     ## 'setTag'/'getTag' in https://developer.android.com/reference/android/view/View
         #     @driver.find_elements :viewtag, 'new UiSelector().clickable(true)'
         #     # With data_matcher. The argument should be JSON format.
         #     @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
@@ -111,9 +111,9 @@ module Appium
         #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow'
         #     ### select the second last child of the second child window
         #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[2]/XCUIElementTypeAny[-2]'
-        #     ### matching predicate. <code>`</code> is the mark.
-        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[`visible = 1][`name = "bla"`]'
-        #     ### containing predicate. `$` is the mark.
+        #     ### matching predicate. <code>'</code> is the mark.
+        #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow['visible = 1]['name = "bla"']'
+        #     ### containing predicate. '$' is the mark.
         #     ### Require appium-xcuitest-driver 2.54.0+. PR: https://github.com/facebook/WebDriverAgent/pull/707/files
         #     @driver.find_elements :class_chain, 'XCUIElementTypeWindow[$name = \"bla$$$bla\"$]'
         #     e = find_element :class_chain, "**/XCUIElementTypeWindow[$name == 'Buttons'$]"

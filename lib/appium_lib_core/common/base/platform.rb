@@ -22,7 +22,7 @@ module Appium
       #
       # @example
       #
-      #   ::Appium::Core::Base.platform.windows? #=> `true` or `false`
+      #   ::Appium::Core::Base.platform.windows? #=> 'true' or 'false'
       #
       def self.platform
         ::Selenium::WebDriver::Platform

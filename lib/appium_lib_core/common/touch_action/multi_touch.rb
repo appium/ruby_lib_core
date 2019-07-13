@@ -17,8 +17,8 @@ module Appium
     # MultiTouch actions allow for multiple touches to happen at the same time,
     # for instance, to simulate multiple finger swipes.
     #
-    # Create a series of touch actions by themselves (without a `prepare()`), then
-    # add to a new MultiTouch action.  When ready, call `prepare()` and all
+    # Create a series of touch actions by themselves (without a +prepare()+), then
+    # add to a new MultiTouch action.  When ready, call +prepare()+ and all
     # actions will be executed simultaneously.
     #
     # @example

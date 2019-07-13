@@ -77,7 +77,7 @@ module Appium
         #   Same as #network_connection_type in selenium-webdriver.
         #
         #   Returns a key of <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code> in #network_connection_type
-        #   Returns a number of the mode in `#get_network_connection`
+        #   Returns a number of the mode in +#get_network_connection+
         #
         # @example
         #
@@ -129,7 +129,7 @@ module Appium
         #   Defaults to 'Done' for iOS(except for XCUITest).
         # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
         #   XCUITest ignore this argument.
-        #   Default for iOS is `:pressKey`. Default for Android is `:tapOutside`.
+        #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
         #
         # @example
         #
@@ -154,12 +154,12 @@ module Appium
         # @option opts [String] :app_activity The target activity [required]
         # @option opts [String] :app_wait_package The package to start before the target package [optional]
         # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
-        # @option opts [String] :intent_action The intent action to give it when start the target activity (`-a`) [optional]
-        # @option opts [String] :intent_category The intent category to give it when start the target activity (`-c`) [optional]
-        # @option opts [String] :intent_flags The intent flag to give it when start the target activity (`-f`) [optional]
+        # @option opts [String] :intent_action The intent action to give it when start the target activity (+-a+) [optional]
+        # @option opts [String] :intent_category The intent category to give it when start the target activity (+-c+) [optional]
+        # @option opts [String] :intent_flags The intent flag to give it when start the target activity (+-f+) [optional]
         # @option opts [String] :optional_intent_arguments The optional intent action to give it when start the target activity [optional]
         #                                                  You can set arbitrary arguments with space as string.
-        #                                                  e.g. `'--ez your_extra_bool bool --ei your_extra_int 1'`
+        #                                                  e.g. +'--ez your_extra_bool bool --ei your_extra_int 1'+
         # @option opts [bool] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
         #
         # @example
@@ -170,7 +170,7 @@ module Appium
 
         # @!method set_network_connection(mode)
         # Set the device network connection mode
-        # Same as `#network_connection_type` in selenium-webdriver.
+        # Same as +#network_connection_type+ in selenium-webdriver.
         #
         # @param [String] mode Bit mask that represent the network mode
         # Or the key matched with <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code>
@@ -204,7 +204,7 @@ module Appium
         #   Get the resource usage information of the application.
         #   https://github.com/appium/appium-base-driver/blob/be29aec2318316d12b5c3295e924a5ba8f09b0fb/lib/mjsonwp/routes.js#L303
         # @param [String] package_name: Package name
-        # @param [String] data_type: Data type get with `get_performance_data_types`
+        # @param [String] data_type: Data type get with +get_performance_data_types+
         # @param [String] data_read_timeout: Command timeout. Default is 2.
         #
         # @example
@@ -220,13 +220,13 @@ module Appium
         #                             An exception will be thrown if the generated media file is too big to
         #                             fit into the available process memory.
         #                             This option only has an effect if there is screen recording process in progress
-        #                             and `forceRestart` parameter is not set to `true`.
+        #                             and +forceRestart+ parameter is not set to +true+.
         # @param [String] user The name of the user for the remote authentication.
         # @param [String] pass The password for the remote authentication.
         # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
         # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
-        #                                 (`false`, the default setting on server) or ignore the result of it
-        #                                 and start a new recording immediately (`true`).
+        #                                 (+false+, the default setting on server) or ignore the result of it
+        #                                 and start a new recording immediately (+true+).
         #
         # @param [String] video_size The format is widthxheight.
         #                            The default value is the device's native display resolution (if supported),
@@ -241,7 +241,7 @@ module Appium
         #                            present then the most recent screen recording chunk is going to be returned as the result.
         # @param [String] bit_rate The video bit rate for the video, in megabits per second.
         #                          4 Mbp/s(4000000) is by default for Android API level below 27. 20 Mb/s(20000000) for API level 27 and above.
-        # @param [Boolean] bug_report Set it to `true` in order to display additional information on the video overlay,
+        # @param [Boolean] bug_report Set it to +true+ in order to display additional information on the video overlay,
         #                             such as a timestamp, that is helpful in videos captured to illustrate bugs.
         #                             This option is only supported since API level 27 (Android P).
         #

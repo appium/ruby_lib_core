@@ -43,18 +43,18 @@ module Appium
           end
 
           # Perform touch actions for W3C module.
-          # Generate `touch` pointer action here and users can use this via `driver.action`
+          # Generate +touch+ pointer action here and users can use this via +driver.action+
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
           #
-          # 'mouse' action is by default in the Ruby client. Appium server force the `mouse` action to `touch` once in
+          # 'mouse' action is by default in the Ruby client. Appium server force the +mouse+ action to +touch+ once in
           # the server side. So we don't consider the case.
           #
           # @example
           #
           #     element = @driver.find_element(:id, "some id")
-          #     @driver.action.click(element).perform # The `click` is a part of `PointerActions`
+          #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
           #
           def action(async = false)
             # Used for default duration of each touch actions
@@ -143,21 +143,21 @@ module Appium
 
           # For Appium
           # override
-          # called in `extend DriverExtensions::HasNetworkConnection`
+          # called in 'extend DriverExtensions::HasNetworkConnection'
           def network_connection
             execute :get_network_connection
           end
 
           # For Appium
           # override
-          # called in `extend DriverExtensions::HasNetworkConnection`
+          # called in 'extend DriverExtensions::HasNetworkConnection'
           def network_connection=(type)
             execute :set_network_connection, {}, { parameters: { type: type } }
           end
 
           # For Appium
           # No implementation for W3C webdriver module
-          # called in `extend DriverExtensions::HasLocation`
+          # called in 'extend DriverExtensions::HasLocation'
           def location
             obj = execute(:get_location) || {}
             ::Selenium::WebDriver::Location.new obj['latitude'], obj['longitude'], obj['altitude']
@@ -165,7 +165,7 @@ module Appium
 
           # For Appium
           # No implementation for W3C webdriver module
-          # called in `extend DriverExtensions::HasLocation`
+          # called in +extend DriverExtensions::HasLocation+
           # It has below code as well. We should consider the same context in Selenium 4 as backward compatibility.
           #
           #     def location=(loc)
