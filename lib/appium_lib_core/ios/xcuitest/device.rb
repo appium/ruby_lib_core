@@ -30,7 +30,7 @@ module Appium
           # @param [String] close_key The name of the key which closes the keyboard.
           # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
           #   XCUITest ignore this argument.
-          #   Default for iOS is `:pressKey`. Default for Android is `:tapOutside`.
+          #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
           #
           # @example
           #
@@ -64,15 +64,15 @@ module Appium
           #                             An exception will be thrown if the generated media file is too big to
           #                             fit into the available process memory.
           #                             This option only has an effect if there is screen recording process in progreess
-          #                             and `forceRestart` parameter is not set to `true`.
+          #                             and +forceRestart+ parameter is not set to +true+.
           # @param [String] user The name of the user for the remote authentication.
           # @param [String] pass The password for the remote authentication.
           # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
           # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
-          #                                (`false`, the default setting on server) or ignore the result of it
-          #                                and start a new recording immediately (`true`).
+          #                                (+false+, the default setting on server) or ignore the result of it
+          #                                and start a new recording immediately (+true+).
           # @param [String] video_type The video codec type used for encoding of the be recorded screen capture.
-          #                            Execute `ffmpeg -codecs` in the terminal to see the list of supported video codecs.
+          #                            Execute +ffmpeg -codecs+ in the terminal to see the list of supported video codecs.
           #                            'mjpeg' by default.
           # @param [String] time_limit Recording time. 180 seconds is by default.
           # @param [String] video_quality The video encoding quality (low, medium, high, photo - defaults to medium).
@@ -85,18 +85,18 @@ module Appium
           #                                 e.g.: "rotate=90"
           # @param [String] video_scale The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
           #                             No scale is applied by default.
-          #                             tips: ffmpeg cannot capture video as `libx264` if the video dimensions is not divisible by 2.
+          #                             tips: ffmpeg cannot capture video as +libx264+ if the video dimensions is not divisible by 2.
           #                             Then, you can set this scale as +scale=trunc(iw/2)*2:trunc(ih/2)*2+
           #                             - https://github.com/appium/appium/issues/12856
           #                             - https://www.reddit.com/r/linux4noobs/comments/671z6b/width_not_divisible_by_2_error_when_using_ffmpeg/
-          # @param [String] pixel_format Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
+          # @param [String] pixel_format Output pixel format. Run +ffmpeg -pix_fmts+ to list possible values.
           #                              For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264".
           #
           # @example
           #
           #    @driver.start_recording_screen
           #    @driver.start_recording_screen video_type: 'mjpeg', time_limit: '260'
-          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get `.mp4` video
+          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get +.mp4+ video
           #
 
           # @since Appium 1.3.4
@@ -106,14 +106,14 @@ module Appium
           #
           # @param [Integer|String] timeout The maximum count of milliseconds to record the profiling information.
           # @param [String] profile_name The name of existing performance profile to apply.
-          #                              Execute `instruments -s` to show the list of available profiles.
+          #                              Execute +instruments -s+ to show the list of available profiles.
           #                              Note, that not all profiles are supported on mobile devices.
           # @param [Integer|String] pid The ID of the process to measure the performance for.
-          #                             Set it to `current` in order to measure the performance of
+          #                             Set it to +current+ in order to measure the performance of
           #                             the process, which belongs to the currently active application.
           #                             All processes running on the device are measured if
           #                             pid is unset (the default setting). Setting process ID while
-          #                             device under test is Simulator might require `instruments` to be launched
+          #                             device under test is Simulator might require +instruments+ to be launched
           #                             with sudo privileges, which is not supported and will throw a timeout exception.
           # @return nil
           #
@@ -130,7 +130,7 @@ module Appium
           #
           # @param [String] save_file_path A path to save data as zipped .trace file
           # @param [String] profile_name The name of existing performance profile to apply.
-          #                              Execute `instruments -s` to show the list of available profiles.
+          #                              Execute +instruments -s+ to show the list of available profiles.
           #                              Note, that not all profiles are supported on mobile devices.
           # @param [String] remote_path The path to the remote location, where the resulting zipped .trace file should be uploaded.
           #                             The following protocols are supported: http/https, ftp.
@@ -138,9 +138,9 @@ module Appium
           #                             file should be zipped, encoded as Base64 and passed as the endpount response value.
           #                             An exception will be thrown if the generated file is too big to
           #                             fit into the available process memory.
-          # @param [String] user The name of the user for the remote authentication. Only works if `remotePath` is provided.
-          # @param [String] pass The password for the remote authentication. Only works if `remotePath` is provided.
-          # @param [String] method The http multipart upload method name. Only works if `remotePath` is provided.
+          # @param [String] user The name of the user for the remote authentication. Only works if +remotePath+ is provided.
+          # @param [String] pass The password for the remote authentication. Only works if +remotePath+ is provided.
+          # @param [String] method The http multipart upload method name. Only works if +remotePath+ is provided.
           #
           # @example
           #
@@ -153,11 +153,11 @@ module Appium
           # Get battery information.
           #
           # @return [Hash]  Return battery level and battery state from the target real device. (Simulator has no battery.)
-          #                 https://developer.apple.com/documentation/uikit/uidevice/ 's `batteryLevel` and `batteryState`.
+          #                 https://developer.apple.com/documentation/uikit/uidevice/ 's +batteryLevel+ and +batteryState+.
           #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
           #                 if the actual value cannot be retrieved from the system.
           #                 Battery state. The following symbols are possible
-          #                 `:unplugged, :charging, :full`
+          #                 +:unplugged, :charging, :full+
           #
           # @example
           #

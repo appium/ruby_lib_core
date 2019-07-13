@@ -51,8 +51,8 @@ module Appium
           @bridge.dialect
         end
 
-        # Update `server_url` and HTTP clients following this arguments, protocol, host, port and path.
-        # After this method, `@bridge.http` will be a new instance following them instead of `server_url` which is
+        # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
+        # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
         # set before creating session.
         #
         # @example
@@ -110,7 +110,7 @@ module Appium
         #   Defaults to 'Done' for iOS(except for XCUITest).
         # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
         #   XCUITest ignore this argument.
-        #   Default for iOS is `:pressKey`. Default for Android is `:tapOutside`.
+        #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
         #
         # @example
         #
@@ -318,7 +318,7 @@ module Appium
           block_given? ? @bridge.within_context(context, &Proc.new) : @bridge.within_context(context)
         end
 
-        # Change to the default context. This is equivalent to `set_context nil`.
+        # Change to the default context. This is equivalent to +set_context nil+.
         #
         # @example
         #
@@ -499,15 +499,15 @@ module Appium
 
         # Press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        # @param [Integer] key The key to press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
+        # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
         # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
-        #                              Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
-        #                              e.g.: META_SHIFT_ON is `1` or `0x00000001`
+        #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+        #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
         # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array.  Can set multiple flags as Array.
-        #                          Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                          e.g.: FLAG_CANCELED is `32` or `0x00000020`
+        #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+
         #
         # @example
         #
@@ -521,15 +521,15 @@ module Appium
 
         # Long press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        # @param [Integer] key The key to long press. The values which have `KEYCODE_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                      e.g.: KEYCODE_HOME is `3` or `0x00000003`
+        # @param [Integer] key The key to long press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
         # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
-        #                              Metastate have `META_` prefix in https://developer.android.com/reference/android/view/KeyEvent.html
-        #                              e.g.: META_SHIFT_ON is `1` or `0x00000001`
+        #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
+        #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
         # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array. Can set multiple flags as Array.
-        #                          Flags have `FLAG_` prefix in http://developer.android.com/reference/android/view/KeyEvent.html
-        #                          e.g.: FLAG_CANCELED is `32` or `0x00000020`
+        #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
+        #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+
         #
         # @example
         #
@@ -602,14 +602,14 @@ module Appium
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
         # @param [Boolean] replace Only for Android. Whether to reinstall/upgrade the package if it is already present
-        #                          on the device under test. `true` by default
+        #                          on the device under test. +true+ by default
         # @param [Integer] timeout Only for Android. How much time to wait for the installation to complete.
         #                          60000ms by default.
         # @param [Boolean] allow_test_packages Only for Android. Whether to allow installation of packages marked as test
-        #                                      in the manifest. `false` by default
-        # @param [Boolean] use_sdcard Only for Android. Whether to use the SD card to install the app. `false` by default
+        #                                      in the manifest. +false+ by default
+        # @param [Boolean] use_sdcard Only for Android. Whether to use the SD card to install the app. +false+ by default
         # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
-        #                                    on Android 6+ after the installation completes. `false` by default
+        #                                    on Android 6+ after the installation completes. +false+ by default
         #
         # @example
         #
@@ -633,7 +633,7 @@ module Appium
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
         # @param [Boolean] keep_data Only for Android. Whether to keep application data and caches after it is uninstalled.
-        #                             `false` by default
+        #                             +false+ by default
         # @param [Integer] timeout Only for Android. How much time to wait for the uninstall to complete. 20000ms by default.
         #
         # @example
@@ -756,7 +756,7 @@ module Appium
         #
         # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get
         #                        the full list of supported datetime format specifiers.
-        #                        The default format is `YYYY-MM-DDTHH:mm:ssZ`, which complies to ISO-8601
+        #                        The default format is +YYYY-MM-DDTHH:mm:ssZ+, which complies to ISO-8601
         # @return [String] Formatted datetime string or the raw command output if formatting fails
         #
         # @example
@@ -778,7 +778,7 @@ module Appium
         end
 
         #
-        # Send multiple W3C action chains to server. Use `@driver.action` for single action chain.
+        # Send multiple W3C action chains to server. Use +@driver.action+ for single action chain.
         #
         # @param [Array] data Array of actions
         # @return nil|error
@@ -872,7 +872,7 @@ module Appium
         end
 
         # Retrieve the capabilities of the specified session.
-        # It's almost same as `@driver.capabilities` but you can get more details.
+        # It's almost same as +@driver.capabilities+ but you can get more details.
         #
         # @return [Selenium::WebDriver::Remote::Capabilities]
         #
@@ -1057,7 +1057,7 @@ module Appium
         # @param [String] script The string consisting of the script itself
         # @param [String] type The name of the script type.
         #                      Defaults to 'webdriverio'. Depends on server implementation which type is supported.
-        # @param [Integer] timeout_ms The number of `ms` Appium should wait for the script to finish
+        # @param [Integer] timeout_ms The number of +ms+ Appium should wait for the script to finish
         #                          before killing it due to timeout.
         #
         # @return [Appium::Core::Base::Device::ExecuteDriver::Result] The script result parsed by

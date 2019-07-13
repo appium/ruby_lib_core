@@ -113,7 +113,7 @@ module Appium
           end
 
           # Performs images matching to calculate the similarity score between them
-          # with default options. The flow there is similar to the one used in `find_image_occurrence`
+          # with default options. The flow there is similar to the one used in +find_image_occurrence+
           # but it is mandatory that both images are of equal size.
           #
           # @param [String] first_image An image data. All image formats, that OpenCV library itself accepts, are supported.
@@ -140,14 +140,14 @@ module Appium
           # It is expected that both OpenCV framework and opencv4nodejs
           # module are installed on the machine where Appium server is running.
           #
-          # @param [Symbol] mode One of possible comparison modes: `:matchFeatures`, `:getSimilarity`, `:matchTemplate`.
-          #                      `:matchFeatures is by default.
+          # @param [Symbol] mode One of possible comparison modes: +:matchFeatures+, +:getSimilarity+, +:matchTemplate+.
+          #                      +:matchFeatures is by default.
           # @param [String] first_image An image data. All image formats, that OpenCV library itself accepts, are supported.
           # @param [String] second_image An image data. All image formats, that OpenCV library itself accepts, are supported.
-          # @param [Hash] options The content of this dictionary depends on the actual `mode` value.
-          #                       See the documentation on `appium-support` module for more details.
-          # @return [Hash] The content of the resulting dictionary depends on the actual `mode` and `options` values.
-          #                 See the documentation on `appium-support` module for more details.
+          # @param [Hash] options The content of this dictionary depends on the actual +mode+ value.
+          #                       See the documentation on +appium-support+ module for more details.
+          # @return [Hash] The content of the resulting dictionary depends on the actual +mode+ and +options+ values.
+          #                 See the documentation on +appium-support+ module for more details.
           #
           def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
             raise "content_type should be #{MODE}" unless MODE.member?(mode)

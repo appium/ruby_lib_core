@@ -34,7 +34,7 @@ module Appium
           # @param [string|integer] port A port number to update server_url to
           # @param [string] path A path to update server_url to
           #
-          # @return [URI] An instance of URI updated to. Returns default `server_url` if some of arguments are `nil`
+          # @return [URI] An instance of URI updated to. Returns default +server_url+ if some of arguments are +nil+
           def update_sending_request_to(scheme:, host:, port:, path:)
             return @server_url unless validate_url_param(scheme, host, port, path)
 

@@ -30,7 +30,7 @@ module Appium
           #                 Battery level in range [0.0, 1.0], where 1.0 means 100% charge. -1 is returned
           #                 if the actual value cannot be retrieved from the system.
           #                 Battery state. The following symbols are possible
-          #                 `:unknown, :charging, :discharging, :not_charging, :full`
+          #                 +:unknown, :charging, :discharging, :not_charging, :full+
           #
           # @example
           #

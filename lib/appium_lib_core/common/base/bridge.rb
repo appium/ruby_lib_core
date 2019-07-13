@@ -58,10 +58,10 @@ module Appium
 
         # Override
         # Creates session handling both OSS and W3C dialects.
-        # Copy from Selenium::WebDriver::Remote::Bridge to keep using `merged_capabilities` for Appium
+        # Copy from Selenium::WebDriver::Remote::Bridge to keep using +merged_capabilities+ for Appium
         #
-        # If `desired_capabilities` has `forceMjsonwp: true` in the capability, this bridge works with mjsonwp protocol.
-        # If `forceMjsonwp: false` or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
+        # If +desired_capabilities+ has +forceMjsonwp: true+ in the capability, this bridge works with mjsonwp protocol.
+        # If +forceMjsonwp: false+ or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
         #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] desired_capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
@@ -125,7 +125,7 @@ module Appium
           json_create(oss_status, value)
         end
 
-        # Append `appium:` prefix for Appium following W3C spec
+        # Append +appium:+ prefix for Appium following W3C spec
         # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
         #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] capabilities A capability
