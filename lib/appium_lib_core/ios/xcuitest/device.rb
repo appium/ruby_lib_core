@@ -51,7 +51,7 @@ module Appium
           #
 
           # @since Appium 1.9.1
-          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mjpeg', video_fps: nil, time_limit: '180', video_quality: 'medium', video_scale: '320:240')
+          # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: nil, force_restart: nil, video_type: 'mjpeg', video_fps: nil, time_limit: '180', video_quality: 'medium', video_scale: nil, video_filters: nil, pixel_format: nil)
           #
           # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
           # (ffmpeg utility is required: 'brew install ffmpeg').
@@ -78,12 +78,17 @@ module Appium
           # @param [String] video_quality The video encoding quality (low, medium, high, photo - defaults to medium).
           # @param [String] video_fps The Frames Per Second rate of the recorded video. Change this value if the resulting video
           #                           is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
+          # @param [String] video_filters - @since Appium 1.15.0
+          #                                 The ffmpeg video filters to apply. These filters allow to scale, flip, rotate and do many
+          #                                 other useful transformations on the source video stream. The format of the property
+          #                                 must comply with https://ffmpeg.org/ffmpeg-filters.html
+          #                                 e.g.: "rotate=90"
           # @param [String] video_scale The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
           #                             No scale is applied by default.
           #                             tips: ffmpeg cannot capture video as `libx264` if the video dimensions is not divisible by 2.
-          #                             Then, you can set this scale as `scale=trunc(iw/2)*2:trunc(ih/2)*2`
-          #                             https://github.com/appium/appium/issues/12856
-          #                             https://www.reddit.com/r/linux4noobs/comments/671z6b/width_not_divisible_by_2_error_when_using_ffmpeg/
+          #                             Then, you can set this scale as +scale=trunc(iw/2)*2:trunc(ih/2)*2+
+          #                             - https://github.com/appium/appium/issues/12856
+          #                             - https://www.reddit.com/r/linux4noobs/comments/671z6b/width_not_divisible_by_2_error_when_using_ffmpeg/
           # @param [String] pixel_format Output pixel format. Run `ffmpeg -pix_fmts` to list possible values.
           #                              For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264".
           #
