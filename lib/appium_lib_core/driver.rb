@@ -51,7 +51,7 @@ module Appium
         @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
 
         # to pass it in Selenium.new.
-        # `listener = opts.delete(:listener)` is called in Selenium::Driver.new
+        # 'listener = opts.delete(:listener)' is called in Selenium::Driver.new
         @listener = appium_lib_opts.fetch :listener, nil
       end
 
@@ -184,9 +184,9 @@ module Appium
       #
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     # format 2. `desired_capabilities:` is also available instead of `caps:`. Either is fine.
+      #     # format 2. 'desired_capabilities:' is also available instead of 'caps:'. Either is fine.
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}, appium_lib: {...}
-      #     # format 3. `appium_lib: {...}` can be blank
+      #     # format 3. 'appium_lib: {...}' can be blank
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}
       #
       #
@@ -211,11 +211,11 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core.start_driver # Connect to `http://127.0.0.1:8080/wd/hub` because of `port: 8080`
+      #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
+      #     @core.start_driver # Connect to 'http://127.0.0.1:8080/wd/hub' because of 'port: 8080'
       #
       #     # Start iOS driver with .zip file over HTTP
-      #     #  `desired_capabilities:` is also available instead of `caps:`. Either is fine.
+      #     #  'desired_capabilities:' is also available instead of 'caps:'. Either is fine.
       #     opts = {
       #              desired_capabilities: {
       #                platformName: :ios,
@@ -234,9 +234,9 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts)
-      #     @core.start_driver # Connect to `http://custom-host:8080/wd/hub.com`
+      #     @core.start_driver # Connect to 'http://custom-host:8080/wd/hub.com'
       #
-      #     # Start iOS driver as another format. `url` is available like below
+      #     # Start iOS driver as another format. 'url' is available like below
       #     opts = {
       #              url: "http://custom-host:8080/wd/hub.com",
       #              desired_capabilities: {
@@ -254,8 +254,8 @@ module Appium
       #                listener: nil,
       #              }
       #            }
-      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      #     @core.start_driver # start driver with `url`. Connect to `http://custom-host:8080/wd/hub.com`
+      #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
+      #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub.com'
       #
       def self.for(opts = {})
         new(opts)
@@ -274,7 +274,7 @@ module Appium
       # @private
       def initialize(opts = {})
         @delegate_target = self # for testing purpose
-        @automation_name = nil # initialise before `set_automation_name`
+        @automation_name = nil # initialise before 'set_automation_name'
 
         opts = Appium.symbolize_keys opts
         validate_keys(opts)
@@ -325,7 +325,7 @@ module Appium
       #              }
       #            }
       #
-      #     @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
+      #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
       #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub"
       #
       #     # Attach custom HTTP client
@@ -421,7 +421,7 @@ module Appium
       #         }
       #     }
       #
-      # Returns blank hash for Selenium Grid since `remote_status` gets 500 error
+      # Returns blank hash for Selenium Grid since 'remote_status' gets 500 error
       #
       # @example
       #
@@ -456,7 +456,7 @@ module Appium
       # @example
       #
       #   @core.screenshot '/tmp/hi.png' #=> nil
-      #   # same as `@driver.save_screenshot png_save_path`
+      #   # same as '@driver.save_screenshot png_save_path'
       #
       def screenshot(png_save_path)
         ::Appium::Logger.warn '[DEPRECATION] screenshot will be removed. Please use driver.save_screenshot instead.'
@@ -541,7 +541,7 @@ module Appium
 
       # @private
       # Path to the .apk, .app or .app.zip.
-      # The path can be local, HTTP/S, Windows Share and other path like `sauce-storage:`.
+      # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
         return unless @caps && @caps[:app] && !@caps[:app].empty?

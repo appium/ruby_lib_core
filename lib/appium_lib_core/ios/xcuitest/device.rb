@@ -96,7 +96,7 @@ module Appium
           #
           #    @driver.start_recording_screen
           #    @driver.start_recording_screen video_type: 'mjpeg', time_limit: '260'
-          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get +.mp4+ video
+          #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get '.mp4' video
           #
 
           # @since Appium 1.3.4
@@ -188,7 +188,7 @@ module Appium
               ::Appium::Core::Device.add_endpoint_method(:background_app) do
                 def background_app(duration = 0)
                   # https://github.com/appium/ruby_lib/issues/500, https://github.com/appium/appium/issues/7741
-                  # `execute :background_app, {}, seconds: { timeout: duration_milli_sec }` works over Appium 1.6.4
+                  # 'execute :background_app, {}, seconds: { timeout: duration_milli_sec }' works over Appium 1.6.4
                   duration_milli_sec = duration.nil? ? nil : duration * 1000
                   execute :background_app, {}, seconds: { timeout: duration_milli_sec }
                 end

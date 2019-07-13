@@ -57,9 +57,9 @@ module Appium
         #
         # @example
         #
-        #     driver = core.start_driver server_url: 'http://example1.com:8000/wd/hub # @bridge.http is for `http://example1.com:8000/wd/hub/`
+        #     driver = core.start_driver server_url: 'http://example1.com:8000/wd/hub # @bridge.http is for 'http://example1.com:8000/wd/hub/'
         #     driver.update_sending_request_to protocol: 'https', host: 'example2.com', port: 9000, path: '/wd/hub'
-        #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for `https://example2.com:9000/wd/hub/`
+        #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for 'https://example2.com:9000/wd/hub/'
         #
         def update_sending_request_to(protocol:, host:, port:, path:)
           @bridge.http.update_sending_request_to(scheme: protocol,
@@ -312,7 +312,7 @@ module Appium
         #
         #   result = @driver.within_context('NATIVE_APP') do
         #     @driver.find_element :tag, "button"
-        #   end # The result of `find_element :tag, "button"`
+        #   end # The result of 'find_element :tag, "button"'
         #
         def within_context(context)
           block_given? ? @bridge.within_context(context, &Proc.new) : @bridge.within_context(context)
@@ -732,7 +732,7 @@ module Appium
         #
         #    # iOS
         #    @driver.start_recording_screen video_type: 'libx264'
-        #    @driver.stop_and_save_recording_screen 'example.mp4' # Video type `libx264` can be play as `.mp4` video
+        #    @driver.stop_and_save_recording_screen 'example.mp4' # Video type 'libx264' can be play as '.mp4' video
         #
         #    # Android
         #    @driver.start_recording_screen
@@ -801,7 +801,7 @@ module Appium
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f2.create_pointer_up(:left)
         #
-        #    @driver.perform_actions [f1, f2] #=> `nil` if the action succeed
+        #    @driver.perform_actions [f1, f2] #=> 'nil' if the action succeed
         #
         def perform_actions(data)
           raise ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
@@ -1040,7 +1040,7 @@ module Appium
         #     @@driver.update_settings({ fixImageFindScreenshotDims: false, fixImageTemplateSize: true,
         #                                autoUpdateImageElementPosition: true })
         #     e = @@driver.find_elements_by_image ['./test/functional/data/test_element_image.png']
-        #     e == [] # if the `e` is empty
+        #     e == [] # if the 'e' is empty
         #
         def find_elements_by_image(img_path)
           template = Base64.strict_encode64 File.read img_path
@@ -1074,8 +1074,8 @@ module Appium
         #      SCRIPT
         #      r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout: 10_000)
         #      r        #=> An instance of Appium::Core::Base::Device::ExecuteDriver::Result
-        #      r.result #=> The `result` key part as the result of the script
-        #      r.logs   #=> The `logs` key part as `{'log' => [], 'warn' => [], 'error' => []}`
+        #      r.result #=> The 'result' key part as the result of the script
+        #      r.logs   #=> The 'logs' key part as '{'log' => [], 'warn' => [], 'error' => []}'
         #
         def execute_driver(script: '', type: 'webdriverio', timeout_ms: nil)
           @bridge.execute_driver(script: script, type: type, timeout_ms: timeout_ms)

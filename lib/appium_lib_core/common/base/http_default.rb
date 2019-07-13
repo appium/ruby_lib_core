@@ -40,7 +40,7 @@ module Appium
 
             ::Appium::Logger.debug("[experimental] This feature, #{__method__}, is an experimental")
 
-            # Add / if `path` does not have it
+            # Add / if 'path' does not have it
             path = path.start_with?('/') ? path : "/#{path}"
             path = path.end_with?('/') ? path : "#{path}/"
 
