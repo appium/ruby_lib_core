@@ -5,6 +5,8 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `video_filters` argument for `start_recording_screen` iOS
+    - It is available over Appium 1.15.0
 
 ### Bug fixes
 
