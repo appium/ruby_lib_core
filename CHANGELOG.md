@@ -9,6 +9,7 @@ Read `release_notes.md` for commit level details.
     - It is available over Appium 1.15.0
 
 ### Bug fixes
+- Fix wrong warning message in driver detection
 
 ### Deprecations
 - `Driver#set_immediate_value(element, *value)`
