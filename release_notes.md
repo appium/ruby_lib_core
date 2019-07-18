@@ -1,3 +1,20 @@
+#### v3.2.1 2019-07-19
+
+- [e30a905](https://github.com/appium/ruby_lib_core/commit/e30a90549ac9dd6b0019370ce6abb8a08fc88e82) Release 3.2.1
+- [48eaa01](https://github.com/appium/ruby_lib_core/commit/48eaa01c811da8d98ff28a3651d5bed70d310516) Fix check automationName youi (#230)
+- [aa0c180](https://github.com/appium/ruby_lib_core/commit/aa0c180cd4eea29888d4307d74382a240e01f7ca) update azure module
+- [67df100](https://github.com/appium/ruby_lib_core/commit/67df100c694e1a3d05abba2018d8243b94ba5f9e) Add filters for start_recording_screen, ios, tweak yardoc (#229)
+- [2129d17](https://github.com/appium/ruby_lib_core/commit/2129d1780901e9a2cff777e09e0c645e2620e16d) ci: use macOS High Sierra for iOS since it fails on macOS host (#228)
+- [307c25c](https://github.com/appium/ruby_lib_core/commit/307c25cc3286df943d740f6e8a64946ba54f66d9) add a cron schedule
+- [362405b](https://github.com/appium/ruby_lib_core/commit/362405b857fa3f36b9dfe2c745c10cd288ec577f) ci: tweak skip test cases (#226)
+- [80c2c07](https://github.com/appium/ruby_lib_core/commit/80c2c07c3a616c33a6047c87e6b911eaeabc58a0) install opencv4nodejs (#225)
+- [47dfc1a](https://github.com/appium/ruby_lib_core/commit/47dfc1adc5493ef279ac098486bf8f94ec04a56e) add npm list task (#224)
+- [3944039](https://github.com/appium/ruby_lib_core/commit/3944039413c38cda21be8e93d03461aec7f8d2f1) remove cat
+- [2d55315](https://github.com/appium/ruby_lib_core/commit/2d55315d4f2480ac04c9957a26acb090ff2faa15) move cat
+- [1555107](https://github.com/appium/ruby_lib_core/commit/15551077dc739b6d1c0b25cc8918e172c2fcaa2c) add a script to show appium dependencies on azure
+- [3c0b05c](https://github.com/appium/ruby_lib_core/commit/3c0b05c2dd508273126b7c098c77f22f2c7a54c6) move element methods (#223)
+
+
 #### v3.2.0 2019-06-27
 
 - [2f6ca23](https://github.com/appium/ruby_lib_core/commit/2f6ca23847de85fb8134f09da627391b4a66a544) Release 3.2.0
