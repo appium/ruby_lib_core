@@ -496,11 +496,14 @@ module Appium
         when :tizen
           # https://github.com/Samsung/appium-tizen-driver
           ::Appium::Logger.debug('tizen')
-        when :youiengine
-          # https://github.com/YOU-i-Labs/appium-youiengine-driver
-          ::Appium::Logger.debug('YouiEngine')
         else
-          ::Appium::Logger.warn('no device matched')
+          case automation_name
+          when :youiengine
+            # https://github.com/YOU-i-Labs/appium-youiengine-driver
+            ::Appium::Logger.debug('YouiEngine')
+          else
+            ::Appium::Logger.warn("No matched driver by platformName: #{device} and automationName: #{automation_name}")
+          end
         end
 
         self
