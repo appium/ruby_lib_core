@@ -203,6 +203,8 @@ jobs:
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
+      - script: npm install -g appium opencv4nodejs@4.17.0
+        displayName: Install opencv4nodejs@4.17.0
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb,test/functional/android/android/mjpeg_server_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
