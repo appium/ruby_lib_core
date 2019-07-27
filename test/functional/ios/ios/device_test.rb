@@ -151,7 +151,7 @@ class AppiumLibCoreTest
         # @driver.push_file path, filedata
 
         # for real device
-        # data = File.read '/Users/kazu/GitHub/ruby_lib_core/higher.png'
+        # data = File.read 'test/functional/data/test_normal.png'
         # @@driver.push_file '@com.apple.Keynote:documents/higher.png', data
       end
 
