@@ -657,14 +657,19 @@ module Appium
         end
 
         # Activate(Launch) the specified app.
+        # @param [Strong] app_id BundleId for iOS or package name for Android
+        # @param [Array] arguments Only for XCUITest. Provides 'launchArguments' to the app
+        # @param [Hash] environment Only for XCUITest. Provides 'launchEnvironment' to the app
         # @return [Hash]
         #
         # @example
         #
         #   @driver.activate_app("io.appium.bundle") #=> {}
+        #   @driver.activate_app("io.appium.bundle", arguments: ['arg1', 'arg2'],
+        #                                            environment: { 'IOS_TESTING': 'happy testing' }) #=> {}
         #
-        def activate_app(app_id)
-          @bridge.activate_app(app_id)
+        def activate_app(app_id, arguments: nil, environment: nil)
+          @bridge.activate_app(app_id, arguments: arguments, environment: environment)
         end
 
         # Terminate the specified app.
