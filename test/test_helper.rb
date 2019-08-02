@@ -116,6 +116,7 @@ class AppiumLibCoreTest
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
           reduceMotion: true,
+          processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2 # The lowest quality screenshots
         },
         appium_lib: {

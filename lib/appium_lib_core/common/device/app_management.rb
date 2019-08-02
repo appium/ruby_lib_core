@@ -62,7 +62,7 @@ module Appium
             # required: [['appId'], ['bundleId']]
             args = { appId: id }
 
-            args[:options] = {} unless keep_data.nil? || timeout.nil?
+            args[:options] = {} unless keep_data.nil? && timeout.nil?
             args[:options][:keepData] = keep_data unless keep_data.nil?
             args[:options][:timeout] = timeout unless timeout.nil?
 
@@ -78,8 +78,9 @@ module Appium
             args = { bundleId: app_id }
 
             # arguments and environment are for xcuitest
-            args[:arguments] = arguments unless arguments.nil?
-            args[:environment] = environment unless environment.nil?
+            args[:options] = {} unless arguments.nil? && environment.nil?
+            args[:options][:arguments] = arguments unless arguments.nil?
+            args[:options][:environment] = environment unless environment.nil?
 
             # required: [['appId'], ['bundleId']]
             execute :activate_app, {}, args

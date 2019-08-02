@@ -657,9 +657,15 @@ module Appium
         end
 
         # Activate(Launch) the specified app.
+        #
+        # You can provide +launchArguments+ and +launchEnvironment+ for XCUITest.
+        # Please ensure the target app is not running before applying them since
+        # they cannot work if the target app was running.
+        #
+        #
         # @param [Strong] app_id BundleId for iOS or package name for Android
-        # @param [Array] arguments Only for XCUITest. Provides 'launchArguments' to the app
-        # @param [Hash] environment Only for XCUITest. Provides 'launchEnvironment' to the app
+        # @param [Array] arguments Only for XCUITest. Provides +launchArguments+ to the app
+        # @param [Hash] environment Only for XCUITest. Provides +launchEnvironment+ to the app
         # @return [Hash]
         #
         # @example

@@ -5,6 +5,9 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `environment` and `arguments` args for `#activate_app` method for iOS
+    - It can apply `processArguments` capability to the test app
+    - Make sure the test app is terminated before apply it 
 
 ### Bug fixes
 
