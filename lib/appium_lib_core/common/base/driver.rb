@@ -675,7 +675,7 @@ module Appium
         #                                            environment: { 'IOS_TESTING': 'happy testing' }) #=> {}
         #
         def activate_app(app_id, arguments: nil, environment: nil)
-          @bridge.activate_app(app_id, arguments: arguments, environment: environment)
+          @bridge.activate_app(app_id, { arguments: arguments, environment: environment })
         end
 
         # Terminate the specified app.

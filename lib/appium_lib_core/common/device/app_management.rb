@@ -74,7 +74,8 @@ module Appium
             execute :app_installed?, {}, bundleId: app_id
           end
 
-          def activate_app(app_id)
+          def activate_app(app_id, _opts)
+            # _opts is used by XCTest so far
             # required: [['appId'], ['bundleId']]
             execute :activate_app, {}, { bundleId: app_id }
           end
