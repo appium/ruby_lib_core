@@ -171,6 +171,16 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/device/remove_app", times: 1)
           end
 
+          def test_remove_app_with_only_keepdata
+            stub_request(:post, "#{SESSION}/appium/device/remove_app")
+              .with(body: { appId: 'com.app.id', options: { keepData: false } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.remove_app 'com.app.id', keep_data: false
+
+            assert_requested(:post, "#{SESSION}/appium/device/remove_app", times: 1)
+          end
+
           def test_app_installed?
             stub_request(:post, "#{SESSION}/appium/device/app_installed")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)

@@ -116,6 +116,7 @@ class AppiumLibCoreTest
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
           reduceMotion: true,
+          processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2 # The lowest quality screenshots
         },
         appium_lib: {
@@ -223,13 +224,13 @@ class AppiumLibCoreTest
           systemPort: system_port,
           language: 'en',
           locale: 'US',
-          adbExecTimeout: 10_000, # 10 sec
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
           chromeOptions: {
             args: ['--disable-popup-blocking']
           },
+          adbExecTimeout: 60_000, # ms
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {

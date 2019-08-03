@@ -131,6 +131,19 @@ class AppiumLibCoreTest
         assert @@driver.terminate_app('com.example.apple-samplecode.UICatalog')
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :not_running
 
+        @@driver.execute_script('mobile: launchApp',
+                                {
+                                  bundleId: 'com.example.apple-samplecode.UICatalog',
+                                  arguments: %w(arg1 arg2),
+                                  environment: { 'IOS_TESTING': 'happy testing' }
+                                })
+
+        # add check the arguments
+        # pa = @driver.execute_script('mobile: deviceInfo', {})['currentActiveApplication']['processArguments']
+        # assert pa['args'] == ['arg1', 'arg2']
+        # assert pa['env'] == { 'IOS_TESTING': 'happy testing' }
+        # assert pa['bundleId'] == 'com.example.apple-samplecode.UICatalog'
+
         assert @@driver.activate_app('com.example.apple-samplecode.UICatalog') == {}
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
       end
