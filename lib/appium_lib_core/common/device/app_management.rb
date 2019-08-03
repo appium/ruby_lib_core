@@ -74,16 +74,9 @@ module Appium
             execute :app_installed?, {}, bundleId: app_id
           end
 
-          def activate_app(app_id, arguments: nil, environment: nil)
-            args = { bundleId: app_id }
-
-            # arguments and environment are for xcuitest
-            args[:options] = {} unless arguments.nil? && environment.nil?
-            args[:options][:arguments] = arguments unless arguments.nil?
-            args[:options][:environment] = environment unless environment.nil?
-
+          def activate_app(app_id)
             # required: [['appId'], ['bundleId']]
-            execute :activate_app, {}, args
+            execute :activate_app, {}, { bundleId: app_id }
           end
 
           def terminate_app(app_id, timeout: nil)

@@ -194,6 +194,20 @@ module Appium
                 end
               end
 
+              # Xcuitest, Override included method in bridge
+              ::Appium::Core::Device.add_endpoint_method(:activate_app) do
+                def activate_app(app_id, arguments: nil, environment: nil)
+                  args = { bundleId: app_id }
+
+                  args[:options] = {} unless arguments.nil? && environment.nil?
+                  args[:options][:arguments] = arguments unless arguments.nil?
+                  args[:options][:environment] = environment unless environment.nil?
+
+                  # required: [['appId'], ['bundleId']]
+                  execute :activate_app, {}, args
+                end
+              end
+
               Performance.add_methods
               Screen.add_methods
               Battery.add_methods
