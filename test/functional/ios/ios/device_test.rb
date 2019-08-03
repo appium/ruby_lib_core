@@ -135,10 +135,10 @@ class AppiumLibCoreTest
                                      arguments: %w(arg1 arg2),
                                      environment: { 'IOS_TESTING': 'happy testing' }) == {}
         # add check the arguments
-        # info = @driver.execute_script('mobile: deviceInfo', {})
-        # assert info['processArgument']['args'] == ['arg1', 'arg2']
-        # assert info['processArgument']['env'] == { 'IOS_TESTING': 'happy testing' }
-        # assert info['processArgument']['bundleId'] == 'com.example.apple-samplecode.UICatalog'
+        # pa = @driver.execute_script('mobile: deviceInfo', {})['currentActiveApplication']['processArguments']
+        # assert pa['args'] == ['arg1', 'arg2']
+        # assert pa['env'] == { 'IOS_TESTING': 'happy testing' }
+        # assert pa['bundleId'] == 'com.example.apple-samplecode.UICatalog'
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
       end
 
