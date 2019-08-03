@@ -62,7 +62,7 @@ module Appium
             # required: [['appId'], ['bundleId']]
             args = { appId: id }
 
-            args[:options] = {} unless keep_data.nil? || timeout.nil?
+            args[:options] = {} unless keep_data.nil? && timeout.nil?
             args[:options][:keepData] = keep_data unless keep_data.nil?
             args[:options][:timeout] = timeout unless timeout.nil?
 
