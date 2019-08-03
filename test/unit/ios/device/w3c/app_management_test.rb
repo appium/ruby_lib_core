@@ -40,7 +40,7 @@ class AppiumLibCoreTest
           def test_activate_app_with_env
             skip unless @core.automation_name == :xcuitest
 
-              stub_request(:post, "#{SESSION}/appium/device/activate_app")
+            stub_request(:post, "#{SESSION}/appium/device/activate_app")
               .with(body: { bundleId: 'com.app.id', options: { environment: { IOS_TESTING: 'happy testing' } } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
