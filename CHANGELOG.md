@@ -8,6 +8,16 @@ Read `release_notes.md` for commit level details.
 
 ### Bug fixes
 
+### Deprecations
+
+## [3.2.2] - 2019-08-04
+
+### Enhancements
+
+### Bug fixes
+- Fixed parameters of `remove_app`
+
+### Deprecations
 
 ## [3.2.1] - 2019-07-19
 
