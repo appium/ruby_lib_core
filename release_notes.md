@@ -1,3 +1,10 @@
+#### v3.2.2 2019-08-04
+
+- [9679bb0](https://github.com/appium/ruby_lib_core/commit/9679bb0ef49435e8afd7a5688e90ca74447dbbd6) Release 3.2.2
+- [73b2fd7](https://github.com/appium/ruby_lib_core/commit/73b2fd7cd803e55e8df23252b0d9be2ca7d4d747) tweak ci env, fix a control flow (#232)
+- [9951695](https://github.com/appium/ruby_lib_core/commit/99516950f88c123107f3ee94325a5f64f4985b1d) replace the path
+
+
 #### v3.2.1 2019-07-19
 
 - [e30a905](https://github.com/appium/ruby_lib_core/commit/e30a90549ac9dd6b0019370ce6abb8a08fc88e82) Release 3.2.1
