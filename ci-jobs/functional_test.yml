@@ -1,8 +1,8 @@
 # jobs for functional test
 parameters:
   vmImage: 'macOS-10.14'
-  vmImageForIOS: 'macOS-10.13' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
-  xcodeForIOS: 10.1
+  vmImageForIOS: 'macOS-10.14' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
+  xcodeForIOS: 10.2
   xcodeForTVOS: 10.2
   androidSDK: 28
   appiumVersion: 'beta'
