@@ -268,7 +268,7 @@ class AppiumLibCoreTest
           browserName: :chrome,
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-          chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
+          chromeOptions: { androidPackage: 'com.android.chrome', args: %w(--disable-fre --disable-popup-blocking)},
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
