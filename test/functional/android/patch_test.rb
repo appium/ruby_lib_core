@@ -21,9 +21,6 @@ class AppiumLibCoreTest
     def setup
       @@core ||= ::Appium::Core.for(Caps.android)
       @driver = @@core.start_driver # Launch test servers without calling delete session before a new create session
-
-      require 'pry'
-      binding.pry
     end
 
     def teardown

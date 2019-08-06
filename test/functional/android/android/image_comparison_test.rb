@@ -161,6 +161,7 @@ class AppiumLibCoreTest
         @driver.back
       end
 
+      # tested only Android side since the logic is the same in cross platform
       def test_template_scale_ratio
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
