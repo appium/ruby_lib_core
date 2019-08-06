@@ -28,20 +28,20 @@ class AppiumLibCoreTest
 
       def test_select_picker_wheel
         @driver = @core.start_driver
-        @driver.find_element(:id, 'Pickers').click
+        @driver.find_element(:id, 'Picker View').click
 
         elements = @driver.find_elements :class, 'XCUIElementTypePickerWheel'
-        assert_equal 'John Appleseed', elements[0].value
+        assert_equal '65', elements[0].value
 
         args = { element: elements[0].ref, order: :next }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
         # 'Chris Armstrong' is the next. 'Serena Auroux' is 2 steps next.
         # iOS 13.0 selects 'chris armstrong' (expected) while iOS 12.x selects 'Serena Auroux' sometimes
-        assert ['Chris Armstrong', 'Serena Auroux'].include?(elements[0].value)
+        assert %w(70 75).include?(elements[0].value)
 
         args = { element: elements[0].ref, order: :previous }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
-        assert_equal 'John Appleseed', elements[0].value
+        assert_equal '65', elements[0].value
       end
 
       def test_pasteboard

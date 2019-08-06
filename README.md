@@ -69,7 +69,7 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/android -n 3
 ```
 
 ##### iOS
-- Create iPhone simulators named `iPhone 8 - 8100` and `iPhone 8 - 8101`
+- Create iPhone simulators named `iPhone Xs Max- 8100` and `iPhone Xs Max - 8101`
 - Run iOS functional tests with below command
 
 ```

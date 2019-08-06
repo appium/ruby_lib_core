@@ -95,7 +95,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name == :tvos ? '12.2' : '12.1'
+      platform_version = platform_name == :tvos ? '12.2' : '12.4'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -116,6 +116,7 @@ class AppiumLibCoreTest
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
           reduceMotion: true,
+          orientation: 'PORTRAIT', # only for simulator
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2 # The lowest quality screenshots
         },
@@ -129,9 +130,9 @@ class AppiumLibCoreTest
       if ENV['BUNDLE_ID'].nil?
         cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
-                             'test/functional/app/tv-example.zip'
+                             "#{Dir.pwd}/test/functional/app/tv-example.zip"
                            else
-                             'test/functional/app/UICatalog.app.zip'
+                             "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
@@ -152,7 +153,7 @@ class AppiumLibCoreTest
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        parallel? ? "iPhone 8 - #{wda_local_port}" : 'iPhone 8'
+        parallel? ? "iPhone Xs Max - #{wda_local_port}" : 'iPhone Xs Max'
       end
     end
 
@@ -268,7 +269,7 @@ class AppiumLibCoreTest
           browserName: :chrome,
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-          chromeOptions: { androidPackage: 'com.android.chrome', args: ['--disable-popup-blocking'] },
+          chromeOptions: { androidPackage: 'com.android.chrome', args: %w(--disable-fre --disable-popup-blocking) },
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/

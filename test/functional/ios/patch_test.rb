@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'functional/common_w3c_actions'
 
 # $ rake test:func:ios TEST=test/functional/ios/patch_test.rb
 # rubocop:disable Style/ClassVars
@@ -36,38 +37,38 @@ class AppiumLibCoreTest
     end
 
     def test_type
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
-      e.click
+      w3c_scroll @@driver
 
-      text = @@core.wait { @@driver.find_element :name, '<enter text>' }
+      @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
+
+      text = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
       text.type 'hello'
 
-      text = @@core.wait { @@driver.find_element :name, 'Normal' }
-
-      assert_equal 'hello', text.value
-      assert_equal 'Normal', text.name
+      e = @@core.wait { @@driver.find_element :name, 'hello' }
+      assert_equal 'hello', e.value
 
       @@driver.back
     end
 
     def test_location_rel
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
+      e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
       location = e.location_rel @@driver
 
-      assert_equal '65.5 / 375.0', location.x # Actual: "56.0 / 320.0" ?? on iOS13?
-      assert_equal '196.5 / 667.0', location.y
+      assert_equal '74.5 / 414.0', location.x
+      assert_equal '411.0 / 896.0', location.y
     end
 
     def test_immediate_value
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
-      e.click
+      w3c_scroll @@driver
 
-      text = @@core.wait { @@driver.find_element :name, '<enter text>' }
+      @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
+
+      text = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
       text.immediate_value('hello')
 
-      text = @@core.wait { @@driver.find_element :name, 'Normal' }
+      text = @@core.wait { @@driver.find_element :name, 'hello' }
       assert_equal 'hello', text.value
-      assert_equal 'Normal', text.name
+
       @@driver.back
     end
   end

@@ -60,7 +60,7 @@ class AppiumLibCoreTest
     def test_click_back
       skip_as_appium_version '1.8.0' # 1.7.2- have a bit different behaviour
 
-      e = @@driver.find_element :accessibility_id, 'Alerts'
+      e = @@driver.find_element :accessibility_id, 'Alert Views'
       e.click
       sleep 1 # wait for animation
       error = assert_raises do
