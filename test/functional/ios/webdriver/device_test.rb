@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'functional/common_w3c_actions'
 
 # $ rake test:func:ios TEST=test/functional/ios/webdriver/device_test.rb
 # rubocop:disable Style/ClassVars
@@ -41,20 +42,16 @@ class AppiumLibCoreTest
       # TODO: replave_value
 
       def test_set_immediate_value
-        @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }.click
+        w3c_scroll @@driver
 
-        # FIXME?: Failed to find an element with Xcode 11 x iOS 12.1
-        e = @@core.wait { @@driver.find_element :name, '<enter text>' }
+        @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
+
+        e = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
         e.click
-        # FIXME?: Below happens if software keyboard is toggled off on simulator. Can we force enable them?
-        # Selenium::WebDriver::Error::ElementNotInteractableError: The element '"Normal" TextField' is not visible on
-        # the screen and thus is not interactable
-        # The visibility is false...
         @@driver.set_immediate_value e, 'hello'
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
-        assert_equal 'Normal', e.name
         assert_equal 'hello', e.value
 
         @@driver.back
@@ -105,10 +102,10 @@ class AppiumLibCoreTest
       end
 
       def test_accept_alert
-        @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
-        @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, 'Alert Views' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, 'Okay / Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
+        @@core.wait { assert @@driver.switch_to.alert.text.start_with?('A Short Title Is Best') }
         assert @@driver.switch_to.alert.accept
 
         @@driver.back
@@ -116,10 +113,10 @@ class AppiumLibCoreTest
 
       # NOTE: Sometimes this test fails because of getting nil in @@driver.switch_to.alert.text
       def test_dismiss_alert
-        @@core.wait { @@driver.find_element :accessibility_id, 'Alerts' }.click
-        @@core.wait { @@driver.find_element :accessibility_id, 'Show OK-Cancel' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, 'Alert Views' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, 'Okay / Cancel' }.click
 
-        @@core.wait { assert_equal 'UIActionSheet <title>', @@driver.switch_to.alert.text }
+        @@core.wait { assert @@driver.switch_to.alert.text.start_with?('A Short Title Is Best') }
         assert @@driver.switch_to.alert.dismiss
 
         @@driver.back
@@ -135,10 +132,7 @@ class AppiumLibCoreTest
 
         skip_as_appium_version '1.9.0' # Error message handles over 1.9.0
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-          @@driver.rotation = :landscape
-        end
-        assert error.message.include? 'Unable To Rotate Device'
+        @@driver.rotation = :landscape
       end
 
       # TODO: add an async execuite test case

@@ -36,7 +36,7 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:name, 'Button with Image') }
+        el = @@core.wait { @@driver.find_element(:name, 'X Button') }
         rect = el.rect
         @@driver.action.click_and_hold(el).move_to_location(rect.x, rect.y + 500).release.perform
       end
@@ -45,34 +45,36 @@ class AppiumLibCoreTest
         skip if @@driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
         @@driver.action.click(el).perform
 
-        [1, 2, 3, 4, 5].each do |_value|
-          el = @@core.wait do
-            @@driver.find_element(:xpath, "//XCUIElementTypeStaticText[@name='Style Default']/parent::*")
-          end
-          visibility = el.visible
-          break if visibility == 'true'
+        [1, 2, 3].each do |_value|
+          el = @@driver.find_element(:accessibility_id, 'TINTED')
+          rect = el.rect
 
           @@driver.execute_script('mobile: scroll', direction: 'down')
+
+          break if el.rect.y < rect.y
+
+          # fail
+          assert false if value == 3
         end
+        assert true
       end
 
       def test_scroll2
         skip if @@driver.dialect == :oss
         skip_as_appium_version '1.9.0' # fix scroll actions
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Controls') }
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
         @@driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Style Gray') }
-        assert el.visible == 'false'
+        el = @@core.wait { @@driver.find_element(:accessibility_id, 'TINTED') }
+        rect = el.rect
 
         w3c_scroll @@driver
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'Style Gray') }
-        assert el.visible == 'true'
+        assert el.rect.y < rect.y
       end
     end
   end

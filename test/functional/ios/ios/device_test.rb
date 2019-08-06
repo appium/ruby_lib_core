@@ -13,6 +13,8 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'functional/common_w3c_actions'
+
 require 'base64'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/device_test.rb
@@ -20,6 +22,10 @@ require 'base64'
 class AppiumLibCoreTest
   module Ios
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
+      ALERT_VIEW = 'Alert Views'
+      ACTIVITY_INDICATORS = 'Activity Indicators'
+      TEXT_FIELD = 'Text Fields'
+
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
         @@driver = @@core.start_driver
@@ -44,9 +50,8 @@ class AppiumLibCoreTest
       end
 
       def test_shake
-        skip 'NotImplemented' if @@core.automation_name == :xcuitest
-
-        assert @@driver.shake
+        # Does not raise an error
+        @@driver.shake
       end
 
       def test_close_and_launch_app
@@ -54,8 +59,8 @@ class AppiumLibCoreTest
         assert_equal ['NATIVE_APP'], @@driver.available_contexts
 
         @@driver.launch_app
-        e = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
-        assert_equal 'TextView', e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
+        assert_equal ALERT_VIEW, e.name
       end
 
       def test_lock_unlock
@@ -68,19 +73,19 @@ class AppiumLibCoreTest
 
       def test_background_reset
         @@driver.background_app 5
-        e = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
-        assert_equal 'TextView', e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
+        assert_equal ALERT_VIEW, e.name
 
         @@driver.background_app(-1)
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
-          @@driver.find_element :accessibility_id, 'TextView'
+          @@driver.find_element :accessibility_id, ALERT_VIEW
         end
         assert 'An element could not be located on the page using the given search parameters.', error.message
 
         @@driver.reset
 
-        e = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
-        assert_equal 'TextView', e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
+        assert_equal ALERT_VIEW, e.name
       end
 
       def test_device_time
@@ -89,7 +94,9 @@ class AppiumLibCoreTest
       end
 
       def test_context_related
-        e = @@core.wait { @@driver.find_element :accessibility_id, 'Web' }
+        w3c_scroll @@driver
+
+        e = @@core.wait { @@driver.find_element :accessibility_id, 'Web View' }
         e.click
 
         webview_context = @@core.wait do
@@ -108,11 +115,11 @@ class AppiumLibCoreTest
       end
 
       def test_app_string
-        assert_equal 'Use of UISearchBar', @@driver.app_strings['SearchBarExplain']
+        assert_equal 'A Short Title Is Best', @@driver.app_strings['A Short Title Is Best']
       end
 
       def test_re_install
-        skip 'NotImplemented' if @@core.automation_name == :xcuitest
+        skip_as_appium_version '1.13.0'
 
         assert @@driver.app_installed?('com.example.apple-samplecode.UICatalog')
 
@@ -188,11 +195,11 @@ class AppiumLibCoreTest
 
       def test_touch_actions
         if @@core.automation_name == :xcuitest
-          element = @@core.wait { @@driver.find_element :accessibility_id, 'TextView' }
+          element = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
           @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.ref)
         else
           Appium::Core::TouchAction.new(@@driver)
-                                   .press(element: @@driver.find_element(:accessibility_id, 'TextView'))
+                                   .press(element: @@driver.find_element(:accessibility_id, ACTIVITY_INDICATORS))
                                    .perform
         end
 
@@ -201,17 +208,8 @@ class AppiumLibCoreTest
       end
 
       def test_swipe
-        @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }.click
-
-        el = @@core.wait { @@driver.find_element :accessibility_id, 'Gray' }
+        el = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
         rect = el.rect
-
-        Appium::Core::TouchAction
-          .new(@@driver)
-          .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 500, duration: 500)
-          .perform
-        assert rect.x == el.rect.x
-        assert rect.y == el.rect.y
 
         touch_action = Appium::Core::TouchAction
                        .new(@@driver)
@@ -233,8 +231,6 @@ class AppiumLibCoreTest
 
         assert !el.displayed? # gone
         assert rect.y > el.rect.y
-
-        @@driver.back
       end
 
       def test_touch_id
@@ -246,10 +242,12 @@ class AppiumLibCoreTest
       end
 
       def test_hidekeyboard
-        e = @@core.wait { @@driver.find_element :accessibility_id, 'TextFields' }
+        w3c_scroll @@driver
+
+        e = @@core.wait { @@driver.find_element :accessibility_id, TEXT_FIELD }
         e.click
 
-        text = @@core.wait { @@driver.find_element :name, '<enter text>' }
+        text = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
         text.click
 
         assert @@driver.find_element(:class, 'XCUIElementTypeKeyboard').displayed?
