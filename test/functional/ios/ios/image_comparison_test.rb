@@ -179,10 +179,10 @@ class AppiumLibCoreTest
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
-        @@driver.update_settings({ defaultImageTemplateScale: 4 })
+        @@driver.update_settings({ defaultImageTemplateScale: 2 })
 
         image_element = @@driver.find_element_by_image(
-          AppiumLibCoreTest.path_of('test/functional/data/test_button_image_ios_4.png')
+          AppiumLibCoreTest.path_of('test/functional/data/test_button_image_ios_2.png')
         )
         assert image_element.inspect
         assert image_element.hash
