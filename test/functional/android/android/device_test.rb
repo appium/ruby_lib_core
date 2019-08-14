@@ -50,7 +50,7 @@ class AppiumLibCoreTest
 
       def test_close_and_launch_app
         @driver.close_app
-        assert  @@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground }
+        assert(@@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground })
 
         @driver.launch_app
         e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
