@@ -50,7 +50,7 @@ class AppiumLibCoreTest
 
       def test_close_and_launch_app
         @driver.close_app
-        assert @driver.available_contexts.include?('NATIVE_APP')
+        assert  @@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground }
 
         @driver.launch_app
         e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
@@ -265,7 +265,7 @@ class AppiumLibCoreTest
       end
 
       def test_open_notifications
-        skip unless @@core.automation_name == :espresso
+        skip if @@core.automation_name == :espresso
 
         # test & comments from https://github.com/appium/appium/blob/master/test/functional/android/apidemos/notifications-specs.js#L19
         # get to the notification page
