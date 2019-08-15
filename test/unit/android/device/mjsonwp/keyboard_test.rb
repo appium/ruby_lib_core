@@ -137,8 +137,8 @@ class AppiumLibCoreTest
           ## Immediate value
           def test_set_immediate_value
             stub_request(:post, "#{SESSION}/appium/element/id/value")
-                .with(body: {value: %w(a b c ), text: 'abc' }.to_json)
-                .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+              .with(body: { value: %w(a b c ), text: 'abc' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
@@ -147,8 +147,8 @@ class AppiumLibCoreTest
 
           def test_replace_value
             stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
-                .with(body: {value: %w(a b c ), text: 'abc' }.to_json)
-                .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+              .with(body: { value: %w(a b c ), text: 'abc' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
@@ -158,7 +158,7 @@ class AppiumLibCoreTest
           ## Immediate value
           def test_set_immediate_value_text
             stub_request(:post, "#{SESSION}/appium/element/id/value")
-              .with(body: {value: %w(a b c テ ス ト), text: 'abcテスト' }.to_json)
+              .with(body: { value: %w(a b c テ ス ト), text: 'abcテスト' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
@@ -168,7 +168,7 @@ class AppiumLibCoreTest
 
           def test_replace_value_text
             stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
-              .with(body: {value: %w(a b c テ ス ト), text: 'abcテスト' }.to_json)
+              .with(body: { value: %w(a b c テ ス ト), text: 'abcテスト' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'

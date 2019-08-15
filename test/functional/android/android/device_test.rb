@@ -49,12 +49,24 @@ class AppiumLibCoreTest
       end
 
       def test_close_and_launch_app
-        @driver.close_app
-        assert(@@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground })
+        if @@core.automation_name == :espresso
+          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
+            @driver.close_app
+          end
+        else
+          @driver.close_app
+          assert(@@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground })
+        end
 
-        @driver.launch_app
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
-        assert_equal 'App', e.text
+        if @@core.automation_name == :espresso
+          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
+            @driver.launch_app
+          end
+        else
+          @driver.launch_app
+          e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+          assert_equal 'App', e.text
+        end
       end
 
       def test_lock_unlock
