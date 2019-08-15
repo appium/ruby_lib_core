@@ -45,7 +45,7 @@ class AppiumLibCoreTest
         @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
 
         e = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        e.set_immediate_value 'hello'
+        e.immediate_value 'hello'
 
         text = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
         assert_equal 'Left is besthello', text.text
