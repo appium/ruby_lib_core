@@ -149,6 +149,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
     - template: ./functional/android_setup.yml
     - template: ./functional/run_appium.yml
@@ -166,6 +172,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -183,6 +195,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -200,6 +218,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -219,6 +243,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -236,6 +266,12 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -254,6 +290,12 @@ jobs:
       AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml

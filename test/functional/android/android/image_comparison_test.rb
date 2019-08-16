@@ -85,6 +85,9 @@ class AppiumLibCoreTest
       def test_image_element
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
+        if @@core.automation_name == :espresso
+          skip 'Espresso does not support find_element since it does not support settings API'
+        end
 
         @driver.rotation = :portrait
 
@@ -124,6 +127,9 @@ class AppiumLibCoreTest
       def test_image_elements
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
+        if @@core.automation_name == :espresso
+          skip 'Espresso does not support find_element since it does not support settings API'
+        end
 
         @driver.rotation = :landscape
 
@@ -165,6 +171,7 @@ class AppiumLibCoreTest
       def test_template_scale_ratio
         skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
+        skip 'Espresso does not support settings API' if @@core.automation_name == :espresso
 
         @driver.rotation = :portrait
 

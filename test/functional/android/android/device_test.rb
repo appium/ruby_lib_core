@@ -49,12 +49,24 @@ class AppiumLibCoreTest
       end
 
       def test_close_and_launch_app
-        @driver.close_app
-        assert @driver.available_contexts.include?('NATIVE_APP')
+        if @@core.automation_name == :espresso
+          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
+            @driver.close_app
+          end
+        else
+          @driver.close_app
+          assert(@@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground })
+        end
 
-        @driver.launch_app
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
-        assert_equal 'App', e.text
+        if @@core.automation_name == :espresso
+          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
+            @driver.launch_app
+          end
+        else
+          @driver.launch_app
+          e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+          assert_equal 'App', e.text
+        end
       end
 
       def test_lock_unlock
@@ -265,7 +277,7 @@ class AppiumLibCoreTest
       end
 
       def test_open_notifications
-        skip unless @@core.automation_name == :espresso
+        skip if @@core.automation_name == :espresso
 
         # test & comments from https://github.com/appium/appium/blob/master/test/functional/android/apidemos/notifications-specs.js#L19
         # get to the notification page
