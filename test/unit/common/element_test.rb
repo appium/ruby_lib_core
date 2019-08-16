@@ -56,7 +56,7 @@ class AppiumLibCoreTest
 
     def test_immediate_value
       stub_request(:post, "#{SESSION}/appium/element/id/value")
-        .with(body: { value: %w(h e l l o), text: 'hello' }.to_json)
+        .with(body: { value: %w(h e l l o) }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
       e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
@@ -67,7 +67,7 @@ class AppiumLibCoreTest
 
     def test_replace
       stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
-        .with(body: { value: %w(h e l l o), text: 'hello' }.to_json)
+        .with(body: { value: %w(h e l l o) }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
       e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')

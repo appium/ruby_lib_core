@@ -5,7 +5,6 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Send `text` in addition to `value` for W3C in `replace_value` and `immediate_value` 
 
 ### Bug fixes
 
