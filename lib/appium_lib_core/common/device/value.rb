@@ -18,13 +18,32 @@ module Appium
       module Device
         module Value
           def set_immediate_value(element, *value)
-            keys = ::Selenium::WebDriver::Keys.encode(value)
-            execute :set_immediate_value, { id: element.ref }, value: Array(keys)
+            execute :set_immediate_value, { id: element.ref }, generate_value_and_text(value)
           end
 
           def replace_value(element, *value)
-            keys = ::Selenium::WebDriver::Keys.encode(value)
-            execute :replace_value, { id: element.ref }, value: Array(keys)
+            execute :replace_value, { id: element.ref }, generate_value_and_text(value)
+          end
+
+          private
+
+          def generate_value_and_text(*value)
+            keys = ::Selenium::WebDriver::Keys.encode(*value)
+
+            if @file_detector
+              local_files = keys.first.split("\n").map { |key| @file_detector.call(Array(key)) }.compact
+              if local_files.any?
+                keys = local_files.map { |local_file| upload(local_file) }
+                keys = Array(keys.join("\n"))
+              end
+            end
+
+            # Keep .split(//) for backward compatibility for now
+            text = keys.join('')
+
+            # FIXME: further work for W3C. Over appium 1.15.0 or later
+            # { value: text.split(//), text: text }
+            { value: text.split(//) }
           end
         end # module Value
       end # module Device

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'base64'
 require 'test_helper'
 
 # $ rake test:func:android TEST=test/functional/android/webdriver/device_test.rb
@@ -38,18 +39,20 @@ class AppiumLibCoreTest
         assert !status['build']['version'].nil?
       end
 
-      # TODO: replace_value
-
-      def test_set_immediate_value
+      def test_set_immediate_value_and_replace_value
         @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
         @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
         @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
 
         e = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        @driver.set_immediate_value e, 'hello'
+        e.immediate_value 'hello'
 
         text = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        assert_equal 'Left is besthello', text.name
+        assert_equal 'Left is besthello', text.text
+
+        text.replace_value %w(テスト hello)
+        replaced_text = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
+        assert_equal '44OG44K544OIaGVsbG/ugIA=', Base64.strict_encode64(replaced_text.text)
       end
 
       def test_page_source
