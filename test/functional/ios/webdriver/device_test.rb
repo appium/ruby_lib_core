@@ -148,6 +148,8 @@ class AppiumLibCoreTest
 
       def test_session_capability
         assert !@@driver.session_capabilities['udid'].nil?
+        # with eventTimings
+        assert @@driver.session_capabilities['events']['commands'].nil?
       end
 
       # @since Appium 1.10.0
