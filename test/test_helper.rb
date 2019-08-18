@@ -137,7 +137,7 @@ class AppiumLibCoreTest
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
                              "#{Dir.pwd}/test/functional/app/tv-example.zip"
                            else
-                             test_app platform_name
+                             test_app platform_version
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
