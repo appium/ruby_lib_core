@@ -18,9 +18,13 @@ require 'test_helper'
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
+    private
+
     def alert_view_cell
       ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
     end
+
+    public
 
     def setup
       @@core = ::Appium::Core.for(Caps.ios)
