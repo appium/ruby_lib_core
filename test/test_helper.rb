@@ -58,6 +58,10 @@ class AppiumLibCoreTest
         # rubocop:enable Style/GuardClause
       end
 
+      def ios_platform_version_over13(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -133,7 +137,7 @@ class AppiumLibCoreTest
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
                              "#{Dir.pwd}/test/functional/app/tv-example.zip"
                            else
-                             "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
+                             test_app platform_version
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
@@ -149,6 +153,15 @@ class AppiumLibCoreTest
     end
 
     private
+
+    def test_app(os_version)
+      if Gem::Version.create(os_version) >= Gem::Version.create('13.0')
+        # https://github.com/appium/ios-uicatalog/pull/15
+        "#{Dir.pwd}/test/functional/app/iOS13__UICatalog.app.zip"
+      else
+        "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
+      end
+    end
 
     def device_name(platform_name, wda_local_port)
       if platform_name.downcase == :tvos

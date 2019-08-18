@@ -22,9 +22,16 @@ require 'base64'
 class AppiumLibCoreTest
   module Ios
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
-      ALERT_VIEW = 'Alert Views'
       ACTIVITY_INDICATORS = 'Activity Indicators'
       TEXT_FIELD = 'Text Fields'
+
+      private
+
+      def alert_view_cell
+        ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+      end
+
+      public
 
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
@@ -59,8 +66,8 @@ class AppiumLibCoreTest
         assert_equal ['NATIVE_APP'], @@driver.available_contexts
 
         @@driver.launch_app
-        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
-        assert_equal ALERT_VIEW, e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
+        assert_equal alert_view_cell, e.name
       end
 
       def test_lock_unlock
@@ -73,19 +80,19 @@ class AppiumLibCoreTest
 
       def test_background_reset
         @@driver.background_app 5
-        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
-        assert_equal ALERT_VIEW, e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
+        assert_equal alert_view_cell, e.name
 
         @@driver.background_app(-1)
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
-          @@driver.find_element :accessibility_id, ALERT_VIEW
+          @@driver.find_element :accessibility_id, alert_view_cell
         end
         assert 'An element could not be located on the page using the given search parameters.', error.message
 
         @@driver.reset
 
-        e = @@core.wait { @@driver.find_element :accessibility_id, ALERT_VIEW }
-        assert_equal ALERT_VIEW, e.name
+        e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
+        assert_equal alert_view_cell, e.name
       end
 
       def test_device_time
@@ -116,7 +123,8 @@ class AppiumLibCoreTest
       end
 
       def test_app_string
-        assert_equal 'A Short Title Is Best', @@driver.app_strings['A Short Title Is Best']
+        default_lang = ios_platform_version_over13(@@driver) ? 'Base' : 'en'
+        assert_equal 'A Short Title Is Best', @@driver.app_strings(default_lang)['A Short Title Is Best']
       end
 
       def test_re_install
@@ -204,7 +212,6 @@ class AppiumLibCoreTest
                                    .perform
         end
 
-        @@core.wait { @@driver.find_element :accessibility_id, 'Back' }
         @@driver.back
       end
 
@@ -230,8 +237,8 @@ class AppiumLibCoreTest
         touch_action.perform
         assert_equal [], touch_action.actions
 
-        assert !el.displayed? # gone
-        assert rect.y > el.rect.y
+        # If test target has long height, el should be equal
+        assert rect.y >= el.rect.y
       end
 
       def test_touch_id

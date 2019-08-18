@@ -20,6 +20,18 @@ require 'functional/common_w3c_actions'
 class AppiumLibCoreTest
   module WebDriver
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
+      private
+
+      def alert_view_cell
+        ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+      end
+
+      def okay_cancel_cell
+        ios_platform_version_over13(@@driver) ? 'OK / Cancel' : 'Okay / Cancel'
+      end
+
+      public
+
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
         @@driver = @@core.start_driver
@@ -102,10 +114,10 @@ class AppiumLibCoreTest
       end
 
       def test_accept_alert
-        @@core.wait { @@driver.find_element :accessibility_id, 'Alert Views' }.click
-        @@core.wait { @@driver.find_element :accessibility_id, 'Okay / Cancel' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }.click
+        @@core.wait { @@driver.find_element :accessibility_id, okay_cancel_cell }.click
 
-        @@core.wait { assert @@driver.switch_to.alert.text.start_with?('A Short Title Is Best') }
+        @@core.wait { assert @@driver.switch_to.alert.text.downcase.start_with?('A Short Title Is Best'.downcase) }
         assert @@driver.switch_to.alert.accept
 
         @@driver.back
@@ -113,10 +125,10 @@ class AppiumLibCoreTest
 
       # NOTE: Sometimes this test fails because of getting nil in @@driver.switch_to.alert.text
       def test_dismiss_alert
-        @@core.wait { @@driver.find_element :accessibility_id, 'Alert Views' }.click
-        @@core.wait { @@driver.find_element :accessibility_id, 'Okay / Cancel' }.click
+        @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }.click
+        @@core.wait { @@driver.find_element :accessibility_id, okay_cancel_cell }.click
 
-        @@core.wait { assert @@driver.switch_to.alert.text.start_with?('A Short Title Is Best') }
+        @@core.wait { assert @@driver.switch_to.alert.text.downcase.start_with?('A Short Title Is Best'.downcase) }
         assert @@driver.switch_to.alert.dismiss
 
         @@driver.back
@@ -149,7 +161,7 @@ class AppiumLibCoreTest
       def test_session_capability
         assert !@@driver.session_capabilities['udid'].nil?
         # with eventTimings
-        assert @@driver.session_capabilities['events']['commands'].nil?
+        assert !@@driver.session_capabilities['events']['commands'].nil?
       end
 
       # @since Appium 1.10.0
