@@ -18,6 +18,10 @@ require 'test_helper'
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
+    def alert_view_cell
+      ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+    end
+
     def setup
       @@core = ::Appium::Core.for(Caps.ios)
       @@driver = @@core.start_driver
@@ -60,7 +64,7 @@ class AppiumLibCoreTest
     def test_click_back
       skip_as_appium_version '1.8.0' # 1.7.2- have a bit different behaviour
 
-      e = @@driver.find_element :accessibility_id, 'Alert Views'
+      e = @@driver.find_element :accessibility_id, alert_view_cell
       e.click
       sleep 1 # wait for animation
       error = assert_raises do
