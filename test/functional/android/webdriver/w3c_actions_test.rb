@@ -88,11 +88,11 @@ class AppiumLibCoreTest
         action_builder
           .move_to(el)
           .pointer_down(:left)
-          .pause(input, 0.05) # seconds
+          .pause(input, 0.06) # seconds
           .pointer_up(:left)
-          .pause(input, 0.05) # seconds
+          .pause(input, 0.06) # seconds
           .pointer_down(:left)
-          .pause(input, 0.05) # seconds
+          .pause(input, 0.06) # seconds
           .pointer_up(:left)
           .perform
         assert_equal 'ON', el.text
@@ -144,7 +144,9 @@ class AppiumLibCoreTest
             .action
             .move_to(element)
             .pointer_down(:left) # should insert pause
+            .pause(input, 0.06) # seconds
             .pointer_down(:left)
+            .pause(input, 0.06) # seconds
             .pointer_down(:left)
             .move_to_location(0, rect.y - rect.height)
             .release
