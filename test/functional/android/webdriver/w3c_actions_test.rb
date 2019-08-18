@@ -101,7 +101,7 @@ class AppiumLibCoreTest
           # Skip in espresso, since espresso brings the target element in the view on recyclerview even it is out of the view
         else
           error = assert_raises do
-            e.click
+            @driver.action.double_click(el).perform
           end
           assert [::Selenium::WebDriver::Error::UnknownError,
                   ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
@@ -141,7 +141,7 @@ class AppiumLibCoreTest
       end
 
       def _uiautomator2_do_actions_with_many_down_up(element, rect)
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+        error = assert_raises do
           action_builder = @driver.action
           input = action_builder.pointer_inputs[0]
           @driver
@@ -158,6 +158,9 @@ class AppiumLibCoreTest
             .release
             .perform
         end
+        assert [::Selenium::WebDriver::Error::UnknownError,
+                ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
+        assert error.message.include?('You cannot perform')
         assert error.message.include?('You cannot perform')
       end
 
