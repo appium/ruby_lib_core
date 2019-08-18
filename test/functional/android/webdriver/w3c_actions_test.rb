@@ -105,7 +105,6 @@ class AppiumLibCoreTest
           end
           assert [::Selenium::WebDriver::Error::UnknownError,
                   ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
-          assert error.message.include?('You cannot perform')
         end
       end
 
@@ -160,8 +159,6 @@ class AppiumLibCoreTest
         end
         assert [::Selenium::WebDriver::Error::UnknownError,
                 ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
-        assert error.message.include?('You cannot perform')
-        assert error.message.include?('You cannot perform')
       end
 
       # Note: Works with Espresso Driver
