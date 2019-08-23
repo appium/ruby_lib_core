@@ -95,8 +95,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
-    - script: npm install -g opencv4nodejs@4.17.0
-      displayName: Install opencv4nodejs@4.17.0
+    - script: npm install -g opencv4nodejs@5.1.0
+      displayName: Install opencv4nodejs@5.1.0
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/image_comparison_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
@@ -227,8 +227,8 @@ jobs:
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
-      - script: npm install -g opencv4nodejs@4.17.0
-        displayName: Install opencv4nodejs@4.17.0
+      - script: npm install -g opencv4nodejs@5.1.0
+        displayName: Install opencv4nodejs@5.1.0
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb,test/functional/android/android/mjpeg_server_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
