@@ -160,7 +160,7 @@ class AppiumLibCoreTest
         # assert info['processArguments']['env'] == { 'IOS_TESTING': 'happy testing' }
         # assert info['bundleId'] == 'com.example.apple-samplecode.UICatalog'
 
-        assert @@driver.activate_app('com.example.apple-samplecode.UICatalog') == {}
+        @@driver.activate_app('com.example.apple-samplecode.UICatalog')
         assert @@driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
       end
 

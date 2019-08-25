@@ -118,8 +118,9 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, okay_cancel_cell }.click
 
         @@core.wait { assert @@driver.switch_to.alert.text.downcase.start_with?('A Short Title Is Best'.downcase) }
-        assert @@driver.switch_to.alert.accept
+        @@driver.switch_to.alert.accept
 
+        @@core.wait { assert_raises(Selenium::WebDriver::Error::NoSuchAlertError) { @@driver.switch_to.alert } }
         @@driver.back
       end
 
@@ -129,8 +130,9 @@ class AppiumLibCoreTest
         @@core.wait { @@driver.find_element :accessibility_id, okay_cancel_cell }.click
 
         @@core.wait { assert @@driver.switch_to.alert.text.downcase.start_with?('A Short Title Is Best'.downcase) }
-        assert @@driver.switch_to.alert.dismiss
+        @@driver.switch_to.alert.dismiss
 
+        @@core.wait { assert_raises(Selenium::WebDriver::Error::NoSuchAlertError) { @@driver.switch_to.alert } }
         @@driver.back
       end
 
