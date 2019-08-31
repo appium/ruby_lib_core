@@ -95,9 +95,7 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
-    - script: npm install -g opencv4nodejs@4.17.0
-      displayName: Install opencv4nodejs@4.17.0
-    - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/image_comparison_test.rb
+    - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
       parameters:
@@ -117,7 +115,7 @@ jobs:
     - script: brew install ffmpeg && brew tap wix/brew && brew install wix/brew/applesimutils
       displayName: Install ffmpeg and applesimutils
     - template: ./functional/run_appium.yml
-    - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb,test/functional/ios/ios/search_context_test.rb
+    - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
       parameters:
@@ -140,6 +138,28 @@ jobs:
     - template: ./functional/publish_test_result.yml
       parameters:
         xcodeVersion: 'Run_func_test_on_iOS_tv'
+
+# Skip since opencv4nodejs fails to install on the macOS instance
+#  - job: func_test_ios_opencv
+#    pool:
+#      vmImage: ${{ parameters.vmImageForIOS }}
+#    variables:
+#      CI: ${{ parameters.ci }}
+#      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+#      APPIUM_VERSION: ${{ parameters.appiumVersion }}
+#    steps:
+#      - template: ./functional/ios_setup.yml
+#        parameters:
+#          xcodeVersion: ${{ parameters.xcodeForIOS }}
+#      - template: ./functional/run_appium.yml
+#      - script: npm install -g opencv4nodejs@5.1.0
+#        displayName: Install opencv4nodejs@5.1.0
+#      - script: bundle exec rake test:func:ios test/functional/ios/ios/image_comparison_test.rb
+#        displayName: Run tests
+#      - template: ./functional/publish_test_result.yml
+#        parameters:
+#          xcodeVersion: 'Run_func_test_on_iOS_opencv'
+
 
   - job: func_test_android_base
     pool:
@@ -227,38 +247,13 @@ jobs:
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
-      - script: npm install -g opencv4nodejs@4.17.0
-        displayName: Install opencv4nodejs@4.17.0
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb,test/functional/android/android/mjpeg_server_test.rb
-        displayName: Run tests
-      - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'func_test_android_android2'
-
-  - job: func_test_android_android3
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-    strategy:
-      matrix:
-        uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
-        espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
-    steps:
-      - template: ./functional/android_setup.yml
-      - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb,test/functional/android/android/search_context_test.rb
+      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb,test/functional/android/android/search_context_test.rb,test/functional/android/android/mjpeg_server_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
         parameters:
           xcodeVersion: 'func_test_android_android3'
 
-  - job: func_test_android_android4
+  - job: func_test_android_android3
     pool:
       vmImage: ${{ parameters.vmImage }}
     variables:
@@ -279,7 +274,7 @@ jobs:
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
         parameters:
-          xcodeVersion: 'func_test_android_android4'
+          xcodeVersion: 'func_test_android_android3'
 
   - job: func_test_android_mobile_command_espresso
     pool:
@@ -304,3 +299,29 @@ jobs:
       - template: ./functional/publish_test_result.yml
         parameters:
           xcodeVersion: 'func_test_android_mobile_command_espresso'
+
+# Skip since opencv4nodejs fails to install on the macOS instance
+#  - job: func_test_android_opencv
+#    pool:
+#      vmImage: ${{ parameters.vmImage }}
+#    variables:
+#      CI: ${{ parameters.ci }}
+#      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
+#      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+#      APPIUM_VERSION: ${{ parameters.appiumVersion }}
+#    strategy:
+#      matrix:
+#        uiautomator2:
+#          AUTOMATION_NAME_DROID: 'uiautomator2'
+#        espresso:
+#          AUTOMATION_NAME_DROID: 'espresso'
+#    steps:
+#      - template: ./functional/android_setup.yml
+#      - template: ./functional/run_appium.yml
+#      - script: npm install -g opencv4nodejs@5.1.0
+#        displayName: Install opencv4nodejs@5.1.0
+#      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb
+#        displayName: Run tests
+#      - template: ./functional/publish_test_result.yml
+#        parameters:
+#          xcodeVersion: 'func_test_android_android2'
