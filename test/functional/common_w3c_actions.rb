@@ -19,10 +19,10 @@ def w3c_scroll(driver)
   action_builder = driver.action
   input = action_builder.pointer_inputs[0]
   action_builder
-    .move_to_location(window.width / 2, window.width * 8 / 10)
+    .move_to_location(window.width / 2, window.height * 8 / 10)
     .pointer_down(:left)
     .pause(input, 1)
-    .move_to_location(window.width / 2, window.width / 10)
+    .move_to_location(window.width / 2, window.height / 10)
     .pause(input, 1)
     .release
     .perform
