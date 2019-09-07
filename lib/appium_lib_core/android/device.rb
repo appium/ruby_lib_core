@@ -60,6 +60,7 @@ module Appium
         # @example
         #
         #   @driver.get_system_bars
+        #   @driver.system_bars
         #
 
         # @!method get_display_density
@@ -312,6 +313,12 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:get_system_bars) do
               def get_system_bars
+                execute :get_system_bars
+              end
+            end
+            # as alias to get_system_bars
+            ::Appium::Core::Device.add_endpoint_method(:system_bars) do
+              def system_bars
                 execute :get_system_bars
               end
             end
