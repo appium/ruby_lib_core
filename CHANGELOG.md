@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `system_bars` as an alias to `get_system_bars`
 
 ### Bug fixes
 
