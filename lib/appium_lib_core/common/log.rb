@@ -41,6 +41,18 @@ module Appium
       def available_types
         @bridge.available_log_types
       end
+
+      # Add a custom log event which is collected as `@driver.session_capabilities['events']`
+      #
+      # @returns [nil]
+      # @example
+      #
+      #   @driver.logs.event vendor: 'appium', event: 'funEvent'
+      #   @driver.session_capabilities['events']['commands'] # {...., 'appium:funEvent' => [111111]}
+      #
+      def event(vendor:, event:)
+        @bridge.log_event vendor, event
+      end
     end
   end # module Core
 end # module Appium
