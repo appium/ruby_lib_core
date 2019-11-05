@@ -76,6 +76,22 @@ class AppiumLibCoreTest
 
         assert el.rect.y < rect.y
       end
+
+      def test_click_w3c_landscape
+        @@driver.rotation = :landscape
+
+        el = @@driver.find_element :name, 'Buttons'
+        @@driver.action.click(el).perform
+
+        # The view has two views
+        els_land = @@driver.find_elements :name, 'Buttons'
+        @@driver.rotation = :portrait
+
+        # The view has only one view
+        els_port = @@driver.find_elements :name, 'Buttons'
+
+        assert els_land.length > els_port.length
+      end
     end
   end
 end

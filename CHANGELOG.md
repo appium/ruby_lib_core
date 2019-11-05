@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.2.3] - 2019-09-30
+
+### Enhancements
 - Add `system_bars` as an alias to `get_system_bars`
 
 ### Bug fixes
