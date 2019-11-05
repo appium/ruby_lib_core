@@ -48,17 +48,35 @@ module Appium
       # @param [String] vendor The vendor prefix for the event
       # @param [String] event The name of event
       # @returns [nil]
+      #
       # @example
       #
       #   @driver.logs.event vendor: 'appium', event: 'funEvent'
-      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315]}
+      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => 1572957315}
       #
       #   @driver.logs.event vendor: 'appium', event: 'anotherEvent'
-      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315],
-      #                                          #          'appium:anotherEvent' => [1572959315]}
+      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315, 1572960305],
+      #                                          #          'appium:anotherEvent' => 1572959315}
       #
       def event(vendor:, event:)
         @bridge.log_event vendor, event
+      end
+
+      # Returns 'events' key and the value in <code>@driver.session_capabilities</code> if it exists
+      #
+      # @return [Hash]
+      #
+      # @example
+      #
+      #   @driver.logs.events #=> {}
+      #   @driver.logs.events #=> {'commands' => [{'cmd' => 123455, ....}], 'startTime' => 1572954894127, }
+      #
+      def events
+        session_events = @bridge.session_capabilities['events']
+
+        return {} if session_events.nil?
+
+        session_events
       end
     end
   end # module Core

@@ -7,6 +7,8 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 - Add `Logs#event` to post a custom log. `@driver.logs.event vendor: 'appium', event: 'funEvent'`
     - It can get via `@driver.session_capabilities['events']`
+- Add `Logs#events` to get events. `@driver.logs.events` is the command.
+    - It equals to  `@driver.session_capabilities['events']`
 
 ### Bug fixes
 
