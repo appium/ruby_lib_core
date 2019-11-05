@@ -24,7 +24,7 @@ module Appium
       #
       # @example
       #
-      #   @driver.logs.get "syslog" # []
+      #   @driver.logs.get 'syslog' # []
       #   @driver.logs.get :syslog # []
       #
       def get(type)
@@ -42,13 +42,20 @@ module Appium
         @bridge.available_log_types
       end
 
-      # Add a custom log event which is collected as `@driver.session_capabilities['events']`
+      # Add a custom log event which is available with <code>eventTimings</code> capabilities.
+      # The events are in a part of <code>@driver.session_capabilities['events']</code>.
       #
+      # @param [String] vendor The vendor prefix for the event
+      # @param [String] event The name of event
       # @returns [nil]
       # @example
       #
       #   @driver.logs.event vendor: 'appium', event: 'funEvent'
-      #   @driver.session_capabilities['events'] # {...., 'appium:funEvent' => [111111]}
+      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315]}
+      #
+      #   @driver.logs.event vendor: 'appium', event: 'anotherEvent'
+      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315],
+      #                                          #          'appium:anotherEvent' => [1572959315]}
       #
       def event(vendor:, event:)
         @bridge.log_event vendor, event
