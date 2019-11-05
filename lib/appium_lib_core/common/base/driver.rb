@@ -960,7 +960,6 @@ module Appium
           @bridge.session_capabilities
         end
 
-
         # Returns available sessions on the Appium server
         #
         # @return [[Hash]]

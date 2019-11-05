@@ -48,7 +48,7 @@ module Appium
       # @example
       #
       #   @driver.logs.event vendor: 'appium', event: 'funEvent'
-      #   @driver.session_capabilities['events']['commands'] # {...., 'appium:funEvent' => [111111]}
+      #   @driver.session_capabilities['events'] # {...., 'appium:funEvent' => [111111]}
       #
       def event(vendor:, event:)
         @bridge.log_event vendor, event
