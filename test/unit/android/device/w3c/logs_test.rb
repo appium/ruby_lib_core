@@ -15,7 +15,7 @@
 require 'test_helper'
 require 'webmock/minitest'
 
-# $ rake test:unit TEST=test/unit/android/device/mjsonwp/logs_test.rb
+# $ rake test:unit TEST=test/unit/android/device/w3c/logs_test.rb
 class AppiumLibCoreTest
   module Android
     module Device
