@@ -204,6 +204,12 @@ module Appium
             end
           end
 
+          # For Appium
+          # Set log event: https://github.com/appium/appium-base-driver/pull/364/files
+          def log_event(vendor, event)
+            execute :set_log_event, {}, { vendor: vendor, event: event }
+          end
+
           def take_viewport_screenshot
             execute_script('mobile: viewportScreenshot')
           end

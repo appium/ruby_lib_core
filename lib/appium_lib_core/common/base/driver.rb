@@ -960,6 +960,20 @@ module Appium
           @bridge.session_capabilities
         end
 
+
+        # Set a custom log event which is collected as `@driver.session_capabilities['events']`
+        #
+        # @returns [nil]
+        # @example
+        #
+        #   @driver.log_event vendor: 'appium', event: 'funEvent'
+        #   @driver.session_capabilities['events']['commands'] #=> ??? TODO: make sure the return value and add tests. Plus, consider to define this in @driver.logs.event if the custom events can collect as log
+        #
+        def log_event(vendor:, event:)
+          @bridge.log_event vendor, event
+        end
+
+
         # Returns available sessions on the Appium server
         #
         # @return [[Hash]]
