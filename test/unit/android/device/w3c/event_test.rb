@@ -15,25 +15,35 @@
 require 'test_helper'
 require 'webmock/minitest'
 
-# $ rake test:unit TEST=test/unit/android/device/w3c/logs_test.rb
+# $ rake test:unit TEST=test/unit/android/device/w3c/event_test.rb
 class AppiumLibCoreTest
   module Android
     module Device
       module W3C
-        class LogsTest < Minitest::Test
+        class EventTest < Minitest::Test
           include AppiumLibCoreTest::Mock
 
           def setup
             @core ||= ::Appium::Core.for(Caps.android)
-            @driver ||= android_mock_create_session_w3c
+            @driver ||= android_mock_create_session
           end
 
-          def test_logs
+          def test_log_event
             stub_request(:post, "#{SESSION}/appium/log_event")
               .with(body: { vendor: 'appium', event: 'customEvent' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.logs.event vendor: 'appium', event: 'customEvent'
+
+            assert_requested(:post, "#{SESSION}/appium/log_event", times: 1)
+          end
+
+          def test_log_event_equal
+            stub_request(:post, "#{SESSION}/appium/log_event")
+              .with(body: { vendor: 'appium', event: 'customEvent' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.logs.event = { vendor: 'appium', event: 'customEvent' }
 
             assert_requested(:post, "#{SESSION}/appium/log_event", times: 1)
           end
@@ -57,7 +67,7 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/appium/events", times: 1)
           end
-        end # class Logs
+        end # class EventTest
       end # module W3C
     end # module Device
   end # module Android
