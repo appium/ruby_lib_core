@@ -42,8 +42,8 @@ module Appium
         @bridge.available_log_types
       end
 
-      # Add a custom log event which is available with <code>eventTimings</code> capabilities.
-      # The events are in a part of <code>@driver.session_capabilities['events']</code>.
+      # Post a custom event as logging. The log is available via {::Appium::Core::Logs#events} or
+      # <code>@driver.session_capabilities['events']</code> with <code>eventTimings</code> capabilities.
       #
       # @param [String] vendor The vendor prefix for the event
       # @param [String] event The name of event
@@ -55,15 +55,16 @@ module Appium
       #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => 1572957315}
       #
       #   @driver.logs.event vendor: 'appium', event: 'anotherEvent'
-      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => [1572957315, 1572960305],
-      #                                          #          'appium:anotherEvent' => 1572959315}
+      #   @driver.logs.events #=> {...., 'appium:funEvent' => [1572957315, 1572960305],
+      #                       #          'appium:anotherEvent' => 1572959315}
       #
       def event(vendor:, event:)
         @bridge.log_event vendor, event
       end
 
-      # Returns 'events' key and the value in <code>@driver.session_capabilities</code> if it exists
+      # Returns events with filtering with 'type'. Defaults to all available events.
       #
+      # @param [String] type The type of events to get
       # @return [Hash]
       #
       # @example
@@ -71,12 +72,8 @@ module Appium
       #   @driver.logs.events #=> {}
       #   @driver.logs.events #=> {'commands' => [{'cmd' => 123455, ....}], 'startTime' => 1572954894127, }
       #
-      def events
-        session_events = @bridge.session_capabilities['events']
-
-        return {} if session_events.nil?
-
-        session_events
+      def events(type = nil)
+        @bridge.log_events(type)
       end
     end
   end # module Core

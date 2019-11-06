@@ -37,6 +37,26 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/appium/log_event", times: 1)
           end
+
+          def test_log_events
+            stub_request(:post, "#{SESSION}/appium/events")
+              .with(body: {}.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.logs.events
+
+            assert_requested(:post, "#{SESSION}/appium/events", times: 1)
+          end
+
+          def test_log_events_with_type
+            stub_request(:post, "#{SESSION}/appium/events")
+              .with(body: { type: 'commands' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.logs.events('commands')
+
+            assert_requested(:post, "#{SESSION}/appium/events", times: 1)
+          end
         end # class Logs
       end # module W3C
     end # module Device
