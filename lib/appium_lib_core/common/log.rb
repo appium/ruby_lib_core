@@ -24,7 +24,7 @@ module Appium
       #
       # @example
       #
-      #   @driver.logs.get "syslog" # []
+      #   @driver.logs.get 'syslog' # []
       #   @driver.logs.get :syslog # []
       #
       def get(type)
@@ -40,6 +40,49 @@ module Appium
       #
       def available_types
         @bridge.available_log_types
+      end
+
+      # @since Appium 1.16.0
+      #
+      # Logs a custom event. The event is available via {::Appium::Core::Events#get} or
+      # <code>@driver.session_capabilities['events']</code> with <code>eventTimings</code> capabilities.
+      #
+      # @param [String] vendor The vendor prefix for the event
+      # @param [String] event The name of event
+      # @returns [nil]
+      #
+      # @example
+      #
+      #   @driver.logs.event vendor: 'appium', event: 'funEvent'
+      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => 1572957315}
+      #
+      #   @driver.logs.event = { vendor: 'appium', event: 'anotherEvent' }
+      #   @driver.logs.events #=> {...., 'appium:funEvent' => [1572957315, 1572960305],
+      #                  #          'appium:anotherEvent' => 1572959315}
+      #
+      def event(vendor:, event:)
+        @bridge.log_event vendor, event
+      end
+
+      def event=(log_event)
+        raise ArgumentError('log_event should be Hash like { vendor: "appium", event: "funEvent"}') unless log_event.is_a?(Hash)
+
+        event vendor: log_event[:vendor], event: log_event[:event]
+      end
+
+      # @since Appium 1.16.0
+      # Returns events with filtering with 'type'. Defaults to all available events.
+      #
+      # @param [String] type The type of events to get
+      # @return [Hash]
+      #
+      # @example
+      #
+      #   @driver.logs.events #=> {}
+      #   @driver.logs.events #=> {'commands' => [{'cmd' => 123455, ....}], 'startTime' => 1572954894127, }
+      #
+      def events(type = nil)
+        @bridge.log_events(type)
       end
     end
   end # module Core

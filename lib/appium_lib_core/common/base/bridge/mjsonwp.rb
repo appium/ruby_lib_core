@@ -42,6 +42,19 @@ module Appium
             execute :get_all_sessions
           end
 
+          # For Appium
+          def log_event(vendor, event)
+            execute :post_log_event, {}, { vendor: vendor, event: event }
+          end
+
+          # For Appium
+          def log_events(type = nil)
+            args = {}
+            args['type'] = type unless type.nil?
+
+            execute :get_log_events, {}, args
+          end
+
           def take_element_screenshot(element)
             execute :take_element_screenshot, id: element.ref
           end
