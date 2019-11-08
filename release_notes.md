@@ -1,3 +1,9 @@
+#### v3.3.0 2019-11-08
+
+- [7fb0371](https://github.com/appium/ruby_lib_core/commit/7fb03712bb9a743c41aded5348e3c15160ef25cc) Release 3.3.0
+- [c232888](https://github.com/appium/ruby_lib_core/commit/c232888f1479c3d2b240bff2ca00835b238a5cb2) feat: add posting log event/getting events (#242)
+
+
 #### v3.2.3 2019-09-30
 
 - [9af149b](https://github.com/appium/ruby_lib_core/commit/9af149bd3b086e7cb8ac07470c5d097e46ac0b65) Release 3.2.3
