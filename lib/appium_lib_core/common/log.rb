@@ -49,7 +49,7 @@ module Appium
       #
       # @param [String] vendor The vendor prefix for the event
       # @param [String] event The name of event
-      # @returns [nil]
+      # @return [nil]
       #
       # @example
       #
