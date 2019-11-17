@@ -24,7 +24,7 @@ jobs:
     - name: Set up appium beta, mjpeg-consumer
       run: npm install appium@beta mjpeg-consumer
     - name: Xcode Select 10.3
-      run: sudo xcode-select -s /Applications/Xcode__10.3.app/Contents/Developer
+      run: sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
     - name: Runs appium server
       run: appium --log-timestamp --log-no-colors --relaxed-security > appiumlog.txt
     - name: Run tests
