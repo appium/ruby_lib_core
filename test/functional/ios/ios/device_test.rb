@@ -119,7 +119,7 @@ class AppiumLibCoreTest
         assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.back # go to top
-        @@core.wait { assert @@driver.available_contexts.size == 2 }
+        @@core.wait { assert [1, 2].member? @@driver.available_contexts.size }
       end
 
       def test_app_string
