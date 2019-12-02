@@ -3,15 +3,19 @@ name: Runs a part of functional tests
 on:
   pull_request:
   schedule:
-  - cron:  '0 0 * * *' 
-   
+  - cron:  '0 0 * * *'
+
 
 jobs:
   build:
 
     runs-on: macOS-10.14
+    env:
+      DEVELOPER_DIR: /Applications/Xcode10.3.app/Contents/Developer
 
     steps:
+    - name: Show xcode versions
+      run: ls /Applications/Xcode*
     - uses: actions/checkout@v1
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
@@ -23,8 +27,6 @@ jobs:
         node-version: 10.16.3
     - name: Set up appium beta, mjpeg-consumer
       run: npm install appium@beta mjpeg-consumer
-    - name: Xcode Select 10.3
-      run: sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
     - name: Runs appium server
       run: appium --log-timestamp --log-no-colors --relaxed-security > appiumlog.txt
     - name: Run tests
