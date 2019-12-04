@@ -28,7 +28,7 @@ jobs:
     - name: Run unit tests for appium automation name
       run: UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
 
-  test:
+  win-test:
 
     strategy:
       matrix:
