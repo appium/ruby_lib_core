@@ -2,11 +2,7 @@ sudo: false
 cache: bundler
 language: ruby
 rvm:
-  - 2.2
-  - 2.3
-  - 2.4
-  - 2.5
-  - 2.6
+  - 2.2 # GitHub Actions does not have this version
 
 before_install:
   - gem update bundler
