@@ -7,10 +7,9 @@ jobs:
 
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest]
         ruby: ['2.3.x', '2.4.x', '2.5.x', '2.6.x']
 
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
@@ -28,3 +27,28 @@ jobs:
       run: UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
     - name: Run unit tests for appium automation name
       run: UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+
+  test:
+
+    strategy:
+      matrix:
+        ruby: ['2.4.x', '2.5.x', '2.6.x']
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Update bundler
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+      - name: Run unit tests
+        run: UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
+      - name: Run unit tests for espresso
+        run: UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
+      - name: Run unit tests for appium automation name
+        run: UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
