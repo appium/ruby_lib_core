@@ -1,0 +1,31 @@
+name: Ruby
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+        ruby: ['2.2', '2.3', '2.4', '2.5', '2.6']
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby ${{ matrix.ruby }}
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Build and test with Rake
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Run unit tests
+      run: UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
+    - name: Run unit tests for espresso
+      run: UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
+    - name: Run unit tests for appium automation name
+      run: UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+
