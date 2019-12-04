@@ -52,8 +52,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Update bundler
-        run: |
-          gem install bundler
+        run:
+          gem install bundler ffi:1.10.0
           bundle install --jobs 4 --retry 3
       - name: Run unit tests
         run: bundle exec parallel_test test/unit/ -n 4
