@@ -28,7 +28,7 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
       end
 
       public
@@ -123,7 +123,7 @@ class AppiumLibCoreTest
       end
 
       def test_app_string
-        default_lang = ios_platform_version_over13(@@driver) ? 'Base' : 'en'
+        default_lang = over_ios13?(@@driver) ? 'Base' : 'en'
         assert_equal 'A Short Title Is Best', @@driver.app_strings(default_lang)['A Short Title Is Best']
       end
 

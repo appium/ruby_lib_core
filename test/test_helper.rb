@@ -58,7 +58,7 @@ class AppiumLibCoreTest
         # rubocop:enable Style/GuardClause
       end
 
-      def ios_platform_version_over13(driver)
+      def over_ios13?(driver)
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
@@ -99,7 +99,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name == :tvos ? '12.2' : '12.4'
+      platform_version = '13.0'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -108,9 +108,9 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
-          udid: 'auto',
+          # udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name(platform_name, wda_port),
+          deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
           useJSONSource: true,
@@ -154,8 +154,12 @@ class AppiumLibCoreTest
 
     private
 
+    def over_ios13?(os_version)
+      Gem::Version.create(os_version) >= Gem::Version.create('13.0')
+    end
+
     def test_app(os_version)
-      if Gem::Version.create(os_version) >= Gem::Version.create('13.0')
+      if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
         "#{Dir.pwd}/test/functional/app/iOS13__UICatalog.app.zip"
       else
@@ -163,11 +167,12 @@ class AppiumLibCoreTest
       end
     end
 
-    def device_name(platform_name, wda_local_port)
+    def device_name(os_version, platform_name, wda_local_port)
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        parallel? ? "iPhone Xs Max - #{wda_local_port}" : 'iPhone Xs Max'
+        name = over_ios13?(os_version) ? 'iPhone 11' : 'iPhone Xs Max'
+        parallel? ? "#{name} - #{wda_local_port}" : name
       end
     end
 
