@@ -167,7 +167,7 @@ class AppiumLibCoreTest
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        parallel? ? "iPhone Xs Max - #{wda_local_port}" : 'iPhone Xs Max'
+        parallel? ? "iPhone 11 - #{wda_local_port}" : 'iPhone 11'
       end
     end
 
