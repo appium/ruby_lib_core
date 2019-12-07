@@ -21,11 +21,11 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+      over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
     end
 
     def uicatalog
-      ios_platform_version_over13(@@driver) ? 'UIKitCatalog' : 'UICatalog'
+      over_ios13?(@@driver) ? 'UIKitCatalog' : 'UICatalog'
     end
 
     public
@@ -75,7 +75,7 @@ class AppiumLibCoreTest
       e = @@driver.find_element :accessibility_id, alert_view_cell
       e.click
       sleep 1 # wait for animation
-      if ios_platform_version_over13(@@driver)
+      if over_ios13?(@@driver)
         e.click # nothing happens
       else
         error = assert_raises do

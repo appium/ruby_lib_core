@@ -21,7 +21,7 @@ class AppiumLibCoreTest
       private
 
       def uicatalog
-        ios_platform_version_over13(@driver) ? 'UIKitCatalog' : 'UICatalog'
+        over_ios13?(@driver) ? 'UIKitCatalog' : 'UICatalog'
       end
 
       public

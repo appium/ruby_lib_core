@@ -58,7 +58,7 @@ class AppiumLibCoreTest
         # rubocop:enable Style/GuardClause
       end
 
-      def ios_platform_version_over13(driver)
+      def over_ios13?(driver)
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
@@ -154,12 +154,12 @@ class AppiumLibCoreTest
 
     private
 
-    def greater_than_ios_13?(os_version)
+    def over_ios13?(os_version)
       Gem::Version.create(os_version) >= Gem::Version.create('13.0')
     end
 
     def test_app(os_version)
-      if greater_than_ios_13?(os_version)
+      if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
         "#{Dir.pwd}/test/functional/app/iOS13__UICatalog.app.zip"
       else

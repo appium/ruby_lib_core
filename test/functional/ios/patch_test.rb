@@ -23,7 +23,7 @@ class AppiumLibCoreTest
 
     # Should click before typing text for iOS 13 simulator case since the simulator looks unstable
     def ensure_type(element)
-      element.click if ios_platform_version_over13(@@driver)
+      element.click if over_ios13?(@@driver)
     end
 
     public
@@ -64,7 +64,7 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
       location = e.location_rel @@driver
 
-      if ios_platform_version_over13(@@driver)
+      if over_ios13?(@@driver)
         assert_equal '64.0 / 414.0', location.x
         assert_equal '235.5 / 896.0', location.y
       else
