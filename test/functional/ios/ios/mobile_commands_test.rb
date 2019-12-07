@@ -18,6 +18,14 @@ require 'test_helper'
 class AppiumLibCoreTest
   module Ios
     class MobileCommandsTest < AppiumLibCoreTest::Function::TestCase
+      private
+
+      def uicatalog
+        ios_platform_version_over13(@driver) ? 'UIKitCatalog' : 'UICatalog'
+      end
+
+      public
+
       def setup
         @core = ::Appium::Core.for(Caps.ios)
       end
@@ -80,11 +88,12 @@ class AppiumLibCoreTest
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'photos', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'no'
 
+        @driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @driver.activate_app('com.apple.Preferences')
         @driver.find_element(:accessibility_id, 'Privacy').click
 
         @driver.find_element(:accessibility_id, 'Calendars').click
-        el = @driver.find_element(:accessibility_id, 'UICatalog')
+        el = @driver.find_element(:accessibility_id, uicatalog)
         assert_equal '1', el.value
 
         @driver.back
