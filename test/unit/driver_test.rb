@@ -223,6 +223,7 @@ class AppiumLibCoreTest
                      uiautomator: '-android uiautomator',
                      viewtag: '-android viewtag',
                      data_matcher: '-android datamatcher',
+                     view_matcher: '-android viewmatcher',
                      uiautomation: '-ios uiautomation',
                      predicate: '-ios predicate string',
                      class_chain: '-ios class chain',

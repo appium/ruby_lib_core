@@ -51,6 +51,18 @@ class AppiumLibCoreTest
         @driver.find_element :accessibility_id, 'Cloning' # no error
         @driver.back
       end
+
+      def test_viewmatcher
+        skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
+        skip_as_appium_version('1.17.0')
+
+        e = @driver.find_elements :view_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
+        assert_equal 1, e.size
+
+        e.first.click
+        @driver.find_element :accessibility_id, 'Cloning' # no error
+        @driver.back
+      end
     end
   end
 end

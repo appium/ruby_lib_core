@@ -27,6 +27,7 @@ module Appium
           uiautomator:          '-android uiautomator', # Unavailable in Espresso
           viewtag:              '-android viewtag',     # Available in Espresso
           data_matcher:         '-android datamatcher', # Available in Espresso
+          view_matcher:         '-android viewmatcher', # Available in Espresso
           # iOS
           uiautomation:         '-ios uiautomation',
           predicate:            '-ios predicate string',
@@ -52,8 +53,9 @@ module Appium
         #
         # You can handle settings for the comparision following {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 here}
         #
-        # == Espresso datamatcher
-        # Espresso has an {https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf _onData_ matcher} for more reference
+        # == Espresso viewmatcher and datamatcher
+        # Espresso has {https://developer.android.com/training/testing/espresso/basics _onView_ matcher}
+        # and {https://medium.com/androiddevelopers/adapterviews-and-espresso-f4172aa853cf _onData_ matcher} for more reference
         # that allows you to target adapters instead of Views. This method find methods based on reflections
         #
         # This is a selector strategy that allows users to pass a selector of the form:
@@ -67,7 +69,7 @@ module Appium
         # Can be fully qualified, or simple, and simple defaults to <code>androidx.test.espresso.matcher</code> package
         # (e.g.: <code>class=CursorMatchers</code> fully qualified is <code>class=androidx.test.espresso.matcher.CursorMatchers</code>
         #
-        # See example how to send datamatcher in Ruby client
+        # See example how to send viewmatcher and datamatcher in Ruby client
         #
         #
         # @overload find_element(how, what)
