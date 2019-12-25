@@ -32,7 +32,7 @@ module Appium
         #
         # @return [Bridge::MJSONWP, Bridge::W3C]
         #
-        def self.handshake(**opts)
+        def self.handshake(opts)
           desired_capabilities = opts.delete(:desired_capabilities) { ::Selenium::WebDriver::Remote::Capabilities.new }
 
           if desired_capabilities.is_a?(Symbol)
