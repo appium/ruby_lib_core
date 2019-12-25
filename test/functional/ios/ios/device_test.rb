@@ -28,7 +28,7 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
       end
 
       public
@@ -119,11 +119,11 @@ class AppiumLibCoreTest
         assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.back # go to top
-        @@core.wait { assert @@driver.available_contexts.size == 2 }
+        @@core.wait { assert [1, 2].member? @@driver.available_contexts.size }
       end
 
       def test_app_string
-        default_lang = ios_platform_version_over13(@@driver) ? 'Base' : 'en'
+        default_lang = over_ios13?(@@driver) ? 'Base' : 'en'
         assert_equal 'A Short Title Is Best', @@driver.app_strings(default_lang)['A Short Title Is Best']
       end
 

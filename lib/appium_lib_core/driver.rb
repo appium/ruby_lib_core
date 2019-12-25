@@ -93,6 +93,7 @@ module Appium
 
     class Driver
       include Waitable
+
       # Selenium webdriver capabilities
       # @return [Core::Base::Capabilities]
       attr_reader :caps

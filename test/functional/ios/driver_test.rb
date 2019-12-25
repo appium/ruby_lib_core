@@ -21,7 +21,11 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      ios_platform_version_over13(@@driver) ? 'Alert Controller' : 'Alert Views'
+      over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+    end
+
+    def uicatalog
+      over_ios13?(@@driver) ? 'UIKitCatalog' : 'UICatalog'
     end
 
     public
@@ -56,13 +60,13 @@ class AppiumLibCoreTest
     end
 
     def test_wait_true
-      e = @@core.wait_true { @@driver.find_element :accessibility_id, 'UICatalog' }
+      e = @@core.wait_true { @@driver.find_element :accessibility_id, uicatalog }
       assert e.name
     end
 
     def test_wait
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'UICatalog' }
-      assert_equal 'UICatalog', e.name
+      e = @@core.wait { @@driver.find_element :accessibility_id, uicatalog }
+      assert_equal uicatalog, e.name
     end
 
     def test_click_back
@@ -71,13 +75,17 @@ class AppiumLibCoreTest
       e = @@driver.find_element :accessibility_id, alert_view_cell
       e.click
       sleep 1 # wait for animation
-      error = assert_raises do
-        e.click
+      if over_ios13?(@@driver)
+        e.click # nothing happens
+      else
+        error = assert_raises do
+          e.click
+        end
+        assert [::Selenium::WebDriver::Error::UnknownError,
+                ::Selenium::WebDriver::Error::ElementNotVisibleError,
+                ::Selenium::WebDriver::Error::InvalidSelectorError].include? error.class
+        assert error.message.include? ' is not visible on the screen and thus is not interactable'
       end
-      assert [::Selenium::WebDriver::Error::UnknownError,
-              ::Selenium::WebDriver::Error::ElementNotVisibleError,
-              ::Selenium::WebDriver::Error::InvalidSelectorError].include? error.class
-      assert error.message.include? ' is not visible on the screen and thus is not interactable'
       @@driver.back
     end
 
@@ -87,6 +95,7 @@ class AppiumLibCoreTest
 
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
+        @@driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @@driver.activate_app('com.apple.Preferences')
         @@driver.find_element(:accessibility_id, 'General').click
         @@driver.find_element(:accessibility_id, 'Keyboard').click

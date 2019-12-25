@@ -18,6 +18,14 @@ require 'test_helper'
 class AppiumLibCoreTest
   module Ios
     class MobileCommandsTest < AppiumLibCoreTest::Function::TestCase
+      private
+
+      def uicatalog
+        over_ios13?(@driver) ? 'UIKitCatalog' : 'UICatalog'
+      end
+
+      public
+
       def setup
         @core = ::Appium::Core.for(Caps.ios)
       end
@@ -80,11 +88,12 @@ class AppiumLibCoreTest
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'photos', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'no'
 
+        @driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @driver.activate_app('com.apple.Preferences')
         @driver.find_element(:accessibility_id, 'Privacy').click
 
         @driver.find_element(:accessibility_id, 'Calendars').click
-        el = @driver.find_element(:accessibility_id, 'UICatalog')
+        el = @driver.find_element(:accessibility_id, uicatalog)
         assert_equal '1', el.value
 
         @driver.back
@@ -127,6 +136,9 @@ class AppiumLibCoreTest
         assert !json.empty?
         assert !xml.empty?
         assert !description.empty? # get a vanilla xcuitest description data
+
+        xml2 = @driver.execute_script 'mobile: source', { format: :xml, excludedAttributes: ['visible'] }
+        assert !xml2.empty?
       end
 
       def test_device_info

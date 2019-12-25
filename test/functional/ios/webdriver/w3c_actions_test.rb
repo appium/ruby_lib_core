@@ -36,7 +36,7 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:name, ios_platform_version_over13(@@driver) ? 'X' : 'X Button') }
+        el = @@core.wait { @@driver.find_element(:name, over_ios13?(@@driver) ? 'X' : 'X Button') }
         rect = el.rect
         @@driver.action.click_and_hold(el).move_to_location(rect.x, rect.y + 500).release.perform
       end
@@ -75,6 +75,22 @@ class AppiumLibCoreTest
         w3c_scroll @@driver
 
         assert el.rect.y < rect.y
+      end
+
+      def test_click_w3c_landscape
+        @@driver.rotation = :landscape
+
+        el = @@driver.find_element :name, 'Buttons'
+        @@driver.action.click(el).perform
+
+        # The view has two views
+        els_land = @@driver.find_elements :name, 'Buttons'
+        @@driver.rotation = :portrait
+
+        # The view has only one view
+        els_port = @@driver.find_elements :name, 'Buttons'
+
+        assert els_land.length > els_port.length
       end
     end
   end

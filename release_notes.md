@@ -1,3 +1,26 @@
+#### v3.3.0 2019-11-08
+
+- [7fb0371](https://github.com/appium/ruby_lib_core/commit/7fb03712bb9a743c41aded5348e3c15160ef25cc) Release 3.3.0
+- [c232888](https://github.com/appium/ruby_lib_core/commit/c232888f1479c3d2b240bff2ca00835b238a5cb2) feat: add posting log event/getting events (#242)
+
+
+#### v3.2.3 2019-09-30
+
+- [9af149b](https://github.com/appium/ruby_lib_core/commit/9af149bd3b086e7cb8ac07470c5d097e46ac0b65) Release 3.2.3
+- [7634b44](https://github.com/appium/ruby_lib_core/commit/7634b445c6d846d72bcffa8763120cde1dd351ed) test: add landscape simple w3c cllick (#240)
+- [b629d6b](https://github.com/appium/ruby_lib_core/commit/b629d6b5d6031399356076d34ca2b8074bc98915) feat: add alias to get_system_bars (#239)
+- [377aefd](https://github.com/appium/ruby_lib_core/commit/377aefd061e0464960341f8099597fdd05183516) test: fix wring width and height
+- [6f1b5d4](https://github.com/appium/ruby_lib_core/commit/6f1b5d435959542e605a475af86d86dcab68e749) ci: disable opencv to avoid installation error on ci (#237)
+- [891fd9a](https://github.com/appium/ruby_lib_core/commit/891fd9ab88a97a6a54c9a7451731befc01b774d2) test: relaxed check logic
+- [9ab4035](https://github.com/appium/ruby_lib_core/commit/9ab40353cc76149f55bde40b0349d2cab1f8a88d) test: set ios13 test app (#236)
+- [706df5b](https://github.com/appium/ruby_lib_core/commit/706df5b52a944d2a4aef01b9bb435ee57b632327) Merge branch 'master' of github.com:appium/ruby_lib_core
+- [01a0efb](https://github.com/appium/ruby_lib_core/commit/01a0efb44fcfc10a3a8c3c85b144245945d18391) add eventTimings for tests
+- [625f7a0](https://github.com/appium/ruby_lib_core/commit/625f7a04e2291b0befee2a13a736119ffbbf7b56) ci: Add tests for espresso driver (#235)
+- [f739d27](https://github.com/appium/ruby_lib_core/commit/f739d2719b9276e8231bde5f133ec88fbb64b10d) add available contexts at the end of contexts test
+- [be245db](https://github.com/appium/ruby_lib_core/commit/be245db7140044ebbe7adaccd3f23ca0ee70f4eb) update ios test app (#234)
+- [b42c483](https://github.com/appium/ruby_lib_core/commit/b42c483a0e3089bbc16a6d55642938b658f34892) update ios tests on Azure with the latest app since old test app cause info.plist error (#233)
+
+
 #### v3.2.2 2019-08-04
 
 - [9679bb0](https://github.com/appium/ruby_lib_core/commit/9679bb0ef49435e8afd7a5688e90ca74447dbbd6) Release 3.2.2

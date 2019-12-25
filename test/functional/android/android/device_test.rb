@@ -321,8 +321,10 @@ class AppiumLibCoreTest
         @@core.wait { @driver.ime_deactivate }
         refute_equal available_ime, @driver.ime_active_engine
 
-        @@core.wait { @driver.ime_activate(available_ime) }
-        assert_equal available_ime, @driver.ime_active_engine
+        @@core.wait do
+          @driver.ime_activate(available_ime)
+          assert_equal available_ime, @driver.ime_active_engine
+        end
       end
 
       def test_within_context

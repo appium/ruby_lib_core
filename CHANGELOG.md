@@ -5,6 +5,24 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.3.0] - 2019-11-08
+
+### Enhancements
+- Add `Logs#event` to post a custom log by `@driver.logs.event vendor: 'appium', event: 'funEvent'`
+- Add `Logs#events` to get events by `@driver.logs.events`. It is equal to  `@driver.session_capabilities['events']`
+
+### Bug fixes
+
+### Deprecations
+
+## [3.2.3] - 2019-09-30
+
+### Enhancements
 - Add `system_bars` as an alias to `get_system_bars`
 
 ### Bug fixes
