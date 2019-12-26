@@ -5,6 +5,16 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Fix Ruby 2.7 warnings in appium_lib_core lib
+
+### Bug fixes
+
+### Deprecations
+
+## [3.4.0] - 2019-12-26
+
+### Enhancements
+- Fix Ruby 2.7 warnings in appium_lib_core
 
 ### Bug fixes
 
