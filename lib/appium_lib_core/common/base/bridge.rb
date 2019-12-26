@@ -48,9 +48,9 @@ module Appium
 
           case bridge.dialect
           when :oss # for MJSONWP
-            Bridge::MJSONWP.new(capabilities, bridge.session_id, opts)
+            Bridge::MJSONWP.new(capabilities, bridge.session_id, **opts)
           when :w3c
-            Bridge::W3C.new(capabilities, bridge.session_id, opts)
+            Bridge::W3C.new(capabilities, bridge.session_id, **opts)
           else
             raise CoreError, 'cannot understand dialect'
           end
