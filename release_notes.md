@@ -1,3 +1,15 @@
+#### v3.4.0 2019-12-26
+
+- [416a824](https://github.com/appium/ruby_lib_core/commit/416a824543823d855dafe0f63922c96230bcf614) Release 3.4.0
+- [4b6ed64](https://github.com/appium/ruby_lib_core/commit/4b6ed64fb5ffec18001e4618cd81ae385b0ffe44) feat, ci: Fix a few warnings, add Ruby 2.7 on Travis (#241)
+- [0b79968](https://github.com/appium/ruby_lib_core/commit/0b79968cc7a1b1814a7dbbd7e77d662b325f931f) run with iOS 13.3 (#248)
+- [499b1ae](https://github.com/appium/ruby_lib_core/commit/499b1ae51d7bd446eca410ddea46407176a5d868) test: make ime setting stabler
+- [7801efa](https://github.com/appium/ruby_lib_core/commit/7801efa72b10ff3c601374af3e0e7dc68e3c8733) ci: run iOS 13 and Android 10 as CI (#238)
+- [92343f4](https://github.com/appium/ruby_lib_core/commit/92343f4e34d5b3a6b3fe66449e9c8984e3c66c2f) test: tweak test case (#245)
+- [99ceb6e](https://github.com/appium/ruby_lib_core/commit/99ceb6edea53d292b19bed6ae6efa6b65e14ab4f) remove chromedriver option for install (#243)
+- [8899c92](https://github.com/appium/ruby_lib_core/commit/8899c92cb54b6c495329608ab1d4eca0afa6c846) fix wrong yardoc param
+
+
 #### v3.3.0 2019-11-08
 
 - [7fb0371](https://github.com/appium/ruby_lib_core/commit/7fb03712bb9a743c41aded5348e3c15160ef25cc) Release 3.3.0
