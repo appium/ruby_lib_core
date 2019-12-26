@@ -1,3 +1,9 @@
+#### v3.4.1 2019-12-27
+
+- [93b5a9f](https://github.com/appium/ruby_lib_core/commit/93b5a9f9dc33da7f5ce8c3bf73dcc527fd9224c7) Release 3.4.1
+- [73bdb83](https://github.com/appium/ruby_lib_core/commit/73bdb83cf7123469073ff5acf97c994c931e184c) fix warning in Ruby 2.7 more (#249)
+
+
 #### v3.4.0 2019-12-26
 
 - [416a824](https://github.com/appium/ruby_lib_core/commit/416a824543823d855dafe0f63922c96230bcf614) Release 3.4.0
