@@ -31,7 +31,7 @@ module Appium
 
         def initialize(opts = {})
           listener = opts.delete(:listener)
-          @bridge = ::Appium::Core::Base::Bridge.handshake(opts)
+          @bridge = ::Appium::Core::Base::Bridge.handshake(**opts)
           if @bridge.dialect == :oss # MJSONWP
             extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
             extend ::Selenium::WebDriver::DriverExtensions::HasLocation

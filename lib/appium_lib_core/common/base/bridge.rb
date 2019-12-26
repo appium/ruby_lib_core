@@ -32,7 +32,7 @@ module Appium
         #
         # @return [Bridge::MJSONWP, Bridge::W3C]
         #
-        def self.handshake(opts)
+        def self.handshake(**opts)
           desired_capabilities = opts.delete(:desired_capabilities) { ::Selenium::WebDriver::Remote::Capabilities.new }
 
           if desired_capabilities.is_a?(Symbol)
@@ -48,9 +48,9 @@ module Appium
 
           case bridge.dialect
           when :oss # for MJSONWP
-            Bridge::MJSONWP.new(capabilities, bridge.session_id, opts)
+            Bridge::MJSONWP.new(capabilities, bridge.session_id, **opts)
           when :w3c
-            Bridge::W3C.new(capabilities, bridge.session_id, opts)
+            Bridge::W3C.new(capabilities, bridge.session_id, **opts)
           else
             raise CoreError, 'cannot understand dialect'
           end
