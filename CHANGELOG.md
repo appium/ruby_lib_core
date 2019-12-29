@@ -10,7 +10,7 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [Unreleased]
+## [3.4.2] - 2019-12-29
 
 ### Enhancements
 - Add `attr_reader :bridge` for flutter driver not to use `send`
