@@ -1,3 +1,9 @@
+#### v3.4.2 2019-12-29
+
+- [416ad24](https://github.com/appium/ruby_lib_core/commit/416ad247dc8b5fc36fb88a302a3c0bd335911c65) Release 3.4.2
+- [e8a3b7a](https://github.com/appium/ruby_lib_core/commit/e8a3b7a04ce6eb0abb2d37e5cc7b50505515ca2a) add attr_reader :bridge for flutter driver usage
+
+
 #### v3.4.1 2019-12-27
 
 - [93b5a9f](https://github.com/appium/ruby_lib_core/commit/93b5a9f9dc33da7f5ce8c3bf73dcc527fd9224c7) Release 3.4.1
