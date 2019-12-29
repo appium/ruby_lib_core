@@ -10,6 +10,16 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [Unreleased]
+
+### Enhancements
+- Add `attr_reader :bridge` for flutter driver not to use `send`
+   - https://github.com/truongsinh/appium-flutter-driver/pull/35
+
+### Bug fixes
+
+### Deprecations
+
 ## [3.4.0, 3.4.1] - 2019-12-26, 2019-12-27
 
 ### Enhancements

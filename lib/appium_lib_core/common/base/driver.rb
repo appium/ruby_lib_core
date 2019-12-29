@@ -29,6 +29,10 @@ module Appium
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakeScreenshot
 
+        # Private API.
+        # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
+        attr_reader :bridge
+
         def initialize(opts = {})
           listener = opts.delete(:listener)
           @bridge = ::Appium::Core::Base::Bridge.handshake(**opts)
