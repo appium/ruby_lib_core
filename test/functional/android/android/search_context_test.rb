@@ -56,11 +56,14 @@ class AppiumLibCoreTest
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
         skip_as_appium_version('1.17.0')
 
-        e = @driver.find_elements :view_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
-        assert_equal 1, e.size
-
-        e.first.click
-        @driver.find_element :accessibility_id, 'Cloning' # no error
+        # Uses withText in 'androidx.test.espresso.matcher.ViewMatchers'
+        e = @driver.find_element :view_matcher, {
+          name: 'withText',
+          args: ['Accessibility'],
+          class: 'androidx.test.espresso.matcher.ViewMatchers'
+        }.to_json
+        e.click
+        @driver.find_element :accessibility_id, 'Custom View'
         @driver.back
       end
     end
