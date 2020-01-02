@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '>= 1.14'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'yard', '~> 0.9.11'
+  spec.add_development_dependency 'net-http-persistent', '~> 3.0' # for test
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.1'
   spec.add_development_dependency 'webmock', '~> 3.4.0'
@@ -37,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'parallel_tests'
   spec.add_development_dependency 'simplecov'
+
 end

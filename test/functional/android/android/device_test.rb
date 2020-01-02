@@ -13,7 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
-require 'net-http-persistent'
+require 'appium_lib_core/common/http_persistent'
 
 # $ rake test:func:android TEST=test/functional/android/android/device_test.rb
 # rubocop:disable Style/ClassVars

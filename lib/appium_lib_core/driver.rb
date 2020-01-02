@@ -339,6 +339,7 @@ module Appium
       #                                                     read_timeout: 1_000 }
       #
       #     # With 'net-http-persistent' gem
+      #     require 'appium_lib_core/common/http_persistent'
       #     client =  Appium::Core::Base::Http::Persistent.new
       #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub",
       #                                  http_client_ops: { http_client: client,

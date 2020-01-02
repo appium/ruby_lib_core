@@ -232,6 +232,8 @@ class AppiumLibCoreTest
     end
 
     def test_http_client
+      require 'appium_lib_core/common/http_persistent'
+
       assert_equal(::Appium::Core::Base::Http::Persistent::DEFAULT_HEADERS,
                    ::Appium::Core::Base::Http::Default::DEFAULT_HEADERS)
 
