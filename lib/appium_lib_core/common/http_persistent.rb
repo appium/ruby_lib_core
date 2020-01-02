@@ -19,7 +19,7 @@ module Appium
     class Base
       module Http
         # api private
-        class Persistent < Default
+        class Persistent < ::Appium::Core::Base::Http::Default
           def close
             @http.shutdown if @http # rubocop:disable Style/SafeNavigation
           end
