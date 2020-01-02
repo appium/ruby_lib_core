@@ -15,6 +15,6 @@ steps:
 - script: nohup appium --relaxed-security &
   displayName: Run Appium in background
 - script: |
-    gem install bundler;
+    gem install bundler net-http-persistent;
     bundle install --retry=3 --jobs=4 --path vendor/bundle;
   displayName: Install Gems

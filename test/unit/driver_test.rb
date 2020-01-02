@@ -230,5 +230,15 @@ class AppiumLibCoreTest
                      windows_uiautomation: '-windows uiautomation',
                      tizen_uiautomation: '-tizen uiautomation' }, ::Selenium::WebDriver::Element::FINDERS)
     end
+
+    def test_http_client
+      assert_equal(::Appium::Core::Base::Http::Persistent::DEFAULT_HEADERS,
+                   ::Appium::Core::Base::Http::Default::DEFAULT_HEADERS)
+
+      default = ::Appium::Core::Base::Http::Default.new
+      assert(default.respond_to? :update_sending_request_to) # rubocop:disable Style/NestedParenthesizedCalls
+      persistent = ::Appium::Core::Base::Http::Persistent.new
+      assert(persistent.respond_to? :update_sending_request_to) # rubocop:disable Style/NestedParenthesizedCalls
+    end
   end
 end

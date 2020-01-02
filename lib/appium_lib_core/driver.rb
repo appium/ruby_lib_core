@@ -294,7 +294,10 @@ module Appium
       end
 
       # Creates a new global driver and quits the old one if it exists.
-      # You can customise http_client as the following
+      # You can customise http_client as http_client_ops parameter.
+      #
+      # If your environment has 'net-http-persistent' gem, you can use 'Appium::Core::Base::Http::Persistent.new'.
+      #
       #
       # @param [String] server_url Custom server url to send to requests. Default is "http://127.0.0.1:4723/wd/hub".
       # @param http_client_ops [Hash] Options for http client
@@ -332,6 +335,13 @@ module Appium
       #     # Attach custom HTTP client
       #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub",
       #                                  http_client_ops: { http_client: Your:Http:Client.new,
+      #                                                     open_timeout: 1_000,
+      #                                                     read_timeout: 1_000 }
+      #
+      #     # With 'net-http-persistent' gem
+      #     client =  Appium::Core::Base::Http::Persistent.new
+      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub",
+      #                                  http_client_ops: { http_client: client,
       #                                                     open_timeout: 1_000,
       #                                                     read_timeout: 1_000 }
       #

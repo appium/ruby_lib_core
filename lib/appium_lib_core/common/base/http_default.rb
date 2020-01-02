@@ -81,6 +81,37 @@ module Appium
             request verb, url, headers, payload
           end
         end
+
+        # api private
+        class Persistent < Default
+          def close
+            @http.shutdown if @http # rubocop:disable Style/SafeNavigation
+          end
+
+          private
+
+          def start(*)
+            # no need to explicitly start connection
+          end
+
+          def new_http_client
+            proxy = nil
+
+            if @proxy
+              unless @proxy.respond_to?(:http)
+                url = @proxy.http
+                raise Error::WebDriverError, "expected HTTP proxy, got #{@proxy.inspect}" unless url
+              end
+              proxy = URI.parse(url)
+            end
+
+            Net::HTTP::Persistent.new name: 'webdriver', proxy: proxy
+          end
+
+          def response_for(request)
+            http.request server_url, request
+          end
+        end
       end
     end
   end

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'net-http-persistent'
 
 # $ rake test:func:android TEST=test/functional/android/android/device_test.rb
 # rubocop:disable Style/ClassVars
@@ -21,7 +22,7 @@ class AppiumLibCoreTest
     class DeviceTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
-        @driver = @@core.start_driver
+        @driver = @@core.start_driver(http_client_ops: { http_client: Appium::Core::Base::Http::Persistent.new })
       end
 
       def teardown
