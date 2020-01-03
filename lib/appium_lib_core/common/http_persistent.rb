@@ -26,7 +26,7 @@ module Appium
 
           private
 
-          def start(*)
+          def start
             # no need to explicitly start connection
           end
 
