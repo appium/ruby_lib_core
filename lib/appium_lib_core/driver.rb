@@ -502,6 +502,9 @@ module Appium
           when :youiengine
             # https://github.com/YOU-i-Labs/appium-youiengine-driver
             ::Appium::Logger.debug('YouiEngine')
+          when :mac
+            # In this case also can be mac
+            ::Appium::Logger.debug('mac')
           else
             ::Appium::Logger.warn("No matched driver by platformName: #{device} and automationName: #{automation_name}")
           end
