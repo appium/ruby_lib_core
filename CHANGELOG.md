@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.5.0] - 2020-01-11
+
+### Enhancements
 - Add `:viewmatcher` selector like `@driver.find_elements :view_matcher, { name: 'withText', args: %w(Accessibility), class: 'androidx.test.espresso.matcher.ViewMatchers' }`
 
 ### Bug fixes
