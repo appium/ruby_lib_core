@@ -1,3 +1,10 @@
+#### v3.5.0 2020-01-11
+
+- [79174fd](https://github.com/appium/ruby_lib_core/commit/79174fd6821398eacc32a897c1161140087b11e6) Release 3.5.0
+- [21684c5](https://github.com/appium/ruby_lib_core/commit/21684c5a0cf10ccd55b578dfef039b04fcce515f) feat: add mac for only in automation name
+- [fc7149c](https://github.com/appium/ruby_lib_core/commit/fc7149cbaa199c5bd460d7af49efa2ef09b04243) feat: Add viewmatcher (#247)
+
+
 #### v3.4.2 2019-12-29
 
 - [416ad24](https://github.com/appium/ruby_lib_core/commit/416ad247dc8b5fc36fb88a302a3c0bd335911c65) Release 3.4.2
