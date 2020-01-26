@@ -42,5 +42,7 @@ Naming/MemoizedInstanceVariableName:
   Enabled: true
   Exclude:
     - test/**/*
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
 Layout/RescueEnsureAlignment:
   Enabled: false
