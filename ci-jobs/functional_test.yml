@@ -1,6 +1,6 @@
 # jobs for functional test
 parameters:
-  vmImage: 'macOS-10.14'
+  vmImage: 'macOS-10.15'
   vmImageForIOS: 'macOS-10.14' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
   xcodeForIOS: 11.3
   xcodeForTVOS: 11.3
