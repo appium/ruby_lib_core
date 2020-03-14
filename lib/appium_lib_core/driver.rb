@@ -27,6 +27,8 @@ module Appium
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
+    autoload :Windows, 'appium_lib_core/windows'
+
     # This options affects only client side as <code>:appium_lib</code> key.<br>
     # Read {::Appium::Core::Driver} about each attribute
     class Options
@@ -475,25 +477,24 @@ module Appium
         when :android
           case automation_name
           when :espresso
-            ::Appium::Core::Android::Espresso::Bridge.for(self)
+            ::Appium::Core::Android::Espresso::Bridge.for self
           when :uiautomator2
-            ::Appium::Core::Android::Uiautomator2::Bridge.for(self)
+            ::Appium::Core::Android::Uiautomator2::Bridge.for self
           else # default and UiAutomator
-            ::Appium::Core::Android::Uiautomator1::Bridge.for(self)
+            ::Appium::Core::Android::Uiautomator1::Bridge.for self
           end
         when :ios, :tvos
           case automation_name
           when :xcuitest
-            ::Appium::Core::Ios::Xcuitest::Bridge.for(self)
+            ::Appium::Core::Ios::Xcuitest::Bridge.for self
           else # default and UIAutomation
-            ::Appium::Core::Ios::Uiautomation::Bridge.for(self)
+            ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
           # no Mac specific extentions
           ::Appium::Logger.debug('mac')
         when :windows
-          # no windows specific extentions
-          ::Appium::Logger.debug('windows')
+          ::Appium::Core::Windows::Bridge.for self
         when :tizen
           # https://github.com/Samsung/appium-tizen-driver
           ::Appium::Logger.debug('tizen')

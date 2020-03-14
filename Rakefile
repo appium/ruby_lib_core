@@ -56,6 +56,13 @@ namespace :test do
       t.libs << 'lib'
       t.test_files = FileList['test/unit/common/**/*_test.rb']
     end
+
+    desc('Run all Windows related unit tests in test directory')
+    Rake::TestTask.new(:windows) do |t|
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/windows/**/*_test.rb']
+    end
   end
 end
 
