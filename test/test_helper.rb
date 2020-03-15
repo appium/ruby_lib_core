@@ -97,6 +97,10 @@ class AppiumLibCoreTest
       new.android_web
     end
 
+    def self.windows
+      new.windows
+    end
+
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
       platform_version = '13.3'
@@ -315,6 +319,22 @@ class AppiumLibCoreTest
       }
     end
 
+    def windows
+      {
+        caps: {
+          platformName: :windows,
+          automationName: :windows,
+          deviceName: 'WindowsPC',
+          app: 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'
+        },
+        appium_lib: {
+          export_session: true,
+          wait_timeout: 20,
+          wait_interval: 1
+        }
+      }
+    end
+
     def parallel?
       ENV['PARALLEL']
     end
@@ -474,6 +494,61 @@ class AppiumLibCoreTest
             browserName: 'UICatalog',
             sdkVersion: '11.4',
             CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 0 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
+      driver
+    end
+
+    def windows_mock_create_session
+      response = {
+        status: 0, # To make bridge.dialect == :oss
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: 'Windows',
+            automationNAme: 'Windows',
+            deviceName: 'WindowsPC',
+            app: 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
+        .with(body: { ms: 0 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
+      driver
+    end
+
+    def windows_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: 'Windows',
+            automationNAme: 'Windows',
+            deviceName: 'WindowsPC',
+            app: 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'
           }
         }
       }.to_json
