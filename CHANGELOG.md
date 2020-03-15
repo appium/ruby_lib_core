@@ -10,7 +10,7 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [3.6.0] - 2020-03-15
+## [3.6.1, 3.6.0] - 2020-03-15
 
 ### Enhancements
 - Add screen record feature for Windows driver (https://github.com/appium/appium-windows-driver/pull/66)
