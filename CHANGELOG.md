@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.6.0] - 2020-03-15
+
+### Enhancements
 - Add screen record feature for Windows driver (https://github.com/appium/appium-windows-driver/pull/66)
     - `#start_recording_screen`, `#stop_recording_screen`
 
