@@ -1,3 +1,14 @@
+#### v3.6.0 2020-03-15
+
+- [260d45e](https://github.com/appium/ruby_lib_core/commit/260d45e28a36e99e3dedbe8d41e2703c4d3fbdc8) Release 3.6.0
+- [e67abd5](https://github.com/appium/ruby_lib_core/commit/e67abd53d188f0a77adb15882dd2151b1c0132e8) feat: add Windows screen record (#255)
+- [164fd72](https://github.com/appium/ruby_lib_core/commit/164fd7205944a06055427000b7371311f9dc20a3) ci: Bump ci macOS version (#254)
+- [7200f25](https://github.com/appium/ruby_lib_core/commit/7200f255bc5eb74a8fe8b3667db1c004a55092cf) update rubocop yml
+- [2fe8c0a](https://github.com/appium/ruby_lib_core/commit/2fe8c0ae01fa3fd2653cd83415f512931adac655) Update webmock requirement from ~> 3.4.0 to ~> 3.8.0 (#253)
+- [32dc172](https://github.com/appium/ruby_lib_core/commit/32dc17289f5c130b7f949bfca415e10fa4fe87d7) Update rubocop requirement from = 0.61.0 to = 0.68.1 (#251)
+- [7b4402e](https://github.com/appium/ruby_lib_core/commit/7b4402e3c59d3cfee600c6375494eecb2c7c6ddf) Update rake requirement from ~> 12.0 to ~> 13.0 (#252)
+
+
 #### v3.5.0 2020-01-11
 
 - [79174fd](https://github.com/appium/ruby_lib_core/commit/79174fd6821398eacc32a897c1161140087b11e6) Release 3.5.0
