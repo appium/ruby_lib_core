@@ -24,7 +24,7 @@ module Appium
                                          fps: nil, preset: nil, video_filter: nil,
                                          capture_clicks: nil, capture_cursor: nil, audio_input: nil)
                 option = {}
-                option[:forceRestart] = force_restart unless  force_restart.nil?
+                option[:forceRestart] = force_restart unless force_restart.nil?
                 option[:timeLimit] = time_limit unless time_limit.nil?
                 option[:fps] = fps unless fps.nil?
                 option[:preset] = preset unless preset.nil?
