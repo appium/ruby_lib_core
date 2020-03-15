@@ -245,6 +245,8 @@ module Appium
         # @param [Boolean] bug_report Set it to +true+ in order to display additional information on the video overlay,
         #                             such as a timestamp, that is helpful in videos captured to illustrate bugs.
         #                             This option is only supported since API level 27 (Android P).
+        # @return [String] Base64 encoded content of the recorded media file or an empty string
+        #                  if the file has been successfully uploaded to a remote location (depends on the actual options)
         #
         # @example
         #

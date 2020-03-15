@@ -91,6 +91,8 @@ module Appium
           #                             - https://www.reddit.com/r/linux4noobs/comments/671z6b/width_not_divisible_by_2_error_when_using_ffmpeg/
           # @param [String] pixel_format Output pixel format. Run +ffmpeg -pix_fmts+ to list possible values.
           #                              For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264".
+          # @return [String] Base64 encoded content of the recorded media file or an empty string
+          #                  if the file has been successfully uploaded to a remote location (depends on the actual options)
           #
           # @example
           #
