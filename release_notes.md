@@ -1,3 +1,9 @@
+#### v3.6.1 2020-03-16
+
+- [46a2277](https://github.com/appium/ruby_lib_core/commit/46a2277e792cc583c9978db3ebd548bfee343942) Release 3.6.1
+- [2e28b32](https://github.com/appium/ruby_lib_core/commit/2e28b3205e83358e0aaba79d844c30ac7e29917d) fix: Tweak screen option (#256)
+
+
 #### v3.6.0 2020-03-15
 
 - [260d45e](https://github.com/appium/ruby_lib_core/commit/260d45e28a36e99e3dedbe8d41e2703c4d3fbdc8) Release 3.6.0
