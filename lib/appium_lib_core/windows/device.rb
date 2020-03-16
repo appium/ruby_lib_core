@@ -29,21 +29,8 @@ module Appium
         # This method requires FFMPEG (https://www.ffmpeg.org/download.html) to be installed and present in PATH.
         # The resulting video uses H264 codec and is ready to be played by media players built-in into web browsers.
         #
-        # @param [String] remote_path The path to the remote location, where the resulting video should be uploaded.
-        #                             The following protocols are supported: http/https, ftp.
-        #                             Null or empty string value (the default setting) means the content of resulting
-        #                             file should be encoded as Base64 and passed as the endpount response value.
-        #                             An exception will be thrown if the generated media file is too big to
-        #                             fit into the available process memory.
-        #                             This option only has an effect if there is screen recording process in progreess
-        #                             and +forceRestart+ parameter is not set to +true+.
-        # @param [String] user The name of the user for the remote authentication.
-        # @param [String] pass The password for the remote authentication.
-        # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
-        # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
-        #                                (+false+, the default setting on server) or ignore the result of it
-        #                                and start a new recording immediately (+true+).
-        # @param [String] time_limit Recording time. 180 seconds is by default.
+        # @param [Boolean] force_restart Whether to stop existing recording process forcefully and start a new recording process.
+        # @param [String] time_limit Recording time. 600 seconds is by default.
         # @param [Number|String] fps The count of frames per second in the resulting video.
         #                            Increasing fps value also increases the size of the resulting
         #                            video file and the CPU usage. Defaults to 15.
@@ -73,6 +60,7 @@ module Appium
         # @param [String] audio_input If provided then the given audio input will be used to record the computer audio
         #                             along with the desktop video. The list of available devices could be retrieved using
         #                             +ffmpeg -list_devices true -f dshow -i dummy+ command.
+        # @return [String] Base64 encoded content of the recorded media file
         #
         # @example
         #
