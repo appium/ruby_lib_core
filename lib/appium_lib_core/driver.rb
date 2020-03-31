@@ -382,10 +382,9 @@ module Appium
       private
 
       def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client = http_client ||
-            Appium::Core::Base::Http::Default.new(
-                enable_idempotency_header: @enable_idempotency_header
-            )
+        @http_client = http_client || Appium::Core::Base::Http::Default.new(
+          enable_idempotency_header: @enable_idempotency_header
+        )
 
         # open_timeout and read_timeout are explicit wait.
         @http_client.open_timeout = open_timeout if open_timeout

@@ -22,7 +22,7 @@ module Appium
       module Http
         module RequestHeaders
           KEYS = {
-              idempotency: 'X-Idempotency-Key'
+            idempotency: 'X-Idempotency-Key'
           }.freeze
         end
 
