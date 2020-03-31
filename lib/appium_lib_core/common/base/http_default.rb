@@ -12,12 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'securerandom'
+
 require_relative '../../version'
 
 module Appium
   module Core
     class Base
       module Http
+        module RequestHeaders
+          KEYS = {
+              idempotency: 'X-Idempotency-Key'
+          }.freeze
+        end
+
         class Default < Selenium::WebDriver::Remote::Http::Default
           DEFAULT_HEADERS = {
             'Accept' => CONTENT_TYPE,
@@ -25,6 +33,15 @@ module Appium
             'User-Agent' =>
               "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
           }.freeze
+
+          attr_accessor :enable_idempotency_header
+
+          def initialize(open_timeout: nil, read_timeout: nil, enable_idempotency_header: true)
+            @open_timeout = open_timeout
+            @read_timeout = read_timeout
+
+            @enable_idempotency_header = enable_idempotency_header
+          end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
           # Set <code>@http</code> as nil to re-create http client for the <code>server_url</code>
@@ -66,6 +83,7 @@ module Appium
             url      = server_url.merge(url) unless url.is_a?(URI)
             headers  = DEFAULT_HEADERS.dup
             headers['Cache-Control'] = 'no-cache' if verb == :get
+            headers[RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid if @enable_idempotency_header
 
             if command_hash
               payload                   = JSON.generate(command_hash)

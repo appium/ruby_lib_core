@@ -34,11 +34,12 @@ module Appium
     class Options
       attr_reader :custom_url, :default_wait, :export_session, :export_session_path,
                   :port, :wait_timeout, :wait_interval, :listener,
-                  :direct_connect
+                  :direct_connect, :enable_idempotency_header
 
       def initialize(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, nil
         @default_wait = appium_lib_opts.fetch :wait, Driver::DEFAULT_IMPLICIT_WAIT
+        @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
 
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
@@ -103,6 +104,11 @@ module Appium
       # Return http client called in start_driver()
       # @return [Appium::Core::Base::Http::Default] the http client
       attr_reader :http_client
+
+      # Return if 'x-idempotency-key' header is available in each request
+      # https://github.com/appium/appium-base-driver/pull/400
+      # @return [Bool]
+      attr_reader :enable_idempotency_header
 
       # Device type to request from the appium server
       # @return [Symbol] :android and :ios, for example
@@ -376,7 +382,10 @@ module Appium
       private
 
       def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client = http_client || Appium::Core::Base::Http::Default.new
+        @http_client = http_client ||
+            Appium::Core::Base::Http::Default.new(
+                enable_idempotency_header: @enable_idempotency_header
+            )
 
         # open_timeout and read_timeout are explicit wait.
         @http_client.open_timeout = open_timeout if open_timeout
@@ -570,6 +579,7 @@ module Appium
         opts = Options.new appium_lib_opts
 
         @custom_url ||= opts.custom_url # Keep existence capability if it's already provided
+        @enable_idempotency_header = opts.enable_idempotency_header
 
         @default_wait = opts.default_wait
 
