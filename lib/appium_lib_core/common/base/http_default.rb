@@ -34,13 +34,13 @@ module Appium
               "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
           }.freeze
 
-          attr_accessor :enable_idempotency_header
+          attr_accessor :idempotency_header
 
           def initialize(open_timeout: nil, read_timeout: nil, enable_idempotency_header: true)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
 
-            @enable_idempotency_header = enable_idempotency_header
+            @idempotency_header = enable_idempotency_header ? { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid } : {}
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
@@ -82,8 +82,8 @@ module Appium
           def call(verb, url, command_hash)
             url      = server_url.merge(url) unless url.is_a?(URI)
             headers  = DEFAULT_HEADERS.dup
+            headers  = headers.merge @idempotency_header unless @idempotency_header.empty?
             headers['Cache-Control'] = 'no-cache' if verb == :get
-            headers[RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid if @enable_idempotency_header
 
             if command_hash
               payload                   = JSON.generate(command_hash)
