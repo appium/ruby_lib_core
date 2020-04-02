@@ -105,7 +105,8 @@ module Appium
       # @return [Appium::Core::Base::Http::Default] the http client
       attr_reader :http_client
 
-      # Return if 'x-idempotency-key' header is available in each request
+      # Return if adding 'x-idempotency-key' header is each request.
+      # The key is unique for each http client instance.
       # https://github.com/appium/appium-base-driver/pull/400
       # @return [Bool]
       attr_reader :enable_idempotency_header

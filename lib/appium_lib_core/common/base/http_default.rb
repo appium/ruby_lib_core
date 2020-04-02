@@ -40,7 +40,11 @@ module Appium
             @open_timeout = open_timeout
             @read_timeout = read_timeout
 
-            @additional_headers = enable_idempotency_header ? { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid } : {}
+            @additional_headers = if enable_idempotency_header
+                                    { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid }
+                                  else
+                                    {}
+                                  end
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
