@@ -34,13 +34,13 @@ module Appium
               "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
           }.freeze
 
-          attr_accessor :idempotency_header
+          attr_accessor :additional_headers
 
           def initialize(open_timeout: nil, read_timeout: nil, enable_idempotency_header: true)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
 
-            @idempotency_header = enable_idempotency_header ? { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid } : {}
+            @additional_headers = enable_idempotency_header ? { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid } : {}
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
@@ -82,19 +82,19 @@ module Appium
           def call(verb, url, command_hash)
             url      = server_url.merge(url) unless url.is_a?(URI)
             headers  = DEFAULT_HEADERS.dup
-            headers  = headers.merge @idempotency_header unless @idempotency_header.empty?
+            headers  = headers.merge @additional_headers unless @additional_headers.empty?
             headers['Cache-Control'] = 'no-cache' if verb == :get
 
             if command_hash
               payload                   = JSON.generate(command_hash)
               headers['Content-Length'] = payload.bytesize.to_s if [:post, :put].include?(verb)
-
-              ::Appium::Logger.info("   >>> #{url} | #{payload}")
-              ::Appium::Logger.debug("     > #{headers.inspect}")
             elsif verb == :post
               payload = '{}'
               headers['Content-Length'] = '2'
             end
+
+            ::Appium::Logger.info("   >>> #{url} | #{payload}")
+            ::Appium::Logger.info("     > #{headers.inspect}")
 
             request verb, url, headers, payload
           end
