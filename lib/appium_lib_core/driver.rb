@@ -34,11 +34,12 @@ module Appium
     class Options
       attr_reader :custom_url, :default_wait, :export_session, :export_session_path,
                   :port, :wait_timeout, :wait_interval, :listener,
-                  :direct_connect
+                  :direct_connect, :enable_idempotency_header
 
       def initialize(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, nil
         @default_wait = appium_lib_opts.fetch :wait, Driver::DEFAULT_IMPLICIT_WAIT
+        @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
 
         # bump current session id into a particular file
         @export_session = appium_lib_opts.fetch :export_session, false
@@ -104,6 +105,12 @@ module Appium
       # @return [Appium::Core::Base::Http::Default] the http client
       attr_reader :http_client
 
+      # Return if adding 'x-idempotency-key' header is each request.
+      # The key is unique for each http client instance. <code>Defaults to true</code>
+      # https://github.com/appium/appium-base-driver/pull/400
+      # @return [Bool]
+      attr_reader :enable_idempotency_header
+
       # Device type to request from the appium server
       # @return [Symbol] :android and :ios, for example
       attr_reader :device
@@ -114,7 +121,7 @@ module Appium
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
-      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub<code>.
+      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub</code>.
       # @return [String]
       attr_reader :custom_url
 
@@ -376,7 +383,9 @@ module Appium
       private
 
       def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client = http_client || Appium::Core::Base::Http::Default.new
+        @http_client = http_client || Appium::Core::Base::Http::Default.new(
+          enable_idempotency_header: @enable_idempotency_header
+        )
 
         # open_timeout and read_timeout are explicit wait.
         @http_client.open_timeout = open_timeout if open_timeout
@@ -570,6 +579,7 @@ module Appium
         opts = Options.new appium_lib_opts
 
         @custom_url ||= opts.custom_url # Keep existence capability if it's already provided
+        @enable_idempotency_header = opts.enable_idempotency_header
 
         @default_wait = opts.default_wait
 

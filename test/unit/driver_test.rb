@@ -101,6 +101,16 @@ class AppiumLibCoreTest
       assert_equal '/wd/hub/', uri.path
     end
 
+    def test_http_client
+      client = ::Appium::Core::Base::Http::Default.new enable_idempotency_header: true
+      assert client.additional_headers.key?('X-Idempotency-Key')
+    end
+
+    def test_http_client_no_idempotency_header
+      client = ::Appium::Core::Base::Http::Default.new enable_idempotency_header: false
+      assert !client.additional_headers.key?('X-Idempotency-Key')
+    end
+
     def test_default_timeout_for_http_client_with_direct
       def android_mock_create_session_w3c_direct(core)
         response = {

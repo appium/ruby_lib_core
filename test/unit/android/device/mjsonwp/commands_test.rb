@@ -49,9 +49,20 @@ class AppiumLibCoreTest
 
           def test_device_time
             stub_request(:get, "#{SESSION}/appium/device/system_time")
+              .with(body: {}.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'device time' }.to_json)
 
             @driver.device_time
+
+            assert_requested(:get, "#{SESSION}/appium/device/system_time", times: 1)
+          end
+
+          def test_device_time_with_format
+            stub_request(:get, "#{SESSION}/appium/device/system_time")
+              .with(body: { format: 'YYYY-MM-DD' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: 'device time' }.to_json)
+
+            @driver.device_time('YYYY-MM-DD')
 
             assert_requested(:get, "#{SESSION}/appium/device/system_time", times: 1)
           end
