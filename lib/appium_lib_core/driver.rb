@@ -106,7 +106,7 @@ module Appium
       attr_reader :http_client
 
       # Return if adding 'x-idempotency-key' header is each request.
-      # The key is unique for each http client instance.
+      # The key is unique for each http client instance. <code>Defaults to true</code>
       # https://github.com/appium/appium-base-driver/pull/400
       # @return [Bool]
       attr_reader :enable_idempotency_header
@@ -121,7 +121,7 @@ module Appium
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
-      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub<code>.
+      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub</code>.
       # @return [String]
       attr_reader :custom_url
 
