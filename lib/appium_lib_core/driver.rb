@@ -106,7 +106,7 @@ module Appium
       attr_reader :http_client
 
       # Return if adding 'x-idempotency-key' header is each request.
-      # The key is unique for each http client instance. <code>Defaults to true</code>
+      # The key is unique for each http client instance. Defaults to <code>true</code>
       # https://github.com/appium/appium-base-driver/pull/400
       # @return [Bool]
       attr_reader :enable_idempotency_header
@@ -125,7 +125,7 @@ module Appium
       # @return [String]
       attr_reader :custom_url
 
-      # Export session id to textfile in /tmp for 3rd party tools. False bu default.
+      # Export session id to textfile in /tmp for 3rd party tools. False by default.
       # @return [Boolean]
       attr_reader :export_session
       # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
