@@ -74,6 +74,45 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/actions", times: 1)
           end
 
+          def test_w3c_actions_send_keys_active_element
+            action_body = {
+              actions: [{
+                type: 'key',
+                id: 'keyboard',
+                actions: [{
+                  type: 'keyDown',
+                  value: 'h'
+                }, {
+                  type: 'keyUp',
+                  value: 'h'
+                }, {
+                  type: 'keyDown',
+                  value: 'i'
+                }, {
+                  type: 'keyUp',
+                  value: 'i'
+                }, {
+                  type: 'keyDown',
+                  value: 'あ'
+                }, {
+                  type: 'keyUp',
+                  value: 'あ'
+                }]
+              }]
+            }
+
+            stub_request(:post, "#{SESSION}/actions")
+              .with(body: action_body.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver
+              .action
+              .send_keys('hiあ')
+              .perform
+
+            assert_requested(:post, "#{SESSION}/actions", times: 1)
+          end
+
           def test_w3c__multiple_actions
             action_body = {
               actions: [{
