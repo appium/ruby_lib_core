@@ -480,6 +480,54 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/element", times: 1)
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
           end
+
+          def test_chrome_network_conditions
+            stub_request(:get, "#{SESSION}/chromium/network_conditions")
+              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+
+            @driver.chromium_network_conditions
+
+            assert_requested(:get, "#{SESSION}/chromium/network_conditions", times: 1)
+          end
+
+          def test_chrome_set_network_conditions
+            stub_request(:post, "#{SESSION}/chromium/network_conditions")
+              .with(body: { network_conditions: { offline: false } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+
+            @driver.chromium_network_conditions = { offline: false }
+
+            assert_requested(:post, "#{SESSION}/chromium/network_conditions", times: 1)
+          end
+
+          def test_chrome_available_log_types
+            stub_request(:get, "#{SESSION}/se/log/types")
+              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+
+            @driver.chromium_available_log_types
+
+            assert_requested(:get, "#{SESSION}/se/log/types", times: 1)
+          end
+
+          def test_chromium_get_log
+            stub_request(:post, "#{SESSION}/se/log")
+              .with(body: { type: 'timestamp' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+
+            @driver.chromium_log('timestamp')
+
+            assert_requested(:post, "#{SESSION}/se/log", times: 1)
+          end
+
+          def test_chromium_send_command
+            stub_request(:post, "#{SESSION}/goog/cdp/execute")
+              .with(body: 'Page.getResourceTree'.to_json)
+              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+
+            @driver.chromium_send_cdp_command('Page.getResourceTree')
+
+            assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
+          end
         end # class CommandsTest
       end # module W3C
     end # module Device

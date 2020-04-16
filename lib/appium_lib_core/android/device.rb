@@ -18,6 +18,7 @@ require_relative 'device/network'
 require_relative 'device/performance'
 require_relative 'device/screen'
 require_relative 'device/auth_finger_print'
+require_relative 'device/chromium'
 
 module Appium
   module Core
@@ -399,6 +400,7 @@ module Appium
             Clipboard.add_methods
             Emulator.add_methods
             Authentication.add_methods
+            Chromium.add_methods
           end
         end
       end # module Device

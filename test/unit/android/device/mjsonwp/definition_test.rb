@@ -92,7 +92,12 @@ class AppiumLibCoreTest
                                                 :get_performance_data,
                                                 :get_clipboard,
                                                 :set_clipboard,
-                                                :execute_driver])
+                                                :execute_driver,
+                                                :chromium_network_conditions,
+                                                :chromium_network_conditions=,
+                                                :chromium_available_log_types,
+                                                :chromium_log,
+                                                :chromium_send_cdp_command])
           end
         end
       end # module MJSONWP
