@@ -97,7 +97,7 @@ module Appium
         set_power_ac:               [:post, 'session/:session_id/appium/device/power_ac'],
 
         # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
-        chromium_send_command:      [:post, 'session/:session_id/goog/cdp/execute']
+        chrome_send_command:        [:post, 'session/:session_id/goog/cdp/execute']
       }.freeze
 
       COMMAND_IOS = {
