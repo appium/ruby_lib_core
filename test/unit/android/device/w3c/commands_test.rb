@@ -481,52 +481,26 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
           end
 
-          def test_chrome_network_conditions
-            stub_request(:get, "#{SESSION}/chromium/network_conditions")
-              .to_return(headers: HEADER, status: 200, body: {}.to_json)
-
-            @driver.chromium_network_conditions
-
-            assert_requested(:get, "#{SESSION}/chromium/network_conditions", times: 1)
-          end
-
-          def test_chrome_set_network_conditions
-            stub_request(:post, "#{SESSION}/chromium/network_conditions")
-              .with(body: { network_conditions: { offline: false } }.to_json)
-              .to_return(headers: HEADER, status: 200, body: {}.to_json)
-
-            @driver.chromium_network_conditions = { offline: false }
-
-            assert_requested(:post, "#{SESSION}/chromium/network_conditions", times: 1)
-          end
-
-          def test_chrome_available_log_types
-            stub_request(:get, "#{SESSION}/se/log/types")
-              .to_return(headers: HEADER, status: 200, body: {}.to_json)
-
-            @driver.chromium_available_log_types
-
-            assert_requested(:get, "#{SESSION}/se/log/types", times: 1)
-          end
-
-          def test_chromium_get_log
-            stub_request(:post, "#{SESSION}/se/log")
-              .with(body: { type: 'timestamp' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: {}.to_json)
-
-            @driver.chromium_log('timestamp')
-
-            assert_requested(:post, "#{SESSION}/se/log", times: 1)
-          end
-
           def test_chromium_send_command
             stub_request(:post, "#{SESSION}/goog/cdp/execute")
-              .with(body: 'Page.getResourceTree'.to_json)
-              .to_return(headers: HEADER, status: 200, body: {}.to_json)
+              .with(body: { cmd: 'Page.captureScreenshot', params: { quality: 1, format: 'jpeg' } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: { data: '/9j/4AAQSkZJRgABAQAAAQABAAD' } }.to_json)
 
-            @driver.chromium_send_cdp_command('Page.getResourceTree')
+            r = @driver.execute_cdp 'Page.captureScreenshot', { quality: 1, format: 'jpeg' }
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
+            assert_equal '/9j/4AAQSkZJRgABAQAAAQABAAD', r['data']
+          end
+
+          def test_chromium_send_command_no_param
+            stub_request(:post, "#{SESSION}/goog/cdp/execute")
+              .with(body: { cmd: 'Page.getResourceTree', params: {} }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: { frameTree: { childFrames: [] } } }.to_json)
+
+            r = @driver.execute_cdp 'Page.getResourceTree'
+
+            assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
+            assert_equal({ 'childFrames' => [] }, r['frameTree'])
           end
         end # class CommandsTest
       end # module W3C

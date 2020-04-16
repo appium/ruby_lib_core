@@ -93,11 +93,7 @@ class AppiumLibCoreTest
                                                 :get_clipboard,
                                                 :set_clipboard,
                                                 :execute_driver,
-                                                :chromium_network_conditions,
-                                                :chromium_network_conditions=,
-                                                :chromium_available_log_types,
-                                                :chromium_log,
-                                                :chromium_send_cdp_command])
+                                                :execute_cdp])
           end
         end # class DefinitionTest
       end # module W3C

@@ -18,7 +18,6 @@ require_relative 'device/network'
 require_relative 'device/performance'
 require_relative 'device/screen'
 require_relative 'device/auth_finger_print'
-require_relative 'device/chromium'
 
 module Appium
   module Core
@@ -394,13 +393,18 @@ module Appium
               end
             end
 
+            ::Appium::Core::Device.add_endpoint_method(:execute_cdp) do
+              def execute_cdp(cmd, **params)
+                execute :chromium_send_command, {}, { cmd: cmd, params: params }
+              end
+            end
+
             Screen.add_methods
             Performance.add_methods
             Network.add_methods
             Clipboard.add_methods
             Emulator.add_methods
             Authentication.add_methods
-            Chromium.add_methods
           end
         end
       end # module Device
