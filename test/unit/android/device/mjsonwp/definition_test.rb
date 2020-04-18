@@ -92,7 +92,8 @@ class AppiumLibCoreTest
                                                 :get_performance_data,
                                                 :get_clipboard,
                                                 :set_clipboard,
-                                                :execute_driver])
+                                                :execute_driver,
+                                                :execute_cdp])
           end
         end
       end # module MJSONWP

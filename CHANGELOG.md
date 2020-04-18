@@ -7,6 +7,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 - Add `x-idempotency-key` header support (https://github.com/appium/appium-base-driver/pull/400)
     - Can disable the header with `enable_idempotency_header: false` in `appium_lib` capability. Defaults to `true`.
+- Add chrome devtools entpoint which is available chrome module in Selenium Ruby binding
 
 ### Bug fixes
 

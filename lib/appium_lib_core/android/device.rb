@@ -285,6 +285,19 @@ module Appium
         #   @driver.finger_print 1
         #
 
+        # @!method execute_cdp(cmd, params)
+        #     Execute Chrome Devtools protocol commands
+        #     https://chromedevtools.github.io/devtools-protocol
+        #
+        # @param [String] cmd The name of command
+        # @param [Hash] params The parameter for the command as hash.
+        #
+        # @example
+        #
+        #   @driver.execute_cdp 'Page.captureScreenshot', { quality: 50, format: 'jpeg' }
+        #   @driver.execute_cdp 'Page.getResourceTree'
+        #
+
         ####
         ## class << self
         ####
@@ -390,6 +403,12 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:end_coverage) do
               def end_coverage(path, intent)
                 execute :end_coverage, {}, path: path, intent: intent
+              end
+            end
+
+            ::Appium::Core::Device.add_endpoint_method(:execute_cdp) do
+              def execute_cdp(cmd, **params)
+                execute :chrome_send_command, {}, { cmd: cmd, params: params }
               end
             end
 

@@ -94,7 +94,10 @@ module Appium
         gsm_voice:                  [:post, 'session/:session_id/appium/device/gsm_voice'],
         set_network_speed:          [:post, 'session/:session_id/appium/device/network_speed'],
         set_power_capacity:         [:post, 'session/:session_id/appium/device/power_capacity'],
-        set_power_ac:               [:post, 'session/:session_id/appium/device/power_ac']
+        set_power_ac:               [:post, 'session/:session_id/appium/device/power_ac'],
+
+        # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
+        chrome_send_command:        [:post, 'session/:session_id/goog/cdp/execute']
       }.freeze
 
       COMMAND_IOS = {
