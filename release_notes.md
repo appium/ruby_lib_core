@@ -1,3 +1,14 @@
+#### v3.7.0 2020-04-18
+
+- [5ffe630](https://github.com/appium/ruby_lib_core/commit/5ffe630e670943c6f6f60c0e331cdab4685e31c7) Release 3.7.0
+- [e561c8d](https://github.com/appium/ruby_lib_core/commit/e561c8db5b00f1132391f8ea79133c295d39a90b) feat: Add chrome devtools endpoints (#260)
+- [73cf85f](https://github.com/appium/ruby_lib_core/commit/73cf85fd6ab5bdfb9df7833a713b8d4df3e51a70) test: add w3c send_keys action
+- [b1c36fa](https://github.com/appium/ruby_lib_core/commit/b1c36fa538c145326dc50f49ab4d738478e5e0ac) fix typo
+- [350ba7b](https://github.com/appium/ruby_lib_core/commit/350ba7bdafd567dabc9bd54ab1476740c6f54a20) feat: Add x idempotency header (#259)
+- [94f16d8](https://github.com/appium/ruby_lib_core/commit/94f16d83909a2fb6111d281a00c0b911a00bb23c) ci: bump to Xcode 11.4 and iOS 13.4 (#257)
+- [53b7191](https://github.com/appium/ruby_lib_core/commit/53b7191b89e61d11b06628d710a13dac5ca9dfaf) ci: add -accel auto
+
+
 #### v3.6.1 2020-03-16
 
 - [46a2277](https://github.com/appium/ruby_lib_core/commit/46a2277e792cc583c9978db3ebd548bfee343942) Release 3.6.1
