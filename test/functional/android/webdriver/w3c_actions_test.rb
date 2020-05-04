@@ -62,8 +62,13 @@ class AppiumLibCoreTest
         end
         @driver.manage.timeouts.implicit_wait = @@core.default_wait
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
-        assert_equal 'Lists', el.text
+        if @@core.automation_name == :espresso
+          el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
+          assert_equal 'Lists', el.text
+        else
+          # Sometimes UIA2 scrolls a element too much
+          @driver.find_element(:accessibility_id, 'WebView')
+        end
       end
 
       def test_double_tap
