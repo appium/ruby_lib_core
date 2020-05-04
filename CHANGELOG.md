@@ -5,9 +5,18 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.7.0] - 2020-04-18
+
+### Enhancements
 - Add `x-idempotency-key` header support (https://github.com/appium/appium-base-driver/pull/400)
     - Can disable the header with `enable_idempotency_header: false` in `appium_lib` capability. Defaults to `true`.
-- Add chrome devtools entpoint which is available chrome module in Selenium Ruby binding
+- Add chrome devtools endpoint which is available chrome module in Selenium Ruby binding 
+    - https://github.com/appium/appium-base-driver/pull/405
 
 ### Bug fixes
 
