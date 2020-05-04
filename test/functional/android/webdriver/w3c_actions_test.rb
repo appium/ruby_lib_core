@@ -54,21 +54,14 @@ class AppiumLibCoreTest
         @driver.manage.timeouts.implicit_wait = 3
 
         if @@core.automation_name == :espresso
-          # Skip in espresso, since espresso show a target element in recyclerview even it is out of the view
+          el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
+          assert_equal 'Lists', el.text
         else
           assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
             @driver.find_element(:accessibility_id, 'Custom')
           end
         end
         @driver.manage.timeouts.implicit_wait = @@core.default_wait
-
-        if @@core.automation_name == :espresso
-          el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
-          assert_equal 'Lists', el.text
-        else
-          # Sometimes UIA2 scrolls a element too much
-          @driver.find_element(:accessibility_id, 'WebView')
-        end
       end
 
       def test_double_tap
