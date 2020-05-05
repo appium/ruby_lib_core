@@ -122,14 +122,19 @@ class AppiumLibCoreTest
         assert(@driver.manage.timeouts.implicit_wait = @@core.default_wait)
       end
 
+      # Not so stable on CI
       def test_rotate
         assert_equal :portrait, @driver.orientation
 
-        @driver.rotation = :landscape
-        assert_equal :landscape, @driver.orientation
+        @@core.wait do
+          @driver.rotation = :landscape
+          assert_equal :landscape, @driver.orientation
+        end
 
-        @driver.rotation = :portrait
-        assert_equal :portrait, @driver.orientation
+        @@core.wait do
+          @driver.rotation = :portrait
+          assert_equal :portrait, @driver.orientation
+        end
       end
 
       def test_logs
