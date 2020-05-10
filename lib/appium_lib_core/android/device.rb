@@ -227,9 +227,9 @@ module Appium
         # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
         # @param [String] file_field_name The name of the form field containing the binary payload in multipart/form-data
         #                             requests since Appium 1.18.0. Defaults to 'file'.
-        # @param [String] form_fields The form fields mapping in multipart/form-data requests since Appium 1.18.0.
+        # @param [Array<Hash, Array<String>>] form_fields The form fields mapping in multipart/form-data requests since Appium 1.18.0.
         #                             If any entry has the same key in this mapping, then it is going to be ignored.
-        # @param [String] headers The additional headers in multipart/form-data requests since Appium 1.18.0.
+        # @param [Hash] headers The additional headers in multipart/form-data requests since Appium 1.18.0.
         # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
         #                                 (+false+, the default setting on server) or ignore the result of it
         #                                 and start a new recording immediately (+true+).
