@@ -101,6 +101,8 @@ class AppiumLibCoreTest
           end
 
           def test_start_recording_screen_additional_options
+            skip 'Only XCUITest supports' unless @core.automation_name == :xcuitest
+
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
               .with(body: { options: {
                 remotePath: 'https://example.com', method: 'PUT',

@@ -24,7 +24,11 @@ require 'minitest'
 
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
-Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
+begin
+  Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
+rescue
+  # ignore
+end
 
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
