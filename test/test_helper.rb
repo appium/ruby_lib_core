@@ -26,8 +26,8 @@ Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 begin
   Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
-rescue
-  # ignore
+rescue Errno::ENOENT # rubocop:disable Lint/HandleExceptions
+  # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
