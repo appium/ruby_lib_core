@@ -15,7 +15,7 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 13
 Metrics/ParameterLists:
-  Max: 6
+  Enabled: false
 Lint/NestedMethodDefinition:
   Enabled: false
 # TODO: Replace <<- with <<~ after dropping Ruby 2.2
