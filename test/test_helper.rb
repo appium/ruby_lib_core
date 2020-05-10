@@ -24,7 +24,11 @@ require 'minitest'
 
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
-Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
+begin
+  Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
+rescue Errno::ENOENT # rubocop:disable Lint/HandleExceptions
+  # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
+end
 
 ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze

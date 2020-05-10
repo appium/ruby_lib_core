@@ -25,11 +25,13 @@ module Appium
             end
 
             ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
-              # rubocop:disable Metrics/ParameterLists
-              def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil,
+              def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT',
+                                         file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil,
                                          video_size: nil, time_limit: '180', bit_rate: nil, bug_report: nil)
                 option = ::Appium::Core::Base::Device::ScreenRecord.new(
-                  remote_path: remote_path, user: user, pass: pass, method: method, force_restart: force_restart
+                  remote_path: remote_path, user: user, pass: pass, method: method,
+                  file_field_name: file_field_name, form_fields: form_fields, headers: headers,
+                  force_restart: force_restart
                 ).upload_option
 
                 option[:videoSize] = video_size unless video_size.nil?
@@ -44,7 +46,6 @@ module Appium
 
                 execute(:start_recording_screen, {}, { options: option })
               end
-              # rubocop:enable Metrics/ParameterLists
             end
           end
         end # module Screen

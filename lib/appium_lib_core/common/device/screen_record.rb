@@ -25,7 +25,8 @@ module Appium
 
           METHOD = %w(POST PUT).freeze
 
-          def initialize(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil)
+          def initialize(remote_path: nil, user: nil, pass: nil, method: 'PUT',
+                         file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil)
             @upload_option = if remote_path.nil?
                                {}
                              else
@@ -36,6 +37,9 @@ module Appium
                                option[:user] = user unless user.nil?
                                option[:pass] = pass unless pass.nil?
                                option[:method] = method
+                               option[:fileFieldName] = file_field_name unless file_field_name.nil?
+                               option[:formFields] = form_fields unless form_fields.nil?
+                               option[:headers] = headers unless headers.nil?
                                option
                              end
 
@@ -47,9 +51,11 @@ module Appium
           end
 
           module Command
-            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT')
+            def stop_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT',
+                                      file_field_name: nil, form_fields: nil, headers: nil)
               option = ::Appium::Core::Base::Device::ScreenRecord.new(
-                remote_path: remote_path, user: user, pass: pass, method: method
+                remote_path: remote_path, user: user, pass: pass, method: method,
+                file_field_name: file_field_name, form_fields: form_fields, headers: headers
               ).upload_option
 
               params = option.empty? ? {} : { options: option }

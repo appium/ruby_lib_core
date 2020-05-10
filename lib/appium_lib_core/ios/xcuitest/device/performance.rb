@@ -32,9 +32,11 @@ module Appium
 
               ::Appium::Core::Device.add_endpoint_method(:get_performance_record) do
                 def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
-                                           remote_path: nil, user: nil, pass: nil, method: 'PUT')
+                                           remote_path: nil, user: nil, pass: nil, method: 'PUT',
+                                           file_field_name: nil, form_fields: nil, headers: nil)
                   option = ::Appium::Core::Base::Device::ScreenRecord.new(
-                    remote_path: remote_path, user: user, pass: pass, method: method
+                    remote_path: remote_path, user: user, pass: pass, method: method,
+                    file_field_name: file_field_name, form_fields: form_fields, headers: headers
                   ).upload_option
 
                   option[:profileName] = profile_name

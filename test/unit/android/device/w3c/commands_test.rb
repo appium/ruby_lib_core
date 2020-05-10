@@ -337,6 +337,23 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
           end
 
+          def test_start_recording_screen_additional_options
+            stub_request(:post, "#{SESSION}/appium/start_recording_screen")
+              .with(body: { options: {
+                remotePath: 'https://example.com', method: 'PUT',
+                fileFieldName: 'file', formFields: [%w(email example@mail.com), { file: 'another data' }],
+                headers: { 'x-custom-header' => 'xxxxx' },
+                timeLimit: '180'
+              } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
+
+            @driver.start_recording_screen remote_path: 'https://example.com', file_field_name: 'file',
+                                           form_fields: [%w(email example@mail.com), { file: 'another data' }],
+                                           headers: { 'x-custom-header': 'xxxxx' }
+
+            assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
+          end
+
           def test_stop_recording_screen_custom
             stub_request(:post, "#{SESSION}/appium/stop_recording_screen")
               .with(body: { options:
