@@ -213,7 +213,7 @@ module Appium
         #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
         #
 
-        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000', bug_report: nil)
+        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000', bug_report: nil)
         # @param [String] remote_path The path to the remote location, where the resulting video should be uploaded.
         #                             The following protocols are supported: http/https, ftp.
         #                             Null or empty string value (the default setting) means the content of resulting
@@ -225,6 +225,11 @@ module Appium
         # @param [String] user The name of the user for the remote authentication.
         # @param [String] pass The password for the remote authentication.
         # @param [String] method The http multipart upload method name. The 'PUT' one is used by default.
+        # @param [String] file_field_name The name of the form field containing the binary payload in multipart/form-data
+        #                             requests since Appium 1.18.0. Defaults to 'file'.
+        # @param [String] form_fields The form fields mapping in multipart/form-data requests since Appium 1.18.0.
+        #                             If any entry has the same key in this mapping, then it is going to be ignored.
+        # @param [String] headers The additional headers in multipart/form-data requests since Appium 1.18.0.
         # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
         #                                 (+false+, the default setting on server) or ignore the result of it
         #                                 and start a new recording immediately (+true+).
