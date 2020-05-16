@@ -105,7 +105,8 @@ module Appium
       # @return [Appium::Core::Base::Http::Default] the http client
       attr_reader :http_client
 
-      # Return if adding 'x-idempotency-key' header is each request.
+      # Return if adding 'x-idempotency-key' header is enabled for each new session request.
+      # Following commands should not have the key.
       # The key is unique for each http client instance. Defaults to <code>true</code>
       # https://github.com/appium/appium-base-driver/pull/400
       # @return [Bool]
@@ -370,6 +371,9 @@ module Appium
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
+
+        # We only need the key for a new session request. Should remove it for other following commands.
+        @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
 
         # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
         # Since @automation_name is set only client side before start_driver is called.

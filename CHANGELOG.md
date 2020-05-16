@@ -9,6 +9,7 @@ Read `release_notes.md` for commit level details.
     - `file_field_name`, `form_fields` and `headers` are available since Appium 1.18.0
 
 ### Bug fixes
+- Fix `x-idempotency-key` header to add it only in new session request (https://github.com/appium/ruby_lib_core/issues/262)
 
 ### Deprecations
 
