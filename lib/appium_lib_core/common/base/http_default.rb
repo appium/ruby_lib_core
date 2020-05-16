@@ -34,17 +34,12 @@ module Appium
               "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
           }.freeze
 
-          attr_accessor :additional_headers
+          attr_reader :additional_headers
 
-          def initialize(open_timeout: nil, read_timeout: nil, enable_idempotency_header: true)
+          def initialize(open_timeout: nil, read_timeout: nil)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
-
-            @additional_headers = if enable_idempotency_header
-                                    { RequestHeaders::KEYS[:idempotency] => SecureRandom.uuid }
-                                  else
-                                    {}
-                                  end
+            @additional_headers = {}
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
