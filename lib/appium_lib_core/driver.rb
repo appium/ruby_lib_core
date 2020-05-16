@@ -350,9 +350,17 @@ module Appium
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
         @custom_url ||= server_url || "http://127.0.0.1:#{@port}/wd/hub"
 
-        create_http_client http_client: http_client_ops.delete(:http_client),
-                           open_timeout: http_client_ops.delete(:open_timeout),
-                           read_timeout: http_client_ops.delete(:read_timeout)
+        @http_client = get_http_client http_client: http_client_ops.delete(:http_client),
+                                       open_timeout: http_client_ops.delete(:open_timeout),
+                                       read_timeout: http_client_ops.delete(:read_timeout)
+
+        if @enable_idempotency_header
+          if @http_client.instance_variable_defined? :@additional_headers
+            @http_client.additional_headers[Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid
+          else
+            ::Appium::Logger.warn 'No additional_headers attribute in this http client instance'
+          end
+        end
 
         begin
           # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
@@ -372,8 +380,10 @@ module Appium
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
 
-        # We only need the key for a new session request. Should remove it for other following commands.
-        @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
+        if @http_client.instance_variable_defined? :@additional_headers
+          # We only need the key for a new session request. Should remove it for other following commands.
+          @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
+        end
 
         # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
         # Since @automation_name is set only client side before start_driver is called.
@@ -386,14 +396,14 @@ module Appium
 
       private
 
-      def create_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        @http_client = http_client || Appium::Core::Base::Http::Default.new(
-          enable_idempotency_header: @enable_idempotency_header
-        )
+      def get_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
+        client = http_client || Appium::Core::Base::Http::Default.new
 
         # open_timeout and read_timeout are explicit wait.
-        @http_client.open_timeout = open_timeout if open_timeout
-        @http_client.read_timeout = read_timeout if read_timeout
+        client.open_timeout = open_timeout if open_timeout
+        client.read_timeout = read_timeout if read_timeout
+
+        client
       end
 
       # Ignore setting default wait if the target driver has no implementation

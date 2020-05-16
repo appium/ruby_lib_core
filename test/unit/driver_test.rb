@@ -102,13 +102,8 @@ class AppiumLibCoreTest
     end
 
     def test_http_client
-      client = ::Appium::Core::Base::Http::Default.new enable_idempotency_header: true
-      assert client.additional_headers.key?('X-Idempotency-Key')
-    end
-
-    def test_http_client_no_idempotency_header
-      client = ::Appium::Core::Base::Http::Default.new enable_idempotency_header: false
-      assert !client.additional_headers.key?('X-Idempotency-Key')
+      client = ::Appium::Core::Base::Http::Default.new
+      assert client.instance_variable_defined? :@additional_headers
     end
 
     def test_default_timeout_for_http_client_with_direct
@@ -212,6 +207,96 @@ class AppiumLibCoreTest
       assert_equal '127.0.0.1', uri.host
       assert_equal 4723, uri.port
       assert_equal '/wd/hub/', uri.path
+    end
+
+    def test_default_timeout_for_http_client_with_enable_idempotency_header_false
+      def _android_mock_create_session_w3c(core)
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              app: 'test/functional/app/api.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis',
+              appActivity: 'io.appium.android.apis.ApiDemos',
+              someCapability: 'some_capability',
+              unicodeKeyboard: true,
+              resetKeyboard: true
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+          .with(body: { implicit: 5_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+                         body: { implicit: 5_000 }.to_json, times: 1)
+        driver
+      end
+
+      caps = Caps.android
+      caps[:appium_lib][:enable_idempotency_header] = false
+      core = ::Appium::Core.for(caps)
+      driver = _android_mock_create_session_w3c(core)
+
+      assert driver.send(:bridge).http.is_a?(::Appium::Core::Base::Http::Default)
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
+      assert_equal 999_999, driver.send(:bridge).http.open_timeout
+      assert_equal 999_999, driver.send(:bridge).http.read_timeout
+    end
+
+    def test_default_timeout_for_http_client_with_custom_http_client
+      def _android_mock_create_session_w3c_with_custom_http_client(core)
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              app: 'test/functional/app/api.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis',
+              appActivity: 'io.appium.android.apis.ApiDemos',
+              someCapability: 'some_capability',
+              unicodeKeyboard: true,
+              resetKeyboard: true
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+          .with(body: { implicit: 5_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+        driver = core.start_driver http_client_ops: { http_client: Selenium::WebDriver::Remote::Http::Default.new }
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+                         body: { implicit: 5_000 }.to_json, times: 1)
+        driver
+      end
+
+      caps = Caps.android
+      core = ::Appium::Core.for(caps)
+      driver = _android_mock_create_session_w3c_with_custom_http_client(core)
+
+      # No @additional_headers case
+      assert driver.send(:bridge).http.is_a?(::Selenium::WebDriver::Remote::Http::Default)
+      assert_equal(false, driver.send(:bridge).http.instance_variable_defined?(:@additional_headers))
     end
 
     # https://www.w3.org/TR/webdriver1/
