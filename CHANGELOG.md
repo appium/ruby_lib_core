@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.8.0] - 2020-05-17
+
+### Enhancements
 - Add options for `start_recording_screen`
     - `file_field_name`, `form_fields` and `headers` are available since Appium 1.18.0
 
