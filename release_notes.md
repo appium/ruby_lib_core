@@ -1,3 +1,15 @@
+#### v3.8.0 2020-05-17
+
+- [8986a54](https://github.com/appium/ruby_lib_core/commit/8986a5400d6a3575b7413f15bb61de09af2ec789) Release 3.8.0
+- [2379f9a](https://github.com/appium/ruby_lib_core/commit/2379f9a69b43e8c2d2b584ac1e56d3a1aea5e85b) refactor: move idempotency in driver (#264)
+- [8103619](https://github.com/appium/ruby_lib_core/commit/8103619313328064df516e7094e2c8a6e1e9719c) fix: x-idempotency-key only for a new session (#263)
+- [971f912](https://github.com/appium/ruby_lib_core/commit/971f912a6b4d8e28896d146939c9e5b86dd4b1e0) feat: Add options for start_recording_screen (#261)
+- [11f840a](https://github.com/appium/ruby_lib_core/commit/11f840a2945b0376bb3ad762e9b2eefd0aace3b4) ci: add wait
+- [4931f4e](https://github.com/appium/ruby_lib_core/commit/4931f4e318e94f9253edd649757f5c774c3404a7) ci: tweak flaky case
+- [cb6ef1a](https://github.com/appium/ruby_lib_core/commit/cb6ef1a74dae7200952630076dd58af6bb9500ec) Merge branch 'master' of github.com:appium/ruby_lib_core
+- [9117de2](https://github.com/appium/ruby_lib_core/commit/9117de2674f018cfe8e10d9dadc188af846e6be4) ci: relax tests for uia2
+
+
 #### v3.7.0 2020-04-18
 
 - [5ffe630](https://github.com/appium/ruby_lib_core/commit/5ffe630e670943c6f6f60c0e331cdab4685e31c7) Release 3.7.0
