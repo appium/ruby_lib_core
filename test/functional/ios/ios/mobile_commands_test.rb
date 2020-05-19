@@ -110,8 +110,7 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
-        siri_state = @driver.app_state('com.apple.SiriViewService')
-        assert [:running_in_background_suspended, :not_running].include? siri_state
+        assert @driver.app_state('com.apple.SiriViewService') != :running_in_foreground
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
