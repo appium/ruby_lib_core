@@ -55,7 +55,8 @@ class AppiumLibCoreTest
       assert result
 
       e1 = @driver.switch_to.active_element
-      assert_equal 'Settings', e1.label
+      label = e1.label
+      assert %w(Settings Music).include? label
     end
   end
 end
