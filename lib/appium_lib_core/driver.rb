@@ -182,7 +182,9 @@ module Appium
 
       # Creates a new driver and extend particular methods
       # @param [Hash] opts A options include capabilities for the Appium Server and for the client.
-      # @option opts [Hash] :caps Appium capabilities. Prior than :desired_capabilities
+      # @option opts [Hash] :caps Appium capabilities.
+      # @option opts [Hash] :capabilities The same as :caps.
+      #                                   This param is for compatibility with Selenium WebDriver format
       # @option opts [Hash] :desired_capabilities The same as :caps.
       #                                           This param is for compatibility with Selenium WebDriver format
       # @option opts [Appium::Core::Options] :appium_lib Capabilities affect only ruby client
@@ -195,8 +197,8 @@ module Appium
       #
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     # format 2. 'desired_capabilities:' is also available instead of 'caps:'. Either is fine.
-      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}, appium_lib: {...}
+      #     # format 2. 'capabilities:' or 'desired_capabilities:' is also available instead of 'caps:'.
+      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", capabilities: {...}, appium_lib: {...}
       #     # format 3. 'appium_lib: {...}' can be blank
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}
       #
@@ -226,9 +228,9 @@ module Appium
       #     @core.start_driver # Connect to 'http://127.0.0.1:8080/wd/hub' because of 'port: 8080'
       #
       #     # Start iOS driver with .zip file over HTTP
-      #     #  'desired_capabilities:' is also available instead of 'caps:'. Either is fine.
+      #     #  'desired_capabilities:' or 'capabilities:' is also available instead of 'caps:'. Either is fine.
       #     opts = {
-      #              desired_capabilities: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -541,7 +543,10 @@ module Appium
       def validate_keys(opts)
         flatten_ops = flatten_hash_keys(opts)
 
-        raise Error::NoCapabilityError unless opts.member?(:caps) || opts.member?(:desired_capabilities)
+        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
+        unless opts.member?(:caps) || opts.member?(:capabilities) || opts.member?(:desired_capabilities)
+          raise Error::NoCapabilityError
+        end
 
         if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
           raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
@@ -562,7 +567,8 @@ module Appium
 
       # @private
       def get_caps(opts)
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:desired_capabilities] || {})
+        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
+        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || opts[:desired_capabilities] || {})
       end
 
       # @private
