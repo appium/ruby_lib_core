@@ -23,8 +23,10 @@ class AppiumLibCoreTest
     end
 
     class ExampleDriver
+      # for test
+      attr_reader :core
       def initialize(opts)
-        ::Appium::Core.for(opts)
+        @core = ::Appium::Core.for(opts)
       end
     end
 
@@ -37,13 +39,31 @@ class AppiumLibCoreTest
     end
 
     def test_with_caps
-      opts = { caps: {} }
-      refute_nil ExampleDriver.new(opts)
+      opts = { caps: { automationName: 'xcuitest' } }
+      driver = ExampleDriver.new(opts)
+      refute_nil driver
+      assert_equal driver.core.caps[:automationName], 'xcuitest'
+    end
+
+    def test_with_capabilities
+      opts = { capabilities: { automationName: 'xcuitest' } }
+      driver = ExampleDriver.new(opts)
+      refute_nil driver
+      assert_equal driver.core.caps[:automationName], 'xcuitest'
+    end
+
+    def test_with_desired_capabilities
+      opts = { desired_capabilities: { automationName: 'xcuitest' } }
+      driver = ExampleDriver.new(opts)
+      refute_nil driver
+      assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
     def test_with_caps_and_appium_lib
-      opts = { caps: {}, appium_lib: {} }
-      refute_nil ExampleDriver.new(opts)
+      opts = { caps: { automationName: 'xcuitest' }, appium_lib: {} }
+      driver = ExampleDriver.new(opts)
+      refute_nil driver
+      assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
     def test_with_caps_and_wrong_appium_lib
