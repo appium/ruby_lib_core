@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [3.9.0] - 2020-05-31
+
+### Enhancements
 - `capabilities:` is available in addition to `desired_capabilities:` and `caps:` as a capability
     ```ruby
     # case 1
