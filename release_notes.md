@@ -1,3 +1,10 @@
+#### v3.9.0 2020-05-31
+
+- [f306188](https://github.com/appium/ruby_lib_core/commit/f306188102222088fbd31b0b9249c6a39ddd074f) Release 3.9.0
+- [30c6529](https://github.com/appium/ruby_lib_core/commit/30c65299e4dffb9a2cea8b7a11b27cfcba294707) ci: run with Xcode 11.5 (#265)
+- [a10f2d1](https://github.com/appium/ruby_lib_core/commit/a10f2d15ef83e9ce7003b88ec1c0923c922974ea) feat: allow :capabilities as argument (#266)
+
+
 #### v3.8.0 2020-05-17
 
 - [8986a54](https://github.com/appium/ruby_lib_core/commit/8986a5400d6a3575b7413f15bb61de09af2ec789) Release 3.8.0
