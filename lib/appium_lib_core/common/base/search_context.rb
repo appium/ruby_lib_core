@@ -135,8 +135,6 @@ module Appium
           by = _set_by_from_finders(how)
           begin
             bridge.find_element_by by, what.to_s, ref
-          rescue Selenium::WebDriver::Error::TimeOutError # will deprecate
-            raise Selenium::WebDriver::Error::NoSuchElementError
           rescue Selenium::WebDriver::Error::TimeoutError
             raise Selenium::WebDriver::Error::NoSuchElementError
           end
@@ -152,8 +150,6 @@ module Appium
           by = _set_by_from_finders(how)
           begin
             bridge.find_elements_by by, what.to_s, ref
-          rescue Selenium::WebDriver::Error::TimeOutError # will deprecate
-            []
           rescue Selenium::WebDriver::Error::TimeoutError
             []
           end
