@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Remove deprecated `Selenium::WebDriver::Error::TimeOutError` in `webdriver-selenium` gem
 
 ### Bug fixes
 
