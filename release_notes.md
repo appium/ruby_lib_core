@@ -1,3 +1,9 @@
+#### v3.10.0 2020-06-09
+
+- [9eff959](https://github.com/appium/ruby_lib_core/commit/9eff959240effde56460c77878a24a20d047f9e9) Release 3.10.0
+- [0602e2a](https://github.com/appium/ruby_lib_core/commit/0602e2ab2b332f7db8e39b7da73707a50720fadd) feat: Remove timeout deprecated (#267)
+
+
 #### v3.9.0 2020-05-31
 
 - [f306188](https://github.com/appium/ruby_lib_core/commit/f306188102222088fbd31b0b9249c6a39ddd074f) Release 3.9.0
