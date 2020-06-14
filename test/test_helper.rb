@@ -270,6 +270,10 @@ class AppiumLibCoreTest
         }
       }
 
+      if ENV['ANDROID_BUILD_TOOLS_VERSION']
+        cap[:desired_capabilities][:buildToolsVersion] = ENV['ANDROID_BUILD_TOOLS_VERSION']
+      end
+
       # settins in caps should work over Appium 1.13.0
       if cap[:desired_capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
         cap[:desired_capabilities]['settings[trackScrollEvents]'] = false

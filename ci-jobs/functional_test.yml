@@ -8,7 +8,7 @@ parameters:
   appiumVersion: 'beta'
   ignoreVersionSkip: true
   CI: true
-  javaHome: '/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home'  # override
+  buildToolsVersion: '28.0.3'
 
 jobs:
   # Run unit tests on different Node versions
@@ -154,7 +154,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -176,7 +176,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -198,7 +198,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -220,7 +220,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -242,7 +242,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -264,7 +264,7 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -287,7 +287,7 @@ jobs:
       AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      JAVA_HOME: ${{ parameters.javaHome }}
+      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -310,7 +310,7 @@ jobs:
 #      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
 #      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
 #      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-#      JAVA_HOME: ${{ parameters.javaHome }}
+#      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.buildToolsVersion }}
 #    strategy:
 #      matrix:
 #        uiautomator2:
