@@ -15,4 +15,4 @@ steps:
   condition: always()
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: ${{ parameters.title }}
+    artifactName: '$(Agent.JobName)'
