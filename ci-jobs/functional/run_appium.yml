@@ -12,7 +12,7 @@ steps:
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '2.4' # so far, bundler does not work over 2.5 since it raises openssl error
-- script: nohup appium --relaxed-security &
+- script: nohup appium --relaxed-security > appium.out 2>&1 &&
   displayName: Run Appium in background
 - script: |
     gem install bundler;
