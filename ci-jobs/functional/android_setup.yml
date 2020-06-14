@@ -2,7 +2,7 @@ steps:
 - task: Gradle@2
   inputs:
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.9'
+    jdkVersionOption: '1.11'
     gradleOptions: '-Xmx2048m'
 - script: bash ci-jobs/functional/start-emulator.sh
   displayName: Create and run Emulator
