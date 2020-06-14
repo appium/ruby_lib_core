@@ -26,8 +26,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS'
 
   - job: func_test_ios_webdriver1
     pool:
@@ -44,8 +42,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_webdriver1'
 
   - job: func_test_ios_webdriver2
     pool:
@@ -62,8 +58,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/device_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_webdriver2'
 
   - job: func_test_ios_ios1
     pool:
@@ -80,8 +74,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_ios1'
 
   - job: func_test_ios_ios2
     pool:
@@ -98,8 +90,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_ios2'
 
   - job: func_test_ios_ios3
     pool:
@@ -118,8 +108,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_ios3'
 
   - job: func_test_ios_tvos
     pool:
@@ -136,8 +124,6 @@ jobs:
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/tv_driver_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_iOS_tv'
 
 # Skip since opencv4nodejs fails to install on the macOS instance
 #  - job: func_test_ios_opencv
@@ -157,8 +143,6 @@ jobs:
 #      - script: bundle exec rake test:func:ios test/functional/ios/ios/image_comparison_test.rb
 #        displayName: Run tests
 #      - template: ./functional/publish_test_result.yml
-#        parameters:
-#          xcodeVersion: 'Run_func_test_on_iOS_opencv'
 
 
   - job: func_test_android_base
@@ -181,8 +165,6 @@ jobs:
     - script: bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
-      parameters:
-        xcodeVersion: 'Run_func_test_on_android_base'
 
   - job: func_test_android_webdriver
     pool:
@@ -204,10 +186,8 @@ jobs:
       - script: bundle exec rake test:func:android TESTS=test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'Run_func_test_on_android_base'
 
-  - job: func_test_android_android1
+  - job: func_test_android_android1-1
     pool:
       vmImage: ${{ parameters.vmImage }}
     variables:
@@ -227,8 +207,27 @@ jobs:
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device_test.rb
         displayName: Run test/functional/android/android/device_test.rb
       - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'func_test_android_android1'
+
+  - job: func_test_android_android1-2
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: ${{ parameters.ci }}
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
+      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+      APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          AUTOMATION_NAME_DROID: 'uiautomator2'
+        espresso:
+          AUTOMATION_NAME_DROID: 'espresso'
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device2_test.rb
+        displayName: Run test/functional/android/android/device_test.rb
+      - template: ./functional/publish_test_result.yml
 
   - job: func_test_android_android2
     pool:
@@ -250,8 +249,6 @@ jobs:
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb,test/functional/android/android/search_context_test.rb,test/functional/android/android/mjpeg_server_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'func_test_android_android3'
 
   - job: func_test_android_android3
     pool:
@@ -273,8 +270,6 @@ jobs:
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device_data_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'func_test_android_android3'
 
   - job: func_test_android_mobile_command_espresso
     pool:
@@ -297,8 +292,6 @@ jobs:
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
-        parameters:
-          xcodeVersion: 'func_test_android_mobile_command_espresso'
 
 # Skip since opencv4nodejs fails to install on the macOS instance
 #  - job: func_test_android_opencv
@@ -323,5 +316,3 @@ jobs:
 #      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb
 #        displayName: Run tests
 #      - template: ./functional/publish_test_result.yml
-#        parameters:
-#          xcodeVersion: 'func_test_android_android2'
