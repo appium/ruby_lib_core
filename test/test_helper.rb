@@ -270,6 +270,8 @@ class AppiumLibCoreTest
         }
       }
 
+      puts "========"
+      puts ENV['ANDROID_BUILD_TOOLS_VERSION']
       if ENV['ANDROID_BUILD_TOOLS_VERSION']
         cap[:desired_capabilities][:buildToolsVersion] = ENV['ANDROID_BUILD_TOOLS_VERSION']
       end
