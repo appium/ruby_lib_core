@@ -187,7 +187,7 @@ jobs:
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
 
-  - job: func_test_android_android1-1
+  - job: func_test_android_android1_1
     pool:
       vmImage: ${{ parameters.vmImage }}
     variables:
@@ -208,7 +208,7 @@ jobs:
         displayName: Run test/functional/android/android/device_test.rb
       - template: ./functional/publish_test_result.yml
 
-  - job: func_test_android_android1-2
+  - job: func_test_android_android1_2
     pool:
       vmImage: ${{ parameters.vmImage }}
     variables:
