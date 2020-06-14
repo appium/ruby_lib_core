@@ -165,7 +165,6 @@ jobs:
     steps:
     - template: ./functional/android_setup.yml
     - template: ./functional/run_appium.yml
-    - script: echo $ANDROID_BUILD_TOOLS_VERSION
     - script: bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
       displayName: Run tests func_test_android_base
     - template: ./functional/publish_test_result.yml
