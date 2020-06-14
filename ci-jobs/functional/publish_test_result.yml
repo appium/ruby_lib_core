@@ -15,4 +15,4 @@ steps:
   condition: always()
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'test reports'
+    artifactName: 'test reports - $(parameters.title)'
