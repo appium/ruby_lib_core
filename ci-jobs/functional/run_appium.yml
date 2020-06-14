@@ -13,7 +13,7 @@ steps:
   inputs:
     versionSpec: '2.4' # so far, bundler does not work over 2.5 since it raises openssl error
 - script: mkdir -p test/report
-- script: nohup appium --relaxed-security > test/report/appium.out 2>&1 &
+- script: nohup appium --relaxed-security --log-timestamp --log-no-colors > test/report/appium.out 2>&1 &
   displayName: Run Appium in background
 - script: |
     gem install bundler;
