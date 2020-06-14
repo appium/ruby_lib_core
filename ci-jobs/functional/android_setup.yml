@@ -1,5 +1,3 @@
 steps:
-- script: ls /Library/Java/JavaVirtualMachines
-- script: export JAVA_HOME='/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home'
 - script: bash ci-jobs/functional/start-emulator.sh
   displayName: Create and run Emulator
