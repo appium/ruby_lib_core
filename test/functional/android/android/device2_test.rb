@@ -29,6 +29,27 @@ class AppiumLibCoreTest
         @@core.quit_driver
       end
 
+      def test_context_related
+        @@core.wait { scroll_to('Views') }.click
+        @@core.wait { scroll_to('WebView') }.click
+
+        @@core.wait { assert_equal 'NATIVE_APP', @driver.current_context }
+
+        native_page = @driver.page_source
+
+        contexts = @driver.available_contexts
+        webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
+
+        @driver.set_context webview_context
+        @@core.wait { assert @driver.current_context.start_with? 'WEBVIEW' }
+
+        webview_page = @driver.page_source
+
+        @driver.switch_to_default_context
+        @@core.wait { assert_equal 'NATIVE_APP', @driver.current_context }
+        assert native_page != webview_page
+      end
+
       def test_touch_actions
         Appium::Core::TouchAction.new(@driver)
                                  .press(element: @driver.find_element(:accessibility_id, 'App'))

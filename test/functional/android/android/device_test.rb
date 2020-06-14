@@ -106,27 +106,6 @@ class AppiumLibCoreTest
         assert Date.parse(@driver.device_time('YYYY-MM-DD')).is_a?(Date)
       end
 
-      def test_context_related
-        @@core.wait { scroll_to('Views') }.click
-        @@core.wait { scroll_to('WebView') }.click
-
-        @@core.wait { assert_equal 'NATIVE_APP', @driver.current_context }
-
-        native_page = @driver.page_source
-
-        contexts = @driver.available_contexts
-        webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
-
-        @driver.set_context webview_context
-        @@core.wait { assert @driver.current_context.start_with? 'WEBVIEW' }
-
-        webview_page = @driver.page_source
-
-        @driver.switch_to_default_context
-        @@core.wait { assert_equal 'NATIVE_APP', @driver.current_context }
-        assert native_page != webview_page
-      end
-
       def test_app_string
         assert @driver.app_strings.key? 'activity_save_restore'
       end
@@ -176,46 +155,6 @@ class AppiumLibCoreTest
       def test_current_package
         e = @@core.wait { @driver.current_package }
         assert_equal 'io.appium.android.apis', e
-      end
-
-      private
-
-      def scroll_to(text)
-        if @@core.automation_name == :espresso
-          @driver.find_element :accessibility_id, text
-        else
-          text = %("#{text}")
-          rid  = resource_id(text, "new UiSelector().resourceId(#{text});")
-          args = if rid.empty?
-                   ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"]
-                 else
-                   [rid]
-                 end
-          args.each_with_index do |arg, index|
-            begin
-              elem = @driver.find_element :uiautomator,
-                                          'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
-                                          ".scrollIntoView(#{arg}.instance(0));"
-              return elem
-            rescue StandardError => e
-              raise e if index == args.size - 1
-            end
-          end
-        end
-      end
-
-      def resource_id(string, on_match)
-        return '' unless string
-
-        unquote = string.match(/"(.+)"/)
-        string = unquote[1] if unquote
-
-        resource_id = %r{^[a-zA-Z_][a-zA-Z0-9\._]*:[^\/]+\/[\S]+$}
-        string.match(resource_id) ? on_match : ''
-      end
-
-      def text(value)
-        @driver.find_element :uiautomator, "new UiSelector().className(\"android.widget.TextView\").text(\"#{value}\");"
       end
     end
   end
