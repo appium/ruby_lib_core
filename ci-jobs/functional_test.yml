@@ -5,7 +5,7 @@ parameters:
   xcodeForIOS: 11.5
   xcodeForTVOS: 11.5
   androidSDK: 30
-  appiumVersion: '1.16.0'
+  appiumVersion: 'beta'
   ignoreVersionSkip: true
   CI: true
 
