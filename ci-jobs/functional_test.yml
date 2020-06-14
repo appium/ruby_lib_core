@@ -191,7 +191,7 @@ jobs:
         displayName: Run tests func_test_android_webdriver
       - template: ./functional/publish_test_result.yml
 
-  - job: func_test_android_android1_1
+  - job: func_test_android_android1
     pool:
       vmImage: ${{ parameters.vmImage }}
     variables:
@@ -210,29 +210,7 @@ jobs:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device_test.rb
-        displayName: Run tests func_test_android_android1_1
-      - template: ./functional/publish_test_result.yml
-
-  - job: func_test_android_android1_2
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
-    strategy:
-      matrix:
-        uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
-        espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
-    steps:
-      - template: ./functional/android_setup.yml
-      - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device2_test.rb
-        displayName: Run tests func_test_android_android1_2
+        displayName: Run tests func_test_android_android1
       - template: ./functional/publish_test_result.yml
 
   - job: func_test_android_android2
