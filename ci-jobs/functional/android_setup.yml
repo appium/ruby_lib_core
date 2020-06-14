@@ -1,8 +1,5 @@
 steps:
-- task: Gradle@2
-  inputs:
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    gradleOptions: '-Xmx2048m'
+- script: ls /Library/Java/JavaVirtualMachines
+- script: export JAVA_HOME='/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home'
 - script: bash ci-jobs/functional/start-emulator.sh
   displayName: Create and run Emulator
