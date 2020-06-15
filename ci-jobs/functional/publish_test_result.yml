@@ -3,7 +3,7 @@ steps:
   condition: always()
   inputs:
     testResultsFiles: 'test/reports/TEST-AppiumLibCoreTest*.xml'
-    testRunTitle: ${{ parameters.title }}
+    testRunTitle: '$(Agent.JobName)'
 - task: ArchiveFiles@2
   condition: always()
   inputs:
@@ -15,4 +15,4 @@ steps:
   condition: always()
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'test reports'
+    artifactName: '$(Agent.JobName)'
