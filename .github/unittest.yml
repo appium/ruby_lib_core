@@ -1,4 +1,4 @@
-name: Ruby
+name: Runs lint and unit tests
 
 on:
   push:
