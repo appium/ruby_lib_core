@@ -15,6 +15,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      UNIT_TEST: true
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -23,8 +26,6 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - name: Install dependencies
       run: bundle install
-    - env:
-      UNIT_TEST: true
     - name: Run tests
       run: |
         bundle exec rake rubocop
@@ -40,6 +41,9 @@ jobs:
 
     runs-on: windows-latest
 
+    env:
+      UNIT_TEST: true
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
@@ -51,8 +55,6 @@ jobs:
           gem install bundler ffi:1.10.0
           bundle install
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
-      - env:
-        UNIT_TEST: true
       - name: Run tests
         run: |
           bundle exec parallel_test test/unit/ -n 4
