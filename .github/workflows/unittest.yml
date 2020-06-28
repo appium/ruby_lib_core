@@ -29,3 +29,28 @@ jobs:
         UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
         UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
         UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+
+  test-win:
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [2.2, 2.3, 2.4, 2.5, 2.6, 2.7]
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install dependencies
+        run: |
+          gem install bundler ffi:1.10.0
+          bundle install
+          gem uninstall --force eventmachine && gem install eventmachine --platform ruby
+      - name: Run tests
+        run: |
+          UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
+          UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
+          UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
