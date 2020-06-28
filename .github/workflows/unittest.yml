@@ -52,7 +52,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Install dependencies
         run: |
-          gem install bundler ffi:1.10.0
+          gem install ffi
           bundle install
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
       - name: Run tests
