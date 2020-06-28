@@ -50,17 +50,18 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Run tests
+      - name: Install dependencies
         run: |
           gem install ffi
           bundle install
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
-
-          bundle exec parallel_test test/unit/ -n 4
+      - name: Run tests
+        run: |
+          parallel_test test/unit/ -n 4
 
           setx AUTOMATION_NAME_DROID espresso
-          bundle exec parallel_test test/unit/android -n 4
+          parallel_test test/unit/android -n 4
 
           setx AUTOMATION_NAME_DROID appium
           setx AUTOMATION_NAME_IOS appium
-          bundle exec parallel_test test/unit -n 4
+          parallel_test test/unit -n 4
