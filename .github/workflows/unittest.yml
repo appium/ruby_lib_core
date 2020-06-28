@@ -51,10 +51,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Install dependencies
-        run: |
-#          gem install ffi
-          bundle install
-#          gem uninstall --force eventmachine && gem install eventmachine --platform ruby
+        run: bundle install
       - name: Run tests
         run: |
           bundle exec parallel_test test/unit/ -n 4
