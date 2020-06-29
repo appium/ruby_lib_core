@@ -10,6 +10,15 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [3.10.1] - 2020-06-29
+
+### Enhancements
+
+### Bug fixes
+- Fix duplication warning of `execute_cdp`
+
+### Deprecations
+
 ## [3.10.0] - 2020-06-09
 
 ### Enhancements
