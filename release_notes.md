@@ -1,3 +1,15 @@
+#### v3.10.1 2020-06-29
+
+- [9537c61](https://github.com/appium/ruby_lib_core/commit/9537c619220177a4cac82368405fec681a5ab231) Release 3.10.1
+- [3b962f5](https://github.com/appium/ruby_lib_core/commit/3b962f55cc954699e72b38c94e5a1f05c82867f9) ci: runs tests on windows host as GitHub Actions (#272)
+- [f60b4f1](https://github.com/appium/ruby_lib_core/commit/f60b4f193c590d861342828bd740cefda7e96b9a) ci: remove travis (#271)
+- [b1aa80d](https://github.com/appium/ruby_lib_core/commit/b1aa80dd1cc200917df9958b6274e0a82b5ffc40) ci: run unittests on GitHub Actions (#270)
+- [ad90f79](https://github.com/appium/ruby_lib_core/commit/ad90f79b726aa480edf989fed2a8b00ced6c52fd) chore: Update issue templates
+- [cf546a0](https://github.com/appium/ruby_lib_core/commit/cf546a0c62f815df4bb3ece4932b8033fad25ae2) ci: tune Azure (#269)
+- [14e7e56](https://github.com/appium/ruby_lib_core/commit/14e7e56a2bccb4c4cc53e0b10284e3837e50a1af) ci: bump android emulator version (#268)
+- [8d2cd95](https://github.com/appium/ruby_lib_core/commit/8d2cd95445d95716617c426e759e19e861ef09e2) chore: remove pry added accidentally
+
+
 #### v3.10.0 2020-06-09
 
 - [9eff959](https://github.com/appium/ruby_lib_core/commit/9eff959240effde56460c77878a24a20d047f9e9) Release 3.10.0
