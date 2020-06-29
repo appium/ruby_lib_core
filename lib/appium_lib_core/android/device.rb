@@ -412,6 +412,9 @@ module Appium
             end
 
             ::Appium::Core::Device.add_endpoint_method(:execute_cdp) do
+              # SeleniumWebdriver could already define this method
+              return if method_defined? :execute_cdp
+
               def execute_cdp(cmd, **params)
                 execute :chrome_send_command, {}, { cmd: cmd, params: params }
               end

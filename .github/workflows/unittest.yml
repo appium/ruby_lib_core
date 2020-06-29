@@ -15,6 +15,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      UNIT_TEST: true
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -26,6 +29,40 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rake rubocop
-        UNIT_TEST=true bundle exec parallel_test test/unit/ -n 4
-        UNIT_TEST=true AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
-        UNIT_TEST=true AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+        bundle exec parallel_test test/unit/ -n 4
+        AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
+        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+
+  test-win:
+    strategy:
+      fail-fast: false
+      matrix:
+        # Does not add 2.7 on Windows so far since a command fails only on Windows
+        ruby: [2.2, 2.3, 2.4, 2.5, 2.6]
+
+    runs-on: windows-latest
+
+    env:
+      UNIT_TEST: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install dependencies
+        run: |
+          gem install ffi
+          bundle install
+          gem uninstall --force eventmachine && gem install eventmachine --platform ruby
+      - name: Run tests
+        run: |
+          parallel_test test/unit/ -n 4
+
+          setx AUTOMATION_NAME_DROID espresso
+          parallel_test test/unit/android -n 4
+
+          setx AUTOMATION_NAME_DROID appium
+          setx AUTOMATION_NAME_IOS appium
+          parallel_test test/unit -n 4
