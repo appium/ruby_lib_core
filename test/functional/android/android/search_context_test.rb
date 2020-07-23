@@ -71,26 +71,26 @@ class AppiumLibCoreTest
         # https://developer.android.com/training/testing/espresso/recipes
         # https://developer.android.com/reference/androidx/test/espresso/matcher/ViewMatchers#withsubstring
         e = @driver.find_element :view_matcher, {
-            name: 'allOf',
-            args: [
-                {
-                    name: 'withSubstring',
-                    args: 'Acc',
-                    class: 'androidx.test.espresso.matcher.ViewMatchers'
-                },
-                {
-                    name: 'isDisplayed',
-                    class: 'androidx.test.espresso.matcher.ViewMatchers'
-                },
-                {
-                    name: 'withSubstring',
-                    args: "'",
-                    class: 'androidx.test.espresso.matcher.ViewMatchers'
-                },
-            ],
-            class: 'org.hamcrest.Matchers'
+          name: 'allOf',
+          args: [
+            {
+              name: 'withSubstring',
+              args: 'Acc',
+              class: 'androidx.test.espresso.matcher.ViewMatchers'
+            },
+            {
+              name: 'isDisplayed',
+              class: 'androidx.test.espresso.matcher.ViewMatchers'
+            },
+            {
+              name: 'withSubstring',
+              args: "'",
+              class: 'androidx.test.espresso.matcher.ViewMatchers'
+            }
+          ],
+          class: 'org.hamcrest.Matchers'
         }.to_json
-        assert_equal("Access'ibility", e.text)
+        assert_equal "Access'ibility", e.text
       end
     end
   end
