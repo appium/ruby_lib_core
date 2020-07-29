@@ -1,3 +1,4 @@
 steps:
+- script: apt-get install libpulse0:i386
 - script: bash ci-jobs/functional/start-emulator.sh
   displayName: Create and run Emulator
