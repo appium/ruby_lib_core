@@ -3,9 +3,15 @@
 # This script was copy-pasted from https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/android?view=azure-devops#test-on-the-android-emulator
 # with some changes
 
+# Show the list of available images
+${ANDROID_HOME}/tools/bin/sdkmanager --list
+
 # Install AVD files
 declare -r emulator="system-images;android-${ANDROID_SDK_VERSION};google_apis;x86"
 echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
+
+echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
+
 
 # Show a list of emulators
 ${ANDROID_HOME}/tools/bin/avdmanager list
