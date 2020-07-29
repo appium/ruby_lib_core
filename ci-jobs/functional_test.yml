@@ -2,6 +2,7 @@
 parameters:
   vmImage: 'macOS-10.15'
   vmImageForIOS: 'macOS-10.15' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
+  vmImageAndroid: 'ubuntu-latest'
   xcodeForIOS: 11.5
   xcodeForTVOS: 11.5
   androidSDK: 30
@@ -149,7 +150,7 @@ jobs:
 
   - job: func_test_android_base
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -171,7 +172,7 @@ jobs:
 
   - job: func_test_android_webdriver
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -193,7 +194,7 @@ jobs:
 
   - job: func_test_android_android1
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -215,7 +216,7 @@ jobs:
 
   - job: func_test_android_android2
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -237,7 +238,7 @@ jobs:
 
   - job: func_test_android_android3
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -259,7 +260,7 @@ jobs:
 
   - job: func_test_android_mobile_command_espresso
     pool:
-      vmImage: ${{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImageAndroid }}
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
@@ -283,7 +284,7 @@ jobs:
 # Skip since opencv4nodejs fails to install on the macOS instance
 #  - job: func_test_android_opencv
 #    pool:
-#      vmImage: ${{ parameters.vmImage }}
+#      vmImage: ${{ parameters.vmImageAndroid }}
 #    variables:
 #      CI: ${{ parameters.ci }}
 #      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
