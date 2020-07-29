@@ -4,6 +4,7 @@
 # with some changes
 
 # Show the list of available images
+${ANDROID_HOME}/tools/bin/sdkmanager --update
 ${ANDROID_HOME}/tools/bin/sdkmanager --list
 
 # Install AVD files
