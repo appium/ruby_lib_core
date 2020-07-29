@@ -4,12 +4,11 @@
 # with some changes
 
 # Show the list of available images
-${ANDROID_HOME}/tools/bin/sdkmanager --update
 ${ANDROID_HOME}/tools/bin/sdkmanager --list
 
 # Install AVD files
 declare -r emulator="system-images;android-${ANDROID_SDK_VERSION};google_apis;x86"
-echo "y" | ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
+echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "$emulator"
 
 # Show a list of emulators
 ${ANDROID_HOME}/tools/bin/avdmanager list
