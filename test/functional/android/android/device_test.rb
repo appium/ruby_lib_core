@@ -85,12 +85,20 @@ class AppiumLibCoreTest
 
         @driver.background_app(-1)
         sleep 1 # to wait the app has gone
-        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
-          @driver.find_element :accessibility_id, 'App'
-        end
-        assert 'An element could not be located on the page using the given search parameters.', error.message
+        assert @driver.app_state('io.appium.android.apis') != :running_in_foreground
 
-        @driver.reset
+        # Instrumentation process will crash in Espresso
+        if @@core.automation_name == :espresso
+          @driver.activate_app('io.appium.android.apis')
+          @@core.wait { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }
+        else
+          error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
+            @driver.find_element :accessibility_id, 'App'
+          end
+          assert 'An element could not be located on the page using the given search parameters.', error.message
+
+          @driver.reset
+        end
 
         e = @@core.wait(timeout: 60) { @driver.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
@@ -132,6 +140,8 @@ class AppiumLibCoreTest
       end
 
       def test_re_install
+        skip 'Instrumentation process will stop by remove_app in Espresso' if @@core.automation_name == :espresso
+
         assert @driver.app_installed?('io.appium.android.apis')
 
         @driver.remove_app 'io.appium.android.apis'
@@ -146,8 +156,11 @@ class AppiumLibCoreTest
       def test_app_management
         assert @driver.app_state('io.appium.android.apis') == :running_in_foreground
 
-        assert @driver.terminate_app('io.appium.android.apis')
-        @@core.wait { assert @driver.app_state('io.appium.android.apis') == :not_running }
+        # Instrumentation process will crash in Espresso
+        unless @@core.automation_name == :espresso
+          assert @driver.terminate_app('io.appium.android.apis')
+          @@core.wait { assert @driver.app_state('io.appium.android.apis') == :not_running }
+        end
 
         assert @driver.activate_app('io.appium.android.apis').nil?
         @@core.wait { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }

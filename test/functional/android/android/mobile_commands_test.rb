@@ -54,6 +54,9 @@ class AppiumLibCoreTest
         assert @driver.execute_script('mobile: getPermissions',
                                       { type: type[:requested], appPackage: package }).member?(permissions.first)
 
+        # Espresso driver works only getPermissions, so finish
+        return if @core.automation_name == :espresso
+
         @driver.execute_script 'mobile: changePermissions',
                                { action: action[:revoke], appPackage: package, permissions: permissions }
 
