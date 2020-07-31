@@ -100,7 +100,6 @@ class AppiumLibCoreTest
           @driver.reset
         end
 
-
         e = @@core.wait(timeout: 60) { @driver.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
       end
@@ -141,9 +140,7 @@ class AppiumLibCoreTest
       end
 
       def test_re_install
-        if @@core.automation_name == :espresso
-          skip 'Instrumentation process will stop by remove_app in Espresso'
-        end
+        skip 'Instrumentation process will stop by remove_app in Espresso' if @@core.automation_name == :espresso
 
         assert @driver.app_installed?('io.appium.android.apis')
 
