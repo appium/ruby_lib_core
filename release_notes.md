@@ -1,3 +1,14 @@
+#### v3.11.0 2020-08-01
+
+- [0ed888e](https://github.com/appium/ruby_lib_core/commit/0ed888efd87def79cdb1ca922268b466485a2261) Release 3.11.0
+- [f7dc534](https://github.com/appium/ruby_lib_core/commit/f7dc5349a48ac305df740f7be1f6e5f9b90e1e0e) chore: update faye-websocket (#279)
+- [2fa2440](https://github.com/appium/ruby_lib_core/commit/2fa24404aa993c643191a2de0f8c2c800680ec5f) test: tweak espresso (#278)
+- [ba7f71d](https://github.com/appium/ruby_lib_core/commit/ba7f71d82393b75d7119dbb50f8c0ae781d0933e) ci: revert
+- [c2cf5d7](https://github.com/appium/ruby_lib_core/commit/c2cf5d7ef04c51e0b978676ea5145223f1b16f2e) test: add allOf example (#274)
+- [f7c21b8](https://github.com/appium/ruby_lib_core/commit/f7c21b878ac9970f6d621deedf4c9adce7515700) ci: tweak version
+- [2162392](https://github.com/appium/ruby_lib_core/commit/2162392bfa5cc949aae9b4020d6b53b7b23953f9) ci: specify which beta (#273)
+
+
 #### v3.10.1 2020-06-29
 
 - [9537c61](https://github.com/appium/ruby_lib_core/commit/9537c619220177a4cac82368405fec681a5ab231) Release 3.10.1
