@@ -10,6 +10,16 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [3.11.0] - 2020-08-01
+
+### Enhancements
+- Security update [GHSA-2v5c-755p-p4gv](https://github.com/advisories/GHSA-2v5c-755p-p4gv)
+    - Affects only _::Appium::Core::WebSocket_
+
+### Bug fixes
+
+### Deprecations
+
 ## [3.10.1] - 2020-06-29
 
 ### Enhancements
@@ -66,7 +76,7 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 - Add `x-idempotency-key` header support (https://github.com/appium/appium-base-driver/pull/400)
     - Can disable the header with `enable_idempotency_header: false` in `appium_lib` capability. Defaults to `true`.
-- Add chrome devtools endpoint which is available chrome module in Selenium Ruby binding 
+- Add chrome devtools endpoint which is available chrome module in Selenium Ruby binding
     - https://github.com/appium/appium-base-driver/pull/405
 
 ### Bug fixes
@@ -158,7 +168,7 @@ Read `release_notes.md` for commit level details.
 
 ### Enhancements
 - Add `execute_driver` to run a batch script
-    - It requires Appium version which has `execute_driver` support 
+    - It requires Appium version which has `execute_driver` support
 
 ### Bug fixes
 
