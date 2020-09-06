@@ -5,7 +5,6 @@ parameters:
   xcodeForIOS: 11.5
   xcodeForTVOS: 11.5
   androidSDK: 30
-  androidBuildToolsVersion: '28.0.3'
   appiumVersion: 'beta'
   ignoreVersionSkip: true
   CI: true
@@ -155,7 +154,6 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -177,7 +175,6 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -199,7 +196,6 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -221,7 +217,6 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -243,7 +238,6 @@ jobs:
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -266,7 +260,6 @@ jobs:
       AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
     strategy:
       matrix:
         uiautomator2:
@@ -289,7 +282,6 @@ jobs:
 #      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
 #      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
 #      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-#      ANDROID_BUILD_TOOLS_VERSION: ${{ parameters.androidBuildToolsVersion }}
 #    strategy:
 #      matrix:
 #        uiautomator2:

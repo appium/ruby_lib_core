@@ -16,6 +16,9 @@ steps:
     mkdir -p test/report
     nohup appium --relaxed-security --log-timestamp --log-no-colors > test/report/appium.out 2>&1 &
   displayName: Run Appium in background
+  env:
+    JAVA_HOME: $(JAVA_HOME_11_X64)
+    PATH: $(JAVA_HOME_11_X64)/bin:$(PATH)
 - script: |
     gem install bundler;
     bundle install --retry=3 --jobs=4 --path vendor/bundle;
