@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.9.11'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.1'
-  spec.add_development_dependency 'webmock', '~> 3.8.0'
+  spec.add_development_dependency 'webmock', '~> 3.9.1'
   spec.add_development_dependency 'rubocop', '0.68.1'
   spec.add_development_dependency 'appium_thor', '~> 1.0'
   spec.add_development_dependency 'pry'
