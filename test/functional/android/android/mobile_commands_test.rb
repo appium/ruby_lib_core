@@ -191,7 +191,7 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         assert_mobile_command_error 'mobile: backdoor', { target: :activity, methods: [{ name: 'noMethod', args: [] }] },
-                                    'No public method noMethod definded on class io.appium.android.apis.view.TextSwitcher1'
+                                    "No public method"
 
         e = @driver.find_elements :class, 'android.widget.TextView'
         assert_equal '0', e.last.text
@@ -245,7 +245,7 @@ class AppiumLibCoreTest
             }]
           }
         end
-        assert error.message.include? "Cannot execute method on 'androidx.test.espresso.web.webdriver.DriverAtoms'."
+        assert error.message.include? "Cannot execute methodq"
       end
 
       def test_device_info
