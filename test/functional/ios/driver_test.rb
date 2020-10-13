@@ -76,7 +76,12 @@ class AppiumLibCoreTest
       e.click
       sleep 1 # wait for animation
       if over_ios13?(@@driver)
-        e.click # nothing happens
+        begin
+          e.click # nothing happens
+        rescue ::Selenium::WebDriver::Error::StaleElementReferenceError
+          # This case also could happen
+          assert true
+        end
       else
         error = assert_raises do
           e.click
