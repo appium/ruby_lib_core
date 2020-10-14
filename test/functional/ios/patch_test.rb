@@ -19,15 +19,6 @@ require 'functional/common_w3c_actions'
 # rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class PathTest < AppiumLibCoreTest::Function::TestCase
-    private
-
-    # Should click before typing text for iOS 13 simulator case since the simulator looks unstable
-    def ensure_type(element)
-      element.click if over_ios13?(@@driver)
-    end
-
-    public
-
     def setup
       @@core = ::Appium::Core.for(Caps.ios)
       @@driver = @@core.start_driver
@@ -51,7 +42,6 @@ class AppiumLibCoreTest
       @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
 
       text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
-      ensure_type text
       text.type 'hello'
 
       e = @@core.wait { @@driver.find_element :name, 'hello' }
@@ -79,7 +69,6 @@ class AppiumLibCoreTest
       @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
 
       text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
-      ensure_type text
       text.immediate_value 'hello'
 
       text = @@core.wait { @@driver.find_element :name, 'hello' }
