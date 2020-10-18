@@ -245,7 +245,7 @@ class AppiumLibCoreTest
             }]
           }
         end
-        assert error.message.include? 'Cannot execute method'
+        assert !error.message.nil?
       end
 
       def test_device_info
