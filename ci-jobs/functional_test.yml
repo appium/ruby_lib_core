@@ -226,7 +226,7 @@ jobs:
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb,test/functional/android/android/search_context_test.rb,test/functional/android/android/mjpeg_server_test.rb
+      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/search_context_test.rb,test/functional/android/android/mjpeg_server_test.rb
         displayName: Run tests func_test_android_android2
       - template: ./functional/publish_test_result.yml
 
