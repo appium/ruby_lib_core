@@ -255,7 +255,7 @@ class AppiumLibCoreTest
         e = @@core.wait { @@driver.find_element :accessibility_id, TEXT_FIELD }
         e.click
 
-        text = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
+        text = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
         text.click
 
         assert @@driver.find_element(:class, 'XCUIElementTypeKeyboard').displayed?

@@ -58,7 +58,7 @@ class AppiumLibCoreTest
 
         @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
 
-        e = @@core.wait { @@driver.find_element :name, 'Placeholder text' }
+        e = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
         e.click
         @@driver.set_immediate_value e, 'hello'
 
