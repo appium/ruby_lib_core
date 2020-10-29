@@ -48,16 +48,16 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
         @@driver.action.click(el).perform
 
-        [1, 2, 3].each do |_value|
+        [1, 2, 3].each do |count|
           el = @@driver.find_element(:accessibility_id, 'TINTED')
           rect = el.rect
 
           @@driver.execute_script('mobile: scroll', direction: 'down')
 
-          break if el.rect.y < rect.y
+          break if el.rect.y <= rect.y
 
           # fail
-          assert false if value == 3
+          assert false if count == 3
         end
         assert true
       end
@@ -74,7 +74,7 @@ class AppiumLibCoreTest
 
         w3c_scroll @@driver
 
-        assert el.rect.y < rect.y
+        assert el.rect.y <= rect.y
       end
 
       def test_click_w3c_landscape

@@ -44,7 +44,7 @@ class AppiumLibCoreTest
       text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
       text.type 'hello'
 
-      e = @@core.wait { @@driver.find_element :name, 'hello' }
+      e = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
       assert_equal 'hello', e.value
 
       @@driver.back
@@ -71,7 +71,7 @@ class AppiumLibCoreTest
       text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
       text.immediate_value 'hello'
 
-      text = @@core.wait { @@driver.find_element :name, 'hello' }
+      text = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
       assert_equal 'hello', text.value
 
       @@driver.back
