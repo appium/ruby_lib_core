@@ -510,14 +510,21 @@ module Appium
           end
         when :ios, :tvos
           case automation_name
+          when :safari
+            ::Appium::Logger.debug('iOS SafariDriver')
           when :xcuitest
             ::Appium::Core::Ios::Xcuitest::Bridge.for self
           else # default and UIAutomation
             ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
-          # no Mac specific extentions
-          ::Appium::Logger.debug('mac')
+          case automation_name
+          when :safari
+            ::Appium::Logger.debug('macOS SafariDriver')
+          else
+            # no Mac specific extentions
+            ::Appium::Logger.debug('macOS Native')
+          end
         when :windows
           ::Appium::Core::Windows::Bridge.for self
         when :tizen
