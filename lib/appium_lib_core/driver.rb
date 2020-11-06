@@ -494,7 +494,7 @@ module Appium
       private
 
       # @private
-      def extend_for(device:, automation_name:)
+      def extend_for(device:, automation_name:) # rubocop:disable Metrics/CyclomaticComplexity
         extend Appium::Core
         extend Appium::Core::Device
 
@@ -547,7 +547,7 @@ module Appium
           when :mac
             # In this case also can be mac
             ::Appium::Logger.debug('mac')
-          when :gecko  # other general platform
+          when :gecko # other general platform
             ::Appium::Logger.debug('Gecko Driver')
           else
             ::Appium::Logger.warn("No matched driver by platformName: #{device} and automationName: #{automation_name}")
