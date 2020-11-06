@@ -505,6 +505,8 @@ module Appium
             ::Appium::Core::Android::Espresso::Bridge.for self
           when :uiautomator2
             ::Appium::Core::Android::Uiautomator2::Bridge.for self
+          when :gecko
+            ::Appium::Logger.debug('Gecko Driver for Android')
           else # default and UiAutomator
             ::Appium::Core::Android::Uiautomator1::Bridge.for self
           end
@@ -521,12 +523,19 @@ module Appium
           case automation_name
           when :safari
             ::Appium::Logger.debug('macOS SafariDriver')
+          when :gecko
+            ::Appium::Logger.debug('Gecko Driver for macOS')
           else
             # no Mac specific extentions
             ::Appium::Logger.debug('macOS Native')
           end
         when :windows
-          ::Appium::Core::Windows::Bridge.for self
+          case automation_name
+          when :gecko
+            ::Appium::Logger.debug('Gecko Driver for Windows')
+          else
+            ::Appium::Core::Windows::Bridge.for self
+          end
         when :tizen
           # https://github.com/Samsung/appium-tizen-driver
           ::Appium::Logger.debug('tizen')
@@ -538,6 +547,8 @@ module Appium
           when :mac
             # In this case also can be mac
             ::Appium::Logger.debug('mac')
+          when :gecko  # other general platform
+            ::Appium::Logger.debug('Gecko Driver')
           else
             ::Appium::Logger.warn("No matched driver by platformName: #{device} and automationName: #{automation_name}")
           end
