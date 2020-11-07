@@ -513,7 +513,7 @@ module Appium
         when :ios, :tvos
           case automation_name
           when :safari
-            ::Appium::Logger.debug('iOS SafariDriver')
+            ::Appium::Logger.debug('SafariDriver for iOS')
           when :xcuitest
             ::Appium::Core::Ios::Xcuitest::Bridge.for self
           else # default and UIAutomation
@@ -522,7 +522,7 @@ module Appium
         when :mac
           case automation_name
           when :safari
-            ::Appium::Logger.debug('macOS SafariDriver')
+            ::Appium::Logger.debug('SafariDriver for macOS')
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for macOS')
           else
