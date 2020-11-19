@@ -47,7 +47,7 @@ module Appium
                           grant_permissions: nil)
             args = { appPath: path }
 
-            args[:options] = {} unless options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
+            args[:options] = {} if options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
 
             args[:options][:replace] = replace unless replace.nil?
             args[:options][:timeout] = timeout unless timeout.nil?
@@ -92,8 +92,8 @@ module Appium
 
           private
 
-          def options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
-            replace.nil? || timeout.nil? || allow_test_packages.nil? || use_sdcard.nil? || grant_permissions.nil?
+          def options?(*args)
+            args.compact.any?
           end
         end # module AppManagement
       end # module Device
