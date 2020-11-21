@@ -1,3 +1,20 @@
+#### v3.11.1 2020-11-20
+
+- [4fe582c](https://github.com/appium/ruby_lib_core/commit/4fe582c1318c2b5de83fcf87e36d1fedab8ed81a) Release 3.11.1
+- [e017ebc](https://github.com/appium/ruby_lib_core/commit/e017ebcaa8c50653e2f45871465c78ad5a8ce81e) fix: install_app args options bug (#286)
+- [e7b881c](https://github.com/appium/ruby_lib_core/commit/e7b881c19be1b3a9acf7d01f34f59307b8e16b89) chore(deps-dev): update webmock requirement from ~> 3.9.1 to ~> 3.10.0 (#284)
+- [d1e8cb8](https://github.com/appium/ruby_lib_core/commit/d1e8cb864f00d4f4bd307b523cc205ee2a636d33) feat: add safari and geckodriver (#283)
+- [569ea09](https://github.com/appium/ruby_lib_core/commit/569ea09f7777dd2508f1919ddcf9b88aba272647) test: use predicate instead of name for 'value' (#282)
+- [e4d63eb](https://github.com/appium/ruby_lib_core/commit/e4d63eb82248a79b41fbbc39db5b03cc35d447cd) ci: remove duplicated test running
+- [30be7dc](https://github.com/appium/ruby_lib_core/commit/30be7dca0ec3cdcafa647899447387924970df34) test: fix tests
+- [94d4250](https://github.com/appium/ruby_lib_core/commit/94d4250033107ff956a2b9c1f0b30fedba286b5d) test: remove a trick
+- [6605f78](https://github.com/appium/ruby_lib_core/commit/6605f78fb0d996faad7f1e21f1876eab5184d430) test: tweak test cases
+- [7dbbadb](https://github.com/appium/ruby_lib_core/commit/7dbbadbda69ee2f710393768fb994e8e43adb3bb) fix lint
+- [7619052](https://github.com/appium/ruby_lib_core/commit/76190523c95e3f6a1ab9a9af48d60605d2f87266) tweak test cases
+- [87cb224](https://github.com/appium/ruby_lib_core/commit/87cb224a3f32261823fd5bacd9349cbe2158b54c) chore(deps-dev): update webmock requirement from ~> 3.8.0 to ~> 3.9.1 (#281)
+- [577a75a](https://github.com/appium/ruby_lib_core/commit/577a75a690b6f0688dead506c26704c82ea6f2e9) ci: update for espresso (#280)
+
+
 #### v3.11.0 2020-08-01
 
 - [0ed888e](https://github.com/appium/ruby_lib_core/commit/0ed888efd87def79cdb1ca922268b466485a2261) Release 3.11.0
