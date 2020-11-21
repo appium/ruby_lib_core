@@ -10,6 +10,15 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [3.11.1] - 2020-11-20
+
+### Enhancements
+
+### Bug fixes
+- Fix `install_app` to be able to set no args for options
+
+### Deprecations
+
 ## [3.11.0] - 2020-08-01
 
 ### Enhancements
