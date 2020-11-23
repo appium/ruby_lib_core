@@ -125,6 +125,7 @@ class AppiumLibCoreTest
           someCapability: 'some_capability',
           newCommandTimeout: 120,
           wdaLocalPort: wda_port,
+          showXcodeLog: true,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
