@@ -66,6 +66,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
+      def over_ios14?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('14.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -107,7 +111,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name == :ios ? '14.2' : '14.2'
+      platform_version = '14.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false

@@ -54,7 +54,10 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
       location = e.location_rel @@driver
 
-      if over_ios13?(@@driver)
+      if over_ios14?(@@driver)
+        assert_equal '64.0 / 414.0', location.x
+        assert_equal '239.5 / 896.0', location.y
+      elsif over_ios13?(@@driver)
         assert_equal '64.0 / 414.0', location.x
         assert_equal '235.5 / 896.0', location.y
       else
