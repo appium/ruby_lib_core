@@ -83,7 +83,7 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
-        unless over_ios14?
+        unless over_ios14?(@driver)
           assert @driver.execute_script('mobile: getPermission',
                                         { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
           assert @driver.execute_script('mobile: getPermission',
@@ -119,7 +119,7 @@ class AppiumLibCoreTest
         # Siri returns below element if it has connection issue
         # <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" ....
         #   name="...having a problem with the connection. Please try again in a little bit." ...>
-        if over_ios14?
+        if over_ios14?(@driver)
           sleep 2
           puts @driver.page_source
         else
