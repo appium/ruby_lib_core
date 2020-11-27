@@ -83,9 +83,7 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
-        if over_ios14?(@driver)
-          skip('Permissions does not work well on iOS 14 yet')
-        end
+        skip 'Permissions does not work well on iOS 14 yet' if over_ios14?(@driver)
 
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
