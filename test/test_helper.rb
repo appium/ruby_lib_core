@@ -189,7 +189,7 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios14?(os_version)
-                 'iPhone 12 mini'
+                 'iPhone 12'
                elsif over_ios13?(os_version)
                  'iPhone 11'
                else

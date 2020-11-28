@@ -90,7 +90,7 @@ class AppiumLibCoreTest
         # The view has only one view
         els_port = @@driver.find_elements :name, 'Buttons'
 
-        assert els_land.length > els_port.length
+        assert els_land.length >= els_port.length
       end
     end
   end
