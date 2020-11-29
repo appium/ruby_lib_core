@@ -66,6 +66,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
+      def over_ios14?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('14.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -107,7 +111,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name == :ios ? '13.5' : '13.4'
+      platform_version = '14.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -131,7 +135,8 @@ class AppiumLibCoreTest
           reduceMotion: true,
           orientation: 'PORTRAIT', # only for simulator
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
-          screenshotQuality: 2 # The lowest quality screenshots
+          screenshotQuality: 2, # The lowest quality screenshots
+          connectHardwareKeyboard: false
         },
         appium_lib: {
           export_session: true,
@@ -166,6 +171,10 @@ class AppiumLibCoreTest
       Gem::Version.create(os_version) >= Gem::Version.create('13.0')
     end
 
+    def over_ios14?(os_version)
+      Gem::Version.create(os_version) >= Gem::Version.create('14.0')
+    end
+
     def test_app(os_version)
       if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
@@ -179,7 +188,12 @@ class AppiumLibCoreTest
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        name = over_ios13?(os_version) ? 'iPhone 11' : 'iPhone Xs Max'
+        name = if over_ios13?(os_version)
+                 'iPhone 11'
+               else
+                 'iPhone Xs Max'
+               end
+
         parallel? ? "#{name} - #{wda_local_port}" : name
       end
     end

@@ -83,6 +83,8 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
+        skip 'Permissions does not work well on iOS 14 yet' if over_ios14?(@driver)
+
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
         assert @driver.execute_script('mobile: getPermission',
@@ -114,10 +116,14 @@ class AppiumLibCoreTest
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
-        # Siri returns below element if it has connection issue
-        # <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" ....
-        #   name="...having a problem with the connection. Please try again in a little bit." ...>
-        @core.wait { @driver.find_element :class_chain, '**/*[`name == "com.apple.ace.assistant"`]' }
+        if over_ios14?(@driver)
+          @core.wait { @driver.find_element :name, 'siri-interface-window' }
+        else
+          # Siri returns below element if it has connection issue
+          # <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" ....
+          #   name="...having a problem with the connection. Please try again in a little bit." ...>
+          @core.wait { @driver.find_element :class_chain, '**/*[`name == "com.apple.ace.assistant"`]' }
+        end
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'
