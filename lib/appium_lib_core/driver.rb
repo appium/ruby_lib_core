@@ -525,6 +525,8 @@ module Appium
             ::Appium::Logger.debug('SafariDriver for macOS')
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for macOS')
+          when :mac2
+            ::Appium::Logger.debug('macOS XCUITest')
           else
             # no Mac specific extentions
             ::Appium::Logger.debug('macOS Native')
