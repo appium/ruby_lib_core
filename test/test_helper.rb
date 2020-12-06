@@ -109,6 +109,10 @@ class AppiumLibCoreTest
       new.windows
     end
 
+    def self.mac2
+      new.mac2
+    end
+
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
       platform_version = '14.2'
@@ -354,6 +358,15 @@ class AppiumLibCoreTest
           export_session: true,
           wait_timeout: 20,
           wait_interval: 1
+        }
+      }
+    end
+
+    def mac2
+      {
+        caps: {
+          platformName: :mac,
+          automationName: :mac2
         }
       }
     end
