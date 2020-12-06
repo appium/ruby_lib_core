@@ -15,7 +15,6 @@
 require 'test_helper'
 
 # $ rake test:func:ios TEST=test/functional/mac2/driver_test.rb
-# rubocop:disable Style/ClassVars
 class AppiumLibCoreTest
   class DriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
@@ -28,11 +27,7 @@ class AppiumLibCoreTest
     end
 
     def test_1
-      require 'pry'
-      binding.pry
-
       @driver.page_source
     end
   end
 end
-# rubocop:enable Style/ClassVars

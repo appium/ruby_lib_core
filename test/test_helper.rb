@@ -364,10 +364,10 @@ class AppiumLibCoreTest
 
     def mac2
       {
-          caps: {
-              platformName: :mac,
-              automationName: :mac2,
-          }
+        caps: {
+          platformName: :mac,
+          automationName: :mac2
+        }
       }
     end
 
