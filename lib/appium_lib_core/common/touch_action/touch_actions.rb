@@ -27,9 +27,9 @@ module Appium
     # @example
     #
     #   @driver = Appium::Core.for(opts).start_driver
-    #   action = TouchAction.new(@driver).press(x: 45, y: 100).wait(600).release
+    #   action = Appium::Core::TouchAction.new(@driver).press(x: 45, y: 100).wait(600).release
     #   action.perform
-    #   action = TouchAction.new(@driver).swipe(....)
+    #   action = Appium::Core::TouchAction.new(@driver).swipe(....)
     #   action.perform
     #
     class TouchAction
@@ -59,7 +59,7 @@ module Appium
       # Press down for a specific duration.
       # Alternatively, you can use +press(...).wait(...).release()+ instead of +long_press+ if duration doesn't work well.
       # https://github.com/appium/ruby_lib/issues/231#issuecomment-269895512
-      # e.g. Appium::TouchAction.new.press(x: 280, y: 530).wait(2000).release.perform
+      # e.g. Appium::Core::TouchAction.new.press(x: 280, y: 530).wait(2000).release.perform
       #
       # @param opts [Hash] Options
       # @option opts [WebDriver::Element] element the element to press.

@@ -24,8 +24,8 @@ module Appium
     # @example
     #
     #   @driver = Appium::Core.for(opts).start_driver
-    #   action_1 = TouchAction.new(@driver).press(x: 45, y: 100).wait(600).release
-    #   action_2 = TouchAction.new(@driver).tap(element: el, x: 50, y:5, count: 3)
+    #   action_1 = Appium::Core::TouchAction.new(@driver).press(x: 45, y: 100).wait(600).release
+    #   action_2 = Appium::Core::TouchAction.new(@driver).tap(element: el, x: 50, y:5, count: 3)
     #
     #   multi_touch_action = MultiTouch.new(@driver)
     #   multi_touch_action.add action_1
