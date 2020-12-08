@@ -28,6 +28,11 @@ class AppiumLibCoreTest
 
     def test_1
       @driver.page_source
+      e = @driver.find_element :name, 'Apple'
+      e.click
+
+      e = @driver.find_element :name, 'About This Mac'
+      e.click
     end
   end
 end
