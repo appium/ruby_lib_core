@@ -127,17 +127,17 @@ jobs:
     - template: ./functional/publish_test_result.yml
 
 # Skip since opencv4nodejs fails to install on the macOS instance
- - job: func_test_ios_opencv
-   pool:
-     vmImage: ${{ parameters.vmImageForIOS }}
-   variables:
-     CI: ${{ parameters.ci }}
-     IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-     APPIUM_VERSION: ${{ parameters.appiumVersion }}
-   steps:
+   - job: func_test_ios_opencv
+     pool:
+       vmImage: ${{ parameters.vmImageForIOS }}
+     variables:
+       CI: ${{ parameters.ci }}
+       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+     steps:
      - template: ./functional/ios_setup.yml
        parameters:
-         xcodeVersion: ${{ parameters.xcodeForIOS }}
+       xcodeVersion: ${{ parameters.xcodeForIOS }}
      - template: ./functional/run_appium.yml
      - script: npm install -g opencv4nodejs@5.1.0
        displayName: Install opencv4nodejs@5.1.0
@@ -274,21 +274,21 @@ jobs:
       - template: ./functional/publish_test_result.yml
 
 # Skip since opencv4nodejs fails to install on the macOS instance
- - job: func_test_android_opencv
-   pool:
-     vmImage: ${{ parameters.vmImage }}
-   variables:
-     CI: ${{ parameters.ci }}
-     ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-     IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-     APPIUM_VERSION: ${{ parameters.appiumVersion }}
-   strategy:
-     matrix:
-       uiautomator2:
-         AUTOMATION_NAME_DROID: 'uiautomator2'
-       espresso:
-         AUTOMATION_NAME_DROID: 'espresso'
-   steps:
+   - job: func_test_android_opencv
+     pool:
+       vmImage: ${{ parameters.vmImage }}
+     variables:
+       CI: ${{ parameters.ci }}
+       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
+       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+     strategy:
+       matrix:
+         uiautomator2:
+           AUTOMATION_NAME_DROID: 'uiautomator2'
+         espresso:
+           AUTOMATION_NAME_DROID: 'espresso'
+     steps:
      - template: ./functional/android_setup.yml
      - template: ./functional/run_appium.yml
      - script: npm install -g opencv4nodejs@5.1.0
