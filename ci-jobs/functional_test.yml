@@ -136,7 +136,8 @@ jobs:
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     steps:
     - template: ./functional/ios_setup.yml
-      xcodeVersion: ${{ parameters.xcodeForIOS }}
+      parameters:
+        xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
     - script: npm install -g opencv4nodejs@5.1.0
       displayName: Install opencv4nodejs@5.1.0
