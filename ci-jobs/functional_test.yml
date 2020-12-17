@@ -141,7 +141,7 @@ jobs:
     - template: ./functional/run_appium.yml
     - script: npm install -g opencv4nodejs@4.3.0
       displayName: Install opencv4nodejs@4.3.0
-    - script: bundle exec rake test:func:ios test/functional/ios/ios/image_comparison_test.rb
+    - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/image_comparison_test.rb
       displayName: Run tests
     - template: ./functional/publish_test_result.yml
 

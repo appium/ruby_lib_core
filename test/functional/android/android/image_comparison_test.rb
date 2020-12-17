@@ -61,7 +61,7 @@ class AppiumLibCoreTest
         assert !find_result['score'].nil?
 
         find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization), find_result_visual.keys
+        assert_equal %w(score rect visualization), find_result_visual.keys
         File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 
