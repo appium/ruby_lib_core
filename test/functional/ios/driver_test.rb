@@ -118,10 +118,10 @@ class AppiumLibCoreTest
     def test_batch
       skip_as_appium_version '1.15.0'
 
-      script = <<-SCRIPT
-const status = await driver.status();
-console.warn('warning message');
-return [status];
+      script = <<~SCRIPT
+        const status = await driver.status();
+        console.warn('warning message');
+        return [status];
       SCRIPT
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio', timeout_ms: 10_000)
@@ -145,11 +145,11 @@ return [status];
     def test_batch_combination_ruby_script
       skip_as_appium_version '1.15.0'
 
-      script = <<-SCRIPT
-console.warn('warning message');
-const element = await driver.findElement('accessibility id', 'Buttons');
-const rect = await driver.getElementRect(element.ELEMENT);
-return [element, rect];
+      script = <<~SCRIPT
+        console.warn('warning message');
+        const element = await driver.findElement('accessibility id', 'Buttons');
+        const rect = await driver.getElementRect(element.ELEMENT);
+        return [element, rect];
       SCRIPT
 
       r = @@driver.execute_driver(script: script)

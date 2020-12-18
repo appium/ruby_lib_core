@@ -268,7 +268,7 @@ class AppiumLibCoreTest
       end
 
       def test_get_display_density
-        assert(@driver.get_display_density > 0)
+        assert @driver.get_display_density.positive?
       end
 
       def test_keyevent

@@ -151,7 +151,7 @@ class AppiumLibCoreTest
 
         @driver = @core.start_driver
 
-        assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
+        assert @driver.execute_script('mobile: deviceInfo', {}).size.positive?
       end
     end
   end

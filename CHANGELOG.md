@@ -4,6 +4,8 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 
+Supported Ruby version is 2.4+
+
 ### Enhancements
 
 ### Bug fixes

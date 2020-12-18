@@ -29,9 +29,9 @@ class AppiumLibCoreTest
           end
 
           def test_batch_no_timeout
-            script = <<-SCRIPT
-const status = await driver.status();
-return status;
+            script = <<~SCRIPT
+              const status = await driver.status();
+              return status;
             SCRIPT
 
             stub_request(:post, "#{SESSION}/appium/execute_driver")
@@ -48,8 +48,8 @@ return status;
           end
 
           def test_batch
-            script = <<-SCRIPT
-console.warn('warning message');
+            script = <<~SCRIPT
+              console.warn('warning message');
             SCRIPT
 
             stub_request(:post, "#{SESSION}/appium/execute_driver")
