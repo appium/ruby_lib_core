@@ -173,7 +173,7 @@ module Appium
           desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
 
           if force_mjsonwp
-            ::Appium::Logger.warn "'forceMjsonwp' is no longer available. Sending both W3C and MJSONWP capabilities"
+            ::Appium::Logger.warn "'forceMjsonwp' no longer works. Sending both W3C and MJSONWP capabilities"
           end
 
           new_caps = add_appium_prefix(desired_capabilities)
