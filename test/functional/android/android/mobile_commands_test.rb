@@ -252,7 +252,7 @@ class AppiumLibCoreTest
         skip_as_appium_version '1.10.0'
 
         @driver = @core.start_driver
-        assert(@driver.execute_script('mobile: deviceInfo', {}).size > 0)
+        assert @driver.execute_script('mobile: deviceInfo', {}).size.positive?
       end
 
       private

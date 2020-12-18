@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'appium_lib_core/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 2.2'
+  spec.required_ruby_version = '>= 2.4'
 
   spec.name          = 'appium_lib_core'
   spec.version       = Appium::Core::VERSION

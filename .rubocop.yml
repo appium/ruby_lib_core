@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 Metrics/LineLength:
   Max: 128
 Metrics/MethodLength:
@@ -18,9 +18,6 @@ Metrics/ParameterLists:
   Enabled: false
 Lint/NestedMethodDefinition:
   Enabled: false
-# TODO: Replace <<- with <<~ after dropping Ruby 2.2
-Layout/IndentHeredoc:
-  Enabled: false
 Style/ZeroLengthPredicate:
   Enabled: false
 Style/Documentation:
@@ -33,8 +30,7 @@ Style/BracesAroundHashParameters:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
-# TODO: will remove after stopping support 2.2
-Style/NumericPredicate:
+Style/UnpackFirst:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
