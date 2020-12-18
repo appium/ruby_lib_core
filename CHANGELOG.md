@@ -11,6 +11,7 @@ Supported Ruby version is 2.4+
 ### Bug fixes
 
 ### Deprecations
+- No longer work with `forceMjsonwp` capability to force the session MJSONWP
 
 ## [3.11.1] - 2020-11-20
 
