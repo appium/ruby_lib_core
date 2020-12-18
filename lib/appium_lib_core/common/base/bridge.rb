@@ -172,9 +172,7 @@ module Appium
           force_mjsonwp = desired_capabilities[FORCE_MJSONWP]
           desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
 
-          if force_mjsonwp
-            ::Appium::Logger.warn "'forceMjsonwp' no longer works. Sending both W3C and MJSONWP capabilities"
-          end
+          ::Appium::Logger.warn "'forceMjsonwp' no longer works. Sending both W3C and MJSONWP capabilities" if force_mjsonwp
 
           new_caps = add_appium_prefix(desired_capabilities)
           w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
