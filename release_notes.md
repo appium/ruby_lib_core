@@ -1,3 +1,16 @@
+#### v4.0.0 2020-12-19
+
+- [66e2306](https://github.com/appium/ruby_lib_core/commit/66e23069722d5ccd9ca10f5a1bdf2733cb249a2c) Release 4.0.0
+- [4ba9098](https://github.com/appium/ruby_lib_core/commit/4ba9098188b51d3534e35b0fae9340de7100f516) feat: drop forcemjsonwp (#291)
+- [5df301c](https://github.com/appium/ruby_lib_core/commit/5df301cb559eed1431cc790655dc89c22be54eb9) chore(deps-dev): update webmock requirement from ~> 3.10.0 to ~> 3.11.0 (#290)
+- [76c0ff7](https://github.com/appium/ruby_lib_core/commit/76c0ff7fa540261c5793cde1f79dc14bf752fd35) feat: bump supported ruby version (#289)
+- [ea5dd00](https://github.com/appium/ruby_lib_core/commit/ea5dd0008a56821750a5b256b912f252dd46b78d) test: add a few steps
+- [9c56f30](https://github.com/appium/ruby_lib_core/commit/9c56f302d46b2ea5d970c79536260720a6bd25ec) docs: add full module path in example
+- [f88ae2c](https://github.com/appium/ruby_lib_core/commit/f88ae2c0d6e02d40089298e8bf5ec19b2af012cd) chore: Add mac2 sample and log (#288)
+- [39e4611](https://github.com/appium/ruby_lib_core/commit/39e4611adac83dee85c21893fc1f904bf828f21e) ci: bump iOS versions (#287)
+- [d76ebdd](https://github.com/appium/ruby_lib_core/commit/d76ebddf0d0f664e49a616a1f94425eba887245e) docs: update badge
+
+
 #### v3.11.1 2020-11-20
 
 - [4fe582c](https://github.com/appium/ruby_lib_core/commit/4fe582c1318c2b5de83fcf87e36d1fedab8ed81a) Release 3.11.1
