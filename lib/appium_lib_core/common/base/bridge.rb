@@ -60,30 +60,8 @@ module Appium
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using +merged_capabilities+ for Appium
         #
-        # If +desired_capabilities+ has +forceMjsonwp: true+ in the capability, this bridge works with mjsonwp protocol.
-        # If +forceMjsonwp: false+ or no the capability, it depends on server side whether this bridge works as w3c or mjsonwp.
-        #
         # @param [::Selenium::WebDriver::Remote::W3C::Capabilities, Hash] desired_capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities, ::Selenium::WebDriver::Remote::W3C::Capabilities]
-        #
-        # @example
-        #
-        #   opts = {
-        #     caps: {
-        #       platformName: :ios,
-        #       automationName: 'XCUITest',
-        #       app: 'test/functional/app/UICatalog.app.zip',
-        #       platformVersion: '11.4',
-        #       deviceName: 'iPhone Simulator',
-        #       useNewWDA: true,
-        #       forceMjsonwp: true
-        #     },
-        #     appium_lib: {
-        #       wait: 30
-        #     }
-        #   }
-        #   core = ::Appium::Core.for(caps)
-        #   driver = core.start_driver #=> driver.dialect == :oss
         #
         # @example
         #
@@ -194,21 +172,17 @@ module Appium
           force_mjsonwp = desired_capabilities[FORCE_MJSONWP]
           desired_capabilities = delete_force_mjsonwp(desired_capabilities) unless force_mjsonwp.nil?
 
-          if force_mjsonwp
-            {
-              desiredCapabilities: desired_capabilities
-            }
-          else
-            new_caps = add_appium_prefix(desired_capabilities)
-            w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+          ::Appium::Logger.warn "'forceMjsonwp' no longer works. Sending both W3C and MJSONWP capabilities" if force_mjsonwp
 
-            {
-              desiredCapabilities: desired_capabilities,
-              capabilities: {
-                firstMatch: [w3c_capabilities]
-              }
+          new_caps = add_appium_prefix(desired_capabilities)
+          w3c_capabilities = ::Selenium::WebDriver::Remote::W3C::Capabilities.from_oss(new_caps)
+
+          {
+            desiredCapabilities: desired_capabilities,
+            capabilities: {
+              firstMatch: [w3c_capabilities]
             }
-          end
+          }
         end
       end # class Bridge
     end # class Base

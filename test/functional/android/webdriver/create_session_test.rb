@@ -25,7 +25,7 @@ class AppiumLibCoreTest
 
         driver = core.start_driver
 
-        assert_equal :oss, driver.dialect
+        assert_equal :w3c, driver.dialect
         assert driver.capabilities[:forceMjsonwp].nil?
         assert driver.capabilities['forceMjsonwp'].nil?
 
