@@ -4,6 +4,14 @@ Read `release_notes.md` for commit level details.
 
 ## [Unreleased]
 
+### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [4.0.0] - 2020-12-19
+
 Supported Ruby version is 2.4+
 
 ### Enhancements
