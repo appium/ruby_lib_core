@@ -53,7 +53,7 @@ module Appium
               return yield(object)
             rescue ::Errno::ECONNREFUSED => e
               raise e
-            rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+            rescue *ignored => last_error
               # swallowed
             end
             sleep interval
@@ -98,7 +98,7 @@ module Appium
               return result if result
             rescue ::Errno::ECONNREFUSED => e
               raise e
-            rescue *ignored => last_error # rubocop:disable Lint/HandleExceptions
+            rescue *ignored => last_error
               # swallowed
             end
             sleep interval

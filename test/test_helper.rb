@@ -26,7 +26,7 @@ Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 begin
   Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
-rescue Errno::ENOENT # rubocop:disable Lint/HandleExceptions
+rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
@@ -204,7 +204,7 @@ class AppiumLibCoreTest
 
     # for use_xctestrun_file
     def add_xctestrun(real_device, caps, xcode_org_id)
-      xcode_sdk_version = /iPhoneOS([0-9\.]+)\.sdk/.match(`xcodebuild -version -sdk`)[1]
+      xcode_sdk_version = /iPhoneOS([0-9.]+)\.sdk/.match(`xcodebuild -version -sdk`)[1]
 
       derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path

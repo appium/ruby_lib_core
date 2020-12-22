@@ -17,9 +17,9 @@ require './lib/appium_lib_core'
 
 module Script
   class CommandsChecker
-    attr_reader :spec_commands
-    attr_reader :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands
-    attr_reader :webdriver_oss_commands, :webdriver_w3c_commands
+    attr_reader :spec_commands,
+                :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands,
+                :webdriver_oss_commands, :webdriver_w3c_commands
 
     # Set commands implemented in this core library.
     #

@@ -23,7 +23,7 @@ module Appium
         module Device
           extend Forwardable
 
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
 
           # @!method hide_keyboard(close_key = nil, strategy = nil)
           # Hide the onscreen keyboard
@@ -171,7 +171,7 @@ module Appium
           #   @driver.battery_info #=> { state: :full, level: 0.7 }
           #
 
-          # rubocop:enable Metrics/LineLength
+          # rubocop:enable Layout/LineLength
 
           ####
           ## class << self

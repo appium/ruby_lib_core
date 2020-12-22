@@ -380,7 +380,7 @@ class AppiumLibCoreTest
         unquote = string.match(/"(.+)"/)
         string = unquote[1] if unquote
 
-        resource_id = %r{^[a-zA-Z_][a-zA-Z0-9\._]*:[^\/]+\/[\S]+$}
+        resource_id = %r{^[a-zA-Z_][a-zA-Z0-9._]*:[^\/]+\/\S+$}
         string.match(resource_id) ? on_match : ''
       end
 

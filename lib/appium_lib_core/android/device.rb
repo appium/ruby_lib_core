@@ -25,7 +25,7 @@ module Appium
       module Device
         extend Forwardable
 
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
 
         # @!method open_notifications
         #   Open Android notifications
@@ -307,7 +307,7 @@ module Appium
         ## class << self
         ####
 
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
 
         class << self
           def extended(_mod)

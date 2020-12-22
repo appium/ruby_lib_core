@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# rubocop:disable Layout/AlignHash
 module Appium
   module Core
     module Commands
@@ -27,4 +26,3 @@ module Appium
     end # module Commands
   end # module Core
 end # Appium
-# rubocop:enable Layout/AlignHash
