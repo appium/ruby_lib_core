@@ -20,7 +20,7 @@ module Appium
       module Device
         extend Forwardable
 
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
 
         # @since Appium 1.18.0
         # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', force_restart: nil, time_limit: nil, fps: nil, preset: nil, video_filter: nil, capture_clicks: nil, capture_cursor: nil, audio_input: nil)
@@ -69,7 +69,7 @@ module Appium
         #    @driver.start_recording_screen capture_cursor: true, capture_clicks: true, time_limit: '260'
         #
 
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
 
         ####
         ## class << self

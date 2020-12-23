@@ -26,7 +26,7 @@ class AppiumLibCoreTest
       save_reports(@driver)
     end
 
-    def test_1
+    def test_first
       @driver.page_source
       e = @driver.find_element :name, 'Apple'
       e.click

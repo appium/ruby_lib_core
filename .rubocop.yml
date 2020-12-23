@@ -1,7 +1,15 @@
 AllCops:
   TargetRubyVersion: 2.4
-Metrics/LineLength:
+Layout/LineLength:
   Max: 128
+Layout/RescueEnsureAlignment:
+  Enabled: false
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: false
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
 Metrics/MethodLength:
   Enabled: false
 Metrics/ModuleLength:
@@ -26,8 +34,6 @@ Style/CommentedKeyword:
   Enabled: false
 Style/PercentLiteralDelimiters:
   Enabled: false
-Style/BracesAroundHashParameters:
-  Enabled: false
 Style/SymbolArray:
   Enabled: false
 Style/UnpackFirst:
@@ -40,5 +46,13 @@ Naming/MemoizedInstanceVariableName:
     - test/**/*
 Naming/RescuedExceptionsVariableName:
   Enabled: false
-Layout/RescueEnsureAlignment:
+Style/CaseLikeIf:
+  Enabled: false
+Style/RedundantRegexpEscape:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/KeywordParametersOrder:
   Enabled: false

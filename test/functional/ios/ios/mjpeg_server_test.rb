@@ -50,7 +50,7 @@ class AppiumLibCoreTest
         assert File.exist? to_path
       end
 
-      def test_start_recording_screen_2
+      def test_start_recording_screen2
         skip_as_appium_version '1.9.2'
 
         to_path = 'recorded_file_ios_2.mp4'

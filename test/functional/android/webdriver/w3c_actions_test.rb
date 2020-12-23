@@ -159,7 +159,7 @@ class AppiumLibCoreTest
                 ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
       end
 
-      # Note: Works with Espresso Driver
+      # NOTE: Works with Espresso Driver
       def test_multiple_actions
         skip_as_appium_version '1.8.0'
 

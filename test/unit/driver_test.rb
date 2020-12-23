@@ -25,6 +25,7 @@ class AppiumLibCoreTest
     class ExampleDriver
       # for test
       attr_reader :core
+
       def initialize(opts)
         @core = ::Appium::Core.for(opts)
       end

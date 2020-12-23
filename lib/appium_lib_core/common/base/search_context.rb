@@ -18,7 +18,6 @@ module Appium
       module SearchContext
         # referenced: ::Selenium::WebDriver::SearchContext
 
-        # rubocop:disable Layout/AlignHash
         FINDERS = ::Selenium::WebDriver::SearchContext::FINDERS.merge(
           accessibility_id:     'accessibility id',
           image:                '-image',
@@ -37,9 +36,8 @@ module Appium
           # Tizen with Tizen prefix
           tizen_uiautomation:   '-tizen uiautomation'
         )
-        # rubocop:enable Layout/AlignHash
 
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         #
         # Find the first element matching the given arguments
         #
@@ -129,7 +127,7 @@ module Appium
         #     # For Tizen
         #     @driver.find_elements :tizen_uiautomation, '....'
         #
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
         def find_element(*args)
           how, what = extract_args(args)
           by = _set_by_from_finders(how)
