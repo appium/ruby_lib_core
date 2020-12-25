@@ -11,7 +11,7 @@ steps:
   displayName: Installed node dependencies
 - task: UseRubyVersion@0
   inputs:
-    versionSpec: '2.4' # so far, bundler does not work over 2.5 since it raises openssl error
+    versionSpec: '3.0' # so far, bundler does not work over 2.5 since it raises openssl error
 - script: |
     mkdir -p test/report
     nohup appium --relaxed-security --log-timestamp --log-no-colors > test/report/appium.out 2>&1 &
