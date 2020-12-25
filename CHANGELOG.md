@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Ruby 3.0 support
 
 ### Bug fixes
 
