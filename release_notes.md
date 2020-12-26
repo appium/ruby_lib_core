@@ -1,3 +1,11 @@
+#### v4.1.0 2020-12-25
+
+- [89110a9](https://github.com/appium/ruby_lib_core/commit/89110a995b869471a134f8c45ebe8dfbaabfba63) Release 4.1.0
+- [c833315](https://github.com/appium/ruby_lib_core/commit/c83331560738c0a656509516fc5f610855d5dfed) chore(deps-dev): update rubocop requirement from = 1.6.1 to = 1.7.0 (#294)
+- [83d57aa](https://github.com/appium/ruby_lib_core/commit/83d57aa3ad7fd100c081ecc21ab0d5c5d40bf95f) feat: support Ruby 3 (#295)
+- [e13c58f](https://github.com/appium/ruby_lib_core/commit/e13c58fe4355dcb2631f0a42248d991165f428f7) feat: bump rubocop (#293)
+
+
 #### v4.0.0 2020-12-19
 
 - [66e2306](https://github.com/appium/ruby_lib_core/commit/66e23069722d5ccd9ca10f5a1bdf2733cb249a2c) Release 4.0.0
