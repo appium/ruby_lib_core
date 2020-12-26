@@ -11,6 +11,15 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [4.1.0] - 2020-12-25
+
+### Enhancements
+- Ruby 3.0 support
+
+### Bug fixes
+
+### Deprecations
+
 ## [4.0.0] - 2020-12-19
 
 Supported Ruby version is 2.4+
