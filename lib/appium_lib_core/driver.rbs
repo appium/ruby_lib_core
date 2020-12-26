@@ -1,0 +1,90 @@
+# Classes
+module Appium
+  module Core
+    module Android
+    end
+
+    module Ios
+    end
+
+    class Options
+      attr_reader custom_url: nil
+      attr_reader default_wait: Integer
+      attr_reader export_session: bool
+      attr_reader export_session_path: String
+      attr_reader port: Integer
+      attr_reader wait_timeout: Integer
+      attr_reader wait_interval: Integer
+      attr_reader listener: nil
+      attr_reader direct_connect: bool
+      attr_reader enable_idempotency_header: bool
+      def initialize: (Hash[bot, bot] appium_lib_opts) -> nil
+
+      private
+      def default_tmp_appium_lib_session: -> String
+    end
+
+    class DirectConnections
+      KEYS: {protocol: String, host: String, port: String, path: String}
+
+      attr_reader protocol: String
+      attr_reader host: String
+      attr_reader port: String
+      attr_reader path: String
+      def initialize: (Hash[String, String|Integer] capabilities) -> nil
+    end
+
+    class Driver
+      DEFAULT_IMPLICIT_WAIT: Integer
+      DEFAULT_APPIUM_PORT: Integer
+      @delegate_target: Driver
+
+      attr_reader caps: Appium::Core::Base::Capabilities
+      attr_reader http_client: Appium::Core::Base::Http::Default
+      attr_reader enable_idempotency_header: true
+      attr_reader device: Symbol
+      attr_reader automation_name: nil
+      attr_reader custom_url: String?
+      attr_reader export_session: false
+      attr_reader export_session_path: String
+      attr_reader default_wait: Integer
+      attr_reader port: Integer
+      attr_reader wait_timeout: Integer
+      attr_reader wait_interval: Integer
+      attr_reader listener: nil
+      attr_reader driver: Appium::Core::Base::Driver
+      attr_reader direct_connect: false
+      def self.for: (?Hash[bot, bot] opts) -> Driver
+
+      private
+      def delegated_target_for_test: -> Driver
+
+      public
+      def initialize: (?Hash[bot, bot] opts) -> Driver
+      def start_driver: (?server_url: nil, ?http_client_ops: {http_client: nil, open_timeout: Integer, read_timeout: Integer}) -> Selenium::WebDriver
+
+      private
+      def get_http_client: (?http_client: Integer?, ?open_timeout: Integer?, ?read_timeout: Integer?) -> Integer
+      def set_implicit_wait_by_default: (Integer wait) -> (Hash[bot, bot] | Integer)
+
+      public
+      def quit_driver: -> nil
+      def appium_server_version: -> Hash[bot, bot]
+      def platform_version: -> Array[Integer]
+      def screenshot: (String png_save_path) -> File
+
+      private
+      def extend_for: (device: String, automation_name: nil) -> Driver
+      def validate_keys: (Hash opts) -> true
+      def flatten_hash_keys: (Hash hash, ?Array[Symbol|String] flatten_keys_result) -> Array[Symbol|String]
+      def get_caps: (Hash opts) -> Hash
+      def get_appium_lib_opts: (Hash opts) -> Hash[bot, bot]
+      def set_app_path: -> String?
+      def set_appium_lib_specific_values: (Hash[bot, bot] appium_lib_opts) -> false
+      def set_appium_device: -> nil
+      def set_automation_name: -> nil
+      def set_automation_name_if_nil: -> nil
+      def write_session_id: (String session_id, ?String export_path) -> Integer?
+    end
+  end
+end

@@ -98,7 +98,7 @@ module Appium
       include Waitable
 
       # Selenium webdriver capabilities
-      # @return [Core::Base::Capabilities]
+      # @return [Appium::Core::Base::Capabilities]
       attr_reader :caps
 
       # Return http client called in start_driver()
