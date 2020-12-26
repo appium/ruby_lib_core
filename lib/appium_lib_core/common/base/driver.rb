@@ -311,6 +311,7 @@ module Appium
 
         # Perform a block within the given context, then switch back to the starting context.
         # @param [String] context The context to switch to for the duration of the block.
+        # @param [Proc] block The block to involve within the context
         #
         # @example
         #
@@ -318,8 +319,8 @@ module Appium
         #     @driver.find_element :tag, "button"
         #   end # The result of 'find_element :tag, "button"'
         #
-        def within_context(context)
-          block_given? ? @bridge.within_context(context, &Proc.new) : @bridge.within_context(context)
+        def within_context(context, &block)
+          block_given? ? @bridge.within_context(context, &block) : @bridge.within_context(context)
         end
 
         # Change to the default context. This is equivalent to +set_context nil+.
