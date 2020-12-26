@@ -1,3 +1,9 @@
+#### v4.1.1 2020-12-25
+
+- [3a4cf56](https://github.com/appium/ruby_lib_core/commit/3a4cf56c73a64fb10ca0b7fecc5800719838095c) Release 4.1.1
+- [6b2d7dd](https://github.com/appium/ruby_lib_core/commit/6b2d7ddf027b5a9f49cbe9a7f5622eb345e2c076) fix: keyword argument in Ruby 3
+
+
 #### v4.1.0 2020-12-25
 
 - [89110a9](https://github.com/appium/ruby_lib_core/commit/89110a995b869471a134f8c45ebe8dfbaabfba63) Release 4.1.0
