@@ -503,7 +503,7 @@ class AppiumLibCoreTest
               .with(body: { cmd: 'Page.captureScreenshot', params: { quality: 1, format: 'jpeg' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { data: '/9j/4AAQSkZJRgABAQAAAQABAAD' } }.to_json)
 
-            r = @driver.execute_cdp 'Page.captureScreenshot', { quality: 1, format: 'jpeg' }
+            r = @driver.execute_cdp 'Page.captureScreenshot', quality: 1, format: 'jpeg'
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
             assert_equal '/9j/4AAQSkZJRgABAQAAAQABAAD', r['data']

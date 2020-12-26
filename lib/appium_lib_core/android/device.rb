@@ -290,16 +290,16 @@ module Appium
         #   @driver.finger_print 1
         #
 
-        # @!method execute_cdp(cmd, params)
+        # @!method execute_cdp(cmd, **params)
         #     Execute Chrome Devtools protocol commands
         #     https://chromedevtools.github.io/devtools-protocol
         #
         # @param [String] cmd The name of command
-        # @param [Hash] params The parameter for the command as hash.
+        # @option params The parameter for the command as keyword options.
         #
         # @example
         #
-        #   @driver.execute_cdp 'Page.captureScreenshot', { quality: 50, format: 'jpeg' }
+        #   @driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'
         #   @driver.execute_cdp 'Page.getResourceTree'
         #
 
@@ -415,7 +415,7 @@ module Appium
               # SeleniumWebdriver could already define this method
               return if method_defined? :execute_cdp
 
-              def execute_cdp(cmd, params = {})
+              def execute_cdp(cmd, **params)
                 execute :chrome_send_command, {}, { cmd: cmd, params: params }
               end
             end

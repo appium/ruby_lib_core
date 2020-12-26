@@ -5,9 +5,11 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Ruby 3.0 support
 
 ### Bug fixes
+- Argument of `@driver.execute_cdp`
+    - It should be like `@driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'` as keyword arguments
+      instead of `@driver.execute_cdp 'Page.captureScreenshot', { quality: 50, format: 'jpeg' }` in Ruby 3
 
 ### Deprecations
 
