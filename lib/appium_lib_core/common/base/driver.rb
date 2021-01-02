@@ -27,7 +27,7 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::SearchContext
-        include ::Appium::Core::Base::TakeScreenshot
+        include ::Appium::Core::Base::TakesScreenshot
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
