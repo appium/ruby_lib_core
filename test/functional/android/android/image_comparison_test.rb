@@ -176,7 +176,7 @@ class AppiumLibCoreTest
         @driver.rotation = :portrait
 
         el = @driver.find_element :accessibility_id, 'NFC'
-        @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
+        el.save_screenshot 'test/functional/data/test_android_nfc.png'
 
         @driver.update_settings({ defaultImageTemplateScale: 4 })
 
