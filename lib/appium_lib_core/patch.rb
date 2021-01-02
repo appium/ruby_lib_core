@@ -103,7 +103,19 @@ module Appium
         ::Selenium::WebDriver::Point.new "#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}"
       end
 
-      # Return a PNG element screenshot in the given format as a string
+      # Return an element screenshot as base64
+      #
+      # @return String Base 64 encoded string
+      #
+      # @example
+      #
+      #     element.screenshot #=> "iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX"
+      #
+      def screenshot
+        bridge.take_element_screenshot(self)
+      end
+
+      # Return an element screenshot in the given format
       #
       # @param [:base64, :png] format
       # @return String screenshot
@@ -123,6 +135,8 @@ module Appium
         end
       end
 
+      # Save an element screenshot to the given path
+      #
       # @param [String] png_path A path to save the screenshot
       # @return [File] Path to the element screenshot.
       #
