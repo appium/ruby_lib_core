@@ -5,6 +5,8 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `Element#screenshot_as` and `Element#save_screenshot` in Element module
+    - They are same as `Driver#element_screenshot_as` and `Driver#save_element_screenshot`
 
 ### Bug fixes
 

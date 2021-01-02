@@ -21,6 +21,9 @@ module Appium
       # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::SearchContext
 
+      # TODO: Probably can remove own TakesScreenshot since Selenium 4
+      include ::Appium::Core::Base::TakesScreenshot
+
       # Returns the value of attributes like below. Read each platform to know more details.
       #
       # uiautomator2: https://github.com/appium/appium-uiautomator2-server/blob/203cc7e57ce477f3cff5d95b135d1b3450a6033a/app/src/main/java/io/appium/uiautomator2/utils/Attribute.java#L19
@@ -98,6 +101,42 @@ module Appium
 
         w = driver.window_size
         ::Selenium::WebDriver::Point.new "#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}"
+      end
+
+      # Return a PNG element screenshot in the given format as a string
+      #
+      # @param [:base64, :png] format
+      # @return String screenshot
+      #
+      # @example
+      #
+      #     element.screenshot_as :base64 #=> "iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX"
+      #
+      def screenshot_as(format)
+        case format
+        when :base64
+          bridge.take_element_screenshot(self)
+        when :png
+          bridge.take_element_screenshot(self).unpack('m')[0]
+        else
+          raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
+        end
+      end
+
+      # @param [String] png_path A path to save the screenshot
+      # @return [File] Path to the element screenshot.
+      #
+      # @example
+      #
+      #   element.save_screenshot("fine_name.png")
+      #
+      def save_screenshot(png_path)
+        extension = File.extname(png_path).downcase
+        if extension != '.png'
+          ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+                                'It should end with .png extension'
+        end
+        File.open(png_path, 'wb') { |f| f << screenshot_as(:png) }
       end
     end
   end # module Core

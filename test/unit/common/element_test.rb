@@ -75,5 +75,15 @@ class AppiumLibCoreTest
 
       assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
     end
+
+    def test_element_screenshot_as
+      stub_request(:get, "#{SESSION}/element/id/screenshot")
+        .to_return(headers: HEADER, status: 200,
+                   body: { value: 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX' }.to_json)
+
+      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      assert_equal 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX', e.screenshot_as(:base64)
+      assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
+    end
   end
 end

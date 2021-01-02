@@ -15,7 +15,7 @@
 module Appium
   module Core
     class Base
-      module TakeScreenshot
+      module TakesScreenshot
         #
         # Save a PNG screenshot to the given path
         #
