@@ -20,9 +20,6 @@ class AppiumLibCoreTest
     def setup
       @core = ::Appium::Core.for(Caps.mac2)
       @driver = @core.start_driver
-
-      require 'pry'
-      binding.pry
     end
 
     def teardown

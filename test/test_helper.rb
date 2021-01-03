@@ -124,7 +124,7 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
           automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
-          udid: '00008020-000E5CDA0A23002E',
+          # udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
@@ -133,9 +133,6 @@ class AppiumLibCoreTest
           someCapability: 'some_capability',
           newCommandTimeout: 120,
           wdaLocalPort: wda_port,
-                browserName: 'safari',
-                # nativeWebTap: true,
-          webDriverAgent: 'http://192.168.4.24:8100',
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
           waitForQuiescence: true,
@@ -151,6 +148,17 @@ class AppiumLibCoreTest
           wait_interval: 1
         }
       }
+
+      if ENV['BUNDLE_ID'].nil?
+        cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
+                             # Use https://github.com/KazuCocoa/tv-example as a temporary
+                             "#{Dir.pwd}/test/functional/app/tv-example.zip"
+                           else
+                             test_app platform_version
+                           end
+      else
+        cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+      end
 
       unless ENV['UNIT_TEST']
         xcode_org_id = ENV['ORG_ID'] || 'Simulator'
@@ -358,10 +366,7 @@ class AppiumLibCoreTest
       {
         caps: {
           platformName: :mac,
-          automationName: :mac2,
-          # "bundleId" => "com.apple.Finder",
-          # webDriverAgentMacUrl: 'http://localhost:10100',
-          # systemPort: 10100
+          automationName: :mac2
         }
       }
     end
