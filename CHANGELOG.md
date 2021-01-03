@@ -5,6 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+
+### Bug fixes
+
+### Deprecations
+
+## [4.2.0] - 2021-01-02
+
+### Enhancements
 - Add  `Element#screenshot`, `Element#screenshot_as` and `Element#save_screenshot` in Element module
     - `Element#screenshot_as` and `Element#save_screenshot` are same as `Driver#element_screenshot_as` and `Driver#save_element_screenshot`
     - `Element#screenshot` is same as `Element#screenshot_as(:base64)`
