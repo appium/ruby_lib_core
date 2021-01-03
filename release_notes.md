@@ -1,3 +1,9 @@
+#### v4.2.0 2021-01-02
+
+- [e55b2b6](https://github.com/appium/ruby_lib_core/commit/e55b2b6f7fe293091be0d3835075e66c74f3b9dd) Release 4.2.0
+- [b0cd235](https://github.com/appium/ruby_lib_core/commit/b0cd235a7fb6e5a8957871650bf86962cf0e0368) feat: append screenshot in element module as well (#297)
+
+
 #### v4.1.1 2020-12-25
 
 - [3a4cf56](https://github.com/appium/ruby_lib_core/commit/3a4cf56c73a64fb10ca0b7fecc5800719838095c) Release 4.1.1
