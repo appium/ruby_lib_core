@@ -15,6 +15,7 @@
 require 'base64'
 require_relative 'search_context'
 require_relative 'screenshot'
+require_relative 'rotable'
 
 module Appium
   module Core
@@ -22,10 +23,10 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::Rotatable
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
+        include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
 
