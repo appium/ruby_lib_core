@@ -1,3 +1,12 @@
+#### v4.2.1 2021-01-10
+
+- [23e944e](https://github.com/appium/ruby_lib_core/commit/23e944ed72c6ea861532f5acc1381af4441705e6) Release 4.2.1
+- [1a416b1](https://github.com/appium/ruby_lib_core/commit/1a416b136beb2b9115d3eb6637b22817f0e55601) chore: move rotable for w3c (#300)
+- [95821c6](https://github.com/appium/ruby_lib_core/commit/95821c6f1a4ebc785e2dc3e6e16c1705521237e8) ci: bump android app (#299)
+- [4e1770e](https://github.com/appium/ruby_lib_core/commit/4e1770e3b9d6995b1d5430b9033097609edca1c8) chore(deps-dev): update rubocop requirement from = 1.7.0 to = 1.8.0 (#298)
+- [b230512](https://github.com/appium/ruby_lib_core/commit/b230512c52875ea70545d3d2262c306640f87f7d) chore: fix rubocop
+
+
 #### v4.2.0 2021-01-02
 
 - [e55b2b6](https://github.com/appium/ruby_lib_core/commit/e55b2b6f7fe293091be0d3835075e66c74f3b9dd) Release 4.2.0
