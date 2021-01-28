@@ -175,7 +175,7 @@ module Appium
       # - <code>directConnectPort</code>
       # - <code>directConnectPath</code>
       #
-      # Ignore them if this parameter is <code>false</code>. Defaults to false.
+      # Ignore them if this parameter is <code>false</code>. Defaults to true.
       #
       # @return [Bool]
       attr_reader :direct_connect
