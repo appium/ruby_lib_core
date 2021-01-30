@@ -59,6 +59,7 @@ module Appium
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
         # set before creating session.
+        # If +@bridge.http+ did not have +update_sending_request_to+ method, this method returns immediately.
         #
         # @example
         #
@@ -67,10 +68,16 @@ module Appium
         #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for 'https://example2.com:9000/wd/hub/'
         #
         def update_sending_request_to(protocol:, host:, port:, path:)
-          @bridge.http.update_sending_request_to(scheme: protocol,
-                                                 host: host,
-                                                 port: port,
-                                                 path: path)
+          unless @bridge.http&.class&.method_defined? :update_sending_request_to
+            ::Appium::Logger.fatal "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
+              'It keeps current connection target.'
+            return
+          end
+
+          @bridge.http&.update_sending_request_to(scheme: protocol,
+                                                  host: host,
+                                                  port: port,
+                                                  path: path)
         end
 
         ### Methods for Appium

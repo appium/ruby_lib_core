@@ -55,8 +55,6 @@ module Appium
           def update_sending_request_to(scheme:, host:, port:, path:)
             return @server_url unless validate_url_param(scheme, host, port, path)
 
-            ::Appium::Logger.debug("[experimental] This feature, #{__method__}, is an experimental")
-
             # Add / if 'path' does not have it
             path = path.start_with?('/') ? path : "/#{path}"
             path = path.end_with?('/') ? path : "#{path}/"
