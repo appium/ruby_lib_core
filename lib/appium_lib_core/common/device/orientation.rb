@@ -14,7 +14,18 @@
 
 module Appium
   module Core
-    VERSION = '4.2.1' unless defined? ::Appium::Core::VERSION
-    DATE    = '2021-01-10' unless defined? ::Appium::Core::DATE
-  end
-end
+    class Base
+      module Device
+        module Orientation
+          def screen_orientation=(orientation)
+            execute :set_screen_orientation, {}, { orientation: orientation }
+          end
+
+          def screen_orientation
+            execute :get_screen_orientation
+          end
+        end # module Orientation
+      end # module Device
+    end # class Base
+  end # module Core
+end # module Appium

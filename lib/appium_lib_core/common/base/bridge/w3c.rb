@@ -32,6 +32,7 @@ module Appium
           include Device::Device
           include Device::TouchActions
           include Device::ExecuteDriver
+          include Device::Orientation
 
           def commands(command)
             ::Appium::Core::Commands::W3C::COMMANDS[command]

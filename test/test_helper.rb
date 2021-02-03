@@ -62,6 +62,12 @@ class AppiumLibCoreTest
         # rubocop:enable Style/GuardClause
       end
 
+      def newer_appium_than_or_beta?(version)
+        return true if AppiumLibCoreTest.appium_version == 'beta'
+
+        Gem::Version.new(AppiumLibCoreTest.appium_version) > Gem::Version.new(version.to_s)
+      end
+
       def over_ios13?(driver)
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end

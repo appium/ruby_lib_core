@@ -45,7 +45,7 @@ module Appium
         @export_session = appium_lib_opts.fetch :export_session, false
         @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
 
-        @direct_connect = appium_lib_opts.fetch :direct_connect, false
+        @direct_connect = appium_lib_opts.fetch :direct_connect, true
 
         @port = appium_lib_opts.fetch :port, Driver::DEFAULT_APPIUM_PORT
 
@@ -175,7 +175,7 @@ module Appium
       # - <code>directConnectPort</code>
       # - <code>directConnectPath</code>
       #
-      # Ignore them if this parameter is <code>false</code>. Defaults to false.
+      # Ignore them if this parameter is <code>false</code>. Defaults to true.
       #
       # @return [Bool]
       attr_reader :direct_connect

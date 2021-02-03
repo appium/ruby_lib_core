@@ -115,7 +115,7 @@ class AppiumLibCoreTest
       assert_equal 999_999, @core.http_client.open_timeout
       assert_equal 999_999, @core.http_client.read_timeout
       uri = @driver.send(:bridge).http.send(:server_url)
-      assert !@core.direct_connect
+      assert @core.direct_connect
       assert_equal 'http', uri.scheme
       assert_equal '127.0.0.1', uri.host
       assert_equal 4723, uri.port

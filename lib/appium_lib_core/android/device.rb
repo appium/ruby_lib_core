@@ -290,16 +290,16 @@ module Appium
         #   @driver.finger_print 1
         #
 
-        # @!method execute_cdp(cmd, params)
+        # @!method execute_cdp(cmd, **params)
         #     Execute Chrome Devtools protocol commands
         #     https://chromedevtools.github.io/devtools-protocol
         #
         # @param [String] cmd The name of command
-        # @param [Hash] params The parameter for the command as hash.
+        # @option params The parameter for the command as keyword options.
         #
         # @example
         #
-        #   @driver.execute_cdp 'Page.captureScreenshot', { quality: 50, format: 'jpeg' }
+        #   @driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'
         #   @driver.execute_cdp 'Page.getResourceTree'
         #
 

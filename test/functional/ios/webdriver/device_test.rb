@@ -102,15 +102,22 @@ class AppiumLibCoreTest
       def test_location
         skip 'skip because set_location is unstable on CI' if ci?
 
-        latitude = 100
-        longitude = 100
+        latitude = 10
+        longitude = 10
         altitude = 75
         @@driver.set_location(latitude, longitude, altitude)
 
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownMethodError do
-          @@driver.location
+        if newer_appium_than_or_beta? '1.20.0'
+          error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+            @@driver.location
+          end
+          assert error.message.include? 'Location service must be'
+        else
+          error = assert_raises ::Selenium::WebDriver::Error::UnknownMethodError do
+            @@driver.location
+          end
+          assert error.message.include? 'Method has not yet been implemented'
         end
-        assert error.message.include? 'Method has not yet been implemented'
       end
 
       def test_accept_alert

@@ -1,3 +1,32 @@
+#### v4.2.1 2021-01-10
+
+- [23e944e](https://github.com/appium/ruby_lib_core/commit/23e944ed72c6ea861532f5acc1381af4441705e6) Release 4.2.1
+- [1a416b1](https://github.com/appium/ruby_lib_core/commit/1a416b136beb2b9115d3eb6637b22817f0e55601) chore: move rotable for w3c (#300)
+- [95821c6](https://github.com/appium/ruby_lib_core/commit/95821c6f1a4ebc785e2dc3e6e16c1705521237e8) ci: bump android app (#299)
+- [4e1770e](https://github.com/appium/ruby_lib_core/commit/4e1770e3b9d6995b1d5430b9033097609edca1c8) chore(deps-dev): update rubocop requirement from = 1.7.0 to = 1.8.0 (#298)
+- [b230512](https://github.com/appium/ruby_lib_core/commit/b230512c52875ea70545d3d2262c306640f87f7d) chore: fix rubocop
+
+
+#### v4.2.0 2021-01-02
+
+- [e55b2b6](https://github.com/appium/ruby_lib_core/commit/e55b2b6f7fe293091be0d3835075e66c74f3b9dd) Release 4.2.0
+- [b0cd235](https://github.com/appium/ruby_lib_core/commit/b0cd235a7fb6e5a8957871650bf86962cf0e0368) feat: append screenshot in element module as well (#297)
+
+
+#### v4.1.1 2020-12-25
+
+- [3a4cf56](https://github.com/appium/ruby_lib_core/commit/3a4cf56c73a64fb10ca0b7fecc5800719838095c) Release 4.1.1
+- [6b2d7dd](https://github.com/appium/ruby_lib_core/commit/6b2d7ddf027b5a9f49cbe9a7f5622eb345e2c076) fix: keyword argument in Ruby 3
+
+
+#### v4.1.0 2020-12-25
+
+- [89110a9](https://github.com/appium/ruby_lib_core/commit/89110a995b869471a134f8c45ebe8dfbaabfba63) Release 4.1.0
+- [c833315](https://github.com/appium/ruby_lib_core/commit/c83331560738c0a656509516fc5f610855d5dfed) chore(deps-dev): update rubocop requirement from = 1.6.1 to = 1.7.0 (#294)
+- [83d57aa](https://github.com/appium/ruby_lib_core/commit/83d57aa3ad7fd100c081ecc21ab0d5c5d40bf95f) feat: support Ruby 3 (#295)
+- [e13c58f](https://github.com/appium/ruby_lib_core/commit/e13c58fe4355dcb2631f0a42248d991165f428f7) feat: bump rubocop (#293)
+
+
 #### v4.0.0 2020-12-19
 
 - [66e2306](https://github.com/appium/ruby_lib_core/commit/66e23069722d5ccd9ca10f5a1bdf2733cb249a2c) Release 4.0.0

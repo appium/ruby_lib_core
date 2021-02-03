@@ -15,6 +15,7 @@
 require 'base64'
 require_relative 'search_context'
 require_relative 'screenshot'
+require_relative 'rotable'
 
 module Appium
   module Core
@@ -22,12 +23,12 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::Rotatable
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
+        include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
-        include ::Appium::Core::Base::TakeScreenshot
+        include ::Appium::Core::Base::TakesScreenshot
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
@@ -58,6 +59,7 @@ module Appium
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
         # set before creating session.
+        # If +@bridge.http+ did not have +update_sending_request_to+ method, this method returns immediately.
         #
         # @example
         #
@@ -66,6 +68,12 @@ module Appium
         #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for 'https://example2.com:9000/wd/hub/'
         #
         def update_sending_request_to(protocol:, host:, port:, path:)
+          unless @bridge.http&.class&.method_defined? :update_sending_request_to
+            ::Appium::Logger.fatal "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
+              'It keeps current connection target.'
+            return
+          end
+
           @bridge.http&.update_sending_request_to(scheme: protocol,
                                                   host: host,
                                                   port: port,
@@ -315,6 +323,7 @@ module Appium
 
         # Perform a block within the given context, then switch back to the starting context.
         # @param [String] context The context to switch to for the duration of the block.
+        # @param [Proc] block The block to involve within the context
         #
         # @example
         #

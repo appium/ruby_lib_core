@@ -29,6 +29,7 @@ require_relative 'device/clipboard_content_type'
 require_relative 'device/device'
 require_relative 'device/touch_actions'
 require_relative 'device/execute_driver'
+require_relative 'device/orientation'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/driver'

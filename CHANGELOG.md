@@ -10,25 +10,37 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [4.2.1] - 2021-01-10
+
+### Enhancements
+- Refactor routable
+
+## [4.2.0] - 2021-01-02
+
+### Enhancements
+- Add  `Element#screenshot`, `Element#screenshot_as` and `Element#save_screenshot` in Element module
+    - `Element#screenshot_as` and `Element#save_screenshot` are same as `Driver#element_screenshot_as` and `Driver#save_element_screenshot`
+    - `Element#screenshot` is same as `Element#screenshot_as(:base64)`
+
+## [4.1.1] - 2020-12-25
+
+### Enhancements
+- Ruby 3.0 support
+    - Arguments in `@driver.execute_cdp`
+        - It should be like `@driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'` as keyword arguments
+          instead of `@driver.execute_cdp 'Page.captureScreenshot', { quality: 50, format: 'jpeg' }` in Ruby 3
+
 ## [4.0.0] - 2020-12-19
 
 Supported Ruby version is 2.4+
-
-### Enhancements
-
-### Bug fixes
 
 ### Deprecations
 - No longer work with `forceMjsonwp` capability to force the session MJSONWP
 
 ## [3.11.1] - 2020-11-20
 
-### Enhancements
-
 ### Bug fixes
 - Fix `install_app` to be able to set no args for options
-
-### Deprecations
 
 ## [3.11.0] - 2020-08-01
 
@@ -36,27 +48,15 @@ Supported Ruby version is 2.4+
 - Security update [GHSA-2v5c-755p-p4gv](https://github.com/advisories/GHSA-2v5c-755p-p4gv)
     - Affects only _::Appium::Core::WebSocket_
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.10.1] - 2020-06-29
-
-### Enhancements
 
 ### Bug fixes
 - Fix duplication warning of `execute_cdp`
-
-### Deprecations
 
 ## [3.10.0] - 2020-06-09
 
 ### Enhancements
 - Remove deprecated `Selenium::WebDriver::Error::TimeOutError`
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.9.0] - 2020-05-31
 
@@ -76,10 +76,6 @@ Supported Ruby version is 2.4+
     @driver = Appium::Core.for(opts).start_driver
     ```
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.8.0] - 2020-05-17
 
 ### Enhancements
@@ -89,8 +85,6 @@ Supported Ruby version is 2.4+
 ### Bug fixes
 - Fix `x-idempotency-key` header to add it only in new session request (https://github.com/appium/ruby_lib_core/issues/262)
 
-### Deprecations
-
 ## [3.7.0] - 2020-04-18
 
 ### Enhancements
@@ -99,28 +93,16 @@ Supported Ruby version is 2.4+
 - Add chrome devtools endpoint which is available chrome module in Selenium Ruby binding
     - https://github.com/appium/appium-base-driver/pull/405
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.6.1, 3.6.0] - 2020-03-15
 
 ### Enhancements
 - Add screen record feature for Windows driver (https://github.com/appium/appium-windows-driver/pull/66)
     - `#start_recording_screen`, `#stop_recording_screen`
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.5.0] - 2020-01-11
 
 ### Enhancements
 - Add `:viewmatcher` selector like `@driver.find_elements :view_matcher, { name: 'withText', args: %w(Accessibility), class: 'androidx.test.espresso.matcher.ViewMatchers' }`
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.4.2] - 2019-12-29
 
@@ -128,18 +110,10 @@ Supported Ruby version is 2.4+
 - Add `attr_reader :bridge` for flutter driver not to use `send`
    - https://github.com/truongsinh/appium-flutter-driver/pull/35
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.4.0, 3.4.1] - 2019-12-26, 2019-12-27
 
 ### Enhancements
 - Fix Ruby 2.7 warnings
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.3.0] - 2019-11-08
 
@@ -147,27 +121,15 @@ Supported Ruby version is 2.4+
 - Add `Logs#event` to post a custom log by `@driver.logs.event vendor: 'appium', event: 'funEvent'`
 - Add `Logs#events` to get events by `@driver.logs.events`. It is equal to  `@driver.session_capabilities['events']`
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.2.3] - 2019-09-30
 
 ### Enhancements
 - Add `system_bars` as an alias to `get_system_bars`
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.2.2] - 2019-08-04
-
-### Enhancements
 
 ### Bug fixes
 - Fixed parameters of `remove_app`
-
-### Deprecations
 
 ## [3.2.1] - 2019-07-19
 
@@ -190,19 +152,11 @@ Supported Ruby version is 2.4+
 - Add `execute_driver` to run a batch script
     - It requires Appium version which has `execute_driver` support
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.1.3] - 2019-06-18
 
 ### Enhancements
 - Add arguments for `start_activity`
     - `intentAction`, `intentCategory`, `intentFlags`, `dontStopAppOnReset`
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.1.2] - 2019-05-10
 
@@ -210,18 +164,10 @@ Supported Ruby version is 2.4+
 - Add `sessions` command to get all available sessions on the Appium server
 - [internal] Tweak error messages in emulator module
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.1.1] - 2019-04-26
 
 ### Enhancements
 - [internal] Catch `Selenium::WebDriver::Error::TimeoutError` which will be used instead of `Selenium::WebDriver::Error::TimeOutError`
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.1.0] - 2019-03-31
 
@@ -230,27 +176,15 @@ Supported Ruby version is 2.4+
     - `platformName: :tvos, automationName: :xcuitest` can work for iOS tvOS
     - It requires Appium 1.13
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.0.4] - 2019-03-24
 
 ### Enhancements
 - Add `pixelFormat` argument in screen record for iOS
 
-### Bug fixes
-
-### Deprecations
-
 ## [3.0.3] - 2019-03-11
 
 ### Enhancements
 - [internal] Bump Rubocop target Ruby version to Ruby 2.3
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.0.2] - 2019-03-07
 
@@ -261,16 +195,10 @@ Supported Ruby version is 2.4+
 - [internal] Fixed typo in `Emulator#gsm_signal` [#196](https://github.com/appium/ruby_lib_core/pull/196)
     - Thanks [khanhdodang](https://github.com/khanhdodang)
 
-### Deprecations
-
 ## [3.0.1] - 2019-02-25
 
 ### Enhancements
 - Add `:data_matcher` find_element/s attribute [appium-espresso-driver#386](https://github.com/appium/appium-espresso-driver/pull/386)
-
-### Bug fixes
-
-### Deprecations
 
 ## [3.0.0] - 2019-02-06
 
@@ -297,8 +225,6 @@ The behaviour follows the default spec in WebDriver.
 ### Bug fixes
 - Fix potential override of `AppManagement#background_app` [#188](https://github.com/appium/ruby_lib_core/pull/188)
 
-### Deprecations
-
 ## [2.3.4] - 2019-01-31
 ### Enhancements
 - Add 3D touch option for `TouchAction#press` [appium/WebDriverAgent#79](https://github.com/appium/WebDriverAgent/pull/79)
@@ -307,15 +233,9 @@ The behaviour follows the default spec in WebDriver.
 ### Bug fixes
 - Stop sending blank value in `start_activity`
 
-### Deprecations
-
 ## [2.3.3] - 2019-01-22
-### Enhancements
-
 ### Bug fixes
 - Add `*args, &block` in method missing in `Selenium::WebDriver::Element` [#184](https://github.com/appium/ruby_lib_core/pull/184)
-
-### Deprecations
 
 ## [2.3.2] - 2019-01-20
 ### Enhancements
@@ -327,17 +247,11 @@ The behaviour follows the default spec in WebDriver.
 ### Bug fixes
 -  `ServerError` inherits `CoreError` in order to handle it as an exception
 
-### Deprecations
-
 ## [2.3.1] - 2019-01-13
 ### Enhancements
 - `set_network_connection` accepts keys as same as `network_connection_type` in addition to numbers
     - `{ :airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0 }`
     - Read [documentation](https://www.rubydoc.info/github/appium/ruby_lib_core/master/Appium/Core/Android/Device#set_network_connection-instance_method) more
-
-### Bug fixes
-
-### Deprecations
 
 ## [2.3.0] - 2019-01-07
 ### Enhancements
@@ -346,32 +260,18 @@ The behaviour follows the default spec in WebDriver.
     - Continues to decode base 64 data following `decode64` to accept RFC 2045 format
 - Add `query_app_state` as an alias of `app_state` to get application status
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.2.2] - 2018-12-22
 ### Enhancements
 - Append `appium` in header: `appium/ruby_lib_core/2.2.1 (selenium/3.141.0 (ruby macosx))`
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.2.1] - 2018-12-08
-### Enhancements
-
 ### Bug fixes
 - Reduce warnings for method definitions
-
-### Deprecations
 
 ## [2.2.0] - 2018-12-01
 ### Enhancements
 - Add `::Appium::Core::Base.platform` to call `::Selenium::WebDriver::Platform`
     - Can identify platform using `::Appium::Core::Base.platform.windows?` for example
-
-### Bug fixes
 
 ### Deprecations
 - `:offset_x` and `:offset_y` in `TouchAction#swipe` is deprecated in favor of `:end_x` and `:end_y`
@@ -391,10 +291,6 @@ The behaviour follows the default spec in WebDriver.
 - Update `start_recording_screen` for iOS, Appium 1.10.0
     - Add `:video_scale` and update `:video_type`
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.1.0] - 2018-11-14
 ### Enhancements
 - Support below style _1_, has _url_ parameter, in addition to style _2_
@@ -407,26 +303,14 @@ The behaviour follows the default spec in WebDriver.
     ```
 - Add `:video_fps` param for screen recording in iOS(XCUITest) to sync with Appium 1.10.0
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.0.6] - 2018-11-08
 ### Enhancements
 - Allow selenium update following Pi versioning like 3.141.0
 - [internal] Update dev libraries
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.0.5] - 2018-10-30
 ### Enhancements
 - [internal] No longer send `strategy: :tapOutside` as default value in Android
-
-### Bug fixes
-
-### Deprecations
 
 ## [2.0.4] - 2018-10-19
 ### Enhancements
@@ -437,26 +321,14 @@ The behaviour follows the default spec in WebDriver.
 
     ```
 
-### Bug fixes
-
-### Deprecations
-
 ## [2.0.3] - 2018-10-11
 ### Enhancements
 - Set `'selenium-webdriver', '~> 3.14.1'`
-
-### Bug fixes
-
-### Deprecations
 
 ## [2.0.2] - 2018-10-02
 ### Enhancements
 - Add finger print feature for Android emulators [#13](https://github.com/appium/ruby_lib_core/issues/13)
 - Add `keyboard_shown?` and `context=` as aliases of `is_keyboard_shown` and `set_contex`
-
-### Bug fixes
-
-### Deprecations
 
 ## [2.0.1] - 2018-09-01
 ### Enhancements
@@ -465,8 +337,6 @@ The behaviour follows the default spec in WebDriver.
 ### Bug fixes
 - Fix desired capability for W3C protocol under selenium grid environment [#137](https://github.com/appium/ruby_lib_core/issues/137)
 
-### Deprecations
-
 ## [2.0.0] - 2018-08-25
 
 This release has a breaking change for creating core. Thus, I've bumped the major version.
@@ -474,20 +344,14 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Enhancements
 - use `autoload` to load Android/iOS modules
 
-### Bug fixes
-
 ### Deprecations
 - `@core = Appium::Core.for(self, opts)` is deprecated in favor of `@core = Appium::Core.for(opts)`
     - Call `extend Appium::Core::Device` if you'd like to extend methods defined in `Appium::Core`
         - Read [#816](https://github.com/appium/ruby_lib/pull/816) as an example
 
 ## [1.9.2] - 2018-08-23
-### Enhancements
-
 ### Bug fixes
-- fix unexpedted method missing against `:to_hash` in Element
-
-### Deprecations
+- fix unexpected method missing against `:to_hash` in Element
 
 ## [1.9.1] - 2018-08-20
 ### Enhancements
@@ -497,16 +361,12 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Bug fixes
 - [internal] Fix raising error in `set_implicit_wait_by_default` [#130](https://github.com/appium/ruby_lib_core/issues/130)
 
-### Deprecations
-
 ## [1.9.0] - 2018-08-05
 ### Enhancements
 - Update documentation about `start_recording_screen`
 - Port `send_keys/type` for active element [#122](https://github.com/appium/ruby_lib_core/pull/122)
 - Support `find_element/s :image, partial_image` [#119](https://github.com/appium/ruby_lib_core/pull/119)
 - Requires `selenium-webdriver 3.14+` because of W3C actions [#115](https://github.com/appium/ruby_lib_core/pull/115)
-
-### Bug fixes
 
 ### Deprecations
 - [Internal] Deprecate experimental `ImageElement` in favor of `Element`
@@ -517,10 +377,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 - Use method missing to get attributes like `e.resource_id` instead of `e.attribute 'resource-id'` [#116](https://github.com/appium/ruby_lib_core/pull/116)
 - Set `'~> 3.5', '< 3.14'`
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.8.3] - 2018-07-20
 ### Enhancements
 - Relax the logic of `:app` capability
@@ -528,11 +384,7 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Bug fixes
 - Fix `within_context`
 
-### Deprecations
-
 ## [1.8.2] - 2018-07-17
-### Enhancements
-
 ### Bug fixes
 - Available packages over HTTP [#106](https://github.com/appium/ruby_lib_core/issues/106)
 
@@ -540,22 +392,14 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 - Remove warning of camelCase capability for W3C format
 
 ## [1.8.1] - 2018-07-13
-### Enhancements
-
 ### Bug fixes
 - Fix including search context in `::Selenium::WebDriver::Elemenet`
     - `include ::Appium::Core::Base::SearchContext` instead of `::Selenium::WebDriver::SearchContext`
-
-### Deprecations
 
 ## [1.8.0] - 2018-07-07
 ### Enhancements
 - Add Tizen case
 - [Internal] reduce method definition by `add_endpoint_method`
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.7.2] - 2018-06-23
 ### Enhancements
@@ -565,18 +409,12 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
    - Experimental feature
 - [Internal] Define screenshot methods in appium_lib_core instead of Selenium's one
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.7.1] - 2018-06-15
 ### Enhancements
 - Add a `format` argument for `device_time` [#94](https://github.com/appium/ruby_lib_core/pull/94)
 
 ### Bug fixes
 - Return empty array `[]` for find_elements
-
-### Deprecations
 
 ## [1.7.0] - 2018-05-28
 ### Enhancements
@@ -590,10 +428,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 - [Internal] Change directory and file structure
 - [Internal] Set default content-type
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.6.0] - 2018-05-08
 ### Enhancements
 - **Breaking Change**
@@ -605,35 +439,21 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 - add `battery_info` to get battery information
 - add `is_keyboard_shown` for iOS ( see also https://github.com/appium/appium-xcuitest-driver/pull/664/files )
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.5.1] - 2018-04-25
-### Enhancements
-
 ### Bug fixes
 - Revert timeout logic in `1.4.1`
-
-### Deprecations
 
 ## [1.5.0] - 2018-04-25
 ### Enhancements
 - [internal] Remove hot fix for XCUITest action
-
-### Bug fixes
 
 ### Deprecations
 - Changed the name of arguments
     - `swipe(start_x:, start_y:, end_x:, end_y:)` instead of `swipe(start_x:, start_y:, offset_x:, offset_y:)`
 
 ## [1.4.2] - 2018-04-22
-### Enhancements
-
 ### Bug fixes
 - Revert `delegate_from_appium_driver` for `ruby_lib` compatibility
-
-### Deprecations
 
 ## [1.4.1] - 2018-04-22
 ### Enhancements
@@ -643,25 +463,13 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
     - Raise `::Appium::Core::Wait::TimeoutError` instead of `::Selenium::WebDriver::Error::TimeOutError`
 - [internal] Separate mjsonwp commands module and w3c commands module from one command module
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.4.0] - 2018-04-15
 ### Enhancements
 - Add a support for WebSocket client based on Faye::WebSocket::Client [#74](https://github.com/appium/ruby_lib_core/pull/74)
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.3.8] - 2018-04-12
 ### Enhancements
 - Make no-argument commands friendly for IDE
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.3.7] - 2018-04-02
 ### Enhancements
@@ -669,27 +477,15 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
     - Remove `touch` action by default and following `selenium-webdriver` in W3C action.
         - Since XCUITest and UA2 drivers force handling the pointer as `touch`.
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.3.6] - 2018-04-01
 ### Enhancements
 - Be able to change `kind` in W3C touch action.
     - Read: https://github.com/appium/ruby_lib_core/blob/master/lib/appium_lib_core/common/base/bridge/w3c.rb#L29
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.3.5] - 2018-03-30
 ### Enhancements
 - Add a `bug_report` option in `start_recording_screen`, Android
 - Add clipboard apis [#69](https://github.com/appium/ruby_lib_core/pull/69)
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.3.4] - 2018-03-21
 ### Enhancements
@@ -700,15 +496,9 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Bug fixes
 - Fix _create_session attempt to throw non-existent error type Appium::Core::Error::WebDriverError_ [#66](https://github.com/appium/ruby_lib_core/issues/66)
 
-### Deprecations
-
 ## [1.3.3] - 2018-03-03
 ### Enhancements
 - add `session_capabilities`: https://appium.io/docs/en/commands/session/get/
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.3.2] - 2018-02-18
 ### Enhancements
@@ -716,10 +506,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
     - `send_sms`, `gsm_call`, `gsm_signal`, `gsm_voice`, `set_network_speed`, `set_power_capacity`, `set_power_ac`
 - Add toggles
     - `toggle_location_services`, `toggle_wifi`, `toggle_data`
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.3.1] - 2018-02-14
 ### Enhancements
@@ -742,20 +528,12 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
               .perform
             ```
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.3.0] - 2018-01-28
 ### Enhancements
 - `start_recording_screen`/`stop_recording_screen` support iOS from `Appium 1.8.0` [#48](https://github.com/appium/ruby_lib_core/issues/48)
     - **Breaking Changes**
         - `start_recording_screen`
             - The argument, `file_path`, was removed.
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.2.7] - 2018-01-25
 ### Enhancements
@@ -765,8 +543,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Bug fixes
 - Make `@driver.automation_name` downcase [#50](https://github.com/appium/ruby_lib_core/issues/50)
 
-### Deprecations
-
 ## [1.2.6] - 2018-01-21
 ### Enhancements
 - Add `window_rect`
@@ -774,16 +550,10 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 ### Bug fixes
 - Make `@driver.automation_name` symbol when someone define the `automationName` with the server argument. [#50](https://github.com/appium/ruby_lib_core/issues/50)
 
-### Deprecations
-
 ## [1.2.5] - 2018-01-13
 ### Enhancements
 - Enhance W3C support
     - Timeout related methods
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.2.4] - 2018-01-03
 ### Enhancements
@@ -796,33 +566,17 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
     - Read `lib/appium_lib_core/common/base/w3c_bridge.rb` for more details
 - Can get logs like `driver.logs.available_types` and `driver.logs.get`
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.2.3] - 2017-12-27
-### Enhancements
-
 ### Bug fixes
 - Fix some w3c methods to work with Appium part 2 [#38](https://github.com/appium/ruby_lib_core/pull/38)
 
-### Deprecations
-
 ## [1.2.2] - 2017-12-25
-### Enhancements
-
 ### Bug fixes
 - Fix some w3c methods to work with Appium [#37](https://github.com/appium/ruby_lib_core/pull/37)
-
-### Deprecations
 
 ## [1.2.1] - 2017-12-23
 ### Enhancements
 - override default duration to make some action fast [#36](https://github.com/appium/ruby_lib_core/pull/36)
-
-### Bug fixes
-
-### Deprecations
 
 ## [1.2.0] - 2017-12-23
 ### Enhancements
@@ -832,10 +586,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
     - IME related
     - Touch actions based on W3C spec
 
-### Bug fixes
-
-### Deprecations
-
 ## [1.1.0] - 2017-12-16
 ### Enhancements
 - Add guidelines in `.github`
@@ -843,8 +593,6 @@ This release has a breaking change for creating core. Thus, I've bumped the majo
 
 ### Bug fixes
 - fix creating sessions [#31](https://github.com/appium/ruby_lib_core/pull/31) for W3C creating sessions
-
-### Deprecations
 
 ## [1.0.0] - 2017-11-12
 

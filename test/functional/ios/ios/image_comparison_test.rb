@@ -139,7 +139,7 @@ class AppiumLibCoreTest
         @@driver.update_settings({ fixImageTemplateScale: true })
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
-        @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
+        el.save_screenshot 'test/functional/data/test_ios_button.png'
 
         image_elements = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
         image_element = image_elements[0]
