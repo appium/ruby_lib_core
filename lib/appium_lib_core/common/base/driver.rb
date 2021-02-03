@@ -66,10 +66,10 @@ module Appium
         #     driver.manage.timeouts.implicit_wait = 10 # @bridge.http is for 'https://example2.com:9000/wd/hub/'
         #
         def update_sending_request_to(protocol:, host:, port:, path:)
-          @bridge.http.update_sending_request_to(scheme: protocol,
-                                                 host: host,
-                                                 port: port,
-                                                 path: path)
+          @bridge.http&.update_sending_request_to(scheme: protocol,
+                                                  host: host,
+                                                  port: port,
+                                                  path: path)
         end
 
         ### Methods for Appium
@@ -239,6 +239,8 @@ module Appium
 
         # Returns an instance of DeviceIME
         #
+        # @return [Appium::Core::Base::Driver::DeviceIME]
+        #
         # @example
         #
         #   @driver.ime.activate engine: 'com.android.inputmethod.latin/.LatinIME'
@@ -289,6 +291,8 @@ module Appium
         # @!method ime_activated
         #   Android only. Indicates whether IME input is active at the moment (not if it is available).
         #
+        # @return [Boolean]
+        #
         # @example
         #
         #   @driver.ime_activated #=> True if IME is activated
@@ -318,8 +322,8 @@ module Appium
         #     @driver.find_element :tag, "button"
         #   end # The result of 'find_element :tag, "button"'
         #
-        def within_context(context)
-          block_given? ? @bridge.within_context(context, &Proc.new) : @bridge.within_context(context)
+        def within_context(context, &block)
+          block_given? ? @bridge.within_context(context, &block) : @bridge.within_context(context)
         end
 
         # Change to the default context. This is equivalent to +set_context nil+.
@@ -852,7 +856,7 @@ module Appium
         end
 
         # Get the device window's logs.
-        # @return [String]
+        # @return [Appium::Core::Logs]
         #
         # @example
         #
@@ -878,7 +882,7 @@ module Appium
         # Retrieve the capabilities of the specified session.
         # It's almost same as +@driver.capabilities+ but you can get more details.
         #
-        # @return [Selenium::WebDriver::Remote::Capabilities]
+        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::W3C::Capabilities]
         #
         # @example
         #   @driver.session_capabilities
@@ -1037,7 +1041,7 @@ module Appium
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [::Selenium::WebDriver::Element]
+        # @return [Array<Selenium::WebDriver::Element>]
         #
         # @example
         #

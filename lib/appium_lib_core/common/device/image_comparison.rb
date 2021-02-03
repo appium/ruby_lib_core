@@ -47,7 +47,7 @@ module Appium
           #                               not available in the default OpenCV installation and have to be enabled manually
           #                               before library compilation. The default detector name is 'ORB'.
           # @param [String] match_func The name of the matching function. The default one is 'BruteForce'.
-          # @param [String] good_matches_factor The maximum count of "good" matches (e. g. with minimal distances).
+          # @param [String, nil] good_matches_factor The maximum count of "good" matches (e. g. with minimal distances).
           #                                     The default one is nil.
           # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
           #                         the corresponding picture matching operation. This option is disabled by default.
@@ -94,7 +94,7 @@ module Appium
           #                                are supported.
           # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
           #                         the corresponding picture matching operation. This option is disabled by default.
-          # @param [Float] threshold [0.5] At what normalized threshold to reject
+          # @param [Float, nil] threshold [0.5] At what normalized threshold to reject
           #
           # @example
           #     @driver.find_image_occurrence full_image: "image data 1", partial_image: "image data 2"
@@ -144,7 +144,7 @@ module Appium
           #                      +:matchFeatures is by default.
           # @param [String] first_image An image data. All image formats, that OpenCV library itself accepts, are supported.
           # @param [String] second_image An image data. All image formats, that OpenCV library itself accepts, are supported.
-          # @param [Hash] options The content of this dictionary depends on the actual +mode+ value.
+          # @param [Hash, nil] options The content of this dictionary depends on the actual +mode+ value.
           #                       See the documentation on +appium-support+ module for more details.
           # @return [Hash] The content of the resulting dictionary depends on the actual +mode+ and +options+ values.
           #                 See the documentation on +appium-support+ module for more details.

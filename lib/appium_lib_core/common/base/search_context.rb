@@ -141,6 +141,8 @@ module Appium
         #
         # Find all elements matching the given arguments
         #
+        # @return [Array<Selenium::WebDriver::Element>]
+        #
         # @see SearchContext#find_elements
         #
         def find_elements(*args)
