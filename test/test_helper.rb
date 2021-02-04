@@ -619,7 +619,8 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: 'mac',
             automationNAme: 'mac2'
-          }
+          },
+          sessionId: '1234567890'
         }
       }.to_json
 

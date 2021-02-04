@@ -30,7 +30,7 @@ class AppiumLibCoreTest
 
           def test_start_recording_screen
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
-              .with(body: { options: { videoType: 'mjpeg', timeLimit: '180' } }.to_json)
+              .with(body: { options: {} }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
             @driver.start_recording_screen
@@ -41,14 +41,15 @@ class AppiumLibCoreTest
           def test_start_recording_screen_custom
             stub_request(:post, "#{SESSION}/appium/start_recording_screen")
               .with(body: { options: {
-                videoType: 'libx264', timeLimit: '60',
-                videoFps: '50', videoScale: '320:240', videoFilters: 'rotate=90', pixelFormat: 'yuv420p'
+                fps: 30, preset: 'fast', videoFilter: 'scale=ifnot(gte(iw\\,1024)\\,iw\\,1024):-2',
+                captureClicks: true, captureCursor: true, deviceId: 1, timeLimit: '180'
               } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
-            @driver.start_recording_screen video_type: 'libx264', time_limit: '60',
-                                           video_fps: '50', video_scale: '320:240', video_filters: 'rotate=90',
-                                           pixel_format: 'yuv420p'
+            @driver.start_recording_screen fps: 30, preset: 'fast',
+                                           video_filter: 'scale=ifnot(gte(iw\,1024)\,iw\,1024):-2',
+                                           enable_capture_clicks: true, enable_cursor_capture: true,
+                                           device_id: 1, time_limit: '180'
 
             assert_requested(:post, "#{SESSION}/appium/start_recording_screen", times: 1)
           end
@@ -79,9 +80,7 @@ class AppiumLibCoreTest
               .with(body: { options: {
                 remotePath: 'https://example.com', method: 'PUT',
                 fileFieldName: 'file', formFields: [%w(email example@mail.com), { file: 'another data' }],
-                headers: { 'x-custom-header' => 'xxxxx' },
-                videoType: 'mjpeg',
-                timeLimit: '180'
+                headers: { 'x-custom-header' => 'xxxxx' }
               } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 

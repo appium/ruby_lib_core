@@ -18,26 +18,24 @@ module Appium
       module Device
         module Screen
           def self.add_methods
-            # TODO: should update for mac2
             ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
               def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT',
                                          file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil,
-                                         video_type: 'mjpeg', time_limit: '180', video_quality: nil,
-                                         video_fps: nil, video_scale: nil, video_filters: nil, pixel_format: nil)
+                                         fps: nil, preset: nil, video_filter: nil, time_limit: nil,
+                                         enable_capture_clicks: nil, enable_cursor_capture: nil, device_id: nil)
                 option = ::Appium::Core::Base::Device::ScreenRecord.new(
                   remote_path: remote_path, user: user, pass: pass, method: method,
                   file_field_name: file_field_name, form_fields: form_fields, headers: headers,
                   force_restart: force_restart
                 ).upload_option
 
-                option[:videoType] = video_type
-                option[:timeLimit] = time_limit
-
-                option[:videoQuality] = video_quality unless video_quality.nil?
-                option[:videoFps] = video_fps unless video_fps.nil?
-                option[:videoScale] = video_scale unless video_scale.nil?
-                option[:videoFilters] = video_filters unless video_filters.nil?
-                option[:pixelFormat] = pixel_format unless pixel_format.nil?
+                option[:fps] = fps unless fps.nil?
+                option[:preset] = preset unless preset.nil?
+                option[:videoFilter] = video_filter unless video_filter.nil?
+                option[:captureClicks] = enable_capture_clicks unless enable_capture_clicks.nil?
+                option[:captureCursor] = enable_cursor_capture unless enable_cursor_capture.nil?
+                option[:deviceId] = device_id unless device_id.nil?
+                option[:timeLimit] = time_limit unless time_limit.nil?
 
                 execute(:start_recording_screen, {}, { options: option })
               end

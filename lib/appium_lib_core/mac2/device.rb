@@ -24,7 +24,7 @@ module Appium
 
         # TODO: fixme
         # @since Appium 1.20.0
-        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, video_type: 'mjpeg', video_fps: nil, time_limit: '180', video_quality: nil, video_scale: nil, video_filters: nil, pixel_format: nil)
+        # # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, fps: nil, preset: nil, video_filter: nil, enable_capture_clicks: nil, enable_cursor_capture: nil, device_id: nil)
         #
         # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
         # (ffmpeg utility is required: 'brew install ffmpeg').
@@ -49,34 +49,31 @@ module Appium
         # @param [Boolean] force_restart Whether to try to catch and upload/return the currently running screen recording
         #                                (+false+, the default setting on server) or ignore the result of it
         #                                and start a new recording immediately (+true+).
-        # @param [String] video_type The video codec type used for encoding of the be recorded screen capture.
-        #                            Execute +ffmpeg -codecs+ in the terminal to see the list of supported video codecs.
-        #                            'mjpeg' by default.
-        # @param [String] time_limit Recording time. 180 seconds is by default.
-        # @param [String] video_quality The video encoding quality (low, medium, high, photo - defaults to medium).
-        # @param [String] video_fps The Frames Per Second rate of the recorded video. Change this value if the resulting video
-        #                           is too slow or too fast. Defaults to 10. This can decrease the resulting file size.
-        # @param [String] video_filters - @since Appium 1.15.0
-        #                                 The ffmpeg video filters to apply. These filters allow to scale, flip, rotate and do many
-        #                                 other useful transformations on the source video stream. The format of the property
-        #                                 must comply with https://ffmpeg.org/ffmpeg-filters.html
-        #                                 e.g.: "rotate=90"
-        # @param [String] video_scale The scaling value to apply. Read https://trac.ffmpeg.org/wiki/Scaling for possible values.
-        #                             No scale is applied by default.
-        #                             tips: ffmpeg cannot capture video as +libx264+ if the video dimensions is not divisible by 2.
-        #                             Then, you can set this scale as +scale=trunc(iw/2)*2:trunc(ih/2)*2+
-        #                             - https://github.com/appium/appium/issues/12856
-        #                             - https://www.reddit.com/r/linux4noobs/comments/671z6b/width_not_divisible_by_2_error_when_using_ffmpeg/
-        # @param [String] pixel_format Output pixel format. Run +ffmpeg -pix_fmts+ to list possible values.
-        #                              For Quicktime compatibility, set to "yuv420p" along with videoType: "libx264".
-        # @return [String] Base64 encoded content of the recorded media file or an empty string
-        #                  if the file has been successfully uploaded to a remote location (depends on the actual options)
+        # @param [integer] fps The count of frames per second in the resulting video.
+        #                      Increasing fps value also increases the size of the resulting video file and the CPU usage.
+        #                      The default value is 15.
+        # @param [String] preset A preset is a collection of options that will provide a certain encoding speed to compression ratio.
+        #                        A slower preset will provide better compression (compression is quality per filesize).
+        #                        This means that, for example, if you target a certain file size or constant bit rate, you will
+        #                        achieve better quality with a slower preset. Read https://trac.ffmpeg.org/wiki/Encode/H.264
+        #                        for more details.
+        # @param [Boolean] enable_cursor_capture Whether to capture the click gestures while recording the screen. Disabled by default.
+        # @param [Boolean] enable_capture_clicks Recording time. 180 seconds is by default.
+        # @param [String] video_filter The video filter spec to apply for ffmpeg.
+        #                              See https://trac.ffmpeg.org/wiki/FilteringGuide for more details on the possible values.
+        #                              Example: Set it to +scale=ifnot(gte(iw\,1024)\,iw\,1024):-2+ in order to limit the video width
+        #                              to 1024px. The height will be adjusted automatically to match the actual screen aspect ratio.
+        # @param [integer] device_id Screen device index to use for the recording.
+        #                                 The list of available devices could be retrieved using
+        #                                 +ffmpeg -f avfoundation -list_devices true -i+ command.
+        #                                 This option is mandatory and must be always provided.
+        # @param [String] time_limit The maximum recording time. The default value is 600 seconds (10 minutes).
+        #                            The minimum time resolution unit is one second.
         #
         # @example
         #
         #    @driver.start_recording_screen
-        #    @driver.start_recording_screen video_type: 'mjpeg', time_limit: '260'
-        #    @driver.start_recording_screen video_type: 'libx264', time_limit: '260' # Can get '.mp4' video
+        #    @driver.start_recording_screen fps: 30, enable_cursor_capture: true
         #
 
         # rubocop:enable Layout/LineLength
