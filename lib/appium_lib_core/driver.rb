@@ -27,6 +27,8 @@ module Appium
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
+    autoload :Mac2, 'appium_lib_core/mac2'
+
     autoload :Windows, 'appium_lib_core/windows'
 
     # This options affects only client side as <code>:appium_lib</code> key.<br>
@@ -526,7 +528,7 @@ module Appium
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for macOS')
           when :mac2
-            ::Appium::Logger.debug('macOS XCUITest')
+            ::Appium::Core::Mac2::Bridge.for self
           else
             # no Mac specific extentions
             ::Appium::Logger.debug('macOS Native')
