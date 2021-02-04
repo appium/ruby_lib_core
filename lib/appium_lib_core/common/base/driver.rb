@@ -247,6 +247,8 @@ module Appium
 
         # Returns an instance of DeviceIME
         #
+        # @return [Appium::Core::Base::Driver::DeviceIME]
+        #
         # @example
         #
         #   @driver.ime.activate engine: 'com.android.inputmethod.latin/.LatinIME'
@@ -296,6 +298,8 @@ module Appium
 
         # @!method ime_activated
         #   Android only. Indicates whether IME input is active at the moment (not if it is available).
+        #
+        # @return [Boolean]
         #
         # @example
         #
@@ -861,7 +865,7 @@ module Appium
         end
 
         # Get the device window's logs.
-        # @return [String]
+        # @return [Appium::Core::Logs]
         #
         # @example
         #
@@ -887,7 +891,7 @@ module Appium
         # Retrieve the capabilities of the specified session.
         # It's almost same as +@driver.capabilities+ but you can get more details.
         #
-        # @return [Selenium::WebDriver::Remote::Capabilities]
+        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::W3C::Capabilities]
         #
         # @example
         #   @driver.session_capabilities
@@ -1046,7 +1050,7 @@ module Appium
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [::Selenium::WebDriver::Element]
+        # @return [Array<Selenium::WebDriver::Element>]
         #
         # @example
         #
