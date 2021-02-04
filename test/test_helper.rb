@@ -614,14 +614,11 @@ class AppiumLibCoreTest
     end
 
     def mac2_mock_create_session_w3c
-      # FIXME
       response = {
         value: {
-          sessionId: '1234567890',
           capabilities: {
             platformName: 'mac',
-            automationNAme: 'mac2',
-            deviceName: 'macOS'
+            automationNAme: 'mac2'
           }
         }
       }.to_json
