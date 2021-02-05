@@ -63,9 +63,9 @@ module Appium
         #                              Example: Set it to +scale=ifnot(gte(iw\,1024)\,iw\,1024):-2+ in order to limit the video width
         #                              to 1024px. The height will be adjusted automatically to match the actual screen aspect ratio.
         # @param [integer] device_id Screen device index to use for the recording.
-        #                                 The list of available devices could be retrieved using
-        #                                 +ffmpeg -f avfoundation -list_devices true -i+ command.
-        #                                 This option is mandatory and must be always provided.
+        #                            The list of available devices could be retrieved using
+        #                            +ffmpeg -f avfoundation -list_devices true -i ""+ command.
+        #                            This option is mandatory and must be always provided.
         # @param [String] time_limit The maximum recording time. The default value is 600 seconds (10 minutes).
         #                            The minimum time resolution unit is one second.
         #

@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `start_recording_screen` for Mac2 driver
 
 ### Bug fixes
 
