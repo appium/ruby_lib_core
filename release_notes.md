@@ -1,3 +1,14 @@
+#### v4.3.0 2021-02-05
+
+- [6e85426](https://github.com/appium/ruby_lib_core/commit/6e85426c1ff8f3e4b90d3da5305d493500539467) Release 4.3.0
+- [405b3d8](https://github.com/appium/ruby_lib_core/commit/405b3d8e627323376dbf74a4423d0ebce5ca0cad) feat: Add mac2 module and screen recording option (#308)
+- [876d254](https://github.com/appium/ruby_lib_core/commit/876d25494c76c31ad5c26900d6e30e30ecd8d20c) chore: teak types in yardoc (#307)
+- [7548ea9](https://github.com/appium/ruby_lib_core/commit/7548ea9cb7e031a3689a63e75d32da82d317488a) test: add wait
+- [9d6fef4](https://github.com/appium/ruby_lib_core/commit/9d6fef469fad8bccf61ee6565f2e30095f4e2a6a) feat: makes direct_connect true by default (#303)
+- [761067e](https://github.com/appium/ruby_lib_core/commit/761067e5c42cfb3e4c1e5c5a377dbeb3c903eb7b) test: add location test (#302)
+- [bd33397](https://github.com/appium/ruby_lib_core/commit/bd3339791552d2eb5181ca4475c9ebc90644a456) chore(deps-dev): update rubocop requirement from = 1.8.0 to = 1.8.1 (#301)
+
+
 #### v4.2.1 2021-01-10
 
 - [23e944e](https://github.com/appium/ruby_lib_core/commit/23e944ed72c6ea861532f5acc1381af4441705e6) Release 4.2.1
