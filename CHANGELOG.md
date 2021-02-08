@@ -10,14 +10,10 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [4.3.0] - 2021-02-05
+## [4.3.1(4.3.0)] - 2021-02-07(2021-02-05)
 
 ### Enhancements
 - Add `start_recording_screen` for Mac2 driver
-
-### Bug fixes
-
-### Deprecations
 
 ## [4.2.1] - 2021-01-10
 
