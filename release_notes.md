@@ -1,3 +1,10 @@
+#### v4.3.1 2021-02-07
+
+- [1f4d52c](https://github.com/appium/ruby_lib_core/commit/1f4d52cc915783cf89cf4b8ca5a21bd1af5403e0) Release 4.3.1
+- [fb41014](https://github.com/appium/ruby_lib_core/commit/fb410146567ed03902b602813881fd3abc3a3d28) chore: change log level
+- [1e54662](https://github.com/appium/ruby_lib_core/commit/1e546628c871e4ed9c8aa038a455d03e4e2e6c4e) chore : Create Dependabot config file (#309)
+
+
 #### v4.3.0 2021-02-05
 
 - [6e85426](https://github.com/appium/ruby_lib_core/commit/6e85426c1ff8f3e4b90d3da5305d493500539467) Release 4.3.0
