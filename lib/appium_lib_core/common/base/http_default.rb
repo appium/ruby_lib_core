@@ -69,7 +69,7 @@ module Appium
             return true unless [scheme, host, port, path].include?(nil)
 
             message = "Given parameters are scheme: '#{scheme}', host: '#{host}', port: '#{port}', path: '#{path}'"
-            ::Appium::Logger.warn(message)
+            ::Appium::Logger.debug(message)
             false
           end
 
