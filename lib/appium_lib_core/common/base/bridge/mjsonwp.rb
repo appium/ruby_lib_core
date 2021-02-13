@@ -42,6 +42,10 @@ module Appium
             execute :get_all_sessions
           end
 
+          def status
+            execute :status
+          end
+
           # For Appium
           def log_event(vendor, event)
             execute :post_log_event, {}, { vendor: vendor, event: event }

@@ -16,6 +16,7 @@ require 'base64'
 require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
+require_relative 'remote_status'
 
 module Appium
   module Core
@@ -29,6 +30,7 @@ module Appium
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
+        include ::Appium::Core::Base::HasRemoteStatus
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element

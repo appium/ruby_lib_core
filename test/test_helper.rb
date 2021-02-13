@@ -406,6 +406,7 @@ class AppiumLibCoreTest
 
   module Mock
     HEADER = { 'Content-Type' => 'application/json; charset=utf-8', 'Cache-Control' => 'no-cache' }.freeze
+    NOSESSION = 'http://127.0.0.1:4723/wd/hub'
     SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
 
     def android_mock_create_session

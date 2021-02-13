@@ -437,7 +437,8 @@ module Appium
         nil
       end
 
-      # Returns the server's version info
+      # Returns the server's version info. This method calls +driver.remote_status+ internally
+      #
       # @return [Hash]
       #
       # @example
@@ -451,18 +452,18 @@ module Appium
       #         }
       #     }
       #
-      # Returns blank hash for Selenium Grid since 'remote_status' gets 500 error
+      # Returns blank hash in a case +driver.remote_status+ got an error
+      # such as Selenium Grid. It returns 500 error against 'remote_status'.
       #
       # @example
       #
       #   @core.appium_server_version #=> {}
       #
       def appium_server_version
-        @driver.remote_status
-      rescue Selenium::WebDriver::Error::ServerError => e
-        raise ::Appium::Core::Error::ServerError unless e.message.include?('status code 500')
-
-        # driver.remote_status returns 500 error for using selenium grid
+        @driver&.remote_status
+      rescue StandardError
+        # Ignore error case in a case the target appium server
+        # does not support `/status` API.
         {}
       end
 

@@ -43,6 +43,10 @@ module Appium
             execute :get_all_sessions
           end
 
+          def status
+            execute :status
+          end
+
           # Perform touch actions for W3C module.
           # Generate +touch+ pointer action here and users can use this via +driver.action+
           # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
