@@ -145,6 +145,23 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/appium/device/finger_print", times: 1)
           end
+
+          def test_remote
+            stub_request(:get, "#{NOSESSION}/status")
+              .to_return(headers: HEADER, status: 200, body: {
+                value: {
+                  build: {
+                    version: '1.21.0',
+                    'git-sh' => '5735c828f1ce00e99243368bd5a60acc70809dcd'
+                  }
+                }
+              }.to_json)
+
+            version = @driver.remote_status['build']['version']
+
+            assert_requested(:get, "#{NOSESSION}/status", times: 1)
+            assert version == '1.21.0'
+          end
         end # class CommandsTest
       end # module MJSONWP
     end # module WebDriver

@@ -121,7 +121,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '14.2'
+      platform_version = '14.4'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -406,6 +406,7 @@ class AppiumLibCoreTest
 
   module Mock
     HEADER = { 'Content-Type' => 'application/json; charset=utf-8', 'Cache-Control' => 'no-cache' }.freeze
+    NOSESSION = 'http://127.0.0.1:4723/wd/hub'
     SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
 
     def android_mock_create_session

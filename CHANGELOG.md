@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Returns `{}` any errors in `Core#appium_server_version` to prevent errors in some cases
 
 ### Bug fixes
 
