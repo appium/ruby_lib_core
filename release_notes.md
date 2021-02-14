@@ -1,3 +1,9 @@
+#### v4.4.0 2021-02-13
+
+- [06c68fb](https://github.com/appium/ruby_lib_core/commit/06c68fbe3ffdbb7b068d2f71ad6841c66dbabf8f) Release 4.4.0
+- [3c54ae2](https://github.com/appium/ruby_lib_core/commit/3c54ae25d9a334f3690c94ce8a59a5c6a4bacd20) feat: always return {} in appium_server_version for errors (#311)
+
+
 #### v4.3.1 2021-02-07
 
 - [1f4d52c](https://github.com/appium/ruby_lib_core/commit/1f4d52cc915783cf89cf4b8ca5a21bd1af5403e0) Release 4.3.1
