@@ -5,11 +5,16 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Returns `{}` any errors in `Core#appium_server_version` to prevent errors in some cases
 
 ### Bug fixes
 
 ### Deprecations
+
+
+## [4.4.0] - 2021-02-13
+
+### Enhancements
+- Returns `{}` any errors in `Core#appium_server_version` to prevent errors in some cases
 
 ## [4.3.1(4.3.0)] - 2021-02-07(2021-02-05)
 
