@@ -11,7 +11,7 @@ Read `release_notes.md` for commit level details.
 ### Deprecations
 
 
-## [4.4.0] - 2021-02-13
+## [4.4.1(4.4.0)] - 2021-02-15(2021-02-13)
 
 ### Enhancements
 - Returns `{}` any errors in `Core#appium_server_version` to prevent errors in some cases
