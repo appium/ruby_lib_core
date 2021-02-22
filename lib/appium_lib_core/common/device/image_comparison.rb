@@ -95,6 +95,11 @@ module Appium
           # @param [Bool] visualize Makes the endpoint to return an image, which contains the visualized result of
           #                         the corresponding picture matching operation. This option is disabled by default.
           # @param [Float, nil] threshold [0.5] At what normalized threshold to reject
+          # @param [bool, nil] multiple Whether to enable the support of multiple image occurrences @since Appium 1.21.0.
+          # @param [integer, nil] match_neighbour_threshold The pixel distance between matches we consider to be part of
+          #                                                 the same template match @since Appium 1.21.0.
+          #                                                 This option is only considered if multiple matches mode is enabled.
+          #                                                 10 pixels by default.
           #
           # @example
           #     @driver.find_image_occurrence full_image: "image data 1", partial_image: "image data 2"
@@ -102,12 +107,15 @@ module Appium
           #     visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
           #     File.write 'find_result_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
           #
-          def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
+          def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil,
+                                    multiple: nil, match_neighbour_threshold: nil)
             raise "visualize should be #{MATCH_TEMPLATE[:visualize]}" unless MATCH_TEMPLATE[:visualize].member?(visualize)
 
             options = {}
             options[:visualize] = visualize
             options[:threshold] = threshold unless threshold.nil?
+            options[:multiple] = multiple unless multiple.nil?
+            options[:matchNeighbourThreshold] = match_neighbour_threshold unless match_neighbour_threshold.nil?
 
             compare_images(mode: :matchTemplate, first_image: full_image, second_image: partial_image, options: options)
           end

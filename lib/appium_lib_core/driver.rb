@@ -460,7 +460,9 @@ module Appium
       #   @core.appium_server_version #=> {}
       #
       def appium_server_version
-        @driver&.remote_status
+        return {} if @driver.nil?
+
+        @driver.remote_status
       rescue StandardError
         # Ignore error case in a case the target appium server
         # does not support `/status` API.

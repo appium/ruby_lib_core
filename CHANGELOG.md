@@ -5,13 +5,14 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `multiple` and `match_neighbour_threshold` arguments for `Appium::Core::Base::Driver#find_image_occurrence`
 
 ### Bug fixes
 
 ### Deprecations
 
 
-## [4.4.0] - 2021-02-13
+## [4.4.1(4.4.0)] - 2021-02-15(2021-02-13)
 
 ### Enhancements
 - Returns `{}` any errors in `Core#appium_server_version` to prevent errors in some cases

@@ -1,3 +1,9 @@
+#### v4.4.1 2021-02-15
+
+- [dc34419](https://github.com/appium/ruby_lib_core/commit/dc34419dfcc4dd8d499a6407d45ab3efe70c2445) Release 4.4.1
+- [3085048](https://github.com/appium/ruby_lib_core/commit/3085048b4816e3415017ebb188e653c8e229a05e) chore: return {} in nil case as well
+
+
 #### v4.4.0 2021-02-13
 
 - [06c68fb](https://github.com/appium/ruby_lib_core/commit/06c68fbe3ffdbb7b068d2f71ad6841c66dbabf8f) Release 4.4.0
