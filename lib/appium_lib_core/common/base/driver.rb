@@ -71,7 +71,7 @@ module Appium
         #
         def update_sending_request_to(protocol:, host:, port:, path:)
           unless @bridge.http&.class&.method_defined? :update_sending_request_to
-            ::Appium::Logger.fatal "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
+            ::Appium::Logger.warn "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
               'It keeps current connection target.'
             return
           end
@@ -1006,11 +1006,14 @@ module Appium
                                         visualize: visualize)
         end
 
-        def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil)
+        def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil,
+                                  multiple: nil, match_neighbour_threshold: nil)
           @bridge.find_image_occurrence(full_image: full_image,
                                         partial_image: partial_image,
                                         visualize: visualize,
-                                        threshold: threshold)
+                                        threshold: threshold,
+                                        multiple: multiple,
+                                        match_neighbour_threshold: match_neighbour_threshold)
         end
 
         def get_images_similarity(first_image:, second_image:, visualize: false)

@@ -78,6 +78,22 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
           end
 
+          def test_image_comparison_find_image_occurrence_multiple
+            img1 = 'img1GgoAAAANSUhEUgAAAu4AAAU2CAIAAABFtaRRAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAA'
+            img2 = 'img2GgoAAAANSUhEUgAAAu4AAAU2CAIAAABFtaRRAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAA'
+
+            stub_request(:post, "#{SESSION}/appium/compare_images")
+              .with(body: { mode: :matchTemplate,
+                            firstImage: Base64.strict_encode64(img1),
+                            secondImage: Base64.strict_encode64(img2),
+                            options: { visualize: false, multiple: true, matchNeighbourThreshold: 0.6 } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.find_image_occurrence full_image: img1, partial_image: img2, multiple: true, match_neighbour_threshold: 0.6
+
+            assert_requested(:post, "#{SESSION}/appium/compare_images", times: 1)
+          end
+
           def test_image_comparison_get_images_similarity
             img1 = 'img1GgoAAAANSUhEUgAAAu4AAAU2CAIAAABFtaRRAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAA'
             img2 = 'img2GgoAAAANSUhEUgAAAu4AAAU2CAIAAABFtaRRAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAA'
