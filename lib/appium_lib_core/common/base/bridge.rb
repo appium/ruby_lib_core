@@ -43,7 +43,7 @@ module Appium
         #     }
         #   }
         #   core = ::Appium::Core.for(caps)
-        #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
+        #   driver = core.start_driver
         #
         def create_session(desired_capabilities)
           caps = add_appium_prefix(desired_capabilities)
@@ -97,7 +97,6 @@ module Appium
         end
 
         def json_create(value)
-          @dialect = :w3c
           ::Selenium::WebDriver::Remote::Capabilities.json_create(value)
         end
       end # class Bridge

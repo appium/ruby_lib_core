@@ -34,6 +34,11 @@ module Appium
           include Device::ExecuteDriver
           include Device::Orientation
 
+          # TODO: For compatibility. Should remove.
+          def dialect
+            :w3c
+          end
+
           # Prefix for extra capability defined by W3C
           APPIUM_PREFIX = 'appium:'
 
