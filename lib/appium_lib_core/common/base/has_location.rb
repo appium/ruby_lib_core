@@ -15,14 +15,24 @@
 module Appium
   module Core
     class Base
-      module Capabilities
-        # @private
-        # @param [Hash] opts_caps Capabilities for Appium server. All capability keys are converted to lowerCamelCase when
-        #                         this client sends capabilities to Appium server as JSON format.
-        # @return [::Selenium::WebDriver::Remote::Capabilities] Return instance of Appium::Core::Base::Capabilities
-        #                         inherited ::Selenium::WebDriver::Remote::Capabilities
-        def self.create_capabilities(opts_caps = {})
-          ::Selenium::WebDriver::Remote::Capabilities.new(opts_caps)
+      #
+      # @api private
+      #
+      module HasLocation
+        def location
+          @bridge.location
+        end
+
+        def location=(loc)
+          unless loc.is_a?(::Selenium::WebDriver::Location)
+            raise TypeError, "expected #{::Selenium::WebDriver::Location}, got #{loc.inspect}:#{loc.class}"
+          end
+
+          @bridge.set_location loc.latitude, loc.longitude, loc.altitude
+        end
+
+        def set_location(lat, lon, alt)
+          self.location = ::Selenium::WebDriver::Location.new(Float(lat), Float(lon), Float(alt))
         end
       end
     end

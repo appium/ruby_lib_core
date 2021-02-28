@@ -119,7 +119,7 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: { sample_key: 'xxx' } }.to_json)
 
             capability = @driver.session_capabilities
-            assert capability.is_a? Selenium::WebDriver::Remote::W3C::Capabilities
+            assert capability.is_a? Selenium::WebDriver::Remote::Capabilities
             assert capability['sample_key'] == 'xxx'
 
             assert_requested(:get, SESSION.to_s, times: 1)

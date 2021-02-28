@@ -17,6 +17,9 @@ require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
 require_relative 'remote_status'
+require_relative 'has_location'
+require_relative 'has_network_connection'
+require_relative 'location'
 
 module Appium
   module Core
@@ -26,30 +29,57 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
+        include ::Selenium::WebDriver::DriverExtensions::HasLocation
+        include ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
+        include ::Appium::Core::Base::HasLocation
+        include ::Appium::Core::Base::HasNetworkConnection
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        def initialize(opts = {})
-          listener = opts.delete(:listener)
-          @bridge = ::Appium::Core::Base::Bridge.handshake(**opts)
-          if @bridge.dialect == :oss # MJSONWP
-            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
-            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
-            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-          elsif @bridge.dialect == :w3c
-            # TODO: Only for Appium. Ideally, we'd like to remove the below like selenium-webdriver
-            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
-            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
-            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
+        # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
+        #
+        # Implements protocol handshake which:
+        #
+        #   1. Creates session with driver.
+        #   2. Sniffs response.
+        #   3. Based on the response, understands which dialect we should use.
+        #
+        # @return [Bridge::W3C]
+        #
+        # TODO: Fixme
+        def create_bridge(**opts)
+          opts[:url] ||= service_url(opts)
+          caps = opts.delete(:capabilities)
+          # NOTE: This is deprecated
+          cap_array = caps.is_a?(Hash) ? [caps] : Array(caps)
+
+          desired_capabilities = opts.delete(:desired_capabilities)
+          if desired_capabilities
+            if desired_capabilities.is_a?(Hash)
+              desired_capabilities = ::Selenium::WebDriver::Remote::Capabilities(desired_capabilities)
+            end
+            cap_array << desired_capabilities
           end
-          super(@bridge, listener: listener)
+
+          options = opts.delete(:options)
+          cap_array << options if options
+
+          capabilities = generate_capabilities(cap_array)
+
+          bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
+          raise ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
+
+          bridge = (respond_to?(:bridge_class) ? bridge_class : ::Appium::Core::Base::Bridge::W3C).new(**bridge_opts)
+
+          bridge.create_session(capabilities)
+          bridge
         end
 
         # Get the dialect value
@@ -893,13 +923,13 @@ module Appium
         # Retrieve the capabilities of the specified session.
         # It's almost same as +@driver.capabilities+ but you can get more details.
         #
-        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::W3C::Capabilities]
+        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::Capabilities]
         #
         # @example
         #   @driver.session_capabilities
         #
         #   #=> uiautomator2
-        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fa38dae1360
+        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fa38dae1360
         #   # @capabilities=
         #   #     {:proxy=>nil,
         #   #      :browser_name=>nil,
@@ -949,7 +979,7 @@ module Appium
         #   #      "viewportRect"=>{"left"=>0, "top"=>63, "width"=>1080, "height"=>1731}}>
         #   #
         #   #=> XCUITest
-        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fb15dc01370
+        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fb15dc01370
         #   # @capabilities=
         #   #     {:proxy=>nil,
         #   #      :browser_name=>"UICatalog",

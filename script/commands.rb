@@ -18,25 +18,21 @@ require './lib/appium_lib_core'
 module Script
   class CommandsChecker
     attr_reader :spec_commands,
-                :implemented_mjsonwp_commands, :implemented_w3c_commands, :implemented_core_commands,
-                :webdriver_oss_commands, :webdriver_w3c_commands
+                :implemented_w3c_commands, :implemented_core_commands,
+                :webdriver_w3c_commands
 
     # Set commands implemented in this core library.
     #
-    # - implemented_mjsonwp_commands:  All commands include ::Selenium::WebDriver::Remote::OSS::Bridge::COMMANDS
     # - implemented_w3c_commands:  All commands include ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
     # - implemented_core_commands:  All commands except for selenium-webdriver's commands
-    # - webdriver_oss_commands: ::Selenium::WebDriver::Remote::OSS::Bridge::COMMANDS
     # - webdriver_w3c_commands: ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
     #
     def initialize
       @spec_commands = nil
 
-      @implemented_mjsonwp_commands = convert_driver_commands Appium::Core::Commands::MJSONWP::COMMANDS
       @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::W3C::COMMANDS
       @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
 
-      @webdriver_oss_commands = convert_driver_commands Appium::Core::Base::Commands::OSS
       @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
     end
 
@@ -83,18 +79,6 @@ module Script
     # All commands which haven't been implemented in ruby core library yet.
     # @return [Hash]
     #
-    def all_diff_commands_mjsonwp
-      result = compare_commands(@spec_commands, @implemented_mjsonwp_commands)
-
-      white_list.each { |v| result.delete v }
-      w3c_spec.each { |v| result.delete v }
-
-      result
-    end
-
-    # All commands which haven't been implemented in ruby core library yet.
-    # @return [Hash]
-    #
     def all_diff_commands_w3c
       result = compare_commands(@spec_commands, @implemented_w3c_commands)
       white_list.each { |v| result.delete v }
@@ -108,13 +92,6 @@ module Script
     def diff_except_for_webdriver
       result = compare_commands(@spec_commands, @implemented_core_commands)
       white_list.each { |v| result.delete v }
-      result
-    end
-
-    def diff_webdriver_oss
-      result = compare_commands(@spec_commands, @webdriver_oss_commands)
-      white_list.each { |v| result.delete v }
-      w3c_spec.each { |v| result.delete v }
       result
     end
 

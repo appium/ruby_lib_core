@@ -410,63 +410,7 @@ class AppiumLibCoreTest
     SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
 
     def android_mock_create_session
-      response = {
-        status: 0, # To make bridge.dialect == :oss
-        value: {
-          sessionId: '1234567890',
-          capabilities: {
-            platform: 'LINUX',
-            webStorageEnabled: false,
-            takesScreenshot: true,
-            javascriptEnabled: true,
-            databaseEnabled: false,
-            networkConnectionEnabled: true,
-            locationContextEnabled: false,
-            warnings: {},
-            desired: {
-              platformName: 'Android',
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-              platformVersion: '7.1.1',
-              deviceName: 'Android Emulator',
-              app: '/test/apps/ApiDemos-debug.apk',
-              newCommandTimeout: 240,
-              unicodeKeyboard: true,
-              resetKeyboard: true
-            },
-            platformName: 'Android',
-            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-            platformVersion: '7.1.1',
-            deviceName: 'emulator-5554',
-            app: '/test/apps/ApiDemos-debug.apk',
-            newCommandTimeout: 240,
-            unicodeKeyboard: true,
-            resetKeyboard: true,
-            deviceUDID: 'emulator-5554',
-            deviceScreenSize: '1080x1920',
-            deviceModel: 'Android SDK built for x86_64',
-            deviceManufacturer: 'unknown',
-            appPackage: 'com.example.android.apis',
-            appWaitPackage: 'com.example.android.apis',
-            appActivity: 'com.example.android.apis.ApiDemos',
-            appWaitActivity: 'com.example.android.apis.ApiDemos'
-          }
-        }
-      }.to_json
-
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .with(headers: { 'X-Idempotency-Key' => /.+/ })
-        .to_return(headers: HEADER, status: 200, body: response)
-
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 5_000 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-      driver = @core.start_driver
-
-      assert_equal({}, driver.send(:bridge).http.additional_headers)
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
-      driver
+      android_mock_create_session_w3c
     end
 
     def android_mock_create_session_w3c
@@ -505,31 +449,7 @@ class AppiumLibCoreTest
     end
 
     def ios_mock_create_session
-      response = {
-        status: 0, # To make bridge.dialect == :oss
-        value: {
-          sessionId: '1234567890',
-          capabilities: {
-            device: 'iphone',
-            browserName: 'UICatalog',
-            sdkVersion: '11.4',
-            CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
-          }
-        }
-      }.to_json
-
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .to_return(headers: HEADER, status: 200, body: response)
-
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-      driver = @core.start_driver
-
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
-      driver
+      ios_mock_create_session_w3c
     end
 
     def ios_mock_create_session_w3c

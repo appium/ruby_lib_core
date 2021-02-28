@@ -374,7 +374,7 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 22, ::Selenium::WebDriver::Element::FINDERS.length
+      assert_equal 23, ::Selenium::WebDriver::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
                      css: 'css selector',                    # Defined in W3C spec
@@ -383,6 +383,7 @@ class AppiumLibCoreTest
                      link_text: 'link text',                 # Defined in W3C spec
                      name: 'name',
                      partial_link_text: 'partial link text', # Defined in W3C spec
+                     relative: 'relative',                   # Defined in Selenium
                      tag_name: 'tag name',                   # Defined in W3C spec
                      xpath: 'xpath',                         # Defined in W3C spec
                      accessibility_id: 'accessibility id',
