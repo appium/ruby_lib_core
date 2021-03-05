@@ -17,6 +17,7 @@ require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
 require_relative 'remote_status'
+require_relative 'has_location'
 
 module Appium
   module Core
@@ -26,11 +27,14 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
+        include ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
+        include  ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
+        include ::Appium::Core::Base::HasLocation
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
@@ -39,16 +43,6 @@ module Appium
         def initialize(opts = {})
           listener = opts.delete(:listener)
           @bridge = ::Appium::Core::Base::Bridge.handshake(**opts)
-          if @bridge.dialect == :oss # MJSONWP
-            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
-            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
-            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-          elsif @bridge.dialect == :w3c
-            # TODO: Only for Appium. Ideally, we'd like to remove the below like selenium-webdriver
-            extend ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
-            extend ::Selenium::WebDriver::DriverExtensions::HasLocation
-            extend ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-          end
           super(@bridge, listener: listener)
         end
 
