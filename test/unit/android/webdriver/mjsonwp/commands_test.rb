@@ -104,7 +104,7 @@ class AppiumLibCoreTest
 
           def test_set_location_speed
             stub_request(:post, "#{SESSION}/location")
-              .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0, speed: 1 } }.to_json)
+              .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0, speed: 1.0 } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.set_location 1, 1, 1, speed: 1
