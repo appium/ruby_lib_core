@@ -52,7 +52,7 @@ module Appium
         # @param [String, Number] latitude Set the latitude.
         # @param [String, Number] longitude Set the longitude.
         # @param [String, Number] altitude Set the altitude.
-        # @param [String, Number] speed Set the speed to apply the location on Android real devices.
+        # @param [String, Number] speed Set the speed to apply the location on Android real devices @since Appium 1.21.0.
         # @param [::Selenium::WebDriver::Location]
         #
         # @example

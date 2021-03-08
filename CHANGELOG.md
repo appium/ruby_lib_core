@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `speed` argument for `ppium::Core::Base::Driver#set_location`
 - Add `multiple` and `match_neighbour_threshold` arguments for `Appium::Core::Base::Driver#find_image_occurrence`
 
 ### Bug fixes
