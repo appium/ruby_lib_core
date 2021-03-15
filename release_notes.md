@@ -1,3 +1,11 @@
+#### v4.5.0 2021-03-14
+
+- [656230e](https://github.com/appium/ruby_lib_core/commit/656230e688ed86414c06efaa73bce7359933cc91) Release 4.5.0
+- [a0a3cfc](https://github.com/appium/ruby_lib_core/commit/a0a3cfc71783bed3d1b0e7afbf6bc0a27bf60a48) feat: add speed option (#318)
+- [16b4f09](https://github.com/appium/ruby_lib_core/commit/16b4f0991deb639314857c3cbece1e4d00393646) feat: add multiple and match_neighbour_threshold (#313)
+- [d195a5b](https://github.com/appium/ruby_lib_core/commit/d195a5ba48c2e1a7229e0145eac616fd886c1ee0) ci: use node 12
+
+
 #### v4.4.1 2021-02-15
 
 - [dc34419](https://github.com/appium/ruby_lib_core/commit/dc34419dfcc4dd8d499a6407d45ab3efe70c2445) Release 4.4.1
