@@ -29,8 +29,6 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
-        include ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-        include ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
         include ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
 
         include ::Appium::Core::Base::Rotatable
