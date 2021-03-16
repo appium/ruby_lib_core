@@ -54,7 +54,9 @@ class AppiumLibCoreTest
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         find_result = @driver.find_image_occurrence full_image: image1, partial_image: image2
-        assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
+
+        assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
+        assert !find_result['score'].nil?
 
         find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
         assert_equal %w(rect visualization), find_result_visual.keys
