@@ -19,7 +19,6 @@ require_relative 'rotable'
 require_relative 'remote_status'
 require_relative 'has_location'
 require_relative 'has_network_connection'
-require_relative 'location'
 
 module Appium
   module Core
@@ -29,7 +28,6 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
-        include ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
