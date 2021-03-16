@@ -19,20 +19,53 @@ module Appium
       # @api private
       #
       module HasLocation
+        # Get the location of the device.
+        #
+        # @return [::Selenium::WebDriver::Location]
+        #
+        # @example
+        #
+        #   driver.location #=> ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #
         def location
           @bridge.location
         end
 
-        def location=(loc)
-          unless loc.is_a?(::Selenium::WebDriver::Location)
-            raise TypeError, "expected #{::Selenium::WebDriver::Location}, got #{loc.inspect}:#{loc.class}"
+        # Set the location of the device.
+        #
+        # @param [::Selenium::WebDriver::Location] location Set the location.
+        #
+        # @example
+        #
+        #   driver.location = ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #
+        def location=(location)
+          unless location.is_a?(::Selenium::WebDriver::Location)
+            raise TypeError, "expected #{::Selenium::WebDriver::Location}, got #{location.inspect}:#{location.class}"
           end
 
-          @bridge.set_location loc.latitude, loc.longitude, loc.altitude
+          @bridge.set_location location.latitude, location.longitude, location.altitude
         end
 
-        def set_location(lat, lon, alt)
-          self.location = ::Selenium::WebDriver::Location.new(Float(lat), Float(lon), Float(alt))
+        # Set the location of the device.
+        #
+        # @param [String, Number] latitude Set the latitude.
+        # @param [String, Number] longitude Set the longitude.
+        # @param [String, Number] altitude Set the altitude.
+        # @param [String, Number] speed Set the speed to apply the location on Android real devices @since Appium 1.21.0.
+        # @param [::Selenium::WebDriver::Location]
+        #
+        # @example
+        #
+        #   driver.location = ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #
+        def set_location(latitude, longitude, altitude, speed: nil)
+          if speed.nil?
+            self.location = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
+          else
+            loc = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
+            @bridge.set_location loc.latitude, loc.longitude, loc.altitude, speed: Float(speed)
+          end
         end
       end
     end
