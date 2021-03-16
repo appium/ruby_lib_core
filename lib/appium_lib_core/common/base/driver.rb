@@ -73,7 +73,7 @@ module Appium
           bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
           raise ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          bridge = (respond_to?(:bridge_class) ? bridge_class : ::Appium::Core::Base::Bridge::W3C).new(**bridge_opts)
+          bridge = ::Appium::Core::Base::Bridge::W3C.new(**bridge_opts)
 
           bridge.create_session(capabilities)
           bridge

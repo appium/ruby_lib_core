@@ -39,6 +39,16 @@ module Appium
             :w3c
           end
 
+          # TODO: fixme
+          def browser
+            @browser ||= begin
+             name = @capabilities.browser_name
+             name ? name.tr(' ', '_').downcase.to_sym : 'unknown'
+            rescue KeyError
+              'unknown'
+            end
+          end
+
           # Prefix for extra capability defined by W3C
           APPIUM_PREFIX = 'appium:'
 
