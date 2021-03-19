@@ -78,6 +78,12 @@ module Appium
           def convert_to_element(id)
             ::Selenium::WebDriver::Element.new self, element_id_from(id)
           end
+
+          def set_location(lat, lon, alt = 0.0, speed: nil)
+            loc = { latitude: lat, longitude: lon, altitude: alt }
+            loc[:speed] = speed unless speed.nil?
+            execute :set_location, {}, { location: loc }
+          end
         end # class MJSONWP
       end # class Bridge
     end # class Base
