@@ -197,10 +197,24 @@ module Appium
             @bridge = bridge
           end
 
+          # Get appium Settings for current test session.
+          #
+          # @example
+          #
+          #   @driver.settings.get
+          #
           def get
             @bridge.get_settings
           end
 
+          # Update Appium Settings for current test session
+          #
+          # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
+          #
+          # @example
+          #
+          #   @driver.settings.update({'allowInvisibleElements': true})
+          #
           def update(settings)
             @bridge.update_settings(settings)
           end
@@ -237,8 +251,8 @@ module Appium
         #
         # @example
         #
-        #   @driver.update_settings('allowInvisibleElements': true)
-        #   @driver.settings.update('allowInvisibleElements': true)
+        #   @driver.update_settings({ 'allowInvisibleElements': true })
+        #   @driver.settings.update({ 'allowInvisibleElements': true })
         #   @driver.settings = { 'allowInvisibleElements': true }
         #
         def settings=(value)
