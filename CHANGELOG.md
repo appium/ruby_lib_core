@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.0.0.beta1]
+
+- Update base selenium webdriver version to `4.0.0.beta2`
+- Support only W3C spec
+- Support Ruby 2.5+
+
 ## [4.5.0] - 2021-03-14
 
 ### Enhancements
