@@ -291,8 +291,8 @@ jobs:
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
-      - script: npm install -g opencv4nodejs@5.1.0
-        displayName: Install opencv4nodejs@5.1.0
+      - script: OPENCV4NODEJS_AUTOBUILD_OPENCV_VERSION=3.4.6 npm install -g opencv4nodejs@4.17.0
+        displayName: Install opencv4nodejs@4.17.0 with OPENCV4NODEJS_AUTOBUILD_OPENCV_VERSION=3.4.6
       - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb
         displayName: Run tests func_test_android_opencv
       - template: ./functional/publish_test_result.yml
