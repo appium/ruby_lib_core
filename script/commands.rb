@@ -23,14 +23,12 @@ module Script
 
     # Set commands implemented in this core library.
     #
-    # - implemented_w3c_commands:  All commands include ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
+    # - implemented_w3c_commands:  All commands include ::Selenium::WebDriver::Remote::Bridge::COMMANDS
     # - implemented_core_commands:  All commands except for selenium-webdriver's commands
-    # - webdriver_w3c_commands: ::Selenium::WebDriver::Remote::W3C::Bridge::COMMANDS
     #
     def initialize
       @spec_commands = nil
 
-      @implemented_w3c_commands = convert_driver_commands Appium::Core::Commands::W3C::COMMANDS
       @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
 
       @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C

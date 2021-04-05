@@ -135,7 +135,7 @@ module Appium
           public
 
           def commands(command)
-            ::Appium::Core::Commands::W3C::COMMANDS[command]
+            ::Appium::Core::Commands::COMMANDS[command]
           end
 
           # Returns all available sessions on the Appium server instance
