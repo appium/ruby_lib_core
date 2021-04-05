@@ -79,12 +79,6 @@ module Appium
           bridge
         end
 
-        # Get the dialect value
-        # @return [:oss|:w3c]
-        def dialect
-          @bridge.dialect
-        end
-
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
         # set before creating session.

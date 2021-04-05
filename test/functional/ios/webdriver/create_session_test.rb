@@ -25,8 +25,7 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
 
         driver = core.start_driver
-
-        assert_equal :w3c, driver.dialect
+        assert !driver.capabilities.nil?
       end
     end
   end

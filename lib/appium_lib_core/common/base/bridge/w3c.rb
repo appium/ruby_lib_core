@@ -34,11 +34,6 @@ module Appium
           include Device::ExecuteDriver
           include Device::Orientation
 
-          # TODO: For compatibility. Should remove.
-          def dialect
-            :w3c
-          end
-
           # TODO: fixme
           def browser
             @browser ||= begin
@@ -74,7 +69,7 @@ module Appium
           #     }
           #   }
           #   core = ::Appium::Core.for(caps)
-          #   driver = core.start_driver #=> driver.dialect == :w3c if the Appium server support W3C.
+          #   driver = core.start_driver
           #
           def create_session(desired_capabilities)
             caps = add_appium_prefix(desired_capabilities)
