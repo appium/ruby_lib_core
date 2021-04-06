@@ -3,7 +3,7 @@ steps:
   inputs:
     versionSpec: 12.x
   displayName: Install Node 12.x
-- script: npm install -g appium@${APPIUM_VERSION}
+- script: npm install -g KazuCocoa/appium#test-app-espresso
   displayName: Install appium beta
 - script: npm install -g mjpeg-consumer
   displayName: Install MJPEG Consumer
