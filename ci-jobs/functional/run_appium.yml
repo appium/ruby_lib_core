@@ -23,3 +23,7 @@ steps:
     gem install bundler;
     bundle install --retry=3 --jobs=4 --path vendor/bundle;
   displayName: Install Gems
+- script: |
+    cd /Users/runner/hostedtoolcache/node/12.21.0/x64/lib/node_modules/appium/node_modules/appium-espresso-driver/espresso-server
+    ./gradlew tasks
+  displayName: Show gradle tasks
