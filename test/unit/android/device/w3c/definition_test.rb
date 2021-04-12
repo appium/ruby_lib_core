@@ -38,7 +38,7 @@ class AppiumLibCoreTest
 
           def parameterized_method_defined_check(array)
             array.each do |v|
-              assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v)
+              assert ::Appium::Core::Base::Bridge.method_defined?(v)
               delegate_from_appium_driver(v)
             end
           end

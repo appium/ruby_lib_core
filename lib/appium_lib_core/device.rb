@@ -79,7 +79,7 @@ module Appium
         end
 
         def create_bridge_command(method, &block)
-          ::Appium::Core::Base::Bridge::W3C.class_eval do
+          ::Appium::Core::Base::Bridge.class_eval do
             undef_method method if method_defined? method
             block_given? ? class_eval(&block) : define_method(method) { execute method }
           end
