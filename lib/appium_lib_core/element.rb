@@ -18,10 +18,8 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
-      # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
-      include ::Appium::Core::Base::SearchContext
 
-      # TODO: Probably can remove own TakesScreenshot since Selenium 4
+      include ::Appium::Core::Base::SearchContext
       include ::Appium::Core::Base::TakesScreenshot
 
       # Returns the value of attributes like below. Read each platform to know more details.

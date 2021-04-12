@@ -229,14 +229,14 @@ module Appium
                   execute :find_elements, {}, { using: how, value: what }
                 end
 
-          ids.map { |id| ::Selenium::WebDriver::Element.new self, element_id_from(id) }
+          ids.map { |id| ::Appium::Core::Element.new self, element_id_from(id) }
         end
 
         # For Appium
         # @param [Hash] id The id which can get as a response from server
-        # @return [::Selenium::WebDriver::Element]
+        # @return [::Appium::Core::Element]
         def convert_to_element(id)
-          ::Selenium::WebDriver::Element.new self, element_id_from(id)
+          ::Appium::Core::Element.new self, element_id_from(id)
         end
 
         # For Appium

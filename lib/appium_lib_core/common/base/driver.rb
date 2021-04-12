@@ -1068,7 +1068,7 @@ module Appium
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [::Selenium::WebDriver::Element]
+        # @return [::Appium::Core::Element]
         #
         # @example
         #
@@ -1138,14 +1138,14 @@ module Appium
           @bridge.execute_driver(script: script, type: type, timeout_ms: timeout_ms)
         end
 
-        # Convert vanilla element response to ::Selenium::WebDriver::Element
+        # Convert vanilla element response to ::Appium::Core::Element
         #
         # @param [Hash] id The id which can get as a response from server
-        # @return [::Selenium::WebDriver::Element]
+        # @return [::Appium::Core::Element]
         #
         # @example
         #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx", "ELEMENT"=>"xxxx"}
-        #     ele = @driver.convert_to_element(response) #=> ::Selenium::WebDriver::Element
+        #     ele = @driver.convert_to_element(response) #=> ::Appium::Core::Element
         #     ele.rect #=> Can get the rect of the element
         #
         def convert_to_element(id)

@@ -68,7 +68,7 @@ class AppiumLibCoreTest
             stub_request(:get, "#{SESSION}/element/id/screenshot")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.take_element_screenshot ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
+            @driver.take_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
 
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
@@ -77,7 +77,7 @@ class AppiumLibCoreTest
             stub_request(:get, "#{SESSION}/element/id/screenshot")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.take_element_screenshot ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'sample.jpg'
+            @driver.take_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.jpg'
 
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
@@ -86,7 +86,7 @@ class AppiumLibCoreTest
             stub_request(:get, "#{SESSION}/element/id/screenshot")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.element_screenshot_as ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), :base64
+            @driver.element_screenshot_as ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), :base64
 
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
@@ -96,7 +96,7 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             assert_raises ::Appium::Core::Error::UnsupportedOperationError do
-              @driver.element_screenshot_as ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), :unsupported
+              @driver.element_screenshot_as ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), :unsupported
             end
           end
 

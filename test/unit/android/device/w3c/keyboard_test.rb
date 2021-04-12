@@ -139,7 +139,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            @driver.set_immediate_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -149,7 +149,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            @driver.replace_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end
@@ -160,7 +160,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            @driver.set_immediate_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -170,7 +170,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            @driver.replace_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end
