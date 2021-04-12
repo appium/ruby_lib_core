@@ -207,6 +207,13 @@ module Appium
 
         # For Appium
         # override
+        def active_element
+          ::Appium::Core::Element.new self, element_id_from(execute(:get_active_element))
+        end
+        alias switch_to_active_element active_element
+
+        # For Appium
+        # override
         def find_element_by(how, what, parent = nil)
           how, what = convert_locators(how, what)
 
@@ -315,6 +322,24 @@ module Appium
         end
 
         private
+
+        def unwrap_script_result(arg)
+          case arg
+          when Array
+            arg.map { |e| unwrap_script_result(e) }
+          when Hash
+            element_id = element_id_from(arg)
+            return ::Appium::Core::Element.new(self, element_id) if element_id
+
+            arg.each { |k, v| arg[k] = unwrap_script_result(v) }
+          else
+            arg
+          end
+        end
+
+        def element_id_from(id)
+          id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
+        end
 
         # Don't convert locators for Appium Client
         # TODO: Only for Appium. Ideally, we'd like to keep the selenium-webdriver
