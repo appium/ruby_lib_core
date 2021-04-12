@@ -17,7 +17,7 @@ module Appium
   module Core
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
-    class Selenium::WebDriver::Element
+    class Element < ::Selenium::WebDriver::Element
       # To extend Appium related SearchContext into ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::SearchContext
 

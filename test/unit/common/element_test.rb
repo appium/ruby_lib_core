@@ -29,7 +29,7 @@ class AppiumLibCoreTest
       stub_request(:get, "#{SESSION}/element/id/attribute/content-desc")
         .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       e.content_desc
 
       assert_requested(:get, "#{SESSION}/element/id/attribute/content-desc", times: 1)
@@ -45,7 +45,7 @@ class AppiumLibCoreTest
           x: '0', y: '0', width: '375', height: '667'
         } }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       location = e.location_rel @driver
 
       assert_requested(:get, "#{SESSION}/element/id/rect", times: 1)
@@ -59,7 +59,7 @@ class AppiumLibCoreTest
         .with(body: { value: %w(h e l l o) }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       e.immediate_value 'hello'
 
       assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
@@ -70,7 +70,7 @@ class AppiumLibCoreTest
         .with(body: { value: %w(h e l l o) }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       e.replace_value 'hello'
 
       assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
@@ -81,7 +81,7 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200,
                    body: { value: 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX' }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       assert_equal 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX', e.screenshot_as(:base64)
       assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
     end
@@ -91,7 +91,7 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200,
                    body: { value: 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX' }.to_json)
 
-      e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
       assert_equal 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX', e.screenshot
       assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
     end

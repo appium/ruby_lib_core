@@ -17,11 +17,8 @@ require 'selenium-webdriver'
 require_relative 'appium_lib_core/version'
 require_relative 'appium_lib_core/common'
 require_relative 'appium_lib_core/driver'
-
 require_relative 'appium_lib_core/device'
-
-# Call patch after requiring other files
-require_relative 'appium_lib_core/patch'
+require_relative 'appium_lib_core/element'
 
 module Appium
   # convert all keys (including nested) to symbols

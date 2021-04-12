@@ -215,7 +215,7 @@ module Appium
                else
                  execute :find_element, {}, { using: how, value: what }
                end
-          ::Selenium::WebDriver::Element.new self, element_id_from(id)
+          ::Appium::Core::Element.new self, element_id_from(id)
         end
 
         # For Appium
