@@ -12,13 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# rubocop:disable Style/ClassAndModuleChildren
 module Appium
   module Core
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
-
       include ::Appium::Core::Base::SearchContext
       include ::Appium::Core::Base::TakesScreenshot
 
@@ -150,7 +148,6 @@ module Appium
         end
         File.open(png_path, 'wb') { |f| f << screenshot_as(:png) }
       end
-    end
+    end # class Element
   end # module Core
 end # module Appium
-# rubocop:enable Style/ClassAndModuleChildren
