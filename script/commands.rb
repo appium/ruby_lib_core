@@ -30,8 +30,6 @@ module Script
       @spec_commands = nil
 
       @implemented_core_commands = convert_driver_commands Appium::Core::Commands::COMMANDS
-
-      @webdriver_w3c_commands = convert_driver_commands Appium::Core::Base::Commands::W3C
     end
 
     # Get the bellow url's file.
@@ -90,13 +88,6 @@ module Script
     def diff_except_for_webdriver
       result = compare_commands(@spec_commands, @implemented_core_commands)
       white_list.each { |v| result.delete v }
-      result
-    end
-
-    def diff_webdriver_w3c
-      result = compare_commands(@spec_commands, @webdriver_w3c_commands)
-      white_list.each { |v| result.delete v }
-      mjsonwp_spec.each { |v| result.delete v }
       result
     end
 
