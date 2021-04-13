@@ -36,6 +36,8 @@ module Appium
         include ::Appium::Core::Base::HasLocation
         include ::Appium::Core::Base::HasNetworkConnection
 
+        private
+
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
@@ -48,9 +50,8 @@ module Appium
         #   2. Sniffs response.
         #   3. Based on the response, understands which dialect we should use.
         #
-        # @return [Bridge::W3C]
+        # @return [::Appium::Core::Base::Bridge]
         #
-        # TODO: Fixme
         def create_bridge(**opts)
           opts[:url] ||= service_url(opts)
           caps = opts.delete(:capabilities)
@@ -78,6 +79,8 @@ module Appium
           bridge.create_session(capabilities)
           bridge
         end
+
+        public
 
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is

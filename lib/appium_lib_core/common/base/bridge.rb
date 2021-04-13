@@ -36,7 +36,7 @@ module Appium
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
 
-        # TODO: fixme
+        # Returns 'unknown' if no specific browser name
         def browser
           @browser ||= begin
             name = @capabilities.browser_name
