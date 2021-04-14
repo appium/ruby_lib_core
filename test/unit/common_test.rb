@@ -160,7 +160,7 @@ class AppiumLibCoreTest
       def test_add_appium_prefix_has_no_parameter
         cap = {}
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
-        expected = { }
+        expected = {}
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
       end
