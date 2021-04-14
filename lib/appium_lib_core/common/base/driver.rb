@@ -939,8 +939,7 @@ module Appium
         #   #=> uiautomator2
         #   # <Selenium::WebDriver::Remote::Capabilities:0x007fa38dae1360
         #   # @capabilities=
-        #   #     {:proxy=>nil,
-        #   #      :browser_name=>nil,
+        #   #     {:browser_name=>nil,
         #   #      :browser_version=>nil,
         #   #      :platform_name=>"android",
         #   #      :page_load_strategy=>nil,
@@ -989,8 +988,7 @@ module Appium
         #   #=> XCUITest
         #   # <Selenium::WebDriver::Remote::Capabilities:0x007fb15dc01370
         #   # @capabilities=
-        #   #     {:proxy=>nil,
-        #   #      :browser_name=>"UICatalog",
+        #   #     {:browser_name=>"UICatalog",
         #   #      :browser_version=>nil,
         #   #      :platform_name=>"ios",
         #   #      :page_load_strategy=>nil,

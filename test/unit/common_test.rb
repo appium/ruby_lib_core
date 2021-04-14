@@ -144,7 +144,6 @@ class AppiumLibCoreTest
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
 
         expected = {
-          proxy: nil,
           platformName: :ios,
           'appium:automationName' => 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
@@ -161,7 +160,7 @@ class AppiumLibCoreTest
       def test_add_appium_prefix_has_no_parameter
         cap = {}
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
-        expected = { proxy: nil }
+        expected = { }
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
       end
