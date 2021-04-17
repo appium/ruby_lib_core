@@ -36,13 +36,15 @@ module Appium
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
 
-        # Returns 'unknown' if no specific browser name
+        # No 'browserName' means the session is native appium connection
+        APPIUM_NATIVE_BROWSER_NAME = 'appium'
+
         def browser
           @browser ||= begin
             name = @capabilities.browser_name
             name ? name.tr(' ', '_').downcase.to_sym : 'unknown'
           rescue KeyError
-            'unknown'
+            APPIUM_NATIVE_BROWSER_NAME
           end
         end
 
@@ -215,7 +217,7 @@ module Appium
         # For Appium
         # override
         def find_element_by(how, what, parent = nil)
-          how, what = convert_locators(how, what)
+          how, what = convert_locator(how, what)
 
           id = if parent
                  execute :find_child_element, { id: parent }, { using: how, value: what }
@@ -228,7 +230,7 @@ module Appium
         # For Appium
         # override
         def find_elements_by(how, what, parent = nil)
-          how, what = convert_locators(how, what)
+          how, what = convert_locator(how, what)
 
           ids = if parent
                   execute :find_child_elements, { id: parent }, { using: how, value: what }
@@ -341,22 +343,32 @@ module Appium
           id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
         end
 
-        # Don't convert locators for Appium Client
-        # TODO: Only for Appium. Ideally, we'd like to keep the selenium-webdriver
-        def convert_locators(how, what)
-          # case how
-          # when 'class name'
-          #   how = 'css selector'
-          #   what = ".#{escape_css(what)}"
-          # when 'id'
-          #   how = 'css selector'
-          #   what = "##{escape_css(what)}"
-          # when 'name'
-          #   how = 'css selector'
-          #   what = "*[name='#{escape_css(what)}']"
-          # when 'tag name'
-          #   how = 'css selector'
-          # end
+        # Don't convert locators for Appium in native context
+        def convert_locator(how, what)
+          return [how, what] if @browser == APPIUM_NATIVE_BROWSER_NAME
+
+          # TODO: Should we keep comment out? (I mean keep only the above "return [how, what]")
+          case how
+          when 'class name'
+            how = 'css selector'
+            what = ".#{escape_css(what)}"
+          when 'id'
+            how = 'css selector'
+            what = "##{escape_css(what)}"
+          when 'name'
+            how = 'css selector'
+            what = "*[name='#{escape_css(what)}']"
+          when 'tag name'
+            how = 'css selector'
+          end
+
+          if what.is_a?(Hash)
+            what = what.each_with_object({}) do |(h, w), hash|
+              h, w = convert_locator(h.to_s, w)
+              hash[h] = w
+            end
+          end
+
           [how, what]
         end
       end # class Bridge
