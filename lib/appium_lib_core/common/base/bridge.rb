@@ -345,29 +345,26 @@ module Appium
 
         # Don't convert locators for Appium in native context
         def convert_locator(how, what)
-          return [how, what] if browser == APPIUM_NATIVE_BROWSER_NAME
-
-          # TODO: Should we keep comment out? (I mean keep only the above "return [how, what]")
-          case how
-          when 'class name'
-            how = 'css selector'
-            what = ".#{escape_css(what)}"
-          when 'id'
-            how = 'css selector'
-            what = "##{escape_css(what)}"
-          when 'name'
-            how = 'css selector'
-            what = "*[name='#{escape_css(what)}']"
-          when 'tag name'
-            how = 'css selector'
-          end
-
-          if what.is_a?(Hash)
-            what = what.each_with_object({}) do |(h, w), hash|
-              h, w = convert_locator(h.to_s, w)
-              hash[h] = w
-            end
-          end
+          # case how
+          # when 'class name'
+          #   how = 'css selector'
+          #   what = ".#{escape_css(what)}"
+          # when 'id'
+          #   how = 'css selector'
+          #   what = "##{escape_css(what)}"
+          # when 'name'
+          #   how = 'css selector'
+          #   what = "*[name='#{escape_css(what)}']"
+          # when 'tag name'
+          #   how = 'css selector'
+          # end
+          #
+          # if what.is_a?(Hash)
+          #   what = what.each_with_object({}) do |(h, w), hash|
+          #     h, w = convert_locator(h.to_s, w)
+          #     hash[h] = w
+          #   end
+          # end
 
           [how, what]
         end
