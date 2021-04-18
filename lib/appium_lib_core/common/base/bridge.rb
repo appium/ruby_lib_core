@@ -345,7 +345,7 @@ module Appium
 
         # Don't convert locators for Appium in native context
         def convert_locator(how, what)
-          return [how, what] if @browser == APPIUM_NATIVE_BROWSER_NAME
+          return [how, what] if browser == APPIUM_NATIVE_BROWSER_NAME
 
           # TODO: Should we keep comment out? (I mean keep only the above "return [how, what]")
           case how
