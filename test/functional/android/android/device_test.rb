@@ -355,7 +355,7 @@ class AppiumLibCoreTest
           @driver.find_element :accessibility_id, text
         else
           text = %("#{text}")
-          rid  = resource_id(text, "new UiSelector().resourceId(#{text});")
+          rid  = resource_id(text, "new UiSelector().resourceId(#{text})")
           args = if rid.empty?
                    ["new UiSelector().textContains(#{text})", "new UiSelector().descriptionContains(#{text})"]
                  else
