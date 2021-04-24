@@ -72,16 +72,14 @@ module Appium
         #   core = ::Appium::Core.for(caps)
         #   driver = core.start_driver
         #
-        def create_session(desired_capabilities)
-          caps = add_appium_prefix(desired_capabilities)
+        def create_session(capabilities)
+          caps = add_appium_prefix(capabilities)
           response = execute(:new_session, {}, { capabilities: { firstMatch: [caps] } })
 
           @session_id = response['sessionId']
-          capabilities = response['capabilities']
-
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
-          @capabilities = json_create(capabilities)
+          @capabilities = json_create(response['capabilities'])
         end
 
         # Append +appium:+ prefix for Appium following W3C spec
@@ -92,7 +90,7 @@ module Appium
         def add_appium_prefix(capabilities)
           w3c_capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
 
-          capabilities = capabilities.__send__(:capabilities) unless capabilities.is_a?(Hash)
+          capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
 
           capabilities.each do |name, value|
             next if value.nil?

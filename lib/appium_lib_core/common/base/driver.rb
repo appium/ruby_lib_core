@@ -23,6 +23,7 @@ require_relative 'has_network_connection'
 module Appium
   module Core
     class Base
+      # TODO: can we remove this inheritance?
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
@@ -42,8 +43,10 @@ module Appium
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
-        #
+        def initialize(bridge: nil, listener: nil, **opts)
+          super
+        end
+
         # Implements protocol handshake which:
         #
         #   1. Creates session with driver.
@@ -53,6 +56,7 @@ module Appium
         # @return [::Appium::Core::Base::Bridge]
         #
         def create_bridge(**opts)
+          # TODO: probably Appium does not need this.
           opts[:url] ||= service_url(opts)
           caps = opts.delete(:capabilities)
           # NOTE: This is deprecated

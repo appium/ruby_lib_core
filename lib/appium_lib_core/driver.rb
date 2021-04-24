@@ -367,11 +367,10 @@ module Appium
         end
 
         begin
-          # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
-                                                     http_client: @http_client,
-                                                      desired_capabilities: @caps,
-                                                      url: @custom_url)
+                                            http_client: @http_client,
+                                                     desired_capabilities: @caps,
+                                                     url: @custom_url)
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)
