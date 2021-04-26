@@ -56,10 +56,10 @@ class AppiumLibCoreTest
 
         assert_equal(false, @driver.get_settings['ignoreUnimportantViews'])
 
-        @driver.update_settings('ignoreUnimportantViews' => true)
+        @driver.update_settings({ 'ignoreUnimportantViews' => true })
         assert_equal(true, @driver.get_settings['ignoreUnimportantViews'])
 
-        @driver.update_settings('ignoreUnimportantViews' => false)
+        @driver.update_settings({ 'ignoreUnimportantViews' => false })
         assert_equal(false, @driver.get_settings['ignoreUnimportantViews'])
       end
 
