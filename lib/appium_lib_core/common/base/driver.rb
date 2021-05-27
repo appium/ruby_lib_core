@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'base64'
+require_relative 'device_ime'
 require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
@@ -23,7 +24,6 @@ require_relative 'has_network_connection'
 module Appium
   module Core
     class Base
-      # TODO: can we remove this inheritance?
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
@@ -261,34 +261,6 @@ module Appium
         end
         alias update_settings settings=
 
-        class DeviceIME
-          # @private this class is private
-          def initialize(bridge)
-            @bridge = bridge
-          end
-
-          def activate(ime_name)
-            @bridge.ime_activate(ime_name)
-          end
-
-          def available_engines
-            @bridge.ime_available_engines
-          end
-
-          def active_engine
-            @bridge.ime_active_engine
-          end
-
-          def activated?
-            @bridge.ime_activated
-          end
-
-          def deactivate
-            @bridge.ime_deactivate
-          end
-        end
-        private_constant :DeviceIME
-
         # Returns an instance of DeviceIME
         #
         # @return [Appium::Core::Base::Driver::DeviceIME]
@@ -302,7 +274,7 @@ module Appium
         #   @driver.ime.deactivate #=> Deactivate current IME engine
         #
         def ime
-          @device_ime ||= DeviceIME.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
+          @ime ||= DeviceIME.new(@bridge)
         end
 
         # Android only. Make an engine that is available active.
