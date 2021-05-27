@@ -14,6 +14,7 @@
 
 require 'base64'
 require_relative 'device_ime'
+require_relative 'driver_settings'
 require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
@@ -192,36 +193,6 @@ module Appium
         end
         alias type send_keys
 
-        class DriverSettings
-          # @private this class is private
-          def initialize(bridge)
-            @bridge = bridge
-          end
-
-          # Get appium Settings for current test session.
-          #
-          # @example
-          #
-          #   @driver.settings.get
-          #
-          def get
-            @bridge.get_settings
-          end
-
-          # Update Appium Settings for current test session
-          #
-          # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
-          #
-          # @example
-          #
-          #   @driver.settings.update({'allowInvisibleElements': true})
-          #
-          def update(settings)
-            @bridge.update_settings(settings)
-          end
-        end
-        private_constant :DriverSettings
-
         # Returns an instance of DriverSettings to call get/update.
         #
         # @example
@@ -230,7 +201,7 @@ module Appium
         #   @driver.settings.update('allowInvisibleElements': true)
         #
         def settings
-          @driver_settings ||= DriverSettings.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
+          @settings ||= DriverSettings.new(@bridge)
         end
 
         # Get appium Settings for current test session.
