@@ -76,6 +76,51 @@ module Appium
                                                   path: path)
         end
 
+        AVAILABLE_METHOD = [
+          :get, :head, :post, :put, :delete,
+          :connect, :options, :trace, :patch
+        ].freeze
+        # Define a new custom method to the driver so that you can define your own method for
+        # drivers/plugins in Appium 2.0. Appium 2.0 and its custom drivers/plugins allow you
+        # to define custom commands that are not part of W3C spec.
+        #
+        # @param [Symbol] method HTTP request method as https://www.w3.org/TR/webdriver/#endpoints
+        # @param [string] url The url to URL template as https://www.w3.org/TR/webdriver/#endpoints.
+        #                     ':session_id' is the placeholder of 'session id'.
+        #                     ':id' is the placeholder of 'element id'
+        # @param [Symbol] name The name of method that is called as the driver instance method.
+        # @param [Proc] block The block to involve as the method
+        #
+        # @example
+        #
+        #   @driver.add_command(
+        #     method: :get,
+        #     url: 'session/:session_id/path/to/custom/url',
+        #     name: :test_command
+        #   )
+        #   # Send a GET request to 'session/<session id>/path/to/custom/url'
+        #   @driver.test_command
+        #
+        #
+        #   @driver.add_command(
+        #     method: :post,
+        #     url: 'session/:session_id/path/to/custom/url',
+        #     name: :test_command
+        #   ) do
+        #     def test_command(argument)
+        #       execute(:test_command, {}, { dummy: argument })
+        #     end
+        #   end
+        #   # Send a POST request to 'session/<session id>/path/to/custom/url'
+        #   # with body "{ dummy: 1 }" as JSON object. "1" is the argument.
+        #   @driver.test_command(1)
+        #
+        def add_command(method:, url:, name:, &block)
+          raise ArgumentError, "Available method is either #{AVAILABLE_METHOD}" unless AVAILABLE_METHOD.include? method
+
+          @bridge.add_command method: method, url: url, name: name, &block
+        end
+
         ### Methods for Appium
 
         # Lock the device
