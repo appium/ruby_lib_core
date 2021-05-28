@@ -125,6 +125,7 @@ module Appium
         #                     ':id' is the placeholder of 'element id'
         # @param [Symbol] name The name of method that is called as the driver instance method.
         # @param [Proc] block The block to involve as the method
+        # @raise [ArgumentError] If the given +name+ is already defined or +method+ are invalid value.
         #
         # @example
         #

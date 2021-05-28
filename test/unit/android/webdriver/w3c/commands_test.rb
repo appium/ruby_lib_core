@@ -77,6 +77,26 @@ class AppiumLibCoreTest
             end
           end
 
+          def test_add_command_already_defined
+            @driver.add_command(
+              method: :get,
+              url: 'session/:session_id/path/to/custom/url',
+              name: :test_command
+            )
+
+            assert_equal @driver.respond_to?(:test_command), true
+
+            assert_raises ArgumentError do
+              @driver.add_command(
+                method: :get,
+                url: 'session/:session_id/path/to/custom/url',
+                name: :test_command
+              )
+            end
+
+            assert_equal @driver.respond_to?(:test_command), true
+          end
+
           def test_no_session_id
             response = {
               value: {
