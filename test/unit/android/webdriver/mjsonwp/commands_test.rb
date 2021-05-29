@@ -28,6 +28,75 @@ class AppiumLibCoreTest
             @driver ||= android_mock_create_session
           end
 
+          def test_add_command
+            @driver.add_command(
+              method: :get,
+              url: 'session/:session_id/path/to/custom/url',
+              name: :test_command
+            )
+
+            assert_equal @driver.respond_to?(:test_command), true
+
+            stub_request(:get, "#{SESSION}/path/to/custom/url")
+              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+            @driver.test_command
+
+            assert_requested(:get, "#{SESSION}/path/to/custom/url", times: 1)
+          end
+
+          def test_add_command_block
+            @driver.add_command(
+              method: :post,
+              url: 'session/:session_id/path/to/custom/url',
+              name: :test_command
+            ) do
+              def test_command(argument)
+                execute(:test_command, {}, { dummy: argument })
+              end
+            end
+
+            assert_equal @driver.respond_to?(:test_command), true
+
+            stub_request(:post, "#{SESSION}/path/to/custom/url")
+              .with(body: { dummy: 1 }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.test_command(1)
+
+            assert_requested(:post, "#{SESSION}/path/to/custom/url", times: 1)
+          end
+
+          def test_add_command_error
+            assert_raises ::Appium::Core::Error::ArgumentError do
+              @driver.add_command(
+                method: :invalid_method,
+                url: 'session/:session_id/path/to/custom/url',
+                name: :test_command
+              )
+            end
+          end
+
+          def test_add_command_already_defined
+            @driver.add_command(
+              method: :get,
+              url: 'session/:session_id/path/to/custom/url',
+              name: :test_command
+            )
+
+            assert_equal @driver.respond_to?(:test_command), true
+
+            assert_raises ::Appium::Core::Error::ArgumentError do
+              @driver.add_command(
+                method: :get,
+                url: 'session/:session_id/path/to/custom/url',
+                name: :test_command
+              )
+            end
+
+            assert_equal @driver.respond_to?(:test_command), true
+          end
+
           def test_no_session_id
             response = {
               status: 0, # To make bridge.dialect == :oss

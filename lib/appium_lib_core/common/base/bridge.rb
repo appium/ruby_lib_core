@@ -22,8 +22,6 @@ module Appium
         # TODO: Remove the forceMjsonwp after Appium server won't need it
         FORCE_MJSONWP = :forceMjsonwp
 
-        attr_reader :commands_store
-
         # Almost same as self.handshake in ::Selenium::WebDriver::Remote::Bridge
         #
         # Implements protocol handshake which:
@@ -51,10 +49,8 @@ module Appium
           case bridge.dialect
           when :oss # for MJSONWP
             Bridge::MJSONWP.new(capabilities, bridge.session_id, **opts)
-            @commands_store = ::Appium::Core::Commands::W3C::COMMANDS.dup
           when :w3c
             Bridge::W3C.new(capabilities, bridge.session_id, **opts)
-            @commands_store = ::Appium::Core::Commands::MJSONWP::COMMANDS.dup
           else
             raise CoreError, 'cannot understand dialect'
           end

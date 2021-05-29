@@ -68,7 +68,7 @@ class AppiumLibCoreTest
           end
 
           def test_add_command_error
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.add_command(
                 method: :invalid_method,
                 url: 'session/:session_id/path/to/custom/url',
@@ -86,7 +86,7 @@ class AppiumLibCoreTest
 
             assert_equal @driver.respond_to?(:test_command), true
 
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.add_command(
                 method: :get,
                 url: 'session/:session_id/path/to/custom/url',
