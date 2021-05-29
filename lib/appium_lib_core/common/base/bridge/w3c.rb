@@ -34,22 +34,22 @@ module Appium
           include Device::ExecuteDriver
           include Device::Orientation
 
-          attr_reader :commands_store
+          attr_reader :available_commands
 
           def initialize(capabilities, session_id, **opts)
-            @commands_store = ::Appium::Core::Commands::W3C::COMMANDS.dup
-            super(capabilities, session_id, opts)
+            @available_commands = ::Appium::Core::Commands::W3C::COMMANDS.dup
+            super(capabilities, session_id, **opts)
           end
 
           def commands(command)
-            @commands_store[command]
+            @available_commands[command]
           end
 
           # command for Appium 2.0.
           def add_command(method:, url:, name:, &block)
-            raise ::Appium::Core::Error::ArgumentError, "#{name} is already defined" if @commands_store.key? name
+            raise ::Appium::Core::Error::ArgumentError, "#{name} is already defined" if @available_commands.key? name
 
-            @commands_store[name] = [method, url]
+            @available_commands[name] = [method, url]
 
             ::Appium::Core::Device.add_endpoint_method name, &block
           end
