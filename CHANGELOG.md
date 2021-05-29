@@ -15,6 +15,7 @@ Read `release_notes.md` for commit level details.
 - Update base selenium webdriver version to `4.0.0.beta2`
 - Support only W3C spec
 - Support Ruby 2.5+
+- Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
 
 ## [4.5.0] - 2021-03-14
 

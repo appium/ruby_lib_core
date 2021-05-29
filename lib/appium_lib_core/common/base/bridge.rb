@@ -133,7 +133,7 @@ module Appium
 
         # command for Appium 2.0.
         def add_command(method:, url:, name:, &block)
-          raise ArgumentError, "#{name} is already defined" if @commands_store.key? name
+          raise ::Appium::Core::Error::ArgumentError, "#{name} is already defined" if @commands_store.key? name
 
           @commands_store[name] = [method, url]
 

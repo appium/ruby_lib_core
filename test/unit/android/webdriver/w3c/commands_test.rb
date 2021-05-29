@@ -68,7 +68,7 @@ class AppiumLibCoreTest
           end
 
           def test_add_command_error
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.add_command(
                 method: :invalid_method,
                 url: 'session/:session_id/path/to/custom/url',
@@ -86,7 +86,7 @@ class AppiumLibCoreTest
 
             assert_equal @driver.respond_to?(:test_command), true
 
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.add_command(
                 method: :get,
                 url: 'session/:session_id/path/to/custom/url',
@@ -209,7 +209,7 @@ class AppiumLibCoreTest
               .with(body: { fingerprintId: 1 }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { finger: 'name' } }.to_json)
 
-            error = assert_raises ArgumentError do
+            error = assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.finger_print 0
             end
             assert_equal 'finger_id should be integer between 1 to 10. Not 0', error.message

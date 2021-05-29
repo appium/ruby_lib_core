@@ -31,7 +31,7 @@ class AppiumLibCoreTest
     end
 
     def test_symbolize_keys_raise_argument_error
-      e = assert_raises ArgumentError do
+      e = assert_raises ::Appium::Core::Error::ArgumentError do
         ::Appium.symbolize_keys('no hash value')
       end
 

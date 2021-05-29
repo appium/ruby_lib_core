@@ -77,7 +77,7 @@ module Appium
           capabilities = generate_capabilities(cap_array)
 
           bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
-          raise ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
+          raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
           bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
 
@@ -152,7 +152,9 @@ module Appium
         #   @driver.test_command(1)
         #
         def add_command(method:, url:, name:, &block)
-          raise ArgumentError, "Available method is either #{AVAILABLE_METHOD}" unless AVAILABLE_METHOD.include? method
+          unless AVAILABLE_METHOD.include? method
+            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHOD}"
+          end
 
           @bridge.add_command method: method, url: url, name: name, &block
         end
@@ -854,7 +856,7 @@ module Appium
         #    @driver.perform_actions [f1, f2] #=> 'nil' if the action succeed
         #
         def perform_actions(data)
-          raise ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
+          raise ::Appium::Core::Error::ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
 
           @bridge.send_actions data.map(&:encode).compact
           data.each(&:clear_actions)

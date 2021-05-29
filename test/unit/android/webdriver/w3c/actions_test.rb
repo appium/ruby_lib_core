@@ -170,7 +170,7 @@ class AppiumLibCoreTest
           end
 
           def test_w3c__multiple_actions_no_array
-            error = assert_raises ArgumentError do
+            error = assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.perform_actions 'string'
             end
             assert_equal '\'string\' must be Array', error.message

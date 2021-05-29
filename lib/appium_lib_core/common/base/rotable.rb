@@ -30,7 +30,7 @@ module Appium
         #
         def rotation=(orientation)
           unless ORIENTATIONS.include?(orientation)
-            raise ArgumentError, "expected #{ORIENTATIONS.inspect}, got #{orientation.inspect}"
+            raise ::Appium::Core::Error::ArgumentError, "expected #{ORIENTATIONS.inspect}, got #{orientation.inspect}"
           end
 
           bridge.screen_orientation = orientation.to_s.upcase
