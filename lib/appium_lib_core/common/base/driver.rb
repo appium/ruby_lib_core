@@ -139,6 +139,9 @@ module Appium
             raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHOD}"
           end
 
+          # TODO: Remove this logger
+          ::Appium::Logger.info '[Experimental] this method is experimental for Appium 2.0. This interface may change.'
+
           @bridge.add_command method: method, url: url, name: name, &block
         end
 
