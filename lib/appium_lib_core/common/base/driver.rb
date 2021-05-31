@@ -76,6 +76,75 @@ module Appium
                                                   path: path)
         end
 
+        AVAILABLE_METHOD = [
+          :get, :head, :post, :put, :delete,
+          :connect, :options, :trace, :patch
+        ].freeze
+        # Define a new custom method to the driver so that you can define your own method for
+        # drivers/plugins in Appium 2.0. Appium 2.0 and its custom drivers/plugins allow you
+        # to define custom commands that are not part of W3C spec.
+        #
+        # @param [Symbol] method HTTP request method as https://www.w3.org/TR/webdriver/#endpoints
+        # @param [string] url The url to URL template as https://www.w3.org/TR/webdriver/#endpoints.
+        #                     +:session_id+ is the placeholder of 'session id'.
+        #                     Other place holders can be specified with +:+ prefix like +:id+.
+        #                     Then, the +:id+ will be replaced with a given value as the seconds argument of +execute+
+        # @param [Symbol] name The name of method that is called as the driver instance method.
+        # @param [Proc] block The block to involve as the method
+        # @raise [ArgumentError] If the given +name+ is already defined or +method+ are invalid value.
+        #
+        # @example
+        #
+        #   @driver.add_command(
+        #     method: :get,
+        #     url: 'session/:session_id/path/to/custom/url',
+        #     name: :test_command
+        #   )
+        #   # Send a GET request to 'session/<session id>/path/to/custom/url'
+        #   @driver.test_command
+        #
+        #
+        #   @driver.add_command(
+        #     method: :post,
+        #     url: 'session/:session_id/path/to/custom/url',
+        #     name: :test_command
+        #   ) do
+        #     def test_command(argument)
+        #       execute(:test_command, {}, { dummy: argument })
+        #     end
+        #   end
+        #   # Send a POST request to 'session/<session id>/path/to/custom/url'
+        #   # with body "{ dummy: 1 }" as JSON object. "1" is the argument.
+        #   # ':session_id' in the given 'url' is replaced with current 'session id'.
+        #   @driver.test_command(1)
+        #
+        #   @driver.add_command(
+        #     method: :post,
+        #     url: 'session/:session_id/element/:id/custom/action',
+        #     name: :test_action_command
+        #   ) do
+        #     def test_action_command(element_id, action)
+        #       execute(:test_action_command, {id: element_id}, { dummy_action: action })
+        #     end
+        #   end
+        #   # Send a POST request to 'session/<session id>/element/<element id>/custom/action'
+        #   # with body "{ dummy_action: #{action} }" as JSON object. "action" is the seconds argument.
+        #   # ':session_id' in the given url is replaced with current 'session id'.
+        #   # ':id' in the given url is replaced with the given 'element_id'.
+        #   e = @driver.find_element :accessibility_id, 'an element'
+        #   @driver.test_action_command(e.ref, 'action')
+        #
+        def add_command(method:, url:, name:, &block)
+          unless AVAILABLE_METHOD.include? method
+            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHOD}"
+          end
+
+          # TODO: Remove this logger
+          ::Appium::Logger.info '[Experimental] this method is experimental for Appium 2.0. This interface may change.'
+
+          @bridge.add_command method: method, url: url, name: name, &block
+        end
+
         ### Methods for Appium
 
         # Lock the device

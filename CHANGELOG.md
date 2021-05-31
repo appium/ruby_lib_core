@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Add `Appium::Core::Base::Driver#add_command` to allow you to add your own command
 
 ### Bug fixes
 
