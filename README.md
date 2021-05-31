@@ -11,6 +11,7 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 # Documentation
 
 - http://www.rubydoc.info/github/appium/ruby_lib_core
+    - You can find working API examples in test code, [test/functional](test/functional)
 
 # Related library
 - https://github.com/appium/ruby_lib
@@ -120,7 +121,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     $ ruby test.rb
     ```
 
-More examples are in [test/functional](test/functional)    
+More examples are in [test/functional](test/functional)
 
 ### Capabilities
 
