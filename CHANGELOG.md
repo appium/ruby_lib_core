@@ -5,22 +5,21 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Add `Appium::Core::Base::Driver#add_command` to allow you to add your own command
 
 ### Bug fixes
 
 ### Deprecations
+
+## [4.6.0] - 2021-06-03
+
+### Enhancements
+- Add `Appium::Core::Base::Driver#add_command` to allow you to add your own command
 
 ## [4.5.0] - 2021-03-14
 
 ### Enhancements
 - Add `speed` argument for `Appium::Core::Base::Driver#set_location` since Appium 1.21.0 
 - Add `multiple` and `match_neighbour_threshold` arguments for `Appium::Core::Base::Driver#find_image_occurrence`
-
-### Bug fixes
-
-### Deprecations
-
 
 ## [4.4.1(4.4.0)] - 2021-02-15(2021-02-13)
 
