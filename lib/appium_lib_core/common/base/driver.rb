@@ -76,7 +76,7 @@ module Appium
                                                   path: path)
         end
 
-        AVAILABLE_METHOD = [
+        AVAILABLE_METHODS = [
           :get, :head, :post, :put, :delete,
           :connect, :options, :trace, :patch
         ].freeze
@@ -135,8 +135,8 @@ module Appium
         #   @driver.test_action_command(e.ref, 'action')
         #
         def add_command(method:, url:, name:, &block)
-          unless AVAILABLE_METHOD.include? method
-            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHOD}"
+          unless AVAILABLE_METHODS.include? method
+            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}"
           end
 
           # TODO: Remove this logger
