@@ -169,7 +169,6 @@ class AppiumLibCoreTest
       unless ENV['UNIT_TEST']
         xcode_org_id = ENV['ORG_ID'] || 'Simulator'
         cap = add_ios_real_device(cap.dup, xcode_org_id) if real_device
-        cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
       end
 
       cap
@@ -196,7 +195,7 @@ class AppiumLibCoreTest
 
     def device_name(os_version, platform_name, wda_local_port)
       if platform_name.downcase == :tvos
-        'Apple TV'
+        'Apple TV 4K'
       else
         name = if over_ios13?(os_version)
                  'iPhone 11'
@@ -206,33 +205,6 @@ class AppiumLibCoreTest
 
         parallel? ? "#{name} - #{wda_local_port}" : name
       end
-    end
-
-    # for use_xctestrun_file
-    def add_xctestrun(real_device, caps, xcode_org_id)
-      xcode_sdk_version = /iPhoneOS([0-9.]+)\.sdk/.match(`xcodebuild -version -sdk`)[1]
-
-      derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
-      FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
-      caps[:caps][:derivedDataPath] = derived_data_path
-
-      platform_name = caps[:caps][:platformName].downcase
-      runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
-
-      build_product = File.expand_path("#{derived_data_path}/Build/Products/")
-      xctestrun_path = if real_device
-                         "#{build_product}/#{runnner_prefix}os#{xcode_sdk_version}-arm64.xctestrun"
-                       else
-                         "#{build_product}/#{runnner_prefix}simulator#{xcode_sdk_version}-x86_64.xctestrun"
-                       end
-      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
-
-      if use_xctestrun_file
-        caps[:caps][:bootstrapPath] = build_product
-        caps[:caps][:useXctestrunFile] = use_xctestrun_file
-      end
-
-      caps
     end
 
     # For real devices
