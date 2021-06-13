@@ -25,6 +25,7 @@ class AppiumLibCoreTest
 
     def teardown
       save_reports(@driver)
+      @@core.quit_driver
     end
 
     def test_method_missing_attributes
