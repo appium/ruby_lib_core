@@ -181,6 +181,26 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/location", times: 1)
           end
 
+          def test_set_location_satellites
+            stub_request(:post, "#{SESSION}/location")
+              .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0, satellites: 1 } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.set_location 1, 1, 1, satellites: 1
+
+            assert_requested(:post, "#{SESSION}/location", times: 1)
+          end
+
+          def test_set_location_speed_and_satellites
+            stub_request(:post, "#{SESSION}/location")
+              .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0, speed: 1.0, satellites: 1 } }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.set_location 1, 1, 1, satellites: 1, speed: 1.0
+
+            assert_requested(:post, "#{SESSION}/location", times: 1)
+          end
+
           def test_rotate
             stub_request(:post, "#{SESSION}/orientation")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
