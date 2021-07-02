@@ -283,9 +283,10 @@ module Appium
 
         # For Appium
         # No implementation for W3C webdriver module
-        def set_location(lat, lon, alt = 0.0, speed: nil)
+        def set_location(lat, lon, alt = 0.0, speed: nil, satellites: nil)
           loc = { latitude: lat, longitude: lon, altitude: alt }
           loc[:speed] = speed unless speed.nil?
+          loc[:satellites] = satellites unless satellites.nil?
           execute :set_location, {}, { location: loc }
         end
 
