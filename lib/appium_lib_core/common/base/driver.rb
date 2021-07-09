@@ -125,7 +125,16 @@ module Appium
         #                     Other place holders can be specified with +:+ prefix like +:id+.
         #                     Then, the +:id+ will be replaced with a given value as the seconds argument of +execute+
         # @param [Symbol] name The name of method that is called as the driver instance method.
-        # @param [Proc] block The block to involve as the method
+        # @param [Proc] block The block to involve as the method.
+        #                     Please define a method that has the same +name+ with arguments you want.
+        #                     The method must has +execute+ method. tHe +execute+ is calls the +url+
+        #                     with the given parameters.
+        #                     The first argument should be +name+ as symbol.
+        #                     The second argument should be hash. If keys in the hash matches +:+ prefix
+        #                     string in the given url, the matched string in the given url will be
+        #                     values in the hash.
+        #                     The third argument should be hash. The hash will be the request body.
+        #                     Please read examples below for more details.
         # @raise [ArgumentError] If the given +name+ is already defined or +method+ are invalid value.
         #
         # @example
@@ -152,6 +161,7 @@ module Appium
         #   # with body "{ dummy: 1 }" as JSON object. "1" is the argument.
         #   # ':session_id' in the given 'url' is replaced with current 'session id'.
         #   @driver.test_command(1)
+        #
         #
         #   @driver.add_command(
         #     method: :post,
