@@ -52,19 +52,26 @@ module Appium
         # @param [String, Number] latitude Set the latitude.
         # @param [String, Number] longitude Set the longitude.
         # @param [String, Number] altitude Set the altitude.
-        # @param [String, Number] speed Set the speed to apply the location on Android real devices @since Appium 1.21.0.
+        # @param [String, Number] speed Set the speed to apply the location on Android real devices
+        #                               in meters/second @since Appium 1.21.0 and in knots for emulators @since Appium 1.22.0.
+        # @param [String, Number] satellites Sets the number of geo satellites being tracked @since Appium 1.22.0.
+        #                                    This number is respected on Emulators.
         # @param [::Selenium::WebDriver::Location]
         #
         # @example
         #
         #   driver.location = ::Selenium::WebDriver::Location.new(10, 10, 10)
         #
-        def set_location(latitude, longitude, altitude, speed: nil)
-          if speed.nil?
+        def set_location(latitude, longitude, altitude, speed: nil, satellites: nil)
+          if speed.nil? && satellites.nil?
             self.location = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
           else
             loc = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
-            @bridge.set_location loc.latitude, loc.longitude, loc.altitude, speed: Float(speed)
+
+            speed = Float(speed) unless speed.nil?
+            satellites = Integer(satellites) unless satellites.nil?
+
+            @bridge.set_location loc.latitude, loc.longitude, loc.altitude, speed: speed, satellites: satellites
           end
         end
       end
