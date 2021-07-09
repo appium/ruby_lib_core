@@ -67,6 +67,28 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/path/to/custom/url", times: 1)
           end
 
+          def test_add_command_block_element_id
+            @driver.add_command(
+              method: :post,
+              url: 'session/:session_id/path/to/custom/:element_id/url',
+              name: :test_command
+            ) do
+              def test_command(argument)
+                execute(:test_command, { element_id: 'dummy_element_id' }, { dummy: argument })
+              end
+            end
+
+            assert_equal @driver.respond_to?(:test_command), true
+
+            stub_request(:post, "#{SESSION}/path/to/custom/dummy_element_id/url")
+              .with(body: { dummy: 1 }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+            @driver.test_command(1)
+
+            assert_requested(:post, "#{SESSION}/path/to/custom/dummy_element_id/url", times: 1)
+          end
+
           def test_add_command_error
             assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.add_command(
