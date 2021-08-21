@@ -1,3 +1,12 @@
+#### v4.7.0 2021-07-17
+
+- [0059974](https://github.com/appium/ruby_lib_core/commit/0059974b0b1d79a822db84d8b0169e8393e00ef9) Release 4.7.0
+- [0f93a52](https://github.com/appium/ruby_lib_core/commit/0f93a52bbdc44bf916c9b974fe9fd09d48e5ff39) test: add more example and test (#328)
+- [9e37b3b](https://github.com/appium/ruby_lib_core/commit/9e37b3bc15f72f7c0117a49945a3fe482598f374) feat: add satellites for Android emulators (#327)
+- [3063a73](https://github.com/appium/ruby_lib_core/commit/3063a73fa291dc378daa53b7df2e4b0b8a6f03d2) ci: calls quit_driver to ensure close the previous session
+- [43fb9e7](https://github.com/appium/ruby_lib_core/commit/43fb9e77f5492a92f4f8c5a5bda71be9c3a9e2c8) chore: tweak naming in an internal variable
+
+
 #### v4.6.0 2021-06-03
 
 - [0dacfab](https://github.com/appium/ruby_lib_core/commit/0dacfab1256e1447e1f7a5974dfcf48ee0a72b9d) Release 4.6.0
