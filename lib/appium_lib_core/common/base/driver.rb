@@ -57,8 +57,6 @@ module Appium
         # @return [::Appium::Core::Base::Bridge]
         #
         def create_bridge(**opts)
-          # TODO: probably Appium does not need this.
-          opts[:url] ||= service_url(opts)
           caps = opts.delete(:capabilities)
           # NOTE: This is deprecated
           cap_array = caps.is_a?(Hash) ? [caps] : Array(caps)
