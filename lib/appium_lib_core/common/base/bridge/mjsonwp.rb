@@ -46,7 +46,7 @@ module Appium
 
           # command for Appium 2.0.
           def add_command(method:, url:, name:, &block)
-            ::Appium::Logger.info "Override method '#{name}' for '#{url}'" if @available_commands.key? name
+            ::Appium::Logger.debug "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
 
             @available_commands[name] = [method, url]
 
