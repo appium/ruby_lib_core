@@ -133,7 +133,7 @@ module Appium
         #                     values in the hash.
         #                     The third argument should be hash. The hash will be the request body.
         #                     Please read examples below for more details.
-        # @raise [ArgumentError] If the given +name+ is already defined or +method+ are invalid value.
+        # @raise [ArgumentError] If the given +method+ is invalid value.
         #
         # @example
         #
