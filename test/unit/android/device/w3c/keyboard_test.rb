@@ -134,12 +134,12 @@ class AppiumLibCoreTest
           end
 
           ## Immediate value
-          def test_set_immediate_value
+          def test_immediate_value
             stub_request(:post, "#{SESSION}/appium/element/id/value")
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -149,18 +149,18 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').replace_value %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end
 
           ## Immediate value
-          def test_set_immediate_value_text
+          def test_immediate_value_text
             stub_request(:post, "#{SESSION}/appium/element/id/value")
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -170,7 +170,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').replace_value 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end

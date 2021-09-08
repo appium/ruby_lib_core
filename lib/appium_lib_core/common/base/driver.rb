@@ -175,7 +175,8 @@ module Appium
         #   # ':session_id' in the given url is replaced with current 'session id'.
         #   # ':id' in the given url is replaced with the given 'element_id'.
         #   e = @driver.find_element :accessibility_id, 'an element'
-        #   @driver.test_action_command(e.ref, 'action')
+        #   _, element_id = e.ref
+        #   @driver.test_action_command(element_id, 'action')
         #
         def add_command(method:, url:, name:, &block)
           unless AVAILABLE_METHODS.include? method
@@ -441,30 +442,6 @@ module Appium
           @bridge.set_context(context)
         end
         alias set_context context=
-
-        # Set the value to element directly
-        #
-        # @example
-        #
-        #   @driver.set_immediate_value element, 'hello'
-        #
-        def set_immediate_value(element, *value)
-          ::Appium::Logger.warn '[DEPRECATION] driver#set_immediate_value(element, *value) is deprecated. ' \
-            'Use Element#immediate_value(*value) instead'
-          @bridge.set_immediate_value(element, *value)
-        end
-
-        # Replace the value to element directly
-        #
-        # @example
-        #
-        #   @driver.replace_value element, 'hello'
-        #
-        def replace_value(element, *value)
-          ::Appium::Logger.warn '[DEPRECATION] driver#replace_value(element, *value) is deprecated. ' \
-            'Use Element#replace_value(*value) instead'
-          @bridge.replace_value(element, *value)
-        end
 
         # Place a file in a specific location on the device.
         # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on

@@ -205,7 +205,9 @@ class AppiumLibCoreTest
       def test_touch_actions
         if @@core.automation_name == :xcuitest
           element = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
-          @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.ref)
+
+          _, element_id = element.ref
+          @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element_id)
         else
           Appium::Core::TouchAction.new(@@driver)
                                    .press(element: @@driver.find_element(:accessibility_id, ACTIVITY_INDICATORS))
