@@ -60,7 +60,7 @@ class AppiumLibCoreTest
 
         e = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
         e.click
-        e.immediate_value e, 'hello'
+        e.immediate_value 'hello'
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
