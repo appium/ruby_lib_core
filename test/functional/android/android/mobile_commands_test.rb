@@ -151,7 +151,7 @@ class AppiumLibCoreTest
 
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
-        _, element_id = time_el.ref
+        _, element_id = el.ref
         assert_mobile_command_error 'mobile: navigateTo', { element: element_id, menuItemId: -100 },
                                     'must be a non-negative number'
         assert_mobile_command_error 'mobile: navigateTo', { element: element_id, menuItemId: 'no element' },
