@@ -59,7 +59,7 @@ module Appium
       #
       # @example
       #
-      #   @driver.immediate_value 'hello'
+      #   element.immediate_value 'hello'
       #
       def immediate_value(*value)
         @bridge.set_immediate_value @id, *value
@@ -69,7 +69,7 @@ module Appium
       #
       # @example
       #
-      #   @driver.replace_value 'hello'
+      #   element.replace_value 'hello'
       #
       def replace_value(*value)
         @bridge.replace_value @id, *value
