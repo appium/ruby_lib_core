@@ -342,12 +342,11 @@ module Appium
           execute :get_log_events, {}, args
         end
 
-        def take_viewport_screenshot
+        def viewport_screenshot
           execute_script('mobile: viewportScreenshot')
         end
 
-        def take_element_screenshot(element)
-          _, element_id = element.ref
+        def element_screenshot(element_id)
           execute :take_element_screenshot, id: element_id
         end
 
