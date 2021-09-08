@@ -59,20 +59,20 @@ module Appium
       #
       # @example
       #
-      #   @driver.immediate_value 'hello'
+      #   element.immediate_value 'hello'
       #
       def immediate_value(*value)
-        @bridge.set_immediate_value(self, *value)
+        @bridge.set_immediate_value @id, *value
       end
 
       # Replace the value to element directly
       #
       # @example
       #
-      #   @driver.replace_value 'hello'
+      #   element.replace_value 'hello'
       #
       def replace_value(*value)
-        @bridge.replace_value(self, *value)
+        @bridge.replace_value @id, *value
       end
 
       # For use with location_rel.
@@ -108,7 +108,7 @@ module Appium
       #     element.screenshot #=> "iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX"
       #
       def screenshot
-        bridge.take_element_screenshot(self)
+        bridge.element_screenshot @id
       end
 
       # Return an element screenshot in the given format
@@ -123,9 +123,9 @@ module Appium
       def screenshot_as(format)
         case format
         when :base64
-          bridge.take_element_screenshot(self)
+          bridge.element_screenshot @id
         when :png
-          bridge.take_element_screenshot(self).unpack('m')[0]
+          bridge.element_screenshot(@id).unpack('m')[0]
         else
           raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
         end

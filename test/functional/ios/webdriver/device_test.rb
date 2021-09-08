@@ -60,7 +60,7 @@ class AppiumLibCoreTest
 
         e = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
         e.click
-        @@driver.set_immediate_value e, 'hello'
+        e.immediate_value 'hello'
 
         # Using predicate case
         e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
@@ -158,8 +158,9 @@ class AppiumLibCoreTest
 
       # TODO: add an async execuite test case
       # def test_async_execuite
-      #   @@driver.execute_async_script('mobile: tap', x: 0, y: 0, element: element.ref)
-      #   @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.ref)
+      #   _, element_id = element.ref
+      #   @@driver.execute_async_script('mobile: tap', x: 0, y: 0, element: element_id)
+      #   @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element_id)
       # end
 
       def test_logs
