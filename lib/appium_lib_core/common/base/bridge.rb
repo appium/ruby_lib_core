@@ -207,7 +207,8 @@ module Appium
           # For W3C
           # https://github.com/SeleniumHQ/selenium/commit/b618499adcc3a9f667590652c5757c0caa703289
           # execute_atom :isDisplayed, element
-          execute :is_element_displayed, id: element.ref
+          _, element_id = element.ref
+          execute :is_element_displayed, id: element_id
         end
 
         # For Appium
@@ -215,7 +216,8 @@ module Appium
         def element_attribute(element, name)
           # For W3C in Selenium Client
           # execute_atom :getAttribute, element, name
-          execute :get_element_attribute, id: element.ref, name: name
+          _, element_id = element.ref
+          execute :get_element_attribute, id: element_id, name: name
         end
 
         # For Appium
@@ -227,26 +229,39 @@ module Appium
 
         # For Appium
         # override
-        def find_element_by(how, what, parent = nil)
+        def find_element_by(how, what, parent_ref = [])
           how, what = convert_locator(how, what)
 
-          id = if parent
-                 execute :find_child_element, { id: parent }, { using: how, value: what }
+          return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
+
+          parent_type, parent_id = parent_ref
+          id = case parent_type
+               when :element
+                 execute :find_child_element, { id: parent_id }, { using: how, value: what.to_s }
+               when :shadow_root
+                 execute :find_shadow_child_element, { id: parent_id }, { using: how, value: what.to_s }
                else
-                 execute :find_element, {}, { using: how, value: what }
+                 execute :find_element, {}, { using: how, value: what.to_s }
                end
+
           ::Appium::Core::Element.new self, element_id_from(id)
         end
 
         # For Appium
         # override
-        def find_elements_by(how, what, parent = nil)
+        def find_elements_by(how, what, parent_ref = [])
           how, what = convert_locator(how, what)
 
-          ids = if parent
-                  execute :find_child_elements, { id: parent }, { using: how, value: what }
+          return execute_atom :findElements, Support::RelativeLocator.new(what).as_json if how == 'relative'
+
+          parent_type, parent_id = parent_ref
+          ids = case parent_type
+                when :element
+                  execute :find_child_elements, { id: parent_id }, { using: how, value: what.to_s }
+                when :shadow_root
+                  execute :find_shadow_child_elements, { id: parent_id }, { using: how, value: what.to_s }
                 else
-                  execute :find_elements, {}, { using: how, value: what }
+                  execute :find_elements, {}, { using: how, value: what.to_s }
                 end
 
           ids.map { |id| ::Appium::Core::Element.new self, element_id_from(id) }
@@ -327,12 +342,12 @@ module Appium
           execute :get_log_events, {}, args
         end
 
-        def take_viewport_screenshot
+        def viewport_screenshot
           execute_script('mobile: viewportScreenshot')
         end
 
-        def take_element_screenshot(element)
-          execute :take_element_screenshot, id: element.ref
+        def element_screenshot(element_id)
+          execute :take_element_screenshot, id: element_id
         end
 
         private

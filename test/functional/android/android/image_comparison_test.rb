@@ -100,7 +100,8 @@ class AppiumLibCoreTest
 
         assert image_element.inspect
         assert image_element.hash
-        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        _, element_id = image_element.ref
+        assert element_id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location
@@ -143,7 +144,8 @@ class AppiumLibCoreTest
 
         assert image_element.inspect
         assert image_element.hash
-        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        _, element_id = image_element.ref
+        assert element_id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location
@@ -185,7 +187,8 @@ class AppiumLibCoreTest
         image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
         assert image_element.inspect
         assert image_element.hash
-        assert image_element.ref =~ /\Aappium-image-element-[a-z0-9\-]+/
+        _, element_id = image_element.ref
+        assert element_id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location

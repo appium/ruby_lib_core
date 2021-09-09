@@ -103,7 +103,7 @@ jobs:
     - template: ./functional/ios_setup.yml
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
-    - script: brew install ffmpeg && brew tap wix/brew && brew install wix/brew/applesimutils
+    - script: brew install ffmpeg && brew tap wix/brew && brew install applesimutils
       displayName: Install ffmpeg and applesimutils
     - template: ./functional/run_appium.yml
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
