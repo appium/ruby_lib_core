@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Allow to override an existing method by `Appium::Core::Base::Driver#add_command` since Appium drivers/plugins allow to override them
 
 ### Bug fixes
 
