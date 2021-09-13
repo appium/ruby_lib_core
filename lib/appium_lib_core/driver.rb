@@ -187,8 +187,6 @@ module Appium
       # @option opts [Hash] :caps Appium capabilities.
       # @option opts [Hash] :capabilities The same as :caps.
       #                                   This param is for compatibility with Selenium WebDriver format
-      # @option opts [Hash] :desired_capabilities The same as :caps.
-      #                                           This param is for compatibility with Selenium WebDriver format
       # @option opts [Appium::Core::Options] :appium_lib Capabilities affect only ruby client
       # @option opts [String] :url The same as :custom_url in :appium_lib.
       #                            This param is for compatibility with Selenium WebDriver format
@@ -199,10 +197,8 @@ module Appium
       #
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     # format 2. 'capabilities:' or 'desired_capabilities:' is also available instead of 'caps:'.
+      #     # format 2. 'capabilities:' is also available instead of 'caps:'.
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", capabilities: {...}, appium_lib: {...}
-      #     # format 3. 'appium_lib: {...}' can be blank
-      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}
       #
       #
       #     require 'rubygems'
@@ -230,7 +226,7 @@ module Appium
       #     @core.start_driver # Connect to 'http://127.0.0.1:8080/wd/hub' because of 'port: 8080'
       #
       #     # Start iOS driver with .zip file over HTTP
-      #     #  'desired_capabilities:' or 'capabilities:' is also available instead of 'caps:'. Either is fine.
+      #     # 'capabilities:' is also available instead of 'caps:'. Either is fine.
       #     opts = {
       #              capabilities: {
       #                platformName: :ios,
@@ -254,7 +250,7 @@ module Appium
       #     # Start iOS driver as another format. 'url' is available like below
       #     opts = {
       #              url: "http://custom-host:8080/wd/hub.com",
-      #              desired_capabilities: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -368,8 +364,8 @@ module Appium
 
         begin
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
-                                            http_client: @http_client,
-                                                     desired_capabilities: @caps,
+                                                     http_client: @http_client,
+                                                     capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
                                                      url: @custom_url)
 
           if @direct_connect
