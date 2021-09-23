@@ -25,7 +25,7 @@ require 'minitest'
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 begin
-  Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new, Minitest::Reporters::JUnitReporter.new]
+  Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new]
 rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end

@@ -27,8 +27,11 @@ module Appium
 
       class UnsupportedOperationError < CoreError; end
 
-      # Server side error
+      # Server side errors
       class ServerError < CoreError; end
+
+      # ruby_lib_core library specific errors
+      class ArgumentError < CoreError; end
     end
   end
 end

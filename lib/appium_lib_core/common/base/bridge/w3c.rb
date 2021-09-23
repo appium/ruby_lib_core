@@ -34,8 +34,24 @@ module Appium
           include Device::ExecuteDriver
           include Device::Orientation
 
+          attr_reader :available_commands
+
+          def initialize(capabilities, session_id, **opts)
+            @available_commands = ::Appium::Core::Commands::W3C::COMMANDS.dup
+            super(capabilities, session_id, **opts)
+          end
+
           def commands(command)
-            ::Appium::Core::Commands::W3C::COMMANDS[command]
+            @available_commands[command]
+          end
+
+          # command for Appium 2.0.
+          def add_command(method:, url:, name:, &block)
+            ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
+
+            @available_commands[name] = [method, url]
+
+            ::Appium::Core::Device.add_endpoint_method name, &block
           end
 
           # Returns all available sessions on the Appium server instance
@@ -170,9 +186,10 @@ module Appium
 
           # For Appium
           # No implementation for W3C webdriver module
-          def set_location(lat, lon, alt = 0.0, speed: nil)
+          def set_location(lat, lon, alt = 0.0, speed: nil, satellites: nil)
             loc = { latitude: lat, longitude: lon, altitude: alt }
             loc[:speed] = speed unless speed.nil?
+            loc[:satellites] = satellites unless satellites.nil?
             execute :set_location, {}, { location: loc }
           end
 

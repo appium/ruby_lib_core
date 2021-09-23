@@ -1,3 +1,26 @@
+#### v4.7.0 2021-07-17
+
+- [0059974](https://github.com/appium/ruby_lib_core/commit/0059974b0b1d79a822db84d8b0169e8393e00ef9) Release 4.7.0
+- [0f93a52](https://github.com/appium/ruby_lib_core/commit/0f93a52bbdc44bf916c9b974fe9fd09d48e5ff39) test: add more example and test (#328)
+- [9e37b3b](https://github.com/appium/ruby_lib_core/commit/9e37b3bc15f72f7c0117a49945a3fe482598f374) feat: add satellites for Android emulators (#327)
+- [3063a73](https://github.com/appium/ruby_lib_core/commit/3063a73fa291dc378daa53b7df2e4b0b8a6f03d2) ci: calls quit_driver to ensure close the previous session
+- [43fb9e7](https://github.com/appium/ruby_lib_core/commit/43fb9e77f5492a92f4f8c5a5bda71be9c3a9e2c8) chore: tweak naming in an internal variable
+
+
+#### v4.6.0 2021-06-03
+
+- [0dacfab](https://github.com/appium/ruby_lib_core/commit/0dacfab1256e1447e1f7a5974dfcf48ee0a72b9d) Release 4.6.0
+- [b9f015d](https://github.com/appium/ruby_lib_core/commit/b9f015d7dea14964a0733f2385ebcff68da1e18e) feat: allow to add commands dynamically (#325)
+- [3de96ee](https://github.com/appium/ruby_lib_core/commit/3de96eea133ccbcbc5c4d77adc7d67c065a5a38c) chore(deps-dev): update webmock requirement from ~> 3.12.1 to ~> 3.13.0 (#324)
+- [f1a9e79](https://github.com/appium/ruby_lib_core/commit/f1a9e79f3bd4d134e125fc2ed9adcf3d085afc9a) docs: address func test code as working example
+- [eb85b1b](https://github.com/appium/ruby_lib_core/commit/eb85b1b26623436cb0aae95a00fef7bc2d795520) remove ; in a test
+- [1632637](https://github.com/appium/ruby_lib_core/commit/1632637fd872c0b80dfb97b8514ada6a7164eebf) chore(deps-dev): update rubocop requirement from = 1.11.0 to = 1.12.0 (#321)
+- [b9e47aa](https://github.com/appium/ruby_lib_core/commit/b9e47aa9b02f060ffa91e8410ab97dc87d3640a4) docs: add docstring
+- [954a2fe](https://github.com/appium/ruby_lib_core/commit/954a2feebb768a55b496a2614d9e4dd8b702fc1e) chore(deps-dev): update rubocop requirement from = 1.8.1 to = 1.11.0 (#316)
+- [a5b9651](https://github.com/appium/ruby_lib_core/commit/a5b9651aa349c10bd9759fedac6f09e27012a5e5) chore(deps-dev): update webmock requirement from ~> 3.11.0 to ~> 3.12.1 (#319)
+- [485c096](https://github.com/appium/ruby_lib_core/commit/485c096273178aa5e21f28d93545fd127cbb8735) test: add assertion
+
+
 #### v4.5.0 2021-03-14
 
 - [656230e](https://github.com/appium/ruby_lib_core/commit/656230e688ed86414c06efaa73bce7359933cc91) Release 4.5.0
