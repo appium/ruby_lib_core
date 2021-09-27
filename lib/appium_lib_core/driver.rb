@@ -476,21 +476,6 @@ module Appium
         p_version.split('.').map(&:to_i)
       end
 
-      # Takes a png screenshot and saves to the target path.
-      #
-      # @param png_save_path [String] the full path to save the png
-      # @return [File]
-      #
-      # @example
-      #
-      #   @core.screenshot '/tmp/hi.png' #=> nil
-      #   # same as '@driver.save_screenshot png_save_path'
-      #
-      def screenshot(png_save_path)
-        ::Appium::Logger.warn '[DEPRECATION] screenshot will be removed. Please use driver.save_screenshot instead.'
-        @driver.save_screenshot png_save_path
-      end
-
       private
 
       # @private
@@ -587,8 +572,7 @@ module Appium
 
       # @private
       def get_caps(opts)
-        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || opts[:desired_capabilities] || {})
+        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private
@@ -601,15 +585,15 @@ module Appium
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
-        return unless @caps && @caps[:app] && !@caps[:app].empty?
-        return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
+        return unless @caps && @caps.app && !@caps.app.empty?
+        return if @caps.app =~ URI::DEFAULT_PARSER.make_regexp
 
-        app_path = File.expand_path(@caps[:app])
-        @caps[:app] = if File.exist? app_path
+        app_path = File.expand_path(@caps.app)
+        @caps.app = if File.exist? app_path
                         app_path
                       else
-                        ::Appium::Logger.warn("Use #{@caps[:app]} directly since #{app_path} does not exist.")
-                        @caps[:app]
+                        # ::Appium::Logger.warn("Use #{@caps[:app]} directly since #{app_path} does not exist.")
+                        @caps.app
                       end
       end
 
@@ -639,7 +623,7 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = @caps[:platformName]
+        @device = @caps.platform_name
         return @device unless @device
 
         @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
@@ -647,7 +631,7 @@ module Appium
 
       # @private
       def set_automation_name
-        @automation_name = @caps[:automationName] if @caps[:automationName]
+        @automation_name = @caps.automationName if @caps.automationName
         @automation_name = if @automation_name
                              @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
                            end

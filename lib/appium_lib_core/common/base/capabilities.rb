@@ -15,6 +15,76 @@
 module Appium
   module Core
     class Base
+      class Options < ::Selenium::WebDriver::Options
+        APPIUM_PREFIX = 'appium:'
+
+        class << self
+          def set_capabilities(opts)
+            (::Selenium::WebDriver::Options::W3C_OPTIONS + opts.keys).each do |key|
+              next if method_defined? key
+
+              define_method key do
+                @options[key]
+              end
+
+              define_method "#{key}=" do |value|
+                @options[key] = value
+              end
+            end
+          end
+        end
+
+        # def add_appium_prefix
+        #   @options.each do |name, value|
+        #     next if value.nil?
+        #     next if value.is_a?(String) && value.empty?
+
+        #     capability_name = name.to_s
+        #     w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
+
+        #     w3c_capabilities[w3c_name] = value
+        #   end
+        # end
+
+        attr_accessor :options
+
+        def initialize(opts)
+          @options = opts
+          self.class.set_capabilities opts
+        end
+
+        def as_json(*)
+          appium_options = @options.dup
+          w3c_options = process_w3c_options(options)
+
+          @options.each do |name, value|
+            next if value.nil?
+            next if value.is_a?(String) && value.empty?
+
+            _value = appium_options.delete(name)
+
+            capability_name = name.to_s
+            w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
+            appium_options[w3c_name] = value
+          end
+          generate_as_json(w3c_options.merge(appium_options))
+        end
+
+        def camel_case(str)
+          str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
+        end
+
+        def extension_prefix?(capability_name)
+          snake_cased_capability_names = W3C_OPTIONS.map(&:to_s)
+          camel_cased_capability_names = snake_cased_capability_names.map { |v| camel_case(v) }
+
+          # Check 'EXTENSION_CAPABILITY_PATTERN'
+          snake_cased_capability_names.include?(capability_name) ||
+            camel_cased_capability_names.include?(capability_name) ||
+            capability_name.match(':')
+        end
+      end
+
       module Capabilities
         # @private
         # @param [Hash] opts_caps Capabilities for Appium server. All capability keys are converted to lowerCamelCase when
@@ -29,7 +99,7 @@ module Appium
           # Appium's capabilities could change by depending on Appium versions. So it does not have
           # standard options like chrome and firefox etc. So, the implementation should differ from
           # other browsers. But here should inherit `Options` to follow Selenium.
-          ::Selenium::WebDriver::Remote::Capabilities.new(opts_caps)
+          ::Appium::Core::Base::Options.new(opts_caps)
         end
       end
     end

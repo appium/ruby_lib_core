@@ -33,9 +33,6 @@ module Appium
         include Device::ExecuteDriver
         include Device::Orientation
 
-        # Prefix for extra capability defined by W3C
-        APPIUM_PREFIX = 'appium:'
-
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
@@ -77,8 +74,9 @@ module Appium
         def create_session(capabilities)
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
 
-          caps = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { firstMatch: [caps] } })
+          caps = ::Appium::Core::Base::Options.new(capabilities.options)
+
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: [caps] } })
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
@@ -86,44 +84,7 @@ module Appium
           @capabilities = json_create(response['capabilities'])
         end
 
-        # Append +appium:+ prefix for Appium following W3C spec
-        # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
-        #
-        # @param [::Selenium::WebDriver::Remote::Capabilities, Hash] capabilities A capability
-        # @return [::Selenium::WebDriver::Remote::Capabilities]
-        def add_appium_prefix(capabilities)
-          w3c_capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
-
-          capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
-
-          capabilities.each do |name, value|
-            next if value.nil?
-            next if value.is_a?(String) && value.empty?
-
-            capability_name = name.to_s
-            w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
-
-            w3c_capabilities[w3c_name] = value
-          end
-
-          w3c_capabilities
-        end
-
         private
-
-        def camel_case(str)
-          str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
-        end
-
-        def extension_prefix?(capability_name)
-          snake_cased_capability_names = ::Selenium::WebDriver::Remote::Capabilities::KNOWN.map(&:to_s)
-          camel_cased_capability_names = snake_cased_capability_names.map { |v| camel_case(v) }
-
-          # Check 'EXTENSION_CAPABILITY_PATTERN'
-          snake_cased_capability_names.include?(capability_name) ||
-            camel_cased_capability_names.include?(capability_name) ||
-            capability_name.match(':')
-        end
 
         def json_create(value)
           ::Selenium::WebDriver::Remote::Capabilities.json_create(value)
