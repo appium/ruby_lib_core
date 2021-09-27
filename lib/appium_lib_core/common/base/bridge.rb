@@ -53,7 +53,7 @@ module Appium
         # Override
         # Creates session handling both OSS and W3C dialects.
         #
-        # @param [::Selenium::WebDriver::Remote::Capabilities, Hash] desired_capabilities A capability
+        # @param [::Selenium::WebDriver::Remote::Capabilities, Hash] capabilities A capability
         # @return [::Selenium::WebDriver::Remote::Capabilities]
         #
         # @example

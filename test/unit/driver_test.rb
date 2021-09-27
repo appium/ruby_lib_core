@@ -53,13 +53,6 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_with_desired_capabilities
-      opts = { desired_capabilities: { automationName: 'xcuitest' } }
-      driver = ExampleDriver.new(opts)
-      refute_nil driver
-      assert_equal driver.core.caps[:automationName], 'xcuitest'
-    end
-
     def test_with_caps_and_appium_lib
       opts = { caps: { automationName: 'xcuitest' }, appium_lib: {} }
       driver = ExampleDriver.new(opts)

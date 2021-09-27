@@ -563,10 +563,7 @@ module Appium
       def validate_keys(opts)
         flatten_ops = flatten_hash_keys(opts)
 
-        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
-        unless opts.member?(:caps) || opts.member?(:capabilities) || opts.member?(:desired_capabilities)
-          raise Error::NoCapabilityError
-        end
+        raise Error::NoCapabilityError unless opts.member?(:caps) || opts.member?(:capabilities)
 
         if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
           raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
@@ -587,8 +584,7 @@ module Appium
 
       # @private
       def get_caps(opts)
-        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || opts[:desired_capabilities] || {})
+        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private

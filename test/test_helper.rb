@@ -259,7 +259,7 @@ class AppiumLibCoreTest
     # We should update platformVersion and deviceName to fit your environment.
     def android(activity_name = nil)
       cap = {
-        desired_capabilities: { # :caps is also available
+        capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
@@ -295,11 +295,11 @@ class AppiumLibCoreTest
       }
 
       # settins in caps should work over Appium 1.13.0
-      if cap[:desired_capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
-        cap[:desired_capabilities]['settings[trackScrollEvents]'] = false
+      if cap[:capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
+        cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
-        cap[:desired_capabilities][:forceEspressoRebuild] = false
-        cap[:desired_capabilities][:espressoBuildConfig] = {
+        cap[:capabilities][:forceEspressoRebuild] = false
+        cap[:capabilities][:espressoBuildConfig] = {
           additionalAndroidTestDependencies: ['com.google.android.material:material:1.2.1']
         }.to_json
       end
@@ -309,7 +309,7 @@ class AppiumLibCoreTest
 
     def android_direct
       {
-        desired_capabilities: android[:desired_capabilities],
+        capabilities: android[:capabilities],
         appium_lib: {
           export_session: true,
           wait: 30,

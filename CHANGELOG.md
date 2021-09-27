@@ -17,6 +17,8 @@ Read `release_notes.md` for commit level details.
 - Support only W3C spec
 - Support Ruby 2.5+
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
+- Removed `desired_capabilities` from capabilities. Please use `capabilities` instead.
+- `element.ref` returns not only element id. It returns an array like `[:driver, id]`. You should do `_, element_id = element.ref` to get the element id
 
 ## [4.7.0] - 2021-07-17
 
