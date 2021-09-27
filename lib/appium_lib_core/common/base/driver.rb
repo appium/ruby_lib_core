@@ -57,23 +57,7 @@ module Appium
         # @return [::Appium::Core::Base::Bridge]
         #
         def create_bridge(**opts)
-          caps = opts.delete(:capabilities)
-          # NOTE: This is deprecated
-          cap_array = caps.is_a?(Hash) ? [caps] : Array(caps)
-
-          desired_capabilities = opts.delete(:desired_capabilities)
-          if desired_capabilities
-            if desired_capabilities.is_a?(Hash)
-              desired_capabilities = ::Selenium::WebDriver::Remote::Capabilities(desired_capabilities)
-            end
-            cap_array << desired_capabilities
-          end
-
-          options = opts.delete(:options)
-          cap_array << options if options
-
-          capabilities = generate_capabilities(cap_array)
-
+          capabilities = opts.delete(:capabilities)
           bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 

@@ -22,6 +22,13 @@ module Appium
         # @return [::Selenium::WebDriver::Remote::Capabilities] Return instance of Appium::Core::Base::Capabilities
         #                         inherited ::Selenium::WebDriver::Remote::Capabilities
         def self.create_capabilities(opts_caps = {})
+          # TODO: Move to 'Options' way instead of 'Capabilities'.
+          # Selenium 5 will have Options instead of 'Capabilities'.
+          # https://github.com/SeleniumHQ/selenium/blob/trunk/rb/lib/selenium/webdriver/common/options.rb
+          # Then, Ruby client also shoud move to the Options way.
+          # Appium's capabilities could change by depending on Appium versions. So it does not have
+          # standard options like chrome and firefox etc. So, the implementation should differ from
+          # other browsers. But here should inherit `Options` to follow Selenium.
           ::Selenium::WebDriver::Remote::Capabilities.new(opts_caps)
         end
       end
