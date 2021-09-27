@@ -78,7 +78,7 @@ module Appium
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
 
           caps = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { firstMatch: [caps] } })
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: caps, firstMatch: [] } })
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id

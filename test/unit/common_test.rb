@@ -59,7 +59,7 @@ class AppiumLibCoreTest
         response = { value: RESPONSE_BASE_VALUE }.to_json
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-          .with(body: { capabilities: { firstMatch: [APPIUM_PREFIX_CAPS] } }.to_json)
+          .with(body: { capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
@@ -95,6 +95,7 @@ class AppiumLibCoreTest
             }
           }
         }.to_json
+
         http_caps = {
           platformName: :android,
           automationName: 'uiautomator2',
@@ -114,7 +115,7 @@ class AppiumLibCoreTest
         }
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-          .with(body: { capabilities: { firstMatch: [appium_prefix_http_caps] } }.to_json)
+          .with(body: { capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         stub_request(:post, "#{Mock::SESSION}/timeouts")
