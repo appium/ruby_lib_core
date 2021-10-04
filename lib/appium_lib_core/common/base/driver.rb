@@ -44,11 +44,11 @@ module Appium
           listener = opts.delete(:listener)
 
           existing_session_id = opts.delete(:existing_session_id)
-          if existing_session_id.nil?
-            @bridge = ::Appium::Core::Base::Bridge.handshake(**opts)
-          else
-            @bridge = ::Appium::Core::Base::Driver.attach_to session_id
-          end
+          @bridge = if existing_session_id.nil?
+                      ::Appium::Core::Base::Bridge.handshake(**opts)
+                    else
+                      ::Appium::Core::Base::Bridge.attach_to(existing_session_id, **opts)
+                    end
           super(@bridge, listener: listener)
         end
 

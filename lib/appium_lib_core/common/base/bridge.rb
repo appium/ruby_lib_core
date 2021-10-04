@@ -56,11 +56,24 @@ module Appium
           end
         end
 
-        def self.attach_to(session_id)
-          # todo: add nil check
+        def self.attach_to(session_id, **opts)
+          # get the capabilities of an existing session
+          bridge = new(opts)
+          capabilities = bridge.session_capabilities_to_attach session_id
+
+          case bridge.dialect
+          when :oss # for MJSONWP
+            Bridge::MJSONWP.new(capabilities, bridge.session_id, **opts)
+          when :w3c
+            Bridge::W3C.new(capabilities, bridge.session_id, **opts)
+          else
+            raise CoreError, 'cannot understand dialect'
+          end
+        end
+
+        def session_capabilities_to_attach session_id
           @session_id = session_id
 
-          # get the capabilities of an existing session
           response = execute :get_capabilities
 
           oss_status = response['status'] # for compatibility with Appium 1.7.1-
@@ -122,6 +135,15 @@ module Appium
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
           json_create(oss_status, value)
+        end
+
+        def commands(command)
+          raise NotImplementedError unless [:new_session, :get_capabilities].include? command
+
+          {
+            new_session: [:post, 'session'],
+            get_capabilities: [:get, 'session/:session_id']
+          }[command]
         end
 
         # Append +appium:+ prefix for Appium following W3C spec

@@ -302,6 +302,7 @@ module Appium
         set_appium_device
         set_automation_name
 
+        # TODO: need to tweak in 'attach_to' case
         extend_for(device: @device, automation_name: @automation_name)
 
         self # rubocop:disable Lint/Void
@@ -400,8 +401,8 @@ module Appium
 
 
       # Attach to an existing session
-      def attach_to(server_url: nil,
-                    session_id: nil,
+      def attach_to(session_id,
+                    server_url: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
         @custom_url ||= server_url || "http://127.0.0.1:#{@port}/wd/hub"
 
@@ -420,7 +421,6 @@ module Appium
         begin
           # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
           @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
-                                                     desired_capabilities: @caps,
                                                      url: @custom_url,
                                                      listener: @listener,
                                                      existing_session_id: session_id)
