@@ -468,14 +468,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
 
@@ -496,14 +491,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
       driver
     end
 
@@ -523,14 +513,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
 
@@ -548,14 +533,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
   end

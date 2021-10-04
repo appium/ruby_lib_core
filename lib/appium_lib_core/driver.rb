@@ -40,7 +40,7 @@ module Appium
 
       def initialize(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, nil
-        @default_wait = appium_lib_opts.fetch :wait, Driver::DEFAULT_IMPLICIT_WAIT
+        @default_wait = appium_lib_opts.fetch :wait, nil
         @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
 
         # bump current session id into a particular file
@@ -135,11 +135,9 @@ module Appium
       attr_reader :export_session_path
 
       # Default wait time for elements to appear in Appium server side.
-      # Defaults to {::Appium::Core::Driver::DEFAULT_IMPLICIT_WAIT}.<br>
       # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
       # @return [Integer]
       attr_reader :default_wait
-      DEFAULT_IMPLICIT_WAIT = 0
 
       # Appium's server port. 4723 is by default. Defaults to {::Appium::Core::Driver::DEFAULT_APPIUM_PORT}.<br>
       # Provide <code>{ appium_lib: { port: 8080 } }</code> to {::Appium::Core.for}.
@@ -407,6 +405,8 @@ module Appium
 
       # Ignore setting default wait if the target driver has no implementation
       def set_implicit_wait_by_default(wait)
+        return if @default_wait.nil?
+
         @driver.manage.timeouts.implicit_wait = wait
       rescue ::Selenium::WebDriver::Error::UnknownError => e
         unless e.message.include?('The operation requested is not yet implemented')

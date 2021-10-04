@@ -62,10 +62,6 @@ class AppiumLibCoreTest
           .with(body: { capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
-        stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 0 }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
-
         stub_request(:get, 'http://127.0.0.1:4723/wd/hub/sessions')
           .to_return(headers: Mock::HEADER, status: 200, body: { value: [{ id: 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3',
                                                                            capabilities: CAPS }] }.to_json)
@@ -73,7 +69,6 @@ class AppiumLibCoreTest
         driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
 
         sessions = driver.sessions
         assert_requested(:get, 'http://127.0.0.1:4723/wd/hub/sessions', times: 1)
@@ -118,15 +113,10 @@ class AppiumLibCoreTest
           .with(body: { capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
-        stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 0 }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
-
         core = ::Appium::Core.for({ caps: http_caps, appium_lib: {} })
         core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
 
         assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
       end
