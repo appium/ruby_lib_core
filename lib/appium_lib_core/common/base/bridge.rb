@@ -56,6 +56,27 @@ module Appium
           end
         end
 
+        def self.attach_to(session_id)
+          # todo: add nil check
+          @session_id = session_id
+
+          # get the capabilities of an existing session
+          response = execute :get_capabilities
+
+          oss_status = response['status'] # for compatibility with Appium 1.7.1-
+          value = response['value']
+
+          if value.is_a?(Hash) # include for W3C format
+            if value.key?('capabilities')
+              value = value['capabilities']
+            elsif value.key?('value')
+              value = value['value']
+            end
+          end
+
+          json_create(oss_status, value)
+        end
+
         # Override
         # Creates session handling both OSS and W3C dialects.
         # Copy from Selenium::WebDriver::Remote::Bridge to keep using +merged_capabilities+ for Appium
