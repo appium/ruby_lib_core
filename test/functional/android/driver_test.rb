@@ -67,6 +67,8 @@ class AppiumLibCoreTest
       @driver.find_element(:accessibility_id, 'Activity').click
       @driver.find_element(:accessibility_id, 'Custom Title').click
 
+      # TODO: does not work on Android 12? Need to check on a real device.
+      # The behavior is typing the word into the text field.
       e = @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit'
       e.click
 
