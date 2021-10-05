@@ -27,6 +27,7 @@ class AppiumLibCoreTest
         @core.quit_driver
       end
 
+      # TODO: check
       # @since Appium 1.12.0
       def test_permissions
         @driver = @core.start_driver
@@ -73,6 +74,7 @@ class AppiumLibCoreTest
         assert granted_permissions.member?(permissions.first)
       end
 
+      # TODO: check
       # @since Appium 1.10.0
       def test_toast
         skip unless @core.automation_name == :espresso
@@ -89,6 +91,7 @@ class AppiumLibCoreTest
         assert !@driver.execute_script('mobile: isToastVisible', { text: 'A toast', isRegexp: true })
       end
 
+      # TODO; check
       # @since Appium 1.11.0
       def test_drawer
         skip unless @core.automation_name == :espresso
@@ -181,6 +184,7 @@ class AppiumLibCoreTest
                                     'Could not perform scroll to on element'
       end
 
+      # TODO: check
       # @since Appium 1.11.0 (Newer than 1.10.0)
       # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
       def test_backdoor
@@ -202,6 +206,7 @@ class AppiumLibCoreTest
         assert type['mStyle']
       end
 
+      # TODO: check
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
       def test_webatom
         skip unless @core.automation_name == :espresso

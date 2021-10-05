@@ -96,11 +96,19 @@ class AppiumLibCoreTest
         assert !File.exist?(file.path)
       end
 
+      # TODO: check
       def test_clipbord
         input = 'happy testing'
 
         @driver.set_clipboard(content: input, label: 'Note')
 
+        # --- expected
+        # +++ actual
+        # @@ -1 +1,3 @@
+        # -"happy testing"
+        # +# encoding: ASCII-8BIT
+        # +#    valid: true
+        # +""
         assert_equal input, @driver.get_clipboard
       end
 
