@@ -89,7 +89,7 @@ class AppiumLibCoreTest
         assert !@driver.execute_script('mobile: isToastVisible', { text: 'A toast', isRegexp: true })
       end
 
-      # TODO; check
+      # TODO: Ok, but need to update properly. It raised an error "Original error: Could not open drawer. Reason: androidx.test.espresso.PerformException" on Android 12.
       # @since Appium 1.11.0
       def test_drawer
         skip unless @core.automation_name == :espresso
