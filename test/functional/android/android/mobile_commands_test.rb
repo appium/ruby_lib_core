@@ -199,23 +199,9 @@ class AppiumLibCoreTest
         e = @driver.find_elements :class, 'android.widget.TextView'
         assert_equal '0', e.last.text
 
-        # 10-05 18:20:30.419   524  2427 W ActivityManager: Crash of app io.appium.android.apis running instrumentation ComponentInfo{io.appium.espressoserver.test/androidx.test.runner.AndroidJUnitRunner}
-        # 10-05 18:20:30.420   524  2427 I ActivityManager: Force stopping io.appium.android.apis appid=10151 user=0: finished inst
-        # 10-05 18:20:30.421   524  2798 W WindowManager: Cannot find window which accessibility connection is added to
-        # 10-05 18:20:30.424  6066  6078 W Binder  : Caught a RuntimeException from the binder stub implementation.
-        # 10-05 18:20:30.424  6066  6078 W Binder  : java.lang.SecurityException: Calling from not trusted UID!
-        # 10-05 18:20:30.424  6066  6078 W Binder  : 	at android.app.UiAutomationConnection.throwIfCalledByNotTrustedUidLocked(UiAutomationConnection.java:601)
-        # 10-05 18:20:30.424  6066  6078 W Binder  : 	at android.app.UiAutomationConnection.shutdown(UiAutomationConnection.java:505)
-        # 10-05 18:20:30.424  6066  6078 W Binder  : 	at android.app.IUiAutomationConnection$Stub.onTransact(IUiAutomationConnection.java:437)
-        # 10-05 18:20:30.424  6066  6078 W Binder  : 	at android.os.Binder.execTransactInternal(Binder.java:1184)
-        # 10-05 18:20:30.424  6066  6078 W Binder  : 	at android.os.Binder.execTransact(Binder.java:1143)
-        # 10-05 18:20:30.433  1366  1366 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=83, right=0, bottom=132}
-        # 10-05 18:20:30.433  1366  1366 I A       : onApplyWindowInsets: systemWindowInsets=Insets{left=0, top=83, right=0, bottom=132}
-        # 10-05 18:20:30.436   329   467 D goldfish-address-space: claimShared: Ask to claim region [0x3f4b32000 0x3f5497000]
-        # 10-05 18:20:30.448   329   467 D goldfish-address-space: claimShared: Ask to claim region [0x3f5497000 0x3f5dfc000]
-        type = @driver.execute_script('mobile: backdoor',
-                                      { target: :element, elementId: e.last.ref, methods: [{ name: 'getTypeface' }] })
-        assert type['mStyle']
+        stype = @driver.execute_script('mobile: backdoor', {
+          target: :element, elementId: e.last.ref, methods: [{ name: 'getTypeface' }, { name: 'getStyle' }] })
+        assert stype == 0
       end
 
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
