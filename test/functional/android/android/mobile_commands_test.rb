@@ -182,7 +182,6 @@ class AppiumLibCoreTest
                                     'Could not perform scroll to on element'
       end
 
-      # TODO: check
       # @since Appium 1.11.0 (Newer than 1.10.0)
       # https://github.com/appium/appium-espresso-driver/blob/0e03d2ca63dd0e77277aa3c493d239456bc2a899/lib/commands/general.js#L135-L174
       def test_backdoor
