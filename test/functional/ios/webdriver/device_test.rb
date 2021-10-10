@@ -145,7 +145,7 @@ class AppiumLibCoreTest
 
       def test_implicit_wait
         # checking no method error
-        assert(@@driver.manage.timeouts.implicit_wait = @@core.default_wait)
+        assert(@@driver.manage.timeouts.implicit_wait = 0)
       end
 
       def test_rotate
