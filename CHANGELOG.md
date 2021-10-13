@@ -18,7 +18,7 @@ Read `release_notes.md` for commit level details.
 - Support Ruby 2.5+
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
 - Removed `desired_capabilities` from capabilities. Please use `capabilities` key name instead.
-- `element.ref` returns not only element id. It returns an array like `[:driver, id]`. You should do `_, element_id = element.ref` to get the element id
+- `element.id` returns the element id instead of `element.ref`
 - Removed `driver#screenshot`. Please use `driver#save_screenshot` instead.
 - Remove `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead.
 - No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly.

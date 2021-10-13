@@ -41,14 +41,13 @@ class AppiumLibCoreTest
         elements = @driver.find_elements :class, 'XCUIElementTypePickerWheel'
         assert_equal '65', elements[0].value
 
-        _, eleemnt_id = elements[0].ref
-        args = { element: eleemnt_id, order: :next }
+        args = { element: elements[0].id, order: :next }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
         # 'Chris Armstrong' is the next. 'Serena Auroux' is 2 steps next.
         # iOS 13.0 selects 'chris armstrong' (expected) while iOS 12.x selects 'Serena Auroux' sometimes
         assert %w(70 75).include?(elements[0].value)
 
-        args = { element: eleemnt_id, order: :previous }
+        args = { element: elements[0].id, order: :previous }
         @driver.execute_script 'mobile: selectPickerWheelValue', args
         assert_equal '65', elements[0].value
       end

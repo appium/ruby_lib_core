@@ -207,8 +207,7 @@ module Appium
           # For W3C
           # https://github.com/SeleniumHQ/selenium/commit/b618499adcc3a9f667590652c5757c0caa703289
           # execute_atom :isDisplayed, element
-          _, element_id = element.ref
-          execute :is_element_displayed, id: element_id
+          execute :is_element_displayed, id: element.id
         end
 
         # For Appium
@@ -216,8 +215,7 @@ module Appium
         def element_attribute(element, name)
           # For W3C in Selenium Client
           # execute_atom :getAttribute, element, name
-          _, element_id = element.ref
-          execute :get_element_attribute, id: element_id, name: name
+          execute :get_element_attribute, id: element.id, name: name
         end
 
         # For Appium

@@ -28,8 +28,7 @@ To handle it, we would recommend you to handle the error based on the error mess
 
 ```ruby
 error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-  _, element_id = el.ref
-  @driver.execute_script 'mobile: scrollToPage', { element: element_id, scrollToPage: -100 }
+  @driver.execute_script 'mobile: scrollToPage', { element: el.id, scrollToPage: -100 }
 end
 assert error.message.include? 'be a non-negative integer'
 ```

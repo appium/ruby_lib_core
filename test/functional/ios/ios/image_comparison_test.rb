@@ -100,8 +100,7 @@ class AppiumLibCoreTest
 
         assert image_element.inspect
         assert image_element.hash
-        _, element_id = element.ref
-        assert element_id =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
         assert !image_element.visual.nil?
 
         el_location = el.location
@@ -147,8 +146,7 @@ class AppiumLibCoreTest
 
         assert image_element.inspect
         assert image_element.hash
-        _, element_id = element.ref
-        assert element_id =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location

@@ -82,12 +82,11 @@ module Appium
         #     @@driver.element_screenshot_as element, :base64 #=> "iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX"
         #
         def element_screenshot_as(element, format)
-          _, element_id = element.ref
           case format
           when :base64
-            bridge.element_screenshot element_id
+            bridge.element_screenshot element.id
           when :png
-            bridge.element_screenshot(element_id).unpack('m')[0]
+            bridge.element_screenshot(element.id).unpack('m')[0]
           else
             raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
           end

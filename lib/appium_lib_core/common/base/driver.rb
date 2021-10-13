@@ -159,8 +159,7 @@ module Appium
         #   # ':session_id' in the given url is replaced with current 'session id'.
         #   # ':id' in the given url is replaced with the given 'element_id'.
         #   e = @driver.find_element :accessibility_id, 'an element'
-        #   _, element_id = e.ref
-        #   @driver.test_action_command(element_id, 'action')
+        #   @driver.test_action_command(e.id, 'action')
         #
         def add_command(method:, url:, name:, &block)
           unless AVAILABLE_METHODS.include? method

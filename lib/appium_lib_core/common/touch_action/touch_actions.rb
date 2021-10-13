@@ -195,10 +195,7 @@ module Appium
       end
 
       def args_with_ele_ref(args)
-        if args.key? :element
-          _, element_id = args[:element].ref
-          args[:element] = element_id
-        end
+        args[:element] = args[:element].id if args.key? :element
         args
       end
     end # class TouchAction

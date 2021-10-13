@@ -34,7 +34,7 @@ class AppiumLibCoreTest
       e = driver.find_element :image, 'base64 string'
 
       assert_requested(:post, "#{SESSION}/element", times: 1)
-      assert_equal 'appium-image-element-bb24f75c-5c15-478d-bb38-c003788aa5f8', e.ref[1]
+      assert_equal 'appium-image-element-bb24f75c-5c15-478d-bb38-c003788aa5f8', e.id
     end
   end
 end

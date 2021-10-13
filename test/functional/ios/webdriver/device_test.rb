@@ -158,9 +158,8 @@ class AppiumLibCoreTest
 
       # TODO: add an async execuite test case
       # def test_async_execuite
-      #   _, element_id = element.ref
-      #   @@driver.execute_async_script('mobile: tap', x: 0, y: 0, element: element_id)
-      #   @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element_id)
+      #   @@driver.execute_async_script('mobile: tap', x: 0, y: 0, element: element.id)
+      #   @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.id)
       # end
 
       def test_logs

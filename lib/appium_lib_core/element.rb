@@ -20,6 +20,15 @@ module Appium
       include ::Appium::Core::Base::SearchContext
       include ::Appium::Core::Base::TakesScreenshot
 
+      # Retuns the element id.
+      #
+      # @return [String]
+      # @example
+      #   e = @driver.find_element :accessibility_id, 'something'
+      #   e.id
+      #
+      attr_reader :id
+
       # Returns the value of attributes like below. Read each platform to know more details.
       #
       # uiautomator2: https://github.com/appium/appium-uiautomator2-server/blob/203cc7e57ce477f3cff5d95b135d1b3450a6033a/app/src/main/java/io/appium/uiautomator2/utils/Attribute.java#L19
