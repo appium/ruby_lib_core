@@ -476,21 +476,6 @@ module Appium
         p_version.split('.').map(&:to_i)
       end
 
-      # Takes a png screenshot and saves to the target path.
-      #
-      # @param png_save_path [String] the full path to save the png
-      # @return [File]
-      #
-      # @example
-      #
-      #   @core.screenshot '/tmp/hi.png' #=> nil
-      #   # same as '@driver.save_screenshot png_save_path'
-      #
-      def screenshot(png_save_path)
-        ::Appium::Logger.warn '[DEPRECATION] screenshot will be removed. Please use driver.save_screenshot instead.'
-        @driver.save_screenshot png_save_path
-      end
-
       private
 
       # @private

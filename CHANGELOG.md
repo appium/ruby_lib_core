@@ -11,14 +11,17 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [5.0.0.beta]
+## [5.0.0]
 
-- Update base selenium webdriver version to `4.0.0.beta2`
+- Update base selenium webdriver version to `4.0.0`
 - Support only W3C spec
 - Support Ruby 2.5+
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
-- Removed `desired_capabilities` from capabilities. Please use `capabilities` instead.
+- Removed `desired_capabilities` from capabilities. Please use `capabilities` key name instead.
 - `element.ref` returns not only element id. It returns an array like `[:driver, id]`. You should do `_, element_id = element.ref` to get the element id
+- Removed `driver#screenshot`. Please use `driver#save_screenshot` instead.
+- Remove `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead.
+- No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly.
 
 ## [4.7.0] - 2021-07-17
 
