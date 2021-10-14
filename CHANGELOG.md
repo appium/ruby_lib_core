@@ -16,7 +16,7 @@ Read `release_notes.md` for commit level details.
 
 - Update base selenium webdriver version to `4.0.0`
   - Support only W3C spec as following Selenium v4 client
-  - Support Ruby 2.5+
+  - Support Ruby 2.6+
 - `element.id` returns the element id instead of `element.ref`. `element.ref` now returns an array.
 - Removed `desired_capabilities` as capabilities for `Appium::Core#for`. Please use `capabilities` key name instead
 - Removals that already had _duplication_ mark
