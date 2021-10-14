@@ -22,7 +22,8 @@ Read `release_notes.md` for commit level details.
 - Removals that already had _duplication_ mark
   - Removed `driver#screenshot`. Please use `driver#save_screenshot` instead
   - Removed `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead
-- No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly.
+  - Removed `forceMjsonwp` to send only MJSONWP capabilities since Selenium cleint v4 no longer supports MJSONWP
+- No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
 
 ## [4.7.1] - 2021-09-26
