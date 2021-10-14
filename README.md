@@ -79,7 +79,7 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 
 - Runs on CI environment (on Azure)
     - Non `IGNORE_VERSION_SKIP` or `IGNORE_VERSION_SKIP=true` runs all tests ignoring `skip` them by Appium versions
-    - `IGNORE_VERSION_SKIP=false` skips the following tests if the Appium version is lower than the requirement  
+    - `IGNORE_VERSION_SKIP=false` skips the following tests if the Appium version is lower than the requirement
 
 ```
 $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
@@ -93,9 +93,9 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     ```ruby
     require 'rubygems'
     require 'appium_lib_core'
-    
+
     opts = {
-      desired_capabilities: { # or { caps: {....} }
+      capabilities: { # or { caps: {....} }
         platformName: :ios,
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
@@ -108,7 +108,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     }
     @core = Appium::Core.for(opts) # create a core driver with `opts`
     @driver = @core.start_driver
-    
+
     # Launch iPhone Simulator and `MyiOS.app`
     @driver.find_element(:accessibility_id, 'some accessibility') # find an element
     ```
@@ -116,7 +116,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     ```bash
     # shell 1
     $ appium --log-level warn:error # show only warning and error logs
-    
+
     # shell 2
     $ ruby test.rb
     ```
