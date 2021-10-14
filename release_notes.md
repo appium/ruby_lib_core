@@ -1,3 +1,13 @@
+#### v4.7.1 2021-09-26
+
+- [cdd8906](https://github.com/appium/ruby_lib_core/commit/cdd890662585aa5051912d20d90ec3c3866ad8b1) Release 4.7.1
+- [059b092](https://github.com/appium/ruby_lib_core/commit/059b0920becd60d691b0b4fac05cc0d96bcc59c7) ci: tweak brew install
+- [fb32697](https://github.com/appium/ruby_lib_core/commit/fb32697d5ee7cf4ea4367aa9f9bf4458723d6fce) feat: allow to override an existing method by add_command (#330)
+- [cbf7f1f](https://github.com/appium/ruby_lib_core/commit/cbf7f1fc2ce6bb8833e2a7324446d79cbc848834) chore(deps-dev): update webmock requirement from ~> 3.13.0 to ~> 3.14.0 (#329)
+- [beefb17](https://github.com/appium/ruby_lib_core/commit/beefb179ac25e9337bf2badaf4eb0c4cfc5b1e45) chore(deps-dev): update rubocop requirement from = 1.12.0 to = 1.12.1 (#322)
+- [3438b48](https://github.com/appium/ruby_lib_core/commit/3438b481523ec978d06bc243cd42eee8dc00356f) docs: tweak docstring
+
+
 #### v4.7.0 2021-07-17
 
 - [0059974](https://github.com/appium/ruby_lib_core/commit/0059974b0b1d79a822db84d8b0169e8393e00ef9) Release 4.7.0

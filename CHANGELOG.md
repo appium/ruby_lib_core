@@ -5,7 +5,6 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Allow to override an existing method by `Appium::Core::Base::Driver#add_command` since Appium drivers/plugins allow to override them
 
 ### Bug fixes
 
@@ -13,15 +12,23 @@ Read `release_notes.md` for commit level details.
 
 ## [5.0.0]
 
+### Enhancements
+
 - Update base selenium webdriver version to `4.0.0`
-- Support only W3C spec
-- Support Ruby 2.5+
-- Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
-- Removed `desired_capabilities` from capabilities. Please use `capabilities` key name instead.
-- `element.id` returns the element id instead of `element.ref`
-- Removed `driver#screenshot`. Please use `driver#save_screenshot` instead.
-- Remove `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead.
+  - Support only W3C spec as following Selenium v4 client
+  - Support Ruby 2.5+
+- `element.id` returns the element id instead of `element.ref`. `element.ref` now returns an array.
+- Removed `desired_capabilities` as capabilities for `Appium::Core#for`. Please use `capabilities` key name instead
+- Removals that already had _duplication_ mark
+  - Removed `driver#screenshot`. Please use `driver#save_screenshot` instead
+  - Removed `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead
 - No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly.
+- Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
+
+## [4.7.1] - 2021-09-26
+
+### Enhancements
+- Allow to override an existing method by `Appium::Core::Base::Driver#add_command` since Appium drivers/plugins allow to override them
 
 ## [4.7.0] - 2021-07-17
 
