@@ -84,9 +84,9 @@ module Appium
         def element_screenshot_as(element, format)
           case format
           when :base64
-            bridge.take_element_screenshot(element)
+            bridge.element_screenshot element.id
           when :png
-            bridge.take_element_screenshot(element).unpack('m')[0]
+            bridge.element_screenshot(element.id).unpack('m')[0]
           else
             raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
           end
@@ -106,7 +106,7 @@ module Appium
             ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
                                   'It should end with .png extension'
           end
-          viewport_screenshot_encode64 = bridge.take_viewport_screenshot
+          viewport_screenshot_encode64 = bridge.viewport_screenshot
           File.open(png_path, 'wb') { |f| f << viewport_screenshot_encode64.unpack('m')[0] }
         end
       end

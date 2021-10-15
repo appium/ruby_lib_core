@@ -53,13 +53,6 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_with_desired_capabilities
-      opts = { desired_capabilities: { automationName: 'xcuitest' } }
-      driver = ExampleDriver.new(opts)
-      refute_nil driver
-      assert_equal driver.core.caps[:automationName], 'xcuitest'
-    end
-
     def test_with_caps_and_appium_lib
       opts = { caps: { automationName: 'xcuitest' }, appium_lib: {} }
       driver = ExampleDriver.new(opts)
@@ -374,7 +367,7 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 22, ::Selenium::WebDriver::Element::FINDERS.length
+      assert_equal 23, ::Appium::Core::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
                      css: 'css selector',                    # Defined in W3C spec
@@ -383,6 +376,7 @@ class AppiumLibCoreTest
                      link_text: 'link text',                 # Defined in W3C spec
                      name: 'name',
                      partial_link_text: 'partial link text', # Defined in W3C spec
+                     relative: 'relative',                   # Defined in Selenium
                      tag_name: 'tag name',                   # Defined in W3C spec
                      xpath: 'xpath',                         # Defined in W3C spec
                      accessibility_id: 'accessibility id',
@@ -396,7 +390,7 @@ class AppiumLibCoreTest
                      predicate: '-ios predicate string',
                      class_chain: '-ios class chain',
                      windows_uiautomation: '-windows uiautomation',
-                     tizen_uiautomation: '-tizen uiautomation' }, ::Selenium::WebDriver::Element::FINDERS)
+                     tizen_uiautomation: '-tizen uiautomation' }, ::Appium::Core::Element::FINDERS)
     end
   end
 end

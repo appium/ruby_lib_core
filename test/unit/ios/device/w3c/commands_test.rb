@@ -138,7 +138,7 @@ class AppiumLibCoreTest
             stub_request(:get, "#{SESSION}/element/id/attribute/name")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            e = ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+            e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
             e.name
 
             assert_requested(:get, "#{SESSION}/element/id/attribute/name", times: 1)

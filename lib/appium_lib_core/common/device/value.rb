@@ -17,12 +17,12 @@ module Appium
     class Base
       module Device
         module Value
-          def set_immediate_value(element, *value)
-            execute :set_immediate_value, { id: element.ref }, generate_value_and_text(value)
+          def set_immediate_value(element_id, *value)
+            execute :set_immediate_value, { id: element_id }, generate_value_and_text(value)
           end
 
-          def replace_value(element, *value)
-            execute :replace_value, { id: element.ref }, generate_value_and_text(value)
+          def replace_value(element_id, *value)
+            execute :replace_value, { id: element_id }, generate_value_and_text(value)
           end
 
           private

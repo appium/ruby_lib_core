@@ -9,7 +9,7 @@ We can invoke them via `execute_script` command with `mobile:` arguments.
     - https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android
 - iOS:
     - https://github.com/appium/appium/tree/master/docs/en/writing-running-appium/ios
-    
+
 
 ```ruby
 # Android shell : https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-shell.md
@@ -28,7 +28,7 @@ To handle it, we would recommend you to handle the error based on the error mess
 
 ```ruby
 error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-  @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: -100 }
+  @driver.execute_script 'mobile: scrollToPage', { element: el.id, scrollToPage: -100 }
 end
 assert error.message.include? 'be a non-negative integer'
 ```

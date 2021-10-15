@@ -17,11 +17,8 @@ require 'selenium-webdriver'
 require_relative 'appium_lib_core/version'
 require_relative 'appium_lib_core/common'
 require_relative 'appium_lib_core/driver'
-
 require_relative 'appium_lib_core/device'
-
-# Call patch after requiring other files
-require_relative 'appium_lib_core/patch'
+require_relative 'appium_lib_core/element'
 
 module Appium
   # convert all keys (including nested) to symbols
@@ -30,7 +27,7 @@ module Appium
   # https://github.com/rails/docrails/blob/a3b1105ada3da64acfa3843b164b14b734456a50/activesupport/lib/active_support/core_ext/hash/keys.rb#L84
   # @param [Hash] hash Hash value to make symbolise
   def self.symbolize_keys(hash)
-    raise ArgumentError, 'symbolize_keys requires a hash' unless hash.is_a? Hash
+    raise ::Appium::Core::Error::ArgumentError, 'symbolize_keys requires a hash' unless hash.is_a? Hash
 
     hash.each_with_object({}) do |pair, acc|
       key = begin

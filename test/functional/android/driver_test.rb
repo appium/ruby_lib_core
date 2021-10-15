@@ -39,15 +39,6 @@ class AppiumLibCoreTest
       assert @@core.platform_version.length => 1
     end
 
-    def test_screenshot
-      file = @@core.screenshot 'android_test.png'
-
-      assert File.exist?(file.path)
-
-      File.delete file.path
-      assert !File.exist?(file.path)
-    end
-
     def test_wait_true
       e = @@core.wait_true { @driver.find_element :accessibility_id, 'Content' }
       assert e.text

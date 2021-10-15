@@ -66,7 +66,7 @@ class AppiumLibCoreTest
 
             @driver
               .action
-              .move_to(::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'))
+              .move_to(::Appium::Core::Element.new(@driver.send(:bridge), 'id'))
               .pointer_down(:left)
               .move_to_location(0, 10 - 5)
               .release.perform
@@ -170,7 +170,7 @@ class AppiumLibCoreTest
           end
 
           def test_w3c__multiple_actions_no_array
-            error = assert_raises ArgumentError do
+            error = assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.perform_actions 'string'
             end
             assert_equal '\'string\' must be Array', error.message
@@ -178,7 +178,7 @@ class AppiumLibCoreTest
 
           def test_press_touch_action
             action = Appium::Core::TouchAction.new(@driver).press(
-              element: ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+              element: ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
             ).release
 
             assert_equal [{ action: :press, options: { element: 'id' } }, { action: :release }], action.actions
