@@ -151,7 +151,7 @@ class AppiumLibCoreTest
                                 {
                                   bundleId: 'com.example.apple-samplecode.UICatalog',
                                   arguments: %w(arg1 arg2),
-                                  environment: { 'IOS_TESTING': 'happy testing' }
+                                  environment: { IOS_TESTING: 'happy testing' }
                                 })
 
         # add check the arguments
@@ -323,10 +323,10 @@ class AppiumLibCoreTest
 
         @@driver.set_clipboard(content: input)
 
-        # rubocop:disable  Layout/LineLength,Style/AsciiComments
+        # rubocop:disable  Layout/LineLength
         # iOS 13??
         # [Xcode] 2019-06-06 10:01:15.029776+0900 WebDriverAgentRunner-Runner[16270:2865385] [claims] Upload preparation for claim 248BF916-16D3-4341-AFC3-653E3A05CAFA completed with error: Error Domain=NSCocoaErrorDomain Code=256 "The file “2c4ee6c5be2695a3c528cde33df5228960042b03” couldn’t be opened." UserInfo={NSURL=file:///Users/kazu/Library/Developer/CoreSimulator/Devices/3D099C88-C162-494E-9260-D0ABCBB434B1/data/Library/Caches/com.apple.Pasteboard/eb77e5f8f043896faf63b5041f0fbd121db984dd/2c4ee6c5be2695a3c528cde33df5228960042b03, NSFilePath=/Users/kazu/Library/Developer/CoreSimulator/Devices/3D099C88-C162-494E-9260-D0ABCBB434B1/data/Library/Caches/com.apple.Pasteboard/eb77e5f8f043896faf63b5041f0fbd121db984dd/2c4ee6c5be2695a3c528cde33df5228960042b03, NSUnderlyingError=0x600003855dd0 {Error Domain=NSPOSIXErrorDomain Code=22 "Invalid argument"}}
-        # rubocop:enable  Layout/LineLength,Style/AsciiComments
+        # rubocop:enable  Layout/LineLength
         assert_equal input, @@driver.get_clipboard # does not work
       end
 

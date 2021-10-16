@@ -225,7 +225,7 @@ class AppiumLibCoreTest
                        else
                          "#{build_product}/#{runnner_prefix}simulator#{xcode_sdk_version}-x86_64.xctestrun"
                        end
-      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+      use_xctestrun_file = File.exist? xctestrun_path
 
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product

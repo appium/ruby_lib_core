@@ -362,14 +362,12 @@ class AppiumLibCoreTest
                    [rid]
                  end
           args.each_with_index do |arg, index|
-            begin
-              elem = @driver.find_element :uiautomator,
-                                          'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
-                                          ".scrollIntoView(#{arg}.instance(0));"
-              return elem
-            rescue StandardError => e
-              raise e if index == args.size - 1
-            end
+            elem = @driver.find_element :uiautomator,
+                                        'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
+                                        ".scrollIntoView(#{arg}.instance(0));"
+            return elem
+          rescue StandardError => e
+            raise e if index == args.size - 1
           end
         end
       end

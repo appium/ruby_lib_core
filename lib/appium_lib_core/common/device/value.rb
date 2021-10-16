@@ -39,11 +39,11 @@ module Appium
             end
 
             # Keep .split(//) for backward compatibility for now
-            text = keys.join('')
+            text = keys.join
 
             # FIXME: further work for W3C. Over appium 1.15.0 or later
             # { value: text.split(//), text: text }
-            { value: text.split(//) }
+            { value: text.chars }
           end
         end # module Value
       end # module Device
