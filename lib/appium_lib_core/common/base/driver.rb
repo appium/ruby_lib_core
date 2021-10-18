@@ -83,7 +83,7 @@ module Appium
         def update_sending_request_to(protocol:, host:, port:, path:)
           unless @bridge.http&.class&.method_defined? :update_sending_request_to
             ::Appium::Logger.warn "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
-              'It keeps current connection target.'
+                                  'It keeps current connection target.'
             return
           end
 

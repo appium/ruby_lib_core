@@ -31,7 +31,7 @@ class AppiumLibCoreTest
 
       def test_push_and_pull_file
         file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
-          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
+               'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
         path = '/data/local/tmp/remote.txt'
         @@core.wait do
           @driver.push_file path, file
@@ -42,7 +42,7 @@ class AppiumLibCoreTest
 
       def test_pull_folder
         file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
-          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
+               'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
         path = '/data/local/tmp/remote.txt'
         @driver.push_file path, file
 

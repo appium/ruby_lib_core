@@ -121,7 +121,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '14.2'
+      platform_version = '14.5'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -225,7 +225,7 @@ class AppiumLibCoreTest
                        else
                          "#{build_product}/#{runnner_prefix}simulator#{xcode_sdk_version}-x86_64.xctestrun"
                        end
-      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+      use_xctestrun_file = File.exist? xctestrun_path
 
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product

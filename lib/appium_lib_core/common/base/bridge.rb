@@ -187,8 +187,8 @@ module Appium
 
         # Port from MJSONWP
         def send_keys_to_active_element(key)
-          text = ::Selenium::WebDriver::Keys.encode(key).join('')
-          execute :send_keys_to_active_element, {}, { value: text.split(//) }
+          text = ::Selenium::WebDriver::Keys.encode(key).join
+          execute :send_keys_to_active_element, {}, { value: text.chars }
         end
 
         # For Appium
@@ -319,11 +319,9 @@ module Appium
           data = execute :get_log, {}, { type: type.to_s }
 
           Array(data).map do |l|
-            begin
-              ::Selenium::WebDriver::LogEntry.new l.fetch('level', 'UNKNOWN'), l.fetch('timestamp'), l.fetch('message')
-            rescue KeyError
-              next
-            end
+            ::Selenium::WebDriver::LogEntry.new l.fetch('level', 'UNKNOWN'), l.fetch('timestamp'), l.fetch('message')
+          rescue KeyError
+            next
           end
         end
 

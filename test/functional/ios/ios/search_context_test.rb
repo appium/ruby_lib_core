@@ -29,11 +29,11 @@ class AppiumLibCoreTest
       end
 
       def test_uiautomation
-        if @@core.automation_name != :xcuitest
+        if @@core.automation_name == :xcuitest
+          assert true
+        else
           e = @@driver.find_element :predicate, 'wdName == "Buttons"'
           assert !e.name.nil?
-        else
-          assert true
         end
       end
 
