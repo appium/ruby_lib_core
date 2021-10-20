@@ -476,7 +476,6 @@ class AppiumLibCoreTest
 
     def windows_mock_create_session
       response = {
-        status: 0, # To make bridge.dialect == :oss. Remove.
         value: {
           sessionId: '1234567890',
           capabilities: {
