@@ -119,9 +119,8 @@ class AppiumLibCoreTest
       new.mac2
     end
 
-    # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '14.5'
+      platform_version = '14.4'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
