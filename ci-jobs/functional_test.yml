@@ -2,8 +2,8 @@
 parameters:
   vmImage: 'macOS-11'
   vmImageForIOS: 'macOS-11'
-  xcodeForIOS: 12.4
-  xcodeForTVOS: 12.4
+  xcodeForIOS: 12.5.1
+  xcodeForTVOS: 12.5.1
   androidSDK: 29  # API Level 30 emulators are more unstable than 29
   appiumVersion: 'beta'
   ignoreVersionSkip: true
