@@ -38,6 +38,8 @@ module Appium
         #
         #     result = Appium::Core::Wait.until { @driver.find_element(:id, 'something') }
         #
+        #     result = Appium::Core::Wait.until(timeout: 30, message: 'timeout') { @driver.find_element(:id, 'something') }
+        #
         #     result = Appium::Core::Wait.until(object: 'some object') { |object|
         #        @driver.find_element(:id, object)
         #     }
@@ -81,6 +83,8 @@ module Appium
         # @example
         #
         #     Appium::Core::Wait.until_true { @driver.find_element(:id, 'something') }
+        #
+        #     Appium::Core::Wait.until_true(timeout: 30) { @driver.find_element(:id, 'something') }
         #
         #     Appium::Core::Wait.until_true(object: 'some object') { |object|
         #        @driver.find_element(:id, object)
@@ -136,6 +140,7 @@ module Appium
       # @example
       #
       #   @core.wait_true { @driver.find_element :accessibility_id, 'something' }
+      #   @core.wait_true(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
       #
       def wait_true(timeout: nil, interval: nil, message: nil, ignored: nil)
         Wait.until_true(timeout: timeout || @wait_timeout,
@@ -158,6 +163,7 @@ module Appium
       # @example
       #
       #   @core.wait { @driver.find_element :accessibility_id, 'something' }
+      #   @core.wait(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
       #
       def wait(timeout: nil, interval: nil, message: nil, ignored: nil)
         Wait.until(timeout: timeout || @wait_timeout,
