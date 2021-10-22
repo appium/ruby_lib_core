@@ -237,11 +237,11 @@ class AppiumLibCoreTest
       end
 
       def test_hidekeyboard
-        @driver.wait_for { |d| d.find_element :accessibility_id, 'App' }.click
-        @driver.wait_for { |d| d.find_element :accessibility_id, 'Activity' }.click
-        @driver.wait_for { |d| d.find_element :accessibility_id, 'Custom Title' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'Activity' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'Custom Title' }.click
         # make sure to show keyboard
-        @driver.wait_for { |d| d.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.click
+        @driver.wait_until { |d| d.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.click
 
         latin_android = 'com.android.inputmethod.latin/.LatinIME'
         latin_google = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
