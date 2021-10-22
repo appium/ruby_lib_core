@@ -76,7 +76,7 @@ class AppiumLibCoreTest
       end
 
       def test_take_element_screenshot
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+        e = @driver.wait { |d| d.find_element :accessibility_id, 'App' }
         @driver.take_element_screenshot(e, 'take_element_screenshot.png')
 
         assert File.exist? 'take_element_screenshot.png'

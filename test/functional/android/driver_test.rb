@@ -49,6 +49,26 @@ class AppiumLibCoreTest
       assert_equal 'Content', e.text
     end
 
+    def test_wait_true_driver
+      e = @driver.wait_true { |d| d.find_element :accessibility_id, 'Content' }
+      assert e.text
+    end
+
+    def test_wait_driver
+      e = @driver.wait { |d| d.find_element :accessibility_id, 'Content' }
+      assert_equal 'Content', e.text
+    end
+
+    def test_wait_until_true_driver
+      e = @driver.wait_until_true { |d| d.find_element :accessibility_id, 'Content' }
+      assert e.text
+    end
+
+    def test_wait_until_driver
+      e = @driver.wait_until { |d| d.find_element :accessibility_id, 'Content' }
+      assert_equal 'Content', e.text
+    end
+
     # @since Appium 1.10.0
     def test_mobile_perform_action
       skip_as_appium_version '1.10.0'

@@ -25,6 +25,8 @@ Read `release_notes.md` for commit level details.
   - Removed `forceMjsonwp` to send only MJSONWP capabilities since Selenium cleint v4 no longer supports MJSONWP
 - No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
+- Add `driver#wait`, `driver#wait_until`, `driver#wait_true`, `driver#wait_until_true` syntaxes
+  - Can give `driver` instance as its block variable
 
 ## [4.7.1] - 2021-09-26
 

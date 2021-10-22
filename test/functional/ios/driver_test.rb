@@ -60,6 +60,26 @@ class AppiumLibCoreTest
       assert_equal uicatalog, e.name
     end
 
+    def test_wait_true_driver
+      e = @@driver.wait_true { |d| d.find_element :accessibility_id, uicatalog }
+      assert e.name
+    end
+
+    def test_wait_driver
+      e = @@driver.wait { |d| d.find_element :accessibility_id, uicatalog }
+      assert_equal uicatalog, e.name
+    end
+
+    def test_wait_until_true_driver
+      e = @@driver.wait_until_true { |d| d.find_element :accessibility_id, uicatalog }
+      assert e.name
+    end
+
+    def test_wait_until_driver
+      e = @@driver.wait_until { |d| d.find_element :accessibility_id, uicatalog }
+      assert_equal uicatalog, e.name
+    end
+
     def test_click_back
       skip_as_appium_version '1.8.0' # 1.7.2- have a bit different behaviour
 
