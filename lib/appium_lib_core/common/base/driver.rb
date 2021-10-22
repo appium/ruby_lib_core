@@ -48,11 +48,7 @@ module Appium
           super
         end
 
-        # Implements protocol handshake which:
-        #
-        #   1. Creates session with driver.
-        #   2. Sniffs response.
-        #   3. Based on the response, understands which dialect we should use.
+        # Create a proper bridge instance.
         #
         # @return [::Appium::Core::Base::Bridge]
         #
