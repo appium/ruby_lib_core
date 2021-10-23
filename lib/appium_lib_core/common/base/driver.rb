@@ -48,6 +48,10 @@ module Appium
         attr_reader :bridge
 
         def initialize(bridge: nil, listener: nil, **opts)
+          # For ::Appium::Core::Waitable
+          @wait_timeout = opts.delete(:wait_timeout)
+          @wait_interval = opts.delete(:wait_interval)
+
           super
         end
 
