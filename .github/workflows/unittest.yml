@@ -57,11 +57,11 @@ jobs:
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
       - name: Run tests
         run: |
-          bundle exec rake test:unit
+          rake test:unit
 
           setx AUTOMATION_NAME_DROID espresso
-          bundle exec rake test:unit:android
+          rake test:unit:android
 
           setx AUTOMATION_NAME_DROID appium
           setx AUTOMATION_NAME_IOS appium
-          bundle exec rake test:unit
+          rake test:unit
