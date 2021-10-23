@@ -137,18 +137,31 @@ module Appium
       # @param [String] message Exception message if timed out.
       # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
       #
-      # @example
+      # @example With core instance
       #
       #   @core.wait_true { @driver.find_element :accessibility_id, 'something' }
       #   @core.wait_true(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
       #
-      def wait_true(timeout: nil, interval: nil, message: nil, ignored: nil)
-        Wait.until_true(timeout: timeout || @wait_timeout,
-                        interval: interval || @wait_interval,
+      #   @core.wait_until_true { @driver.find_element :accessibility_id, 'something' }
+      #   @core.wait_until_true(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
+      #
+      # @example With driver instance
+      #
+      #   @driver.wait_true { |d| d.find_element :accessibility_id, 'something' }
+      #   @driver.wait_true(timeout: 30, interval: 2) { |d| driver.find_element :accessibility_id, 'something' }
+      #
+      #   @driver.wait_until_true { |d| d.find_element :accessibility_id, 'something' }
+      #   @driver.wait_until_true(timeout: 30, interval: 2) { |d| driver.find_element :accessibility_id, 'something' }
+      #
+      def wait_until_true(timeout: nil, interval: nil, message: nil, ignored: nil, &block)
+        Wait.until_true(timeout: timeout || @wait_timeout || ::Appium::Core::Wait::DEFAULT_TIMEOUT,
+                        interval: interval || @wait_interval || ::Appium::Core::Wait::DEFAULT_INTERVAL,
                         message: message,
                         ignored: ignored,
-                        object: self) { yield }
+                        object: self,
+                        &block)
       end
+      alias wait_true wait_until_true
 
       # Check every interval seconds to see if yield doesn't raise an exception.
       # Give up after timeout seconds.
@@ -160,18 +173,31 @@ module Appium
       # @param [String] message Exception message if timed out.
       # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
       #
-      # @example
+      # @example With core instance
       #
       #   @core.wait { @driver.find_element :accessibility_id, 'something' }
       #   @core.wait(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
       #
-      def wait(timeout: nil, interval: nil, message: nil, ignored: nil)
-        Wait.until(timeout: timeout || @wait_timeout,
-                   interval: interval || @wait_interval,
+      #   @core.wait_until { @driver.find_element :accessibility_id, 'something' }
+      #   @core.wait_until(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
+      #
+      # @example With driver instance
+      #
+      #   @driver.wait { @driver.find_element :accessibility_id, 'something' }
+      #   @driver.wait(timeout: 30, interval: 2) { @driver.find_element :accessibility_id, 'something' }
+      #
+      #   @driver.wait_until { |d| d.find_element :accessibility_id, 'something' }
+      #   @driver.wait_until(timeout: 30, interval: 2) { |d| d.find_element :accessibility_id, 'something' }
+      #
+      def wait_until(timeout: nil, interval: nil, message: nil, ignored: nil, &block)
+        Wait.until(timeout: timeout || @wait_timeout || ::Appium::Core::Wait::DEFAULT_TIMEOUT,
+                   interval: interval || @wait_interval || ::Appium::Core::Wait::DEFAULT_INTERVAL,
                    message: message,
                    ignored: ignored,
-                   object: self) { yield }
+                   object: self,
+                   &block)
       end
+      alias wait wait_until
     end
   end # module Core
 end # module Appium

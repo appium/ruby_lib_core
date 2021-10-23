@@ -51,7 +51,7 @@ module Appium
 
         @port = appium_lib_opts.fetch :port, Driver::DEFAULT_APPIUM_PORT
 
-        # timeout and interval used in ::Appium::Comm.wait/wait_true
+        # timeout and interval used in ::Appium::Commn.wait/wait_true
         @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
         @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
 

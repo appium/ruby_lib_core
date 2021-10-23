@@ -196,9 +196,9 @@ class AppiumLibCoreTest
         e = @driver.find_elements :class, 'android.widget.TextView'
         assert_equal '0', e.last.text
 
-        type = @driver.execute_script('mobile: backdoor',
-                                      { target: :element, elementId: e.last.id, methods: [{ name: 'getTypeface' }] })
-        assert type['mStyle']
+        stype = @driver.execute_script('mobile: backdoor', { target: :element, elementId: e.last.id,
+            methods: [{ name: 'getTypeface' }, { name: 'getStyle' }] })
+        assert stype.zero?
       end
 
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
