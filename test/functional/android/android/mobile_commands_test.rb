@@ -196,7 +196,7 @@ class AppiumLibCoreTest
         e = @driver.find_elements :class, 'android.widget.TextView'
         assert_equal '0', e.last.text
 
-        stype = @driver.execute_script('mobile: backdoor', { target: :element, elementId: e.last.ref,
+        stype = @driver.execute_script('mobile: backdoor', { target: :element, elementId: e.last.id,
             methods: [{ name: 'getTypeface' }, { name: 'getStyle' }] })
         assert stype.zero?
       end
