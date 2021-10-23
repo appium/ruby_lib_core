@@ -29,9 +29,9 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rake rubocop
-        bundle exec parallel_test test/unit/ -n 4
-        AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
-        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+        bundle exec rake test:unit
+        AUTOMATION_NAME_DROID=espresso bundle exec rake bundle test:unit:android
+        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec bundle exec rake test:unit
 
   test-win:
     strategy:
@@ -57,11 +57,11 @@ jobs:
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
       - name: Run tests
         run: |
-          parallel_test test/unit/ -n 4
+          bundle exec rake test:unit
 
           setx AUTOMATION_NAME_DROID espresso
-          parallel_test test/unit/android -n 4
+          bundle exec rake test:unit:android
 
           setx AUTOMATION_NAME_DROID appium
           setx AUTOMATION_NAME_IOS appium
-          parallel_test test/unit -n 4
+          bundle exec rake test:unit
