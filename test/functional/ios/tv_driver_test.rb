@@ -45,7 +45,7 @@ class AppiumLibCoreTest
       @driver.terminate_app test_package
       assert_equal :not_running, @driver.app_state(test_package)
 
-      @driver.activate_app test_package
+      @driver.wait_until { |d| d.activate_app test_package }
       assert_equal :running_in_foreground, @driver.app_state(test_package)
 
       @driver.execute_script 'mobile: pressButton', { name: 'Home' }
