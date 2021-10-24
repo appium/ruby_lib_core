@@ -112,7 +112,7 @@ class AppiumLibCoreTest
       bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
-        @@driver.wait_until { |d| d.activate_app('com.apple.Preferences') }
+        @@driver.activate_app('com.apple.Preferences')
         @@driver.find_element(:accessibility_id, 'General').click
         @@driver.find_element(:accessibility_id, 'Keyboard').click
 
