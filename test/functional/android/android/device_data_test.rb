@@ -31,7 +31,7 @@ class AppiumLibCoreTest
 
       def test_push_and_pull_file
         file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
-          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
+               'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
         path = '/data/local/tmp/remote.txt'
         @@core.wait do
           @driver.push_file path, file
@@ -42,7 +42,7 @@ class AppiumLibCoreTest
 
       def test_pull_folder
         file = 'aVZCT1J3MEtHZ29BQUF BTlNVaEVVZ0FBQXU0QUFB VTJDQUlBQUFCRnRhUl' \
-          'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
+               'JBQUFBQVhOU1IwSUFyczRjNlFBQQ0KQUJ4cFJFOVVBQUFBQWdBQUFBQUFBQUti'
         path = '/data/local/tmp/remote.txt'
         @driver.push_file path, file
 
@@ -76,7 +76,7 @@ class AppiumLibCoreTest
       end
 
       def test_take_element_screenshot
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+        e = @driver.wait { |d| d.find_element :accessibility_id, 'App' }
         @driver.take_element_screenshot(e, 'take_element_screenshot.png')
 
         assert File.exist? 'take_element_screenshot.png'

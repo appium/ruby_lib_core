@@ -33,12 +33,12 @@ class AppiumLibCoreTest
           end
 
           def delegate_from_appium_driver(key)
-            assert @core.send(:delegated_target_for_test).respond_to? key
+            assert @core.send(:delegated_target_for_test).respond_to?(key), "#{key} was wrong"
           end
 
           def parameterized_method_defined_check(array)
             array.each do |v|
-              assert ::Appium::Core::Base::Bridge::W3C.method_defined?(v)
+              assert ::Appium::Core::Base::Bridge.method_defined?(v), "#{v} was wrong"
               delegate_from_appium_driver(v)
             end
           end
@@ -76,9 +76,6 @@ class AppiumLibCoreTest
                                                 :keyevent,
                                                 :press_keycode,
                                                 :long_press_keycode,
-                                                :take_element_screenshot,
-                                                :set_immediate_value,
-                                                :replace_value,
                                                 :push_file,
                                                 :pull_file,
                                                 :pull_folder,

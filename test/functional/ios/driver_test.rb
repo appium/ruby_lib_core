@@ -50,15 +50,6 @@ class AppiumLibCoreTest
       assert @@core.platform_version
     end
 
-    def test_screenshot
-      file = @@core.screenshot 'ios_test.png'
-
-      assert File.exist?(file.path)
-
-      File.delete file.path
-      assert !File.exist?(file.path)
-    end
-
     def test_wait_true
       e = @@core.wait_true { @@driver.find_element :accessibility_id, uicatalog }
       assert e.name
@@ -66,6 +57,26 @@ class AppiumLibCoreTest
 
     def test_wait
       e = @@core.wait { @@driver.find_element :accessibility_id, uicatalog }
+      assert_equal uicatalog, e.name
+    end
+
+    def test_wait_true_driver
+      e = @@driver.wait_true { |d| d.find_element :accessibility_id, uicatalog }
+      assert e.name
+    end
+
+    def test_wait_driver
+      e = @@driver.wait { |d| d.find_element :accessibility_id, uicatalog }
+      assert_equal uicatalog, e.name
+    end
+
+    def test_wait_until_true_driver
+      e = @@driver.wait_until_true { |d| d.find_element :accessibility_id, uicatalog }
+      assert e.name
+    end
+
+    def test_wait_until_driver
+      e = @@driver.wait_until { |d| d.find_element :accessibility_id, uicatalog }
       assert_equal uicatalog, e.name
     end
 

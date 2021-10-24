@@ -31,7 +31,6 @@ class AppiumLibCoreTest
       end
 
       def test_tap_scroll
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
@@ -65,7 +64,6 @@ class AppiumLibCoreTest
       end
 
       def test_double_tap
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.10.0' # unstable on 1.9.1-
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
@@ -107,7 +105,6 @@ class AppiumLibCoreTest
       end
 
       def test_actions_with_many_down_up
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }

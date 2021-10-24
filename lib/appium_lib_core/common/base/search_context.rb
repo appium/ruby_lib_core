@@ -159,7 +159,10 @@ module Appium
 
         def _set_by_from_finders(how)
           by = FINDERS[how.to_sym]
-          raise ArgumentError, "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}." unless by
+          unless by
+            raise ::Appium::Core::Error::ArgumentError,
+                  "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}."
+          end
 
           by
         end
@@ -171,16 +174,18 @@ module Appium
           when 1
             arg = args.first
 
-            raise ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift" unless arg.respond_to?(:shift)
+            unless arg.respond_to?(:shift)
+              raise ::Appium::Core::Error::ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift"
+            end
 
             # this will be a single-entry hash, so use #shift over #first or #[]
             arr = arg.dup.shift
 
-            raise ArgumentError, "expected #{arr.inspect} to have 2 elements" unless arr.size == 2
+            raise ::Appium::Core::Error::ArgumentError, "expected #{arr.inspect} to have 2 elements" unless arr.size == 2
 
             arr
           else
-            raise ArgumentError, "wrong number of arguments (#{args.size} for 2)"
+            raise ::Appium::Core::Error::ArgumentError, "wrong number of arguments (#{args.size} for 2)"
           end
         end
       end # module SearchContext

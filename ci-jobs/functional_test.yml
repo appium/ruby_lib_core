@@ -1,7 +1,7 @@
 # jobs for functional test
 parameters:
   vmImage: 'macOS-10.15'
-  vmImageForIOS: 'macOS-10.15' # Not sure the reason, but macOS 10.14 instance raises no info.plist error
+  vmImageForIOS: 'macOS-10.15'
   xcodeForIOS: 12.2
   xcodeForTVOS: 12.2
   androidSDK: 29  # API Level 30 emulators are more unstable than 29

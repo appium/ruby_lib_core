@@ -19,10 +19,17 @@ module Appium
         # @private
         # @param [Hash] opts_caps Capabilities for Appium server. All capability keys are converted to lowerCamelCase when
         #                         this client sends capabilities to Appium server as JSON format.
-        # @return [::Selenium::WebDriver::Remote::W3C::Capabilities] Return instance of Appium::Core::Base::Capabilities
-        #                         inherited ::Selenium::WebDriver::Remote::W3C::Capabilities
+        # @return [::Selenium::WebDriver::Remote::Capabilities] Return instance of Appium::Core::Base::Capabilities
+        #                         inherited ::Selenium::WebDriver::Remote::Capabilities
         def self.create_capabilities(opts_caps = {})
-          ::Selenium::WebDriver::Remote::W3C::Capabilities.new(opts_caps)
+          # TODO: Move to 'Options' way instead of 'Capabilities'.
+          # Selenium 5 will have Options instead of 'Capabilities'.
+          # https://github.com/SeleniumHQ/selenium/blob/trunk/rb/lib/selenium/webdriver/common/options.rb
+          # Then, Ruby client also shoud move to the Options way.
+          # Appium's capabilities could change by depending on Appium versions. So it does not have
+          # standard options like chrome and firefox etc. So, the implementation should differ from
+          # other browsers. But here should inherit `Options` to follow Selenium.
+          ::Selenium::WebDriver::Remote::Capabilities.new(opts_caps)
         end
       end
     end

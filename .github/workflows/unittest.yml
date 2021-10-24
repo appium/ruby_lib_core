@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.4, 2.5, 2.6, 2.7, 3.0]
+        ruby: [2.6, 2.7, 3.0]
 
     runs-on: ubuntu-latest
 
@@ -29,16 +29,15 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rake rubocop
-        bundle exec parallel_test test/unit/ -n 4
-        AUTOMATION_NAME_DROID=espresso bundle exec parallel_test test/unit/android -n 4
-        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec parallel_test test/unit -n 4
+        bundle exec rake test:unit
+        AUTOMATION_NAME_DROID=espresso bundle exec rake test:unit:android
+        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec rake test:unit
 
   test-win:
     strategy:
       fail-fast: false
       matrix:
-        # Does not add 2.7 on Windows so far since a command fails only on Windows
-        ruby: [2.4, 2.5, 2.6]
+        ruby: [2.6, 2.7, 3.0]
 
     runs-on: windows-latest
 
@@ -58,11 +57,11 @@ jobs:
           gem uninstall --force eventmachine && gem install eventmachine --platform ruby
       - name: Run tests
         run: |
-          parallel_test test/unit/ -n 4
+          rake test:unit
 
           setx AUTOMATION_NAME_DROID espresso
-          parallel_test test/unit/android -n 4
+          rake test:unit:android
 
           setx AUTOMATION_NAME_DROID appium
           setx AUTOMATION_NAME_IOS appium
-          parallel_test test/unit -n 4
+          rake test:unit

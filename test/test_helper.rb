@@ -225,7 +225,7 @@ class AppiumLibCoreTest
                        else
                          "#{build_product}/#{runnner_prefix}simulator#{xcode_sdk_version}-x86_64.xctestrun"
                        end
-      use_xctestrun_file = File.exist?(xctestrun_path) ? true : false
+      use_xctestrun_file = File.exist? xctestrun_path
 
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product
@@ -259,7 +259,7 @@ class AppiumLibCoreTest
     # We should update platformVersion and deviceName to fit your environment.
     def android(activity_name = nil)
       cap = {
-        desired_capabilities: { # :caps is also available
+        capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
@@ -295,11 +295,11 @@ class AppiumLibCoreTest
       }
 
       # settins in caps should work over Appium 1.13.0
-      if cap[:desired_capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
-        cap[:desired_capabilities]['settings[trackScrollEvents]'] = false
+      if cap[:capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
+        cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
-        cap[:desired_capabilities][:forceEspressoRebuild] = false
-        cap[:desired_capabilities][:espressoBuildConfig] = {
+        cap[:capabilities][:forceEspressoRebuild] = false
+        cap[:capabilities][:espressoBuildConfig] = {
           additionalAndroidTestDependencies: ['com.google.android.material:material:1.2.1']
         }.to_json
       end
@@ -309,7 +309,7 @@ class AppiumLibCoreTest
 
     def android_direct
       {
-        desired_capabilities: android[:desired_capabilities],
+        capabilities: android[:capabilities],
         appium_lib: {
           export_session: true,
           wait: 30,
@@ -410,63 +410,7 @@ class AppiumLibCoreTest
     SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
 
     def android_mock_create_session
-      response = {
-        status: 0, # To make bridge.dialect == :oss
-        value: {
-          sessionId: '1234567890',
-          capabilities: {
-            platform: 'LINUX',
-            webStorageEnabled: false,
-            takesScreenshot: true,
-            javascriptEnabled: true,
-            databaseEnabled: false,
-            networkConnectionEnabled: true,
-            locationContextEnabled: false,
-            warnings: {},
-            desired: {
-              platformName: 'Android',
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-              platformVersion: '7.1.1',
-              deviceName: 'Android Emulator',
-              app: '/test/apps/ApiDemos-debug.apk',
-              newCommandTimeout: 240,
-              unicodeKeyboard: true,
-              resetKeyboard: true
-            },
-            platformName: 'Android',
-            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
-            platformVersion: '7.1.1',
-            deviceName: 'emulator-5554',
-            app: '/test/apps/ApiDemos-debug.apk',
-            newCommandTimeout: 240,
-            unicodeKeyboard: true,
-            resetKeyboard: true,
-            deviceUDID: 'emulator-5554',
-            deviceScreenSize: '1080x1920',
-            deviceModel: 'Android SDK built for x86_64',
-            deviceManufacturer: 'unknown',
-            appPackage: 'com.example.android.apis',
-            appWaitPackage: 'com.example.android.apis',
-            appActivity: 'com.example.android.apis.ApiDemos',
-            appWaitActivity: 'com.example.android.apis.ApiDemos'
-          }
-        }
-      }.to_json
-
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .with(headers: { 'X-Idempotency-Key' => /.+/ })
-        .to_return(headers: HEADER, status: 200, body: response)
-
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 5_000 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-      driver = @core.start_driver
-
-      assert_equal({}, driver.send(:bridge).http.additional_headers)
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
-      driver
+      android_mock_create_session_w3c
     end
 
     def android_mock_create_session_w3c
@@ -505,31 +449,7 @@ class AppiumLibCoreTest
     end
 
     def ios_mock_create_session
-      response = {
-        status: 0, # To make bridge.dialect == :oss
-        value: {
-          sessionId: '1234567890',
-          capabilities: {
-            device: 'iphone',
-            browserName: 'UICatalog',
-            sdkVersion: '11.4',
-            CFBundleIdentifier: 'com.example.apple-samplecode.UICatalog'
-          }
-        }
-      }.to_json
-
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .to_return(headers: HEADER, status: 200, body: response)
-
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-      driver = @core.start_driver
-
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
-      driver
+      ios_mock_create_session_w3c
     end
 
     def ios_mock_create_session_w3c
@@ -548,20 +468,14 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
 
     def windows_mock_create_session
       response = {
-        status: 0, # To make bridge.dialect == :oss
         value: {
           sessionId: '1234567890',
           capabilities: {
@@ -576,14 +490,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts/implicit_wait")
-        .with(body: { ms: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts/implicit_wait", times: 1)
       driver
     end
 
@@ -603,14 +512,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
 
@@ -628,14 +532,9 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 0 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
       driver
     end
   end

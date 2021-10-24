@@ -21,7 +21,8 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:finger_print) do
               def finger_print(finger_id)
                 unless (1..10).cover? finger_id.to_i
-                  raise ArgumentError, "finger_id should be integer between 1 to 10. Not #{finger_id}"
+                  raise ::Appium::Core::Error::ArgumentError,
+                        "finger_id should be integer between 1 to 10. Not #{finger_id}"
                 end
 
                 execute(:finger_print, {}, { fingerprintId: finger_id.to_i })
