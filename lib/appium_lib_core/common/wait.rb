@@ -154,8 +154,8 @@ module Appium
       #   @driver.wait_until_true(timeout: 30, interval: 2) { |d| driver.find_element :accessibility_id, 'something' }
       #
       def wait_until_true(timeout: nil, interval: nil, message: nil, ignored: nil, &block)
-        Wait.until_true(timeout: timeout || @wait_timeout || ::Appium::Core::Wait::DEFAULT_TIMEOUT,
-                        interval: interval || @wait_interval || ::Appium::Core::Wait::DEFAULT_INTERVAL,
+        Wait.until_true(timeout: timeout || @wait_timeout,
+                        interval: interval || @wait_interval,
                         message: message,
                         ignored: ignored,
                         object: self,
@@ -190,8 +190,8 @@ module Appium
       #   @driver.wait_until(timeout: 30, interval: 2) { |d| d.find_element :accessibility_id, 'something' }
       #
       def wait_until(timeout: nil, interval: nil, message: nil, ignored: nil, &block)
-        Wait.until(timeout: timeout || @wait_timeout || ::Appium::Core::Wait::DEFAULT_TIMEOUT,
-                   interval: interval || @wait_interval || ::Appium::Core::Wait::DEFAULT_INTERVAL,
+        Wait.until(timeout: timeout || @wait_timeout,
+                   interval: interval || @wait_interval,
                    message: message,
                    ignored: ignored,
                    object: self,
