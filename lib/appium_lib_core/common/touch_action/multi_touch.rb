@@ -39,6 +39,10 @@ module Appium
       attr_reader :driver
 
       def initialize(driver)
+        ::Appium::Logger.warn(
+          '[DEPRECATION] Appium::Core::MultiTouch is deprecated in W3C spec. Use W3C actions instead'
+        )
+
         @actions = []
         @driver = driver
       end
