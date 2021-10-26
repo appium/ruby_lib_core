@@ -28,6 +28,14 @@ Read `release_notes.md` for commit level details.
 - Add `driver#wait`, `driver#wait_until`, `driver#wait_true`, `driver#wait_until_true` syntaxes
   - Can give `driver` instance as its block variable
 
+### Deprecations
+- `Appium::Core::TouchAction` and `Appium::Core::MultiTouch` are deprecated
+    - Please use W3C actions instead http://appium.io/docs/en/commands/interactions/actions/
+    - More working examples:
+        - test/functional/android/webdriver/w3c_actions_test.rb
+        - test/functional/ios/webdriver/w3c_actions_test.rb
+        - test/functional/common_w3c_actions.rb
+
 ## [4.7.1] - 2021-09-26
 
 ### Enhancements

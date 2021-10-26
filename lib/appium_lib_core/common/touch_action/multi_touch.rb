@@ -14,6 +14,9 @@
 
 module Appium
   module Core
+    #
+    # @deprecated Use W3C actions instead
+    #
     # MultiTouch actions allow for multiple touches to happen at the same time,
     # for instance, to simulate multiple finger swipes.
     #

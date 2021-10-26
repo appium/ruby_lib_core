@@ -14,13 +14,16 @@
 
 module Appium
   module Core
+    #
+    # @deprecated Use W3C actions instead
+    #
     # Perform a series of gestures, one after another.  Gestures are chained
     # together and only performed when +perform()+ is called. Default is conducted by global driver.
     #
     # Each method returns the object itself, so calls can be chained.
     #
     # Consider to use W3C spec touch action like the followings.
-    # https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+    # https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
     #

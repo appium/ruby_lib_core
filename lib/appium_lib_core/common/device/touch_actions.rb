@@ -21,11 +21,20 @@ module Appium
       module Device
         module TouchActions
           def touch_actions(actions)
+            ::Appium::Logger.warn(
+              '[DEPRECATION] Appium::Core::TouchAction is deprecated in W3C spec. Use W3C actions instead'
+            )
+
+            deprecated
             actions = { actions: [actions].flatten }
             execute :touch_actions, {}, actions
           end
 
           def multi_touch(actions)
+            ::Appium::Logger.warn(
+              '[DEPRECATION] Appium::Core::MultiTouch is deprecated in W3C spec. Use W3C actions instead'
+            )
+
             execute :multi_touch, {}, actions: actions
           end
         end # module TouchActions
