@@ -35,6 +35,7 @@ Read `release_notes.md` for commit level details.
         - test/functional/android/webdriver/w3c_actions_test.rb
         - test/functional/ios/webdriver/w3c_actions_test.rb
         - test/functional/common_w3c_actions.rb
+        - https://www.selenium.dev/documentation/support_packages/mouse_and_keyboard_actions_in_detail/
 
 ## [4.7.1] - 2021-09-26
 
