@@ -47,16 +47,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/device/hide_keyboard", times: 1)
           end
 
-          def test_keyevent
-            # only for Selendroid
-            stub_request(:post, "#{SESSION}/appium/device/keyevent")
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.keyevent 86
-
-            assert_requested(:post, "#{SESSION}/appium/device/keyevent", times: 1)
-          end
-
           # keypress
           def test_press_keycode
             stub_request(:post, "#{SESSION}/appium/device/press_keycode")
