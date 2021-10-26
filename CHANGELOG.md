@@ -28,6 +28,9 @@ Read `release_notes.md` for commit level details.
 - Add `driver#wait`, `driver#wait_until`, `driver#wait_true`, `driver#wait_until_true` syntaxes
   - Can give `driver` instance as its block variable
 
+### Deprecations
+- Removed Selendroid related methods
+
 ## [4.7.1] - 2021-09-26
 
 ### Enhancements
