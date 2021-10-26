@@ -14,6 +14,9 @@
 
 module Appium
   module Core
+    #
+    # @deprecated Use W3C actions instead
+    #
     # MultiTouch actions allow for multiple touches to happen at the same time,
     # for instance, to simulate multiple finger swipes.
     #
@@ -36,6 +39,10 @@ module Appium
       attr_reader :driver
 
       def initialize(driver)
+        ::Appium::Logger.warn(
+          '[DEPRECATION] Appium::Core::MultiTouch is deprecated in W3C spec. Use W3C actions instead'
+        )
+
         @actions = []
         @driver = driver
       end

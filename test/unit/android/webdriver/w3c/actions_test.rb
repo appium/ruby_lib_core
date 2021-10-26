@@ -176,6 +176,7 @@ class AppiumLibCoreTest
             assert_equal '\'string\' must be Array', error.message
           end
 
+          # @deprecated Appium::Core::TouchAction
           def test_press_touch_action
             action = Appium::Core::TouchAction.new(@driver).press(
               element: ::Appium::Core::Element.new(@driver.send(:bridge), 'id')

@@ -20,11 +20,13 @@ module Appium
     class Base
       module Device
         module TouchActions
+          # @deprecated Use W3C actions instead
           def touch_actions(actions)
             actions = { actions: [actions].flatten }
             execute :touch_actions, {}, actions
           end
 
+          # @deprecated Use W3C actions instead
           def multi_touch(actions)
             execute :multi_touch, {}, actions: actions
           end

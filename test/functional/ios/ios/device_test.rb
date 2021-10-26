@@ -202,6 +202,7 @@ class AppiumLibCoreTest
         @@driver.update_settings({ 'nativeWebTap' => false })
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_touch_actions
         if @@core.automation_name == :xcuitest
           element = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
@@ -216,6 +217,7 @@ class AppiumLibCoreTest
         @@driver.back
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_swipe
         el = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
         rect = el.rect
