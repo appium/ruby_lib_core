@@ -512,19 +512,6 @@ module Appium
           @bridge.pull_folder(path)
         end
 
-        # Send keyevent on the device.(Only for Selendroid)
-        # http://developer.android.com/reference/android/view/KeyEvent.html
-        # @param [integer] key The key to press.
-        # @param [String] metastate The state the metakeys should be in when pressing the key.
-        #
-        # @example
-        #
-        #   @driver.keyevent 82
-        #
-        def keyevent(key, metastate = nil)
-          @bridge.keyevent(key, metastate)
-        end
-
         # Press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
