@@ -191,6 +191,7 @@ class AppiumLibCoreTest
         assert_equal 'io.appium.android.apis', e
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_touch_actions
         Appium::Core::TouchAction.new(@driver)
                                  .press(element: @driver.find_element(:accessibility_id, 'App'))
@@ -201,6 +202,7 @@ class AppiumLibCoreTest
         @driver.back
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_swipe
         @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
 

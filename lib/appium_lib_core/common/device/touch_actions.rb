@@ -25,7 +25,6 @@ module Appium
               '[DEPRECATION] Appium::Core::TouchAction is deprecated in W3C spec. Use W3C actions instead'
             )
 
-            deprecated
             actions = { actions: [actions].flatten }
             execute :touch_actions, {}, actions
           end
