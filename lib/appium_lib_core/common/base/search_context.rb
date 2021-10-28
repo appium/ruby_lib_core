@@ -32,6 +32,7 @@ module Appium
           predicate:            '-ios predicate string',
           class_chain:          '-ios class chain',
           # Windows with windows prefix
+          # @deprecated
           windows_uiautomation: '-windows uiautomation',
           # Tizen with Tizen prefix
           tizen_uiautomation:   '-tizen uiautomation'
@@ -122,6 +123,7 @@ module Appium
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
         #     # For Windows
+        #     # @deprecated
         #     @driver.find_elements :windows_uiautomation, '....'
         #
         #     # For Tizen
@@ -158,6 +160,12 @@ module Appium
         private
 
         def _set_by_from_finders(how)
+          if how == :windows_uiautomation
+            ::Appium::Logger.warn(
+              '[DEPRECATION] :windows_uiautomation is deprecated. Please use other locators.'
+            )
+          end
+
           by = FINDERS[how.to_sym]
           unless by
             raise ::Appium::Core::Error::ArgumentError,
