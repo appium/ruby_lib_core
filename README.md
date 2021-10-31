@@ -13,6 +13,10 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 - http://www.rubydoc.info/github/appium/ruby_lib_core
     - You can find working API examples in test code, [test/functional](test/functional)
 
+# Migration from v4 to v5
+
+Please read `[5.0.0]` section in CHANGELOG.md
+
 # Related library
 - https://github.com/appium/ruby_lib
 

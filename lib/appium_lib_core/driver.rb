@@ -320,7 +320,7 @@ module Appium
       #
       #     # Start iOS driver
       #     opts = {
-      #              caps: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
