@@ -800,7 +800,7 @@ module Appium
         #
         # @example: Zoom
         #
-        #    f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        #    f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
         #    f1.create_pointer_move(duration: 1, x: 200, y: 500,
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f1.create_pointer_down(:left)
@@ -808,7 +808,7 @@ module Appium
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f1.create_pointer_up(:left)
         #
-        #    f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        #    f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
         #    f2.create_pointer_move(duration: 1, x: 200, y: 500,
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f2.create_pointer_down(:left)
@@ -820,6 +820,11 @@ module Appium
         #
         def perform_actions(data)
           raise ::Appium::Core::Error::ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
+
+          # Note:
+          # 'add_input' in Ruby implementation has additional 'pause'.
+          # This implementation is to avoid the additional pause.
+          # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/rb/lib/selenium/webdriver/common/action_builder.rb#L207
 
           @bridge.send_actions data.map(&:encode).compact
           data.each(&:clear_actions)
