@@ -821,8 +821,7 @@ module Appium
         def perform_actions(data)
           raise ::Appium::Core::Error::ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
 
-          # Note:
-          # 'add_input' in Ruby implementation has additional 'pause'.
+          # NOTE: 'add_input' in Selenium Ruby implementation has additional 'pause'.
           # This implementation is to avoid the additional pause.
           # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/rb/lib/selenium/webdriver/common/action_builder.rb#L207
 
