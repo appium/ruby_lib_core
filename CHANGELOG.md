@@ -36,10 +36,13 @@ Read `release_notes.md` for commit level details.
 - `Appium::Core::TouchAction` and `Appium::Core::MultiTouch` are deprecated
     - Please use W3C actions instead http://appium.io/docs/en/commands/interactions/actions/
     - More working examples:
-        - test/functional/android/webdriver/w3c_actions_test.rb
-        - test/functional/ios/webdriver/w3c_actions_test.rb
-        - test/functional/common_w3c_actions.rb
+        - [test/functional/android/webdriver/w3c_actions_test.rb](test/functional/android/webdriver/w3c_actions_test.rb)
+        - [test/functional/ios/webdriver/w3c_actions_test.rb](test/functional/ios/webdriver/w3c_actions_test.rb)
+        - [test/functional/common_w3c_actions.rb](test/functional/common_w3c_actions.rb)
         - https://www.selenium.dev/documentation/support_packages/mouse_and_keyboard_actions_in_detail/
+        - https://www.youtube.com/watch?v=oAJ7jwMNFVU
+        - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+        - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
 - Removed Selendroid related methods
 
 ## [4.7.1] - 2021-09-26

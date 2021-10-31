@@ -27,6 +27,13 @@ module Appium
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
     #
+    # About W3C actions
+    # https://www.youtube.com/watch?v=oAJ7jwMNFVU
+    # https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+    # https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    #
+    # Functional test code in ruby_lib_core repository also helps.
+    #
     # @example
     #
     #   @driver = Appium::Core.for(opts).start_driver
