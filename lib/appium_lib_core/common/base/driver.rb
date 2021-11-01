@@ -52,6 +52,10 @@ module Appium
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
 
+          # For logging.
+          # TODO: Remove when appium core no longer uses this in this bridge.
+          @automation_name = opts.delete(:automation_name)
+
           super
         end
 
@@ -414,16 +418,8 @@ module Appium
         alias set_context context=
 
         # Place a file in a specific location on the device.
-        # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on
-        # real devices.
         # On Android, the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pushed to the root of
@@ -441,17 +437,9 @@ module Appium
           @bridge.push_file(path, filedata)
         end
 
-        # Pull a file from the simulator/device.
-        # On iOS the server should have ifuse
-        # libraries installed and configured properly for this feature to work on real devices.
+        # Pull a file from the remote device.
         # On Android the application under test should be built with debuggable flag enabled in order to get access
         # to its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pulled from the root
@@ -461,7 +449,6 @@ module Appium
         #                      Only pulling files from application containers is supported for iOS Simulator.
         #                      Provide the remote path in format
         #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
-        #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data
         #
@@ -478,17 +465,9 @@ module Appium
           @bridge.pull_file(path)
         end
 
-        # Pull a folder content from the simulator/device.
-        # On iOS the server should have ifuse libraries installed and configured properly for this feature to work
-        # on real devices.
+        # Pull a folder content from the remote device.
         # On Android the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Absolute path to the folder.
         #                      If the path starts with <em>@applicationId/</em> prefix, then the folder will be pulled
@@ -498,7 +477,6 @@ module Appium
         #                      Only pulling files from application containers is supported for iOS Simulator.
         #                      Provide the remote path in format
         #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
-        #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data which is zip archived
         #
@@ -556,6 +534,7 @@ module Appium
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
+        # @deprecated Except for Windows
         # Start the simulator and application configured with desired capabilities
         #
         # @example
@@ -563,9 +542,16 @@ module Appium
         #   @driver.launch_app
         #
         def launch_app
+          # TODO: Define only in Windows module when ruby_lib_core removes this method
+          if @automation_name != :windows
+            ::Appium::Logger.warn(
+              '[DEPRECATION] launch_app is deprecated. Please use activate_app instead.'
+            )
+          end
           @bridge.launch_app
         end
 
+        # @deprecated Except for Windows
         # Close an app on device
         #
         # @example
@@ -573,9 +559,16 @@ module Appium
         #   @driver.close_app
         #
         def close_app
+          # TODO: Define only in Windows module when ruby_lib_core removes this method
+          if @automation_name != :windows
+            ::Appium::Logger.warn(
+              '[DEPRECATION] close_app is deprecated. Please use terminate_app instead.'
+            )
+          end
           @bridge.close_app
         end
 
+        # @deprecated
         # Reset the device, relaunching the application.
         #
         # @example
@@ -583,6 +576,10 @@ module Appium
         #   @driver.reset
         #
         def reset
+          ::Appium::Logger.warn(
+            '[DEPRECATION] reset is deprecated. Please use terminate_app and activate_app, ' \
+            'or quit and create a new session instead.'
+          )
           @bridge.reset
         end
 
