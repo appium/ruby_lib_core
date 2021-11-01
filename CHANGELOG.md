@@ -31,6 +31,7 @@ Read `release_notes.md` for commit level details.
 - No longer set default `timeouts` as `0`
   - ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
+- Removed Selendroid related methods
 
 ### Deprecations
 - `Appium::Core::TouchAction` and `Appium::Core::MultiTouch` are deprecated
@@ -43,7 +44,10 @@ Read `release_notes.md` for commit level details.
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
         - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
         - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
-- Removed Selendroid related methods
+- `launch_app`, `close_app` and `reset`. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details.
+    - `activate_app` or a new session request can be alternatives of `launch_app`
+    - `terminate_app` or close the session request can be alternatives of `close_app`
+    - Close current session and creating a new session, or `terminate_app` and `launch_app` can be alternatives of `reset`
 
 ## [4.7.1] - 2021-09-26
 
