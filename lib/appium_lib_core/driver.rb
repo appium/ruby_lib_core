@@ -366,7 +366,8 @@ module Appium
                                                      capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
-                                                     wait_interval: @wait_interval)
+                                                     wait_interval: @wait_interval,
+                                                     automation_name: @automation_name)
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)
