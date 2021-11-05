@@ -10,7 +10,7 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [5.0.0]
+## [5.0.0] - 2021-11-05
 
 ### Enhancements
 
