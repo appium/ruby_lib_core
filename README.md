@@ -15,7 +15,7 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 
 # Migration from v4 to v5
 
-Please read `[5.0.0]` section in CHANGELOG.md
+Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CHANGELOG.md)
 
 # Related library
 - https://github.com/appium/ruby_lib
