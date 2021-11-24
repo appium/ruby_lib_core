@@ -1,3 +1,12 @@
+#### v5.0.1 2021-11-23
+
+- [f17ba52](https://github.com/appium/ruby_lib_core/commit/f17ba524608a6e715923331bb9bfff73e0709bcb) Release 5.0.1
+- [ee9cbc4](https://github.com/appium/ruby_lib_core/commit/ee9cbc42e0d3289bb4ab9b403d45867472241e97) feat: relax selenium webdriver version (#357)
+- [4c2948b](https://github.com/appium/ruby_lib_core/commit/4c2948b113106e01c8009555434b4d0fe0ae99f3) chore(deps-dev): update rubocop requirement from = 1.22.3 to = 1.23.0 (#354)
+- [abe2316](https://github.com/appium/ruby_lib_core/commit/abe2316b5a01a27bc657daeb41524afca4187c18) ci: add codeql-analysis (#355)
+- [1c87fc9](https://github.com/appium/ruby_lib_core/commit/1c87fc9b2e1ac7bd869ec61a0dc045b12d5ed887) docs: add link to changelog in migration guide
+
+
 #### v5.0.0 2021-11-05
 
 - [e2d1e2d](https://github.com/appium/ruby_lib_core/commit/e2d1e2da59b10f84b3c8ecafba7be6ab27223b73) Release 5.0.0
