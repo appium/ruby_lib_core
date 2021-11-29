@@ -16,7 +16,7 @@ steps:
     versionSpec: '3.0'
 - script: |
     mkdir -p test/report
-    nohup appium --relaxed-security --log-timestamp --log-no-colors > test/report/appium.out 2>&1 &
+    nohup appium --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > test/report/appium.out 2>&1 &
   displayName: Run Appium in background
   env:
     JAVA_HOME: $(JAVA_HOME_11_X64)
