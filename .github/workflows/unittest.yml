@@ -30,8 +30,8 @@ jobs:
       run: |
         bundle exec rake rubocop
         bundle exec rake test:unit
-        AUTOMATION_NAME_DROID=espresso bundle exec rake test:unit:android
-        AUTOMATION_NAME_DROID=appium AUTOMATION_NAME_IOS=appium bundle exec rake test:unit
+        APPIUM_DRIVER=espresso bundle exec rake test:unit:android
+        APPIUM_DRIVER=appium bundle exec rake test:unit
 
   test-win:
     strategy:
@@ -59,9 +59,8 @@ jobs:
         run: |
           rake test:unit
 
-          setx AUTOMATION_NAME_DROID espresso
+          setx APPIUM_DRIVER espresso
           rake test:unit:android
 
-          setx AUTOMATION_NAME_DROID appium
-          setx AUTOMATION_NAME_IOS appium
+          setx APPIUM_DRIVER appium
           rake test:unit

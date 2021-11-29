@@ -164,10 +164,8 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
     - template: ./functional/android_setup.yml
@@ -187,10 +185,8 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
@@ -210,10 +206,8 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
@@ -233,10 +227,8 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
@@ -256,10 +248,8 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
@@ -274,16 +264,13 @@ jobs:
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: uiautomator2
           APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: espresso
           APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
@@ -304,9 +291,9 @@ jobs:
 #    strategy:
 #      matrix:
 #        uiautomator2:
-#          AUTOMATION_NAME_DROID: 'uiautomator2'
+#          APPIUM_DRIVER: 'uiautomator2'
 #        espresso:
-#          AUTOMATION_NAME_DROID: 'espresso'
+#          APPIUM_DRIVER: 'espresso'
 #    steps:
 #      - template: ./functional/android_setup.yml
 #      - template: ./functional/run_appium.yml
