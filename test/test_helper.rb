@@ -298,7 +298,7 @@ class AppiumLibCoreTest
 
       # settins in caps should work over Appium 1.13.0
       if cap[:capabilities][:automationName] == 'uiautomator2' && (
-        AppiumLibCoreTest.appium_version == 'beta' or AppiumLibCoreTest.appium_version == 'next'
+        AppiumLibCoreTest.appium_version == 'beta' || AppiumLibCoreTest.appium_version == 'next'
       )
         cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
