@@ -9,6 +9,8 @@ steps:
   displayName: Install MJPEG Consumer
 - script: npm list --depth 2 -g || echo 'ok'
   displayName: Installed node dependencies
+- script: appium driver install ${APPIUM_DRIVER}
+  displayName: Install appium driver ${APPIUM_DRIVER}
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '3.0'

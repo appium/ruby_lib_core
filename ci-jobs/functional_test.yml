@@ -5,7 +5,7 @@ parameters:
   xcodeForIOS: 12.2
   xcodeForTVOS: 12.2
   androidSDK: 29  # API Level 30 emulators are more unstable than 29
-  appiumVersion: 'beta'
+  appiumVersion: 'next'
   ignoreVersionSkip: true
   CI: true
 
@@ -19,6 +19,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -35,6 +36,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -51,6 +53,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -67,6 +70,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -83,6 +87,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -99,6 +104,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -117,6 +123,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -157,9 +164,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
     - template: ./functional/android_setup.yml
     - template: ./functional/run_appium.yml
@@ -178,9 +187,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -199,9 +210,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -220,9 +233,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -241,9 +256,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -263,9 +280,11 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          AUTOMATION_NAME_DROID: uiautomator2
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          AUTOMATION_NAME_DROID: espresso
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml

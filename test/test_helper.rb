@@ -54,6 +54,7 @@ class AppiumLibCoreTest
       def skip_as_appium_version(required_version)
         return if ENV['IGNORE_VERSION_SKIP'].nil? || ENV['IGNORE_VERSION_SKIP'] == 'true'
         return if AppiumLibCoreTest.appium_version == 'beta'
+        return if AppiumLibCoreTest.appium_version == 'next'
 
         # rubocop:disable Style/GuardClause
         if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
@@ -64,6 +65,7 @@ class AppiumLibCoreTest
 
       def newer_appium_than_or_beta?(version)
         return true if AppiumLibCoreTest.appium_version == 'beta'
+        return true if AppiumLibCoreTest.appium_version == 'next'
 
         Gem::Version.new(AppiumLibCoreTest.appium_version) > Gem::Version.new(version.to_s)
       end
@@ -295,7 +297,9 @@ class AppiumLibCoreTest
       }
 
       # settins in caps should work over Appium 1.13.0
-      if cap[:capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
+      if cap[:capabilities][:automationName] == 'uiautomator2' && (
+        AppiumLibCoreTest.appium_version == 'beta' or AppiumLibCoreTest.appium_version == 'next'
+      )
         cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
         cap[:capabilities][:forceEspressoRebuild] = false
