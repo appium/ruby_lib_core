@@ -1,3 +1,10 @@
+#### v5.0.2 2021-12-01
+
+- [3cc0fb1](https://github.com/appium/ruby_lib_core/commit/3cc0fb129a0ec74367c716941adefae75fe6a6d6) Release 5.0.2
+- [a87c63a](https://github.com/appium/ruby_lib_core/commit/a87c63a5e00ca826eb89cee3b4874c4bbb787980) chore: tweak naming
+- [36e50b2](https://github.com/appium/ruby_lib_core/commit/36e50b28c04a5afda8d25f6b855d35fda5ff6b2b) fix: sends [{}] (#360)
+
+
 #### v5.0.1 2021-11-23
 
 - [f17ba52](https://github.com/appium/ruby_lib_core/commit/f17ba524608a6e715923331bb9bfff73e0709bcb) Release 5.0.1
