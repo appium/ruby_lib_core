@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.0.2] - 2021-12-01
+
+### Bug fixes
+- (internal) Fix firstMatch format in a new session creation
+
 ## [5.0.1] - 2021-11-23
 
 ### Enhancements
