@@ -77,8 +77,8 @@ module Appium
         def create_session(capabilities)
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
 
-          caps = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { alwaysMatch: caps, firstMatch: [{}] } })
+          always_match = add_appium_prefix(capabilities)
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } })
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
