@@ -630,9 +630,10 @@ module Appium
         #   @driver.install_app("/path/to/test.apk")
         #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true,
         #                       use_sdcard: false, grant_permissions: false)
+        #   @driver.install_app("/path/to/test.ipa", timeoutMs: 20000)
         #
         def install_app(path, options = {})
-          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1..].capitalize } } unless options.nil?
+          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1].upcase } } unless options.nil?
           @bridge.install_app(path, options)
         end
 
