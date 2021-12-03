@@ -632,7 +632,7 @@ module Appium
         #                       use_sdcard: false, grant_permissions: false)
         #
         def install_app(path, options = {})
-          options = options.transform_keys {|k| k.to_s.gsub(/_./) {|v| v.split('_')[1].capitalize} } unless options.nil?
+          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1..].capitalize } } unless options.nil?
           @bridge.install_app(path, options)
         end
 

@@ -135,11 +135,11 @@ class AppiumLibCoreTest
               .with(body: { appPath: 'app_path',
                             options: {
                               replace: true,
-                              timeout: 20_000,
+                              timeout: 20_000, # for Android
                               allowTestPackages: true,
                               useSdcard: false,
                               grantPermissions: false,
-                              timeoutMs: 10_000  # for iOS
+                              timeoutMs: 10_000 # for iOS
                             } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
