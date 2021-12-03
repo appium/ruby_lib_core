@@ -609,7 +609,9 @@ module Appium
           @bridge.background_app(duration)
         end
 
-        # Install the given app onto the device
+        # Install the given app onto the device.
+        # Each options can be snake-case or camel-case. Snake-cases will be converted to camel-case
+        # as options value.
         #
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
@@ -629,19 +631,15 @@ module Appium
         #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true,
         #                       use_sdcard: false, grant_permissions: false)
         #
-        def install_app(path,
-                        replace: nil,
-                        timeout: nil,
-                        allow_test_packages: nil,
-                        use_sdcard: nil,
-                        grant_permissions: nil)
-          @bridge.install_app(path,
-                              replace: replace,
-                              timeout: timeout,
-                              allow_test_packages: allow_test_packages,
-                              use_sdcard: use_sdcard,
-                              grant_permissions: grant_permissions)
+        def install_app(path, options = {})
+          options = options.transform_keys {|k| k.to_s.gsub(/_./) {|v| v.split('_')[1].capitalize} } unless options.nil?
+          @bridge.install_app(path, options)
         end
+
+        # def capitalize(s)
+        #   chars =
+        #   chars[1:].map(&:capitalize).join
+        # end
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
         # @param [Boolean] keep_data Only for Android. Whether to keep application data and caches after it is uninstalled.
