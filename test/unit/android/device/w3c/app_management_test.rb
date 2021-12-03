@@ -148,8 +148,8 @@ class AppiumLibCoreTest
                                 timeout: 20_000,
                                 allow_test_packages: true,
                                 use_sdcard: false,
-                                grant_permissions: false,
-                                timeoutMs: 10_000
+                                grantPermissions: false,
+                                timeout_ms: 10_000
 
             assert_requested(:post, "#{SESSION}/appium/device/install_app", times: 1)
           end

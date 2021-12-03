@@ -625,6 +625,9 @@ module Appium
         # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
         #                                    on Android 6+ after the installation completes. +false+ by default
         #
+        # Other parameters such as https://github.com/appium/appium-xcuitest-driver#mobile-installapp also can be set.
+        # Then, arguments in snake case will be camel case as its request parameters.
+        #
         # @example
         #
         #   @driver.install_app("/path/to/test.apk")
