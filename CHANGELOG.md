@@ -5,6 +5,8 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Can add more arguments in `install_app`
+    - e.g. Add `timeoutMs` for XCUITest driver as `@driver.install_app("/path/to/test.ipa", timeoutMs: 20000)`
 
 ### Bug fixes
 
