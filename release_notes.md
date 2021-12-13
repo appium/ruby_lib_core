@@ -1,3 +1,11 @@
+#### v5.0.3 2021-12-13
+
+- [7cee1b3](https://github.com/appium/ruby_lib_core/commit/7cee1b31647c453a546c450c35c37649462eed05) Release 5.0.3
+- [21bd5a5](https://github.com/appium/ruby_lib_core/commit/21bd5a5186dc25a9523ad8e7ec6275edbc79988e) fix: make bridge attribute non-private for flutter finder (#362)
+- [78e432e](https://github.com/appium/ruby_lib_core/commit/78e432e92571adfd80fe3ad4405010825e766fc5) chore: add changelog
+- [0b3c45c](https://github.com/appium/ruby_lib_core/commit/0b3c45cd6a059fd493bfcbd55ebe437291cbcdab) feat: do not restrict options in install_app (#361)
+
+
 #### v5.0.2 2021-12-01
 
 - [3cc0fb1](https://github.com/appium/ruby_lib_core/commit/3cc0fb129a0ec74367c716941adefae75fe6a6d6) Release 5.0.2
