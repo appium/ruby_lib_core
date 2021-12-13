@@ -5,12 +5,19 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Can add more arguments in `install_app`
-    - e.g. Add `timeoutMs` for XCUITest driver as `@driver.install_app("/path/to/test.ipa", timeoutMs: 20000)`
 
 ### Bug fixes
 
 ### Deprecations
+
+## [5.0.3] - 2021-12-13
+
+### Enhancements
+- Can add more arguments in `install_app`
+    - e.g. Add `timeoutMs` for XCUITest driver as `@driver.install_app("/path/to/test.ipa", timeoutMs: 20000)`
+
+### Bug fixes
+- (internal) Allow to access to `bridge` attribute in `driver` instance for appium_flutter_finder
 
 ## [5.0.2] - 2021-12-01
 
