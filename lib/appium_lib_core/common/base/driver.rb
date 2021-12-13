@@ -41,11 +41,11 @@ module Appium
 
         include ::Appium::Core::Waitable
 
-        private
-
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
+
+        private
 
         def initialize(bridge: nil, listener: nil, **opts)
           # For ::Appium::Core::Waitable
