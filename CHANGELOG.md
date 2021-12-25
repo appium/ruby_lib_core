@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Make default pointerType `touch` for the pointer in W3C actions instead of `mouse` for Appium
 
 ### Bug fixes
 

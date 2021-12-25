@@ -32,7 +32,7 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: 'pointer',
-                id: 'mouse',
+                id: 'touch',
                 actions: [{
                   type: 'pointerMove',
                   duration: 50,
@@ -55,7 +55,7 @@ class AppiumLibCoreTest
                   button: 0
                 }],
                 parameters: {
-                  pointerType: 'mouse'
+                  pointerType: 'touch'
                 }
               }]
             }
