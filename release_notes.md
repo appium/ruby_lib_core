@@ -1,3 +1,11 @@
+#### v5.1.0 2021-12-25
+
+- [b8b9f08](https://github.com/appium/ruby_lib_core/commit/b8b9f0858846279bbd993baa3aa4a8fdfc737b53) Release 5.1.0
+- [5979999](https://github.com/appium/ruby_lib_core/commit/59799994e91e126d57ce2cfd5b1446c48b381638) ci: add ruby 3.1 (#365)
+- [6df37c7](https://github.com/appium/ruby_lib_core/commit/6df37c7928b125295e657f007e6c6c135090ac82) chore: tune w3c actions (#364)
+- [1fdb794](https://github.com/appium/ruby_lib_core/commit/1fdb794153d74e54ca730d78eb38a59f1e3b9c72) chore(deps-dev): update rubocop requirement from = 1.23.0 to = 1.24.0 (#363)
+
+
 #### v5.0.3 2021-12-13
 
 - [7cee1b3](https://github.com/appium/ruby_lib_core/commit/7cee1b31647c453a546c450c35c37649462eed05) Release 5.0.3
