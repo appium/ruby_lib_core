@@ -5,11 +5,16 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Make default pointerType `touch` for the pointer in W3C actions instead of `mouse` for Appium
 
 ### Bug fixes
 
 ### Deprecations
+
+## [5.1.0] - 2021-12-25
+
+### Enhancements
+- Make default pointerType `touch` for the pointer in W3C actions instead of `mouse` for Appium
+    - This change should not affect W3C actions
 
 ## [5.0.3] - 2021-12-13
 
