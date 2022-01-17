@@ -171,8 +171,6 @@ module Appium
         ime_deactivate: [:post, 'session/:session_id/ime/deactivate'],
         ime_activate_engine: [:post, 'session/:session_id/ime/activate'],
 
-        send_keys_to_active_element: [:post, 'session/:session_id/keys'],
-
         ### Logs
         get_available_log_types: [:get, 'session/:session_id/log/types'],
         get_log: [:post, 'session/:session_id/log'],

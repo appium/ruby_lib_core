@@ -189,12 +189,6 @@ module Appium
           ::Selenium::WebDriver::Remote::Capabilities.json_create execute(:get_capabilities)
         end
 
-        # Port from MJSONWP
-        def send_keys_to_active_element(key)
-          text = ::Selenium::WebDriver::Keys.encode(key).join
-          execute :send_keys_to_active_element, {}, { value: text.chars }
-        end
-
         # For Appium
         # override
         def page_source
