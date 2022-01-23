@@ -29,7 +29,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_match_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
@@ -47,7 +46,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_find_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
@@ -67,7 +65,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_get_images_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
@@ -85,7 +82,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         if @@core.automation_name == :espresso
           skip 'Espresso does not support find_element since it does not support settings API'
@@ -127,7 +123,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         if @@core.automation_name == :espresso
           skip 'Espresso does not support find_element since it does not support settings API'
@@ -171,7 +166,6 @@ class AppiumLibCoreTest
 
       # tested only Android side since the logic is the same in cross platform
       def test_template_scale_ratio
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         skip 'Espresso does not support settings API' if @@core.automation_name == :espresso
 

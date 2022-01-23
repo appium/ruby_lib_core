@@ -20,7 +20,6 @@ require 'base64'
 class AppiumLibCoreTest
   module Ios
     # @since Appium 1.9.0
-    # Need `npm install -g appium opencv4nodejs`
     class ImageComparisionTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
@@ -32,7 +31,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_match_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
@@ -50,7 +48,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_find_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
@@ -68,7 +65,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_get_images_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read './test/functional/data/test_normal.png'
@@ -86,7 +82,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: true })
@@ -133,7 +128,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         @@driver.update_settings({ fixImageTemplateScale: true })
