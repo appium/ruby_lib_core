@@ -41,11 +41,11 @@ module Appium
 
         include ::Appium::Core::Waitable
 
-        private
-
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
+
+        private
 
         def initialize(bridge: nil, listener: nil, **opts)
           # For ::Appium::Core::Waitable
@@ -609,7 +609,9 @@ module Appium
           @bridge.background_app(duration)
         end
 
-        # Install the given app onto the device
+        # Install the given app onto the device.
+        # Each options can be snake-case or camel-case. Snake-cases will be converted to camel-case
+        # as options value.
         #
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
@@ -623,25 +625,25 @@ module Appium
         # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
         #                                    on Android 6+ after the installation completes. +false+ by default
         #
+        # Other parameters such as https://github.com/appium/appium-xcuitest-driver#mobile-installapp also can be set.
+        # Then, arguments in snake case will be camel case as its request parameters.
+        #
         # @example
         #
         #   @driver.install_app("/path/to/test.apk")
         #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true,
         #                       use_sdcard: false, grant_permissions: false)
+        #   @driver.install_app("/path/to/test.ipa", timeoutMs: 20000)
         #
-        def install_app(path,
-                        replace: nil,
-                        timeout: nil,
-                        allow_test_packages: nil,
-                        use_sdcard: nil,
-                        grant_permissions: nil)
-          @bridge.install_app(path,
-                              replace: replace,
-                              timeout: timeout,
-                              allow_test_packages: allow_test_packages,
-                              use_sdcard: use_sdcard,
-                              grant_permissions: grant_permissions)
+        def install_app(path, **options)
+          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1].upcase } } unless options.nil?
+          @bridge.install_app(path, options)
         end
+
+        # def capitalize(s)
+        #   chars =
+        #   chars[1:].map(&:capitalize).join
+        # end
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
         # @param [Boolean] keep_data Only for Android. Whether to keep application data and caches after it is uninstalled.

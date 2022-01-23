@@ -135,10 +135,11 @@ class AppiumLibCoreTest
               .with(body: { appPath: 'app_path',
                             options: {
                               replace: true,
-                              timeout: 20_000,
+                              timeout: 20_000, # for Android
                               allowTestPackages: true,
                               useSdcard: false,
-                              grantPermissions: false
+                              grantPermissions: false,
+                              timeoutMs: 10_000 # for iOS
                             } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
@@ -147,7 +148,8 @@ class AppiumLibCoreTest
                                 timeout: 20_000,
                                 allow_test_packages: true,
                                 use_sdcard: false,
-                                grant_permissions: false
+                                grantPermissions: false,
+                                timeout_ms: 10_000
 
             assert_requested(:post, "#{SESSION}/appium/device/install_app", times: 1)
           end

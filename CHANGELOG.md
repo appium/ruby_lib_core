@@ -10,6 +10,26 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.1.0] - 2021-12-25
+
+### Enhancements
+- Make default pointerType `touch` for the pointer in W3C actions instead of `mouse` for Appium
+    - This change should not affect W3C actions
+
+## [5.0.3] - 2021-12-13
+
+### Enhancements
+- Can add more arguments in `install_app`
+    - e.g. Add `timeoutMs` for XCUITest driver as `@driver.install_app("/path/to/test.ipa", timeoutMs: 20000)`
+
+### Bug fixes
+- (internal) Allow to access to `bridge` attribute in `driver` instance for appium_flutter_finder
+
+## [5.0.2] - 2021-12-01
+
+### Bug fixes
+- (internal) Fix firstMatch format in a new session creation
+
 ## [5.0.1] - 2021-11-23
 
 ### Enhancements

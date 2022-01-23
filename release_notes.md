@@ -1,3 +1,26 @@
+#### v5.1.0 2021-12-25
+
+- [b8b9f08](https://github.com/appium/ruby_lib_core/commit/b8b9f0858846279bbd993baa3aa4a8fdfc737b53) Release 5.1.0
+- [5979999](https://github.com/appium/ruby_lib_core/commit/59799994e91e126d57ce2cfd5b1446c48b381638) ci: add ruby 3.1 (#365)
+- [6df37c7](https://github.com/appium/ruby_lib_core/commit/6df37c7928b125295e657f007e6c6c135090ac82) chore: tune w3c actions (#364)
+- [1fdb794](https://github.com/appium/ruby_lib_core/commit/1fdb794153d74e54ca730d78eb38a59f1e3b9c72) chore(deps-dev): update rubocop requirement from = 1.23.0 to = 1.24.0 (#363)
+
+
+#### v5.0.3 2021-12-13
+
+- [7cee1b3](https://github.com/appium/ruby_lib_core/commit/7cee1b31647c453a546c450c35c37649462eed05) Release 5.0.3
+- [21bd5a5](https://github.com/appium/ruby_lib_core/commit/21bd5a5186dc25a9523ad8e7ec6275edbc79988e) fix: make bridge attribute non-private for flutter finder (#362)
+- [78e432e](https://github.com/appium/ruby_lib_core/commit/78e432e92571adfd80fe3ad4405010825e766fc5) chore: add changelog
+- [0b3c45c](https://github.com/appium/ruby_lib_core/commit/0b3c45cd6a059fd493bfcbd55ebe437291cbcdab) feat: do not restrict options in install_app (#361)
+
+
+#### v5.0.2 2021-12-01
+
+- [3cc0fb1](https://github.com/appium/ruby_lib_core/commit/3cc0fb129a0ec74367c716941adefae75fe6a6d6) Release 5.0.2
+- [a87c63a](https://github.com/appium/ruby_lib_core/commit/a87c63a5e00ca826eb89cee3b4874c4bbb787980) chore: tweak naming
+- [36e50b2](https://github.com/appium/ruby_lib_core/commit/36e50b28c04a5afda8d25f6b855d35fda5ff6b2b) fix: sends [{}] (#360)
+
+
 #### v5.0.1 2021-11-23
 
 - [f17ba52](https://github.com/appium/ruby_lib_core/commit/f17ba524608a6e715923331bb9bfff73e0709bcb) Release 5.0.1

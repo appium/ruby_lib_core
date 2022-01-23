@@ -58,6 +58,8 @@ Style/KeywordParametersOrder:
   Enabled: false
 Gemspec/DateAssignment:
   Enabled: true
+Gemspec/RequireMFA:
+  Enabled: true
 Layout/LineEndStringConcatenationIndentation:
   Enabled: true
 Layout/SpaceBeforeBrackets:
@@ -104,6 +106,8 @@ Lint/UnexpectedBlockArity:
   Enabled: true
 Lint/UnmodifiedReduceAccumulator:
   Enabled: true
+Lint/UselessRuby2Keywords:
+  Enabled: true
 Security/IoMethods:
   Enabled: true
 Style/ArgumentsForwarding:
@@ -143,4 +147,6 @@ Style/SelectByRegexp:
 Style/StringChars:
   Enabled: true
 Style/SwapValues:
+  Enabled: true
+Style/OpenStructUse:
   Enabled: true
