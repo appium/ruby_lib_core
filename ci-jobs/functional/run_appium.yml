@@ -11,7 +11,7 @@ steps:
   displayName: Installed node dependencies
 - script: appium driver install ${APPIUM_DRIVER}
   displayName: Install appium driver ${APPIUM_DRIVER}
-- script: appium plugin install image
+- script: appium plugin install images
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '3.0'
