@@ -62,7 +62,7 @@ class AppiumLibCoreTest
         multiple = find_result['multiple']
         assert_equal(1, multiple.size)
         assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, multiple.first['rect'])
-        assert !multiple['score'].nil?
+        assert !multiple.first['score'].nil?
 
         find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
         assert_equal %w(rect score visualization multiple).to_set, find_result_visual.keys.to_set
