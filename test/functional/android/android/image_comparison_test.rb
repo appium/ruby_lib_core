@@ -79,7 +79,7 @@ class AppiumLibCoreTest
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         get_images_result = @driver.get_images_similarity first_image: image1, second_image: image2
-        assert_equal({ 'score' => 0.891606867313385 }, get_images_result)
+        assert_equal({ 'score' => 0.8916058540344238 }, get_images_result)
 
         get_images_result_visual = @driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
         assert_equal %w(score visualization), get_images_result_visual.keys
