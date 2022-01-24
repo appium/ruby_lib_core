@@ -54,10 +54,19 @@ class AppiumLibCoreTest
         image2 = File.read './test/functional/data/test_has_blue.png'
 
         find_result = @@driver.find_image_occurrence full_image: image1, partial_image: image2
-        assert_equal({ 'rect' => { 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 } }, find_result)
+
+        assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
+        assert !find_result['score'].nil?
+
+        assert_equal(nil, find_result['visualization'])
+
+        multiple = find_result['multiple']
+        assert_equal(1, multiple.size)
+        assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, multiple.first['rect'])
+        assert !multiple['score'].nil?
 
         find_result_visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization), find_result_visual.keys
+        assert_equal %w(rect visualization).to_set, find_result_visual.keys.to_set
         File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 
@@ -71,7 +80,7 @@ class AppiumLibCoreTest
         image2 = File.read './test/functional/data/test_has_blue.png'
 
         get_images_result = @@driver.get_images_similarity first_image: image1, second_image: image2
-        assert_equal({ 'score' => 0.891606867313385 }, get_images_result)
+        assert_equal({ 'score' => 0.8916058540344238 }, get_images_result)
 
         get_images_result_visual = @@driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
         assert_equal %w(score visualization), get_images_result_visual.keys

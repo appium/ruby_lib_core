@@ -21,11 +21,12 @@ class AppiumLibCoreTest
     class ImageComparisionTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
-        @driver ||= @@core.start_driver
+        @driver = @@core.start_driver
       end
 
       def teardown
         save_reports(@driver)
+        @driver.quit
       end
 
       def test_image_comparison_match_result
@@ -56,8 +57,15 @@ class AppiumLibCoreTest
         assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
         assert !find_result['score'].nil?
 
+        assert_equal(nil, find_result['visualization'])
+
+        multiple = find_result['multiple']
+        assert_equal(1, multiple.size)
+        assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, multiple.first['rect'])
+        assert !multiple['score'].nil?
+
         find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization), find_result_visual.keys
+        assert_equal %w(rect score visualization multiple).to_set, find_result_visual.keys.to_set
         File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 

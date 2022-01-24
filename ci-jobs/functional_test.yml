@@ -146,7 +146,7 @@ jobs:
         parameters:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
       - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:ios test/functional/ios/ios/image_comparison_test.rb
+      - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/image_comparison_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
 
