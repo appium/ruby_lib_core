@@ -182,7 +182,10 @@ class AppiumLibCoreTest
         el = @driver.find_element :accessibility_id, 'NFC'
         el.save_screenshot 'test/functional/data/test_android_nfc.png'
 
-        @driver.update_settings({ defaultImageTemplateScale: 4 })
+        @driver.update_settings({
+          defaultImageTemplateScale: 4,
+          imageMatchThreshold: 0.9
+        })
 
         image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
         assert image_element.inspect
