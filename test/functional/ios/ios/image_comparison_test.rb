@@ -93,11 +93,13 @@ class AppiumLibCoreTest
       def test_image_element
         skip_as_appium_version '1.9.0'
 
-        @@driver.update_settings({
-          fixImageTemplateScale: true,
-          imageMatchThreshold: 0.9,
-          getMatchedImageResult: true
-        })
+        @@driver.update_settings(
+          {
+            fixImageTemplateScale: true,
+            imageMatchThreshold: 0.9,
+            getMatchedImageResult: true
+          }
+        )
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
@@ -134,11 +136,13 @@ class AppiumLibCoreTest
         assert @@driver.find_element :accessibility_id, 'Person'
         @@driver.back
 
-        @@driver.update_settings({
-          fixImageTemplateScale: true,
-          imageMatchThreshold: 0.9,
-          getMatchedImageResult: false
-        })
+        @@driver.update_settings(
+          {
+            fixImageTemplateScale: true,
+            imageMatchThreshold: 0.9,
+            getMatchedImageResult: false
+          }
+        )
         image_element =
           @@core.wait { @@driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png') }
         assert_nil image_element.visual
@@ -147,10 +151,7 @@ class AppiumLibCoreTest
       def test_image_elements
         skip_as_appium_version '1.9.0'
 
-        @@driver.update_settings({
-          fixImageTemplateScale: true,
-          imageMatchThreshold: 0.9
-        })
+        @@driver.update_settings({ fixImageTemplateScale: true, imageMatchThreshold: 0.9 })
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         el.save_screenshot 'test/functional/data/test_ios_button.png'
