@@ -150,20 +150,20 @@ class AppiumLibCoreTest
 
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 1
-        assert_in_delta el_location.y, image_location.y, 1
+        assert_in_delta el_location.x, image_location.x, 13
+        assert_in_delta el_location.y, image_location.y, 13
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 1
-        assert_in_delta el_size.height, image_size.height, 1
+        assert_in_delta el_size.width, image_size.width, 13
+        assert_in_delta el_size.height, image_size.height, 13
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 1
-        assert_in_delta el_rect.y, image_rect.y, 1
-        assert_in_delta el_rect.width, image_rect.width, 1
-        assert_in_delta el_rect.height, image_rect.height, 1
+        assert_in_delta el_rect.x, image_rect.x, 13
+        assert_in_delta el_rect.y, image_rect.y, 13
+        assert_in_delta el_rect.width, image_rect.width, 13
+        assert_in_delta el_rect.height, image_rect.height, 13
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
