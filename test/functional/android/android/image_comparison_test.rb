@@ -142,7 +142,7 @@ class AppiumLibCoreTest
         @driver.save_element_screenshot el, 'test/functional/data/test_android_app.png'
 
         image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_app.png')
-        image_element = image_elements[0]
+        image_element = image_elements.last
 
         assert image_element.inspect
         assert image_element.hash

@@ -145,8 +145,8 @@ class AppiumLibCoreTest
         el.save_screenshot 'test/functional/data/test_ios_button.png'
 
         image_elements = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
-        assert image_elements.size == 1, image_elements.size
-        image_element = image_elements[1]
+        # assert image_elements.size == 1, image_elements.size
+        image_element = image_elements.last
 
         assert image_element.inspect
         assert image_element.hash
