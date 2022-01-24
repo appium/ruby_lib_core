@@ -66,7 +66,7 @@ class AppiumLibCoreTest
         assert !multiple['score'].nil?
 
         find_result_visual = @@driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization).to_set, find_result_visual.keys.to_set
+        assert_equal %w(rect score visualization multiple).to_set, find_result_visual.keys.to_set
         File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 
@@ -149,7 +149,7 @@ class AppiumLibCoreTest
 
         assert image_element.inspect
         assert image_element.hash
-        assert element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
+        assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location
