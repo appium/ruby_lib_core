@@ -127,7 +127,7 @@ class AppiumLibCoreTest
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
 
-        assert @@driver.find_element :accessibility_id, 'X Button'
+        assert @@driver.find_element :accessibility_id, 'Person'
         @@driver.back
 
         @@driver.update_settings({ fixImageTemplateScale: true, getMatchedImageResult: false })
@@ -145,7 +145,8 @@ class AppiumLibCoreTest
         el.save_screenshot 'test/functional/data/test_ios_button.png'
 
         image_elements = @@driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_ios_button.png')
-        image_element = image_elements[0]
+        assert image_elements.size == 1, image_elements.size
+        image_element = image_elements[1]
 
         assert image_element.inspect
         assert image_element.hash
@@ -171,7 +172,7 @@ class AppiumLibCoreTest
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
 
-        assert @@driver.find_element :accessibility_id, 'X Button'
+        assert @@driver.find_element :accessibility_id, 'Person'
         @@driver.back
       end
     end
