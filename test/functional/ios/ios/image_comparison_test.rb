@@ -97,7 +97,8 @@ class AppiumLibCoreTest
           {
             fixImageTemplateScale: true,
             imageMatchThreshold: 0.9,
-            getMatchedImageResult: true
+            getMatchedImageResult: true,
+            checkForImageElementStaleness: false
           }
         )
 
