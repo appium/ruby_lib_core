@@ -152,7 +152,13 @@ class AppiumLibCoreTest
       def test_image_elements
         skip_as_appium_version '1.9.0'
 
-        @@driver.update_settings({ fixImageTemplateScale: true, imageMatchThreshold: 0.9 })
+        @@driver.update_settings(
+          {
+            fixImageTemplateScale: true,
+            imageMatchThreshold: 0.9,
+            checkForImageElementStaleness: false
+          }
+        )
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
         el.save_screenshot 'test/functional/data/test_ios_button.png'
