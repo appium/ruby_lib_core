@@ -136,7 +136,7 @@ class AppiumLibCoreTest
           skip 'Espresso does not support find_element since it does not support settings API'
         end
 
-        @@driver.update_settings(
+        @driver.update_settings(
           {
             imageMatchThreshold: 0.9
           }
