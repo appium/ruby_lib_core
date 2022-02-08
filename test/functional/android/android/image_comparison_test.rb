@@ -136,6 +136,12 @@ class AppiumLibCoreTest
           skip 'Espresso does not support find_element since it does not support settings API'
         end
 
+        @@driver.update_settings(
+          {
+            imageMatchThreshold: 0.9
+          }
+        )
+
         @driver.rotation = :landscape
 
         el = @driver.find_element :accessibility_id, 'App'
@@ -185,7 +191,8 @@ class AppiumLibCoreTest
         @driver.update_settings(
           {
             defaultImageTemplateScale: 4,
-            imageMatchThreshold: 0.9
+            imageMatchThreshold: 0.9,
+            checkForImageElementStaleness: false
           }
         )
 
