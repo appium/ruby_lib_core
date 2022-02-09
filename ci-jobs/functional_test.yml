@@ -5,7 +5,7 @@ parameters:
   xcodeForIOS: 12.2
   xcodeForTVOS: 12.2
   androidSDK: 29  # API Level 30 emulators are more unstable than 29
-  appiumVersion: 'beta'
+  appiumVersion: 'next'  # for appium 2 upstream
   ignoreVersionSkip: true
   CI: true
 
@@ -19,6 +19,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -35,6 +36,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -51,6 +53,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -67,6 +70,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -83,6 +87,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -99,6 +104,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -117,6 +123,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -126,25 +133,22 @@ jobs:
       displayName: Run tests func_test_ios_tvos
     - template: ./functional/publish_test_result.yml
 
-# Skip since opencv4nodejs fails to install on the macOS instance
-#  - job: func_test_ios_opencv
-#    pool:
-#      vmImage: ${{ parameters.vmImageForIOS }}
-#    variables:
-#      CI: ${{ parameters.ci }}
-#      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-#      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-#    steps:
-#      - template: ./functional/ios_setup.yml
-#        parameters:
-#          xcodeVersion: ${{ parameters.xcodeForIOS }}
-#      - template: ./functional/run_appium.yml
-#      - script: npm install -g opencv4nodejs@5.1.0
-#        displayName: Install opencv4nodejs@5.1.0
-#      - script: bundle exec rake test:func:ios test/functional/ios/ios/image_comparison_test.rb
-#        displayName: Run tests
-#      - template: ./functional/publish_test_result.yml
-
+  - job: func_test_ios_opencv
+    pool:
+      vmImage: ${{ parameters.vmImageForIOS }}
+    variables:
+      CI: ${{ parameters.ci }}
+      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+      APPIUM_VERSION: ${{ parameters.appiumVersion }}
+      APPIUM_DRIVER: xcuitest
+    steps:
+      - template: ./functional/ios_setup.yml
+        parameters:
+          xcodeVersion: ${{ parameters.xcodeForIOS }}
+      - template: ./functional/run_appium.yml
+      - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/image_comparison_test.rb
+        displayName: Run tests
+      - template: ./functional/publish_test_result.yml
 
   - job: func_test_android_base
     pool:
@@ -157,9 +161,9 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
     - template: ./functional/android_setup.yml
     - template: ./functional/run_appium.yml
@@ -178,9 +182,9 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -199,9 +203,9 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -220,9 +224,9 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -241,9 +245,9 @@ jobs:
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -257,15 +261,14 @@ jobs:
     variables:
       CI: ${{ parameters.ci }}
       ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      AUTOMATION_NAME_DROID: espresso
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
     strategy:
       matrix:
         uiautomator2:
-          AUTOMATION_NAME_DROID: 'uiautomator2'
+          APPIUM_DRIVER: uiautomator2
         espresso:
-          AUTOMATION_NAME_DROID: 'espresso'
+          APPIUM_DRIVER: espresso
     steps:
       - template: ./functional/android_setup.yml
       - template: ./functional/run_appium.yml
@@ -273,26 +276,23 @@ jobs:
         displayName: Run tests func_test_android_mobile_command_espresso
       - template: ./functional/publish_test_result.yml
 
-# Skip since opencv4nodejs fails to install on the macOS instance
-#  - job: func_test_android_opencv
-#    pool:
-#      vmImage: ${{ parameters.vmImage }}
-#    variables:
-#      CI: ${{ parameters.ci }}
-#      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-#      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-#      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-#    strategy:
-#      matrix:
-#        uiautomator2:
-#          AUTOMATION_NAME_DROID: 'uiautomator2'
-#        espresso:
-#          AUTOMATION_NAME_DROID: 'espresso'
-#    steps:
-#      - template: ./functional/android_setup.yml
-#      - template: ./functional/run_appium.yml
-#      - script: npm install -g opencv4nodejs@5.1.0
-#        displayName: Install opencv4nodejs@5.1.0
-#      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb
-#        displayName: Run tests func_test_android_opencv
-#      - template: ./functional/publish_test_result.yml
+  - job: func_test_android_opencv
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    variables:
+      CI: ${{ parameters.ci }}
+      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
+      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
+      APPIUM_VERSION: ${{ parameters.appiumVersion }}
+    strategy:
+      matrix:
+        uiautomator2:
+          APPIUM_DRIVER: uiautomator2
+        espresso:
+          APPIUM_DRIVER: espresso
+    steps:
+      - template: ./functional/android_setup.yml
+      - template: ./functional/run_appium.yml
+      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/image_comparison_test.rb
+        displayName: Run tests func_test_android_opencv
+      - template: ./functional/publish_test_result.yml

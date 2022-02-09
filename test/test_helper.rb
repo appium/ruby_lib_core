@@ -54,6 +54,7 @@ class AppiumLibCoreTest
       def skip_as_appium_version(required_version)
         return if ENV['IGNORE_VERSION_SKIP'].nil? || ENV['IGNORE_VERSION_SKIP'] == 'true'
         return if AppiumLibCoreTest.appium_version == 'beta'
+        return if AppiumLibCoreTest.appium_version == 'next'
 
         # rubocop:disable Style/GuardClause
         if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
@@ -64,6 +65,7 @@ class AppiumLibCoreTest
 
       def newer_appium_than_or_beta?(version)
         return true if AppiumLibCoreTest.appium_version == 'beta'
+        return true if AppiumLibCoreTest.appium_version == 'next'
 
         Gem::Version.new(AppiumLibCoreTest.appium_version) > Gem::Version.new(version.to_s)
       end
@@ -129,7 +131,7 @@ class AppiumLibCoreTest
       cap = {
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
-          automationName: ENV['AUTOMATION_NAME_IOS'] || 'XCUITest',
+          automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name(platform_version, platform_name, wda_port),
@@ -261,7 +263,7 @@ class AppiumLibCoreTest
       cap = {
         capabilities: { # :caps is also available
           platformName: :android,
-          automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+          automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
           app: 'test/functional/app/api.apk.zip',
           udid: udid_name,
           deviceName: 'Android Emulator',
@@ -295,7 +297,9 @@ class AppiumLibCoreTest
       }
 
       # settins in caps should work over Appium 1.13.0
-      if cap[:capabilities][:automationName] == 'uiautomator2' && AppiumLibCoreTest.appium_version == 'beta'
+      if cap[:capabilities][:automationName] == 'uiautomator2' && (
+        AppiumLibCoreTest.appium_version == 'beta' || AppiumLibCoreTest.appium_version == 'next'
+      )
         cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
         cap[:capabilities][:forceEspressoRebuild] = false
@@ -325,7 +329,7 @@ class AppiumLibCoreTest
         caps: {
           browserName: :chrome,
           platformName: :android,
-          automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+          automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: %w(--disable-fre --disable-popup-blocking) },
           # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
@@ -419,7 +423,7 @@ class AppiumLibCoreTest
           sessionId: '1234567890',
           capabilities: {
             platformName: :android,
-            automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
             app: 'test/functional/app/api.apk.zip',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',

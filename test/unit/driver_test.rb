@@ -127,7 +127,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -179,7 +179,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -230,7 +230,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -282,7 +282,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -328,7 +328,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',

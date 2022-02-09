@@ -21,15 +21,15 @@ class AppiumLibCoreTest
     class ImageComparisionTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
-        @driver ||= @@core.start_driver
+        @driver = @@core.start_driver
       end
 
       def teardown
         save_reports(@driver)
+        @driver.quit
       end
 
       def test_image_comparison_match_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
@@ -47,7 +47,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_find_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
@@ -58,8 +57,15 @@ class AppiumLibCoreTest
         assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
         assert !find_result['score'].nil?
 
+        assert_equal(nil, find_result['visualization'])
+
+        multiple = find_result['multiple']
+        assert_equal(1, multiple.size)
+        assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, multiple.first['rect'])
+        assert !multiple.first['score'].nil?
+
         find_result_visual = @driver.find_image_occurrence full_image: image1, partial_image: image2, visualize: true
-        assert_equal %w(rect visualization), find_result_visual.keys
+        assert_equal %w(rect score visualization multiple).to_set, find_result_visual.keys.to_set
         File.open('find_result_visual.png', 'wb') { |f| f << Base64.decode64(find_result_visual['visualization']) }
         assert File.size? 'find_result_visual.png'
 
@@ -67,14 +73,13 @@ class AppiumLibCoreTest
       end
 
       def test_image_comparison_get_images_result
-        skip 'Requres `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
 
         image1 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_normal.png')
         image2 = File.read AppiumLibCoreTest.path_of('test/functional/data/test_has_blue.png')
 
         get_images_result = @driver.get_images_similarity first_image: image1, second_image: image2
-        assert_equal({ 'score' => 0.891606867313385 }, get_images_result)
+        assert_equal({ 'score' => 0.8916058540344238 }, get_images_result)
 
         get_images_result_visual = @driver.get_images_similarity first_image: image1, second_image: image2, visualize: true
         assert_equal %w(score visualization), get_images_result_visual.keys
@@ -85,7 +90,6 @@ class AppiumLibCoreTest
       end
 
       def test_image_element
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         if @@core.automation_name == :espresso
           skip 'Espresso does not support find_element since it does not support settings API'
@@ -127,11 +131,16 @@ class AppiumLibCoreTest
       end
 
       def test_image_elements
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         if @@core.automation_name == :espresso
           skip 'Espresso does not support find_element since it does not support settings API'
         end
+
+        @driver.update_settings(
+          {
+            imageMatchThreshold: 0.9
+          }
+        )
 
         @driver.rotation = :landscape
 
@@ -139,7 +148,7 @@ class AppiumLibCoreTest
         @driver.save_element_screenshot el, 'test/functional/data/test_android_app.png'
 
         image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_app.png')
-        image_element = image_elements[0]
+        image_element = image_elements.last
 
         assert image_element.inspect
         assert image_element.hash
@@ -147,20 +156,20 @@ class AppiumLibCoreTest
 
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 1
-        assert_in_delta el_location.y, image_location.y, 1
+        assert_in_delta el_location.x, image_location.x, 13
+        assert_in_delta el_location.y, image_location.y, 13
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 1
-        assert_in_delta el_size.height, image_size.height, 1
+        assert_in_delta el_size.width, image_size.width, 13
+        assert_in_delta el_size.height, image_size.height, 13
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 1
-        assert_in_delta el_rect.y, image_rect.y, 1
-        assert_in_delta el_rect.width, image_rect.width, 1
-        assert_in_delta el_rect.height, image_rect.height, 1
+        assert_in_delta el_rect.x, image_rect.x, 13
+        assert_in_delta el_rect.y, image_rect.y, 13
+        assert_in_delta el_rect.width, image_rect.width, 13
+        assert_in_delta el_rect.height, image_rect.height, 13
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
@@ -171,7 +180,6 @@ class AppiumLibCoreTest
 
       # tested only Android side since the logic is the same in cross platform
       def test_template_scale_ratio
-        skip 'Requires `npm install -g appium opencv4nodejs`' unless `npm list -g opencv4nodejs`.include? 'opencv4nodejs'
         skip_as_appium_version '1.9.0'
         skip 'Espresso does not support settings API' if @@core.automation_name == :espresso
 
@@ -180,7 +188,13 @@ class AppiumLibCoreTest
         el = @driver.find_element :accessibility_id, 'NFC'
         el.save_screenshot 'test/functional/data/test_android_nfc.png'
 
-        @driver.update_settings({ defaultImageTemplateScale: 4 })
+        @driver.update_settings(
+          {
+            defaultImageTemplateScale: 4,
+            imageMatchThreshold: 0.7,
+            checkForImageElementStaleness: false
+          }
+        )
 
         image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
         assert image_element.inspect
