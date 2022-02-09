@@ -191,7 +191,7 @@ class AppiumLibCoreTest
         @driver.update_settings(
           {
             defaultImageTemplateScale: 4,
-            imageMatchThreshold: 0.9,
+            imageMatchThreshold: 0.7,
             checkForImageElementStaleness: false
           }
         )
