@@ -159,6 +159,8 @@ class AppiumLibCoreTest
       def test_multiple_actions
         skip_as_appium_version '1.8.0'
 
+        # https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/actions.md
+
         f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
         f1.create_pointer_move(duration: 1, x: 200, y: 500,
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
@@ -169,7 +171,7 @@ class AppiumLibCoreTest
         f1.create_pointer_up(:left)
 
         f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
-        f2.create_pointer_move(duration: 1, x: 200, y: 500,
+        f2.create_pointer_move(duration: 1, x: 200, y: 520,
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f2.create_pointer_down(:left)
         f2.create_pause(0.5)
