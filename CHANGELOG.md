@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.1.1] - 2022-04-18
+
+### Enhancements
+
+- Remove unneccessry files from gem package to reduce the size.
+
 ## [5.1.0] - 2021-12-25
 
 ### Enhancements
