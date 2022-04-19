@@ -1,3 +1,19 @@
+#### v5.1.1 2022-04-18
+
+- [824f641](https://github.com/appium/ruby_lib_core/commit/824f64124dbfc14c680834e85f3384f577358220) Release 5.1.1
+- [9682214](https://github.com/appium/ruby_lib_core/commit/9682214bc2ab924b3c3f70a72929f95fad682188) chore: remove unnecessary files
+- [a3983c4](https://github.com/appium/ruby_lib_core/commit/a3983c4005dfd86aa28aedc81469f888e62c773c) test: relax the expected exception
+- [726dd2a](https://github.com/appium/ruby_lib_core/commit/726dd2aee9c0d37c7efff126f86dea7254b0635f) chore(deps-dev): update rubocop requirement from = 1.26.1 to = 1.27.0 (#373)
+- [fdd8bee](https://github.com/appium/ruby_lib_core/commit/fdd8bee2bc62dbdc33b18fc910a4f76668c4a12a) chore(deps-dev): update rubocop requirement from = 1.26.0 to = 1.26.1 (#372)
+- [1ec4e62](https://github.com/appium/ruby_lib_core/commit/1ec4e625e68b151178f834cb7e7e83ab3c2ac063) chore(deps-dev): update rubocop requirement from = 1.25.1 to = 1.26.0 (#371)
+- [673850b](https://github.com/appium/ruby_lib_core/commit/673850b6b10411a0b731099342297d9c8b748c0f) test: a bit wide initial tap
+- [f516f76](https://github.com/appium/ruby_lib_core/commit/f516f76c59481a07bc6f381922a907768e310b96) ci: run with appium 2.0 (#359)
+- [f3c2eea](https://github.com/appium/ruby_lib_core/commit/f3c2eeac7d14911143395c6b6d69845d0ffcb7a1) chore(deps-dev): update rubocop requirement from = 1.25.0 to = 1.25.1 (#369)
+- [e30a624](https://github.com/appium/ruby_lib_core/commit/e30a624ce6768e130356af146291a7a0ec3bb10f) chore(deps-dev): update rubocop requirement from = 1.24.1 to = 1.25.0 (#368)
+- [d10a1d8](https://github.com/appium/ruby_lib_core/commit/d10a1d83d30a18858db6eeed955fb25b51410f2c) chore: remove unused send_keys_to_active_element (#367)
+- [127bdb6](https://github.com/appium/ruby_lib_core/commit/127bdb6cfca7a848d33bd5cb98fc5f8f156883a1) chore(deps-dev): update rubocop requirement from = 1.24.0 to = 1.24.1 (#366)
+
+
 #### v5.1.0 2021-12-25
 
 - [b8b9f08](https://github.com/appium/ruby_lib_core/commit/b8b9f0858846279bbd993baa3aa4a8fdfc737b53) Release 5.1.0
