@@ -191,6 +191,7 @@ class AppiumLibCoreTest
         assert_equal 'io.appium.android.apis', e
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_touch_actions
         Appium::Core::TouchAction.new(@driver)
                                  .press(element: @driver.find_element(:accessibility_id, 'App'))
@@ -201,6 +202,7 @@ class AppiumLibCoreTest
         @driver.back
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_swipe
         @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
 
@@ -269,12 +271,6 @@ class AppiumLibCoreTest
 
       def test_get_display_density
         assert @driver.get_display_density.positive?
-      end
-
-      def test_keyevent
-        skip('Because only for Selendroid')
-        # http://developer.android.com/reference/android/view/KeyEvent.html
-        assert @driver.keyevent(176)
       end
 
       def test_press_keycode

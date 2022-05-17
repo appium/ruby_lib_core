@@ -76,6 +76,13 @@ module Appium
         path: 'directConnectPath'
       }.freeze
 
+      W3C_KEYS = {
+        protocol: 'appium:directConnectProtocol',
+        host: 'appium:directConnectHost',
+        port: 'appium:directConnectPort',
+        path: 'appium:directConnectPath'
+      }.freeze
+
       # @return [string] Returns a protocol such as http/https
       attr_reader :protocol
 
@@ -89,10 +96,10 @@ module Appium
       attr_reader :path
 
       def initialize(capabilities)
-        @protocol = capabilities[KEYS[:protocol]]
-        @host = capabilities[KEYS[:host]]
-        @port = capabilities[KEYS[:port]]
-        @path = capabilities[KEYS[:path]]
+        @protocol = capabilities[W3C_KEYS[:protocol]] || capabilities[KEYS[:protocol]]
+        @host = capabilities[W3C_KEYS[:host]] || capabilities[KEYS[:host]]
+        @port = capabilities[W3C_KEYS[:port]] || capabilities[KEYS[:port]]
+        @path = capabilities[W3C_KEYS[:path]] || capabilities[KEYS[:path]]
       end
     end
 
@@ -175,7 +182,8 @@ module Appium
       # - <code>directConnectPort</code>
       # - <code>directConnectPath</code>
       #
-      # Ignore them if this parameter is <code>false</code>. Defaults to true.
+      # ignore them if this parameter is <code>false</code>. Defaults to true.
+      # These keys can have <code>appium:</code> prefix.
       #
       # @return [Bool]
       attr_reader :direct_connect
@@ -320,7 +328,7 @@ module Appium
       #
       #     # Start iOS driver
       #     opts = {
-      #              caps: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -366,7 +374,8 @@ module Appium
                                                      capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
-                                                     wait_interval: @wait_interval)
+                                                     wait_interval: @wait_interval,
+                                                     automation_name: @automation_name)
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)

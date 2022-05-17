@@ -10,23 +10,75 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [5.0.0]
+## [5.1.1] - 2022-04-18
 
 ### Enhancements
 
-- Update base selenium webdriver version to `4.0.0`
-  - Support only W3C spec as following Selenium v4 client
+- Remove unneccessry files from gem package to reduce the size.
+
+## [5.1.0] - 2021-12-25
+
+### Enhancements
+- Make default pointerType `touch` for the pointer in W3C actions instead of `mouse` for Appium
+    - This change should not affect W3C actions
+
+## [5.0.3] - 2021-12-13
+
+### Enhancements
+- Can add more arguments in `install_app`
+    - e.g. Add `timeoutMs` for XCUITest driver as `@driver.install_app("/path/to/test.ipa", timeoutMs: 20000)`
+
+### Bug fixes
+- (internal) Allow to access to `bridge` attribute in `driver` instance for appium_flutter_finder
+
+## [5.0.2] - 2021-12-01
+
+### Bug fixes
+- (internal) Fix firstMatch format in a new session creation
+
+## [5.0.1] - 2021-11-23
+
+### Enhancements
+- Relaxed version restriction of selenium-webdriver
+
+## [5.0.0] - 2021-11-05
+
+### Enhancements
+
+- Update base selenium webdriver version to `v4`
+  - Base Selenium Ruby binding is now v4
+  - Support only W3C WebDriver spec (and a few Appium specific commands)
   - Support Ruby 2.6+
-- `element.id` returns the element id instead of `element.ref`. `element.ref` now returns an array.
-- Removed `desired_capabilities` as capabilities for `Appium::Core#for`. Please use `capabilities` key name instead
-- Removals that already had _duplication_ mark
+- Add `driver#wait`, `driver#wait_until`, `driver#wait_true`, `driver#wait_until_true` syntaxes
+  - Can give `driver` instance as its block variable
+- `element.id` returns the element id instead of `element.ref`.
+  - `element.ref` now returns an array.
+- Removed `desired_capabilities` as capabilities for `Appium::Core#for`. Please use `capabilities` key name instead.
+  - e.g. `Appium::Core.for capabilities: {...}` instead of `Appium::Core.for desired_capabilities: {...}`
+- Removed methods that had _Deprecated_ mark
   - Removed `driver#screenshot`. Please use `driver#save_screenshot` instead
   - Removed `driver#send_keys` to send keys to an active element. Please use `driver.action.send_keys('happy testing').perform` instead
   - Removed `forceMjsonwp` to send only MJSONWP capabilities since Selenium cleint v4 no longer supports MJSONWP
-- No longer set default `timeouts` as `0`. ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly
+- No longer set default `timeouts` as `0`
+  - ruby_lib_core calls `/timeouts` endpoint only when `appium_lib: { wait: 5 }` is provided explicitly
 - Raises `::Appium::Core::Error::ArgumentError` instead of `ArgumentError` for this library specific argument errors
-- Add `driver#wait`, `driver#wait_until`, `driver#wait_true`, `driver#wait_until_true` syntaxes
-  - Can give `driver` instance as its block variable
+- Removed Selendroid related methods
+
+### Deprecations
+- `Appium::Core::TouchAction` and `Appium::Core::MultiTouch` are deprecated
+    - Please use W3C actions instead http://appium.io/docs/en/commands/interactions/actions/
+    - More working examples:
+        - [test/functional/android/webdriver/w3c_actions_test.rb](test/functional/android/webdriver/w3c_actions_test.rb)
+        - [test/functional/ios/webdriver/w3c_actions_test.rb](test/functional/ios/webdriver/w3c_actions_test.rb)
+        - [test/functional/common_w3c_actions.rb](test/functional/common_w3c_actions.rb)
+        - https://www.selenium.dev/documentation/support_packages/mouse_and_keyboard_actions_in_detail/
+        - https://www.youtube.com/watch?v=oAJ7jwMNFVU
+        - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+        - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+- `launch_app`, `close_app` and `reset`. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details.
+    - `activate_app` or a new session request can be alternatives of `launch_app`
+    - `terminate_app` or close the session request can be alternatives of `close_app`
+    - Close current session and creating a new session, or `terminate_app` and `launch_app` can be alternatives of `reset`
 
 ## [4.7.1] - 2021-09-26
 

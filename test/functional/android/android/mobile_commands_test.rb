@@ -261,7 +261,7 @@ class AppiumLibCoreTest
       private
 
       def assert_mobile_command_error(command, args, expected_message)
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @driver.execute_script(command, args)
         end
         assert error.message.include? expected_message

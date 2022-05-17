@@ -32,7 +32,7 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: 'pointer',
-                id: 'mouse',
+                id: 'touch',
                 actions: [{
                   type: 'pointerMove',
                   duration: 50,
@@ -55,7 +55,7 @@ class AppiumLibCoreTest
                   button: 0
                 }],
                 parameters: {
-                  pointerType: 'mouse'
+                  pointerType: 'touch'
                 }
               }]
             }
@@ -144,7 +144,7 @@ class AppiumLibCoreTest
               .with(body: action_body.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+            f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
             f1.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_down(:left)
@@ -153,7 +153,7 @@ class AppiumLibCoreTest
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_up(:left)
 
-            f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+            f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
             f2.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f2.create_pointer_down(:left)
@@ -176,6 +176,7 @@ class AppiumLibCoreTest
             assert_equal '\'string\' must be Array', error.message
           end
 
+          # @deprecated Appium::Core::TouchAction
           def test_press_touch_action
             action = Appium::Core::TouchAction.new(@driver).press(
               element: ::Appium::Core::Element.new(@driver.send(:bridge), 'id')

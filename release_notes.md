@@ -1,3 +1,75 @@
+#### v5.1.1 2022-04-18
+
+- [824f641](https://github.com/appium/ruby_lib_core/commit/824f64124dbfc14c680834e85f3384f577358220) Release 5.1.1
+- [9682214](https://github.com/appium/ruby_lib_core/commit/9682214bc2ab924b3c3f70a72929f95fad682188) chore: remove unnecessary files
+- [a3983c4](https://github.com/appium/ruby_lib_core/commit/a3983c4005dfd86aa28aedc81469f888e62c773c) test: relax the expected exception
+- [726dd2a](https://github.com/appium/ruby_lib_core/commit/726dd2aee9c0d37c7efff126f86dea7254b0635f) chore(deps-dev): update rubocop requirement from = 1.26.1 to = 1.27.0 (#373)
+- [fdd8bee](https://github.com/appium/ruby_lib_core/commit/fdd8bee2bc62dbdc33b18fc910a4f76668c4a12a) chore(deps-dev): update rubocop requirement from = 1.26.0 to = 1.26.1 (#372)
+- [1ec4e62](https://github.com/appium/ruby_lib_core/commit/1ec4e625e68b151178f834cb7e7e83ab3c2ac063) chore(deps-dev): update rubocop requirement from = 1.25.1 to = 1.26.0 (#371)
+- [673850b](https://github.com/appium/ruby_lib_core/commit/673850b6b10411a0b731099342297d9c8b748c0f) test: a bit wide initial tap
+- [f516f76](https://github.com/appium/ruby_lib_core/commit/f516f76c59481a07bc6f381922a907768e310b96) ci: run with appium 2.0 (#359)
+- [f3c2eea](https://github.com/appium/ruby_lib_core/commit/f3c2eeac7d14911143395c6b6d69845d0ffcb7a1) chore(deps-dev): update rubocop requirement from = 1.25.0 to = 1.25.1 (#369)
+- [e30a624](https://github.com/appium/ruby_lib_core/commit/e30a624ce6768e130356af146291a7a0ec3bb10f) chore(deps-dev): update rubocop requirement from = 1.24.1 to = 1.25.0 (#368)
+- [d10a1d8](https://github.com/appium/ruby_lib_core/commit/d10a1d83d30a18858db6eeed955fb25b51410f2c) chore: remove unused send_keys_to_active_element (#367)
+- [127bdb6](https://github.com/appium/ruby_lib_core/commit/127bdb6cfca7a848d33bd5cb98fc5f8f156883a1) chore(deps-dev): update rubocop requirement from = 1.24.0 to = 1.24.1 (#366)
+
+
+#### v5.1.0 2021-12-25
+
+- [b8b9f08](https://github.com/appium/ruby_lib_core/commit/b8b9f0858846279bbd993baa3aa4a8fdfc737b53) Release 5.1.0
+- [5979999](https://github.com/appium/ruby_lib_core/commit/59799994e91e126d57ce2cfd5b1446c48b381638) ci: add ruby 3.1 (#365)
+- [6df37c7](https://github.com/appium/ruby_lib_core/commit/6df37c7928b125295e657f007e6c6c135090ac82) chore: tune w3c actions (#364)
+- [1fdb794](https://github.com/appium/ruby_lib_core/commit/1fdb794153d74e54ca730d78eb38a59f1e3b9c72) chore(deps-dev): update rubocop requirement from = 1.23.0 to = 1.24.0 (#363)
+
+
+#### v5.0.3 2021-12-13
+
+- [7cee1b3](https://github.com/appium/ruby_lib_core/commit/7cee1b31647c453a546c450c35c37649462eed05) Release 5.0.3
+- [21bd5a5](https://github.com/appium/ruby_lib_core/commit/21bd5a5186dc25a9523ad8e7ec6275edbc79988e) fix: make bridge attribute non-private for flutter finder (#362)
+- [78e432e](https://github.com/appium/ruby_lib_core/commit/78e432e92571adfd80fe3ad4405010825e766fc5) chore: add changelog
+- [0b3c45c](https://github.com/appium/ruby_lib_core/commit/0b3c45cd6a059fd493bfcbd55ebe437291cbcdab) feat: do not restrict options in install_app (#361)
+
+
+#### v5.0.2 2021-12-01
+
+- [3cc0fb1](https://github.com/appium/ruby_lib_core/commit/3cc0fb129a0ec74367c716941adefae75fe6a6d6) Release 5.0.2
+- [a87c63a](https://github.com/appium/ruby_lib_core/commit/a87c63a5e00ca826eb89cee3b4874c4bbb787980) chore: tweak naming
+- [36e50b2](https://github.com/appium/ruby_lib_core/commit/36e50b28c04a5afda8d25f6b855d35fda5ff6b2b) fix: sends [{}] (#360)
+
+
+#### v5.0.1 2021-11-23
+
+- [f17ba52](https://github.com/appium/ruby_lib_core/commit/f17ba524608a6e715923331bb9bfff73e0709bcb) Release 5.0.1
+- [ee9cbc4](https://github.com/appium/ruby_lib_core/commit/ee9cbc42e0d3289bb4ab9b403d45867472241e97) feat: relax selenium webdriver version (#357)
+- [4c2948b](https://github.com/appium/ruby_lib_core/commit/4c2948b113106e01c8009555434b4d0fe0ae99f3) chore(deps-dev): update rubocop requirement from = 1.22.3 to = 1.23.0 (#354)
+- [abe2316](https://github.com/appium/ruby_lib_core/commit/abe2316b5a01a27bc657daeb41524afca4187c18) ci: add codeql-analysis (#355)
+- [1c87fc9](https://github.com/appium/ruby_lib_core/commit/1c87fc9b2e1ac7bd869ec61a0dc045b12d5ed887) docs: add link to changelog in migration guide
+
+
+#### v5.0.0 2021-11-05
+
+- [e2d1e2d](https://github.com/appium/ruby_lib_core/commit/e2d1e2da59b10f84b3c8ecafba7be6ab27223b73) Release 5.0.0
+- [ac4c312](https://github.com/appium/ruby_lib_core/commit/ac4c312b7e6b314a5e23463d930fb6a957ec3e8f) chore: cleanup dev dependencies
+- [0c84f30](https://github.com/appium/ruby_lib_core/commit/0c84f30a1623445576df70de54d8c46e40948d18) bump rc to 8
+- [8c42356](https://github.com/appium/ruby_lib_core/commit/8c423566315b47cf99150a38be09b059aab4d358) chore: add deprecated in app management (#353)
+- [5ad23bc](https://github.com/appium/ruby_lib_core/commit/5ad23bc0826c7afa36a95066b65aeb00f1742ad8) chore: use ::Selenium::WebDriver::Interactions.pointer as example (#352)
+- [a77a6eb](https://github.com/appium/ruby_lib_core/commit/a77a6ebd87b1116254c4900cebd900a3d106940e) chore: create links
+- [bc13166](https://github.com/appium/ruby_lib_core/commit/bc13166ac7f2e65d94acdf3cff1841863f4b59fe) chore: tweak the order of changelog
+- [a6fa1b9](https://github.com/appium/ruby_lib_core/commit/a6fa1b9a68584915646ff11fef4cc70a750d5d79) chore: add deprecation mark for windows (#351)
+- [c7286ed](https://github.com/appium/ruby_lib_core/commit/c7286eda8bfbaa49154b12d024187fd384171d4e) chore(deps-dev): update rubocop requirement from = 1.22.2 to = 1.22.3 (#350)
+- [d30dff4](https://github.com/appium/ruby_lib_core/commit/d30dff483dec6d0fec67b01f1a28a8c6612e32e6) bump version to 5.0.0.rc7
+- [7f0fe5a](https://github.com/appium/ruby_lib_core/commit/7f0fe5aedf43c9f81636b8db7efd505e93850f00) chore: add deprecations for TouchAction and Multitouch (#348)
+- [9ed1202](https://github.com/appium/ruby_lib_core/commit/9ed1202a7979500a4744ceb340827b16137eb188) chore: remove selendroid stuff (#349)
+- [fc37c9f](https://github.com/appium/ruby_lib_core/commit/fc37c9f1841fcb7efb5c23cf9200a13d0d35bdcf) chore: pass wait_timeout and wait_interval (#346)
+- [1da3e75](https://github.com/appium/ruby_lib_core/commit/1da3e753907ac431d925a1489a50af3fa406638f) chore: bump to rc6
+- [61ebace](https://github.com/appium/ruby_lib_core/commit/61ebaceaf2d4a6450356a0a51ffe67cab0b33287) feat: add a few new wait syntaxes (#344)
+- [d6f73b1](https://github.com/appium/ruby_lib_core/commit/d6f73b131fd6c8da96b45edfaa6c6db9a85b383a) chore(deps-dev): update rubocop requirement from = 1.22.1 to = 1.22.2 (#345)
+- [0d69af1](https://github.com/appium/ruby_lib_core/commit/0d69af1b93deefd343c910833557a39ceaef59da) chore: cleanup a bit (#342)
+- [115465e](https://github.com/appium/ruby_lib_core/commit/115465e2b73e65dd3777e698d98f1cdaa161f3eb) chore: append example in wait
+- [ad519ee](https://github.com/appium/ruby_lib_core/commit/ad519ee70ba7b7122107b8b2d986ff1523b654d0) chore: update rubocop (#341)
+- [e13b0ef](https://github.com/appium/ruby_lib_core/commit/e13b0efae6b964cc6b0e7b0ed10816eaf6e007d4) feat: selenium v4 base (#315)
+
+
 #### v4.7.1 2021-09-26
 
 - [cdd8906](https://github.com/appium/ruby_lib_core/commit/cdd890662585aa5051912d20d90ec3c3866ad8b1) Release 4.7.1

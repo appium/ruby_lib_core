@@ -13,6 +13,10 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 - http://www.rubydoc.info/github/appium/ruby_lib_core
     - You can find working API examples in test code, [test/functional](test/functional)
 
+# Migration from v4 to v5
+
+Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CHANGELOG.md)
+
 # Related library
 - https://github.com/appium/ruby_lib
 
@@ -39,7 +43,7 @@ $ appium --relaxed-security # To run all tests in local
 ```bash
 $ bundle install
 $ rake test:func:android # Andorid, uiautomator2
-$ AUTOMATION_NAME_DROID=espresso rake test:func:android # Andorid, uiautomator2
+$ APPIUM_DRIVER=espresso rake test:func:android # Andorid, uiautomator2
 $ rake test:func:ios     # iOS
 ```
 

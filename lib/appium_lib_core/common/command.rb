@@ -171,8 +171,6 @@ module Appium
         ime_deactivate: [:post, 'session/:session_id/ime/deactivate'],
         ime_activate_engine: [:post, 'session/:session_id/ime/activate'],
 
-        send_keys_to_active_element: [:post, 'session/:session_id/keys'],
-
         ### Logs
         get_available_log_types: [:get, 'session/:session_id/log/types'],
         get_log: [:post, 'session/:session_id/log'],
@@ -213,8 +211,6 @@ module Appium
         hide_keyboard: [:post, 'session/:session_id/appium/device/hide_keyboard'],
         press_keycode: [:post, 'session/:session_id/appium/device/press_keycode'],
         long_press_keycode: [:post, 'session/:session_id/appium/device/long_press_keycode'],
-        # keyevent is only for Selendroid
-        keyevent: [:post, 'session/:session_id/appium/device/keyevent'],
         push_file: [:post, 'session/:session_id/appium/device/push_file'],
         pull_file: [:post, 'session/:session_id/appium/device/pull_file'],
         pull_folder: [:post, 'session/:session_id/appium/device/pull_folder'],

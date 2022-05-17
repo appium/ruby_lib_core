@@ -14,12 +14,27 @@
 
 module Appium
   module Core
+    #
+    # @deprecated Use W3C actions instead
+    #
     # MultiTouch actions allow for multiple touches to happen at the same time,
     # for instance, to simulate multiple finger swipes.
     #
     # Create a series of touch actions by themselves (without a +prepare()+), then
     # add to a new MultiTouch action.  When ready, call +prepare()+ and all
     # actions will be executed simultaneously.
+    #
+    # Consider to use W3C spec touch action like the followings.
+    # https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
+    # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
+    # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
+    #
+    # About W3C actions
+    # https://www.youtube.com/watch?v=oAJ7jwMNFVU
+    # https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+    # https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    #
+    # Functional test code in ruby_lib_core repository also helps.
     #
     # @example
     #
@@ -36,6 +51,10 @@ module Appium
       attr_reader :driver
 
       def initialize(driver)
+        ::Appium::Logger.warn(
+          '[DEPRECATION] Appium::Core::MultiTouch is deprecated in W3C spec. Use W3C actions instead'
+        )
+
         @actions = []
         @driver = driver
       end

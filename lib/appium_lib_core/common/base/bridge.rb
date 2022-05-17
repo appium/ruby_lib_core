@@ -77,8 +77,8 @@ module Appium
         def create_session(capabilities)
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
 
-          caps = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { alwaysMatch: caps, firstMatch: [] } })
+          always_match = add_appium_prefix(capabilities)
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } })
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
@@ -159,8 +159,7 @@ module Appium
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
-        # 'mouse' action is by default in the Ruby client. Appium server force the +mouse+ action to +touch+ once in
-        # the server side. So we don't consider the case.
+        # The pointer type is 'touch' by default in the Appium Ruby client. (The selenium one is 'mouse')
         #
         # @example
         #
@@ -168,9 +167,14 @@ module Appium
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
         def action(async = false)
-          # Used for default duration of each touch actions
-          # Override from 250 milliseconds to 50 milliseconds
-          action_builder = super
+          action_builder = ::Selenium::WebDriver::ActionBuilder.new(
+            self,
+            ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch'),
+            ::Selenium::WebDriver::Interactions.key('keyboard'),
+            async
+          )
+          # Used for default duration of each touch actions.
+          # Override from 250 milliseconds to 50 milliseconds in PointerActions included by ::Selenium::WebDriver::ActionBuilder
           action_builder.default_move_duration = 0.05
           action_builder
         end
@@ -183,12 +187,6 @@ module Appium
         # Port from MJSONWP
         def session_capabilities
           ::Selenium::WebDriver::Remote::Capabilities.json_create execute(:get_capabilities)
-        end
-
-        # Port from MJSONWP
-        def send_keys_to_active_element(key)
-          text = ::Selenium::WebDriver::Keys.encode(key).join
-          execute :send_keys_to_active_element, {}, { value: text.chars }
         end
 
         # For Appium
