@@ -57,6 +57,22 @@ class AppiumLibCoreTest
                 parameters: {
                   pointerType: 'touch'
                 }
+              }, {
+                type: 'key',
+                id: 'keyboard',
+                actions: [{
+                  type: 'pause',
+                  duration: 0,
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0,
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }]
               }]
             }
 
@@ -77,6 +93,31 @@ class AppiumLibCoreTest
           def test_w3c_actions_send_keys_active_element
             action_body = {
               actions: [{
+                type: 'pointer',
+                id: 'touch',
+                actions: [{
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }, {
+                  type: 'pause',
+                  duration: 0
+                }],
+                parameters: {
+                  pointerType: 'touch'
+                }
+              }, {
                 type: 'key',
                 id: 'keyboard',
                 actions: [{

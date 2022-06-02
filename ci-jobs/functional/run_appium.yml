@@ -27,3 +27,5 @@ steps:
     gem install bundler;
     bundle install --retry=3 --jobs=4 --path vendor/bundle;
   displayName: Install Gems
+- script: gem install selenium-webdriver -v '~> 4.2'
+  displayName: Install selenium webdriver 4.2 to specify the version in CI
