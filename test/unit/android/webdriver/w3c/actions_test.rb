@@ -62,13 +62,13 @@ class AppiumLibCoreTest
                 id: 'keyboard',
                 actions: [{
                   type: 'pause',
-                  duration: 0,
+                  duration: 0
                 }, {
                   type: 'pause',
                   duration: 0
                 }, {
                   type: 'pause',
-                  duration: 0,
+                  duration: 0
                 }, {
                   type: 'pause',
                   duration: 0
