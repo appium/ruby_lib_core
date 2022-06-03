@@ -5,6 +5,7 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
+- Limit selenium webdriver version less than `4.2`
 
 ### Bug fixes
 
