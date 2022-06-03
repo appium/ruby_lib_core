@@ -1,3 +1,17 @@
+#### v5.1.2 2022-06-02
+
+- [9acf819](https://github.com/appium/ruby_lib_core/commit/9acf81972a3784f14d9af34bb62a33667f8c3263) Release 5.1.2
+- [4df2673](https://github.com/appium/ruby_lib_core/commit/4df2673ee54ea7696806427fa925a6b17e285319) chore: limit version (#382)
+- [f263672](https://github.com/appium/ruby_lib_core/commit/f2636729860a1cf4c67297a2b674aaffd98dee49) ci: use nodejs 14
+- [12c33b2](https://github.com/appium/ruby_lib_core/commit/12c33b20d92de62cfcceb456eb279c799a321164) chore(deps-dev): update rubocop requirement from = 1.29.1 to = 1.30.0 (#380)
+- [fce5eff](https://github.com/appium/ruby_lib_core/commit/fce5eff71ca079acb520fd5f4ba4d8ef8d999354) fix: accept appium prefix as well (#379)
+- [8538068](https://github.com/appium/ruby_lib_core/commit/853806894a9343bb538be79a56476d628747555c) chore(deps-dev): update rubocop requirement from = 1.29.0 to = 1.29.1 (#378)
+- [eb19e1c](https://github.com/appium/ruby_lib_core/commit/eb19e1c8d39910c23f37b4b3be082e9f00b1a882) chore(deps-dev): update rubocop requirement from = 1.28.2 to = 1.29.0 (#377)
+- [427e2f7](https://github.com/appium/ruby_lib_core/commit/427e2f702d92e6008c9c74dd06c74bdb051f523a) chore(deps-dev): update rubocop requirement from = 1.28.1 to = 1.28.2 (#376)
+- [eed3591](https://github.com/appium/ruby_lib_core/commit/eed3591bc71873ceaf179f9a878b98d3b216d609) chore(deps-dev): update rubocop requirement from = 1.28.0 to = 1.28.1 (#375)
+- [d0e547a](https://github.com/appium/ruby_lib_core/commit/d0e547ae2370b6aa81b08ef8d2f42a924051860a) chore(deps-dev): update rubocop requirement from = 1.27.0 to = 1.28.0 (#374)
+
+
 #### v5.1.1 2022-04-18
 
 - [824f641](https://github.com/appium/ruby_lib_core/commit/824f64124dbfc14c680834e85f3384f577358220) Release 5.1.1
