@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.1.2] - 2022-06-02
+
+### Enhancements
+
+- Limit selenium webdriver version less than `4.2`
+
 ## [5.1.1] - 2022-04-18
 
 ### Enhancements
