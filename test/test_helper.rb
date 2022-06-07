@@ -123,7 +123,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '16.0'
+      platform_version = '14.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -139,8 +139,8 @@ class AppiumLibCoreTest
           eventTimings: true,
           useJSONSource: true,
           someCapability: 'some_capability',
+          wdaLaunchTimeout: 120000,
           newCommandTimeout: 120,
-          "appium:wdaLaunchTimeout": 120000,
           wdaLocalPort: wda_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases
           # But sometimes `false` is necessary. It leads regressions sometimes though.
