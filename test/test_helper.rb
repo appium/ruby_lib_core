@@ -139,7 +139,7 @@ class AppiumLibCoreTest
           eventTimings: true,
           useJSONSource: true,
           someCapability: 'some_capability',
-          wdaLaunchTimeout: 120000,
+          wdaLaunchTimeout: 120_000,
           newCommandTimeout: 120,
           wdaLocalPort: wda_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases

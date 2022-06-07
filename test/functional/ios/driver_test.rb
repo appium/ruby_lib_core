@@ -117,7 +117,7 @@ class AppiumLibCoreTest
         @@driver.find_element(:accessibility_id, 'Keyboard').click
 
         # to wait the animation
-        @@driver.wait { |d| @@driver.find_element :accessibility_id, 'Auto-Correction' }
+        @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
 
         eles = @@driver.find_elements :class, 'XCUIElementTypeSwitch'
         switches_status = eles.each_with_object({}) { |e, acc| acc[e.name] = e.value }
