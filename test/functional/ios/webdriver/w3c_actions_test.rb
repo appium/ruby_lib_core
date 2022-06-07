@@ -78,7 +78,9 @@ class AppiumLibCoreTest
         @@driver.rotation = :landscape
 
         el = @@driver.find_element :name, 'Buttons'
-        @@driver.action.click(el).perform
+        # iOS 16 simulator returned wrong coordinate.
+        # @@driver.action.click(el).perform
+        el.click
 
         # The view has two views
         els_land = @@driver.find_elements :name, 'Buttons'
