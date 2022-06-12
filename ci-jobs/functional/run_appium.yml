@@ -11,8 +11,16 @@ steps:
   displayName: Installed node dependencies
 - script: appium driver install ${APPIUM_DRIVER}
   displayName: Install appium driver ${APPIUM_DRIVER}
+  env:
+    APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - script: appium plugin install images
+  displayName: Install appium images plugin
+  env:
+    APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - script: appium plugin install execute-driver
+  displayName: Install appium execute-driver plugin
+  env:
+    APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '3.0'
@@ -23,6 +31,7 @@ steps:
   env:
     JAVA_HOME: $(JAVA_HOME_11_X64)
     PATH: $(JAVA_HOME_11_X64)/bin:$(PATH)
+    APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - script: |
     gem install bundler;
     bundle install --retry=3 --jobs=4 --path vendor/bundle;
