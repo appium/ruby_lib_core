@@ -21,6 +21,16 @@ steps:
   displayName: Install appium execute-driver plugin
   env:
     APPIUM_HOME: $(Agent.HomeDirectory)/appium
+- script: |
+    appium --version
+    appium plugin list
+    which appium
+    echo ${APPIUM_HOME:-~/appium}
+    cat ${APPIUM_HOME:-~/appium}/package.json
+    cat ${APPIUM_HOME:-~/appium}/node_modules/.cache/appium/extensions.yaml
+    ls ${APPIUM_HOME:-~/appium}/node_modules
+  env:
+    APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '3.0'
