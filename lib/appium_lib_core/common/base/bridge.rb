@@ -167,7 +167,6 @@ module Appium
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
         def action(async: false, devices: nil, duration: 50)
-
           ::Selenium::WebDriver::ActionBuilder.new(
             self,
             devices: devices || [
@@ -176,7 +175,7 @@ module Appium
               # ::Selenium::WebDriver::Interactions.key('keyboard')
             ],
             async: async,
-            duration: duration  # milliseconds
+            duration: duration # milliseconds
           )
         end
 
