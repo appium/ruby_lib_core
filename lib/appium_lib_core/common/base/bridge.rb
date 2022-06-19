@@ -153,29 +153,25 @@ module Appium
           execute :status
         end
 
-        # Perform touch actions for W3C module.
+        # Perform 'touch' actions for W3C module.
         # Generate +touch+ pointer action here and users can use this via +driver.action+
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
-        # The pointer type is 'touch' by default in the Appium Ruby client. (The selenium one is 'mouse')
+        # The pointer type is 'touch' by default in the Appium Ruby client.
         #
         # @example
         #
         #     element = @driver.find_element(:id, "some id")
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
-        def action(async: false, devices: nil, duration: 50)
+        def action(_deprecated_async = nil, async: false, devices: nil)
           ::Selenium::WebDriver::ActionBuilder.new(
             self,
-            devices: devices || [
-              ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch')
-              # TODO: The below keyboard is necessry for 'driver.send_keys' in this lirbary. One way is prepare a method for it.
-              # ::Selenium::WebDriver::Interactions.key('keyboard')
-            ],
+            devices: devices || [::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch')],
             async: async,
-            duration: duration # milliseconds
+            duration: 50 # milliseconds
           )
         end
 

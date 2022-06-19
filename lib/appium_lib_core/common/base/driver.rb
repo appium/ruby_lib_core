@@ -181,6 +181,31 @@ module Appium
 
         ### Methods for Appium
 
+        # Perform 'key' actions for W3C module.
+        # Generate +key+ pointer action here and users can use this via +driver.key_action+
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        #
+        # The pointer type is 'key' by default in the Appium Ruby client.
+        # +driver.action+ in Appium Ruby client has 'pointer' action by default.
+        # This method is a shortcut to set 'key' type.
+        # Hense this method is equal to +driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')])+
+        # as below example.
+        #
+        # @example
+        #
+        #     element = @driver.find_element(:id, "some id")
+        #     @driver.key_action.send_key('hiあ').perform # The 'send_key' is a part of 'KeyActions'
+        #     # is equal to:
+        #     # @driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')]).send_keys('hiあ').perform
+        #
+        def key_action(async: false)
+          @bridge.action(
+            async: async,
+            devices: [::Selenium::WebDriver::Interactions.key('keyboard')]
+          )
+        end
+
         # Lock the device
         # @return [String]
         #
