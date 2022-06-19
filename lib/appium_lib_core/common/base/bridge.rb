@@ -166,17 +166,18 @@ module Appium
         #     element = @driver.find_element(:id, "some id")
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
-        def action(async = false)
-          action_builder = ::Selenium::WebDriver::ActionBuilder.new(
+        def action(async: false, devices: nil, duration: 50)
+
+          ::Selenium::WebDriver::ActionBuilder.new(
             self,
-            ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch'),
-            ::Selenium::WebDriver::Interactions.key('keyboard'),
-            async
+            devices: devices || [
+              ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch')
+              # TODO: The below keyboard is necessry for 'driver.send_keys' in this lirbary. One way is prepare a method for it.
+              # ::Selenium::WebDriver::Interactions.key('keyboard')
+            ],
+            async: async,
+            duration: duration  # milliseconds
           )
-          # Used for default duration of each touch actions.
-          # Override from 250 milliseconds to 50 milliseconds in PointerActions included by ::Selenium::WebDriver::ActionBuilder
-          action_builder.default_move_duration = 0.05
-          action_builder
         end
 
         # Port from MJSONWP
