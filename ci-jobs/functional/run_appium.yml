@@ -9,16 +9,16 @@ steps:
   displayName: Install MJPEG Consumer
 - script: npm list --depth 2 -g || echo 'ok'
   displayName: Installed node dependencies
-- script: appium driver install ${APPIUM_DRIVER}
-  displayName: Install appium driver ${APPIUM_DRIVER}
-- script: appium plugin install images
-- script: appium plugin install execute-driver
+# - script: appium driver install ${APPIUM_DRIVER}
+#   displayName: Install appium driver ${APPIUM_DRIVER}
+# - script: appium plugin install images
+# - script: appium plugin install execute-driver
 - task: UseRubyVersion@0
   inputs:
     versionSpec: '3.0'
 - script: |
     mkdir -p test/report
-    nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > test/report/appium.out 2>&1 &
+    nohup appium --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > test/report/appium.out 2>&1 &
   displayName: Run Appium in background
   env:
     JAVA_HOME: $(JAVA_HOME_11_X64)
