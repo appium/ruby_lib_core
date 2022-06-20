@@ -106,7 +106,7 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver
-              .action
+              .key_action
               .send_keys('hiあ')
               .perform
 
