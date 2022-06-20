@@ -10,13 +10,14 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [Unreleased]
+## [5.2.0] - 2022-06-19
 
 ### Enhancements
+
 - Update base Selenium Ruby client to `4.2+`
-    - Please call `key_action` or set `[::Selenium::WebDriver::Interactions.key('keyboard')]` as the deviecs parameter to build `driver.send_keys().perform` W3C action.
-        - `driver.key_action.send_keys('xxx').perform` instead of `driver.action.send_keys('xxx').perform`, or `driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')]).send_keys('xxx').perform`.
-        - [This PR change](https://github.com/appium/ruby_lib_core/pull/381/files) will help to update your some actions.
+  - Please call `key_action` or set `[::Selenium::WebDriver::Interactions.key('keyboard')]` as the deviecs parameter to build `driver.send_keys().perform` W3C action.
+    - `driver.key_action.send_keys('xxx').perform` instead of `driver.action.send_keys('xxx').perform`, or `driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')]).send_keys('xxx').perform`.
+    - [This PR change](https://github.com/appium/ruby_lib_core/pull/381/files) will help to update your some actions.
 
 ## [5.1.2] - 2022-06-02
 
