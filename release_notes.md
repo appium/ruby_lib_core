@@ -1,3 +1,12 @@
+#### v5.2.0 2022-06-19
+
+- [3073146](https://github.com/appium/ruby_lib_core/commit/307314654488a628d50a6babe6028321db20d237) Release 5.2.0
+- [45a45fc](https://github.com/appium/ruby_lib_core/commit/45a45fce8776cc3f2b04022be0604402cdc6ac93) feat: update tests & selenium version to 4.2 (#381)
+- [aada183](https://github.com/appium/ruby_lib_core/commit/aada183829c5c45164878c849d8f17e6d8385569) ci: define appium_home
+- [a74a03b](https://github.com/appium/ruby_lib_core/commit/a74a03b333618d5b75c4db15a48a2477c926f701) test: relax a bit (#385)
+- [886cb6e](https://github.com/appium/ruby_lib_core/commit/886cb6e53ca09bc6440a8f9890eadae2e5607244) chore(deps-dev): update rubocop requirement from = 1.30.0 to = 1.30.1 (#383)
+
+
 #### v5.1.2 2022-06-02
 
 - [9acf819](https://github.com/appium/ruby_lib_core/commit/9acf81972a3784f14d9af34bb62a33667f8c3263) Release 5.1.2
