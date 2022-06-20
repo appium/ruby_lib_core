@@ -43,8 +43,7 @@ class AppiumLibCoreTest
           .action
           .move_to(el)
           .pointer_down(:left)
-          # To make the scroll slow.
-          .move_to_location(0, rect1.y - rect1.height, duration: 0.25)
+          .move_to_location(0, rect1.y - rect1.height, duration: 0.25) # To make the scroll slow.
           .release
           .perform
         assert rect1.y > el.rect.y
