@@ -1,3 +1,9 @@
+#### v5.2.1 2022-06-24
+
+- [7e542b2](https://github.com/appium/ruby_lib_core/commit/7e542b2efca2b88948e5bf2d791b2cb388c69fac) Release 5.2.1
+- [68e87cc](https://github.com/appium/ruby_lib_core/commit/68e87cc01f43a36c1b85782ee9d443da663a30e0) fix: restrict the selenium webdriver version
+
+
 #### v5.2.0 2022-06-19
 
 - [3073146](https://github.com/appium/ruby_lib_core/commit/307314654488a628d50a6babe6028321db20d237) Release 5.2.0
