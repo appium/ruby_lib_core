@@ -1,3 +1,10 @@
+#### v5.2.2 2022-06-26
+
+- [23a6607](https://github.com/appium/ruby_lib_core/commit/23a6607e93254a687b12bfb85db4663895e157ce) Release 5.2.2
+- [2adaf77](https://github.com/appium/ruby_lib_core/commit/2adaf778365252ae3f71f473f40b31464c6f7962) fix: remove unnecessary modules (#390)
+- [0b8f1c7](https://github.com/appium/ruby_lib_core/commit/0b8f1c7bb2b37f369f23a8c71f3f19037f3c0219) docs: update changelog
+
+
 #### v5.2.1 2022-06-24
 
 - [7e542b2](https://github.com/appium/ruby_lib_core/commit/7e542b2efca2b88948e5bf2d791b2cb388c69fac) Release 5.2.1
