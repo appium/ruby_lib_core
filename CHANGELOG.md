@@ -10,6 +10,14 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.2.2] - 2022-06-26
+
+### Enhancements
+- Relax the selenium webdriver version restriction of `4.2.0`
+
+### Bug fixes
+- Remove undefined module in selenium webdriver version `4.3.0`
+
 ## [5.2.1] - 2022-06-24
 
 ### Bug fixes
