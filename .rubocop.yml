@@ -58,7 +58,7 @@ Style/ExplicitBlockArgument:
   Enabled: false
 Style/KeywordParametersOrder:
   Enabled: false
-Gemspec/DateAssignment:
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 Gemspec/RequireMFA:
   Enabled: true
