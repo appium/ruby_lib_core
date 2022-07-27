@@ -132,7 +132,7 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
-          # udid: 'auto',
+          udid: '00008030-000C51E13C29802E',
           platformVersion: platform_version,
           deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
@@ -332,7 +332,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: %w(--disable-fre --disable-popup-blocking) },
-          # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
+          # refer: https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",
