@@ -132,7 +132,7 @@ class AppiumLibCoreTest
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
-          udid: '00008030-000C51E13C29802E',
+          # udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
