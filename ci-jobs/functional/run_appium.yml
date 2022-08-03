@@ -3,8 +3,6 @@ steps:
   inputs:
     versionSpec: 16.x
   displayName: Install Node 16.x to get NPM v8
-- script: npm -g install npm@6
-  displayName: Install NPM v6 as a workaround for Appium 2.0.0.beta.41
 - script: npm install -g appium@${APPIUM_VERSION}
   displayName: Install appium beta
 - script: npm install -g mjpeg-consumer
