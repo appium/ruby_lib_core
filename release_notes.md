@@ -1,3 +1,25 @@
+#### v5.3.0 2022-08-10
+
+- [d6e2c3e](https://github.com/appium/ruby_lib_core/commit/d6e2c3e908e93e5461affea65509b4fdbd245c34) Release 5.3.0
+- [8751456](https://github.com/appium/ruby_lib_core/commit/8751456d4a1b79bc8a18893ac867f06cfbe74101) ci: bump macos version (#405)
+- [9428996](https://github.com/appium/ruby_lib_core/commit/94289966acb26dc415b572a03861f2ea539b1308) chore(deps-dev): update rubocop requirement from = 1.34.0 to = 1.34.1 (#406)
+- [fba8a71](https://github.com/appium/ruby_lib_core/commit/fba8a716f2567684d6bbce637ad7dd0c3e9e60a5) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.4 to ~> 4.2, < 4.5 (#404)
+- [ebf69e4](https://github.com/appium/ruby_lib_core/commit/ebf69e4ba2805256433f7a95fe2fb79ebd8ef9a6) chore(deps-dev): update rubocop requirement from = 1.33.0 to = 1.34.0 (#403)
+- [be249e2](https://github.com/appium/ruby_lib_core/commit/be249e296a6504459c72fba462e8a2b2241d6323) chore(deps-dev): update webmock requirement from ~> 3.16.0 to ~> 3.17.0 (#402)
+- [e57523e](https://github.com/appium/ruby_lib_core/commit/e57523ed313892d6b1bbc3355ad797c23cd38d46) chore(deps-dev): update rubocop requirement from = 1.32.0 to = 1.33.0 (#401)
+- [8221288](https://github.com/appium/ruby_lib_core/commit/8221288330750e40448128db4dd815f17faa63fb) chore(deps-dev): update webmock requirement from ~> 3.15.0 to ~> 3.16.0 (#400)
+- [ade39f5](https://github.com/appium/ruby_lib_core/commit/ade39f5d64b05e1909f41dc4dfb5136652956cb5) Revert "ci: add a workaround to downgrade npm version for appium 2.0.0.beta.41 (#397)" (#399)
+- [79e9d1d](https://github.com/appium/ruby_lib_core/commit/79e9d1d355abc5aeca296e805450f1e489c18c91) chore(deps-dev): update webmock requirement from ~> 3.14.0 to ~> 3.15.0 (#398)
+- [3270b5a](https://github.com/appium/ruby_lib_core/commit/3270b5a10a88570b92042823176de05bd79248af) ci: add a workaround to downgrade npm version for appium 2.0.0.beta.41 (#397)
+- [109e848](https://github.com/appium/ruby_lib_core/commit/109e8485723aa72398f47a2463c1a79445b55f31) docs: update links (#396)
+- [b6e73ac](https://github.com/appium/ruby_lib_core/commit/b6e73acec16c225374397eb1328ada20ce4e7749) chore(deps-dev): update rubocop requirement from = 1.31.2 to = 1.32.0 (#395)
+- [290e2a1](https://github.com/appium/ruby_lib_core/commit/290e2a1470848c0d3774f3abc076d53b85336f5d) docs: update the readme
+- [e6fc64a](https://github.com/appium/ruby_lib_core/commit/e6fc64ae80a562de4966961daf5664905de60d25) chore(deps-dev): update rubocop requirement from = 1.31.1 to = 1.31.2 (#394)
+- [e6a9a6b](https://github.com/appium/ruby_lib_core/commit/e6a9a6bb8df805a01152f0c8f50b8b77499f8fb6) chore(deps-dev): update rubocop requirement from = 1.31.0 to = 1.31.1 (#393)
+- [7ef7777](https://github.com/appium/ruby_lib_core/commit/7ef7777135092baa92a4dac488113541e86bd606) chore(deps-dev): update rubocop requirement from = 1.30.1 to = 1.31.0 (#392)
+- [3c160d1](https://github.com/appium/ruby_lib_core/commit/3c160d11f460bd32fcec6601d6932ec755839455) ci: bump code quality version (#391)
+
+
 #### v5.2.2 2022-06-26
 
 - [23a6607](https://github.com/appium/ruby_lib_core/commit/23a6607e93254a687b12bfb85db4663895e157ce) Release 5.2.2
