@@ -123,7 +123,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '14.2'
+      platform_version = '15.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -139,6 +139,7 @@ class AppiumLibCoreTest
           eventTimings: true,
           useJSONSource: true,
           someCapability: 'some_capability',
+          wdaLaunchTimeout: 120_000,
           newCommandTimeout: 120,
           wdaLocalPort: wda_port,
           # `true`, which is the default value, is faster to finishing launching part in many cases
@@ -331,7 +332,7 @@ class AppiumLibCoreTest
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
           chromeOptions: { androidPackage: 'com.android.chrome', args: %w(--disable-fre --disable-popup-blocking) },
-          # refer: https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/web/chromedriver.md
+          # refer: https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/web/chromedriver.md
           # An emulator 8.1 has Chrome/61.0.3163.98
           # Download a chrome driver from https://chromedriver.storage.googleapis.com/index.html?path=2.34/
           # chromedriverExecutable: "#{Dir.pwd}/test/functional/app/chromedriver_2.34",

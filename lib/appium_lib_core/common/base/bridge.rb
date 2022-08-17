@@ -153,30 +153,26 @@ module Appium
           execute :status
         end
 
-        # Perform touch actions for W3C module.
+        # Perform 'touch' actions for W3C module.
         # Generate +touch+ pointer action here and users can use this via +driver.action+
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
         # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
-        # The pointer type is 'touch' by default in the Appium Ruby client. (The selenium one is 'mouse')
+        # The pointer type is 'touch' by default in the Appium Ruby client.
         #
         # @example
         #
         #     element = @driver.find_element(:id, "some id")
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
-        def action(async = false)
-          action_builder = ::Selenium::WebDriver::ActionBuilder.new(
+        def action(_deprecated_async = nil, async: false, devices: nil)
+          ::Selenium::WebDriver::ActionBuilder.new(
             self,
-            ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch'),
-            ::Selenium::WebDriver::Interactions.key('keyboard'),
-            async
+            devices: devices || [::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch')],
+            async: async,
+            duration: 50 # milliseconds
           )
-          # Used for default duration of each touch actions.
-          # Override from 250 milliseconds to 50 milliseconds in PointerActions included by ::Selenium::WebDriver::ActionBuilder
-          action_builder.default_move_duration = 0.05
-          action_builder
         end
 
         # Port from MJSONWP

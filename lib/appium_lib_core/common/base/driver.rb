@@ -29,7 +29,6 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::Rotatable
@@ -180,6 +179,31 @@ module Appium
         end
 
         ### Methods for Appium
+
+        # Perform 'key' actions for W3C module.
+        # Generate +key+ pointer action here and users can use this via +driver.key_action+
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        #
+        # The pointer type is 'key' by default in the Appium Ruby client.
+        # +driver.action+ in Appium Ruby client has 'pointer' action by default.
+        # This method is a shortcut to set 'key' type.
+        # Hense this method is equal to +driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')])+
+        # as below example.
+        #
+        # @example
+        #
+        #     element = @driver.find_element(:id, "some id")
+        #     @driver.key_action.send_key('hiあ').perform # The 'send_key' is a part of 'KeyActions'
+        #     # is equal to:
+        #     # @driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')]).send_keys('hiあ').perform
+        #
+        def key_action(async: false)
+          @bridge.action(
+            async: async,
+            devices: [::Selenium::WebDriver::Interactions.key('keyboard')]
+          )
+        end
 
         # Lock the device
         # @return [String]
@@ -1023,7 +1047,7 @@ module Appium
 
         # @since Appium 1.8.2
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
-        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        # {https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/image-comparison.md image-comparison}
         #
         # You can handle settings for the comparision following below.
         # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}
@@ -1045,7 +1069,7 @@ module Appium
 
         # @since Appium 1.8.2
         # Return elements if current view has a partial image. The logic depends on template matching by OpenCV.
-        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        # {https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/image-comparison.md image-comparison}
         #
         # You can handle settings for the comparision following below.
         # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}

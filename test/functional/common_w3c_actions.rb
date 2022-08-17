@@ -21,9 +21,9 @@ def w3c_scroll(driver)
   action_builder
     .move_to_location(window.width / 2, window.height * 8 / 10)
     .pointer_down(:left)
-    .pause(input, 1)
+    .pause(device: input, duration: 1)
     .move_to_location(window.width / 2, window.height / 10)
-    .pause(input, 1)
+    .pause(device: input, duration: 1)
     .release
     .perform
 end
