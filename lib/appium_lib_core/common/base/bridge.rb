@@ -185,13 +185,8 @@ module Appium
           ::Selenium::WebDriver::Remote::Capabilities.json_create execute(:get_capabilities)
         end
 
-        # For Appium
-        # override
+        # Override for safe. Newer ruby selenium webdriver already has the same code
         def page_source
-          # For W3C
-          # execute_script('var source = document.documentElement.outerHTML;' \
-          # 'if (!source) { source = new XMLSerializer().serializeToString(document); }' \
-          # 'return source;')
           execute :get_page_source
         end
 
