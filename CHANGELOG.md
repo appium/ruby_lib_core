@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.4.0] - 2022-10-01
+
+### Enhancements
+- Append `selnium-webdriver` `4.5` support
+
 ## [5.3.0] - 2022-08-10
 
 ### Enhancements

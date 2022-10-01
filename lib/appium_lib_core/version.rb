@@ -14,7 +14,7 @@
 
 module Appium
   module Core
-    VERSION = '5.3.0' unless defined? ::Appium::Core::VERSION
-    DATE    = '2022-08-10' unless defined? ::Appium::Core::DATE
+    VERSION = '5.4.0' unless defined? ::Appium::Core::VERSION
+    DATE    = '2022-10-01' unless defined? ::Appium::Core::DATE
   end
 end
