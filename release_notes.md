@@ -1,3 +1,14 @@
+#### v5.4.0 2022-10-01
+
+- [09ecd64](https://github.com/appium/ruby_lib_core/commit/09ecd6447ea7be362d67d92cfc71329753880a52) Release 5.4.0
+- [430ca69](https://github.com/appium/ruby_lib_core/commit/430ca69ed573a8cf0f39b4038828c05451f2312d) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.5 to ~> 4.2, < 4.6 (#411)
+- [1f12f37](https://github.com/appium/ruby_lib_core/commit/1f12f37b2ccbeaef5dc6f70b55e2e0414d2ef8cb) chore(deps-dev): update rubocop requirement from = 1.35.1 to = 1.36.0 (#410)
+- [d5dad1e](https://github.com/appium/ruby_lib_core/commit/d5dad1e798071e19d0c075609bd50cc0996d8d65) chore: update a comment in code
+- [514b0c4](https://github.com/appium/ruby_lib_core/commit/514b0c4b138babbd2e1598d387af90c8069f6006) chore(deps-dev): update rubocop requirement from = 1.35.0 to = 1.35.1 (#409)
+- [01f4b6e](https://github.com/appium/ruby_lib_core/commit/01f4b6e3714ad1d37ef6c85cbb392f28556b76b8) chore(deps-dev): update webmock requirement from ~> 3.17.0 to ~> 3.18.1 (#408)
+- [64ebb6f](https://github.com/appium/ruby_lib_core/commit/64ebb6f185d3452e1574f792ef301cc1fb0d0016) chore(deps-dev): update rubocop requirement from = 1.34.1 to = 1.35.0 (#407)
+
+
 #### v5.3.0 2022-08-10
 
 - [d6e2c3e](https://github.com/appium/ruby_lib_core/commit/d6e2c3e908e93e5461affea65509b4fdbd245c34) Release 5.3.0
