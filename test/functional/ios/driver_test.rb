@@ -124,8 +124,8 @@ class AppiumLibCoreTest
       ensure
         @@driver.activate_app(bundle_id)
       end
-      assert_equal '0', switches_status['Auto-Correction']
-      assert_equal '0', switches_status['Predictive']
+      assert_equal '0', switches_status['Auto-Correction'], "Switches are #{switches_status}"
+      assert_equal '0', switches_status['Predictive']], "Switches are #{switches_status}"
     end
 
     # @since Appium 1.15.0
