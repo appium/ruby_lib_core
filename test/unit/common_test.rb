@@ -130,7 +130,8 @@ class AppiumLibCoreTest
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
           some_capability1: 'some_capability1',
-          someCapability2: 'someCapability2'
+          someCapability2: 'someCapability2',
+          "some_capability3" => 'string_shold_keep'
         }
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
 
@@ -142,7 +143,8 @@ class AppiumLibCoreTest
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
           'appium:some_capability1' => 'some_capability1',
-          'appium:someCapability2' => 'someCapability2'
+          'appium:someCapability2' => 'someCapability2',
+          "appium:some_capability3" => 'string_shold_keep'
         }
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
