@@ -131,7 +131,11 @@ class AppiumLibCoreTest
           useNewWDA: true,
           some_capability1: 'some_capability1',
           someCapability2: 'someCapability2',
-          "some_capability3" => 'string_shold_keep'
+          "some_capability3" => 'string_shold_keep',
+          "some_capability4" => {
+            'nested_key1': 1,
+            nested_key2: 2
+          }
         }
         base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
 
@@ -144,10 +148,30 @@ class AppiumLibCoreTest
           'appium:useNewWDA' => true,
           'appium:some_capability1' => 'some_capability1',
           'appium:someCapability2' => 'someCapability2',
-          "appium:some_capability3" => 'string_shold_keep'
+          "appium:some_capability3" => 'string_shold_keep',
+          "appium:some_capability4" => {
+            'nested_key1': 1,
+            nested_key2: 2
+          }
         }
 
-        assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
+        caps_with_appium = @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
+
+        assert_equal base_caps.as_json, {
+          "platformName"=>:ios,
+          "automationName"=>"XCUITest",
+          "appium:app"=>"test/functional/app/UICatalog.app.zip",
+          "platformVersion"=>"11.4",
+          "deviceName"=>"iPhone Simulator",
+          "useNewWDA"=>true,
+          "someCapability1"=>"some_capability1",
+          "someCapability2"=>"someCapability2",
+          "some_capability3"=>"string_shold_keep",
+          "some_capability4"=>{"nestedKey1"=>1, "nestedKey2"=>2}
+        }
+        assert_equal expected, caps_with_appium
+
+        assert_equal "{\"platformName\":\"ios\",\"appium:automationName\":\"XCUITest\",\"appium:app\":\"test/functional/app/UICatalog.app.zip\",\"appium:platformVersion\":\"11.4\",\"appium:deviceName\":\"iPhone Simulator\",\"appium:useNewWDA\":true,\"appium:some_capability1\":\"some_capability1\",\"appium:someCapability2\":\"someCapability2\",\"appium:some_capability3\":\"string_shold_keep\",\"appium:some_capability4\":{\"nested_key1\":1,\"nested_key2\":2}}", caps_with_appium.to_json
       end
 
       def test_add_appium_prefix_has_no_parameter

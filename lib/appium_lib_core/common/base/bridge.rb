@@ -111,8 +111,8 @@ module Appium
 
         private
 
-        def camel_case(str)
-          str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
+        def camel_case(str_or_sym)
+          str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
         end
 
         def extension_prefix?(capability_name)
