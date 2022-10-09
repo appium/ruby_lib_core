@@ -1,3 +1,12 @@
+#### v5.5.0 2022-10-09
+
+- [8e03352](https://github.com/appium/ruby_lib_core/commit/8e033527e311b9aeb197ebce792a84eb6821fecd) Release 5.5.0
+- [2f888e7](https://github.com/appium/ruby_lib_core/commit/2f888e70681dcc4fe02eb673c3f1f39b54796967) fix: remove symbolize (#413)
+- [6d65b1b](https://github.com/appium/ruby_lib_core/commit/6d65b1b1225d06059d6eca8cb394b007bb049d1a) test: add test (#412)
+- [b95a124](https://github.com/appium/ruby_lib_core/commit/b95a124b218df018bb54b67b6e04a81e49e4ac87) fix lint
+- [bcbb737](https://github.com/appium/ruby_lib_core/commit/bcbb737ab221b479a11d3116cb60e2ff71555955) test: add error message
+
+
 #### v5.4.0 2022-10-01
 
 - [09ecd64](https://github.com/appium/ruby_lib_core/commit/09ecd6447ea7be362d67d92cfc71329753880a52) Release 5.4.0
