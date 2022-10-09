@@ -31,14 +31,6 @@ class AppiumLibCoreTest
       end
     end
 
-    def test_no_caps
-      opts = { no: { caps: {} }, appium_lib: {} }
-
-      assert_raises ::Appium::Core::Error::NoCapabilityError do
-        ExampleDriver.new(opts)
-      end
-    end
-
     def test_with_caps
       opts = { caps: { automationName: 'xcuitest' } }
       driver = ExampleDriver.new(opts)
@@ -58,13 +50,6 @@ class AppiumLibCoreTest
       driver = ExampleDriver.new(opts)
       refute_nil driver
       assert_equal driver.core.caps[:automationName], 'xcuitest'
-    end
-
-    def test_with_caps_and_wrong_appium_lib
-      opts = { caps: { appium_lib: {} } }
-      assert_raises ::Appium::Core::Error::CapabilityStructureError do
-        ExampleDriver.new(opts)
-      end
     end
 
     def test_verify_session_id_in_the_export_session_path
