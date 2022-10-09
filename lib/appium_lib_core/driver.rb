@@ -293,9 +293,6 @@ module Appium
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
 
-        opts = Appium.symbolize_keys opts
-        validate_keys(opts)
-
         @custom_url = opts.delete :url
         @caps = get_caps(opts)
 
@@ -371,7 +368,7 @@ module Appium
         begin
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
                                                      http_client: @http_client,
-                                                     capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
+                                                     capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
                                                      wait_interval: @wait_interval,
@@ -556,31 +553,8 @@ module Appium
       end
 
       # @private
-      def validate_keys(opts)
-        flatten_ops = flatten_hash_keys(opts)
-
-        raise Error::NoCapabilityError unless opts.member?(:caps) || opts.member?(:capabilities)
-
-        if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
-          raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
-        end
-
-        true
-      end
-
-      # @private
-      def flatten_hash_keys(hash, flatten_keys_result = [])
-        hash.each do |key, value|
-          flatten_keys_result << key
-          flatten_hash_keys(value, flatten_keys_result) if value.is_a?(Hash)
-        end
-
-        flatten_keys_result
-      end
-
-      # @private
       def get_caps(opts)
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || {})
+        Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private

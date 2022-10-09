@@ -133,11 +133,11 @@ class AppiumLibCoreTest
           someCapability2: 'someCapability2',
           'some_capability3' => 'string_shold_keep',
           'some_capability4' => {
-            'nested_key1': 1,
+            'nested_key1' => 1,
             nested_key2: 2
           }
         }
-        base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
+        base_caps = Appium::Core::Base::Capabilities.new cap
 
         expected = {
           'platformName' => :ios,
@@ -149,7 +149,7 @@ class AppiumLibCoreTest
           'someCapability1' => 'some_capability1',
           'someCapability2' => 'someCapability2',
           'some_capability3' => 'string_shold_keep',
-          'some_capability4' => { 'nestedKey1' => 1, 'nestedKey2' => 2 }
+          'some_capability4' => { 'nested_key1' => 1, 'nestedKey2' => 2 }
         }
         assert_equal expected, base_caps.as_json
 
@@ -166,7 +166,7 @@ class AppiumLibCoreTest
           'appium:someCapability2' => 'someCapability2',
           'appium:some_capability3' => 'string_shold_keep',
           'appium:some_capability4' => {
-            'nested_key1': 1,
+            'nested_key1' => 1,
             nested_key2: 2
           }
         }
@@ -183,7 +183,7 @@ class AppiumLibCoreTest
           'appium:someCapability2' => 'someCapability2',
           'appium:some_capability3' => 'string_shold_keep',
           'appium:some_capability4' => {
-            'nestedKey1' => 1,
+            'nested_key1' => 1,
             'nestedKey2' => 2
           }
         }
@@ -192,7 +192,7 @@ class AppiumLibCoreTest
 
       def test_add_appium_prefix_has_no_parameter
         cap = {}
-        base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
+        base_caps = Appium::Core::Base::Capabilities.new cap
         expected = {}
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)

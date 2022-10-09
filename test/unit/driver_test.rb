@@ -31,14 +31,6 @@ class AppiumLibCoreTest
       end
     end
 
-    def test_no_caps
-      opts = { no: { caps: {} }, appium_lib: {} }
-
-      assert_raises ::Appium::Core::Error::NoCapabilityError do
-        ExampleDriver.new(opts)
-      end
-    end
-
     def test_with_caps
       opts = { caps: { automationName: 'xcuitest' } }
       driver = ExampleDriver.new(opts)
@@ -60,25 +52,18 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_with_caps_and_wrong_appium_lib
-      opts = { caps: { appium_lib: {} } }
-      assert_raises ::Appium::Core::Error::CapabilityStructureError do
-        ExampleDriver.new(opts)
-      end
-    end
-
     def test_verify_session_id_in_the_export_session_path
       @core.wait { assert File.size?(@core.export_session_path) }
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
-      caps = ::Appium::Core::Base::Capabilities.create_capabilities(platformName: 'ios',
-                                                                    platformVersion: '11.4',
-                                                                    automationName: 'XCUITest',
-                                                                    deviceName: 'iPhone Simulator',
-                                                                    app: 'test/functional/app/UICatalog.app.zip',
-                                                                    some_capability1: 'some_capability1',
-                                                                    someCapability2: 'someCapability2')
+      caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
+                                                    platformVersion: '11.4',
+                                                    automationName: 'XCUITest',
+                                                    deviceName: 'iPhone Simulator',
+                                                    app: 'test/functional/app/UICatalog.app.zip',
+                                                    some_capability1: 'some_capability1',
+                                                    someCapability2: 'someCapability2')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
