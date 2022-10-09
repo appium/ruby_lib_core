@@ -293,7 +293,6 @@ module Appium
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
 
-        opts = Appium.symbolize_keys opts
         validate_keys(opts)
 
         @custom_url = opts.delete :url
@@ -371,7 +370,7 @@ module Appium
         begin
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
                                                      http_client: @http_client,
-                                                     capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
+                                                     capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
                                                      wait_interval: @wait_interval,
@@ -580,7 +579,7 @@ module Appium
 
       # @private
       def get_caps(opts)
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || {})
+        Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private
