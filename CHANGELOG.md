@@ -9,6 +9,10 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+
+## [5.5.0] - 2022-10-09
+
+### Bug fixes
 - Removed forcefully converting keys of capabilities into symbol, which caused unexpected capabilities format issue [ruby_lib/945](https://github.com/appium/ruby_lib/issues/945)
 
 ## [5.4.0] - 2022-10-01
