@@ -1,3 +1,9 @@
+#### v5.5.1 2022-10-10
+
+- [6211113](https://github.com/appium/ruby_lib_core/commit/621111382636e453b00bd69ad3e22b7692a0bbed) Release 5.5.1
+- [f415b09](https://github.com/appium/ruby_lib_core/commit/f415b0981d00fd1e0c223f59f120f3477988d439) fix: keep the legacy behavior partially, showing a warning message instead for now (#414)
+
+
 #### v5.5.0 2022-10-09
 
 - [8e03352](https://github.com/appium/ruby_lib_core/commit/8e033527e311b9aeb197ebce792a84eb6821fecd) Release 5.5.0
