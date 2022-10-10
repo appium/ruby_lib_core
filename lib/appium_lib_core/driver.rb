@@ -293,6 +293,11 @@ module Appium
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
 
+        # TODO: Remove when we implement Options
+        # The symbolize_keys is to keep compatiility for the legacy code, which allows capabilities to give 'string' as the key.
+        # The toplevel `caps`, `capabilities` and `appium_lib` are expected to be symbol.
+        opts = Appium.symbolize_keys opts
+
         @custom_url = opts.delete :url
         @caps = get_caps(opts)
 

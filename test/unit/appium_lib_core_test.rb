@@ -20,6 +20,27 @@ class AppiumLibCoreTest
       assert !::Appium::Core::VERSION.nil?
     end
 
+    # TODO: Should be removed in the future
+    def test_symbolize_keys
+      result = ::Appium.symbolize_keys({ 'a' => 1, b: 2 })
+      assert_equal({ a: 1, b: 2 }, result)
+    end
+
+    # TODO: Should be removed in the future
+    def test_not_symbolize_keys_nested
+      result = ::Appium.symbolize_keys({ 'a' => 1, b: { 'c' => 2, d: 3 } })
+      assert_equal({ a: 1, b: { 'c' => 2, d: 3 } }, result)
+    end
+
+    # TODO: Should be removed in the future
+    def test_symbolize_keys_raise_argument_error
+      e = assert_raises ::Appium::Core::Error::ArgumentError do
+        ::Appium.symbolize_keys('no hash value')
+      end
+
+      assert_equal 'symbolize_keys requires a hash', e.message
+    end
+
     def test_url_param
       opts = {
         url: 'http://custom-host:8080/wd/hub.com',

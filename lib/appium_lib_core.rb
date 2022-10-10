@@ -21,24 +21,28 @@ require_relative 'appium_lib_core/device'
 require_relative 'appium_lib_core/element'
 
 module Appium
-  # convert all keys (including nested) to symbols
+  # @private
   #
-  # based on deep_symbolize_keys & deep_transform_keys from rails
-  # https://github.com/rails/docrails/blob/a3b1105ada3da64acfa3843b164b14b734456a50/activesupport/lib/active_support/core_ext/hash/keys.rb#L84
+  # convert the top level keys to symbols
+  #
   # @param [Hash] hash Hash value to make symbolise
   def self.symbolize_keys(hash)
     raise ::Appium::Core::Error::ArgumentError, 'symbolize_keys requires a hash' unless hash.is_a? Hash
 
     hash.each_with_object({}) do |pair, acc|
       key = begin
+        unless pair[0].is_a? Symbol
+          ::Appium::Logger.warn("[Deprecation] The key '#{pair[0]}' must be a symbol while currently it " \
+                                "is #{pair[0].class.name}. Please define the key as a Symbol. " \
+                                'Converting it to Symbol for now.')
+        end
+
         pair[0].to_sym
       rescue StandardError => e
         ::Appium::Logger.warn(e.message)
         pair[0]
       end
-
-      value = pair[1]
-      acc[key] = value.is_a?(Hash) ? symbolize_keys(value) : value
+      acc[key] = pair[1]
     end
   end
 
