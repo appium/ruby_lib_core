@@ -20,6 +20,50 @@ class AppiumLibCoreTest
       assert !::Appium::Core::VERSION.nil?
     end
 
+    # TODO: Should be removed in the future
+    def test_symbolize_keys
+      result = ::Appium.symbolize_keys({ 'a' => 1, b: 2 })
+      assert_equal({ a: 1, b: 2 }, result)
+    end
+
+    def test_not_symbolize_keys_nested1
+      result = ::Appium.symbolize_keys(
+        { 'caps': { 'automationName' => 'xcuitest', platformName: :ios } }, nested: true
+      )
+      assert_equal({ caps: { automationName: 'xcuitest', platformName: :ios } }, result)
+    end
+
+    def test_not_symbolize_keys_nested2
+      result = ::Appium.symbolize_keys(
+        { 'caps': { 'automationName' => 'xcuitest', platformName: :ios, other_caps: { 'something1': 1, something2: 2 } } },
+        nested: true
+      )
+      assert_equal(
+        { caps: { automationName: 'xcuitest', platformName: :ios, other_caps: { 'something1': 1, something2: 2 } } },
+        result
+      )
+    end
+
+    def test_not_symbolize_keys_nested3
+      result = ::Appium.symbolize_keys(
+        { 'caps': { 'automationName' => 'xcuitest', platformName: :ios, other_caps: { 'something1': 1, something2: 2 } } },
+        nested: false
+      )
+      assert_equal(
+        { caps: { 'automationName' => 'xcuitest', platformName: :ios, other_caps: { 'something1': 1, something2: 2 } } },
+        result
+      )
+    end
+
+    # TODO: Should be removed in the future
+    def test_symbolize_keys_raise_argument_error
+      e = assert_raises ::Appium::Core::Error::ArgumentError do
+        ::Appium.symbolize_keys('no hash value')
+      end
+
+      assert_equal 'symbolize_keys requires a hash', e.message
+    end
+
     def test_url_param
       opts = {
         url: 'http://custom-host:8080/wd/hub.com',

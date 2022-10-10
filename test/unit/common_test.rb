@@ -43,7 +43,16 @@ class AppiumLibCoreTest
         app: "#{Dir.pwd}/test/functional/app/api.apk.zip",
         platformVersion: '7.1.1',
         deviceName: 'Android Emulator',
-        appPackage: 'io.appium.android.apis'
+        'appPackage' => 'io.appium.android.apis',
+        'custom_cap' => 'custom_value',
+        'custom_cap_2' => {
+          'custom_nested_key' => 'custom_value'
+        },
+        'custom_cap_3' => {
+          'custom_nested_key_2' => {
+            'custom_nested_key_3' => 'custom_value'
+          }
+        }
       }.freeze
 
       APPIUM_PREFIX_CAPS = {
@@ -52,7 +61,16 @@ class AppiumLibCoreTest
         'appium:app' => "#{Dir.pwd}/test/functional/app/api.apk.zip",
         'appium:platformVersion' => '7.1.1',
         'appium:deviceName' => 'Android Emulator',
-        'appium:appPackage' => 'io.appium.android.apis'
+        'appium:appPackage' => 'io.appium.android.apis',
+        'appium:custom_cap' => 'custom_value',
+        'appium:custom_cap_2' => {
+          'custom_nested_key' => 'custom_value'
+        },
+        'appium:custom_cap_3' => {
+          'custom_nested_key_2' => {
+            'custom_nested_key_3' => 'custom_value'
+          }
+        }
       }.freeze
 
       def test_create_session_w3c
@@ -138,6 +156,9 @@ class AppiumLibCoreTest
           }
         }
         base_caps = Appium::Core::Base::Capabilities.new cap
+
+        assert_equal base_caps[:platformName], :ios
+        assert_equal base_caps['platformName'], nil
 
         expected = {
           'platformName' => :ios,

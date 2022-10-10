@@ -7,8 +7,12 @@ Read `release_notes.md` for commit level details.
 ### Enhancements
 
 ### Bug fixes
+- Keep converting String to Symbol for `capabilities`, `caps` and `appium_lib` for the backward compatibility
+- Wrong `automationName` and `platformName` detection in this library before starting a session
 
 ### Deprecations
+- Converting `capabilities`, `caps` and `appium_lib` from String to Symbol
+    - They are expected to be Symbol. Nothing affects existing users who already give the above keys as Symbol for `Appium::Core.for`.
 
 ## [5.5.0] - 2022-10-09
 
