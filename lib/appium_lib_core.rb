@@ -48,7 +48,7 @@ module Appium
 
       value = pair[1]
       acc[key] = if nested
-                   value.is_a?(Hash) ? symbolize_keys(value, nested: false, enable_deprecation_msg: true) : value
+                   value.is_a?(Hash) ? symbolize_keys(value, nested: false, enable_deprecation_msg: false) : value
                  else
                    value
                  end
