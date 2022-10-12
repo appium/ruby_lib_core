@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.5.2] - 2022-10-11
+
+### Bug fixes
+- Fix wrong deprecation message
+
 ## [5.5.1] - 2022-10-10
 
 ### Bug fixes
