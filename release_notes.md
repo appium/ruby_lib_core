@@ -1,3 +1,9 @@
+#### v5.5.2 2022-10-11
+
+- [d51ab7e](https://github.com/appium/ruby_lib_core/commit/d51ab7ee6f5ab30aec6a6b0eced9be75b407b3bf) Release 5.5.2
+- [aa34723](https://github.com/appium/ruby_lib_core/commit/aa3472364ab7ca9663f44a6c4af1a9d5a894f846) fix: wrong deprecation message
+
+
 #### v5.5.1 2022-10-10
 
 - [6211113](https://github.com/appium/ruby_lib_core/commit/621111382636e453b00bd69ad3e22b7692a0bbed) Release 5.5.1
