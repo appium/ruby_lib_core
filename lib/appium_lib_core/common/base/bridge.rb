@@ -53,8 +53,8 @@ module Appium
         # Override
         # Creates session handling.
         #
-        # @param [::Selenium::WebDriver::Remote::Capabilities, Hash] capabilities A capability
-        # @return [::Selenium::WebDriver::Remote::Capabilities]
+        # @param [::Appium::Core::Base::Capabilities, Hash] capabilities A capability
+        # @return [::Appium::Core::Base::Capabilities]
         #
         # @example
         #
@@ -89,10 +89,10 @@ module Appium
         # Append +appium:+ prefix for Appium following W3C spec
         # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
         #
-        # @param [::Selenium::WebDriver::Remote::Capabilities, Hash] capabilities A capability
-        # @return [::Selenium::WebDriver::Remote::Capabilities]
+        # @param [::Appium::Core::Base::Capabilities, Hash] capabilities A capability
+        # @return [::Appium::Core::Base::Capabilities]
         def add_appium_prefix(capabilities)
-          w3c_capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
+          w3c_capabilities = ::Appium::Core::Base::Capabilities.new
 
           capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
 
@@ -111,12 +111,12 @@ module Appium
 
         private
 
-        def camel_case(str)
-          str.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
+        def camel_case(str_or_sym)
+          str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
         end
 
         def extension_prefix?(capability_name)
-          snake_cased_capability_names = ::Selenium::WebDriver::Remote::Capabilities::KNOWN.map(&:to_s)
+          snake_cased_capability_names = ::Appium::Core::Base::Capabilities::KNOWN.map(&:to_s)
           camel_cased_capability_names = snake_cased_capability_names.map { |v| camel_case(v) }
 
           # Check 'EXTENSION_CAPABILITY_PATTERN'
@@ -126,7 +126,7 @@ module Appium
         end
 
         def json_create(value)
-          ::Selenium::WebDriver::Remote::Capabilities.json_create(value)
+          ::Appium::Core::Base::Capabilities.json_create(value)
         end
 
         public
@@ -182,16 +182,11 @@ module Appium
 
         # Port from MJSONWP
         def session_capabilities
-          ::Selenium::WebDriver::Remote::Capabilities.json_create execute(:get_capabilities)
+          ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
         end
 
-        # For Appium
-        # override
+        # Override for safe. Newer ruby selenium webdriver already has the same code
         def page_source
-          # For W3C
-          # execute_script('var source = document.documentElement.outerHTML;' \
-          # 'if (!source) { source = new XMLSerializer().serializeToString(document); }' \
-          # 'return source;')
           execute :get_page_source
         end
 
@@ -349,6 +344,9 @@ module Appium
           when Hash
             element_id = element_id_from(arg)
             return ::Appium::Core::Element.new(self, element_id) if element_id
+
+            shadow_root_id = shadow_root_id_from(arg)
+            return ::Selenium::WebDriver::Remote::ShadowRoot.new self, shadow_root_id if shadow_root_id
 
             arg.each { |k, v| arg[k] = unwrap_script_result(v) }
           else

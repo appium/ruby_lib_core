@@ -99,7 +99,7 @@ Lint/RedundantDirGlobSort:
 Lint/RequireRelativeSelfPath:
   Enabled: true
 Lint/SymbolConversion:
-  Enabled: true
+  Enabled: false
 Lint/ToEnumArguments:
   Enabled: true
 Lint/TripleQuotes:

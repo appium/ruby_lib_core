@@ -10,6 +10,31 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.5.2] - 2022-10-11
+
+### Bug fixes
+- Fix wrong deprecation message
+
+## [5.5.1] - 2022-10-10
+
+### Bug fixes
+- Keep converting String to Symbol for `capabilities`, `caps` and `appium_lib` for the backward compatibility
+- Wrong `automationName` and `platformName` detection in this library before starting a session
+
+### Deprecations
+- Converting `capabilities`, `caps` and `appium_lib` from String to Symbol
+    - They are expected to be Symbol. Nothing affects existing users who already give the above keys as Symbol for `Appium::Core.for`.
+
+## [5.5.0] - 2022-10-09
+
+### Bug fixes
+- Removed forcefully converting keys of capabilities into symbol, which caused unexpected capabilities format issue [ruby_lib/945](https://github.com/appium/ruby_lib/issues/945)
+
+## [5.4.0] - 2022-10-01
+
+### Enhancements
+- Append `selnium-webdriver` `4.5` support
+
 ## [5.3.0] - 2022-08-10
 
 ### Enhancements

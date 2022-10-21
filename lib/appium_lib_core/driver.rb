@@ -293,8 +293,11 @@ module Appium
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
 
-        opts = Appium.symbolize_keys opts
-        validate_keys(opts)
+        # TODO: Remove when we implement Options
+        # The symbolize_keys is to keep compatiility for the legacy code, which allows capabilities to give 'string' as the key.
+        # The toplevel `caps`, `capabilities` and `appium_lib` are expected to be symbol.
+        # FIXME: First, please try to remove `nested: true` to `nested: false`.
+        opts = Appium.symbolize_keys(opts, nested: true)
 
         @custom_url = opts.delete :url
         @caps = get_caps(opts)
@@ -371,7 +374,7 @@ module Appium
         begin
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
                                                      http_client: @http_client,
-                                                     capabilities: @caps, # ::Selenium::WebDriver::Remote::Capabilities
+                                                     capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
                                                      wait_interval: @wait_interval,
@@ -489,14 +492,24 @@ module Appium
 
       private
 
+      def convert_to_symbol(value)
+        if value.nil?
+          value
+        else
+          value.to_sym
+        end
+      end
+
       # @private
       def extend_for(device:, automation_name:) # rubocop:disable Metrics/CyclomaticComplexity
         extend Appium::Core
         extend Appium::Core::Device
 
-        case device
+        sym_automation_name = convert_to_symbol(automation_name)
+
+        case convert_to_symbol(device)
         when :android
-          case automation_name
+          case sym_automation_name
           when :espresso
             ::Appium::Core::Android::Espresso::Bridge.for self
           when :uiautomator2
@@ -507,7 +520,7 @@ module Appium
             ::Appium::Core::Android::Uiautomator1::Bridge.for self
           end
         when :ios, :tvos
-          case automation_name
+          case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for iOS')
           when :xcuitest
@@ -516,7 +529,7 @@ module Appium
             ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
-          case automation_name
+          case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for macOS')
           when :gecko
@@ -528,7 +541,7 @@ module Appium
             ::Appium::Logger.debug('macOS Native')
           end
         when :windows
-          case automation_name
+          case sym_automation_name
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for Windows')
           else
@@ -538,7 +551,7 @@ module Appium
           # https://github.com/Samsung/appium-tizen-driver
           ::Appium::Logger.debug('tizen')
         else
-          case automation_name
+          case sym_automation_name
           when :youiengine
             # https://github.com/YOU-i-Labs/appium-youiengine-driver
             ::Appium::Logger.debug('YouiEngine')
@@ -556,31 +569,8 @@ module Appium
       end
 
       # @private
-      def validate_keys(opts)
-        flatten_ops = flatten_hash_keys(opts)
-
-        raise Error::NoCapabilityError unless opts.member?(:caps) || opts.member?(:capabilities)
-
-        if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
-          raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
-        end
-
-        true
-      end
-
-      # @private
-      def flatten_hash_keys(hash, flatten_keys_result = [])
-        hash.each do |key, value|
-          flatten_keys_result << key
-          flatten_hash_keys(value, flatten_keys_result) if value.is_a?(Hash)
-        end
-
-        flatten_keys_result
-      end
-
-      # @private
       def get_caps(opts)
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || {})
+        Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private
@@ -593,6 +583,7 @@ module Appium
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
+        # FIXME: maybe `:app` should check `app` as well.
         return unless @caps && @caps[:app] && !@caps[:app].empty?
         return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
 
@@ -631,7 +622,8 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = @caps[:platformName]
+        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
+        @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
         @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
@@ -639,7 +631,9 @@ module Appium
 
       # @private
       def set_automation_name
-        @automation_name = @caps[:automationName] if @caps[:automationName]
+        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
+        candidate = @caps[:automationName] || @caps['automationName']
+        @automation_name = candidate if candidate
         @automation_name = if @automation_name
                              @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
                            end

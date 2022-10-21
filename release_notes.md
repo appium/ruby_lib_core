@@ -1,3 +1,35 @@
+#### v5.5.2 2022-10-11
+
+- [d51ab7e](https://github.com/appium/ruby_lib_core/commit/d51ab7ee6f5ab30aec6a6b0eced9be75b407b3bf) Release 5.5.2
+- [aa34723](https://github.com/appium/ruby_lib_core/commit/aa3472364ab7ca9663f44a6c4af1a9d5a894f846) fix: wrong deprecation message
+
+
+#### v5.5.1 2022-10-10
+
+- [6211113](https://github.com/appium/ruby_lib_core/commit/621111382636e453b00bd69ad3e22b7692a0bbed) Release 5.5.1
+- [f415b09](https://github.com/appium/ruby_lib_core/commit/f415b0981d00fd1e0c223f59f120f3477988d439) fix: keep the legacy behavior partially, showing a warning message instead for now (#414)
+
+
+#### v5.5.0 2022-10-09
+
+- [8e03352](https://github.com/appium/ruby_lib_core/commit/8e033527e311b9aeb197ebce792a84eb6821fecd) Release 5.5.0
+- [2f888e7](https://github.com/appium/ruby_lib_core/commit/2f888e70681dcc4fe02eb673c3f1f39b54796967) fix: remove symbolize (#413)
+- [6d65b1b](https://github.com/appium/ruby_lib_core/commit/6d65b1b1225d06059d6eca8cb394b007bb049d1a) test: add test (#412)
+- [b95a124](https://github.com/appium/ruby_lib_core/commit/b95a124b218df018bb54b67b6e04a81e49e4ac87) fix lint
+- [bcbb737](https://github.com/appium/ruby_lib_core/commit/bcbb737ab221b479a11d3116cb60e2ff71555955) test: add error message
+
+
+#### v5.4.0 2022-10-01
+
+- [09ecd64](https://github.com/appium/ruby_lib_core/commit/09ecd6447ea7be362d67d92cfc71329753880a52) Release 5.4.0
+- [430ca69](https://github.com/appium/ruby_lib_core/commit/430ca69ed573a8cf0f39b4038828c05451f2312d) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.5 to ~> 4.2, < 4.6 (#411)
+- [1f12f37](https://github.com/appium/ruby_lib_core/commit/1f12f37b2ccbeaef5dc6f70b55e2e0414d2ef8cb) chore(deps-dev): update rubocop requirement from = 1.35.1 to = 1.36.0 (#410)
+- [d5dad1e](https://github.com/appium/ruby_lib_core/commit/d5dad1e798071e19d0c075609bd50cc0996d8d65) chore: update a comment in code
+- [514b0c4](https://github.com/appium/ruby_lib_core/commit/514b0c4b138babbd2e1598d387af90c8069f6006) chore(deps-dev): update rubocop requirement from = 1.35.0 to = 1.35.1 (#409)
+- [01f4b6e](https://github.com/appium/ruby_lib_core/commit/01f4b6e3714ad1d37ef6c85cbb392f28556b76b8) chore(deps-dev): update webmock requirement from ~> 3.17.0 to ~> 3.18.1 (#408)
+- [64ebb6f](https://github.com/appium/ruby_lib_core/commit/64ebb6f185d3452e1574f792ef301cc1fb0d0016) chore(deps-dev): update rubocop requirement from = 1.34.1 to = 1.35.0 (#407)
+
+
 #### v5.3.0 2022-08-10
 
 - [d6e2c3e](https://github.com/appium/ruby_lib_core/commit/d6e2c3e908e93e5461affea65509b4fdbd245c34) Release 5.3.0
