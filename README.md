@@ -12,6 +12,8 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 
 - https://www.rubydoc.info/gems/appium_lib_core
     - You can find working API examples in test code, [test/functional](test/functional)
+- Appium 2.0
+    - https://appium.github.io/appium/docs/en/2.0/ (Not completed yet)
 
 # Migration from v4 to v5
 
@@ -33,10 +35,12 @@ $ bundle exec parallel_test test/unit/
 ### Functional Tests
 Run functional tests which require the Appium server and real device, Simulator/Emulator.
 
-- Start Appium server
+- Start Appium server (Appium 2.0 base)
 ```bash
-$ npm install -g appium opencv4nodejs
-$ appium --relaxed-security # To run all tests in local
+$ npm install -g appium@next
+$ appium driver install xcuitest
+$ appium driver install uiautomator2 # etc
+$ appium --base-path=/wd/hub --relaxed-security # To run all tests in local
 ```
 
 - Conduct tests
@@ -99,7 +103,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     require 'appium_lib_core'
 
     opts = {
-      capabilities: { # or { caps: {....} }
+      capabilities: { # Append capabilities
         platformName: :ios,
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
@@ -124,6 +128,8 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     # shell 2
     $ ruby test.rb
     ```
+
+[Appium::Core.for](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
 
 More examples are in [test/functional](test/functional)
 
