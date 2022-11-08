@@ -1,3 +1,13 @@
+#### v5.6.0 2022-11-08
+
+- [5892863](https://github.com/appium/ruby_lib_core/commit/5892863370e683f14c4b8cd0831fb96d3a5ffacf) Release 5.6.0
+- [c98f2f7](https://github.com/appium/ruby_lib_core/commit/c98f2f7787676c376b69b198f9155a0fcc96a2a2) feat: bump selenium-webdriver (#420)
+- [8bc5cd9](https://github.com/appium/ruby_lib_core/commit/8bc5cd9e85195d33d553233e8e2bf68116cb545c) docs: update readme
+- [4eb21a8](https://github.com/appium/ruby_lib_core/commit/4eb21a867e42b0381f540b2deb2887385a5e2774) chore(deps-dev): update rubocop requirement from = 1.37.1 to = 1.38.0 (#418)
+- [48bfabb](https://github.com/appium/ruby_lib_core/commit/48bfabbb1af5c6159aa30bdd2c6d5dca49cd4715) chore(deps-dev): update rubocop requirement from = 1.37.0 to = 1.37.1 (#417)
+- [42d52c0](https://github.com/appium/ruby_lib_core/commit/42d52c0a26adc27294e912e0dbf34903d4cc67a3) chore(deps-dev): update rubocop requirement from = 1.36.0 to = 1.37.0 (#416)
+
+
 #### v5.5.2 2022-10-11
 
 - [d51ab7e](https://github.com/appium/ruby_lib_core/commit/d51ab7ee6f5ab30aec6a6b0eced9be75b407b3bf) Release 5.5.2
