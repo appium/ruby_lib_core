@@ -31,7 +31,9 @@ class AppiumLibCoreTest
 
       def test_uiautomator
         skip 'Espresso does not support uiautomator' if @@core.automation_name == :espresso
-        assert @driver.find_element :uiautomator, 'new UiSelector().clickable(true)'
+        e = @driver.find_element :uiautomator, 'new UiSelector().clickable(true)'
+        assert e
+        assert_equal "Access'ibility", e.tag_name
       end
 
       def test_viewtag
@@ -46,6 +48,7 @@ class AppiumLibCoreTest
 
         e = @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
         assert_equal 1, e.size
+        assert_equal 'Animation', e.first.tag_name
 
         e.first.click
         @driver.find_element :accessibility_id, 'Cloning' # no error
