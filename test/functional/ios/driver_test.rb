@@ -120,10 +120,10 @@ class AppiumLibCoreTest
         @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
 
         auto_correction = @@driver.wait do |d|
-          d.find_element :predict, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
+          d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
         end
         predictive = @@driver.wait do |d|
-          d.find_element :predict, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+          d.find_element :predicate, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
         end
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value
