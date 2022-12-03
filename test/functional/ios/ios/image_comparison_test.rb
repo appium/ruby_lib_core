@@ -58,7 +58,7 @@ class AppiumLibCoreTest
         assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
         assert !find_result['score'].nil?
 
-        assert_equal(nil, find_result['visualization'])
+        assert_nil find_result['visualization']
 
         multiple = find_result['multiple']
         assert_equal(1, multiple.size)

@@ -119,13 +119,17 @@ class AppiumLibCoreTest
         # to wait the animation
         @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
 
-        eles = @@driver.find_elements :class, 'XCUIElementTypeSwitch'
-        switches_status = eles.each_with_object({}) { |e, acc| acc[e.name] = e.value }
+        auto_correction = @@driver.wait do |d|
+          d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
+        end
+        predictive = @@driver.wait do |d|
+          d.find_element :predicate, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+        end
+        assert_equal '0', auto_correction.value
+        assert_equal '0', predictive.value
       ensure
         @@driver.activate_app(bundle_id)
       end
-      assert_equal '0', switches_status['Auto-Correction'], "Switches are #{switches_status}"
-      assert_equal '0', switches_status['Predictive'], "Switches are #{switches_status}"
     end
 
     # @since Appium 1.15.0

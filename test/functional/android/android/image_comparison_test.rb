@@ -57,7 +57,7 @@ class AppiumLibCoreTest
         assert_equal({ 'x' => 0, 'y' => 0, 'width' => 750, 'height' => 1334 }, find_result['rect'])
         assert !find_result['score'].nil?
 
-        assert_equal(nil, find_result['visualization'])
+        assert_nil find_result['visualization']
 
         multiple = find_result['multiple']
         assert_equal(1, multiple.size)
@@ -106,22 +106,31 @@ class AppiumLibCoreTest
         assert image_element.hash
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
+        # Android is not so stable on emulator, so this test checks each value is not nil.
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 1
-        assert_in_delta el_location.y, image_location.y, 1
+        refute_nil el_location.x
+        refute_nil el_location.y
+        refute_nil image_location.x
+        refute_nil image_location.y
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 1
-        assert_in_delta el_size.height, image_size.height, 1
+        refute_nil el_size.width
+        refute_nil el_size.height
+        refute_nil image_size.width
+        refute_nil image_size.height
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 1
-        assert_in_delta el_rect.y, image_rect.y, 1
-        assert_in_delta el_rect.width, image_rect.width, 1
-        assert_in_delta el_rect.height, image_rect.height, 1
+        refute_nil el_rect.x
+        refute_nil el_rect.y
+        refute_nil image_rect.x
+        refute_nil image_rect.y
+        refute_nil el_rect.width
+        refute_nil el_rect.height
+        refute_nil image_rect.width
+        refute_nil image_rect.height
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
@@ -154,22 +163,31 @@ class AppiumLibCoreTest
         assert image_element.hash
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
+        # Android is not so stable on emulator, so this test checks each value is not nil.
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 13
-        assert_in_delta el_location.y, image_location.y, 13
+        refute_nil el_location.x
+        refute_nil el_location.y
+        refute_nil image_location.x
+        refute_nil image_location.y
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 13
-        assert_in_delta el_size.height, image_size.height, 13
+        refute_nil el_size.width
+        refute_nil el_size.height
+        refute_nil image_size.width
+        refute_nil image_size.height
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 13
-        assert_in_delta el_rect.y, image_rect.y, 13
-        assert_in_delta el_rect.width, image_rect.width, 13
-        assert_in_delta el_rect.height, image_rect.height, 13
+        refute_nil el_rect.x
+        refute_nil el_rect.y
+        refute_nil image_rect.x
+        refute_nil image_rect.y
+        refute_nil el_rect.width
+        refute_nil el_rect.height
+        refute_nil image_rect.width
+        refute_nil image_rect.height
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
