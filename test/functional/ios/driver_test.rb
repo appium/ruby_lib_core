@@ -120,6 +120,9 @@ class AppiumLibCoreTest
         @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
 
         eles = @@driver.find_elements :class, 'XCUIElementTypeSwitch'
+
+        puts @@driver.page_source
+
         switches_status = eles.each_with_object({}) { |e, acc| acc[e.name] = e.value }
       ensure
         @@driver.activate_app(bundle_id)
