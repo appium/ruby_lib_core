@@ -1,3 +1,11 @@
+#### v5.7.0 2022-12-02
+
+- [c313981](https://github.com/appium/ruby_lib_core/commit/c313981b131d5c54a8f92a78984cc0eea15bcb25) Release 5.7.0
+- [0c17bbd](https://github.com/appium/ruby_lib_core/commit/0c17bbdea3fbda1409ec53a67bb7b321c7c5b895) chore: relax the selenium-webdriver version (#423)
+- [5229733](https://github.com/appium/ruby_lib_core/commit/52297335a68e5455d4c7766ef570fcc8bfe40387) chore(deps-dev): update rubocop requirement from = 1.38.0 to = 1.39.0 (#422)
+- [87de9e2](https://github.com/appium/ruby_lib_core/commit/87de9e2afe47ea194714f38772a3140e21ab5ca7) test: add tag_name for android (#421)
+
+
 #### v5.6.0 2022-11-08
 
 - [5892863](https://github.com/appium/ruby_lib_core/commit/5892863370e683f14c4b8cd0831fb96d3a5ffacf) Release 5.6.0
