@@ -119,8 +119,12 @@ class AppiumLibCoreTest
         # to wait the animation
         @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
 
-        auto_correction = @@driver.wait { |d| d.find_element :predict, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"' }
-        predictive = @@driver.wait { |d| d.find_element :predict, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"' }
+        auto_correction = @@driver.wait do |d|
+          d.find_element :predict, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
+        end
+        predictive = @@driver.wait do |d|
+          d.find_element :predict, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+        end
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value
       ensure
