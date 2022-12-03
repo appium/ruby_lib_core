@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.7.0] - 2022-12-02
+
+### Enhancements
+- Allow selenium webdriver version 4.7 [#423](https://github.com/appium/ruby_lib_core/pull/423)
+
 ## [5.6.0] - 2022-11-08
 
 ### Enhancements
