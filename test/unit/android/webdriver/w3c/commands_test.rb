@@ -243,7 +243,7 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: { sample_key: 'xxx' } }.to_json)
 
             capability = @driver.session_capabilities
-            assert capability.is_a? Selenium::WebDriver::Remote::W3C::Capabilities
+            assert capability.is_a? Selenium::WebDriver::Remote::Capabilities
             assert capability['sample_key'] == 'xxx'
 
             assert_requested(:get, SESSION.to_s, times: 1)
@@ -254,7 +254,7 @@ class AppiumLibCoreTest
               .with(body: { fingerprintId: 1 }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { finger: 'name' } }.to_json)
 
-            error = assert_raises ArgumentError do
+            error = assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.finger_print 0
             end
             assert_equal 'finger_id should be integer between 1 to 10. Not 0', error.message

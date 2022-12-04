@@ -22,7 +22,7 @@ class AppiumLibCoreTest
       include AppiumLibCoreTest::Mock
 
       def setup
-        @bridge = Appium::Core::Base::Bridge.new
+        @bridge = Appium::Core::Base::Bridge.new url: 'http://127.0.0.1:4723/wd/hub'
       end
 
       RESPONSE_BASE_VALUE = {
@@ -43,7 +43,16 @@ class AppiumLibCoreTest
         app: "#{Dir.pwd}/test/functional/app/api.apk.zip",
         platformVersion: '7.1.1',
         deviceName: 'Android Emulator',
-        appPackage: 'io.appium.android.apis'
+        'appPackage' => 'io.appium.android.apis',
+        'custom_cap' => 'custom_value',
+        'custom_cap_2' => {
+          'custom_nested_key' => 'custom_value'
+        },
+        'custom_cap_3' => {
+          'custom_nested_key_2' => {
+            'custom_nested_key_3' => 'custom_value'
+          }
+        }
       }.freeze
 
       APPIUM_PREFIX_CAPS = {
@@ -52,39 +61,24 @@ class AppiumLibCoreTest
         'appium:app' => "#{Dir.pwd}/test/functional/app/api.apk.zip",
         'appium:platformVersion' => '7.1.1',
         'appium:deviceName' => 'Android Emulator',
-        'appium:appPackage' => 'io.appium.android.apis'
+        'appium:appPackage' => 'io.appium.android.apis',
+        'appium:custom_cap' => 'custom_value',
+        'appium:custom_cap_2' => {
+          'custom_nested_key' => 'custom_value'
+        },
+        'appium:custom_cap_3' => {
+          'custom_nested_key_2' => {
+            'custom_nested_key_3' => 'custom_value'
+          }
+        }
       }.freeze
-
-      def test_create_session_force_mjsonwp
-        response = { value: RESPONSE_BASE_VALUE }.to_json
-
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-          .with(body: { desiredCapabilities: CAPS,
-                        capabilities: { firstMatch: [APPIUM_PREFIX_CAPS] } }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: response)
-
-        stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 0 }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
-
-        driver = ::Appium::Core.for({ caps: CAPS.merge({ forceMjsonwp: true }), appium_lib: {} }).start_driver
-
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
-        driver
-      end
 
       def test_create_session_w3c
         response = { value: RESPONSE_BASE_VALUE }.to_json
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-          .with(body: { desiredCapabilities: CAPS,
-                        capabilities: { firstMatch: [APPIUM_PREFIX_CAPS] } }.to_json)
+          .with(body: { capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
-
-        stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 0 }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         stub_request(:get, 'http://127.0.0.1:4723/wd/hub/sessions')
           .to_return(headers: Mock::HEADER, status: 200, body: { value: [{ id: 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3',
@@ -93,7 +87,6 @@ class AppiumLibCoreTest
         driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
 
         sessions = driver.sessions
         assert_requested(:get, 'http://127.0.0.1:4723/wd/hub/sessions', times: 1)
@@ -115,6 +108,7 @@ class AppiumLibCoreTest
             }
           }
         }.to_json
+
         http_caps = {
           platformName: :android,
           automationName: 'uiautomator2',
@@ -134,51 +128,15 @@ class AppiumLibCoreTest
         }
 
         stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-          .with(body: { desiredCapabilities: http_caps,
-                        capabilities: { firstMatch: [appium_prefix_http_caps] } }.to_json)
+          .with(body: { capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [{}] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
-
-        stub_request(:post, "#{Mock::SESSION}/timeouts")
-          .with(body: { implicit: 0 }.to_json)
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: nil }.to_json)
 
         core = ::Appium::Core.for({ caps: http_caps, appium_lib: {} })
         core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, "#{Mock::SESSION}/timeouts", body: { implicit: 0 }.to_json, times: 1)
 
         assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
-      end
-
-      def test_add_appium_prefix_compatible_with_oss
-        cap = {
-          platformName: :ios,
-          automationName: 'XCUITest',
-          app: 'test/functional/app/UICatalog.app.zip',
-          platformVersion: '11.4',
-          deviceName: 'iPhone Simulator',
-          useNewWDA: true,
-          some_capability1: 'some_capability1',
-          someCapability2: 'someCapability2',
-          'moz:someOtherCap' => 'someOtherCap' # Should ignore if it already have some extentions
-        }
-        base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
-
-        expected = {
-          proxy: nil,
-          platformName: :ios,
-          'appium:automationName' => 'XCUITest',
-          'appium:app' => 'test/functional/app/UICatalog.app.zip',
-          'appium:platformVersion' => '11.4',
-          'appium:deviceName' => 'iPhone Simulator',
-          'appium:useNewWDA' => true,
-          'appium:some_capability1' => 'some_capability1',
-          'appium:someCapability2' => 'someCapability2',
-          'moz:someOtherCap' => 'someOtherCap'
-        }
-
-        assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
       end
 
       def test_add_appium_prefix_already_have_appium_prefix
@@ -190,12 +148,35 @@ class AppiumLibCoreTest
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
           some_capability1: 'some_capability1',
-          someCapability2: 'someCapability2'
+          someCapability2: 'someCapability2',
+          'some_capability3' => 'string_shold_keep',
+          'some_capability4' => {
+            'nested_key1' => 1,
+            nested_key2: 2
+          }
         }
-        base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
+        base_caps = Appium::Core::Base::Capabilities.new cap
+
+        assert_equal base_caps[:platformName], :ios
+        assert_equal base_caps['platformName'], nil
 
         expected = {
-          proxy: nil,
+          'platformName' => :ios,
+          'automationName' => 'XCUITest',
+          'appium:app' => 'test/functional/app/UICatalog.app.zip',
+          'platformVersion' => '11.4',
+          'deviceName' => 'iPhone Simulator',
+          'useNewWDA' => true,
+          'someCapability1' => 'some_capability1',
+          'someCapability2' => 'someCapability2',
+          'some_capability3' => 'string_shold_keep',
+          'some_capability4' => { 'nested_key1' => 1, 'nestedKey2' => 2 }
+        }
+        assert_equal expected, base_caps.as_json
+
+        caps_with_appium = @bridge.add_appium_prefix(base_caps)
+
+        expected = {
           platformName: :ios,
           'appium:automationName' => 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
@@ -203,16 +184,37 @@ class AppiumLibCoreTest
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
           'appium:some_capability1' => 'some_capability1',
-          'appium:someCapability2' => 'someCapability2'
+          'appium:someCapability2' => 'someCapability2',
+          'appium:some_capability3' => 'string_shold_keep',
+          'appium:some_capability4' => {
+            'nested_key1' => 1,
+            nested_key2: 2
+          }
         }
+        assert_equal expected, caps_with_appium.__send__(:capabilities)
 
-        assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
+        expected = {
+          'platformName' => :ios,
+          'appium:automationName' => 'XCUITest',
+          'appium:app' => 'test/functional/app/UICatalog.app.zip',
+          'appium:platformVersion' => '11.4',
+          'appium:deviceName' => 'iPhone Simulator',
+          'appium:useNewWDA' => true,
+          'appium:some_capability1' => 'some_capability1',
+          'appium:someCapability2' => 'someCapability2',
+          'appium:some_capability3' => 'string_shold_keep',
+          'appium:some_capability4' => {
+            'nested_key1' => 1,
+            'nestedKey2' => 2
+          }
+        }
+        assert_equal expected, caps_with_appium.as_json  # for testing
       end
 
       def test_add_appium_prefix_has_no_parameter
         cap = {}
-        base_caps = Appium::Core::Base::Capabilities.create_capabilities(cap)
-        expected = { proxy: nil }
+        base_caps = Appium::Core::Base::Capabilities.new cap
+        expected = {}
 
         assert_equal expected, @bridge.add_appium_prefix(base_caps).__send__(:capabilities)
       end

@@ -30,7 +30,6 @@ class AppiumLibCoreTest
       end
 
       def test_tap
-        skip if @@driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
@@ -42,7 +41,6 @@ class AppiumLibCoreTest
       end
 
       def test_scroll
-        skip if @@driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
@@ -63,7 +61,6 @@ class AppiumLibCoreTest
       end
 
       def test_scroll2
-        skip if @@driver.dialect == :oss
         skip_as_appium_version '1.9.0' # fix scroll actions
 
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
@@ -81,7 +78,9 @@ class AppiumLibCoreTest
         @@driver.rotation = :landscape
 
         el = @@driver.find_element :name, 'Buttons'
-        @@driver.action.click(el).perform
+        # iOS 16 simulator returned wrong coordinate.
+        # @@driver.action.click(el).perform
+        el.click
 
         # The view has two views
         els_land = @@driver.find_elements :name, 'Buttons'

@@ -5,6 +5,10 @@
 jobs:
   - template: ./ci-jobs/functional_test.yml
 
+pr:
+  - master
+  - main
+
 # Runs tests nightly to make sure they works against appium@beta
 schedules:
   - cron: "0 0 * * *"

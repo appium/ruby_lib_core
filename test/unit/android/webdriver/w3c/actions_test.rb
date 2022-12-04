@@ -32,7 +32,7 @@ class AppiumLibCoreTest
             action_body = {
               actions: [{
                 type: 'pointer',
-                id: 'mouse',
+                id: 'touch',
                 actions: [{
                   type: 'pointerMove',
                   duration: 50,
@@ -55,7 +55,7 @@ class AppiumLibCoreTest
                   button: 0
                 }],
                 parameters: {
-                  pointerType: 'mouse'
+                  pointerType: 'touch'
                 }
               }]
             }
@@ -66,7 +66,7 @@ class AppiumLibCoreTest
 
             @driver
               .action
-              .move_to(::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'))
+              .move_to(::Appium::Core::Element.new(@driver.send(:bridge), 'id'))
               .pointer_down(:left)
               .move_to_location(0, 10 - 5)
               .release.perform
@@ -106,7 +106,7 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver
-              .action
+              .key_action
               .send_keys('hiあ')
               .perform
 
@@ -144,7 +144,7 @@ class AppiumLibCoreTest
               .with(body: action_body.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+            f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
             f1.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_down(:left)
@@ -153,7 +153,7 @@ class AppiumLibCoreTest
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f1.create_pointer_up(:left)
 
-            f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+            f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
             f2.create_pointer_move(duration: 0.05, x: 100, y: 100,
                                    origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
             f2.create_pointer_down(:left)
@@ -170,15 +170,16 @@ class AppiumLibCoreTest
           end
 
           def test_w3c__multiple_actions_no_array
-            error = assert_raises ArgumentError do
+            error = assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.perform_actions 'string'
             end
             assert_equal '\'string\' must be Array', error.message
           end
 
+          # @deprecated Appium::Core::TouchAction
           def test_press_touch_action
             action = Appium::Core::TouchAction.new(@driver).press(
-              element: ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id')
+              element: ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
             ).release
 
             assert_equal [{ action: :press, options: { element: 'id' } }, { action: :release }], action.actions

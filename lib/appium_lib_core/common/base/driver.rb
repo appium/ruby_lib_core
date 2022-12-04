@@ -13,11 +13,15 @@
 # limitations under the License.
 
 require 'base64'
+require_relative 'device_ime'
+require_relative 'driver_settings'
 require_relative 'search_context'
 require_relative 'screenshot'
 require_relative 'rotable'
 require_relative 'remote_status'
 require_relative 'has_location'
+require_relative 'has_network_connection'
+require_relative '../wait'
 
 module Appium
   module Core
@@ -25,38 +29,49 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::HasRemoteStatus
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
-        include ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
-        include  ::Selenium::WebDriver::DriverExtensions::HasTouchScreen
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
         include ::Appium::Core::Base::HasLocation
+        include ::Appium::Core::Base::HasNetworkConnection
+
+        include ::Appium::Core::Waitable
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        def initialize(opts = {})
-          listener = opts.delete(:listener)
+        def initialize(bridge: nil, listener: nil, **opts)
+          # For ::Appium::Core::Waitable
+          @wait_timeout = opts.delete(:wait_timeout)
+          @wait_interval = opts.delete(:wait_interval)
 
-          existing_session_id = opts.delete(:existing_session_id)
-          @bridge = if existing_session_id.nil?
-                      ::Appium::Core::Base::Bridge.handshake(**opts)
-                    else
-                      ::Appium::Core::Base::Bridge.attach_to(existing_session_id, **opts)
-                    end
-          super(@bridge, listener: listener)
+          # For logging.
+          # TODO: Remove when appium core no longer uses this in this bridge.
+          @automation_name = opts.delete(:automation_name)
+
+          super
         end
 
-        # Get the dialect value
-        # @return [:oss|:w3c]
-        def dialect
-          @bridge.dialect
+        # Create a proper bridge instance.
+        #
+        # @return [::Appium::Core::Base::Bridge]
+        #
+        def create_bridge(**opts)
+          capabilities = opts.delete(:capabilities)
+          bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
+          raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
+
+          bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
+
+          bridge.create_session(capabilities)
+          bridge
         end
+
+        public
 
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
@@ -72,7 +87,7 @@ module Appium
         def update_sending_request_to(protocol:, host:, port:, path:)
           unless @bridge.http&.class&.method_defined? :update_sending_request_to
             ::Appium::Logger.warn "#{@bridge.http&.class} has no 'update_sending_request_to'. " \
-              'It keeps current connection target.'
+                                  'It keeps current connection target.'
             return
           end
 
@@ -106,7 +121,7 @@ module Appium
         #                     values in the hash.
         #                     The third argument should be hash. The hash will be the request body.
         #                     Please read examples below for more details.
-        # @raise [ArgumentError] If the given +method+ are invalid value.
+        # @raise [ArgumentError] If the given +method+ is invalid value.
         #
         # @example
         #
@@ -148,20 +163,45 @@ module Appium
         #   # ':session_id' in the given url is replaced with current 'session id'.
         #   # ':id' in the given url is replaced with the given 'element_id'.
         #   e = @driver.find_element :accessibility_id, 'an element'
-        #   @driver.test_action_command(e.ref, 'action')
+        #   @driver.test_action_command(e.id, 'action')
         #
         def add_command(method:, url:, name:, &block)
           unless AVAILABLE_METHODS.include? method
             raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}"
           end
 
-          # TODO: Remove this logger
+          # TODO: Remove this logger before Appium 2.0 release
           ::Appium::Logger.info '[Experimental] this method is experimental for Appium 2.0. This interface may change.'
 
           @bridge.add_command method: method, url: url, name: name, &block
         end
 
         ### Methods for Appium
+
+        # Perform 'key' actions for W3C module.
+        # Generate +key+ pointer action here and users can use this via +driver.key_action+
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        #
+        # The pointer type is 'key' by default in the Appium Ruby client.
+        # +driver.action+ in Appium Ruby client has 'pointer' action by default.
+        # This method is a shortcut to set 'key' type.
+        # Hense this method is equal to +driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')])+
+        # as below example.
+        #
+        # @example
+        #
+        #     element = @driver.find_element(:id, "some id")
+        #     @driver.key_action.send_key('hiあ').perform # The 'send_key' is a part of 'KeyActions'
+        #     # is equal to:
+        #     # @driver.action(devices: [::Selenium::WebDriver::Interactions.key('keyboard')]).send_keys('hiあ').perform
+        #
+        def key_action(async: false)
+          @bridge.action(
+            async: async,
+            devices: [::Selenium::WebDriver::Interactions.key('keyboard')]
+          )
+        end
 
         # Lock the device
         # @return [String]
@@ -227,52 +267,6 @@ module Appium
         end
         alias is_keyboard_shown keyboard_shown?
 
-        # [DEPRECATION]
-        # Send keys for a current active element
-        # @param [String] key Input text
-        #
-        # @example
-        #
-        #   @driver.send_keys 'happy testing!'
-        #
-        def send_keys(*key)
-          ::Appium::Logger.warn(
-            '[DEPRECATION] Driver#send_keys is deprecated in W3C spec. Use driver.action.<command>.perform instead'
-          )
-          @bridge.send_keys_to_active_element(key)
-        end
-        alias type send_keys
-
-        class DriverSettings
-          # @private this class is private
-          def initialize(bridge)
-            @bridge = bridge
-          end
-
-          # Get appium Settings for current test session.
-          #
-          # @example
-          #
-          #   @driver.settings.get
-          #
-          def get
-            @bridge.get_settings
-          end
-
-          # Update Appium Settings for current test session
-          #
-          # @param [Hash] settings Settings to update, keys are settings, values to value to set each setting to
-          #
-          # @example
-          #
-          #   @driver.settings.update({'allowInvisibleElements': true})
-          #
-          def update(settings)
-            @bridge.update_settings(settings)
-          end
-        end
-        private_constant :DriverSettings
-
         # Returns an instance of DriverSettings to call get/update.
         #
         # @example
@@ -281,7 +275,7 @@ module Appium
         #   @driver.settings.update('allowInvisibleElements': true)
         #
         def settings
-          @driver_settings ||= DriverSettings.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
+          @settings ||= DriverSettings.new(@bridge)
         end
 
         # Get appium Settings for current test session.
@@ -312,34 +306,6 @@ module Appium
         end
         alias update_settings settings=
 
-        class DeviceIME
-          # @private this class is private
-          def initialize(bridge)
-            @bridge = bridge
-          end
-
-          def activate(ime_name)
-            @bridge.ime_activate(ime_name)
-          end
-
-          def available_engines
-            @bridge.ime_available_engines
-          end
-
-          def active_engine
-            @bridge.ime_active_engine
-          end
-
-          def activated?
-            @bridge.ime_activated
-          end
-
-          def deactivate
-            @bridge.ime_deactivate
-          end
-        end
-        private_constant :DeviceIME
-
         # Returns an instance of DeviceIME
         #
         # @return [Appium::Core::Base::Driver::DeviceIME]
@@ -353,7 +319,7 @@ module Appium
         #   @driver.ime.deactivate #=> Deactivate current IME engine
         #
         def ime
-          @device_ime ||= DeviceIME.new(@bridge) # rubocop:disable Naming/MemoizedInstanceVariableName
+          @ime ||= DeviceIME.new(@bridge)
         end
 
         # Android only. Make an engine that is available active.
@@ -473,41 +439,9 @@ module Appium
         end
         alias set_context context=
 
-        # Set the value to element directly
-        #
-        # @example
-        #
-        #   @driver.set_immediate_value element, 'hello'
-        #
-        def set_immediate_value(element, *value)
-          ::Appium::Logger.warn '[DEPRECATION] driver#set_immediate_value(element, *value) is deprecated. ' \
-            'Use Element#immediate_value(*value) instead'
-          @bridge.set_immediate_value(element, *value)
-        end
-
-        # Replace the value to element directly
-        #
-        # @example
-        #
-        #   @driver.replace_value element, 'hello'
-        #
-        def replace_value(element, *value)
-          ::Appium::Logger.warn '[DEPRECATION] driver#replace_value(element, *value) is deprecated. ' \
-            'Use Element#replace_value(*value) instead'
-          @bridge.replace_value(element, *value)
-        end
-
         # Place a file in a specific location on the device.
-        # On iOS, the server should have ifuse libraries installed and configured properly for this feature to work on
-        # real devices.
         # On Android, the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pushed to the root of
@@ -525,17 +459,9 @@ module Appium
           @bridge.push_file(path, filedata)
         end
 
-        # Pull a file from the simulator/device.
-        # On iOS the server should have ifuse
-        # libraries installed and configured properly for this feature to work on real devices.
+        # Pull a file from the remote device.
         # On Android the application under test should be built with debuggable flag enabled in order to get access
         # to its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Either an absolute path OR, for iOS devices, a path relative to the app, as described.
         #                      If the path starts with application id prefix, then the file will be pulled from the root
@@ -545,7 +471,6 @@ module Appium
         #                      Only pulling files from application containers is supported for iOS Simulator.
         #                      Provide the remote path in format
         #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
-        #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data
         #
@@ -562,17 +487,9 @@ module Appium
           @bridge.pull_file(path)
         end
 
-        # Pull a folder content from the simulator/device.
-        # On iOS the server should have ifuse libraries installed and configured properly for this feature to work
-        # on real devices.
+        # Pull a folder content from the remote device.
         # On Android the application under test should be built with debuggable flag enabled in order to get access to
         # its container on the internal file system.
-        #
-        # {https://github.com/libimobiledevice/ifuse iFuse GitHub page6}
-        #
-        # {https://github.com/osxfuse/osxfuse/wiki/FAQ osxFuse FAQ}
-        #
-        # {https://developer.android.com/studio/debug 'Debug Your App' developer article}
         #
         # @param [String] path Absolute path to the folder.
         #                      If the path starts with <em>@applicationId/</em> prefix, then the folder will be pulled
@@ -582,7 +499,6 @@ module Appium
         #                      Only pulling files from application containers is supported for iOS Simulator.
         #                      Provide the remote path in format
         #                      <code>@bundle.identifier:container_type/relative_path_in_container</code>
-        #                      (Make sure this in ifuse doc)
         #
         # @return [Base64-decoded] Base64 decoded data which is zip archived
         #
@@ -594,19 +510,6 @@ module Appium
         #
         def pull_folder(path)
           @bridge.pull_folder(path)
-        end
-
-        # Send keyevent on the device.(Only for Selendroid)
-        # http://developer.android.com/reference/android/view/KeyEvent.html
-        # @param [integer] key The key to press.
-        # @param [String] metastate The state the metakeys should be in when pressing the key.
-        #
-        # @example
-        #
-        #   @driver.keyevent 82
-        #
-        def keyevent(key, metastate = nil)
-          @bridge.keyevent(key, metastate)
         end
 
         # Press keycode on the device.
@@ -653,6 +556,7 @@ module Appium
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
+        # @deprecated Except for Windows
         # Start the simulator and application configured with desired capabilities
         #
         # @example
@@ -660,9 +564,16 @@ module Appium
         #   @driver.launch_app
         #
         def launch_app
+          # TODO: Define only in Windows module when ruby_lib_core removes this method
+          if @automation_name != :windows
+            ::Appium::Logger.warn(
+              '[DEPRECATION] launch_app is deprecated. Please use activate_app instead.'
+            )
+          end
           @bridge.launch_app
         end
 
+        # @deprecated Except for Windows
         # Close an app on device
         #
         # @example
@@ -670,9 +581,16 @@ module Appium
         #   @driver.close_app
         #
         def close_app
+          # TODO: Define only in Windows module when ruby_lib_core removes this method
+          if @automation_name != :windows
+            ::Appium::Logger.warn(
+              '[DEPRECATION] close_app is deprecated. Please use terminate_app instead.'
+            )
+          end
           @bridge.close_app
         end
 
+        # @deprecated
         # Reset the device, relaunching the application.
         #
         # @example
@@ -680,6 +598,10 @@ module Appium
         #   @driver.reset
         #
         def reset
+          ::Appium::Logger.warn(
+            '[DEPRECATION] reset is deprecated. Please use terminate_app and activate_app, ' \
+            'or quit and create a new session instead.'
+          )
           @bridge.reset
         end
 
@@ -709,7 +631,9 @@ module Appium
           @bridge.background_app(duration)
         end
 
-        # Install the given app onto the device
+        # Install the given app onto the device.
+        # Each options can be snake-case or camel-case. Snake-cases will be converted to camel-case
+        # as options value.
         #
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
@@ -723,25 +647,25 @@ module Appium
         # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
         #                                    on Android 6+ after the installation completes. +false+ by default
         #
+        # Other parameters such as https://github.com/appium/appium-xcuitest-driver#mobile-installapp also can be set.
+        # Then, arguments in snake case will be camel case as its request parameters.
+        #
         # @example
         #
         #   @driver.install_app("/path/to/test.apk")
         #   @driver.install_app("/path/to/test.apk", replace: true, timeout: 20000, allow_test_packages: true,
         #                       use_sdcard: false, grant_permissions: false)
+        #   @driver.install_app("/path/to/test.ipa", timeoutMs: 20000)
         #
-        def install_app(path,
-                        replace: nil,
-                        timeout: nil,
-                        allow_test_packages: nil,
-                        use_sdcard: nil,
-                        grant_permissions: nil)
-          @bridge.install_app(path,
-                              replace: replace,
-                              timeout: timeout,
-                              allow_test_packages: allow_test_packages,
-                              use_sdcard: use_sdcard,
-                              grant_permissions: grant_permissions)
+        def install_app(path, **options)
+          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1].upcase } } unless options.nil?
+          @bridge.install_app(path, options)
         end
+
+        # def capitalize(s)
+        #   chars =
+        #   chars[1:].map(&:capitalize).join
+        # end
 
         # @param [Strong] app_id BundleId for iOS or package name for Android
         # @param [Boolean] keep_data Only for Android. Whether to keep application data and caches after it is uninstalled.
@@ -897,7 +821,7 @@ module Appium
         #
         # @example: Zoom
         #
-        #    f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        #    f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
         #    f1.create_pointer_move(duration: 1, x: 200, y: 500,
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f1.create_pointer_down(:left)
@@ -905,7 +829,7 @@ module Appium
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f1.create_pointer_up(:left)
         #
-        #    f2 = @driver.action.add_pointer_input(:touch, 'finger2')
+        #    f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
         #    f2.create_pointer_move(duration: 1, x: 200, y: 500,
         #                           origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         #    f2.create_pointer_down(:left)
@@ -916,7 +840,11 @@ module Appium
         #    @driver.perform_actions [f1, f2] #=> 'nil' if the action succeed
         #
         def perform_actions(data)
-          raise ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
+          raise ::Appium::Core::Error::ArgumentError, "'#{data}' must be Array" unless data.is_a? Array
+
+          # NOTE: 'add_input' in Selenium Ruby implementation has additional 'pause'.
+          # This implementation is to avoid the additional pause.
+          # https://github.com/SeleniumHQ/selenium/blob/64447d4b03f6986337d1ca8d8b6476653570bcc1/rb/lib/selenium/webdriver/common/action_builder.rb#L207
 
           @bridge.send_actions data.map(&:encode).compact
           data.each(&:clear_actions)
@@ -986,16 +914,15 @@ module Appium
         # Retrieve the capabilities of the specified session.
         # It's almost same as +@driver.capabilities+ but you can get more details.
         #
-        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::W3C::Capabilities]
+        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::Capabilities]
         #
         # @example
         #   @driver.session_capabilities
         #
         #   #=> uiautomator2
-        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fa38dae1360
+        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fa38dae1360
         #   # @capabilities=
-        #   #     {:proxy=>nil,
-        #   #      :browser_name=>nil,
+        #   #     {:browser_name=>nil,
         #   #      :browser_version=>nil,
         #   #      :platform_name=>"android",
         #   #      :page_load_strategy=>nil,
@@ -1042,10 +969,9 @@ module Appium
         #   #      "viewportRect"=>{"left"=>0, "top"=>63, "width"=>1080, "height"=>1731}}>
         #   #
         #   #=> XCUITest
-        #   # <Selenium::WebDriver::Remote::W3C::Capabilities:0x007fb15dc01370
+        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fb15dc01370
         #   # @capabilities=
-        #   #     {:proxy=>nil,
-        #   #      :browser_name=>"UICatalog",
+        #   #     {:browser_name=>"UICatalog",
         #   #      :browser_version=>nil,
         #   #      :platform_name=>"ios",
         #   #      :page_load_strategy=>nil,
@@ -1119,14 +1045,14 @@ module Appium
 
         # @since Appium 1.8.2
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
-        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        # {https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/image-comparison.md image-comparison}
         #
         # You can handle settings for the comparision following below.
         # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [::Selenium::WebDriver::Element]
+        # @return [::Appium::Core::Element]
         #
         # @example
         #
@@ -1141,7 +1067,7 @@ module Appium
 
         # @since Appium 1.8.2
         # Return elements if current view has a partial image. The logic depends on template matching by OpenCV.
-        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        # {https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/image-comparison.md image-comparison}
         #
         # You can handle settings for the comparision following below.
         # {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 device-settings}
@@ -1196,14 +1122,14 @@ module Appium
           @bridge.execute_driver(script: script, type: type, timeout_ms: timeout_ms)
         end
 
-        # Convert vanilla element response to ::Selenium::WebDriver::Element
+        # Convert vanilla element response to ::Appium::Core::Element
         #
         # @param [Hash] id The id which can get as a response from server
-        # @return [::Selenium::WebDriver::Element]
+        # @return [::Appium::Core::Element]
         #
         # @example
         #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx", "ELEMENT"=>"xxxx"}
-        #     ele = @driver.convert_to_element(response) #=> ::Selenium::WebDriver::Element
+        #     ele = @driver.convert_to_element(response) #=> ::Appium::Core::Element
         #     ele.rect #=> Can get the rect of the element
         #
         def convert_to_element(id)

@@ -14,15 +14,25 @@
 
 module Appium
   module Core
+    #
+    # @deprecated Use W3C actions instead
+    #
     # Perform a series of gestures, one after another.  Gestures are chained
     # together and only performed when +perform()+ is called. Default is conducted by global driver.
     #
     # Each method returns the object itself, so calls can be chained.
     #
     # Consider to use W3C spec touch action like the followings.
-    # https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
+    # https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/w3c_actions_test.rb
     # https://github.com/appium/ruby_lib_core/blob/master/test/functional/ios/webdriver/w3c_actions_test.rb
+    #
+    # About W3C actions
+    # https://www.youtube.com/watch?v=oAJ7jwMNFVU
+    # https://appiumpro.com/editions/30-ios-specific-touch-action-methods
+    # https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
+    #
+    # Functional test code in ruby_lib_core repository also helps.
     #
     # @example
     #
@@ -39,6 +49,10 @@ module Appium
       attr_reader :actions, :driver
 
       def initialize(driver)
+        ::Appium::Logger.warn(
+          '[DEPRECATION] Appium::Core::TouchAction is deprecated in W3C spec. Use W3C actions instead'
+        )
+
         @actions = []
         @driver = driver
       end
@@ -195,7 +209,7 @@ module Appium
       end
 
       def args_with_ele_ref(args)
-        args[:element] = args[:element].ref if args.key? :element
+        args[:element] = args[:element].id if args.key? :element
         args
       end
     end # class TouchAction

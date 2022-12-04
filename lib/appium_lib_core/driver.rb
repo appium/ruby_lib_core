@@ -40,7 +40,7 @@ module Appium
 
       def initialize(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, nil
-        @default_wait = appium_lib_opts.fetch :wait, Driver::DEFAULT_IMPLICIT_WAIT
+        @default_wait = appium_lib_opts.fetch :wait, nil
         @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
 
         # bump current session id into a particular file
@@ -51,7 +51,7 @@ module Appium
 
         @port = appium_lib_opts.fetch :port, Driver::DEFAULT_APPIUM_PORT
 
-        # timeout and interval used in ::Appium::Comm.wait/wait_true
+        # timeout and interval used in ::Appium::Commn.wait/wait_true
         @wait_timeout  = appium_lib_opts.fetch :wait_timeout, ::Appium::Core::Wait::DEFAULT_TIMEOUT
         @wait_interval = appium_lib_opts.fetch :wait_interval, ::Appium::Core::Wait::DEFAULT_INTERVAL
 
@@ -76,6 +76,13 @@ module Appium
         path: 'directConnectPath'
       }.freeze
 
+      W3C_KEYS = {
+        protocol: 'appium:directConnectProtocol',
+        host: 'appium:directConnectHost',
+        port: 'appium:directConnectPort',
+        path: 'appium:directConnectPath'
+      }.freeze
+
       # @return [string] Returns a protocol such as http/https
       attr_reader :protocol
 
@@ -89,10 +96,10 @@ module Appium
       attr_reader :path
 
       def initialize(capabilities)
-        @protocol = capabilities[KEYS[:protocol]]
-        @host = capabilities[KEYS[:host]]
-        @port = capabilities[KEYS[:port]]
-        @path = capabilities[KEYS[:path]]
+        @protocol = capabilities[W3C_KEYS[:protocol]] || capabilities[KEYS[:protocol]]
+        @host = capabilities[W3C_KEYS[:host]] || capabilities[KEYS[:host]]
+        @port = capabilities[W3C_KEYS[:port]] || capabilities[KEYS[:port]]
+        @path = capabilities[W3C_KEYS[:path]] || capabilities[KEYS[:path]]
       end
     end
 
@@ -135,11 +142,9 @@ module Appium
       attr_reader :export_session_path
 
       # Default wait time for elements to appear in Appium server side.
-      # Defaults to {::Appium::Core::Driver::DEFAULT_IMPLICIT_WAIT}.<br>
       # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
       # @return [Integer]
       attr_reader :default_wait
-      DEFAULT_IMPLICIT_WAIT = 0
 
       # Appium's server port. 4723 is by default. Defaults to {::Appium::Core::Driver::DEFAULT_APPIUM_PORT}.<br>
       # Provide <code>{ appium_lib: { port: 8080 } }</code> to {::Appium::Core.for}.
@@ -177,7 +182,8 @@ module Appium
       # - <code>directConnectPort</code>
       # - <code>directConnectPath</code>
       #
-      # Ignore them if this parameter is <code>false</code>. Defaults to true.
+      # ignore them if this parameter is <code>false</code>. Defaults to true.
+      # These keys can have <code>appium:</code> prefix.
       #
       # @return [Bool]
       attr_reader :direct_connect
@@ -187,8 +193,6 @@ module Appium
       # @option opts [Hash] :caps Appium capabilities.
       # @option opts [Hash] :capabilities The same as :caps.
       #                                   This param is for compatibility with Selenium WebDriver format
-      # @option opts [Hash] :desired_capabilities The same as :caps.
-      #                                           This param is for compatibility with Selenium WebDriver format
       # @option opts [Appium::Core::Options] :appium_lib Capabilities affect only ruby client
       # @option opts [String] :url The same as :custom_url in :appium_lib.
       #                            This param is for compatibility with Selenium WebDriver format
@@ -199,10 +203,8 @@ module Appium
       #
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
-      #     # format 2. 'capabilities:' or 'desired_capabilities:' is also available instead of 'caps:'.
+      #     # format 2. 'capabilities:' is also available instead of 'caps:'.
       #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", capabilities: {...}, appium_lib: {...}
-      #     # format 3. 'appium_lib: {...}' can be blank
-      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", desired_capabilities: {...}
       #
       #
       #     require 'rubygems'
@@ -230,7 +232,7 @@ module Appium
       #     @core.start_driver # Connect to 'http://127.0.0.1:8080/wd/hub' because of 'port: 8080'
       #
       #     # Start iOS driver with .zip file over HTTP
-      #     #  'desired_capabilities:' or 'capabilities:' is also available instead of 'caps:'. Either is fine.
+      #     # 'capabilities:' is also available instead of 'caps:'. Either is fine.
       #     opts = {
       #              capabilities: {
       #                platformName: :ios,
@@ -254,7 +256,7 @@ module Appium
       #     # Start iOS driver as another format. 'url' is available like below
       #     opts = {
       #              url: "http://custom-host:8080/wd/hub.com",
-      #              desired_capabilities: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -291,8 +293,11 @@ module Appium
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
 
-        opts = Appium.symbolize_keys opts
-        validate_keys(opts)
+        # TODO: Remove when we implement Options
+        # The symbolize_keys is to keep compatiility for the legacy code, which allows capabilities to give 'string' as the key.
+        # The toplevel `caps`, `capabilities` and `appium_lib` are expected to be symbol.
+        # FIXME: First, please try to remove `nested: true` to `nested: false`.
+        opts = Appium.symbolize_keys(opts, nested: true)
 
         @custom_url = opts.delete :url
         @caps = get_caps(opts)
@@ -327,7 +332,7 @@ module Appium
       #
       #     # Start iOS driver
       #     opts = {
-      #              caps: {
+      #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
       #                deviceName: 'iPhone Simulator',
@@ -368,11 +373,13 @@ module Appium
         end
 
         begin
-          # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
-          @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
-                                                     desired_capabilities: @caps,
+          @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
+                                                     http_client: @http_client,
+                                                     capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
-                                                     listener: @listener)
+                                                     wait_timeout: @wait_timeout,
+                                                     wait_interval: @wait_interval,
+                                                     automation_name: @automation_name)
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)
@@ -466,6 +473,8 @@ module Appium
 
       # Ignore setting default wait if the target driver has no implementation
       def set_implicit_wait_by_default(wait)
+        return if @default_wait.nil?
+
         @driver.manage.timeouts.implicit_wait = wait
       rescue ::Selenium::WebDriver::Error::UnknownError => e
         unless e.message.include?('The operation requested is not yet implemented')
@@ -535,31 +544,26 @@ module Appium
         p_version.split('.').map(&:to_i)
       end
 
-      # Takes a png screenshot and saves to the target path.
-      #
-      # @param png_save_path [String] the full path to save the png
-      # @return [File]
-      #
-      # @example
-      #
-      #   @core.screenshot '/tmp/hi.png' #=> nil
-      #   # same as '@driver.save_screenshot png_save_path'
-      #
-      def screenshot(png_save_path)
-        ::Appium::Logger.warn '[DEPRECATION] screenshot will be removed. Please use driver.save_screenshot instead.'
-        @driver.save_screenshot png_save_path
-      end
-
       private
+
+      def convert_to_symbol(value)
+        if value.nil?
+          value
+        else
+          value.to_sym
+        end
+      end
 
       # @private
       def extend_for(device:, automation_name:) # rubocop:disable Metrics/CyclomaticComplexity
         extend Appium::Core
         extend Appium::Core::Device
 
-        case device
+        sym_automation_name = convert_to_symbol(automation_name)
+
+        case convert_to_symbol(device)
         when :android
-          case automation_name
+          case sym_automation_name
           when :espresso
             ::Appium::Core::Android::Espresso::Bridge.for self
           when :uiautomator2
@@ -570,7 +574,7 @@ module Appium
             ::Appium::Core::Android::Uiautomator1::Bridge.for self
           end
         when :ios, :tvos
-          case automation_name
+          case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for iOS')
           when :xcuitest
@@ -579,7 +583,7 @@ module Appium
             ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
-          case automation_name
+          case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for macOS')
           when :gecko
@@ -591,7 +595,7 @@ module Appium
             ::Appium::Logger.debug('macOS Native')
           end
         when :windows
-          case automation_name
+          case sym_automation_name
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for Windows')
           else
@@ -601,7 +605,7 @@ module Appium
           # https://github.com/Samsung/appium-tizen-driver
           ::Appium::Logger.debug('tizen')
         else
-          case automation_name
+          case sym_automation_name
           when :youiengine
             # https://github.com/YOU-i-Labs/appium-youiengine-driver
             ::Appium::Logger.debug('YouiEngine')
@@ -619,35 +623,8 @@ module Appium
       end
 
       # @private
-      def validate_keys(opts)
-        flatten_ops = flatten_hash_keys(opts)
-
-        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
-        unless opts.member?(:caps) || opts.member?(:capabilities) || opts.member?(:desired_capabilities)
-          raise Error::NoCapabilityError
-        end
-
-        if !opts.member?(:appium_lib) && flatten_ops.member?(:appium_lib)
-          raise Error::CapabilityStructureError, 'Please check the value of appium_lib in the capability'
-        end
-
-        true
-      end
-
-      # @private
-      def flatten_hash_keys(hash, flatten_keys_result = [])
-        hash.each do |key, value|
-          flatten_keys_result << key
-          flatten_hash_keys(value, flatten_keys_result) if value.is_a?(Hash)
-        end
-
-        flatten_keys_result
-      end
-
-      # @private
       def get_caps(opts)
-        # FIXME: Remove 'desired_capabilities' in the next major Selenium update
-        Core::Base::Capabilities.create_capabilities(opts[:caps] || opts[:capabilities] || opts[:desired_capabilities] || {})
+        Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
       # @private
@@ -660,6 +637,7 @@ module Appium
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
+        # FIXME: maybe `:app` should check `app` as well.
         return unless @caps && @caps[:app] && !@caps[:app].empty?
         return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
 
@@ -698,7 +676,8 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = @caps[:platformName]
+        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
+        @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
         @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
@@ -706,7 +685,9 @@ module Appium
 
       # @private
       def set_automation_name
-        @automation_name = @caps[:automationName] if @caps[:automationName]
+        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
+        candidate = @caps[:automationName] || @caps['automationName']
+        @automation_name = candidate if candidate
         @automation_name = if @automation_name
                              @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
                            end

@@ -10,8 +10,14 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 
 # Documentation
 
-- http://www.rubydoc.info/github/appium/ruby_lib_core
+- https://www.rubydoc.info/gems/appium_lib_core
     - You can find working API examples in test code, [test/functional](test/functional)
+- Appium 2.0
+    - https://appium.github.io/appium/docs/en/2.0/ (Not completed yet)
+
+# Migration from v4 to v5
+
+Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CHANGELOG.md)
 
 # Related library
 - https://github.com/appium/ruby_lib
@@ -29,17 +35,19 @@ $ bundle exec parallel_test test/unit/
 ### Functional Tests
 Run functional tests which require the Appium server and real device, Simulator/Emulator.
 
-- Start Appium server
+- Start Appium server (Appium 2.0 base)
 ```bash
-$ npm install -g appium opencv4nodejs
-$ appium --relaxed-security # To run all tests in local
+$ npm install -g appium@next
+$ appium driver install xcuitest
+$ appium driver install uiautomator2 # etc
+$ appium --base-path=/wd/hub --relaxed-security # To run all tests in local
 ```
 
 - Conduct tests
 ```bash
 $ bundle install
 $ rake test:func:android # Andorid, uiautomator2
-$ AUTOMATION_NAME_DROID=espresso rake test:func:android # Andorid, uiautomator2
+$ APPIUM_DRIVER=espresso rake test:func:android # Andorid, uiautomator2
 $ rake test:func:ios     # iOS
 ```
 
@@ -79,7 +87,7 @@ $ PARALLEL=1 bundle exec parallel_test test/functional/ios -n 2
 
 - Runs on CI environment (on Azure)
     - Non `IGNORE_VERSION_SKIP` or `IGNORE_VERSION_SKIP=true` runs all tests ignoring `skip` them by Appium versions
-    - `IGNORE_VERSION_SKIP=false` skips the following tests if the Appium version is lower than the requirement  
+    - `IGNORE_VERSION_SKIP=false` skips the following tests if the Appium version is lower than the requirement
 
 ```
 $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
@@ -93,9 +101,9 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     ```ruby
     require 'rubygems'
     require 'appium_lib_core'
-    
+
     opts = {
-      desired_capabilities: { # or { caps: {....} }
+      capabilities: { # Append capabilities
         platformName: :ios,
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
@@ -108,7 +116,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     }
     @core = Appium::Core.for(opts) # create a core driver with `opts`
     @driver = @core.start_driver
-    
+
     # Launch iPhone Simulator and `MyiOS.app`
     @driver.find_element(:accessibility_id, 'some accessibility') # find an element
     ```
@@ -116,10 +124,12 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     ```bash
     # shell 1
     $ appium --log-level warn:error # show only warning and error logs
-    
+
     # shell 2
     $ ruby test.rb
     ```
+
+[Appium::Core.for](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
 
 More examples are in [test/functional](test/functional)
 

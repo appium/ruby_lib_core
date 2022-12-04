@@ -97,10 +97,9 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
-
-        assert_mobile_command_error 'mobile: openDrawer', { element: el.ref, gravity: 1 },
+        assert_mobile_command_error 'mobile: openDrawer', { element: el.id, gravity: 1 },
                                     'Could not open drawer'
-        assert_mobile_command_error 'mobile: closeDrawer', { element: el.ref, gravity: 1 },
+        assert_mobile_command_error 'mobile: closeDrawer', { element: el.id, gravity: 1 },
                                     'Could not close drawer'
       end
 
@@ -116,7 +115,7 @@ class AppiumLibCoreTest
         @core.wait { @driver.find_element(:accessibility_id, 'change the date') }.click
 
         date_picker = @driver.find_element(:id, 'android:id/datePicker')
-        @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, element: date_picker.ref })
+        @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, element: date_picker.id })
         assert_equal 'Sun, Oct 25', @driver.find_element(:id, 'android:id/date_picker_header_date').text
       end
 
@@ -130,11 +129,11 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         time_el = @core.wait { @driver.find_element(:class, 'android.widget.TimePicker') }
-        @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.ref })
+        @driver.execute_script('mobile: setTime', { hours: 11, minutes: 0, element: time_el.id })
         assert @driver.find_element(:id, 'io.appium.android.apis:id/dateDisplay').text == '11:00'
 
         time_el = @driver.find_element(:class, 'android.widget.TimePicker')
-        @driver.execute_script('mobile: setTime', { hours: 15, minutes: 15, element: time_el.ref })
+        @driver.execute_script('mobile: setTime', { hours: 15, minutes: 15, element: time_el.id })
         assert @driver.find_element(:id, 'io.appium.android.apis:id/dateDisplay').text == '15:15'
       end
 
@@ -147,12 +146,12 @@ class AppiumLibCoreTest
 
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: -100 },
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: -100 },
                                     'must be a non-negative number'
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: 'no element' },
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: 'no element' },
                                     'must be a non-negative number'
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.ref, menuItemId: 10 },
+        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: 10 },
                                     'Could not navigate to menu item 10'
       end
 
@@ -165,19 +164,19 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: 'right' },
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollTo: 'right' },
                                     'Could not perform scroll to on element'
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollTo: '' },
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollTo: '' },
                                     'Invalid scrollTo parameters'
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.ref, scrollToPage: -100 },
+        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollToPage: -100 },
                                     'be a non-negative integer'
         error = assert_raises ::Selenium::WebDriver::Error::InvalidArgumentError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.ref }
+          @driver.execute_script 'mobile: scrollToPage', { element: el.id }
         end
         assert error.message.include? "Must provide either 'scrollTo' or 'scrollToPage'"
 
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: scrollToPage', { element: el.ref, scrollToPage: 2, smoothScroll: true },
+        assert_mobile_command_error 'mobile: scrollToPage', { element: el.id, scrollToPage: 2, smoothScroll: true },
                                     'Could not perform scroll to on element'
       end
 
@@ -197,9 +196,9 @@ class AppiumLibCoreTest
         e = @driver.find_elements :class, 'android.widget.TextView'
         assert_equal '0', e.last.text
 
-        type = @driver.execute_script('mobile: backdoor',
-                                      { target: :element, elementId: e.last.ref, methods: [{ name: 'getTypeface' }] })
-        assert type['mStyle']
+        stype = @driver.execute_script('mobile: backdoor', { target: :element, elementId: e.last.id,
+            methods: [{ name: 'getTypeface' }, { name: 'getStyle' }] })
+        assert stype.zero?
       end
 
       # @since Appium 1.12.0 (Espresso driver 1.8.0~)
@@ -214,7 +213,7 @@ class AppiumLibCoreTest
         el = @core.wait { @driver.find_element(:id, 'wv1') }
 
         @driver.execute_script 'mobile: webAtoms', {
-          webviewElement: el.ref,
+          webviewElement: el.id,
           forceJavascriptEnabled: true,
           methodChain: [
             { name: 'withElement', atom: { name: 'findElement', locator: { using: 'ID', value: 'i_am_a_textbox' } } },
@@ -227,7 +226,7 @@ class AppiumLibCoreTest
         # Can use `atom` defined in https://developer.android.com/reference/android/support/test/espresso/web/webdriver/DriverAtoms
         # Locator: https://developer.android.com/reference/androidx/test/espresso/web/webdriver/Locator
         @driver.execute_script 'mobile: webAtoms', {
-          webviewElement: el.ref,
+          webviewElement: el.id,
           forceJavascriptEnabled: true,
           methodChain: [{
             name: 'withElement',
@@ -238,7 +237,7 @@ class AppiumLibCoreTest
         # Raises an error if the method cannot find any DriverAtoms or necessary arguments
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @driver.execute_script 'mobile: webAtoms', {
-            webviewElement: el.ref,
+            webviewElement: el.id,
             forceJavascriptEnabled: true,
             methodChain: [{
               name: 'withElement',
@@ -259,7 +258,7 @@ class AppiumLibCoreTest
       private
 
       def assert_mobile_command_error(command, args, expected_message)
-        error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
+        error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @driver.execute_script(command, args)
         end
         assert error.message.include? expected_message

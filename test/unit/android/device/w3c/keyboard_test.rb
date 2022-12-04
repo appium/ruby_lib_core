@@ -47,16 +47,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/device/hide_keyboard", times: 1)
           end
 
-          def test_keyevent
-            # only for Selendroid
-            stub_request(:post, "#{SESSION}/appium/device/keyevent")
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.keyevent 86
-
-            assert_requested(:post, "#{SESSION}/appium/device/keyevent", times: 1)
-          end
-
           # keypress
           def test_press_keycode
             stub_request(:post, "#{SESSION}/appium/device/press_keycode")
@@ -83,14 +73,14 @@ class AppiumLibCoreTest
 
           # keypress
           def test_press_keycode_with_flags_with_wrong_flags
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.press_keycode 86, flags: 0x02
             end
           end
 
           # keypress
           def test_press_keycode_with_flags_with_wrong_metastate
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.press_keycode 86, metastate: 0x02
             end
           end
@@ -121,25 +111,25 @@ class AppiumLibCoreTest
 
           # keypress
           def test_long_press_keycode_with_flags_with_wrong_flags
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.long_press_keycode 86, flags: 0x02
             end
           end
 
           # keypress
           def test_long_press_keycode_with_flags_with_wrong_metastate
-            assert_raises ArgumentError do
+            assert_raises ::Appium::Core::Error::ArgumentError do
               @driver.long_press_keycode 86, metastate: 0x02
             end
           end
 
           ## Immediate value
-          def test_set_immediate_value
+          def test_immediate_value
             stub_request(:post, "#{SESSION}/appium/element/id/value")
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -149,18 +139,18 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c ) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), %w(a b c)
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').replace_value %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end
 
           ## Immediate value
-          def test_set_immediate_value_text
+          def test_immediate_value_text
             stub_request(:post, "#{SESSION}/appium/element/id/value")
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.set_immediate_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
@@ -170,7 +160,7 @@ class AppiumLibCoreTest
               .with(body: { value: %w(a b c テ ス ト) }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.replace_value ::Selenium::WebDriver::Element.new(@driver.send(:bridge), 'id'), 'abcテスト'
+            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').replace_value 'abcテスト'
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
           end

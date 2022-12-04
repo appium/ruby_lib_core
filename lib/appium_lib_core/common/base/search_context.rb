@@ -32,6 +32,7 @@ module Appium
           predicate:            '-ios predicate string',
           class_chain:          '-ios class chain',
           # Windows with windows prefix
+          # @deprecated
           windows_uiautomation: '-windows uiautomation',
           # Tizen with Tizen prefix
           tizen_uiautomation:   '-tizen uiautomation'
@@ -47,7 +48,7 @@ module Appium
         #
         # == Find with image
         # Return an element if current view has a partial image. The logic depends on template matching by OpenCV.
-        # {https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/image-comparison.md image-comparison}
+        # {https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/image-comparison.md image-comparison}
         #
         # You can handle settings for the comparision following {https://github.com/appium/appium-base-driver/blob/master/lib/basedriver/device-settings.js#L6 here}
         #
@@ -122,6 +123,7 @@ module Appium
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
         #     # For Windows
+        #     # @deprecated
         #     @driver.find_elements :windows_uiautomation, '....'
         #
         #     # For Tizen
@@ -158,8 +160,17 @@ module Appium
         private
 
         def _set_by_from_finders(how)
+          if how == :windows_uiautomation
+            ::Appium::Logger.warn(
+              '[DEPRECATION] :windows_uiautomation is deprecated. Please use other locators.'
+            )
+          end
+
           by = FINDERS[how.to_sym]
-          raise ArgumentError, "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}." unless by
+          unless by
+            raise ::Appium::Core::Error::ArgumentError,
+                  "cannot find element by #{how.inspect}. Available finders are #{FINDERS.keys}."
+          end
 
           by
         end
@@ -171,16 +182,18 @@ module Appium
           when 1
             arg = args.first
 
-            raise ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift" unless arg.respond_to?(:shift)
+            unless arg.respond_to?(:shift)
+              raise ::Appium::Core::Error::ArgumentError, "expected #{arg.inspect}:#{arg.class} to respond to #shift"
+            end
 
             # this will be a single-entry hash, so use #shift over #first or #[]
             arr = arg.dup.shift
 
-            raise ArgumentError, "expected #{arr.inspect} to have 2 elements" unless arr.size == 2
+            raise ::Appium::Core::Error::ArgumentError, "expected #{arr.inspect} to have 2 elements" unless arr.size == 2
 
             arr
           else
-            raise ArgumentError, "wrong number of arguments (#{args.size} for 2)"
+            raise ::Appium::Core::Error::ArgumentError, "wrong number of arguments (#{args.size} for 2)"
           end
         end
       end # module SearchContext

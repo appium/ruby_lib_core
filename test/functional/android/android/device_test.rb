@@ -55,7 +55,7 @@ class AppiumLibCoreTest
           end
         else
           @driver.close_app
-          assert(@@core.wait { @driver.app_state('io.appium.android.apis') != :running_in_foreground })
+          assert(@driver.wait_until { |d| d.app_state('io.appium.android.apis') != :running_in_foreground })
         end
 
         if @@core.automation_name == :espresso
@@ -64,7 +64,7 @@ class AppiumLibCoreTest
           end
         else
           @driver.launch_app
-          e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+          e = @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }
           assert_equal 'App', e.text
         end
       end
@@ -74,13 +74,13 @@ class AppiumLibCoreTest
         assert @driver.device_locked?
 
         @driver.unlock
-        @@core.wait { assert !@driver.device_locked? }
+        @driver.wait_until { |d| assert !d.device_locked? }
       end
 
       def test_background_reset
         @driver.background_app 3
 
-        e = @@core.wait { @driver.find_element :accessibility_id, 'App' }
+        e = @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
 
         @driver.background_app(-1)
@@ -90,7 +90,7 @@ class AppiumLibCoreTest
         # Instrumentation process will crash in Espresso
         if @@core.automation_name == :espresso
           @driver.activate_app('io.appium.android.apis')
-          @@core.wait { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }
+          @driver.wait_until { |d| assert d.app_state('io.appium.android.apis') == :running_in_foreground }
         else
           error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
             @driver.find_element :accessibility_id, 'App'
@@ -100,7 +100,7 @@ class AppiumLibCoreTest
           @driver.reset
         end
 
-        e = @@core.wait(timeout: 60) { @driver.find_element :accessibility_id, 'App' }
+        e = @driver.wait(timeout: 60) { |d| d.find_element :accessibility_id, 'App' }
         assert_equal 'App', e.text
       end
 
@@ -126,12 +126,12 @@ class AppiumLibCoreTest
         webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
 
         @driver.set_context webview_context
-        @@core.wait { assert @driver.current_context.start_with? 'WEBVIEW' }
+        @driver.wait { |d| assert d.current_context.start_with? 'WEBVIEW' }
 
         webview_page = @driver.page_source
 
         @driver.switch_to_default_context
-        @@core.wait { assert_equal 'NATIVE_APP', @driver.current_context }
+        @driver.wait { |d| assert_equal 'NATIVE_APP', d.current_context }
         assert native_page != webview_page
       end
 
@@ -147,7 +147,7 @@ class AppiumLibCoreTest
         @driver.remove_app 'io.appium.android.apis'
         assert !@driver.app_installed?('io.appium.android.apis')
 
-        @driver.install_app "#{Dir.pwd}/#{Caps.android[:desired_capabilities][:app]}"
+        @driver.install_app "#{Dir.pwd}/#{Caps.android[:capabilities][:app]}"
         assert @driver.app_installed?('io.appium.android.apis')
 
         assert !@driver.app_installed?('fake_app')
@@ -159,20 +159,20 @@ class AppiumLibCoreTest
         # Instrumentation process will crash in Espresso
         unless @@core.automation_name == :espresso
           assert @driver.terminate_app('io.appium.android.apis')
-          @@core.wait { assert @driver.app_state('io.appium.android.apis') == :not_running }
+          @driver.wait_until { |d| assert d.app_state('io.appium.android.apis') == :not_running }
         end
 
         assert @driver.activate_app('io.appium.android.apis').nil?
-        @@core.wait { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }
+        @driver.wait_until { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }
       end
 
       def test_start_activity
-        e = @@core.wait { @driver.current_activity }
+        e = @driver.wait_until(&:current_activity)
         assert_equal '.ApiDemos', e
 
         @driver.start_activity app_package: 'io.appium.android.apis',
                                app_activity: '.accessibility.AccessibilityNodeProviderActivity'
-        e = @@core.wait { @driver.current_activity }
+        e = @driver.wait_until(&:current_activity)
         assert true, e.include?('Node')
 
         # Espresso cannot launch my root launched activity: https://github.com/appium/appium-espresso-driver/pull/378#discussion_r250034209
@@ -180,38 +180,40 @@ class AppiumLibCoreTest
 
         @driver.start_activity app_package: 'com.android.settings', app_activity: '.Settings',
                                app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
-        e = @@core.wait { @driver.current_activity }
+        e = @driver.wait_until(&:current_activity)
         assert true, e.include?('Settings')
 
         @driver.start_activity app_package: 'io.appium.android.apis', app_activity: '.ApiDemos'
       end
 
       def test_current_package
-        e = @@core.wait { @driver.current_package }
+        e = @driver.wait_until(&:current_package)
         assert_equal 'io.appium.android.apis', e
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_touch_actions
         Appium::Core::TouchAction.new(@driver)
                                  .press(element: @driver.find_element(:accessibility_id, 'App'))
                                  .release
                                  .perform
 
-        @@core.wait { @driver.find_element :accessibility_id, 'Action Bar' }
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'Action Bar' }
         @driver.back
       end
 
+      # @deprecated Appium::Core::TouchAction
       def test_swipe
-        @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
 
-        el = @@core.wait { @driver.find_element :accessibility_id, 'Fragment' }
+        el = @driver.wait_until { |d| d.find_element :accessibility_id, 'Fragment' }
         rect = el.rect
 
         Appium::Core::TouchAction.new(@driver)
                                  .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 500, duration: 500)
                                  .perform
         @driver.back # The above command become "tap" action since it doesn't move.
-        el = @@core.wait { @driver.find_element :accessibility_id, 'Fragment' }
+        el = @driver.wait_until { |d| d.find_element :accessibility_id, 'Fragment' }
         assert rect.x == el.rect.x
         assert rect.y == el.rect.y
 
@@ -237,11 +239,11 @@ class AppiumLibCoreTest
       end
 
       def test_hidekeyboard
-        @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'Activity' }.click
+        @driver.wait_until { |d| d.find_element :accessibility_id, 'Custom Title' }.click
         # make sure to show keyboard
-        @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.click
+        @driver.wait_until { |d| d.find_element :id, 'io.appium.android.apis:id/left_text_edit' }.click
 
         latin_android = 'com.android.inputmethod.latin/.LatinIME'
         latin_google = 'com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'
@@ -257,7 +259,7 @@ class AppiumLibCoreTest
 
         assert @driver.keyboard_shown?
 
-        @@core.wait { @driver.hide_keyboard }
+        @driver.wait(&:hide_keyboard)
         sleep 1 # wait animation
 
         assert !@driver.is_keyboard_shown
@@ -269,12 +271,6 @@ class AppiumLibCoreTest
 
       def test_get_display_density
         assert @driver.get_display_density.positive?
-      end
-
-      def test_keyevent
-        skip('Because only for Selendroid')
-        # http://developer.android.com/reference/android/view/KeyEvent.html
-        assert @driver.keyevent(176)
       end
 
       def test_press_keycode
@@ -292,7 +288,7 @@ class AppiumLibCoreTest
       def test_open_notifications
         skip if @@core.automation_name == :espresso
 
-        # test & comments from https://github.com/appium/appium/blob/master/test/functional/android/apidemos/notifications-specs.js#L19
+        # test & comments from https://github.com/appium/appium/blob/1.x/test/functional/android/apidemos/notifications-specs.js#L19
         # get to the notification page
         @@core.wait { scroll_to('App').click }
         @@core.wait { scroll_to('Notification').click }
@@ -362,14 +358,12 @@ class AppiumLibCoreTest
                    [rid]
                  end
           args.each_with_index do |arg, index|
-            begin
-              elem = @driver.find_element :uiautomator,
-                                          'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
-                                          ".scrollIntoView(#{arg}.instance(0));"
-              return elem
-            rescue StandardError => e
-              raise e if index == args.size - 1
-            end
+            elem = @driver.find_element :uiautomator,
+                                        'new UiScrollable(new UiSelector().scrollable(true).instance(0))' \
+                                        ".scrollIntoView(#{arg}.instance(0));"
+            return elem
+          rescue StandardError => e
+            raise e if index == args.size - 1
           end
         end
       end

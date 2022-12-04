@@ -31,7 +31,6 @@ class AppiumLibCoreTest
       end
 
       def test_tap_scroll
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
@@ -44,7 +43,7 @@ class AppiumLibCoreTest
           .action
           .move_to(el)
           .pointer_down(:left)
-          .move_to_location(0, rect1.y - rect1.height)
+          .move_to_location(0, rect1.y - rect1.height, duration: 0.25) # To make the scroll slow.
           .release
           .perform
         assert rect1.y > el.rect.y
@@ -65,7 +64,6 @@ class AppiumLibCoreTest
       end
 
       def test_double_tap
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.10.0' # unstable on 1.9.1-
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
@@ -86,11 +84,11 @@ class AppiumLibCoreTest
         action_builder
           .move_to(el)
           .pointer_down(:left)
-          .pause(input, 0.05) # seconds
+          .pause(device: input, duration: 0.05) # seconds
           .pointer_up(:left)
-          .pause(input, 0.05) # seconds
+          .pause(device: input, duration: 0.05) # seconds
           .pointer_down(:left)
-          .pause(input, 0.05) # seconds
+          .pause(device: input, duration: 0.05) # seconds
           .pointer_up(:left)
           .perform
         assert_equal 'ON', el.text
@@ -107,7 +105,6 @@ class AppiumLibCoreTest
       end
 
       def test_actions_with_many_down_up
-        skip if @driver.dialect == :oss
         skip_as_appium_version '1.8.0'
 
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
@@ -145,11 +142,11 @@ class AppiumLibCoreTest
             .action
             .move_to(element)
             .pointer_down(:left) # should insert pause
-            .pause(input, 0.06) # seconds
+            .pause(device: input, duration: 0.06) # seconds
             .pointer_down(:left)
-            .pause(input, 0.06) # seconds
+            .pause(device: input, duration: 0.06) # seconds
             .pointer_down(:left)
-            .pause(input, 0.06) # seconds
+            .pause(device: input, duration: 0.06) # seconds
             .move_to_location(0, rect.y - rect.height)
             .release
             .release
@@ -159,11 +156,12 @@ class AppiumLibCoreTest
                 ::Selenium::WebDriver::Error::InvalidArgumentError].include? error.class
       end
 
-      # NOTE: Works with Espresso Driver
       def test_multiple_actions
         skip_as_appium_version '1.8.0'
 
-        f1 = @driver.action.add_pointer_input(:touch, 'finger1')
+        # https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/android/actions.md
+
+        f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
         f1.create_pointer_move(duration: 1, x: 200, y: 500,
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f1.create_pointer_down(:left)
@@ -172,8 +170,8 @@ class AppiumLibCoreTest
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f1.create_pointer_up(:left)
 
-        f2 = @driver.action.add_pointer_input(:touch, 'finger2')
-        f2.create_pointer_move(duration: 1, x: 200, y: 500,
+        f2 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger2')
+        f2.create_pointer_move(duration: 1, x: 200, y: 520,
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f2.create_pointer_down(:left)
         f2.create_pause(0.5)

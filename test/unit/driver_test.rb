@@ -31,14 +31,6 @@ class AppiumLibCoreTest
       end
     end
 
-    def test_no_caps
-      opts = { no: { caps: {} }, appium_lib: {} }
-
-      assert_raises ::Appium::Core::Error::NoCapabilityError do
-        ExampleDriver.new(opts)
-      end
-    end
-
     def test_with_caps
       opts = { caps: { automationName: 'xcuitest' } }
       driver = ExampleDriver.new(opts)
@@ -53,25 +45,11 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_with_desired_capabilities
-      opts = { desired_capabilities: { automationName: 'xcuitest' } }
-      driver = ExampleDriver.new(opts)
-      refute_nil driver
-      assert_equal driver.core.caps[:automationName], 'xcuitest'
-    end
-
     def test_with_caps_and_appium_lib
-      opts = { caps: { automationName: 'xcuitest' }, appium_lib: {} }
+      opts = { 'caps' => { 'automationName': 'xcuitest' }, appium_lib: {} }
       driver = ExampleDriver.new(opts)
       refute_nil driver
       assert_equal driver.core.caps[:automationName], 'xcuitest'
-    end
-
-    def test_with_caps_and_wrong_appium_lib
-      opts = { caps: { appium_lib: {} } }
-      assert_raises ::Appium::Core::Error::CapabilityStructureError do
-        ExampleDriver.new(opts)
-      end
     end
 
     def test_verify_session_id_in_the_export_session_path
@@ -79,13 +57,13 @@ class AppiumLibCoreTest
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
-      caps = ::Appium::Core::Base::Capabilities.create_capabilities(platformName: 'ios',
-                                                                    platformVersion: '11.4',
-                                                                    automationName: 'XCUITest',
-                                                                    deviceName: 'iPhone Simulator',
-                                                                    app: 'test/functional/app/UICatalog.app.zip',
-                                                                    some_capability1: 'some_capability1',
-                                                                    someCapability2: 'someCapability2')
+      caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
+                                                    platformVersion: '11.4',
+                                                    automationName: 'XCUITest',
+                                                    deviceName: 'iPhone Simulator',
+                                                    app: 'test/functional/app/UICatalog.app.zip',
+                                                    some_capability1: 'some_capability1',
+                                                    someCapability2: 'someCapability2')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
@@ -128,13 +106,13 @@ class AppiumLibCoreTest
     end
 
     def test_default_timeout_for_http_client_with_direct
-      def android_mock_create_session_w3c_direct(core)
+      android_mock_create_session_w3c_direct = lambda do |core|
         response = {
           value: {
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -167,7 +145,115 @@ class AppiumLibCoreTest
       end
 
       core = ::Appium::Core.for(Caps.android_direct)
-      driver = android_mock_create_session_w3c_direct(core)
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal 999_999, driver.send(:bridge).http.open_timeout
+      assert_equal 999_999, driver.send(:bridge).http.read_timeout
+      uri = driver.send(:bridge).http.send(:server_url)
+      assert core.direct_connect
+      assert_equal 'http', uri.scheme
+      assert_equal 'localhost', uri.host
+      assert_equal 8888, uri.port
+      assert_equal '/wd/hub/', uri.path
+    end
+
+    def test_default_timeout_for_http_client_with_direct_appium_prefix
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              app: 'test/functional/app/api.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis',
+              appActivity: 'io.appium.android.apis.ApiDemos',
+              someCapability: 'some_capability',
+              unicodeKeyboard: true,
+              resetKeyboard: true,
+              'appium:directConnectProtocol' => 'http',
+              'appium:directConnectHost' => 'localhost',
+              'appium:directConnectPort' => '8888',
+              'appium:directConnectPath' => '/wd/hub'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+          .with(body: { implicit: 30_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+                         body: { implicit: 30_000 }.to_json, times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for(Caps.android_direct)
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal 999_999, driver.send(:bridge).http.open_timeout
+      assert_equal 999_999, driver.send(:bridge).http.read_timeout
+      uri = driver.send(:bridge).http.send(:server_url)
+      assert core.direct_connect
+      assert_equal 'http', uri.scheme
+      assert_equal 'localhost', uri.host
+      assert_equal 8888, uri.port
+      assert_equal '/wd/hub/', uri.path
+    end
+
+    def test_default_timeout_for_http_client_with_direct_appium_prefix_prior_than_non_prefix
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              app: 'test/functional/app/api.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis',
+              appActivity: 'io.appium.android.apis.ApiDemos',
+              someCapability: 'some_capability',
+              unicodeKeyboard: true,
+              resetKeyboard: true,
+              'appium:directConnectProtocol' => 'http',
+              'appium:directConnectHost' => 'localhost',
+              'appium:directConnectPort' => '8888',
+              'appium:directConnectPath' => '/wd/hub',
+              directConnectProtocol: 'https',
+              directConnectHost: 'non-appium-localhost',
+              directConnectPort: '8889',
+              directConnectPath: '/non/appium/wd/hub'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+          .with(body: { implicit: 30_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+                         body: { implicit: 30_000 }.to_json, times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for(Caps.android_direct)
+      driver = android_mock_create_session_w3c_direct.call(core)
 
       assert_equal 999_999, driver.send(:bridge).http.open_timeout
       assert_equal 999_999, driver.send(:bridge).http.read_timeout
@@ -180,13 +266,13 @@ class AppiumLibCoreTest
     end
 
     def test_default_timeout_for_http_client_with_direct_no_path
-      def android_mock_create_session_w3c_direct_no_path(core)
+      android_mock_create_session_w3c_direct_no_path = lambda do |core|
         response = {
           value: {
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -218,7 +304,7 @@ class AppiumLibCoreTest
       end
 
       core = ::Appium::Core.for(Caps.android_direct)
-      driver = android_mock_create_session_w3c_direct_no_path(core)
+      driver = android_mock_create_session_w3c_direct_no_path.call(core)
 
       assert_equal 999_999, driver.send(:bridge).http.open_timeout
       assert_equal 999_999, driver.send(:bridge).http.read_timeout
@@ -231,13 +317,13 @@ class AppiumLibCoreTest
     end
 
     def test_default_timeout_for_http_client_with_direct_no_supported_client
-      def android_mock_create_session_w3c_direct_default_client(core)
+      android_mock_create_session_w3c_direct_default_client = lambda do |core|
         response = {
           value: {
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -270,7 +356,7 @@ class AppiumLibCoreTest
       end
 
       core = ::Appium::Core.for(Caps.android_direct)
-      driver = android_mock_create_session_w3c_direct_default_client(core)
+      driver = android_mock_create_session_w3c_direct_default_client.call(core)
 
       assert_nil driver.send(:bridge).http.open_timeout
       assert_nil driver.send(:bridge).http.read_timeout
@@ -289,7 +375,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -335,7 +421,7 @@ class AppiumLibCoreTest
             sessionId: '1234567890',
             capabilities: {
               platformName: :android,
-              automationName: ENV['AUTOMATION_NAME_DROID'] || 'uiautomator2',
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               app: 'test/functional/app/api.apk.zip',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
@@ -374,7 +460,7 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 22, ::Selenium::WebDriver::Element::FINDERS.length
+      assert_equal 23, ::Appium::Core::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
                      css: 'css selector',                    # Defined in W3C spec
@@ -383,6 +469,7 @@ class AppiumLibCoreTest
                      link_text: 'link text',                 # Defined in W3C spec
                      name: 'name',
                      partial_link_text: 'partial link text', # Defined in W3C spec
+                     relative: 'relative',                   # Defined in Selenium
                      tag_name: 'tag name',                   # Defined in W3C spec
                      xpath: 'xpath',                         # Defined in W3C spec
                      accessibility_id: 'accessibility id',
@@ -396,7 +483,7 @@ class AppiumLibCoreTest
                      predicate: '-ios predicate string',
                      class_chain: '-ios class chain',
                      windows_uiautomation: '-windows uiautomation',
-                     tizen_uiautomation: '-tizen uiautomation' }, ::Selenium::WebDriver::Element::FINDERS)
+                     tizen_uiautomation: '-tizen uiautomation' }, ::Appium::Core::Element::FINDERS)
     end
   end
 end

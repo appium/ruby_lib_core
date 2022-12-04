@@ -4,19 +4,19 @@ Appium has `mobile:` command.
 We can invoke them via `execute_script` command with `mobile:` arguments.
 
 - root:
-    - https://github.com/appium/appium/blob/master/commands-yml/commands/mobile-command.yml
+    - https://github.com/appium/appium/blob/1.x/commands-yml/commands/mobile-command.yml
 - Android:
-    - https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android
+    - https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/android
 - iOS:
-    - https://github.com/appium/appium/tree/master/docs/en/writing-running-appium/ios
-    
+    - https://github.com/appium/appium/tree/1.x/docs/en/writing-running-appium/ios
+
 
 ```ruby
-# Android shell : https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/android/android-shell.md
+# Android shell : https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/android/android-shell.md
 args = { command: 'echo', args: 'list' }
 @driver.execute_script 'mobile: shell', args # Run `adb shell echo 'list'`
 
-# iOS performance : https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/ios/ios-xctest-performance.md
+# iOS performance : https://github.com/appium/appium/blob/1.x/docs/en/writing-running-appium/ios/ios-xctest-performance.md
 args = { timeout: 60 * 1000, profileName: 'Activity Monitor' }
 @driver.execute_script 'mobile: startPerfRecord', args
 
@@ -28,7 +28,7 @@ To handle it, we would recommend you to handle the error based on the error mess
 
 ```ruby
 error = assert_raises ::Selenium::WebDriver::Error::UnknownError do
-  @driver.execute_script 'mobile: scrollToPage', { element: el.ref, scrollToPage: -100 }
+  @driver.execute_script 'mobile: scrollToPage', { element: el.id, scrollToPage: -100 }
 end
 assert error.message.include? 'be a non-negative integer'
 ```

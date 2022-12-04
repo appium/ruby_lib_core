@@ -39,21 +39,9 @@ module Appium
             raise NotImplementedError
           end
 
-          def install_app(path,
-                          replace: nil,
-                          timeout: nil,
-                          allow_test_packages: nil,
-                          use_sdcard: nil,
-                          grant_permissions: nil)
+          def install_app(path, options = {})
             args = { appPath: path }
-
-            args[:options] = {} if options?(replace, timeout, allow_test_packages, use_sdcard, grant_permissions)
-
-            args[:options][:replace] = replace unless replace.nil?
-            args[:options][:timeout] = timeout unless timeout.nil?
-            args[:options][:allowTestPackages] = allow_test_packages unless allow_test_packages.nil?
-            args[:options][:useSdcard] = use_sdcard unless use_sdcard.nil?
-            args[:options][:grantPermissions] = grant_permissions unless grant_permissions.nil?
+            args[:options] = options unless options.empty?
 
             execute :install_app, {}, args
           end
