@@ -377,8 +377,7 @@ module Appium
                                                      capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
-                                                     wait_interval: @wait_interval,
-                                                     automation_name: @automation_name)
+                                                     wait_interval: @wait_interval)
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)
@@ -396,6 +395,8 @@ module Appium
           @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
+        # TODO: this method can be removed after releasing Appium 2.0, and after a while
+        # since Appium 2.0 reuqires 'automationName'. This method won't help anymore then.
         # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
         # Since @automation_name is set only client side before start_driver is called.
         set_automation_name_if_nil
