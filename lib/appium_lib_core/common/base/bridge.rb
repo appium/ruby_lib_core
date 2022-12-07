@@ -50,40 +50,6 @@ module Appium
           end
         end
 
-        def self.attach_to(session_id, **opts)
-          # get the capabilities of an existing session
-          bridge = new(opts)
-          capabilities = bridge.session_capabilities_to_attach session_id
-
-          case bridge.dialect
-          when :oss # for MJSONWP
-            Bridge::MJSONWP.new(capabilities, bridge.session_id, **opts)
-          when :w3c
-            Bridge::W3C.new(capabilities, bridge.session_id, **opts)
-          else
-            raise CoreError, 'cannot understand dialect'
-          end
-        end
-
-        def session_capabilities_to_attach session_id
-          @session_id = session_id
-
-          response = execute :get_capabilities
-
-          oss_status = response['status'] # for compatibility with Appium 1.7.1-
-          value = response['value']
-
-          if value.is_a?(Hash) # include for W3C format
-            if value.key?('capabilities')
-              value = value['capabilities']
-            elsif value.key?('value')
-              value = value['value']
-            end
-          end
-
-          json_create(oss_status, value)
-        end
-
         # Override
         # Creates session handling.
         #

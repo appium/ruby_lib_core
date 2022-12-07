@@ -63,7 +63,14 @@ module Appium
 
           bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
 
-          bridge.create_session(capabilities)
+          session_id = opts.delete(:existing_session_id)
+          if session_id.nil?
+            bridge.create_session(capabilities)
+          else
+            # attach to the existing session id
+            bridge.session_id = session_id
+          end
+
           bridge
         end
 
