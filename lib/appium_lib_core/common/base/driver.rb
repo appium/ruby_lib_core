@@ -49,10 +49,6 @@ module Appium
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
 
-          # For logging.
-          # TODO: Remove when appium core no longer uses this in this bridge.
-          @automation_name = opts.delete(:automation_name)
-
           super
         end
 
@@ -564,12 +560,6 @@ module Appium
         #   @driver.launch_app
         #
         def launch_app
-          # TODO: Define only in Windows module when ruby_lib_core removes this method
-          if @automation_name != :windows
-            ::Appium::Logger.warn(
-              '[DEPRECATION] launch_app is deprecated. Please use activate_app instead.'
-            )
-          end
           @bridge.launch_app
         end
 
@@ -581,12 +571,6 @@ module Appium
         #   @driver.close_app
         #
         def close_app
-          # TODO: Define only in Windows module when ruby_lib_core removes this method
-          if @automation_name != :windows
-            ::Appium::Logger.warn(
-              '[DEPRECATION] close_app is deprecated. Please use terminate_app instead.'
-            )
-          end
           @bridge.close_app
         end
 

@@ -18,10 +18,16 @@ module Appium
       module Device
         module AppManagement
           def launch_app
+            ::Appium::Logger.warn(
+              '[DEPRECATION] launch_app is deprecated. Please use activate_app instead.'
+            )
             execute :launch_app
           end
 
           def close_app
+            ::Appium::Logger.warn(
+              '[DEPRECATION] close_app is deprecated. Please use terminate_app instead.'
+            )
             execute :close_app
           end
 
