@@ -86,15 +86,6 @@ module Appium
           @capabilities = json_create(response['capabilities'])
         end
 
-        def commands(command)
-          raise NotImplementedError unless [:new_session, :get_capabilities].include? command
-
-          {
-            new_session: [:post, 'session'],
-            get_capabilities: [:get, 'session/:session_id']
-          }[command]
-        end
-
         # Append +appium:+ prefix for Appium following W3C spec
         # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
         #
