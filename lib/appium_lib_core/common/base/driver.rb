@@ -44,6 +44,8 @@ module Appium
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
+        private
+
         def initialize(bridge: nil, listener: nil, **opts)
           # For ::Appium::Core::Waitable
           @wait_timeout = opts.delete(:wait_timeout)
