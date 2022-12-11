@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [5.8.0] - 2022-12-11
+
+### Enhancements
+- Add `::Appium::Core::Driver#attach_to` to generate a driver instance which has the given session id.
+    - The primary usage is for debugging to attach to an existing session.
+
 ## [5.7.0] - 2022-12-02
 
 ### Enhancements

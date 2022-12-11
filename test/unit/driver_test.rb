@@ -485,5 +485,62 @@ class AppiumLibCoreTest
                      windows_uiautomation: '-windows uiautomation',
                      tizen_uiautomation: '-tizen uiautomation' }, ::Appium::Core::Element::FINDERS)
     end
+
+    def test_attach_to_an_existing_session
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              app: 'test/functional/app/api.apk.zip',
+              platformVersion: '7.1.1',
+              deviceName: 'Android Emulator',
+              appPackage: 'io.appium.android.apis',
+              appActivity: 'io.appium.android.apis.ApiDemos',
+              someCapability: 'some_capability',
+              unicodeKeyboard: true,
+              resetKeyboard: true,
+              directConnectProtocol: 'http',
+              directConnectHost: 'localhost',
+              directConnectPort: '8888',
+              directConnectPath: '/wd/hub'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+          .with(body: { implicit: 30_000 }.to_json)
+          .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+                         body: { implicit: 30_000 }.to_json, times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for(Caps.android_direct)
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      attached_driver = ::Appium::Core::Driver.attach_to(
+        driver.session_id,
+        url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+      )
+
+      assert_equal driver.session_id, attached_driver.session_id
+      # base session
+      assert driver.respond_to?(:current_activity)
+      assert_equal driver.capabilities['automationName'], ENV['APPIUM_DRIVER'] || 'uiautomator2'
+
+      # to check the extend_for if the new driver instance also has the expected method for Android
+      assert attached_driver.respond_to?(:current_activity)
+      assert_equal attached_driver.capabilities['automationName'], 'UiAutomator2'
+    end
   end
 end

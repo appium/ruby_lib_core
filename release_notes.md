@@ -1,3 +1,11 @@
+#### v5.8.0 2022-12-11
+
+- [56d206a](https://github.com/appium/ruby_lib_core/commit/56d206a7582111e4b4b776d049da9c4437d3d7d1) Release 5.8.0
+- [4621549](https://github.com/appium/ruby_lib_core/commit/462154929e989d0821460299216c9a480151bc5a) feat: add attach to an existing session (#337)
+- [ae52976](https://github.com/appium/ruby_lib_core/commit/ae529765d7265e4ca0be42daa7b4af302a131659) chore: remove unnecessary argument/instance var (#426)
+- [7721eec](https://github.com/appium/ruby_lib_core/commit/7721eec0d334e02ea40002e98e1af15075ff06a3) test: tweak tests (#425)
+
+
 #### v5.7.0 2022-12-02
 
 - [c313981](https://github.com/appium/ruby_lib_core/commit/c313981b131d5c54a8f92a78984cc0eea15bcb25) Release 5.7.0

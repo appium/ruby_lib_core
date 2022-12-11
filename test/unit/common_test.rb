@@ -158,7 +158,7 @@ class AppiumLibCoreTest
         base_caps = Appium::Core::Base::Capabilities.new cap
 
         assert_equal base_caps[:platformName], :ios
-        assert_equal base_caps['platformName'], nil
+        assert_nil base_caps['platformName']
 
         expected = {
           'platformName' => :ios,
