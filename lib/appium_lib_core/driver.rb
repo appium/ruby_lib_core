@@ -279,9 +279,10 @@ module Appium
       end
 
       # Attach to an existing session. The main usage of this method is to attach to
-      # an existing session for debugging. The generated driver instance does not
-      # have capabilities fully. The capabilities has the given automationName
-      # and platformName only.
+      # an existing session for debugging. The generated driver instance has the capabilities which
+      # has the given automationName and platformName only since the W3C WebDriver spec does not provide
+      # an endpoint to get running session's capabilities.
+      #
       #
       # @param [String] The session id to attach to.
       # @param [String] url The WebDriver URL to attach to with the session_id.
