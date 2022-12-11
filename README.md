@@ -104,7 +104,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
 
     opts = {
       capabilities: { # Append capabilities
-        platformName: :ios,
+        platformName: 'ios',
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
         automationName: 'XCUITest',
@@ -132,6 +132,15 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
 [Appium::Core.for](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
 
 More examples are in [test/functional](test/functional)
+
+As of version 5.8.0, the client can attach to an existing session. The main purpose is for debugging.
+
+```ruby
+# @driver is the driver instance of an existing session
+attached_driver = ::Appium::Core::Driver.attach_to @driver.session_id, url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'XCUITest', platform_name: 'ios'
+assert attached_driver.session_id == @driver.session_id
+attached_driver.page_source
+```
 
 ### Capabilities
 

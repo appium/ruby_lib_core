@@ -59,13 +59,26 @@ module Appium
         # @return [::Appium::Core::Base::Bridge]
         #
         def create_bridge(**opts)
+          # for a new session request
           capabilities = opts.delete(:capabilities)
           bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
+
+          # for attaching to an existing session
+          session_id = opts.delete(:existing_session_id)
+          automation_name = opts.delete(:automation_name)
+          platform_name = opts.delete(:platform_name)
+
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
           bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
 
-          bridge.create_session(capabilities)
+          if session_id.nil?
+            bridge.create_session(capabilities)
+          else
+            # attach to the existing session id
+            bridge.attach_to(session_id, platform_name, automation_name)
+          end
+
           bridge
         end
 

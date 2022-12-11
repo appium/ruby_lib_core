@@ -275,7 +275,40 @@ module Appium
       #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub.com'
       #
       def self.for(opts = {})
-        new(opts)
+        new.setup_for_new_session(opts)
+      end
+
+      # Attach to an existing session. The main usage of this method is to attach to
+      # an existing session for debugging. The generated driver instance has the capabilities which
+      # has the given automationName and platformName only since the W3C WebDriver spec does not provide
+      # an endpoint to get running session's capabilities.
+      #
+      #
+      # @param [String] The session id to attach to.
+      # @param [String] url The WebDriver URL to attach to with the session_id.
+      # @param [String] automation_name The platform name to keep in the dummy capabilities
+      # @param [String] platform_name The automation name to keep in the dummy capabilities
+      # @return [Selenium::WebDriver] A new driver instance with the given session id.
+      #
+      # @example
+      #
+      #   new_driver = ::Appium::Core::Driver.attach_to(
+      #     driver.session_id,  # The 'driver' has an existing session id
+      #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+      #   )
+      #   new_driver.page_source # for example
+      #
+      def self.attach_to(
+        session_id, url: nil, automation_name: nil, platform_name: nil,
+        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 }
+      )
+        new.attach_to(
+          session_id,
+          automation_name: automation_name,
+          platform_name: platform_name,
+          url: url,
+          http_client_ops: http_client_ops
+        )
       end
 
       private
@@ -286,12 +319,18 @@ module Appium
         @delegate_target
       end
 
+      # @private
+      def initialize
+        @delegate_target = self # for testing purpose
+        @automation_name = nil # initialise before 'set_automation_name'
+      end
+
       public
 
       # @private
-      def initialize(opts = {})
-        @delegate_target = self # for testing purpose
-        @automation_name = nil # initialise before 'set_automation_name'
+      # Set up for a neww session
+      def setup_for_new_session(opts = {})
+        @custom_url = opts.delete :url # to set the custom url as :url
 
         # TODO: Remove when we implement Options
         # The symbolize_keys is to keep compatiility for the legacy code, which allows capabilities to give 'string' as the key.
@@ -299,7 +338,6 @@ module Appium
         # FIXME: First, please try to remove `nested: true` to `nested: false`.
         opts = Appium.symbolize_keys(opts, nested: true)
 
-        @custom_url = opts.delete :url
         @caps = get_caps(opts)
 
         set_appium_lib_specific_values(get_appium_lib_opts(opts))
@@ -308,8 +346,7 @@ module Appium
         set_automation_name
 
         extend_for(device: @device, automation_name: @automation_name)
-
-        self # rubocop:disable Lint/Void
+        self
       end
 
       # Creates a new global driver and quits the old one if it exists.
@@ -320,7 +357,7 @@ module Appium
       # @option http_client_ops [Hash] :http_client Custom HTTP Client
       # @option http_client_ops [Hash] :open_timeout Custom open timeout for http client.
       # @option http_client_ops [Hash] :read_timeout Custom read timeout for http client.
-      # @return [Selenium::WebDriver] the new global driver
+      # @return [Selenium::WebDriver] A new driver instance
       #
       # @example
       #
@@ -406,7 +443,47 @@ module Appium
         @driver
       end
 
-      private
+      # @privvate
+      # Attach to an existing session
+      def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
+                    http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
+
+        raise ::Appium::Core::Error::ArgumentError, 'The :url must not be nil' if url.nil?
+        raise ::Appium::Core::Error::ArgumentError, 'The :automation_name must not be nil' if automation_name.nil?
+        raise ::Appium::Core::Error::ArgumentError, 'The :platform_name must not be nil' if platform_name.nil?
+
+        @custom_url = url
+
+        # use lowercase internally
+        @automation_name = convert_downcase(automation_name)
+        @device = convert_downcase(platform_name)
+
+        extend_for(device: @device, automation_name: @automation_name)
+
+        @http_client = get_http_client http_client: http_client_ops.delete(:http_client),
+                                       open_timeout: http_client_ops.delete(:open_timeout),
+                                       read_timeout: http_client_ops.delete(:read_timeout)
+
+        # Note that 'enable_idempotency_header' works only a new session reqeust. The attach_to method skips
+        # the new session request, this it does not needed.
+
+        begin
+          # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
+          @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
+                                                     url: @custom_url,
+                                                     listener: @listener,
+                                                     existing_session_id: session_id,
+                                                     automation_name: automation_name,
+                                                     platform_name: platform_name)
+
+          # export session
+          write_session_id(@driver.session_id, @export_session_path) if @export_session
+        rescue Errno::ECONNREFUSED
+          raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
+        end
+
+        @driver
+      end
 
       def get_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
         client = http_client || Appium::Core::Base::Http::Default.new
@@ -431,8 +508,6 @@ module Appium
         ::Appium::Logger.debug(e.message)
         {}
       end
-
-      public
 
       # Quits the driver
       # @return [void]
@@ -627,7 +702,7 @@ module Appium
         @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
-        @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
+        @device = convert_downcase @device
       end
 
       # @private
@@ -635,9 +710,12 @@ module Appium
         # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
         candidate = @caps[:automationName] || @caps['automationName']
         @automation_name = candidate if candidate
-        @automation_name = if @automation_name
-                             @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
-                           end
+        @automation_name = convert_downcase @automation_name if @automation_name
+      end
+
+      # @private
+      def convert_downcase(value)
+        value.is_a?(Symbol) ? value.downcase : value.downcase.strip.intern
       end
 
       # @private
@@ -651,6 +729,10 @@ module Appium
 
       # @private
       def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
+        ::Appium::Logger.warn(
+          '[DEPRECATION] export_session option will be removed. ' \
+          'Please save the session id by yourself with #session_id method like @driver.session_id.'
+        )
         export_path = export_path.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
         File.write(export_path, session_id)
       rescue IOError => e

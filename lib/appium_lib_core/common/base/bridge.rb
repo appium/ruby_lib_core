@@ -43,11 +43,37 @@ module Appium
 
         def browser
           @browser ||= begin
-            name = @capabilities.browser_name
+            name = @capabilities&.browser_name
             name ? name.tr(' ', '_').downcase.to_sym : 'unknown'
           rescue KeyError
             APPIUM_NATIVE_BROWSER_NAME
           end
+        end
+
+        # Appium only.
+        # Attach to an existing session.
+        #
+        # @param [String] The session id to attach to.
+        # @param [String] platform_name The platform name to keep in the dummy capabilities
+        # @param [String] platform_name The automation name to keep in the dummy capabilities
+        # @return [::Appium::Core::Base::Capabilities]
+        #
+        # @example
+        #
+        #   new_driver = ::Appium::Core::Driver.attach_to(
+        #     driver.session_id,
+        #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+        #   )
+        #
+        def attach_to(session_id, platform_name, automation_name)
+          @available_commands = ::Appium::Core::Commands::COMMANDS.dup
+          @session_id = session_id
+
+          # generate a dummy capabilities instance which only has the given platformName and automationName
+          @capabilities = ::Appium::Core::Base::Capabilities.new(
+            'platformName' => platform_name,
+            'automationName' => automation_name
+          )
         end
 
         # Override
