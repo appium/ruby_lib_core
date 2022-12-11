@@ -50,7 +50,7 @@ module Appium
           end
         end
 
-        # Override
+        # Appium only.
         # Attach to an existing session.
         #
         # @param [String] The session id to attach to.
