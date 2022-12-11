@@ -463,13 +463,8 @@ module Appium
                                        open_timeout: http_client_ops.delete(:open_timeout),
                                        read_timeout: http_client_ops.delete(:read_timeout)
 
-        if @enable_idempotency_header
-          if @http_client.instance_variable_defined? :@additional_headers
-            @http_client.additional_headers[Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid
-          else
-            ::Appium::Logger.warn 'No additional_headers attribute in this http client instance'
-          end
-        end
+        # Note that 'enable_idempotency_header' works only a new session reqeust. The attach_to method skips
+        # the new session request, this it does not needed.
 
         begin
           # included https://github.com/SeleniumHQ/selenium/blob/43f8b3f66e7e01124eff6a5805269ee441f65707/rb/lib/selenium/webdriver/remote/driver.rb#L29
@@ -484,11 +479,6 @@ module Appium
           write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
-        end
-
-        if @http_client.instance_variable_defined? :@additional_headers
-          # We only need the key for a new session request. Should remove it for other following commands.
-          @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
         @driver
