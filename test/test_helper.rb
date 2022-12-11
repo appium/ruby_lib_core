@@ -123,14 +123,14 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '15.5'
+      platform_version = '15.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
 
       cap = {
         caps: { # :desiredCapabilities is also available
-          platformName: 'IOS',
+          platformName: platform_name,
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
@@ -202,7 +202,7 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 12'
+                 'iPhone 11'
                else
                  'iPhone Xs Max'
                end
