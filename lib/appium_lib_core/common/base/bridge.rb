@@ -41,13 +41,28 @@ module Appium
 
         attr_reader :available_commands
 
+        def session_id
+          @session_id || raise(::Selenium::WebDriver::Error::WebDriverError, 'no current session exists')
+        end
+
         def browser
           @browser ||= begin
-            name = @capabilities.browser_name
+            name = @capabilities&.browser_name
             name ? name.tr(' ', '_').downcase.to_sym : 'unknown'
           rescue KeyError
             APPIUM_NATIVE_BROWSER_NAME
           end
+        end
+
+        def attach_to(session_id, platform_name, automation_name)
+          @available_commands = ::Appium::Core::Commands::COMMANDS.dup
+          @session_id = session_id
+
+          # generate a dummy capabilities which only has the platformName and automationName
+          @capabilities = ::Appium::Core::Base::Capabilities.new(
+            'platformName' => platform_name,
+            'automationName' => automation_name
+          )
         end
 
         # Override

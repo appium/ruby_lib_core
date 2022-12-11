@@ -428,9 +428,14 @@ module Appium
       # Attach to an existing session
       def attach_to(session_id, automation_name: nil, platform_name: nil, url: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
+
+        # TODO: add error handling
+
         @custom_url = url
-        @automation_name = automation_name
-        @device = platform_name
+
+        # use lowercase internally
+        @automation_name = convert_downcase(automation_name)
+        @device = convert_downcase(platform_name)
 
         extend_for(device: @device, automation_name: @automation_name)
 
@@ -451,7 +456,9 @@ module Appium
           @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
                                                      url: @custom_url,
                                                      listener: @listener,
-                                                     existing_session_id: session_id)
+                                                     existing_session_id: session_id,
+                                                     automation_name: automation_name,
+                                                     platform_name: platform_name)
 
           # export session
           write_session_id(@driver.session_id, @export_session_path) if @export_session
@@ -684,7 +691,7 @@ module Appium
         @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
-        @device = @device.is_a?(Symbol) ? @device.downcase : @device.downcase.strip.intern
+        @device = convert_downcase @device
       end
 
       # @private
@@ -692,9 +699,12 @@ module Appium
         # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
         candidate = @caps[:automationName] || @caps['automationName']
         @automation_name = candidate if candidate
-        @automation_name = if @automation_name
-                             @automation_name.is_a?(Symbol) ? @automation_name.downcase : @automation_name.downcase.strip.intern
-                           end
+        @automation_name = convert_downcase @automation_name if @automation_name
+      end
+
+      # @private
+      def convert_downcase(value)
+        value.is_a?(Symbol) ? value.downcase : value.downcase.strip.intern
       end
 
       # @private
