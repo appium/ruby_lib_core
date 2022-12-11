@@ -41,10 +41,6 @@ module Appium
 
         attr_reader :available_commands
 
-        def session_id
-          @session_id || raise(::Selenium::WebDriver::Error::WebDriverError, 'no current session exists')
-        end
-
         def browser
           @browser ||= begin
             name = @capabilities&.browser_name
@@ -54,11 +50,26 @@ module Appium
           end
         end
 
+        # Override
+        # Attach to an existing session.
+        #
+        # @param [String] The session id to attach to.
+        # @param [String] platform_name The platform name to keep in the dummy capabilities
+        # @param [String] platform_name The automation name to keep in the dummy capabilities
+        # @return [::Appium::Core::Base::Capabilities]
+        #
+        # @example
+        #
+        #   new_driver = ::Appium::Core::Driver.attach_to(
+        #     driver.session_id,
+        #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+        #   )
+        #
         def attach_to(session_id, platform_name, automation_name)
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
           @session_id = session_id
 
-          # generate a dummy capabilities which only has the platformName and automationName
+          # generate a dummy capabilities instance which only has the given platformName and automationName
           @capabilities = ::Appium::Core::Base::Capabilities.new(
             'platformName' => platform_name,
             'automationName' => automation_name

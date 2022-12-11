@@ -278,6 +278,25 @@ module Appium
         new.setup_for_new_session(opts)
       end
 
+      # Attach to an existing session. The main usage of this method is to attach to
+      # an existing session for debugging. The generated driver instance does not
+      # have capabilities fully. The capabilities has the given automationName
+      # and platformName only.
+      #
+      # @param [String] The session id to attach to.
+      # @param [String] url The WebDriver URL to attach to with the session_id.
+      # @param [String] automation_name The platform name to keep in the dummy capabilities
+      # @param [String] platform_name The automation name to keep in the dummy capabilities
+      # @return [Selenium::WebDriver] A new driver instance with the given session id.
+      #
+      # @example
+      #
+      #   new_driver = ::Appium::Core::Driver.attach_to(
+      #     driver.session_id,  # The 'driver' has an existing session id
+      #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+      #   )
+      #   new_driver.page_source # for example
+      #
       def self.attach_to(
         session_id, url: nil, automation_name: nil, platform_name: nil,
         http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 }
@@ -325,7 +344,6 @@ module Appium
         set_appium_device
         set_automation_name
 
-        # TODO: need to tweak in 'attach_to' case
         extend_for(device: @device, automation_name: @automation_name)
         self
       end
@@ -338,7 +356,7 @@ module Appium
       # @option http_client_ops [Hash] :http_client Custom HTTP Client
       # @option http_client_ops [Hash] :open_timeout Custom open timeout for http client.
       # @option http_client_ops [Hash] :read_timeout Custom read timeout for http client.
-      # @return [Selenium::WebDriver] the new global driver
+      # @return [Selenium::WebDriver] A new driver instance
       #
       # @example
       #
@@ -426,10 +444,12 @@ module Appium
 
       # @privvate
       # Attach to an existing session
-      def attach_to(session_id, automation_name: nil, platform_name: nil, url: nil,
+      def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
 
-        # TODO: add error handling
+        raise ::Appium::Core::Error::ArgumentError, 'The :url must not be nil' if url.nil?
+        raise ::Appium::Core::Error::ArgumentError, 'The :automation_name must not be nil' if automation_name.nil?
+        raise ::Appium::Core::Error::ArgumentError, 'The :platform_name must not be nil' if platform_name.nil?
 
         @custom_url = url
 
