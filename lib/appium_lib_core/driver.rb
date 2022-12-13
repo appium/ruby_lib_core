@@ -563,6 +563,11 @@ module Appium
       #     @core.platform_version #=> [10,1,1]
       #
       def platform_version
+        ::Appium::Logger.warn(
+          '[DEPRECATION] platform_version method will be. ' \
+          'Please check the platformVersion via @driver.capabilities["platformVersion"] instead.'
+        )
+
         p_version = @driver.capabilities['platformVersion'] || @driver.session_capabilities['platformVersion']
         p_version.split('.').map(&:to_i)
       end
