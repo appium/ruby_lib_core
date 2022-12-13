@@ -211,6 +211,7 @@ module Appium
           ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
         end
 
+        # TODO: Remove the override since current Ruby selenium webdriver already does not have the JS code
         # Override for safe. Newer ruby selenium webdriver already has the same code
         def page_source
           execute :get_page_source
@@ -229,7 +230,8 @@ module Appium
         # override
         def element_attribute(element, name)
           # For W3C in Selenium Client
-          # execute_atom :getAttribute, element, name
+          # execute_atom :getAttribute, element, name.
+          # 'dom_attribute' in the WebDriver Selenium.
           execute :get_element_attribute, id: element.id, name: name
         end
 

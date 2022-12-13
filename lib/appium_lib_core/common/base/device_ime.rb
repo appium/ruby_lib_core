@@ -25,7 +25,6 @@ module Appium
         end
 
         def activate(ime_name)
-          #
           @bridge.ime_activate(ime_name)
         end
 
