@@ -23,7 +23,6 @@ module Appium
     end
 
     module Ios
-      autoload :Uiautomation, 'appium_lib_core/ios'
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
@@ -599,10 +598,8 @@ module Appium
           case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for iOS')
-          when :xcuitest
+          else # XCUITest
             ::Appium::Core::Ios::Xcuitest::Bridge.for self
-          else # default and UIAutomation
-            ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
           case sym_automation_name
