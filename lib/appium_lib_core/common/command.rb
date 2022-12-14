@@ -70,6 +70,8 @@ module Appium
         find_elements: [:post, 'session/:session_id/elements'],
         find_child_element: [:post, 'session/:session_id/element/:id/element'],
         find_child_elements: [:post, 'session/:session_id/element/:id/elements'],
+        find_shadow_child_element: [:post, 'session/:session_id/shadow/:id/element'],
+        find_shadow_child_elements: [:post, 'session/:session_id/shadow/:id/elements'],
         get_active_element: [:get, 'session/:session_id/element/active'],
         is_element_selected: [:get, 'session/:session_id/element/:id/selected'],
         get_element_attribute: [:get, 'session/:session_id/element/:id/attribute/:name'],
