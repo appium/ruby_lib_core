@@ -517,7 +517,7 @@ module Appium
       #   @core.quit_driver
       #
       def quit_driver
-        ::Appium::Logger.warn('[DEPRECATION] quit_driver will be  removed. Please use @driver.quit instead.')
+        ::Appium::Logger.warning('[DEPRECATION] quit_driver will be removed. Please use @driver.quit instead.')
         @driver.quit
       rescue # rubocop:disable Style/RescueStandardError
         nil
