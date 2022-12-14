@@ -28,7 +28,6 @@ module Appium
           data_matcher:         '-android datamatcher', # Available in Espresso
           view_matcher:         '-android viewmatcher', # Available in Espresso
           # iOS
-          uiautomation:         '-ios uiautomation',
           predicate:            '-ios predicate string',
           class_chain:          '-ios class chain',
           # Windows with windows prefix
