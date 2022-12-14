@@ -112,6 +112,9 @@ module Appium
           @capabilities = json_create(response['capabilities'])
         end
 
+        # TODO: move the adding prefix into ::Appium::Core::Base::Capabilities so that
+        #       so that this bridge class does not change from the selenium client
+        #
         # Append +appium:+ prefix for Appium following W3C spec
         # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
         #
