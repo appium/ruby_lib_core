@@ -27,7 +27,7 @@ class AppiumLibCoreTest
         driver = core.start_driver
         assert !driver.capabilities.nil?
 
-        core.quit_driver
+        driver&.quit
       end
     end
   end
