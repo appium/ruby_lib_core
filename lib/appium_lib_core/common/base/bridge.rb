@@ -363,26 +363,26 @@ module Appium
 
         private
 
-        def unwrap_script_result(arg)
-          case arg
-          when Array
-            arg.map { |e| unwrap_script_result(e) }
-          when Hash
-            element_id = element_id_from(arg)
-            return ::Appium::Core::Element.new(self, element_id) if element_id
+        # def unwrap_script_result(arg)
+        #   case arg
+        #   when Array
+        #     arg.map { |e| unwrap_script_result(e) }
+        #   when Hash
+        #     element_id = element_id_from(arg)
+        #     return ::Appium::Core::Element.new(self, element_id) if element_id
 
-            shadow_root_id = shadow_root_id_from(arg)
-            return ::Selenium::WebDriver::Remote::ShadowRoot.new self, shadow_root_id if shadow_root_id
+        #     shadow_root_id = shadow_root_id_from(arg)
+        #     return ::Selenium::WebDriver::Remote::ShadowRoot.new self, shadow_root_id if shadow_root_id
 
-            arg.each { |k, v| arg[k] = unwrap_script_result(v) }
-          else
-            arg
-          end
-        end
+        #     arg.each { |k, v| arg[k] = unwrap_script_result(v) }
+        #   else
+        #     arg
+        #   end
+        # end
 
-        def element_id_from(id)
-          id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
-        end
+        # def element_id_from(id)
+        #   id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
+        # end
 
         # Don't convert locators for Appium in native context
         def convert_locator(how, what)
