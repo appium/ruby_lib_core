@@ -32,6 +32,13 @@ $ bundle install
 $ bundle exec parallel_test test/unit/
 ```
 
+or
+
+```bash
+$ bundle install
+$ bundle exec rake test:unit
+```
+
 ### Functional Tests
 Run functional tests which require the Appium server and real device, Simulator/Emulator.
 
