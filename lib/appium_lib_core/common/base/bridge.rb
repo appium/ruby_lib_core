@@ -211,12 +211,6 @@ module Appium
           ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
         end
 
-        # TODO: Remove the override since current Ruby selenium webdriver already does not have the JS code
-        # Override for safe. Newer ruby selenium webdriver already has the same code
-        def page_source
-          execute :get_page_source
-        end
-
         # For Appium
         # override
         def element_displayed?(element)
