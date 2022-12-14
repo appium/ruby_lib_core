@@ -483,7 +483,6 @@ class AppiumLibCoreTest
 
             @driver.find_element(:id, 'example').find_element(:id, 'example2')
 
-            # assert false
             assert_requested(:post, "#{SESSION}/element", times: 1)
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
           end
