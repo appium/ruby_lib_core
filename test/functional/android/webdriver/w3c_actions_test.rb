@@ -27,7 +27,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
-        @@core.quit_driver
+        @driver&.quit
       end
 
       def test_tap_scroll

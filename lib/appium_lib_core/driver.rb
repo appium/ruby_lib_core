@@ -328,7 +328,7 @@ module Appium
       public
 
       # @private
-      # Set up for a neww session
+      # Set up for a new session
       def setup_for_new_session(opts = {})
         @custom_url = opts.delete :url # to set the custom url as :url
 
@@ -443,7 +443,7 @@ module Appium
         @driver
       end
 
-      # @privvate
+      # @private
       # Attach to an existing session
       def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
@@ -509,7 +509,7 @@ module Appium
         {}
       end
 
-      # Quits the driver
+      # [Deprecated] Quits the driver. This method is the same as @driver.quit
       # @return [void]
       #
       # @example
@@ -517,6 +517,7 @@ module Appium
       #   @core.quit_driver
       #
       def quit_driver
+        ::Appium::Logger.warn('[DEPRECATION] quit_driver will be removed. Please use @driver.quit instead.')
         @driver.quit
       rescue # rubocop:disable Style/RescueStandardError
         nil
@@ -562,6 +563,11 @@ module Appium
       #     @core.platform_version #=> [10,1,1]
       #
       def platform_version
+        ::Appium::Logger.warn(
+          '[DEPRECATION] platform_version method will be. ' \
+          'Please check the platformVersion via @driver.capabilities["platformVersion"] instead.'
+        )
+
         p_version = @driver.capabilities['platformVersion'] || @driver.session_capabilities['platformVersion']
         p_version.split('.').map(&:to_i)
       end
