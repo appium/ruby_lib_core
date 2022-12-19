@@ -9,6 +9,8 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- Remove iOS/UiAutomation classes
+    - The version may work for iOS 8. XCUITest driver will be the default behavior for iOS.
 
 ## [5.8.0] - 2022-12-11
 
