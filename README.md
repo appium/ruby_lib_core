@@ -114,8 +114,8 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
         platformName: 'ios',
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
-        automationName: 'XCUITest',
-        app: '/path/to/MyiOS.app'
+        # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
+        automationName: 'XCUITest'
       },
       appium_lib: {
         wait: 30
