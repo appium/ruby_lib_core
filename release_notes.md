@@ -1,3 +1,17 @@
+#### v6.0.0 2022-12-25
+
+- [707dc56](https://github.com/appium/ruby_lib_core/commit/707dc56531cfc23a9fb103673cdc262b87540f4b) Release 6.0.0
+- [392a9b6](https://github.com/appium/ruby_lib_core/commit/392a9b6337187e52dc134ea1e12d8db52aff4343) chore: tweak
+- [3d42350](https://github.com/appium/ruby_lib_core/commit/3d42350b3b6cc643e45ba74e654c2d9f2c3ee647) docs: update readme
+- [aa912a7](https://github.com/appium/ruby_lib_core/commit/aa912a71e4aa8edd401567e8100f6a648ded7aa6) chore(deps-dev): update rubocop requirement from = 1.41.0 to = 1.41.1 (#438)
+- [81750c4](https://github.com/appium/ruby_lib_core/commit/81750c4046f6bcb4a86486db40d09aadf9290875) chore(deps-dev): update rubocop requirement from = 1.40.0 to = 1.41.0 (#437)
+- [9b9f186](https://github.com/appium/ruby_lib_core/commit/9b9f18611c4bd9168f982270d9e6acf0b4cf6005) chore: remove ios uiautomation (#436)
+- [5bfb3b8](https://github.com/appium/ruby_lib_core/commit/5bfb3b89ebc4b57efbfd931a9d0da339df8e72e3) chore: add deprecation marks in core (#430)
+- [30c6cae](https://github.com/appium/ruby_lib_core/commit/30c6caed0eaf84a8933cdd5fa9e4e505f2df2c9a) docs: update unit test one
+- [0fe5bf1](https://github.com/appium/ruby_lib_core/commit/0fe5bf1b0c8b78828a68e143d6a79ff3fd5b9d6e) test: update a test (#432)
+- [b83aa2f](https://github.com/appium/ruby_lib_core/commit/b83aa2fb539b92096178bd653643f9a291c82d09) chore(deps-dev): update rubocop requirement from = 1.39.0 to = 1.40.0 (#427)
+
+
 #### v5.8.0 2022-12-11
 
 - [56d206a](https://github.com/appium/ruby_lib_core/commit/56d206a7582111e4b4b776d049da9c4437d3d7d1) Release 5.8.0
