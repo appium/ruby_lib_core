@@ -304,9 +304,7 @@ class AppiumLibCoreTest
         cap[:capabilities]['settings[trackScrollEvents]'] = false
       else
         cap[:capabilities][:forceEspressoRebuild] = false
-        cap[:capabilities][:espressoBuildConfig] = {
-          additionalAndroidTestDependencies: ['com.google.android.material:material:1.7.0']
-        }.to_json
+        cap[:capabilities][:espressoBuildConfig] = {}.to_json
       end
 
       cap
