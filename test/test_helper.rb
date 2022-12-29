@@ -305,7 +305,7 @@ class AppiumLibCoreTest
       else
         cap[:capabilities][:forceEspressoRebuild] = false
         cap[:capabilities][:espressoBuildConfig] = {
-          additionalAndroidTestDependencies: ['com.google.android.material:material:1.2.1']
+          additionalAndroidTestDependencies: ['com.google.android.material:material:1.7.0']
         }.to_json
       end
 
