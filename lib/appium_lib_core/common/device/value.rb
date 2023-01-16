@@ -41,7 +41,7 @@ module Appium
             # Keep .split(//) for backward compatibility for now
             text = keys.join
 
-            { value: text.chars, text: text }
+            { text: text }
           end
         end # module Value
       end # module Device
