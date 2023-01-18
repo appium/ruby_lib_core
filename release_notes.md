@@ -1,3 +1,11 @@
+#### v6.1.0 2023-01-18
+
+- [9fe5ee7](https://github.com/appium/ruby_lib_core/commit/9fe5ee728ef740c6c3e17aad24d6bc9a52d3b9a7) Release 6.1.0
+- [fad670a](https://github.com/appium/ruby_lib_core/commit/fad670aac456df6c2c95cb9cb1b7b3e2704f0b26) fix immediate value (#442)
+- [80014fe](https://github.com/appium/ruby_lib_core/commit/80014fe1b17079ec171ff51c7da058d6955990a6) chore(deps-dev): update rubocop requirement from = 1.41.1 to = 1.42.0 (#440)
+- [912d60a](https://github.com/appium/ruby_lib_core/commit/912d60a73f7ee905fa0931874aeaf09ee17abfe3) chore: update test apks with compilesdk31 (#439)
+
+
 #### v6.0.0 2022-12-25
 
 - [707dc56](https://github.com/appium/ruby_lib_core/commit/707dc56531cfc23a9fb103673cdc262b87540f4b) Release 6.0.0
