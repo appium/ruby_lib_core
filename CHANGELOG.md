@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [6.1.0] - 2023-01-18
+
+### Bug fixes
+- `Element#immediate_value` sends `text` as the request body
+
 ## [6.0.0] - 2022-12-25
 - Remove iOS/UiAutomation classes
     - The version may work for iOS 8. XCUITest driver will be the default behavior for iOS.
@@ -28,7 +33,7 @@ Read `release_notes.md` for commit level details.
 ## [5.6.0] - 2022-11-08
 
 ### Enhancements
-- Append `selnium-webdriver` `4.6` support
+- Append `selenium-webdriver` `4.6` support
 
 ## [5.5.2] - 2022-10-11
 
