@@ -1,3 +1,11 @@
+#### v6.2.0 2023-01-26
+
+- [e1b3b3f](https://github.com/appium/ruby_lib_core/commit/e1b3b3f4d0121ba4af9dd0f000834fa42b653ba0) Release 6.2.0
+- [d706142](https://github.com/appium/ruby_lib_core/commit/d706142539d750ee52efe23412b2d5193478bafe) feat: define Appium::Location (#447)
+- [75bba80](https://github.com/appium/ruby_lib_core/commit/75bba80c8f577ca90804fc4151157440b52efc94) chore(deps-dev): update rubocop requirement from = 1.42.0 to = 1.44.0 (#444)
+- [aa589c6](https://github.com/appium/ruby_lib_core/commit/aa589c6cabdbe95926c686b311f51f875c07aae4) ci: add ruby 3.2 (#443)
+
+
 #### v6.1.0 2023-01-18
 
 - [9fe5ee7](https://github.com/appium/ruby_lib_core/commit/9fe5ee728ef740c6c3e17aad24d6bc9a52d3b9a7) Release 6.1.0
