@@ -6,9 +6,14 @@ Read `release_notes.md` for commit level details.
 
 ### Enhancements
 
+- Add `::Appium::Location` since `::Selenium::WebDriver::Location` no longer exists
+
 ### Bug fixes
 
 ### Deprecations
+
+- `::Selenium::WebDriver::Location` is deprecated in favor of `::Appium::Location` in Appium Ruby binding
+
 
 ## [6.1.0] - 2023-01-18
 

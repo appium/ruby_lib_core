@@ -302,7 +302,7 @@ module Appium
         # called in 'extend DriverExtensions::HasLocation'
         def location
           obj = execute(:get_location) || {}
-          ::Selenium::WebDriver::Location.new obj['latitude'], obj['longitude'], obj['altitude']
+          ::Appium::Location.new obj['latitude'], obj['longitude'], obj['altitude']
         end
 
         # For Appium

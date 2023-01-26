@@ -21,11 +21,11 @@ module Appium
       module HasLocation
         # Get the location of the device.
         #
-        # @return [::Selenium::WebDriver::Location]
+        # @return [::Appium::Location]
         #
         # @example
         #
-        #   driver.location #=> ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #   driver.location #=> ::Appium::Location.new(10, 10, 10)
         #
         def location
           @bridge.location
@@ -33,15 +33,15 @@ module Appium
 
         # Set the location of the device.
         #
-        # @param [::Selenium::WebDriver::Location] location Set the location.
+        # @param [::Appium::Location] location Set the location.
         #
         # @example
         #
-        #   driver.location = ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #   driver.location = ::Appium::Location.new(10, 10, 10)
         #
         def location=(location)
-          unless location.is_a?(::Selenium::WebDriver::Location)
-            raise TypeError, "expected #{::Selenium::WebDriver::Location}, got #{location.inspect}:#{location.class}"
+          unless location.is_a?(::Appium::Location)
+            raise TypeError, "expected #{::Appium::Location}, got #{location.inspect}:#{location.class}"
           end
 
           @bridge.set_location location.latitude, location.longitude, location.altitude
@@ -56,17 +56,17 @@ module Appium
         #                               in meters/second @since Appium 1.21.0 and in knots for emulators @since Appium 1.22.0.
         # @param [String, Number] satellites Sets the count of geo satellites being tracked in range 1..12 @since Appium 1.22.0.
         #                                    This number is respected on Emulators.
-        # @param [::Selenium::WebDriver::Location]
+        # @param [::Appium::Location]
         #
         # @example
         #
-        #   driver.location = ::Selenium::WebDriver::Location.new(10, 10, 10)
+        #   driver.location = ::Appium::Location.new(10, 10, 10)
         #
         def set_location(latitude, longitude, altitude, speed: nil, satellites: nil)
           if speed.nil? && satellites.nil?
-            self.location = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
+            self.location = ::Appium::Location.new(Float(latitude), Float(longitude), Float(altitude))
           else
-            loc = ::Selenium::WebDriver::Location.new(Float(latitude), Float(longitude), Float(altitude))
+            loc = ::Appium::Location.new(Float(latitude), Float(longitude), Float(altitude))
 
             speed = Float(speed) unless speed.nil?
             satellites = Integer(satellites) unless satellites.nil?

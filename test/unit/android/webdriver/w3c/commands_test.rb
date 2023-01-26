@@ -184,7 +184,7 @@ class AppiumLibCoreTest
               .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0 } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            @driver.location = ::Selenium::WebDriver::Location.new(1.0, 1.0, 1.0)
+            @driver.location = ::Appium::Location.new(1.0, 1.0, 1.0)
             @driver.set_location 1, 1, 1
 
             assert_requested(:post, "#{SESSION}/location", times: 2)

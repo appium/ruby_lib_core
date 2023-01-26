@@ -15,6 +15,9 @@
 require 'uri'
 
 module Appium
+  # The struct for 'location'
+  Location = Struct.new(:latitude, :longitude, :altitude)
+
   module Core
     module Android
       autoload :Uiautomator1, 'appium_lib_core/android'
