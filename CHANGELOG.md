@@ -6,9 +6,16 @@ Read `release_notes.md` for commit level details.
 
 ### Enhancements
 
-- Add `::Appium::Location` since `::Selenium::WebDriver::Location` no longer exists
-
 ### Bug fixes
+
+### Deprecations
+
+## [6.2.0]
+
+### Enhancements
+
+- Append `selenium-webdriver` `4.8` support
+- Add `::Appium::Location` since `::Selenium::WebDriver::Location` no longer exists
 
 ### Deprecations
 
