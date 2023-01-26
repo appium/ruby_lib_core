@@ -149,7 +149,8 @@ class AppiumLibCoreTest
           orientation: 'PORTRAIT', # only for simulator
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
-          connectHardwareKeyboard: false
+          connectHardwareKeyboard: false,
+          maxTypingFrequency: 200
         },
         appium_lib: {
           export_session: true,
