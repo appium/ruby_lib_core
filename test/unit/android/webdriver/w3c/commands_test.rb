@@ -133,9 +133,7 @@ class AppiumLibCoreTest
                   deviceName: 'Android Emulator',
                   appPackage: 'io.appium.android.apis',
                   appActivity: 'io.appium.android.apis.ApiDemos',
-                  someCapability: 'some_capability',
-                  unicodeKeyboard: true,
-                  resetKeyboard: true
+                  someCapability: 'some_capability'
                 }
               }
             }.to_json
