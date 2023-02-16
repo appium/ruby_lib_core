@@ -119,8 +119,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               directConnectProtocol: 'http',
               directConnectHost: 'localhost',
               directConnectPort: '8888',
@@ -171,8 +169,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               'appium:directConnectProtocol' => 'http',
               'appium:directConnectHost' => 'localhost',
               'appium:directConnectPort' => '8888',
@@ -223,8 +219,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               'appium:directConnectProtocol' => 'http',
               'appium:directConnectHost' => 'localhost',
               'appium:directConnectPort' => '8888',
@@ -279,8 +273,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               directConnectProtocol: 'http',
               directConnectHost: 'localhost',
               directConnectPort: '8888'
@@ -330,8 +322,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               directConnectProtocol: 'http',
               directConnectHost: 'localhost',
               directConnectPort: '8888',
@@ -381,9 +371,7 @@ class AppiumLibCoreTest
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
-              someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true
+              someCapability: 'some_capability'
             }
           }
         }.to_json
@@ -427,9 +415,7 @@ class AppiumLibCoreTest
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
-              someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true
+              someCapability: 'some_capability'
             }
           }
         }.to_json
@@ -499,8 +485,6 @@ class AppiumLibCoreTest
               appPackage: 'io.appium.android.apis',
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
-              unicodeKeyboard: true,
-              resetKeyboard: true,
               directConnectProtocol: 'http',
               directConnectHost: 'localhost',
               directConnectPort: '8888',
