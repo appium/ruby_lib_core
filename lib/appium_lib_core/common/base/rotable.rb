@@ -42,6 +42,7 @@ module Appium
           bridge.screen_orientation = orientation.to_s.upcase
         end
         alias rotate rotation=
+        alias orientation= rotation=
 
         #
         # Get the current screen orientation

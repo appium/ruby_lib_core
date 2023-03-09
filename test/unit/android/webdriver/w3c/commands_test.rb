@@ -227,6 +227,15 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/orientation", times: 1)
           end
 
+          def test_orientation
+            stub_request(:post, "#{SESSION}/orientation")
+              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+            @driver.orientation = :landscape
+
+            assert_requested(:post, "#{SESSION}/orientation", times: 1)
+          end
+
           def test_active_element
             stub_request(:get, "#{SESSION}/element/active")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
