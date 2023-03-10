@@ -44,15 +44,17 @@ module Appium
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        private
-
         def initialize(bridge: nil, listener: nil, **opts)
           # For ::Appium::Core::Waitable
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
 
-          super
+          @bridge = listener ? ::Appium::Core::Base::AppiumEventFiringBridge.new(bridge, listener) : bridge
+
+          super(bridge: @bridge, listener: nil, **opts)
         end
+
+        private
 
         # Create a proper bridge instance.
         #
@@ -1069,7 +1071,7 @@ module Appium
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [Array<Selenium::WebDriver::Element>]
+        # @return [Array<::Appium::Core::Element>]
         #
         # @example
         #
