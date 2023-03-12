@@ -553,6 +553,7 @@ class AppiumLibCoreTest
       driver = android_mock_create_session_w3c_direct.call(core)
 
       assert_equal driver.send(:bridge).class, Appium::Core::Base::Bridge
+      assert_equal driver.instance_variable_get(:@wait_timeout), 30
       assert !driver.send(:bridge).respond_to?(:driver)
     end
 
@@ -580,14 +581,17 @@ class AppiumLibCoreTest
         driver
       end
 
-      core = ::Appium::Core.for capabilities: Caps.android[:capabilities], appium_lib: { listener: custom_listener }
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities], appium_lib: {
+        wait_timeout: 500, listener: custom_listener
+      }
       driver = android_mock_create_session_w3c_direct.call(core)
 
       assert_equal core.listener, custom_listener
       assert_equal driver.send(:bridge).class, Appium::Support::EventFiringBridge
-      assert_equal driver.send(:bridge).driver.class, Appium::Core::Base::Driver
+      assert_equal driver.send(:bridge).send(:driver).class, Appium::Core::Base::Driver
+      assert_equal driver.send(:bridge).send(:driver).instance_variable_get(:@wait_timeout), 500
       # To check if the 'driver' instance has the Android specific method
-      assert driver.send(:bridge).driver.respond_to? :current_activity
+      assert driver.send(:bridge).send(:driver).respond_to? :current_activity
     end
   end
 end

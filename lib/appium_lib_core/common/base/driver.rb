@@ -45,6 +45,8 @@ module Appium
         attr_reader :bridge
 
         def initialize(bridge: nil, listener: nil, **opts)
+          original_opts = opts.dup
+
           # For ::Appium::Core::Waitable
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
@@ -56,7 +58,7 @@ module Appium
           # in the selenium webdriver as well
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
-          @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener) : bridge
+          @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
         end
 
         private
