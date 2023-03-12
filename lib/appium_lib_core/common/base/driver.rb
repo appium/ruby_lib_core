@@ -49,9 +49,14 @@ module Appium
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
 
-          @bridge = listener ? ::Appium::Core::Base::AppiumEventFiringBridge.new(bridge, listener) : bridge
+          # Selenium WebDriver attributes
+          @devtools = nil
+          @bidi = nil
 
-          super(bridge: @bridge, listener: nil, **opts)
+          # in the selenium webdriver as well
+          bridge ||= create_bridge(**opts)
+          add_extensions(bridge.browser)
+          @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener) : bridge
         end
 
         private

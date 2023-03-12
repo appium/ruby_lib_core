@@ -525,5 +525,69 @@ class AppiumLibCoreTest
       assert attached_driver.respond_to?(:current_activity)
       assert_equal attached_driver.capabilities['automationName'], 'UiAutomator2'
     end
+
+    def test_listener_default
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities]
+      assert_nil core.listener
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal driver.send(:bridge).class, Appium::Core::Base::Bridge
+      assert !driver.send(:bridge).respond_to?(:driver)
+    end
+
+    def test_listener_with_custom_listener
+      custom_listener = ::Selenium::WebDriver::Support::AbstractEventListener.new
+
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities], appium_lib: { listener: custom_listener }
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal core.listener, custom_listener
+      assert_equal driver.send(:bridge).class, Appium::Support::EventFiringBridge
+      assert_equal driver.send(:bridge).driver.class, Appium::Core::Base::Driver
+      # To check if the 'driver' instance has the Android specific method
+      assert driver.send(:bridge).driver.respond_to? :current_activity
+    end
   end
 end
