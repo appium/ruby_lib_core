@@ -633,6 +633,13 @@ class AppiumLibCoreTest
       assert_requested :post, "#{SESSION}/element", times: 1
       assert_equal el.class.name, 'Appium::Core::Element'
 
+      # No W3C, but can call via '::Appium::Core::Element'
+      stub_request(:get, "#{SESSION}/element/element_id_parent/displayed")
+        .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
+      el.displayed?
+      assert_requested :get, "#{SESSION}/element/element_id_parent/displayed", times: 1
+      assert_equal el.class.name, 'Appium::Core::Element'
+
       stub_request(:post, "#{SESSION}/element/element_id_parent/element")
         .with(body: { using: 'id', value: 'example2' }.to_json)
         .to_return(headers: HEADER, status: 200, body: {

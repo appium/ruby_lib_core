@@ -15,10 +15,10 @@
 module Appium
   module Support
     class EventFiringBridge < ::Selenium::WebDriver::Support::EventFiringBridge
-      ####
-      ## AppiumEventFiringBridge inherits ::Selenium::WebDriver::Support::EventFiringBridge
-      ## https://github.com/SeleniumHQ/selenium/blob/trunk/rb/lib/selenium/webdriver/support/event_firing_bridge.rb#L79
-      ####
+
+      # This module inherits ::Selenium::WebDriver::Support::EventFiringBridge
+      # to provide customer listener availability.
+      # https://github.com/SeleniumHQ/selenium/blob/trunk/rb/lib/selenium/webdriver/support/event_firing_bridge.rb#L79
 
       def initialize(delegate, listener, **opts)
         @appium_options = opts
