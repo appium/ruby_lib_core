@@ -5,12 +5,16 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Support custom listener
-    - e.g. A listener named `CustomListener` which inherits `::Selenium::WebDriver::Support::AbstractEventListener` can set as `appium_lib: { listener: CustomListener.new}` capability
 
 ### Bug fixes
 
 ### Deprecations
+
+## [6.3.0] - 2023-03-14
+
+### Enhancements
+- Support custom listener
+    - e.g. A listener named `CustomListener` which inherits `::Selenium::WebDriver::Support::AbstractEventListener` can set as `appium_lib: { listener: CustomListener.new}` capability
 
 ## [6.2.1] - 2023-03-09
 
