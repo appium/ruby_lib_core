@@ -154,6 +154,29 @@ attached_driver.page_source
 Read [Appium/Core/Driver](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
 Capabilities affect only ruby_lib is [Appium/Core/Options](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
 
+
+### Gives custom listener
+
+An example to define a customer listener with [Selenium::WebDriver::Support::AbstractEventListener](https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/Support/AbstractEventListener.html)
+
+```ruby
+class CustomListener < ::Selenium::WebDriver::Support::AbstractEventListener
+  // something
+end
+capabilities: {
+  platformName: :ios,
+  platformVersion: '11.0',
+  deviceName: 'iPhone Simulator',
+  automationName: 'XCUITest',
+  app: '/path/to/MyiOS.app'
+},
+appium_lib: {
+  listener: CustomListener.new
+}
+@core = Appium::Core.for capabilities: capabilities, appium_lib: appium_lib
+@core.start_driver
+```
+
 # Development
 - Demo app
     - https://android.googlesource.com/platform/development/+/master/samples/ApiDemos

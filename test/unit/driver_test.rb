@@ -525,5 +525,147 @@ class AppiumLibCoreTest
       assert attached_driver.respond_to?(:current_activity)
       assert_equal attached_driver.capabilities['automationName'], 'UiAutomator2'
     end
+
+    def test_listener_default
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities]
+      assert_nil core.listener
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal driver.send(:bridge).class, Appium::Core::Base::Bridge
+      assert_equal driver.instance_variable_get(:@wait_timeout), 30
+      assert !driver.send(:bridge).respond_to?(:driver)
+    end
+
+    def test_listener_with_custom_listener_element
+      custom_listener = ::Selenium::WebDriver::Support::AbstractEventListener.new
+
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities], appium_lib: {
+        wait_timeout: 500, listener: custom_listener
+      }
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal core.listener, custom_listener
+      assert_equal driver.send(:bridge).class, Appium::Support::EventFiringBridge
+      assert_equal driver.send(:bridge).send(:driver).class, Appium::Core::Base::Driver
+      assert_equal driver.send(:bridge).send(:driver).instance_variable_get(:@wait_timeout), 500
+      # To check if the 'driver' instance has the Android specific method
+      assert driver.send(:bridge).send(:driver).respond_to? :current_activity
+    end
+
+    def test_listener_with_custom_listener_elements
+      custom_listener = ::Selenium::WebDriver::Support::AbstractEventListener.new
+
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        driver
+      end
+
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities], appium_lib: {
+        wait_timeout: 500, listener: custom_listener
+      }
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      # element
+      stub_request(:post, "#{SESSION}/element")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: { ELEMENT: 'element_id_parent' }, sessionId: SESSION, status: 0
+        }.to_json)
+      el = driver.find_element id: 'example'
+      assert_requested :post, "#{SESSION}/element", times: 1
+      assert_equal el.class.name, 'Appium::Core::Element'
+
+      # No W3C, but can call via '::Appium::Core::Element'
+      stub_request(:get, "#{SESSION}/element/element_id_parent/displayed")
+        .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
+      el.displayed?
+      assert_requested :get, "#{SESSION}/element/element_id_parent/displayed", times: 1
+      assert_equal el.class.name, 'Appium::Core::Element'
+
+      stub_request(:post, "#{SESSION}/element/element_id_parent/element")
+        .with(body: { using: 'id', value: 'example2' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: { ELEMENT: 'element_id_children' }, sessionId: SESSION, status: 0
+        }.to_json)
+      c_el = el.find_element id: 'example2'
+      assert_requested :post, "#{SESSION}/element/element_id_parent/element", times: 1
+      assert_equal c_el.class.name, 'Appium::Core::Element'
+
+      # elements
+      stub_request(:post, "#{SESSION}/elements")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ELEMENT: 'element_id_parent' }], sessionId: SESSION, status: 0
+        }.to_json)
+      els = driver.find_elements id: 'example'
+      assert_requested :post, "#{SESSION}/element", times: 1
+      assert_equal els.first.class.name, 'Appium::Core::Element'
+
+      stub_request(:post, "#{SESSION}/element/element_id_parent/elements")
+        .with(body: { using: 'id', value: 'example2' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: [{ ELEMENT: 'element_id_children' }],
+                                                          sessionId: SESSION, status: 0 }.to_json)
+      c_el = els.first.find_elements id: 'example2'
+      assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
+      assert_equal c_el.first.class.name, 'Appium::Core::Element'
+    end
   end
 end
