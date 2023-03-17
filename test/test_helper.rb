@@ -378,7 +378,7 @@ class AppiumLibCoreTest
     end
 
     def parallel?
-      ENV['PARALLEL']
+      ENV.fetch 'PARALLEL'
     end
 
     private
