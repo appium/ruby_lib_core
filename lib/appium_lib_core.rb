@@ -19,6 +19,7 @@ require_relative 'appium_lib_core/common'
 require_relative 'appium_lib_core/driver'
 require_relative 'appium_lib_core/device'
 require_relative 'appium_lib_core/element'
+require_relative 'appium_lib_core/support/event_firing_bridge'
 
 module Appium
   # @private
