@@ -44,7 +44,8 @@ module Appium
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        def initialize(bridge: nil, listener: nil, **opts)
+        # override
+        def initialize(bridge: nil, listener: nil, **opts) # rubocop:disable Lint/MissingSuper
           original_opts = opts.dup
 
           # For ::Appium::Core::Waitable

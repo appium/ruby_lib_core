@@ -505,13 +505,7 @@ module Appium
       end
 
       def get_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        client = http_client || Appium::Core::Base::Http::Default.new
-
-        # open_timeout and read_timeout are explicit wait.
-        client.open_timeout = open_timeout if open_timeout
-        client.read_timeout = read_timeout if read_timeout
-
-        client
+        http_client || Appium::Core::Base::Http::Default.new(open_timeout: open_timeout, read_timeout: read_timeout)
       end
 
       # Ignore setting default wait if the target driver has no implementation
