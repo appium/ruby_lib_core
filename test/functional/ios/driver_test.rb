@@ -151,8 +151,7 @@ class AppiumLibCoreTest
     def test_batch_only_return
       skip_as_appium_version '1.15.0'
 
-      script = <<-SCRIPT
-      SCRIPT
+      script = ''
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio')
       assert(r.result.nil?)
