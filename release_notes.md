@@ -1,3 +1,9 @@
+#### v6.3.0 2023-03-14
+
+- [a61c9a9](https://github.com/appium/ruby_lib_core/commit/a61c9a95cba53e4075bd23046b52152713fc5d48) Release 6.3.0
+- [0081fef](https://github.com/appium/ruby_lib_core/commit/0081fefd9d0e158a903fac13ca6e89e9cb9ba30b) feat: add ::Selenium::WebDriver::Support::AbstractEventListener support as Appium::Support::EventFiringBridge (#456)
+
+
 #### v6.2.1 2023-03-09
 
 - [aacd514](https://github.com/appium/ruby_lib_core/commit/aacd514b23ba823f3893c1a1aaa38098bf778fee) Release 6.2.1

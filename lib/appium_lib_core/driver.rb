@@ -276,6 +276,23 @@ module Appium
       #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
       #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub.com'
       #
+      #     # With a custom listener
+      #     class CustomListener < ::Selenium::WebDriver::Support::AbstractEventListener
+      #       // something
+      #     end
+      #     capabilities: {
+      #       platformName: :ios,
+      #       platformVersion: '11.0',
+      #       deviceName: 'iPhone Simulator',
+      #       automationName: 'XCUITest',
+      #       app: '/path/to/MyiOS.app'
+      #     },
+      #     appium_lib: {
+      #       listener: CustomListener.new,
+      #     }
+      #     @core = Appium::Core.for capabilities: capabilities, appium_lib: appium_lib
+      #     @core.start_driver
+      #
       def self.for(opts = {})
         new.setup_for_new_session(opts)
       end
