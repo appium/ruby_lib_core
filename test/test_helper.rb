@@ -301,6 +301,8 @@ class AppiumLibCoreTest
         AppiumLibCoreTest.appium_version == 'beta' || AppiumLibCoreTest.appium_version == 'next'
       )
         cap[:capabilities]['settings[trackScrollEvents]'] = false
+        cap[:capabilities]['settings[waitForIdleTimeout]'] = 100
+        cap[:capabilities]['settings[waitForSelectorTimeout]'] = 100
       else
         cap[:capabilities][:forceEspressoRebuild] = false
         cap[:capabilities][:espressoBuildConfig] = {}.to_json
