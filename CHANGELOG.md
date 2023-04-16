@@ -10,7 +10,20 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [6.2.0]
+## [6.3.0] - 2023-03-14
+
+### Enhancements
+- Support custom listener
+    - e.g. A listener named `CustomListener` which inherits `::Selenium::WebDriver::Support::AbstractEventListener` can set as `appium_lib: { listener: CustomListener.new}` capability
+
+## [6.2.1] - 2023-03-09
+
+### Enhancements
+- Add `uia_device_orientation_landscaperight` and `uia_device_orientation_portrait_upsidedown` symbols in the `drivede.rotation=`
+- Add `drivede.orientation=` as a syntax sugar of `drivede.rotation=`
+
+
+## [6.2.0] - 2023-01-26
 
 ### Enhancements
 

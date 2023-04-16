@@ -274,8 +274,6 @@ class AppiumLibCoreTest
           appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
           someCapability: 'some_capability',
           eventTimings: true,
-          unicodeKeyboard: true,
-          resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
           autoGrantPermissions: true,
@@ -341,8 +339,6 @@ class AppiumLibCoreTest
           udid: udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
-          unicodeKeyboard: true,
-          resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
           systemPort: system_port,
@@ -383,7 +379,7 @@ class AppiumLibCoreTest
     end
 
     def parallel?
-      ENV['PARALLEL']
+      ENV.fetch 'PARALLEL', false
     end
 
     private
@@ -430,9 +426,7 @@ class AppiumLibCoreTest
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',
             appActivity: 'io.appium.android.apis.ApiDemos',
-            someCapability: 'some_capability',
-            unicodeKeyboard: true,
-            resetKeyboard: true
+            someCapability: 'some_capability'
           }
         }
       }.to_json

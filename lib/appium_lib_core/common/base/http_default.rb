@@ -37,10 +37,11 @@ module Appium
           attr_reader :additional_headers
 
           # override
-          def initialize(open_timeout: nil, read_timeout: nil) # rubocop:disable Lint/MissingSuper
+          def initialize(open_timeout: nil, read_timeout: nil)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
             @additional_headers = {}
+            super
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
