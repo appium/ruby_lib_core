@@ -123,7 +123,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '16.2'
+      platform_version = platform_name.downcase == :tvos ? '16.0' : '16.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -150,7 +150,8 @@ class AppiumLibCoreTest
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
-          maxTypingFrequency: 200
+          maxTypingFrequency: 200,
+          simulatorStartupTimeout: 600000
         },
         appium_lib: {
           export_session: true,
