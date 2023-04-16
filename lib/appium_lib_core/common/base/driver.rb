@@ -44,15 +44,25 @@ module Appium
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
         attr_reader :bridge
 
-        private
+        # override
+        def initialize(bridge: nil, listener: nil, **opts) # rubocop:disable Lint/MissingSuper
+          original_opts = opts.dup
 
-        def initialize(bridge: nil, listener: nil, **opts)
           # For ::Appium::Core::Waitable
           @wait_timeout = opts.delete(:wait_timeout)
           @wait_interval = opts.delete(:wait_interval)
 
-          super
+          # Selenium WebDriver attributes
+          @devtools = nil
+          @bidi = nil
+
+          # in the selenium webdriver as well
+          bridge ||= create_bridge(**opts)
+          add_extensions(bridge.browser)
+          @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
         end
+
+        private
 
         # Create a proper bridge instance.
         #
@@ -947,8 +957,6 @@ module Appium
         #   #           "appPackage"=>"io.appium.android.apis",
         #   #           "appActivity"=>"io.appium.android.apis.ApiDemos",
         #   #           "someCapability"=>"some_capability",
-        #   #           "unicodeKeyboard"=>true,
-        #   #           "resetKeyboard"=>true},
         #   #      "automationName"=>"uiautomator2",
         #   #      "app"=>"/path/to/app/api.apk.zip",
         #   #      "platformVersion"=>"8.1.0",
@@ -956,8 +964,6 @@ module Appium
         #   #      "appPackage"=>"io.appium.android.apis",
         #   #      "appActivity"=>"io.appium.android.apis.ApiDemos",
         #   #      "someCapability"=>"some_capability",
-        #   #      "unicodeKeyboard"=>true,
-        #   #      "resetKeyboard"=>true,
         #   #      "deviceUDID"=>"emulator-5554",
         #   #      "deviceScreenSize"=>"1080x1920",
         #   #      "deviceScreenDensity"=>420,
@@ -1073,7 +1079,7 @@ module Appium
         #
         # @param [String] img_path A path to a partial image you'd like to find
         #
-        # @return [Array<Selenium::WebDriver::Element>]
+        # @return [Array<::Appium::Core::Element>]
         #
         # @example
         #

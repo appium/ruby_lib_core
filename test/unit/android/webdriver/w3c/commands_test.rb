@@ -133,9 +133,7 @@ class AppiumLibCoreTest
                   deviceName: 'Android Emulator',
                   appPackage: 'io.appium.android.apis',
                   appActivity: 'io.appium.android.apis.ApiDemos',
-                  someCapability: 'some_capability',
-                  unicodeKeyboard: true,
-                  resetKeyboard: true
+                  someCapability: 'some_capability'
                 }
               }
             }.to_json
@@ -225,6 +223,15 @@ class AppiumLibCoreTest
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
 
             @driver.rotation = :landscape
+
+            assert_requested(:post, "#{SESSION}/orientation", times: 1)
+          end
+
+          def test_orientation
+            stub_request(:post, "#{SESSION}/orientation")
+              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+            @driver.orientation = :landscape
 
             assert_requested(:post, "#{SESSION}/orientation", times: 1)
           end

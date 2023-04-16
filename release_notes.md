@@ -1,3 +1,22 @@
+#### v6.3.0 2023-03-14
+
+- [a61c9a9](https://github.com/appium/ruby_lib_core/commit/a61c9a95cba53e4075bd23046b52152713fc5d48) Release 6.3.0
+- [0081fef](https://github.com/appium/ruby_lib_core/commit/0081fefd9d0e158a903fac13ca6e89e9cb9ba30b) feat: add ::Selenium::WebDriver::Support::AbstractEventListener support as Appium::Support::EventFiringBridge (#456)
+
+
+#### v6.2.1 2023-03-09
+
+- [aacd514](https://github.com/appium/ruby_lib_core/commit/aacd514b23ba823f3893c1a1aaa38098bf778fee) Release 6.2.1
+- [560ecf3](https://github.com/appium/ruby_lib_core/commit/560ecf32b9463f2417aa496770f87278ea135716) chore: add orientation as a syntax sugar
+- [dd2f87a](https://github.com/appium/ruby_lib_core/commit/dd2f87a8c6da7c2b88290f3fd5813a0ffb545694) chore: add more symbols
+- [65a56e4](https://github.com/appium/ruby_lib_core/commit/65a56e484da47cd000c72222f80b74111e381e27) chore(deps-dev): update rubocop requirement from = 1.46.0 to = 1.47.0 (#452)
+- [e30cd2e](https://github.com/appium/ruby_lib_core/commit/e30cd2ec08943b08fa697fa3337a41122d567a9c) chore(deps-dev): update rubocop requirement from = 1.45.1 to = 1.46.0 (#451)
+- [a1ccba1](https://github.com/appium/ruby_lib_core/commit/a1ccba1fcff98ce8b051c4e533992a58adb3012d) test: remove confusing caps (#450)
+- [9a3366d](https://github.com/appium/ruby_lib_core/commit/9a3366d5db784f05b81512e82c9c1d9255a39032) chore(deps-dev): update rubocop requirement from = 1.44.1 to = 1.45.1 (#449)
+- [3f7157f](https://github.com/appium/ruby_lib_core/commit/3f7157f2dd6f90f2f5f68f5eaac73164506bbc65) chore(deps-dev): update rubocop requirement from = 1.44.0 to = 1.44.1 (#448)
+- [013383d](https://github.com/appium/ruby_lib_core/commit/013383d7eda3bcdb721dbf23395cc5c5883c93e6) ci: add maxTypingFrequency to make typing faster (#446)
+
+
 #### v6.2.0 2023-01-26
 
 - [e1b3b3f](https://github.com/appium/ruby_lib_core/commit/e1b3b3f4d0121ba4af9dd0f000834fa42b653ba0) Release 6.2.0
