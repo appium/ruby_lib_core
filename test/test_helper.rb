@@ -151,7 +151,7 @@ class AppiumLibCoreTest
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
           maxTypingFrequency: 200,
-          simulatorStartupTimeout: 600000
+          simulatorStartupTimeout: 600_000
         },
         appium_lib: {
           export_session: true,
