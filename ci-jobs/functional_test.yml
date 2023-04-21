@@ -19,7 +19,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -36,7 +36,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -53,7 +53,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -70,7 +70,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -87,7 +87,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -104,7 +104,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -123,7 +123,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
     - template: ./functional/ios_setup.yml
       parameters:
@@ -140,7 +140,7 @@ jobs:
       CI: ${{ parameters.ci }}
       IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
       APPIUM_VERSION: ${{ parameters.appiumVersion }}
-      APPIUM_DRIVER: xcuitest
+      APPIUM_DRIVER: xcuitest@4.19.1
     steps:
       - template: ./functional/ios_setup.yml
         parameters:
