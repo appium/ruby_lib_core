@@ -131,7 +131,7 @@ class AppiumLibCoreTest
       cap = {
         caps: { # :desiredCapabilities is also available
           platformName: platform_name,
-          automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
+          automationName: 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
           deviceName: device_name(platform_version, platform_name, wda_port),
