@@ -3,5 +3,10 @@ steps:
   displayName: Xcode Select ${{ parameters.xcodeVersion }}
 - script: xcrun simctl list
   displayName: List Installed Simulators
+- script: |
+    target_sim_id=$(xcrun simctl list devices available | grep "$IOS_DEVICE_NAME (" | cut -d "(" -f2 | cut -d ")" -f1)
+    open -Fn "/Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Applications/Simulator.app"
+    xcrun simctl bootstatus $target_sim_id -b
+  displayName: Prepare iOS Simulator
 - script: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
   displayName: Disable pasteboard automatic sync
