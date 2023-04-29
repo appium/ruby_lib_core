@@ -25,6 +25,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
       displayName: Run tests func_test_ios_base
     - template: ./functional/publish_test_result.yml
@@ -42,6 +44,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
       displayName: Run tests func_test_ios_webdriver1
     - template: ./functional/publish_test_result.yml
@@ -59,6 +63,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/device_test.rb
       displayName: Run tests func_test_ios_webdriver2
     - template: ./functional/publish_test_result.yml
@@ -76,6 +82,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_test.rb
       displayName: Run tests func_test_ios_ios1
     - template: ./functional/publish_test_result.yml
@@ -93,6 +101,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForIOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
       displayName: Run tests func_test_ios_ios2
     - template: ./functional/publish_test_result.yml
@@ -112,6 +122,8 @@ jobs:
     - script: brew install ffmpeg && brew tap wix/brew && brew install applesimutils
       displayName: Install ffmpeg and applesimutils
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
       displayName: Run tests func_test_ios_ios3
     - template: ./functional/publish_test_result.yml
@@ -129,6 +141,8 @@ jobs:
       parameters:
         xcodeVersion: ${{ parameters.xcodeForTVOS }}
     - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
     - script: bundle exec rake test:func:ios TESTS=test/functional/ios/tv_driver_test.rb
       displayName: Run tests func_test_ios_tvos
     - template: ./functional/publish_test_result.yml
@@ -146,6 +160,8 @@ jobs:
         parameters:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
       - template: ./functional/run_appium.yml
+    - script: appium driver run xcuitest build-wda
+      displayName: Prebuild XCUITest driver
       - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/image_comparison_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
