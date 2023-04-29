@@ -160,8 +160,8 @@ jobs:
         parameters:
           xcodeVersion: ${{ parameters.xcodeForIOS }}
       - template: ./functional/run_appium.yml
-    - script: appium driver run xcuitest build-wda
-      displayName: Prebuild XCUITest driver
+      - script: appium driver run xcuitest build-wda
+        displayName: Prebuild XCUITest driver
       - script: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/image_comparison_test.rb
         displayName: Run tests
       - template: ./functional/publish_test_result.yml
