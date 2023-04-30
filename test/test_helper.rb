@@ -219,7 +219,6 @@ class AppiumLibCoreTest
 
       derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
-      caps[:caps][:derivedDataPath] = derived_data_path
 
       platform_name = caps[:caps][:platformName].downcase
       runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
@@ -235,6 +234,8 @@ class AppiumLibCoreTest
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product
         caps[:caps][:useXctestrunFile] = use_xctestrun_file
+      else
+        caps[:caps][:derivedDataPath] = derived_data_path
       end
 
       caps
