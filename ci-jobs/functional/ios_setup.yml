@@ -8,5 +8,7 @@ steps:
     open -Fn "/Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer/Applications/Simulator.app"
     xcrun simctl bootstatus $target_sim_id -b
   displayName: Prepare iOS Simulator
+  env:
+    XCODE_VERSION: ${{ parameters.xcodeVersion }}
 - script: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
   displayName: Disable pasteboard automatic sync
