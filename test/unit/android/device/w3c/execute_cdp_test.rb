@@ -34,7 +34,7 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end
-        end # class DeviceLockTest
+        end
 
         class ExecuteCDPChromeTest < Minitest::Test
           include AppiumLibCoreTest::Mock
@@ -50,7 +50,7 @@ class AppiumLibCoreTest
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end
-        end # class DeviceLockTest
+        end
       end # module W3C
     end # module Device
   end # module Android
