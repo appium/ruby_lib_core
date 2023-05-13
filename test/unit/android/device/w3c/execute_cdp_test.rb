@@ -27,10 +27,10 @@ class AppiumLibCoreTest
             @driver = android_mock_create_session_w3c
 
             stub_request(:post, "#{SESSION}/goog/cdp/execute")
-              .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Japan' } }.to_json)
+              .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Asia/Tokyo' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
 
-            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Japan' }
+            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Asia/Tokyo' }
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end
@@ -43,10 +43,10 @@ class AppiumLibCoreTest
             @driver = android_chrome_mock_create_session_w3c
 
             stub_request(:post, "#{SESSION}/goog/cdp/execute")
-              .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Japan' } }.to_json)
+              .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Asia/Tokyo' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
 
-            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Japan' }
+            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Asia/Tokyo' }
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end

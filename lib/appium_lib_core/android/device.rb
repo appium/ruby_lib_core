@@ -423,8 +423,8 @@ module Appium
                 # for selenium-webdriver compatibility in chrome browser session.
                 # This may be needed in selenium-webdriver 4.8 or over? (around the version)
                 # when a session starts browserName: 'chrome' for bridge.
-                def send_command(cmd:, params:)
-                  execute :chrome_send_command, {}, { cmd: cmd, params: params }
+                def send_command(command_params)
+                  execute :chrome_send_command, {}, command_params
                 end
               end
             end
