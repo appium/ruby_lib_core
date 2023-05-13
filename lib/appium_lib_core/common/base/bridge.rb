@@ -357,11 +357,6 @@ module Appium
           execute :take_element_screenshot, id: element_id
         end
 
-        # for selenium-webdriver compatibility for chrome browser
-        # def send_command(cmd:, params:)
-        #   execute :chrome_send_command, {}, { cmd: cmd, params: params }
-        # end
-
         private
 
         def unwrap_script_result(arg)
