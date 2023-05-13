@@ -1,3 +1,9 @@
+#### v6.4.1 2023-05-13
+
+- [5d1ba2e](https://github.com/appium/ruby_lib_core/commit/5d1ba2e6e814dfde0a0c727c1113be5024959bc3) Release 6.4.1
+- [2441522](https://github.com/appium/ruby_lib_core/commit/24415225b2d0689aa3e80d889096a4dcb50d5689) fix: execute cdp for chrome session (#470)
+
+
 #### v6.4.0 2023-04-30
 
 - [29bd26e](https://github.com/appium/ruby_lib_core/commit/29bd26ec42968df0277181c5af8894185d3902d3) Release 6.4.0
