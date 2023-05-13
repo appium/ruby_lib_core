@@ -30,7 +30,7 @@ class AppiumLibCoreTest
               .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Asia/Tokyo' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
 
-            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Asia/Tokyo' }
+            @driver.execute_cdp 'Emulation.setTimezoneOverride', 'timezoneId': 'Asia/Tokyo'
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end
@@ -46,7 +46,7 @@ class AppiumLibCoreTest
               .with(body: { cmd: 'Emulation.setTimezoneOverride', params: { timezoneId: 'Asia/Tokyo' } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
 
-            @driver.execute_cdp 'Emulation.setTimezoneOverride', { 'timezoneId': 'Asia/Tokyo' }
+            @driver.execute_cdp 'Emulation.setTimezoneOverride', 'timezoneId': 'Asia/Tokyo'
 
             assert_requested(:post, "#{SESSION}/goog/cdp/execute", times: 1)
           end
