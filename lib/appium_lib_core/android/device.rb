@@ -413,10 +413,19 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:execute_cdp) do
               # SeleniumWebdriver could already define this method
-              return if method_defined? :execute_cdp
+              unless method_defined? :execute_cdp
+                def execute_cdp(cmd, **params)
+                  execute :chrome_send_command, {}, { cmd: cmd, params: params }
+                end
+              end
 
-              def execute_cdp(cmd, **params)
-                execute :chrome_send_command, {}, { cmd: cmd, params: params }
+              unless method_defined? :send_command
+                # for selenium-webdriver compatibility in chrome browser session.
+                # This may be needed in selenium-webdriver 4.8 or over? (around the version)
+                # when a session starts browserName: 'chrome' for bridge.
+                def send_command(cmd:, params:)
+                  execute :chrome_send_command, {}, { cmd: cmd, params: params }
+                end
               end
             end
 

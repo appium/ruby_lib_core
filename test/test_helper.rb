@@ -448,6 +448,36 @@ class AppiumLibCoreTest
       driver
     end
 
+    def android_chrome_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            browserName: 'chrome',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .with(headers: { 'X-Idempotency-Key' => /.+/ })
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 5_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 5_000 }.to_json, times: 1)
+      driver
+    end
+
     def ios_mock_create_session
       ios_mock_create_session_w3c
     end
