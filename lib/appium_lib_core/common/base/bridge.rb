@@ -357,6 +357,15 @@ module Appium
           execute :take_element_screenshot, id: element_id
         end
 
+        # for selenium-webdriver compatibility in chrome browser session.
+        # This may be needed in selenium-webdriver 4.8 or over? (around the version)
+        # when a session starts browserName: 'chrome' for bridge.
+        # This method is not only for Android, but also chrome desktop browser as well.
+        # So this bridge itself does not restrict the target module.
+        def send_command(command_params)
+          execute :chrome_send_command, {}, command_params
+        end
+
         private
 
         def unwrap_script_result(arg)

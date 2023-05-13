@@ -302,6 +302,10 @@ module Appium
         #   @driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'
         #   @driver.execute_cdp 'Page.getResourceTree'
         #
+        #   # for Ruby 2,7 and 3+ compatibility
+        #   params = {'timezoneId': 'Asia/Tokyo'}
+        #   driver.execute_cdp 'Emulation.setTimezoneOverride', **params
+        #
 
         ####
         ## class << self
