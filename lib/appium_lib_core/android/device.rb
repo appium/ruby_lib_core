@@ -126,6 +126,7 @@ module Appium
         #   driver.location = ::Appium::Location.new(10, 10, 10)
         #
 
+        # @!method set_location
         # Set the location of the device.
         #
         # @param [String, Number] latitude Set the latitude.
