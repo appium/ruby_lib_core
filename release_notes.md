@@ -1,3 +1,23 @@
+#### v6.4.1 2023-05-13
+
+- [5d1ba2e](https://github.com/appium/ruby_lib_core/commit/5d1ba2e6e814dfde0a0c727c1113be5024959bc3) Release 6.4.1
+- [2441522](https://github.com/appium/ruby_lib_core/commit/24415225b2d0689aa3e80d889096a4dcb50d5689) fix: execute cdp for chrome session (#470)
+
+
+#### v6.4.0 2023-04-30
+
+- [29bd26e](https://github.com/appium/ruby_lib_core/commit/29bd26ec42968df0277181c5af8894185d3902d3) Release 6.4.0
+- [2effac6](https://github.com/appium/ruby_lib_core/commit/2effac6e7b358fc2dea13ab75cd72be7ccb3bed3) ci: test_helper.rb
+- [8addafd](https://github.com/appium/ruby_lib_core/commit/8addafd6492a68c9e9d02f063a968fe543b341b9) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.9 to ~> 4.2, < 4.10 (#468)
+- [e6bc188](https://github.com/appium/ruby_lib_core/commit/e6bc18853305f5b81c3be8a201ac0f9528e772ea) chore(deps-dev): update rubocop requirement from = 1.50.1 to = 1.50.2 (#465)
+- [61fd1e8](https://github.com/appium/ruby_lib_core/commit/61fd1e8d1692f3c43e6390cb1ff3e39e04f4a8fd) ci: update ci macos version (#464)
+- [112302c](https://github.com/appium/ruby_lib_core/commit/112302c8bf5c1090d331efe6f10fe4b66d0edcaf) chore(deps-dev): update rubocop requirement from = 1.50.0 to = 1.50.1 (#462)
+- [73c745c](https://github.com/appium/ruby_lib_core/commit/73c745c775bcaa45c0231fb97fbe14d984b9a6b4) chore(deps-dev): update rubocop requirement from = 1.49.0 to = 1.50.0 (#461)
+- [45a2850](https://github.com/appium/ruby_lib_core/commit/45a2850078f4f8983b3f4eca99fa8d19d825ce61) chore(deps-dev): update rubocop requirement from = 1.48.1 to = 1.49.0 (#459)
+- [4e73293](https://github.com/appium/ruby_lib_core/commit/4e73293cd9bccf20bed288d6c8284ff669772eaf) chore: tweak http client (#458)
+- [ea2765a](https://github.com/appium/ruby_lib_core/commit/ea2765a989735a8f471f1f57d33e8af66188a87c) chore(deps-dev): update rubocop requirement from = 1.47.0 to = 1.48.1 (#457)
+
+
 #### v6.3.0 2023-03-14
 
 - [a61c9a9](https://github.com/appium/ruby_lib_core/commit/a61c9a95cba53e4075bd23046b52152713fc5d48) Release 6.3.0

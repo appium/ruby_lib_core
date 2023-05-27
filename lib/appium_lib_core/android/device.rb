@@ -106,6 +106,43 @@ module Appium
         #   @driver.toggle_data
         #
 
+        # @!method location
+        # Get the location of the device.
+        #
+        # @return [::Appium::Location]
+        #
+        # @example
+        #
+        #   driver.location #=> ::Appium::Location.new(10, 10, 10)
+        #
+
+        # @!method location=
+        # Set the location of the device.
+        #
+        # @param [::Appium::Location] location Set the location.
+        #
+        # @example
+        #
+        #   driver.location = ::Appium::Location.new(10, 10, 10)
+        #
+
+        # @!method set_location
+        # Set the location of the device.
+        #
+        # @param [String, Number] latitude Set the latitude.
+        # @param [String, Number] longitude Set the longitude.
+        # @param [String, Number] altitude Set the altitude.
+        # @param [String, Number] speed Set the speed to apply the location on Android real devices
+        #                               in meters/second @since Appium 1.21.0 and in knots for emulators @since Appium 1.22.0.
+        # @param [String, Number] satellites Sets the count of geo satellites being tracked in range 1..12 @since Appium 1.22.0.
+        #                                    This number is respected on Emulators.
+        # @param [::Appium::Location]
+        #
+        # @example
+        #
+        #   driver.set_location 10, 10, 0
+        #
+
         # @!method toggle_location_services
         #   Switch the state of the location service
         #
@@ -301,6 +338,10 @@ module Appium
         #
         #   @driver.execute_cdp 'Page.captureScreenshot', quality: 50, format: 'jpeg'
         #   @driver.execute_cdp 'Page.getResourceTree'
+        #
+        #   # for Ruby 2,7 and 3+ compatibility
+        #   params = {'timezoneId': 'Asia/Tokyo'}
+        #   driver.execute_cdp 'Emulation.setTimezoneOverride', **params
         #
 
         ####

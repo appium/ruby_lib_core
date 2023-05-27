@@ -123,7 +123,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '15.2'
+      platform_version = platform_name.downcase == :tvos ? '16.0' : '16.2'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -150,7 +150,8 @@ class AppiumLibCoreTest
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
-          maxTypingFrequency: 200
+          maxTypingFrequency: 200,
+          simulatorStartupTimeout: 600_000
         },
         appium_lib: {
           export_session: true,
@@ -218,7 +219,6 @@ class AppiumLibCoreTest
 
       derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
-      caps[:caps][:derivedDataPath] = derived_data_path
 
       platform_name = caps[:caps][:platformName].downcase
       runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
@@ -234,6 +234,8 @@ class AppiumLibCoreTest
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product
         caps[:caps][:useXctestrunFile] = use_xctestrun_file
+      else
+        caps[:caps][:derivedDataPath] = derived_data_path
       end
 
       caps
@@ -436,6 +438,36 @@ class AppiumLibCoreTest
             appPackage: 'io.appium.android.apis',
             appActivity: 'io.appium.android.apis.ApiDemos',
             someCapability: 'some_capability'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .with(headers: { 'X-Idempotency-Key' => /.+/ })
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 5_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 5_000 }.to_json, times: 1)
+      driver
+    end
+
+    def android_chrome_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            browserName: 'chrome',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator'
           }
         }
       }.to_json
