@@ -22,18 +22,6 @@ Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CH
 # Related library
 - https://github.com/appium/ruby_lib
 
-# Compatibility Matrix
-
-This library depends on the Selenium Ruby binding.
-Basically the latest Appium client can use the latest Selenium Ruby binding, but it needs a proper combination in some cases as below.
-
-|Appium Ruby Core Client| Selenium binding|
-|----|----|
-| `=> 6.4.0` | `~> 4.2`, `< 4.10` |
-| `=> 5.2.0`, `< 6.4.0` | `~> 4.2`, `< 4.9` |
-| `=> 5.0.0` `< 5.2.0` | `~> 4.0`, `< 4.2` |
-| `< 5.0.0` | `~> 3.14`|
-
 # How to start
 ## Run tests
 ### Unit Tests
