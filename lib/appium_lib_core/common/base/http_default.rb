@@ -59,7 +59,7 @@ module Appium
 
           def request(verb, url, headers, payload, redirects = 0)
             headers['User-Agent'] = "appium/ruby_lib_core/#{VERSION} (#{headers['User-Agent']})"
-            headers  = headers.merge @additional_headers unless @additional_headers.empty?
+            headers = headers.merge @additional_headers unless @additional_headers.empty?
 
             super(verb, url, headers, payload, redirects)
           end

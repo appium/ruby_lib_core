@@ -224,3 +224,5 @@ Style/RedundantInitialize: # new in 1.27
   Enabled: true
 Style/RedundantStringEscape: # new in 1.37
   Enabled: true
+Style/RegexpLiteral:
+  Enabled: false
