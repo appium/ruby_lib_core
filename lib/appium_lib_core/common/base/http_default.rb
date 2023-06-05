@@ -27,13 +27,6 @@ module Appium
         end
 
         class Default < Selenium::WebDriver::Remote::Http::Default
-          DEFAULT_HEADERS = {
-            'Accept' => CONTENT_TYPE,
-            'Content-Type' => "#{CONTENT_TYPE}; charset=UTF-8",
-            'User-Agent' =>
-              "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
-          }.freeze
-
           attr_reader :additional_headers
 
           # override
@@ -64,6 +57,13 @@ module Appium
             @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
           end
 
+          def request(verb, url, headers, payload, redirects = 0)
+            headers['User-Agent'] = "appium/ruby_lib_core/#{VERSION} (#{headers['User-Agent']})"
+            headers = headers.merge @additional_headers unless @additional_headers.empty?
+
+            super(verb, url, headers, payload, redirects)
+          end
+
           private
 
           def validate_url_param(scheme, host, port, path)
@@ -72,30 +72,6 @@ module Appium
             message = "Given parameters are scheme: '#{scheme}', host: '#{host}', port: '#{port}', path: '#{path}'"
             ::Appium::Logger.debug(message)
             false
-          end
-
-          public
-
-          # override to use default header
-          # https://github.com/SeleniumHQ/selenium/blob/master/rb/lib/selenium/webdriver/remote/http/common.rb#L46
-          def call(verb, url, command_hash)
-            url      = server_url.merge(url) unless url.is_a?(URI)
-            headers  = DEFAULT_HEADERS.dup
-            headers  = headers.merge @additional_headers unless @additional_headers.empty?
-            headers['Cache-Control'] = 'no-cache' if verb == :get
-
-            if command_hash
-              payload                   = JSON.generate(command_hash)
-              headers['Content-Length'] = payload.bytesize.to_s if [:post, :put].include?(verb)
-            elsif verb == :post
-              payload = '{}'
-              headers['Content-Length'] = '2'
-            end
-
-            ::Appium::Logger.info("   >>> #{url} | #{payload}")
-            ::Appium::Logger.info("     > #{headers.inspect}")
-
-            request verb, url, headers, payload
           end
         end
       end
