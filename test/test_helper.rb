@@ -443,7 +443,6 @@ class AppiumLibCoreTest
       }.to_json
 
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .with(headers: { 'X-Idempotency-Key' => /.+/ })
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
@@ -453,8 +452,10 @@ class AppiumLibCoreTest
       driver = @core.start_driver
 
       assert_equal({}, driver.send(:bridge).http.additional_headers)
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', headers: { 'X-Idempotency-Key' => /.+/ }, times: 1)
+
       assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 5_000 }.to_json, times: 1)
+      assert_not_requested(:post, "#{SESSION}/timeouts", headers: { 'X-Idempotency-Key' => /.+/ }, body: { implicit: 5_000 }.to_json, times: 1)
       driver
     end
 
@@ -473,7 +474,6 @@ class AppiumLibCoreTest
       }.to_json
 
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .with(headers: { 'X-Idempotency-Key' => /.+/ })
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
@@ -483,8 +483,10 @@ class AppiumLibCoreTest
       driver = @core.start_driver
 
       assert_equal({}, driver.send(:bridge).http.additional_headers)
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', headers: { 'X-Idempotency-Key' => /.+/ }, times: 1)
+
       assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 5_000 }.to_json, times: 1)
+      assert_not_requested(:post, "#{SESSION}/timeouts", headers: { 'X-Idempotency-Key' => /.+/ }, body: { implicit: 5_000 }.to_json, times: 1)
       driver
     end
 
@@ -510,7 +512,7 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', headers: { 'X-Idempotency-Key' => /.+/ }, times: 1)
       driver
     end
 
@@ -532,7 +534,7 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', headers: { 'X-Idempotency-Key' => /.+/ }, times: 1)
       driver
     end
 
@@ -554,7 +556,7 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', headers: { 'X-Idempotency-Key' => /.+/ }, times: 1)
       driver
     end
 
