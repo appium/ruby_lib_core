@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [6.4.2] - 2023-06-07
+
+### Enhancements
+- Simplify internal http client implementation a bit
+
 ## [6.4.1] - 2023-05-13
 
 ### Bug fixes
