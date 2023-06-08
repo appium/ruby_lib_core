@@ -1,3 +1,16 @@
+#### v6.4.2 2023-06-07
+
+- [a3ebe9e](https://github.com/appium/ruby_lib_core/commit/a3ebe9eb44ec0fec4486d320525c90c807e7fcaa) Release 6.4.2
+- [393e3e4](https://github.com/appium/ruby_lib_core/commit/393e3e4c85708b0973215cbc17f08e413961fe21) refactor: define UA in requests is sufficisnet instead (#473)
+- [0a5dc26](https://github.com/appium/ruby_lib_core/commit/0a5dc2648d124bf6c93fb8604d30cd92d5247871) chore(deps-dev): update rubocop requirement from = 1.51.0 to = 1.52.0 (#472)
+- [e631ed9](https://github.com/appium/ruby_lib_core/commit/e631ed944c0d02d7119b3e539d98dbfb3677da7b) Revert "docs: update the readme"
+- [95af8b7](https://github.com/appium/ruby_lib_core/commit/95af8b7eef78d90a2fdd0cfe958f62697ba088fd) docs: update the readme
+- [2d2a523](https://github.com/appium/ruby_lib_core/commit/2d2a523ee0048d221dda04c12067d63b148cc350) test: add settings (#460)
+- [40e5c7c](https://github.com/appium/ruby_lib_core/commit/40e5c7ca57dc8cffd5f2504b87263039109c2e0e) docs: missing method name
+- [7bf0f6d](https://github.com/appium/ruby_lib_core/commit/7bf0f6d7907d586f8eddf8ea5da5ca33c1530fba) docs: move docs about location
+- [5fb2aca](https://github.com/appium/ruby_lib_core/commit/5fb2acafa63185a35aac49b3865d85ff727fc843) chore(deps-dev): update rubocop requirement from = 1.50.2 to = 1.51.0 (#471)
+
+
 #### v6.4.1 2023-05-13
 
 - [5d1ba2e](https://github.com/appium/ruby_lib_core/commit/5d1ba2e6e814dfde0a0c727c1113be5024959bc3) Release 6.4.1
