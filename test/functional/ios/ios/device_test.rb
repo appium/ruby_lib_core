@@ -28,7 +28,7 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+        'Alert Views'
       end
 
       public
