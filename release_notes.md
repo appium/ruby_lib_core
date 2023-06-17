@@ -1,3 +1,9 @@
+#### v6.5.0 2023-06-11
+
+- [66d21df](https://github.com/appium/ruby_lib_core/commit/66d21df3260e913c43934d2172fafdcf4ac166da) Release 6.5.0
+- [9e7efdf](https://github.com/appium/ruby_lib_core/commit/9e7efdf7220ecec8cc661b0cc59b4756129b76ef) chore: bump selenium webdriver version (#474)
+
+
 #### v6.4.2 2023-06-07
 
 - [a3ebe9e](https://github.com/appium/ruby_lib_core/commit/a3ebe9eb44ec0fec4486d320525c90c807e7fcaa) Release 6.4.2
