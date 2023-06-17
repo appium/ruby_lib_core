@@ -11,7 +11,7 @@ trigger:
     - main
   paths:
     exclude:
-      - *.md
+      - "*.md"
 
 pr:
   autoCancel: true
