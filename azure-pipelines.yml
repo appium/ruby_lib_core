@@ -21,7 +21,7 @@ pr:
       - main
   paths:
     exclude:
-      - *.md
+      - "*.md"
 
 # Runs tests nightly to make sure they works against appium@beta
 schedules:
