@@ -1,3 +1,12 @@
+#### v7.0.0 2023-06-17
+
+- [a6551e6](https://github.com/appium/ruby_lib_core/commit/a6551e65b0dd889cbbac54d7c1f73e59ad613c09) Release 7.0.0
+- [8682a16](https://github.com/appium/ruby_lib_core/commit/8682a162aa886b2d62b0d77439b19757b0c05d2c) ci: use >= for ci
+- [1fdbfdf](https://github.com/appium/ruby_lib_core/commit/1fdbfdfa764dc13a84281bf82f58f484aa7e804d) feat: drop ruby v2 (#481)
+- [7c716c9](https://github.com/appium/ruby_lib_core/commit/7c716c9f8211798fa0a3e366b67146e8a0cae67d) ci: customize triggers (#479)
+- [e29fb25](https://github.com/appium/ruby_lib_core/commit/e29fb25c9e98998e79c0e200edbf3d27a08536f1) chore(deps-dev): update rubocop requirement from = 1.52.0 to = 1.52.1 (#478)
+
+
 #### v6.5.0 2023-06-11
 
 - [66d21df](https://github.com/appium/ruby_lib_core/commit/66d21df3260e913c43934d2172fafdcf4ac166da) Release 6.5.0
