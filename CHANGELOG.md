@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [7.0.0] - 2023-06-17
+
+### Deprecations
+
+- Drop Ruby 2.7 support
+
 ## [6.5.0] - 2023-06-11
 
 ### Enhancements
