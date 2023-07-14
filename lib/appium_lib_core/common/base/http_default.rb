@@ -50,8 +50,8 @@ module Appium
             return @server_url unless validate_url_param(scheme, host, port, path)
 
             # Add / if 'path' does not have it
-            path = path.start_with?('/') ? path : "/#{path}"
-            path = path.end_with?('/') ? path : "#{path}/"
+            path = "/#{path}" if path.start_with?('/')
+            path = "#{path}/" if path.end_with?('/')
 
             @http = nil
             @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
