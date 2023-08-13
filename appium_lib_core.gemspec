@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'appium_lib_core/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0')
 
   spec.name          = 'appium_lib_core'
   spec.version       = Appium::Core::VERSION
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.1'
   spec.add_development_dependency 'webmock', '~> 3.18.1'
-  spec.add_development_dependency 'rubocop', '1.52.1'
+  spec.add_development_dependency 'rubocop', '1.56.0'
   spec.add_development_dependency 'appium_thor', '~> 1.0'
   spec.add_development_dependency 'parallel_tests'
   spec.add_development_dependency 'simplecov'
