@@ -13,6 +13,8 @@
 # limitations under the License.
 
 require 'securerandom'
+# to avoid mysterious resolution error 'uninitialized constant Selenium::WebDriver::Remote::Http::Default::Net (NameError)'
+require 'net/http'
 
 require_relative '../../version'
 
@@ -26,7 +28,7 @@ module Appium
           }.freeze
         end
 
-        class Default < Selenium::WebDriver::Remote::Http::Default
+        class Default < ::Selenium::WebDriver::Remote::Http::Default
           attr_reader :additional_headers
 
           # override
