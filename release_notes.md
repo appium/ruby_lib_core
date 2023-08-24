@@ -1,3 +1,15 @@
+#### v7.1.0 2023-08-15
+
+- [899022a](https://github.com/appium/ruby_lib_core/commit/899022a782dfec214049800dec9c2bd9d897e9cd) Release 7.1.0
+- [d2b9e14](https://github.com/appium/ruby_lib_core/commit/d2b9e149b57aa4731ed0b2de179d76464e7cccfc) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.11 to ~> 4.2, < 4.12 (#489)
+- [89379c6](https://github.com/appium/ruby_lib_core/commit/89379c6a709af8d16e039596fd3863a92bd91266) chore(deps-dev): update rubocop requirement from = 1.55.1 to = 1.56.0 (#490)
+- [0a1020e](https://github.com/appium/ruby_lib_core/commit/0a1020e2d5e65baf2aab30c7afcf348b73bc29e3) chore(deps-dev): update rubocop requirement from = 1.55.0 to = 1.55.1 (#488)
+- [df01060](https://github.com/appium/ruby_lib_core/commit/df010603f0bef8fc0ea611121a965268ee060bf7) chore(deps-dev): update rubocop requirement from = 1.54.2 to = 1.55.0 (#487)
+- [27c9f2e](https://github.com/appium/ruby_lib_core/commit/27c9f2e51005b1d052d3d6474d5d57b3682e2979) docs: README.md
+- [758ca8b](https://github.com/appium/ruby_lib_core/commit/758ca8bcdc96064488e628b96a5704fb640e8d00) chore(deps-dev): update rubocop requirement from = 1.52.1 to = 1.54.2 (#486)
+- [580be30](https://github.com/appium/ruby_lib_core/commit/580be30ad387e3a446100b5d3e39699878fe5547) chore: add CODEOWNERS
+
+
 #### v7.0.0 2023-06-17
 
 - [a6551e6](https://github.com/appium/ruby_lib_core/commit/a6551e65b0dd889cbbac54d7c1f73e59ad613c09) Release 7.0.0
