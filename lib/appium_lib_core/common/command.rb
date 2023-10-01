@@ -192,6 +192,7 @@ module Appium
         touch_actions: [:post, 'session/:session_id/touch/perform'],
         multi_touch: [:post, 'session/:session_id/touch/multi/perform'],
 
+        # TODO: remove
         set_immediate_value: [:post, 'session/:session_id/appium/element/:id/value'],
         replace_value: [:post, 'session/:session_id/appium/element/:id/replace_value'],
 
