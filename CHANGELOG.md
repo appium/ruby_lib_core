@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [7.1.1] - 2023-10-01
+
+### Deprecations
+
+- Add deprecation marks in `immediate_value` and `replace_value`
+
 ## [7.1.0] - 2023-08-15
 
 ### Enhancements
