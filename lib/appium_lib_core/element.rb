@@ -78,7 +78,7 @@ module Appium
         @bridge.set_immediate_value @id, *value
       end
 
-      # @deprecated Use 'mobile: replaceElementValue' instead.
+      # @deprecated Use element send_keys or 'mobile: replaceElementValue' for UIAutomator2 instead.
       # Replace the value to element directly
       #
       # @example
