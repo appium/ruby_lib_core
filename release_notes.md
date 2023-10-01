@@ -1,3 +1,17 @@
+#### v7.1.1 2023-10-01
+
+- [7461f6f](https://github.com/appium/ruby_lib_core/commit/7461f6f16b00ea5c6c925da99b7000516c91add6) Release 7.1.1
+- [550d7c4](https://github.com/appium/ruby_lib_core/commit/550d7c427142f413667c3cc65886c687feeef291) chore: add deprecation marks (#500)
+- [99aef31](https://github.com/appium/ruby_lib_core/commit/99aef3118767fc355c1405eca18011302c61b6eb) chore(deps-dev): update rubocop requirement from = 1.56.2 to = 1.56.4 (#499)
+- [700aecb](https://github.com/appium/ruby_lib_core/commit/700aecb9932653dc2af6e604db74783d5a123d0d) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.13 to ~> 4.2, < 4.14 (#498)
+- [8ca3872](https://github.com/appium/ruby_lib_core/commit/8ca387258ff3d077d1e68b21aa0947cde1732307) test: tweak a bit (#495)
+- [d58652c](https://github.com/appium/ruby_lib_core/commit/d58652c287457270d92b8f5a1a454e42afc85ebc) ci: use latest 2
+- [6ed37c7](https://github.com/appium/ruby_lib_core/commit/6ed37c7372c9562502ccd5f3d99a91d035be8970) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.12 to ~> 4.2, < 4.13 (#494)
+- [a2256f4](https://github.com/appium/ruby_lib_core/commit/a2256f44a5526081dff4bf7452df7a910ab27701) chore(deps-dev): update rubocop requirement from = 1.56.1 to = 1.56.2 (#493)
+- [1801f73](https://github.com/appium/ruby_lib_core/commit/1801f73e5f7974065a7c37a53f9f6036742f20aa) chore(deps-dev): update webmock requirement from ~> 3.18.1 to ~> 3.19.0 (#492)
+- [8be43b9](https://github.com/appium/ruby_lib_core/commit/8be43b9ca6e0e700e9adbe42e3a019fc35a537e2) chore(deps-dev): update rubocop requirement from = 1.56.0 to = 1.56.1 (#491)
+
+
 #### v7.1.0 2023-08-15
 
 - [899022a](https://github.com/appium/ruby_lib_core/commit/899022a782dfec214049800dec9c2bd9d897e9cd) Release 7.1.0
