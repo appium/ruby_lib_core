@@ -87,7 +87,7 @@ module Appium
       #
       def replace_value(*value)
         ::Appium::Logger.warn(
-          '[DEPRECATION] element.replace_value is deprecated. Please use element.send_keys instead, ' +
+          '[DEPRECATION] element.replace_value is deprecated. Please use element.send_keys instead, ' \
           'or "mobile: replaceElementValue" for UIAutomator2.'
         )
         @bridge.replace_value @id, *value
