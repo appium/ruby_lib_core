@@ -484,7 +484,7 @@ module Appium
             # TODO: TEST ME
             ::Appium::Core::Device.add_endpoint_method(:end_coverage) do
               def end_coverage(path, intent)
-                ::Appium::Logger.warn "[DEPRECATION] The method no longer exists. This method will be removed."
+                ::Appium::Logger.warn '[DEPRECATION] The method no longer exists. This method will be removed.'
                 execute :end_coverage, {}, path: path, intent: intent
               end
             end
