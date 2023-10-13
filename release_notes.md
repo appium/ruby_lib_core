@@ -1,3 +1,11 @@
+#### v7.2.0 2023-10-13
+
+- [b51ade2](https://github.com/appium/ruby_lib_core/commit/b51ade2146b7bf45debc79dfa6f7691d3c849fa1) Release 7.2.0
+- [25b233a](https://github.com/appium/ruby_lib_core/commit/25b233a6480251f8c59c27bc221917e140c7b4f7) chore(deps-dev): update rubocop requirement from = 1.56.4 to = 1.57.0 (#503)
+- [986231f](https://github.com/appium/ruby_lib_core/commit/986231f10fde277e1c33e6b0bc810b0d1fd6a003) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.14 to ~> 4.2, < 4.15 (#502)
+- [2b6a181](https://github.com/appium/ruby_lib_core/commit/2b6a18192664349307ae35dd93bf64330ea7756c) test: tweak caps (#501)
+
+
 #### v7.1.1 2023-10-01
 
 - [7461f6f](https://github.com/appium/ruby_lib_core/commit/7461f6f16b00ea5c6c925da99b7000516c91add6) Release 7.1.1
