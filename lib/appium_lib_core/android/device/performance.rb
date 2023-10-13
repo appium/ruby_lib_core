@@ -20,12 +20,15 @@ module Appium
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:get_performance_data_types) do
               def get_performance_data_types
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getPerformanceDataTypes' extension instead"
                 execute :get_performance_data_types
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:get_performance_data) do
               def get_performance_data(package_name:, data_type:, data_read_timeout: 1000)
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getPerformanceData' extension instead"
+
                 execute(:get_performance_data, {},
                         packageName: package_name, dataType: data_type, dataReadTimeout: data_read_timeout)
               end

@@ -224,6 +224,7 @@ module Appium
           )
         end
 
+        # @deprecated Use 'mobile: lock' extension instead.
         # Lock the device
         # @return [String]
         #
@@ -234,9 +235,11 @@ module Appium
         #                   #   Block other commands during locking the device.
         #
         def lock(duration = nil)
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: lock' extension instead"
           @bridge.lock(duration)
         end
 
+        # @deprecated Use 'mobile: isLocked' extension instead.
         # Check current device status is weather locked or not
         #
         # @example
@@ -245,10 +248,12 @@ module Appium
         #   @driver.locked?
         #
         def locked?
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isLocked' extension instead"
           @bridge.device_locked?
         end
         alias device_locked? locked?
 
+        # @deprecated Use 'mobile: unlock' extension instead.
         # Unlock the device
         #
         # @example
@@ -256,9 +261,11 @@ module Appium
         #   @driver.unlock
         #
         def unlock
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: unlock' extension instead"
           @bridge.unlock
         end
 
+        # @deprecated Use 'mobile: hideKeyboard' extension instead.
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
         #   Defaults to 'Done' for iOS(except for XCUITest).
@@ -273,9 +280,11 @@ module Appium
         #   @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
         def hide_keyboard(close_key = nil, strategy = nil)
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: hideKeyboard' extension instead"
           @bridge.hide_keyboard close_key, strategy
         end
 
+        # @deprecated Use 'mobile: isKeyboardShown' extension instead.
         # Get whether keyboard is displayed or not.
         # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
         #
@@ -284,6 +293,7 @@ module Appium
         #   @driver.keyboard_shown?   # true
         #
         def keyboard_shown?
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isKeyboardShown' extension instead"
           @bridge.is_keyboard_shown
         end
         alias is_keyboard_shown keyboard_shown?
@@ -327,6 +337,7 @@ module Appium
         end
         alias update_settings settings=
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # Returns an instance of DeviceIME
         #
         # @return [Appium::Core::Base::Driver::DeviceIME]
@@ -340,9 +351,11 @@ module Appium
         #   @driver.ime.deactivate #=> Deactivate current IME engine
         #
         def ime
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: shell' extension instead"
           @ime ||= DeviceIME.new(@bridge)
         end
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # Android only. Make an engine that is available active.
         #
         # @param [String] ime_name The IME owning the activity [required]
@@ -356,6 +369,7 @@ module Appium
           ime.activate(ime_name)
         end
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # Android only. List all available input engines on the machine.
         #
         # @example
@@ -367,6 +381,7 @@ module Appium
           ime.available_engines
         end
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # Android only. Get the name of the active IME engine.
         #
         # @example
@@ -378,6 +393,7 @@ module Appium
           ime.active_engine
         end
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # @!method ime_activated
         #   Android only. Indicates whether IME input is active at the moment (not if it is available).
         #
@@ -392,6 +408,7 @@ module Appium
           ime.activated?
         end
 
+        # @deprecated Use 'mobile: shell' extension instead.
         # Android only. De-activates the currently-active IME engine.
         #
         # @example
@@ -477,6 +494,7 @@ module Appium
         #   @driver.push_file "/sdcard/Pictures", file # Push a file binary to /sdcard/Pictures path in Android
         #
         def push_file(path, filedata)
+          # TODO: use 'mobile: pushFile' internally
           @bridge.push_file(path, filedata)
         end
 
@@ -505,6 +523,7 @@ module Appium
         #   File.open('proper_filename', 'wb') { |f| f<< decoded_file }
         #
         def pull_file(path)
+          # TODO: use 'mobile: pullFile' internally
           @bridge.pull_file(path)
         end
 
@@ -530,9 +549,11 @@ module Appium
         #   File.open('proper_filename', 'wb') { |f| f<< decoded_file }
         #
         def pull_folder(path)
+          # TODO: use 'mobile: pullFolder' internally
           @bridge.pull_folder(path)
         end
 
+        # @deprecated Use 'mobile: pressKey' extension instead.
         # Press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
@@ -552,9 +573,11 @@ module Appium
         #   @driver.press_keycode 66, metastate: [1], flags: [32]
         #
         def press_keycode(key, metastate: [], flags: [])
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.press_keycode(key, metastate: metastate, flags: flags)
         end
 
+        # @deprecated Use 'mobile: pressKey' extension instead.
         # Long press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to long press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
@@ -574,10 +597,11 @@ module Appium
         #   @driver.long_press_keycode 66, metastate: [1], flags: [32, 8192]
         #
         def long_press_keycode(key, metastate: [], flags: [])
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Except for Windows
+        # @deprecated Will be removed, or use 'windows: launchApp' extension instead for Windows.
         # Start the simulator and application configured with desired capabilities
         #
         # @example
@@ -588,7 +612,7 @@ module Appium
           @bridge.launch_app
         end
 
-        # @deprecated Except for Windows
+        # @deprecated Will be removed, or use 'windows: closeApp' extension instead for Windows.
         # Close an app on device
         #
         # @example
@@ -614,6 +638,7 @@ module Appium
           @bridge.reset
         end
 
+        # @deprecated Use 'mobile: getAppStrings' extension instead.
         # Return the hash of all localization strings.
         # @return [Hash]
         #
@@ -622,9 +647,11 @@ module Appium
         #   @driver.app_strings #=> "TransitionsTitle"=>"Transitions", "WebTitle"=>"Web"
         #
         def app_strings(language = nil)
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getAppStrings' extension instead"
           @bridge.app_strings(language)
         end
 
+        # @deprecated Use 'mobile: backgroundApp' extension instead.
         # Backgrounds the app for a set number of seconds.
         # This is a blocking application
         # @param [Integer] duration How many seconds to background the app for.
@@ -667,6 +694,7 @@ module Appium
         #   @driver.install_app("/path/to/test.ipa", timeoutMs: 20000)
         #
         def install_app(path, **options)
+          # TODO: use mobile command in the background?
           options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1].upcase } } unless options.nil?
           @bridge.install_app(path, options)
         end
@@ -687,6 +715,7 @@ module Appium
         #   @driver.remove_app("io.appium.bundle", keep_data: false, timeout, 10000)
         #
         def remove_app(app_id, keep_data: nil, timeout: nil)
+          # TODO: use mobile command in the background?
           @bridge.remove_app(app_id, keep_data: keep_data, timeout: timeout)
         end
 
@@ -698,6 +727,7 @@ module Appium
         #   @driver.app_installed?("io.appium.bundle")
         #
         def app_installed?(app_id)
+          # TODO: use mobile command in the background?
           @bridge.app_installed?(app_id)
         end
 
@@ -709,6 +739,7 @@ module Appium
         #   @driver.activate_app("io.appium.bundle") #=> {}
         #
         def activate_app(app_id)
+          # TODO: use mobile command in the background?
           @bridge.activate_app(app_id)
         end
 
@@ -725,6 +756,7 @@ module Appium
         #   @driver.terminate_app("io.appium.bundle", timeout: 500)
         #
         def terminate_app(app_id, timeout: nil)
+          # TODO: use mobile command in the background?
           @bridge.terminate_app(app_id, timeout: timeout)
         end
 
@@ -748,6 +780,7 @@ module Appium
         #      @driver.query_app_state("io.appium.bundle") #=> :not_running
         #
         def app_state(app_id)
+          # TODO: use mobile command in the background?
           @bridge.app_state(app_id)
         end
         alias query_app_state app_state
@@ -787,6 +820,7 @@ module Appium
           @bridge.stop_and_save_recording_screen(file_path)
         end
 
+        # @deprecated Use 'mobile: shake' extension instead.
         # Cause the device to shake
         #
         # @example
@@ -794,9 +828,11 @@ module Appium
         #   @driver.shake
         #
         def shake
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: shake' extension instead"
           @bridge.shake
         end
 
+        # @deprecated Use 'mobile: getDeviceTime' extension instead.
         # Get the time on the device
         #
         # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get
@@ -810,6 +846,7 @@ module Appium
         #   @driver.device_time "YYYY-MM-DD" #=> "2018-06-12"
         #
         def device_time(format = nil)
+          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getDeviceTime' extension instead"
           @bridge.device_time(format)
         end
 
