@@ -1,3 +1,10 @@
+#### v7.3.0 2023-10-17
+
+- [855af15](https://github.com/appium/ruby_lib_core/commit/855af15200a81fb591e7f960a479a87ad0ef4a76) Release 7.3.0
+- [dbd67f0](https://github.com/appium/ruby_lib_core/commit/dbd67f06564502dd5207399627b63decf430e135) chore: add deprecation marks (#504)
+- [646f749](https://github.com/appium/ruby_lib_core/commit/646f7498c5a789e0399afb503876db9255b8794d) chore(deps-dev): update rubocop requirement from = 1.57.0 to = 1.57.1 (#505)
+
+
 #### v7.2.0 2023-10-13
 
 - [b51ade2](https://github.com/appium/ruby_lib_core/commit/b51ade2146b7bf45debc79dfa6f7691d3c849fa1) Release 7.2.0
