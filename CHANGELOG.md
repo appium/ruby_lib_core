@@ -10,6 +10,13 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+
+## [7.3.0] - 2023-10-17
+
+### Deprecations
+- Add deprecation marks that will be removed from Appium or this library to move to extension commands such as `mobile:`
+    - https://github.com/appium/ruby_lib_core/pull/504
+
 ## [7.2.0] - 2023-10-13
 
 ### Enhancements
