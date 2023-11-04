@@ -1,3 +1,10 @@
+#### v7.3.1 2023-11-04
+
+- [42205db](https://github.com/appium/ruby_lib_core/commit/42205db807ef33da7c29bb983bc365c98d948533) Release 7.3.1
+- [524424b](https://github.com/appium/ruby_lib_core/commit/524424b306de55568fce154b2ba33615ac21302b) chore(deps-dev): update rubocop requirement from = 1.57.1 to = 1.57.2 (#506)
+- [7777164](https://github.com/appium/ruby_lib_core/commit/777716440bb6383bef21e9423a98c51edc4c63bb) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.15 to ~> 4.2, < 4.16 (#507)
+
+
 #### v7.3.0 2023-10-17
 
 - [855af15](https://github.com/appium/ruby_lib_core/commit/855af15200a81fb591e7f960a479a87ad0ef4a76) Release 7.3.0
