@@ -10,6 +10,9 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [7.3.1] - 2023-11-04
+### Enhancements
+- Bump `selenium-webdriver` max
 
 ## [7.3.0] - 2023-10-17
 
