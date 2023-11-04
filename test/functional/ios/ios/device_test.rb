@@ -61,15 +61,6 @@ class AppiumLibCoreTest
         @@driver.shake
       end
 
-      def test_close_and_launch_app
-        @@driver.close_app
-        assert_equal ['NATIVE_APP'], @@driver.available_contexts
-
-        @@driver.launch_app
-        e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
-        assert_equal alert_view_cell, e.name
-      end
-
       def test_lock_unlock
         @@driver.lock
         @@core.wait { assert @@driver.device_locked? }
@@ -89,7 +80,7 @@ class AppiumLibCoreTest
         end
         assert 'An element could not be located on the page using the given search parameters.', error.message
 
-        @@driver.reset
+        @@driver.activate_app 'com.example.apple-samplecode.UICatalog'
 
         e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
         assert_equal alert_view_cell, e.name

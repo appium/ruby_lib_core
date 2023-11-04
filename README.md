@@ -25,7 +25,7 @@ Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CH
 # How to start
 ## Run tests
 ### Unit Tests
-Run unit tests which check each method and commands, URL, using the webmock.
+Run unit tests which check each method and command, URL, using the webmock.
 
 ```bash
 $ bundle install
@@ -44,7 +44,7 @@ Run functional tests which require the Appium server and real device, Simulator/
 
 - Start Appium server (Appium 2.0 base)
 ```bash
-$ npm install -g appium@next
+$ npm install --location=global appium
 $ appium driver install xcuitest
 $ appium driver install uiautomator2 # etc
 $ appium --base-path=/wd/hub --relaxed-security # To run all tests in local

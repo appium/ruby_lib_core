@@ -23,7 +23,7 @@ steps:
     APPIUM_HOME: $(Agent.HomeDirectory)/appium
 - task: UseRubyVersion@0
   inputs:
-    versionSpec: '3.0'
+    versionSpec: '>= 3.0'
 - script: |
     mkdir -p test/report
     nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > test/report/appium.out 2>&1 &

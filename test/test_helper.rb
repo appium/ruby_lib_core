@@ -137,7 +137,6 @@ class AppiumLibCoreTest
           deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
-          useJSONSource: true,
           someCapability: 'some_capability',
           wdaLaunchTimeout: 120_000,
           newCommandTimeout: 120,
@@ -151,7 +150,8 @@ class AppiumLibCoreTest
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
           maxTypingFrequency: 200,
-          simulatorStartupTimeout: 600_000
+          simulatorStartupTimeout: 600_000,
+          'settings[pageSourceExcludedAttributes]': 'visible'
         },
         appium_lib: {
           export_session: true,

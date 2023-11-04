@@ -13,6 +13,8 @@
 # limitations under the License.
 
 require 'securerandom'
+# to avoid mysterious resolution error 'uninitialized constant Selenium::WebDriver::Remote::Http::Default::Net (NameError)'
+require 'net/http'
 
 require_relative '../../version'
 
@@ -26,7 +28,7 @@ module Appium
           }.freeze
         end
 
-        class Default < Selenium::WebDriver::Remote::Http::Default
+        class Default < ::Selenium::WebDriver::Remote::Http::Default
           attr_reader :additional_headers
 
           # override
@@ -50,8 +52,8 @@ module Appium
             return @server_url unless validate_url_param(scheme, host, port, path)
 
             # Add / if 'path' does not have it
-            path = path.start_with?('/') ? path : "/#{path}"
-            path = path.end_with?('/') ? path : "#{path}/"
+            path = "/#{path}" unless path.start_with?('/')
+            path = "#{path}/" unless path.end_with?('/')
 
             @http = nil
             @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
