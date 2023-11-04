@@ -10,6 +10,24 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+
+## [7.3.0] - 2023-10-17
+
+### Deprecations
+- Add deprecation marks that will be removed from Appium or this library to move to extension commands such as `mobile:`
+    - https://github.com/appium/ruby_lib_core/pull/504
+
+## [7.2.0] - 2023-10-13
+
+### Enhancements
+- Append `selenium-webdriver` `4.12` support
+
+## [7.1.1] - 2023-10-01
+
+### Deprecations
+
+- Add deprecation marks in `immediate_value` and `replace_value`
+
 ## [7.1.0] - 2023-08-15
 
 ### Enhancements

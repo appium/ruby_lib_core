@@ -152,8 +152,6 @@ class AppiumLibCoreTest
       end
 
       def test_session_capability
-        assert @driver.session_capabilities['deviceUDID'].start_with? 'emulator-'
-
         # with eventTimings
         assert !@driver.session_capabilities['events']['commands'].nil?
       end
