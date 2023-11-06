@@ -358,11 +358,6 @@ const METHOD_MAP = {
 '/wd/hub/session/:sessionId/appium/device/keyevent': {
     POST: {command: 'keyevent', payloadParams: {required: ['keycode'], optional: ['metastate']}}
 },
-'/wd/hub/session/:sessionId/appium/device/rotate': {
-    POST: {command: 'mobileRotation', payloadParams: {
-        required: ['x', 'y', 'radius', 'rotation', 'touchCount', 'duration'],
-            optional: ['element'] }}
-},
 '/wd/hub/session/:sessionId/appium/device/current_activity': {
     GET: {command: 'getCurrentActivity'}
 },
