@@ -472,7 +472,7 @@ module Appium
         #   @driver.set_context "NATIVE_APP"
         #   @driver.context = "NATIVE_APP"
         #
-        def context=(context = null)
+        def context=(context = nil)
           @bridge.set_context(context)
         end
         alias set_context context=
