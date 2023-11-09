@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [7.3.2] - 2023-11-08
+
+### Bug fixes
+- Fix default value fo set context
+
 ## [7.3.1] - 2023-11-04
 ### Enhancements
 - Bump `selenium-webdriver` max
