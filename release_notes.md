@@ -1,3 +1,11 @@
+#### v7.3.2 2023-11-08
+
+- [12d6054](https://github.com/appium/ruby_lib_core/commit/12d60545aad11b7259c440c5a3beb426dd978ae8) Release 7.3.2
+- [1cbafc1](https://github.com/appium/ruby_lib_core/commit/1cbafc168725b906839cc4a6391893dbb50e4091) test: tweak tests (#508)
+- [163b360](https://github.com/appium/ruby_lib_core/commit/163b360a7f6cbc5ef4c5ff0b4e1caa68372174f9) chore: remove outdated files/commands
+- [9651c9d](https://github.com/appium/ruby_lib_core/commit/9651c9d98819c6fc4a4bffcb0a4e6ac770322dc9) chore: removea unused line
+
+
 #### v7.3.1 2023-11-04
 
 - [42205db](https://github.com/appium/ruby_lib_core/commit/42205db807ef33da7c29bb983bc365c98d948533) Release 7.3.1
