@@ -113,28 +113,7 @@ end
 
 desc('Execute RuboCop static code analysis')
 RuboCop::RakeTask.new(:rubocop) do |t|
-  t.patterns = %w(lib test script)
+  t.patterns = %w(lib test)
   t.options = %w(-D)
   t.fail_on_error = true
-end
-
-desc('print commands which Ruby client has not implemented them yet')
-namespace :commands do
-  require './script/commands'
-
-  desc('Mobile JSON protocol')
-  task :mjsonwp do |_t, _args|
-    c = Script::CommandsChecker.new
-    c.get_mjsonwp_routes
-    c.get_all_command_path './mjsonwp_routes.js'
-    c.all_diff_commands_mjsonwp.each { |key, value| puts("command: #{key}, method: #{value}") }
-  end
-
-  desc('W3C protocol')
-  task :w3c do |_t, _args|
-    c = Script::CommandsChecker.new
-    c.get_mjsonwp_routes
-    c.get_all_command_path './mjsonwp_routes.js'
-    c.all_diff_commands_w3c.each { |key, value| puts("command: #{key}, method: #{value}") }
-  end
 end
