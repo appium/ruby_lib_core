@@ -1,9 +1,9 @@
 # jobs for functional test
 parameters:
-  vmImage: 'macOS-12'
-  vmImageForIOS: 'macOS-12'
-  xcodeForIOS: 14.2
-  xcodeForTVOS: 14.2
+  vmImage: 'macOS-13'
+  vmImageForIOS: 'macOS-13'
+  xcodeForIOS: 15.0.2
+  xcodeForTVOS: 15.0.2
   androidSDK: 29  # API Level 30 emulators are more unstable than 29
   appiumVersion: '2'  # for appium 2 upstream
   ignoreVersionSkip: true

@@ -201,10 +201,10 @@ class AppiumLibCoreTest
 
     def device_name(os_version, platform_name, wda_local_port)
       if platform_name.downcase == :tvos
-        'Apple TV'
+        'Apple TV 4K'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 11'
+                 'iPhone 14'
                else
                  'iPhone Xs Max'
                end
