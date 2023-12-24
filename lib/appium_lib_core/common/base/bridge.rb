@@ -181,9 +181,10 @@ module Appium
 
         # Perform 'touch' actions for W3C module.
         # Generate +touch+ pointer action here and users can use this via +driver.action+
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        # - https://www.selenium.dev/documentation/webdriver/actions_api/
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/ActionBuilder.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
         # The pointer type is 'touch' by default in the Appium Ruby client.
         #
