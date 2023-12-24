@@ -201,8 +201,8 @@ module Appium
 
         # Perform 'key' actions for W3C module.
         # Generate +key+ pointer action here and users can use this via +driver.key_action+
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/ActionBuilder.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
         # The pointer type is 'key' by default in the Appium Ruby client.
         # +driver.action+ in Appium Ruby client has 'pointer' action by default.
