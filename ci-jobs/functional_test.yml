@@ -5,7 +5,7 @@ parameters:
   xcodeForIOS: 14.2
   xcodeForTVOS: 14.2
   androidSDK: 29  # API Level 30 emulators are more unstable than 29
-  appiumVersion: '2'  # for appium 2 upstream
+  appiumVersion: '2.3.0'  # for appium 2 upstream
   ignoreVersionSkip: true
   CI: true
 
