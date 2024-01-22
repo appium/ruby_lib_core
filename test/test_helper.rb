@@ -180,6 +180,10 @@ class AppiumLibCoreTest
       cap
     end
 
+    def bundle_id
+      ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+    end
+
     private
 
     def over_ios13?(os_version)
