@@ -20,7 +20,7 @@ require 'functional/common_w3c_actions'
 class AppiumLibCoreTest
   class PathTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @@core = ::Appium::Core.for(Caps.ios)
+      @@core = ::Appium::Core.for Caps.ios
       @@driver = @@core.start_driver
     end
 

@@ -20,11 +20,11 @@ class AppiumLibCoreTest
   module Ios
     class SearchContextTest < AppiumLibCoreTest::Function::TestCase
       def setup
-        @@core = ::Appium::Core.for(Caps.ios)
+        @@core = ::Appium::Core.for Caps.ios
         @@driver ||= @@core.start_driver
 
-        @@driver.terminate_app(Caps.bundle_id)
-        @@driver.activate_app(Caps.bundle_id)
+        @@driver.terminate_app Caps.bundle_id
+        @@driver.activate_app Caps.bundle_id
       end
 
       def teardown

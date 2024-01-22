@@ -18,7 +18,7 @@ require 'test_helper'
 class AppiumLibCoreTest
   class TvDriverTest < AppiumLibCoreTest::Function::TestCase
     def setup
-      @core = ::Appium::Core.for(Caps.ios(:tvos))
+      @core = ::Appium::Core.for Caps.ios(:tvos)
     end
 
     def teardown

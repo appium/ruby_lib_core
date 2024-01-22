@@ -23,7 +23,7 @@ class AppiumLibCoreTest
         # will add test ad an attachment
         ios_caps = Caps.ios.dup
         ios_caps[:caps][:useNewWDA] = true
-        @core = ::Appium::Core.for(ios_caps)
+        @core = ::Appium::Core.for ios_caps
         @driver = @core.start_driver
       end
 

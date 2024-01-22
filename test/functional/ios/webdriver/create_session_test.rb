@@ -22,7 +22,7 @@ class AppiumLibCoreTest
         skip_as_appium_version '1.8.0'
 
         caps = Caps.ios
-        core = ::Appium::Core.for(caps)
+        core = ::Appium::Core.for caps
 
         driver = core.start_driver
         assert !driver.capabilities.nil?
