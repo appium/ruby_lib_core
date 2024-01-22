@@ -31,12 +31,10 @@ class AppiumLibCoreTest
         save_reports(@@driver)
       end
 
-      def test_predicate
+      def test_predicate_and_class_chain
         e = @@driver.find_element :predicate, 'wdName == "Buttons"'
         assert_equal 'Buttons', e.name
-      end
 
-      def test_class_chain
         e = @@driver.find_element :class_chain, "**/XCUIElementTypeWindow[$name == 'Buttons'$]"
         assert_equal 'XCUIElementTypeWindow', e.tag_name
       end
