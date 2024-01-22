@@ -35,7 +35,7 @@ class AppiumLibCoreTest
 
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
-        @@driver = @@core.start_driver
+        @@driver ||= @@core.start_driver
       end
 
       def teardown

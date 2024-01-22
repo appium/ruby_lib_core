@@ -21,7 +21,7 @@ class AppiumLibCoreTest
     class MjpegServerTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
-        @@driver = @@core.start_driver
+        @@driver ||= @@core.start_driver
 
         @@driver.terminate_app(Caps.bundle_id)
         @@driver.activate_app(Caps.bundle_id)
