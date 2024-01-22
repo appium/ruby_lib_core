@@ -34,7 +34,7 @@ class AppiumLibCoreTest
       @@core = ::Appium::Core.for(Caps.ios)
       @@driver ||= @@core.start_driver
 
-      bundle_id = @@core.caps[:bundleId] || @@core.caps['bundleId']
+      bundle_id = @@driver.capabilities['bundleId'] || @@driver.capabilities['appium:bundleId']
       @@driver.terminate_app(bundle_id)
       @@driver.activate_app(bundle_id)
   end
