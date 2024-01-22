@@ -122,7 +122,7 @@ class AppiumLibCoreTest
     end
 
     def self.bundle_id
-      ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+      ENV['BUNDLE_ID'] || 'com.example.apple-samplecode.UICatalog'
     end
 
     # Require a simulator which OS version is 11.4, for example.
@@ -172,7 +172,7 @@ class AppiumLibCoreTest
                              test_app platform_version
                            end
       else
-        cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+        cap[:caps][:bundleId] = ENV['BUNDLE_ID']
       end
 
       unless ENV['UNIT_TEST']
