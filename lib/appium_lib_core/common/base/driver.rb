@@ -434,6 +434,7 @@ module Appium
           block_given? ? @bridge.within_context(context, &block) : @bridge.within_context(context)
         end
 
+        # @deprecated Use set context with proper context name instead.
         # Change to the default context. This is equivalent to +set_context nil+.
         #
         # @example
@@ -441,6 +442,7 @@ module Appium
         #   @driver.switch_to_default_context
         #
         def switch_to_default_context
+          ::Appium::Logger.warn '[DEPRECATION] Please set proper context instead of calling this method.'
           @bridge.switch_to_default_context
         end
 
