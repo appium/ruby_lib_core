@@ -22,7 +22,13 @@ class AppiumLibCoreTest
     class W3CActionsTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
-        @@driver = @@core.start_driver
+        if @@driver.nil?
+          @@driver = @@core.start_driver
+        else
+          bundle_id = @@driver.caps[:bundleId] || @@driver.caps['bundleId']
+          @@driver.terminate_app(bundle_id)
+          @@driver.activate_app(bundle_id)
+        end
       end
 
       def teardown
