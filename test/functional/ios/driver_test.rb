@@ -36,7 +36,7 @@ class AppiumLibCoreTest
 
       @@driver.terminate_app(Caps.bundle_id)
       @@driver.activate_app(Caps.bundle_id)
-  end
+    end
 
     def teardown
       save_reports(@@driver)
