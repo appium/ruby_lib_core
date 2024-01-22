@@ -21,13 +21,11 @@ class AppiumLibCoreTest
     class MjpegServerTest < AppiumLibCoreTest::Function::TestCase
       def setup
         @@core = ::Appium::Core.for(Caps.ios)
-        if @@driver.nil?
-          @@driver = @@core.start_driver
-        else
-          bundle_id = @@driver.caps[:bundleId] || @@driver.caps['bundleId']
-          @@driver.terminate_app(bundle_id)
-          @@driver.activate_app(bundle_id)
-        end
+        @@driver = @@core.start_driver
+
+        bundle_id = @@driver.caps[:bundleId] || @@driver.caps['bundleId']
+        @@driver.terminate_app(bundle_id)
+        @@driver.activate_app(bundle_id)
       end
 
       def teardown

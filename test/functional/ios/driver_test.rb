@@ -32,8 +32,12 @@ class AppiumLibCoreTest
 
     def setup
       @@core = ::Appium::Core.for(Caps.ios)
-      @@driver = @@core.start_driver
-    end
+      @@driver ||= @@core.start_driver
+
+      bundle_id = @@driver.caps[:bundleId] || @@driver.caps['bundleId']
+      @@driver.terminate_app(bundle_id)
+      @@driver.activate_app(bundle_id)
+  end
 
     def teardown
       save_reports(@@driver)
