@@ -121,6 +121,10 @@ class AppiumLibCoreTest
       new.mac2
     end
 
+    def self.bundle_id
+      ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
+    end
+
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
       platform_version = platform_name.downcase == :tvos ? '16.0' : '16.2'
@@ -178,10 +182,6 @@ class AppiumLibCoreTest
       end
 
       cap
-    end
-
-    def bundle_id
-      ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
     end
 
     private
