@@ -439,9 +439,6 @@ module Appium
             d_c = DirectConnections.new(@driver.capabilities)
             @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
           end
-
-          # export session
-          write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
@@ -494,9 +491,6 @@ module Appium
                                                      existing_session_id: session_id,
                                                      automation_name: automation_name,
                                                      platform_name: platform_name)
-
-          # export session
-          write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
@@ -566,23 +560,6 @@ module Appium
         # Ignore error case in a case the target appium server
         # does not support `/status` API.
         {}
-      end
-
-      # Return the platform version as an array of integers
-      # @return [Array<Integer>]
-      #
-      # @example
-      #
-      #     @core.platform_version #=> [10,1,1]
-      #
-      def platform_version
-        ::Appium::Logger.warn(
-          '[DEPRECATION] platform_version method will be. ' \
-          'Please check the platformVersion via @driver.capabilities["platformVersion"] instead.'
-        )
-
-        p_version = @driver.capabilities['platformVersion'] || @driver.session_capabilities['platformVersion']
-        p_version.split('.').map(&:to_i)
       end
 
       private
@@ -742,19 +719,6 @@ module Appium
         @automation_name = if @driver.capabilities['automationName']
                              @driver.capabilities['automationName'].downcase.strip.intern
                            end
-      end
-
-      # @private
-      def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
-        ::Appium::Logger.warn(
-          '[DEPRECATION] export_session option will be removed. ' \
-          'Please save the session id by yourself with #session_id method like @driver.session_id.'
-        )
-        export_path = export_path.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
-        File.write(export_path, session_id)
-      rescue IOError => e
-        ::Appium::Logger.warn e
-        nil
       end
     end # class Driver
   end # module Core
