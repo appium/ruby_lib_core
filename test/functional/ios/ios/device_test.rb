@@ -64,7 +64,9 @@ class AppiumLibCoreTest
       def test_lock_unlock
         @@driver.lock
         # Unstable on CI
-        unless ci? { @@core.wait { assert @@driver.device_locked? } }
+        unless ci?
+          @@core.wait { assert @@driver.device_locked? }
+        end
 
         @@driver.unlock
         @@core.wait { assert !@@driver.device_locked? }
