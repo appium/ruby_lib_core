@@ -2,7 +2,7 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: 18.x
-  displayName: Install Node 16.x to get NPM v8
+  displayName: Install Node 18.x to get NPM v8
 - script: npm install -g appium@${APPIUM_VERSION}
   displayName: Install appium
 - script: npm install -g mjpeg-consumer
