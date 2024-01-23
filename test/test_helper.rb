@@ -154,7 +154,6 @@ class AppiumLibCoreTest
           'settings[pageSourceExcludedAttributes]': 'visible'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -291,7 +290,6 @@ class AppiumLibCoreTest
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
-          export_session: true,
           wait: 5,
           wait_timeout: 20,
           wait_interval: 1
@@ -325,7 +323,6 @@ class AppiumLibCoreTest
       {
         capabilities: android[:capabilities],
         appium_lib: {
-          export_session: true,
           wait: 30,
           wait_timeout: 20,
           wait_interval: 1,
@@ -357,7 +354,6 @@ class AppiumLibCoreTest
           locale: 'US'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -373,7 +369,6 @@ class AppiumLibCoreTest
           app: 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
