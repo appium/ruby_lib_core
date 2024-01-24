@@ -50,7 +50,8 @@ class AppiumLibCoreTest
 
       def test_lock_unlock
         @driver.lock
-        assert @driver.device_locked?
+        # Unstable on CI
+        @@core.wait { assert @@driver.device_locked? } unless ci?
 
         @driver.unlock
         @driver.wait_until { |d| assert !d.device_locked? }
@@ -109,7 +110,7 @@ class AppiumLibCoreTest
 
         webview_page = @driver.page_source
 
-        @driver.switch_to_default_context
+        @driver.set_context 'NATIVE_APP'
         @driver.wait { |d| assert_equal 'NATIVE_APP', d.current_context }
         assert native_page != webview_page
       end

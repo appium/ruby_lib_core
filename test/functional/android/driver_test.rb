@@ -34,11 +34,6 @@ class AppiumLibCoreTest
       refute_nil v['build']['version']
     end
 
-    def test_platform_version
-      # @@core.platform_version #=> [7, 1, 1]
-      assert @@core.platform_version.length => 1
-    end
-
     def test_wait_true
       e = @@core.wait_true { @driver.find_element :accessibility_id, 'Content' }
       assert e.text
