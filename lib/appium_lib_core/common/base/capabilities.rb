@@ -23,6 +23,18 @@ module Appium
         # Appium's capabilities could change by depending on Appium versions. So it does not have
         # standard options like chrome and firefox etc. So, the implementation should differ from
         # other browsers. But here should inherit `Options` to follow Selenium.
+
+        def json_create(value)
+          super
+          # do adding 'appium:' here
+          add_appium_prefix(value)
+        end
+
+        private
+
+        def add_appium_prefix(value)
+          # do 'add_appium_prefix' for the
+        end
       end
     end
   end
