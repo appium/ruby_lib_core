@@ -10,6 +10,16 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+
+## [7.4.0] - 2024-01-23
+
+### Enhancement
+- Bump `selenium-webdriver` max
+
+### Deprecatioons
+- Removed deprecated `core#platform_version` and `core#write_session_id`
+    - Please refer to the capabilities' value and `driver.session_id`
+
 ## [7.3.2] - 2023-11-08
 
 ### Bug fixes
