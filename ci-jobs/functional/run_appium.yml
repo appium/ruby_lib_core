@@ -9,7 +9,11 @@ steps:
   displayName: Install MJPEG Consumer
 - script: npm list --depth 2 -g || echo 'ok'
   displayName: Installed node dependencies
-- script: appium driver install ${APPIUM_DRIVER}
+- script: |
+    git clone https://github.com/mykola-mokhnach/appium-uiautomator2-driver.git
+    cd appium-uiautomator2-driver
+    git checkout base_bump
+- script: appium driver install --source=local $(Agent.HomeDirectory)/appium-uiautomator2-driver
   displayName: Install appium driver ${APPIUM_DRIVER}
   env:
     APPIUM_HOME: $(Agent.HomeDirectory)/appium
