@@ -13,7 +13,8 @@ steps:
     git clone https://github.com/mykola-mokhnach/appium-uiautomator2-driver.git
     cd appium-uiautomator2-driver
     git checkout base_bump
-- script: appium driver install --source=local $(Agent.HomeDirectory)/appium-uiautomator2-driver
+- script: ls
+- script: appium driver install --source=local $(pwd)/appium-uiautomator2-driver
   displayName: Install appium driver ${APPIUM_DRIVER}
   env:
     APPIUM_HOME: $(Agent.HomeDirectory)/appium
