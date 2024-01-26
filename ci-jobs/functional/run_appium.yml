@@ -16,6 +16,7 @@ steps:
     git checkout fix-createbaseadb
     npm install
     npm link
+    cd ..
 
     git clone https://github.com/appium/appium-uiautomator2-driver.git
     cd appium-uiautomator2-driver
