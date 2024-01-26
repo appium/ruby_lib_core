@@ -10,9 +10,9 @@ steps:
 - script: npm list --depth 2 -g || echo 'ok'
   displayName: Installed node dependencies
 - script: |
-    git clone https://github.com/mykola-mokhnach/appium-uiautomator2-driver.git
+    git clone https://github.com/mykola-mokhnach/appium-espresso-driver.git
     cd appium-uiautomator2-driver
-    git checkout base_bump
+    git checkout android_upd
     npm install
 - script: ls
 - script: appium driver install --source=local $(pwd)/appium-uiautomator2-driver
