@@ -10,15 +10,24 @@ steps:
 - script: npm list --depth 2 -g || echo 'ok'
   displayName: Installed node dependencies
 - script: |
-    git clone https://github.com/mykola-mokhnach/appium-espresso-driver.git
+    # git clone https://github.com/mykola-mokhnach/appium-espresso-driver.git
+    git clone https://github.com/appium/appium-android-driver.git
+    cd appium-android-driver
+    git checkout fix-createbaseadb
+    npm install
+    npm link
+
+    git clone https://github.com/appium/appium-uiautomator2-driver.git
     cd appium-uiautomator2-driver
-    git checkout android_upd
     npm install
 - script: ls
 - script: appium driver install --source=local $(pwd)/appium-uiautomator2-driver
   displayName: Install appium driver ${APPIUM_DRIVER}
   env:
     APPIUM_HOME: $(Agent.HomeDirectory)/appium
+- script: |
+    cd appium-uiautomator2-driver
+    npm link appium-android-driver
 - script: appium plugin install images
   displayName: Install appium images plugin
   env:
