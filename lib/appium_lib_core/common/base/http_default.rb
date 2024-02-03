@@ -31,7 +31,8 @@ module Appium
         class Default < ::Selenium::WebDriver::Remote::Http::Default
           attr_reader :additional_headers
 
-          ::Selenium::WebDriver::Remote::Http::Common.user_agent = "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common.user_agent})"
+          ::Selenium::WebDriver::Remote::Http::Common.user_agent = \
+            "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common.user_agent})"
 
           # override
           def initialize(open_timeout: nil, read_timeout: nil)
