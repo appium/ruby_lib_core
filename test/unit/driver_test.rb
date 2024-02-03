@@ -98,7 +98,7 @@ class AppiumLibCoreTest
 
     def test_http_client
       client = ::Appium::Core::Base::Http::Default.new
-      assert client.instance_variable_defined? :@extra_headers
+      assert client.instance_variable_defined? :@additional_headers
     end
 
     def test_default_timeout_for_http_client_with_direct
@@ -393,7 +393,7 @@ class AppiumLibCoreTest
       driver = _android_mock_create_session_w3c(core)
 
       assert driver.send(:bridge).http.is_a?(::Appium::Core::Base::Http::Default)
-      assert_equal({}, driver.send(:bridge).http.extra_headers)
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_equal 999_999, driver.send(:bridge).http.open_timeout
       assert_equal 999_999, driver.send(:bridge).http.read_timeout
     end
@@ -435,9 +435,9 @@ class AppiumLibCoreTest
       core = ::Appium::Core.for(caps)
       driver = _android_mock_create_session_w3c_with_custom_http_client(core)
 
-      # No @extra_headers case
+      # No @additional_headers case
       assert driver.send(:bridge).http.is_a?(::Selenium::WebDriver::Remote::Http::Default)
-      assert_equal(false, driver.send(:bridge).http.instance_variable_defined?(:@extra_headers))
+      assert_equal(false, driver.send(:bridge).http.instance_variable_defined?(:@additional_headers))
     end
 
     # https://www.w3.org/TR/webdriver1/

@@ -446,7 +446,7 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_equal({}, driver.send(:bridge).http.extra_headers)
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_requested(
         :post,
         'http://127.0.0.1:4723/wd/hub/session',
@@ -501,7 +501,7 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_equal({}, driver.send(:bridge).http.extra_headers)
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_requested(
         :post,
         'http://127.0.0.1:4723/wd/hub/session',
