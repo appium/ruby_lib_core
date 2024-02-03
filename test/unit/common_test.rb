@@ -208,7 +208,8 @@ class AppiumLibCoreTest
             'nestedKey2' => 2
           }
         }
-        assert_equal expected, caps_with_appium.as_json  # for testing
+        # for testing
+        assert_equal expected, caps_with_appium.as_json
       end
 
       def test_add_appium_prefix_has_no_parameter

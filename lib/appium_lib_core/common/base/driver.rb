@@ -201,8 +201,8 @@ module Appium
 
         # Perform 'key' actions for W3C module.
         # Generate +key+ pointer action here and users can use this via +driver.key_action+
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/ActionBuilder.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
         # The pointer type is 'key' by default in the Appium Ruby client.
         # +driver.action+ in Appium Ruby client has 'pointer' action by default.
@@ -434,6 +434,7 @@ module Appium
           block_given? ? @bridge.within_context(context, &block) : @bridge.within_context(context)
         end
 
+        # @deprecated Use set context with proper context name instead.
         # Change to the default context. This is equivalent to +set_context nil+.
         #
         # @example
@@ -441,6 +442,7 @@ module Appium
         #   @driver.switch_to_default_context
         #
         def switch_to_default_context
+          ::Appium::Logger.warn '[DEPRECATION] Please set proper context instead of calling this method.'
           @bridge.switch_to_default_context
         end
 
@@ -472,7 +474,7 @@ module Appium
         #   @driver.set_context "NATIVE_APP"
         #   @driver.context = "NATIVE_APP"
         #
-        def context=(context = null)
+        def context=(context = nil)
           @bridge.set_context(context)
         end
         alias set_context context=

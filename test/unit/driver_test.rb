@@ -52,10 +52,6 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_verify_session_id_in_the_export_session_path
-      @core.wait { assert File.size?(@core.export_session_path) }
-    end
-
     def test_verify_appium_core_base_capabilities_create_capabilities
       caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
                                                     platformVersion: '11.4',

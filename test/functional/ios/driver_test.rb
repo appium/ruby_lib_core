@@ -45,11 +45,6 @@ class AppiumLibCoreTest
       refute_nil v['build']['version']
     end
 
-    def test_platform_version
-      # Just make sure the value is not nil
-      assert @@core.platform_version
-    end
-
     def test_wait_true
       e = @@core.wait_true { @@driver.find_element :accessibility_id, uicatalog }
       assert e.name
@@ -109,7 +104,6 @@ class AppiumLibCoreTest
     def test_default_keyboard_pref
       skip_as_appium_version '1.15.0'
 
-      bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @@driver.activate_app('com.apple.Preferences')
@@ -128,7 +122,7 @@ class AppiumLibCoreTest
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value
       ensure
-        @@driver.activate_app(bundle_id)
+        @@driver.activate_app('com.example.apple-samplecode.UICatalog')
       end
     end
 
