@@ -19,7 +19,7 @@ module Appium
     class Element < ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::TakesScreenshot
 
-      ::Selenium::WebDriver::SearchContext.extra_finders = EXTRA_FINDERS
+      ::Selenium::WebDriver::SearchContext.extra_finders = APPIUM_EXTRA_FINDERS
 
       # Retuns the element id.
       #

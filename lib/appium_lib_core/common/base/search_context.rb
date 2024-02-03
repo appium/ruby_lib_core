@@ -98,7 +98,7 @@
 #
 # rubocop:enable Layout/LineLength
 
-EXTRA_FINDERS = {
+APPIUM_EXTRA_FINDERS = {
   accessibility_id:     'accessibility id',
   image:                '-image',
   custom:               '-custom',
