@@ -27,8 +27,6 @@ module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
-        ::Selenium::WebDriver::SearchContext.extra_finders = EXTRA_FINDERS
-
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
@@ -40,6 +38,8 @@ module Appium
         include ::Appium::Core::Base::HasNetworkConnection
 
         include ::Appium::Core::Waitable
+
+        ::Selenium::WebDriver::SearchContext.extra_finders = EXTRA_FINDERS
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element

@@ -407,10 +407,10 @@ module Appium
                                        read_timeout: http_client_ops.delete(:read_timeout)
 
         if @enable_idempotency_header
-          if @http_client.instance_variable_defined? :@additional_headers
-            @http_client.additional_headers[Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid
+          if @http_client.instance_variable_defined? :@extra_headers
+            @http_client.set_extra_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency], SecureRandom.uuid
           else
-            ::Appium::Logger.warn 'No additional_headers attribute in this http client instance'
+            ::Appium::Logger.warn 'No extra_headers attribute in this http client instance'
           end
         end
 
@@ -430,9 +430,9 @@ module Appium
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
 
-        if @http_client.instance_variable_defined? :@additional_headers
+        if @http_client.instance_variable_defined? :@extra_headers
           # We only need the key for a new session request. Should remove it for other following commands.
-          @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
+          @http_client.delete_extra_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
         # TODO: this method can be removed after releasing Appium 2.0, and after a while

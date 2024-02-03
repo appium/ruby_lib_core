@@ -39,6 +39,8 @@ module Appium
         include Device::ExecuteDriver
         include Device::Orientation
 
+        ::Selenium::WebDriver::Remote::Bridge.locator_converter = LocatorConverter.new
+
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
 
@@ -46,8 +48,6 @@ module Appium
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
         attr_reader :available_commands
-
-        @locator_converter = LocatorConverter.new
 
         def browser
           @browser ||= begin
