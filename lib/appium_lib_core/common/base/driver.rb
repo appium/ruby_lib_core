@@ -27,12 +27,13 @@ module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
+        ::Selenium::WebDriver::SearchContext.extra_finders = EXTRA_FINDERS
+
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::Rotatable
-        include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
         include ::Appium::Core::Base::HasLocation

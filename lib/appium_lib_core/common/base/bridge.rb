@@ -15,6 +15,12 @@
 module Appium
   module Core
     class Base
+      class LocatorConverter
+        def convert(how, what)
+          [how, what]
+        end
+      end # LocatorConverter
+
       class Bridge < ::Selenium::WebDriver::Remote::Bridge
         include Device::DeviceLock
         include Device::Keyboard
@@ -40,6 +46,8 @@ module Appium
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
         attr_reader :available_commands
+
+        @locator_converter = LocatorConverter.new
 
         def browser
           @browser ||= begin
