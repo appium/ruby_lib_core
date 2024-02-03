@@ -39,7 +39,7 @@ module Appium
         include Device::ExecuteDriver
         include Device::Orientation
 
-        ::Selenium::WebDriver::Remote::Bridge.locator_converter = LocatorConverter.new
+        Bridge.locator_converter = LocatorConverter.new
 
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
@@ -175,7 +175,7 @@ module Appium
         end
 
         def commands(command)
-          @available_commands[command]
+          @available_commands[command] || Bridge.extra_commands[command]
         end
 
         # Returns all available sessions on the Appium server instance
@@ -248,41 +248,15 @@ module Appium
         # For Appium
         # override
         def find_element_by(how, what, parent_ref = [])
-          how, what = convert_locator(how, what)
-
-          return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
-
-          parent_type, parent_id = parent_ref
-          id = case parent_type
-               when :element
-                 execute :find_child_element, { id: parent_id }, { using: how, value: what.to_s }
-               when :shadow_root
-                 execute :find_shadow_child_element, { id: parent_id }, { using: how, value: what.to_s }
-               else
-                 execute :find_element, {}, { using: how, value: what.to_s }
-               end
-
-          ::Appium::Core::Element.new self, element_id_from(id)
+          el = super(how, what, parent_ref)
+          ::Appium::Core::Element.new self, el.ref[1]
         end
 
         # For Appium
         # override
         def find_elements_by(how, what, parent_ref = [])
-          how, what = convert_locator(how, what)
-
-          return execute_atom :findElements, Support::RelativeLocator.new(what).as_json if how == 'relative'
-
-          parent_type, parent_id = parent_ref
-          ids = case parent_type
-                when :element
-                  execute :find_child_elements, { id: parent_id }, { using: how, value: what.to_s }
-                when :shadow_root
-                  execute :find_shadow_child_elements, { id: parent_id }, { using: how, value: what.to_s }
-                else
-                  execute :find_elements, {}, { using: how, value: what.to_s }
-                end
-
-          ids.map { |id| ::Appium::Core::Element.new self, element_id_from(id) }
+          els = super(how, what, parent_ref)
+          els.map { |el| ::Appium::Core::Element.new self, el.ref[1] }
         end
 
         # For Appium
@@ -396,32 +370,6 @@ module Appium
 
         def element_id_from(id)
           id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
-        end
-
-        # Don't convert locators for Appium in native context
-        def convert_locator(how, what)
-          # case how
-          # when 'class name'
-          #   how = 'css selector'
-          #   what = ".#{escape_css(what)}"
-          # when 'id'
-          #   how = 'css selector'
-          #   what = "##{escape_css(what)}"
-          # when 'name'
-          #   how = 'css selector'
-          #   what = "*[name='#{escape_css(what)}']"
-          # when 'tag name'
-          #   how = 'css selector'
-          # end
-          #
-          # if what.is_a?(Hash)
-          #   what = what.each_with_object({}) do |(h, w), hash|
-          #     h, w = convert_locator(h.to_s, w)
-          #     hash[h] = w
-          #   end
-          # end
-
-          [how, what]
         end
       end # class Bridge
     end # class Base
