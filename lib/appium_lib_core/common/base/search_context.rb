@@ -23,5 +23,5 @@ EXTRA_FINDERS = {
   view_matcher:         '-android viewmatcher', # Available in Espresso
   # iOS
   predicate:            '-ios predicate string',
-  class_chain:          '-ios class chain',
-}
+  class_chain:          '-ios class chain'
+}.freeze

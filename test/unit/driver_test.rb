@@ -442,27 +442,31 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal({ class: 'class name',
-                     class_name: 'class name',
-                     css: 'css selector',                    # Defined in W3C spec
-                     id: 'id',
-                     link: 'link text',                      # Defined in W3C spec
-                     link_text: 'link text',                 # Defined in W3C spec
-                     name: 'name',
-                     partial_link_text: 'partial link text', # Defined in W3C spec
-                     relative: 'relative',                   # Defined in Selenium
-                     tag_name: 'tag name',                   # Defined in W3C spec
-                     xpath: 'xpath',                         # Defined in W3C spec
-                     accessibility_id: 'accessibility id',
-                     image: '-image',
-                     custom: '-custom',
-                     uiautomator: '-android uiautomator',
-                     viewtag: '-android viewtag',
-                     data_matcher: '-android datamatcher',
-                     view_matcher: '-android viewmatcher',
-                     predicate: '-ios predicate string',
-                     class_chain: '-ios class chain' },
-                     ::Appium::Core::Element::FINDERS.merge(::Selenium::WebDriver::SearchContext.extra_finders))
+      assert_equal(
+        {
+          class: 'class name',
+          class_name: 'class name',
+          css: 'css selector',                    # Defined in W3C spec
+          id: 'id',
+          link: 'link text',                      # Defined in W3C spec
+          link_text: 'link text',                 # Defined in W3C spec
+          name: 'name',
+          partial_link_text: 'partial link text', # Defined in W3C spec
+          relative: 'relative',                   # Defined in Selenium
+          tag_name: 'tag name',                   # Defined in W3C spec
+          xpath: 'xpath',                         # Defined in W3C spec
+          accessibility_id: 'accessibility id',
+          image: '-image',
+          custom: '-custom',
+          uiautomator: '-android uiautomator',
+          viewtag: '-android viewtag',
+          data_matcher: '-android datamatcher',
+          view_matcher: '-android viewmatcher',
+          predicate: '-ios predicate string',
+          class_chain: '-ios class chain'
+        },
+        ::Appium::Core::Element::FINDERS.merge(::Selenium::WebDriver::SearchContext.extra_finders)
+      )
     end
 
     def test_attach_to_an_existing_session
