@@ -1178,8 +1178,8 @@ module Appium
         #     ele = @driver.convert_to_element(response) #=> ::Appium::Core::Element
         #     ele.rect #=> Can get the rect of the element
         #
-        def convert_to_element(id)
-          @bridge.convert_to_element id
+        def convert_to_element(response_id)
+          @bridge.convert_to_element response_id
         end
       end # class Driver
     end # class Base

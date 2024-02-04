@@ -659,8 +659,10 @@ class AppiumLibCoreTest
 
       stub_request(:post, "#{SESSION}/element/element_id_parent/elements")
         .with(body: { using: 'id', value: 'example2' }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
-                                                          sessionId: SESSION, status: 0 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
+          sessionId: SESSION, status: 0
+        }.to_json)
       c_el = els.first.find_elements id: 'example2'
       assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
       assert_equal ::Appium::Core::Element, c_el.first.class
@@ -707,12 +709,21 @@ class AppiumLibCoreTest
 
       stub_request(:post, "#{SESSION}/element/element_id_parent/elements")
         .with(body: { using: 'id', value: 'example2' }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
-                                                          sessionId: SESSION, status: 0 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
+          sessionId: SESSION, status: 0
+        }.to_json)
       c_el = els.first.find_elements id: 'example2'
       assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
       assert_equal ::Appium::Core::Element, c_el.first.class
     end
 
+    def test_convert_element
+      driver = android_mock_create_session
+      response = { 'element-6066-11e4-a52e-4f735466cecf' => 'test-element-id', 'ELEMENT' => 'test-element-id' }
+      e = driver.convert_to_element response
+      assert_equal 'test-element-id', e.id
+      assert_equal ::Appium::Core::Element, e.class
+    end
   end
 end
