@@ -37,10 +37,10 @@ module Appium
             execute :current_context
           end
 
-          # def available_contexts
-          #   # return empty array instead of nil on failure
-          #   execute(:available_contexts, {}) || []
-          # end
+          def available_contexts
+            # return empty array instead of nil on failure
+            execute(:available_contexts, {}) || []
+          end
 
           def set_context(context = nil)
             execute :set_context, {}, name: context

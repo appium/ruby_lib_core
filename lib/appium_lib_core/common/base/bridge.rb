@@ -174,8 +174,16 @@ module Appium
         # Then,
         #   driver.available_contexts #=> ["NATIVE_APP"]
 
+        # def add_command(method:, url:, name:, &block)
+        #   Bridge.add_command name, method, url, &block
+        # end
+
         def add_command(method:, url:, name:, &block)
-          Bridge.add_command name, method, url, &block
+          ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
+
+          @available_commands[name] = [method, url]
+
+          ::Appium::Core::Device.add_endpoint_method name, &block
         end
 
         def commands(command)

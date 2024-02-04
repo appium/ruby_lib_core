@@ -50,7 +50,7 @@ module Appium
           def delete_additional_header(key)
             @additional_headers.delete key
             ::Selenium::WebDriver::Remote::Http::Common.extra_headers = @additional_headers
-            @headers.delete key
+            @common_headers.delete key if defined? @common_headers
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
