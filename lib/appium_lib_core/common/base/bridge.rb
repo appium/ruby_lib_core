@@ -252,25 +252,26 @@ module Appium
 
         # For Appium
         # override
-        def active_element
-          ::Appium::Core::Element.new self, element_id_from(execute(:get_active_element))
-        end
+        # def active_element
+        #   ::Appium::Core::Element.new self, element_id_from(execute(:get_active_element))
+        # end
         alias switch_to_active_element active_element
 
         # For Appium
         # override
-        def find_element_by(how, what, parent_ref = [])
-          el = super(how, what, parent_ref)
-          ::Appium::Core::Element.new self, el.ref[1]
-        end
+        # def find_element_by(how, what, parent_ref = [])
+        #   el = super(how, what, parent_ref)
+        #   ::Appium::Core::Element.new self, el.ref[1]
+        # end
 
         # For Appium
         # override
-        def find_elements_by(how, what, parent_ref = [])
-          els = super(how, what, parent_ref)
-          els.map { |el| ::Appium::Core::Element.new self, el.ref[1] }
-        end
+        # def find_elements_by(how, what, parent_ref = [])
+        #   els = super(how, what, parent_ref)
+        #   els.map { |el| ::Appium::Core::Element.new self, el.ref[1] }
+        # end
 
+        # TODO: add unit test
         # For Appium
         # @param [Hash] id The id which can get as a response from server
         # @return [::Appium::Core::Element]
@@ -378,10 +379,6 @@ module Appium
           else
             arg
           end
-        end
-
-        def element_id_from(id)
-          id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
         end
       end # class Bridge
     end # class Base

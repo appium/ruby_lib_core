@@ -445,6 +445,8 @@ class AppiumLibCoreTest
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
       driver = @core.start_driver
+      assert_equal ::Appium::Core::Base::Driver, driver.class
+      assert_equal ::Appium::Core::Base::Bridge, driver.bridge.class
 
       assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_requested(
