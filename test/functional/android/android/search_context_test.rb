@@ -34,6 +34,7 @@ class AppiumLibCoreTest
         e = @driver.find_element :uiautomator, 'new UiSelector().clickable(true)'
         assert e
         assert_equal "Access'ibility", e.tag_name
+        assert_equal ::Appium::Core::Element, e.class
       end
 
       def test_viewtag
@@ -41,6 +42,7 @@ class AppiumLibCoreTest
 
         e = @driver.find_elements :viewtag, 'example'
         assert_equal 0, e.size
+        assert_equal ::Appium::Core::Element, e.class
       end
 
       def test_datamatcher
@@ -49,6 +51,7 @@ class AppiumLibCoreTest
         e = @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
         assert_equal 1, e.size
         assert_equal 'Animation', e.first.tag_name
+        assert_equal ::Appium::Core::Element, e.class
 
         e.first.click
         @driver.find_element :accessibility_id, 'Cloning' # no error
@@ -94,6 +97,7 @@ class AppiumLibCoreTest
           class: 'org.hamcrest.Matchers'
         }.to_json
         assert_equal "Access'ibility", e.text
+        assert_equal ::Appium::Core::Element, e.class
       end
     end
   end

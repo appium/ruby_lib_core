@@ -19,21 +19,21 @@ class AppiumLibCoreTest
     include AppiumLibCoreTest::Mock
 
     def setup
-      @core ||= ::Appium::Core.for(Caps.ios)
+      @core ||= ::Appium::Core.for(Caps.android)
+      @driver ||= android_mock_create_session_w3c
     end
 
     def test_w3c
-      driver ||= ios_mock_create_session_w3c
-
       stub_request(:post, "#{SESSION}/element")
         .with(body: { using: '-image', value: 'base64 string' }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value:
-          { 'element-6066-11e4-a52e-4f735466cecf':
+          { ::Appium::Core::Element::ELEMENT_KEY =>
             'appium-image-element-bb24f75c-5c15-478d-bb38-c003788aa5f8' } }.to_json)
 
-      e = driver.find_element :image, 'base64 string'
+      e = @driver.find_element :image, 'base64 string'
 
       assert_requested(:post, "#{SESSION}/element", times: 1)
+      assert_equal ::Appium::Core::Element, e.class
       assert_equal 'appium-image-element-bb24f75c-5c15-478d-bb38-c003788aa5f8', e.id
     end
   end
