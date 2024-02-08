@@ -31,11 +31,13 @@ class AppiumLibCoreTest
       def test_predicate
         e = @@driver.find_element :predicate, 'wdName == "Buttons"'
         assert_equal 'Buttons', e.name
+        assert_equal ::Appium::Core::Element, e.class
       end
 
       def test_class_chain
         e = @@driver.find_element :class_chain, "**/XCUIElementTypeWindow[$name == 'Buttons'$]"
         assert_equal 'XCUIElementTypeWindow', e.tag_name
+        assert_equal ::Appium::Core::Element, e.class
       end
     end
   end
