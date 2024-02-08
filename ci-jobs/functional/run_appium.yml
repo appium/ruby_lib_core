@@ -13,7 +13,7 @@ steps:
     # git clone https://github.com/mykola-mokhnach/appium-espresso-driver.git
     git clone https://github.com/appium/appium-android-driver.git
     cd appium-android-driver
-    git checkout fix-createbaseadb
+    git checkout dependabot/gradle/app/androidx.test.uiautomator-uiautomator-2.3.0-rc01
     npm install
     npm link
 
