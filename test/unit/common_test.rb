@@ -22,6 +22,7 @@ class AppiumLibCoreTest
       include AppiumLibCoreTest::Mock
 
       def setup
+        ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
         @bridge = Appium::Core::Base::Bridge.new url: 'http://127.0.0.1:4723/wd/hub'
       end
 
