@@ -196,9 +196,6 @@ module Appium
         set_immediate_value: [:post, 'session/:session_id/appium/element/:id/value'],
         replace_value: [:post, 'session/:session_id/appium/element/:id/replace_value'],
 
-        launch_app: [:post, 'session/:session_id/appium/app/launch'],
-        close_app: [:post, 'session/:session_id/appium/app/close'],
-        reset: [:post, 'session/:session_id/appium/app/reset'],
         background_app: [:post, 'session/:session_id/appium/app/background'],
         app_strings: [:post, 'session/:session_id/appium/app/strings'],
 

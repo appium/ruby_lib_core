@@ -29,7 +29,7 @@ class AppiumLibCoreTest
           end
 
           def test_delegate_driver_method
-            assert @driver.respond_to? :launch_app
+            assert @driver.respond_to? :device_locked?
           end
 
           def delegate_from_appium_driver(key)
@@ -45,9 +45,6 @@ class AppiumLibCoreTest
 
           def test_with_arg_definitions
             parameterized_method_defined_check([:shake,
-                                                :launch_app,
-                                                :close_app,
-                                                :reset,
                                                 :device_locked?,
                                                 :unlock,
                                                 :device_time,

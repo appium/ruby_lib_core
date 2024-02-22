@@ -13,7 +13,6 @@
 # limitations under the License.
 
 require_relative 'device/screen'
-require_relative 'device/app_management'
 
 module Appium
   module Core
