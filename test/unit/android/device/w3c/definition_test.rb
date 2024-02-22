@@ -78,8 +78,6 @@ class AppiumLibCoreTest
                                                 :pull_folder,
                                                 :get_settings,
                                                 :update_settings,
-                                                :touch_actions,
-                                                :multi_touch,
                                                 :start_activity,
                                                 :end_coverage,
                                                 :set_network_connection,

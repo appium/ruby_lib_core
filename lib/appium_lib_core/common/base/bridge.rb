@@ -29,7 +29,6 @@ module Appium
         include Device::AppState
         include Device::ScreenRecord::Command
         include Device::Device
-        include Device::TouchActions
         include Device::ExecuteDriver
         include Device::Orientation
 

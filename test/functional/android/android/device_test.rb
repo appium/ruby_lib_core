@@ -171,17 +171,6 @@ class AppiumLibCoreTest
         assert_equal 'io.appium.android.apis', e
       end
 
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        Appium::Core::TouchAction.new(@driver)
-                                 .press(element: @driver.find_element(:accessibility_id, 'App'))
-                                 .release
-                                 .perform
-
-        @driver.wait_until { |d| d.find_element :accessibility_id, 'Action Bar' }
-        @driver.back
-      end
-
       def test_hidekeyboard
         @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
         @driver.wait_until { |d| d.find_element :accessibility_id, 'Activity' }.click

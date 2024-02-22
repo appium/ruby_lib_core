@@ -76,8 +76,6 @@ class AppiumLibCoreTest
                                                 :set_clipboard,
                                                 :get_settings,
                                                 :update_settings,
-                                                :touch_actions,
-                                                :multi_touch,
                                                 :touch_id,
                                                 :toggle_touch_id_enrollment,
                                                 :execute_driver])

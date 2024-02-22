@@ -78,7 +78,6 @@ module Appium
         class << self
           def extended(_mod)
             Screen.add_methods
-            AppManagement.add_methods
           end
         end # class << self
       end # module Device

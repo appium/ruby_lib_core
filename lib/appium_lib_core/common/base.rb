@@ -27,7 +27,6 @@ require_relative 'device/screen_record'
 require_relative 'device/battery_status'
 require_relative 'device/clipboard_content_type'
 require_relative 'device/device'
-require_relative 'device/touch_actions'
 require_relative 'device/execute_driver'
 require_relative 'device/orientation'
 
