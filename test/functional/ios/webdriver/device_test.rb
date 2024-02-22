@@ -23,11 +23,11 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+        'Alert Views'
       end
 
       def okay_cancel_cell
-        over_ios13?(@@driver) ? 'OK / Cancel' : 'Okay / Cancel'
+        'Okay / Cancel'
       end
 
       public
