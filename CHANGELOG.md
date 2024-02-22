@@ -10,6 +10,10 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [7.5.0] - 2024-02-21
+- Remove upper limitation in `selenium-webdriver`
+    - Users can control the version in their Gemfile
+    - ruby_lib_core will fix when the future release requires changes
 
 ## [7.4.0] - 2024-01-23
 
