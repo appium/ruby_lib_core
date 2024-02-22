@@ -1,3 +1,14 @@
+#### v7.5.0 2024-02-21
+
+- [5996711](https://github.com/appium/ruby_lib_core/commit/5996711a99db0b1e453bd784d73fa7986109b8aa) Release 7.5.0
+- [ce9846e](https://github.com/appium/ruby_lib_core/commit/ce9846e4cb0971cd27fb1deed56043fd0e211528) chore: remove upper limitation in selenium
+- [6c6ae24](https://github.com/appium/ruby_lib_core/commit/6c6ae2418f82c2350f3047d809f8248452a5d840) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.18 to ~> 4.2, < 4.19 (#523)
+- [f617d86](https://github.com/appium/ruby_lib_core/commit/f617d869db2d9ac80fa24ab227d54ae6fa8bce10) chore(deps-dev): update webmock requirement from ~> 3.20.0 to ~> 3.22.0 (#525)
+- [4731b9f](https://github.com/appium/ruby_lib_core/commit/4731b9fd42e9fa52206dcd1f81bc65415a1e1e4b) chore(deps-dev): update webmock requirement from ~> 3.19.0 to ~> 3.20.0 (#522)
+- [a3db411](https://github.com/appium/ruby_lib_core/commit/a3db411aba0626418f37c6c2b75c6ede0bd646c8) test: add tests for future (#521)
+- [3d5a6de](https://github.com/appium/ruby_lib_core/commit/3d5a6def1e1b5e019467fab972d54e2a35c76b85) chore(deps-dev): update rubocop requirement from = 1.60.1 to = 1.60.2 (#519)
+
+
 #### v7.4.0 2024-01-23
 
 - [d6b0bf2](https://github.com/appium/ruby_lib_core/commit/d6b0bf206b338340ec1f6d6b223e11729646999e) Release 7.4.0
