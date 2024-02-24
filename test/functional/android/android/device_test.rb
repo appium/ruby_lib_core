@@ -77,7 +77,7 @@ class AppiumLibCoreTest
           end
           assert 'An element could not be located on the page using the given search parameters.', error.message
 
-          @driver.reset
+          @driver.activate_app('io.appium.android.apis')
         end
 
         e = @driver.wait(timeout: 60) { |d| d.find_element :accessibility_id, 'App' }
