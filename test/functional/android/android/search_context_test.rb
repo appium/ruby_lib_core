@@ -40,9 +40,9 @@ class AppiumLibCoreTest
       def test_viewtag
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
 
-        e = @driver.find_elements :viewtag, 'example'
-        assert_equal 0, e.size
-        assert_equal ::Appium::Core::Element, e.class
+        es = @driver.find_elements :viewtag, 'example'
+        assert_equal 0, es.size
+        assert_equal ::Appium::Core::Element, es.first.class
       end
 
       def test_datamatcher
