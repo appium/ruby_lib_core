@@ -193,42 +193,6 @@ class AppiumLibCoreTest
         @@driver.update_settings({ 'nativeWebTap' => false })
       end
 
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        element = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
-
-        @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.id)
-
-        @@driver.back
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_swipe
-        el = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
-        rect = el.rect
-
-        touch_action = Appium::Core::TouchAction
-                       .new(@@driver)
-                       .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 300, duration: 500)
-
-        assert_equal :press, touch_action.actions[0][:action]
-        assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
-
-        assert_equal :wait, touch_action.actions[1][:action]
-        assert_equal({ ms: 500 }, touch_action.actions[1][:options])
-
-        assert_equal :moveTo, touch_action.actions[2][:action]
-        assert_equal({ x: 75, y: 300 }, touch_action.actions[2][:options])
-
-        assert_equal :release, touch_action.actions[3][:action]
-
-        touch_action.perform
-        assert_equal [], touch_action.actions
-
-        # If test target has long height, el should be equal
-        assert rect.y >= el.rect.y
-      end
-
       def test_touch_id
         skip_as_appium_version '1.10.0' # unstable under 1.10.0-
 

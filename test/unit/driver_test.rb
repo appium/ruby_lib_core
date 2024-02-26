@@ -442,7 +442,7 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 22, ::Appium::Core::Element::FINDERS.length
+      assert_equal 20, ::Appium::Core::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
                      css: 'css selector',                    # Defined in W3C spec
@@ -462,9 +462,7 @@ class AppiumLibCoreTest
                      data_matcher: '-android datamatcher',
                      view_matcher: '-android viewmatcher',
                      predicate: '-ios predicate string',
-                     class_chain: '-ios class chain',
-                     windows_uiautomation: '-windows uiautomation',
-                     tizen_uiautomation: '-tizen uiautomation' }, ::Appium::Core::Element::FINDERS)
+                     class_chain: '-ios class chain' }, ::Appium::Core::Element::FINDERS)
     end
 
     def test_attach_to_an_existing_session

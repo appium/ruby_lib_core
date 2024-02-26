@@ -29,11 +29,11 @@ class AppiumLibCoreTest
           end
 
           def test_delegate_driver_method
-            assert @driver.respond_to? :launch_app
+            assert @driver.respond_to? :device_locked?
           end
 
           def test_delegate_from_appium_driver
-            assert @core.send(:delegated_target_for_test).respond_to? :launch_app
+            assert @core.send(:delegated_target_for_test).respond_to? :device_locked?
           end
 
           def delegate_from_appium_driver(key)
@@ -49,9 +49,6 @@ class AppiumLibCoreTest
 
           def test_with_arg_definitions
             parameterized_method_defined_check([:shake,
-                                                :launch_app,
-                                                :close_app,
-                                                :reset,
                                                 :device_locked?,
                                                 :unlock,
                                                 :device_time,
@@ -79,8 +76,6 @@ class AppiumLibCoreTest
                                                 :set_clipboard,
                                                 :get_settings,
                                                 :update_settings,
-                                                :touch_actions,
-                                                :multi_touch,
                                                 :touch_id,
                                                 :toggle_touch_id_enrollment,
                                                 :execute_driver])

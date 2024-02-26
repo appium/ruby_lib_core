@@ -29,12 +29,7 @@ module Appium
           view_matcher:         '-android viewmatcher', # Available in Espresso
           # iOS
           predicate:            '-ios predicate string',
-          class_chain:          '-ios class chain',
-          # Windows with windows prefix
-          # @deprecated
-          windows_uiautomation: '-windows uiautomation',
-          # Tizen with Tizen prefix
-          tizen_uiautomation:   '-tizen uiautomation'
+          class_chain:          '-ios class chain'
         )
 
         # rubocop:disable Layout/LineLength
@@ -121,13 +116,6 @@ module Appium
         #     e = find_element :class_chain, "**/XCUIElementTypeStaticText[$name == 'Buttons'$]"
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
-        #     # For Windows
-        #     # @deprecated
-        #     @driver.find_elements :windows_uiautomation, '....'
-        #
-        #     # For Tizen
-        #     @driver.find_elements :tizen_uiautomation, '....'
-        #
         # rubocop:enable Layout/LineLength
         def find_element(*args)
           how, what = extract_args(args)
@@ -159,12 +147,6 @@ module Appium
         private
 
         def _set_by_from_finders(how)
-          if how == :windows_uiautomation
-            ::Appium::Logger.warn(
-              '[DEPRECATION] :windows_uiautomation is deprecated. Please use other locators.'
-            )
-          end
-
           by = FINDERS[how.to_sym]
           unless by
             raise ::Appium::Core::Error::ArgumentError,

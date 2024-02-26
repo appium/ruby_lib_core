@@ -34,12 +34,11 @@ module Appium
             :push_file, :pull_file, :pull_folder,
             :keyevent, :press_keycode, :long_press_keycode,
             :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images,
-            :launch_app, :close_app, :reset, :app_strings, :background_app,
+            :app_strings, :background_app,
             :install_app, :remove_app, :app_installed?, :activate_app, :terminate_app,
             :app_state,
             :stop_recording_screen, :stop_and_save_recording_screen,
             :shake, :device_time,
-            :touch_actions, :multi_touch,
             :execute_driver, :execute_cdp
           ].each(&method(:delegate_from_appium_driver))
         end
