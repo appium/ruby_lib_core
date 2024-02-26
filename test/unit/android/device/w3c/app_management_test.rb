@@ -28,33 +28,6 @@ class AppiumLibCoreTest
             @driver ||= android_mock_create_session_w3c
           end
 
-          def test_launch_app
-            stub_request(:post, "#{SESSION}/appium/app/launch")
-              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-            @driver.launch_app
-
-            assert_requested(:post, "#{SESSION}/appium/app/launch", times: 1)
-          end
-
-          def test_close_app
-            stub_request(:post, "#{SESSION}/appium/app/close")
-              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-            @driver.close_app
-
-            assert_requested(:post, "#{SESSION}/appium/app/close", times: 1)
-          end
-
-          def test_reset
-            stub_request(:post, "#{SESSION}/appium/app/reset")
-              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-            @driver.reset
-
-            assert_requested(:post, "#{SESSION}/appium/app/reset", times: 1)
-          end
-
           def test_app_strings
             stub_request(:post, "#{SESSION}/appium/app/strings")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)

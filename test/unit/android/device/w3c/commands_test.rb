@@ -214,26 +214,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
           end
 
-          def test_touch_actions
-            stub_request(:post, "#{SESSION}/touch/perform")
-              .with(body: { actions: ['actions'] }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.touch_actions 'actions'
-
-            assert_requested(:post, "#{SESSION}/touch/perform", times: 1)
-          end
-
-          def test_multi_touch
-            stub_request(:post, "#{SESSION}/touch/multi/perform")
-              .with(body: { actions: 'actions' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.multi_touch 'actions'
-
-            assert_requested(:post, "#{SESSION}/touch/multi/perform", times: 1)
-          end
-
           def test_start_activity
             stub_request(:post, "#{SESSION}/appium/device/start_activity")
               .with(body: { appPackage: 'package', appActivity: 'activity', intentAction: 'action.MAIN' }.to_json)

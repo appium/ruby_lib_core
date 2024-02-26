@@ -603,43 +603,6 @@ module Appium
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Will be removed, or use 'windows: launchApp' extension instead for Windows.
-        # Start the simulator and application configured with desired capabilities
-        #
-        # @example
-        #
-        #   @driver.launch_app
-        #
-        def launch_app
-          @bridge.launch_app
-        end
-
-        # @deprecated Will be removed, or use 'windows: closeApp' extension instead for Windows.
-        # Close an app on device
-        #
-        # @example
-        #
-        #   @driver.close_app
-        #
-        def close_app
-          @bridge.close_app
-        end
-
-        # @deprecated
-        # Reset the device, relaunching the application.
-        #
-        # @example
-        #
-        #   @driver.reset
-        #
-        def reset
-          ::Appium::Logger.warn(
-            '[DEPRECATION] reset is deprecated. Please use terminate_app and activate_app, ' \
-            'or quit and create a new session instead.'
-          )
-          @bridge.reset
-        end
-
         # @deprecated Use 'mobile: getAppStrings' extension instead.
         # Return the hash of all localization strings.
         # @return [Hash]
@@ -850,15 +813,6 @@ module Appium
         def device_time(format = nil)
           ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getDeviceTime' extension instead"
           @bridge.device_time(format)
-        end
-
-        # touch actions
-        def touch_actions(actions)
-          @bridge.touch_actions(actions)
-        end
-
-        def multi_touch(actions)
-          @bridge.multi_touch(actions)
         end
 
         #
