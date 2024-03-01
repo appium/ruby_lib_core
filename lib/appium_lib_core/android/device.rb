@@ -188,13 +188,6 @@ module Appium
         #  @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
 
-        # @deprecated The method no longer exists. This method will be removed.
-        # @!method end_coverage(path, intent)
-        # Android only;  Ends the test coverage and writes the results to the given path on device.
-        # @param [String] path Path on the device to write too.
-        # @param [String] intent Intent to broadcast when ending coverage.
-        #
-
         # @deprecated Use 'mobile: startActivity' extension instead.
         # @!method start_activity(opts)
         # Android only. Start a new activity within the current app or launch a new app and start the target activity.
@@ -478,14 +471,6 @@ module Appium
                 ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: backgroundApp' extension instead"
 
                 execute :background_app, {}, seconds: duration
-              end
-            end
-
-            # TODO: TEST ME
-            ::Appium::Core::Device.add_endpoint_method(:end_coverage) do
-              def end_coverage(path, intent)
-                ::Appium::Logger.warn '[DEPRECATION] The method no longer exists. This method will be removed.'
-                execute :end_coverage, {}, path: path, intent: intent
               end
             end
 

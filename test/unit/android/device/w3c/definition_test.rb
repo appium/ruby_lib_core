@@ -79,7 +79,6 @@ class AppiumLibCoreTest
                                                 :get_settings,
                                                 :update_settings,
                                                 :start_activity,
-                                                :end_coverage,
                                                 :set_network_connection,
                                                 :get_performance_data,
                                                 :get_clipboard,

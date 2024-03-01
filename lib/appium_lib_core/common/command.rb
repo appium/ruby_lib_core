@@ -234,7 +234,6 @@ module Appium
         toggle_wifi: [:post, 'session/:session_id/appium/device/toggle_wifi'],
         toggle_data: [:post, 'session/:session_id/appium/device/toggle_data'],
         toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
-        end_coverage: [:post, 'session/:session_id/appium/app/end_test_coverage'],
         get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'],
         get_performance_data: [:post, 'session/:session_id/appium/getPerformanceData'],
         get_network_connection: [:get, 'session/:session_id/network_connection'], # defined also in OSS

@@ -47,15 +47,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/app/background", times: 1)
           end
 
-          def test_end_coverage
-            stub_request(:post, "#{SESSION}/appium/app/end_test_coverage")
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.end_coverage 'path/to', 'intent'
-
-            assert_requested(:post, "#{SESSION}/appium/app/end_test_coverage", times: 1)
-          end
-
           def test_terminate_app
             stub_request(:post, "#{SESSION}/appium/device/terminate_app")
               .to_return(headers: HEADER, status: 200, body: { value: true }.to_json)
