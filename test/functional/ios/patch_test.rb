@@ -67,20 +67,6 @@ class AppiumLibCoreTest
         assert_equal '411.0 / 896.0', location.y
       end
     end
-
-    def test_immediate_value
-      w3c_scroll @@driver
-
-      @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
-
-      text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
-      text.immediate_value 'hello'
-
-      text = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
-      assert_equal 'hello', text.value
-
-      @@driver.back
-    end
   end
 end
 # rubocop:enable Style/ClassVars

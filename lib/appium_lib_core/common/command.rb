@@ -190,7 +190,6 @@ module Appium
         current_context: [:get, 'session/:session_id/context'],
 
         # TODO: remove
-        set_immediate_value: [:post, 'session/:session_id/appium/element/:id/value'],
         replace_value: [:post, 'session/:session_id/appium/element/:id/replace_value'],
 
         background_app: [:post, 'session/:session_id/appium/app/background'],

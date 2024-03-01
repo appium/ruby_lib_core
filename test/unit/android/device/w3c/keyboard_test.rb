@@ -123,17 +123,6 @@ class AppiumLibCoreTest
             end
           end
 
-          ## Immediate value
-          def test_immediate_value
-            stub_request(:post, "#{SESSION}/appium/element/id/value")
-              .with(body: { text: 'abc' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value %w(a b c)
-
-            assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
-          end
-
           def test_replace_value
             stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
               .with(body: { text: 'abc' }.to_json)
@@ -142,17 +131,6 @@ class AppiumLibCoreTest
             ::Appium::Core::Element.new(@driver.send(:bridge), 'id').replace_value %w(a b c)
 
             assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
-          end
-
-          ## Immediate value
-          def test_immediate_value_text
-            stub_request(:post, "#{SESSION}/appium/element/id/value")
-              .with(body: { text: 'abcテスト' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            ::Appium::Core::Element.new(@driver.send(:bridge), 'id').immediate_value 'abcテスト'
-
-            assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
           end
 
           def test_replace_value_text
