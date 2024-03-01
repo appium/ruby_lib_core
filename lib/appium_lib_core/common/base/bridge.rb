@@ -21,7 +21,6 @@ module Appium
         include Device::ImeActions
         include Device::Setting
         include Device::Context
-        include Device::Value
         include Device::FileManagement
         include Device::KeyEvent
         include Device::ImageComparison
