@@ -189,9 +189,6 @@ module Appium
         set_context: [:post, 'session/:session_id/context'],
         current_context: [:get, 'session/:session_id/context'],
 
-        # TODO: remove
-        replace_value: [:post, 'session/:session_id/appium/element/:id/replace_value'],
-
         background_app: [:post, 'session/:session_id/appium/app/background'],
         app_strings: [:post, 'session/:session_id/appium/app/strings'],
 
