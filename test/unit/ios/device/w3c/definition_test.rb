@@ -68,7 +68,6 @@ class AppiumLibCoreTest
                                                 :keyevent,
                                                 :press_keycode,
                                                 :long_press_keycode,
-                                                :set_immediate_value,
                                                 :push_file,
                                                 :pull_file,
                                                 :pull_folder,

@@ -9,6 +9,14 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- Removed deprecated methods
+    - `launch_app`, `close_app` and `reset`
+        - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
+    - `TouchActions`, `MultiActions`
+        - Please refer to W3C WebDriver actions
+        - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
+    - `immediate_value` and `replace_value`
+    - `end_coverage`
 
 ## [7.5.0] - 2024-02-21
 - Remove upper limitation in `selenium-webdriver`
