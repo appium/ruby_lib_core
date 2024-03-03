@@ -29,10 +29,6 @@ module Appium
             end
           end
 
-          def switch_to_default_context
-            set_context nil
-          end
-
           def current_context
             execute :current_context
           end

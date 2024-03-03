@@ -29,7 +29,7 @@ module Appium
             :hide_keyboard, :is_keyboard_shown,
             :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate,
             :get_settings, :update_settings,
-            :within_context, :switch_to_default_context, :current_context, :available_contexts, :set_context,
+            :within_context, :current_context, :available_contexts, :set_context,
             :push_file, :pull_file, :pull_folder,
             :keyevent, :press_keycode, :long_press_keycode,
             :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images,
