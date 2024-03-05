@@ -134,11 +134,6 @@ class AppiumLibCoreTest
         # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
         assert @driver.network_connection_type = :all
       end
-
-      def test_session_capability
-        # with eventTimings
-        assert !@driver.session_capabilities['events']['commands'].nil?
-      end
     end
   end
 end

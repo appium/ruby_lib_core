@@ -149,11 +149,6 @@ class AppiumLibCoreTest
         assert @@driver.logs.get(:syslog)
       end
 
-      def test_session_capability
-        # with eventTimings
-        assert !@@driver.session_capabilities['events']['commands'].nil?
-      end
-
       # @since Appium 1.10.0
       def test_screenshot_quality
         skip_as_appium_version '1.10.0'

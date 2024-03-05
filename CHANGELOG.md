@@ -17,6 +17,8 @@ Read `release_notes.md` for commit level details.
         - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
     - `immediate_value` and `replace_value`
     - `end_coverage`
+    - `sessions` and `session_capabilities` since they are not W3C WebDriver spec and already removed from the dependent selenium clients.
+        - To get events info, please use `driver.logs.events` instead
 
 ## [7.5.0] - 2024-02-21
 - Remove upper limitation in `selenium-webdriver`
