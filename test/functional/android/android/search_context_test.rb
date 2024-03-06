@@ -40,9 +40,9 @@ class AppiumLibCoreTest
       def test_viewtag
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
 
+        # no elements but the search  context does not get exception about the search context method
         es = @driver.find_elements :viewtag, 'example'
         assert_equal 0, es.size
-        assert_equal ::Appium::Core::Element, es.first.class
       end
 
       def test_datamatcher
