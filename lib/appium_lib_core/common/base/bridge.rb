@@ -168,11 +168,6 @@ module Appium
           @available_commands[command]
         end
 
-        # Returns all available sessions on the Appium server instance
-        def sessions
-          execute :get_all_sessions
-        end
-
         def status
           execute :status
         end
@@ -203,11 +198,6 @@ module Appium
         # Port from MJSONWP
         def get_timeouts
           execute :get_timeouts
-        end
-
-        # Port from MJSONWP
-        def session_capabilities
-          ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
         end
 
         # For Appium

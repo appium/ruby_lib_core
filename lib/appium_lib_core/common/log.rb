@@ -44,8 +44,7 @@ module Appium
 
       # @since Appium 1.16.0
       #
-      # Logs a custom event. The event is available via {::Appium::Core::Events#get} or
-      # <code>@driver.session_capabilities['events']</code> with <code>eventTimings</code> capabilities.
+      # Logs a custom event. The event is available via {::Appium::Core::Events#get}.
       #
       # @param [String] vendor The vendor prefix for the event
       # @param [String] event The name of event
@@ -54,7 +53,6 @@ module Appium
       # @example
       #
       #   @driver.logs.event vendor: 'appium', event: 'funEvent'
-      #   @driver.session_capabilities['events'] #=> {...., 'appium:funEvent' => 1572957315}
       #
       #   @driver.logs.event = { vendor: 'appium', event: 'anotherEvent' }
       #   @driver.logs.events #=> {...., 'appium:funEvent' => [1572957315, 1572960305],

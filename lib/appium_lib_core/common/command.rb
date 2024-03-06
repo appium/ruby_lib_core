@@ -157,10 +157,6 @@ module Appium
 
         get_timeouts: [:get, 'session/:session_id/timeouts'], # https://w3c.github.io/webdriver/#get-timeouts
 
-        # Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
-        ### Session capability
-        get_capabilities: [:get, 'session/:session_id'],
-
         ### rotatable
         get_screen_orientation: [:get, 'session/:session_id/orientation'],
         set_screen_orientation: [:post, 'session/:session_id/orientation'],
@@ -184,7 +180,6 @@ module Appium
         ###
 
         # common
-        get_all_sessions: [:get, 'sessions'],
         available_contexts: [:get, 'session/:session_id/contexts'],
         set_context: [:post, 'session/:session_id/context'],
         current_context: [:get, 'session/:session_id/context'],

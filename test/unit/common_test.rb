@@ -80,18 +80,9 @@ class AppiumLibCoreTest
           .with(body: { capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
-        stub_request(:get, 'http://127.0.0.1:4723/wd/hub/sessions')
-          .to_return(headers: Mock::HEADER, status: 200, body: { value: [{ id: 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3',
-                                                                           capabilities: CAPS }] }.to_json)
-
-        driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
+        _driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-
-        sessions = driver.sessions
-        assert_requested(:get, 'http://127.0.0.1:4723/wd/hub/sessions', times: 1)
-        assert_equal 1, sessions.length
-        assert_equal 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3', sessions.first['id']
       end
 
       def test_create_session_w3c_with_http_package
