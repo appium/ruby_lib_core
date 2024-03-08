@@ -16,7 +16,7 @@ Read `release_notes.md` for commit level details.
 - Removed deprecated methods
     - `launch_app`, `close_app` and `reset`
         - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
-    - `TouchActions`, `MultiActions`
+    - `TouchAction`, `MultiTouch`
         - Please refer to W3C WebDriver actions
         - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
     - `immediate_value` and `replace_value`
