@@ -1,3 +1,16 @@
+#### v8.0.0 2024-03-08
+
+- [8da087c](https://github.com/appium/ruby_lib_core/commit/8da087c1f23f49ab949e7c182392a51c15edf659) Release 8.0.0
+- [16598d9](https://github.com/appium/ruby_lib_core/commit/16598d93ed4535401b5defa91691f1e6d73c2614) chore: remove switch_to_default_context (#530)
+- [914fbb5](https://github.com/appium/ruby_lib_core/commit/914fbb599ac7c049725f43838139272a62a3050b) chore(deps-dev): update rubocop requirement from = 1.61.0 to = 1.62.0 (#532)
+- [a1684f0](https://github.com/appium/ruby_lib_core/commit/a1684f0b882a369a6e20e3d82b7a49f393ca2cd0) chore: remove deprecated methods for w3c further (#531)
+- [fb5a545](https://github.com/appium/ruby_lib_core/commit/fb5a545fab247ccbeed3877f1bcb4e06e6fd8d5b) test: search_context_test.rb
+- [a6d6be1](https://github.com/appium/ruby_lib_core/commit/a6d6be1b3b1e05b1b88ed2039230110abcefa847) feat: remove deprecated methods (#529)
+- [c7248db](https://github.com/appium/ruby_lib_core/commit/c7248db9da381e6403884166597a5b3b1dff128f) chore(deps-dev): update rubocop requirement from = 1.60.2 to = 1.61.0 (#528)
+- [e59b3cb](https://github.com/appium/ruby_lib_core/commit/e59b3cb2f3a5f11359de0fd2d342a5a7d2de37c7) chore(deps-dev): update webmock requirement from ~> 3.22.0 to ~> 3.23.0 (#527)
+- [af2a58b](https://github.com/appium/ruby_lib_core/commit/af2a58b104fb274e89e4c037e984ef72f84fdc03) feat: Remove deprecated methods (#526)
+
+
 #### v7.5.0 2024-02-21
 
 - [5996711](https://github.com/appium/ruby_lib_core/commit/5996711a99db0b1e453bd784d73fa7986109b8aa) Release 7.5.0
