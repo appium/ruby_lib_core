@@ -9,6 +9,10 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+
+## [8.0.0] - 2024-03-08
+
+### Deprecations
 - Removed deprecated methods
     - `launch_app`, `close_app` and `reset`
         - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
@@ -19,6 +23,8 @@ Read `release_notes.md` for commit level details.
     - `end_coverage`
     - `sessions` and `session_capabilities` since they are not W3C WebDriver spec and already removed from the dependent selenium clients.
         - To get events info, please use `driver.logs.events` instead
+    - `switch_to_default_context`
+        - Please set proper context instead
 
 ## [7.5.0] - 2024-02-21
 - Remove upper limitation in `selenium-webdriver`
