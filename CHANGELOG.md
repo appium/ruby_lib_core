@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [8.0.1] - 2024-03-26
+
+### Bug fixes
+- Do not ignore an empty string/nil values as caps
+
+
 ## [8.0.0] - 2024-03-08
 
 ### Deprecations
