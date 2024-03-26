@@ -139,7 +139,7 @@ class AppiumLibCoreTest
           deviceName: 'iPhone Simulator',
           useNewWDA: true,
           some_capability1: 'some_capability1',
-          someCapability2: 'someCapability2',
+          someCapability2: '',
           'some_capability3' => 'string_shold_keep',
           'some_capability4' => {
             'nested_key1' => 1,
@@ -159,7 +159,7 @@ class AppiumLibCoreTest
           'deviceName' => 'iPhone Simulator',
           'useNewWDA' => true,
           'someCapability1' => 'some_capability1',
-          'someCapability2' => 'someCapability2',
+          'someCapability2' => '',
           'some_capability3' => 'string_shold_keep',
           'some_capability4' => { 'nested_key1' => 1, 'nestedKey2' => 2 }
         }
@@ -175,7 +175,7 @@ class AppiumLibCoreTest
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
           'appium:some_capability1' => 'some_capability1',
-          'appium:someCapability2' => 'someCapability2',
+          'appium:someCapability2' => '',
           'appium:some_capability3' => 'string_shold_keep',
           'appium:some_capability4' => {
             'nested_key1' => 1,
@@ -192,7 +192,7 @@ class AppiumLibCoreTest
           'appium:deviceName' => 'iPhone Simulator',
           'appium:useNewWDA' => true,
           'appium:some_capability1' => 'some_capability1',
-          'appium:someCapability2' => 'someCapability2',
+          'appium:someCapability2' => '',
           'appium:some_capability3' => 'string_shold_keep',
           'appium:some_capability4' => {
             'nested_key1' => 1,

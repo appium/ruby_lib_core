@@ -121,9 +121,6 @@ module Appium
           capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
 
           capabilities.each do |name, value|
-            next if value.nil?
-            next if value.is_a?(String) && value.empty?
-
             capability_name = name.to_s
             w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
 
