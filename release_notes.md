@@ -1,3 +1,11 @@
+#### v8.0.1 2024-03-26
+
+- [6629004](https://github.com/appium/ruby_lib_core/commit/6629004dd92ff2a7396f5456e9017933891ee79c) Release 8.0.1
+- [a2da903](https://github.com/appium/ruby_lib_core/commit/a2da9037359210965fa59fb8e1b762a55ce230f5) fix: fix empty value handling in caps (#536)
+- [236fc5e](https://github.com/appium/ruby_lib_core/commit/236fc5e4e264eceb5956888ace387fcbb18b4057) chore(deps-dev): update rubocop requirement from = 1.62.0 to = 1.62.1 (#533)
+- [fea377f](https://github.com/appium/ruby_lib_core/commit/fea377fe047b6efa2dbe4a3d6739bf93c4be789d) docs: correct changelog
+
+
 #### v8.0.0 2024-03-08
 
 - [8da087c](https://github.com/appium/ruby_lib_core/commit/8da087c1f23f49ab949e7c182392a51c15edf659) Release 8.0.0
