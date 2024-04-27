@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [8.0.2] - 2024-04-26
+
+### Enhancements
+- Bump thor for publishment module
+
 ## [8.0.1] - 2024-03-26
 
 ### Bug fixes
