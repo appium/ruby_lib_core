@@ -1,3 +1,49 @@
+#### v8.0.1 2024-03-26
+
+- [6629004](https://github.com/appium/ruby_lib_core/commit/6629004dd92ff2a7396f5456e9017933891ee79c) Release 8.0.1
+- [a2da903](https://github.com/appium/ruby_lib_core/commit/a2da9037359210965fa59fb8e1b762a55ce230f5) fix: fix empty value handling in caps (#536)
+- [236fc5e](https://github.com/appium/ruby_lib_core/commit/236fc5e4e264eceb5956888ace387fcbb18b4057) chore(deps-dev): update rubocop requirement from = 1.62.0 to = 1.62.1 (#533)
+- [fea377f](https://github.com/appium/ruby_lib_core/commit/fea377fe047b6efa2dbe4a3d6739bf93c4be789d) docs: correct changelog
+
+
+#### v8.0.0 2024-03-08
+
+- [8da087c](https://github.com/appium/ruby_lib_core/commit/8da087c1f23f49ab949e7c182392a51c15edf659) Release 8.0.0
+- [16598d9](https://github.com/appium/ruby_lib_core/commit/16598d93ed4535401b5defa91691f1e6d73c2614) chore: remove switch_to_default_context (#530)
+- [914fbb5](https://github.com/appium/ruby_lib_core/commit/914fbb599ac7c049725f43838139272a62a3050b) chore(deps-dev): update rubocop requirement from = 1.61.0 to = 1.62.0 (#532)
+- [a1684f0](https://github.com/appium/ruby_lib_core/commit/a1684f0b882a369a6e20e3d82b7a49f393ca2cd0) chore: remove deprecated methods for w3c further (#531)
+- [fb5a545](https://github.com/appium/ruby_lib_core/commit/fb5a545fab247ccbeed3877f1bcb4e06e6fd8d5b) test: search_context_test.rb
+- [a6d6be1](https://github.com/appium/ruby_lib_core/commit/a6d6be1b3b1e05b1b88ed2039230110abcefa847) feat: remove deprecated methods (#529)
+- [c7248db](https://github.com/appium/ruby_lib_core/commit/c7248db9da381e6403884166597a5b3b1dff128f) chore(deps-dev): update rubocop requirement from = 1.60.2 to = 1.61.0 (#528)
+- [e59b3cb](https://github.com/appium/ruby_lib_core/commit/e59b3cb2f3a5f11359de0fd2d342a5a7d2de37c7) chore(deps-dev): update webmock requirement from ~> 3.22.0 to ~> 3.23.0 (#527)
+- [af2a58b](https://github.com/appium/ruby_lib_core/commit/af2a58b104fb274e89e4c037e984ef72f84fdc03) feat: Remove deprecated methods (#526)
+
+
+#### v7.5.0 2024-02-21
+
+- [5996711](https://github.com/appium/ruby_lib_core/commit/5996711a99db0b1e453bd784d73fa7986109b8aa) Release 7.5.0
+- [ce9846e](https://github.com/appium/ruby_lib_core/commit/ce9846e4cb0971cd27fb1deed56043fd0e211528) chore: remove upper limitation in selenium
+- [6c6ae24](https://github.com/appium/ruby_lib_core/commit/6c6ae2418f82c2350f3047d809f8248452a5d840) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.18 to ~> 4.2, < 4.19 (#523)
+- [f617d86](https://github.com/appium/ruby_lib_core/commit/f617d869db2d9ac80fa24ab227d54ae6fa8bce10) chore(deps-dev): update webmock requirement from ~> 3.20.0 to ~> 3.22.0 (#525)
+- [4731b9f](https://github.com/appium/ruby_lib_core/commit/4731b9fd42e9fa52206dcd1f81bc65415a1e1e4b) chore(deps-dev): update webmock requirement from ~> 3.19.0 to ~> 3.20.0 (#522)
+- [a3db411](https://github.com/appium/ruby_lib_core/commit/a3db411aba0626418f37c6c2b75c6ede0bd646c8) test: add tests for future (#521)
+- [3d5a6de](https://github.com/appium/ruby_lib_core/commit/3d5a6def1e1b5e019467fab972d54e2a35c76b85) chore(deps-dev): update rubocop requirement from = 1.60.1 to = 1.60.2 (#519)
+
+
+#### v7.4.0 2024-01-23
+
+- [d6b0bf2](https://github.com/appium/ruby_lib_core/commit/d6b0bf206b338340ec1f6d6b223e11729646999e) Release 7.4.0
+- [16e4f0d](https://github.com/appium/ruby_lib_core/commit/16e4f0d04eb96bcaeea59c439e9f1946f133f1fa) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.17 to ~> 4.2, < 4.18 (#518)
+- [b77460d](https://github.com/appium/ruby_lib_core/commit/b77460d7e81f74fcc831b8e0636ce014928ea3a8) feat: removed a few deprecated methods (#517)
+- [896f12e](https://github.com/appium/ruby_lib_core/commit/896f12ecc66ddfb2aba2edec8fca6faac1c361b8) chore(deps-dev): update rubocop requirement from = 1.60.0 to = 1.60.1 (#515)
+- [41c1b80](https://github.com/appium/ruby_lib_core/commit/41c1b8040fcd56b91c39234f6f9328dc2e05618c) chore(deps-dev): update rubocop requirement from = 1.59.0 to = 1.60.0 (#514)
+- [35a0c78](https://github.com/appium/ruby_lib_core/commit/35a0c781847a7a53d8c528046c610ae503187b98) chore: add duration in test code
+- [87aed5f](https://github.com/appium/ruby_lib_core/commit/87aed5fa0f84a5b4eaa1fc49b7913baa5a29e9f9) docs: update links (#512)
+- [e7975c6](https://github.com/appium/ruby_lib_core/commit/e7975c6cc9ba84740fda5aa18c3ad803637b4a81) chore(deps-dev): update rubocop requirement from = 1.58.0 to = 1.59.0 (#511)
+- [d4d6c95](https://github.com/appium/ruby_lib_core/commit/d4d6c95bcb3187e23ed8d331ae46fb98247c15d2) chore(deps): update selenium-webdriver requirement from ~> 4.2, < 4.16 to ~> 4.2, < 4.17 (#510)
+- [c3dd34e](https://github.com/appium/ruby_lib_core/commit/c3dd34efee074ecaf53423ad933175ec497173d3) chore(deps-dev): update rubocop requirement from = 1.57.2 to = 1.58.0 (#509)
+
+
 #### v7.3.2 2023-11-08
 
 - [12d6054](https://github.com/appium/ruby_lib_core/commit/12d60545aad11b7259c440c5a3beb426dd978ae8) Release 7.3.2

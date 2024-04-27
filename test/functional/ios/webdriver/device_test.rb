@@ -51,24 +51,6 @@ class AppiumLibCoreTest
         assert !status['build']['version'].nil?
       end
 
-      # TODO: replave_value
-
-      def test_set_immediate_value
-        w3c_scroll @@driver
-
-        @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
-
-        e = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
-        e.click
-        e.immediate_value 'hello'
-
-        # Using predicate case
-        e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
-        assert_equal 'hello', e.value
-
-        @@driver.back
-      end
-
       def by_predicate(value)
         %(name ==[c] "#{value}" || label ==[c] "#{value}" || value ==[c] "#{value}")
       end
@@ -165,11 +147,6 @@ class AppiumLibCoreTest
       def test_logs
         assert @@driver.logs.available_types.include? :syslog
         assert @@driver.logs.get(:syslog)
-      end
-
-      def test_session_capability
-        # with eventTimings
-        assert !@@driver.session_capabilities['events']['commands'].nil?
       end
 
       # @since Appium 1.10.0

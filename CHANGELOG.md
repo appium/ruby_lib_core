@@ -10,6 +10,42 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [8.0.1] - 2024-03-26
+
+### Bug fixes
+- Do not ignore an empty string/nil values as caps
+
+
+## [8.0.0] - 2024-03-08
+
+### Deprecations
+- Removed deprecated methods
+    - `launch_app`, `close_app` and `reset`
+        - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
+    - `TouchAction`, `MultiTouch`
+        - Please refer to W3C WebDriver actions
+        - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
+    - `immediate_value` and `replace_value`
+    - `end_coverage`
+    - `sessions` and `session_capabilities` since they are not W3C WebDriver spec and already removed from the dependent selenium clients.
+        - To get events info, please use `driver.logs.events` instead
+    - `switch_to_default_context`
+        - Please set proper context instead
+
+## [7.5.0] - 2024-02-21
+- Remove upper limitation in `selenium-webdriver`
+    - Users can control the version in their Gemfile
+    - ruby_lib_core will fix when the future release requires changes
+
+## [7.4.0] - 2024-01-23
+
+### Enhancement
+- Bump `selenium-webdriver` max
+
+### Deprecatioons
+- Removed deprecated `core#platform_version` and `core#write_session_id`
+    - Please refer to the capabilities' value and `driver.session_id`
+
 ## [7.3.2] - 2023-11-08
 
 ### Bug fixes

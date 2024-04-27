@@ -45,11 +45,6 @@ class AppiumLibCoreTest
       refute_nil v['build']['version']
     end
 
-    def test_platform_version
-      # Just make sure the value is not nil
-      assert @@core.platform_version
-    end
-
     def test_wait_true
       e = @@core.wait_true { @@driver.find_element :accessibility_id, uicatalog }
       assert e.name

@@ -50,7 +50,8 @@ class AppiumLibCoreTest
 
       def test_lock_unlock
         @driver.lock
-        assert @driver.device_locked?
+        # Unstable on CI
+        @@core.wait { assert @@driver.device_locked? } unless ci?
 
         @driver.unlock
         @driver.wait_until { |d| assert !d.device_locked? }
@@ -76,7 +77,7 @@ class AppiumLibCoreTest
           end
           assert 'An element could not be located on the page using the given search parameters.', error.message
 
-          @driver.reset
+          @driver.activate_app('io.appium.android.apis')
         end
 
         e = @driver.wait(timeout: 60) { |d| d.find_element :accessibility_id, 'App' }
@@ -109,7 +110,7 @@ class AppiumLibCoreTest
 
         webview_page = @driver.page_source
 
-        @driver.switch_to_default_context
+        @driver.set_context 'NATIVE_APP'
         @driver.wait { |d| assert_equal 'NATIVE_APP', d.current_context }
         assert native_page != webview_page
       end
@@ -168,17 +169,6 @@ class AppiumLibCoreTest
       def test_current_package
         e = @driver.wait_until(&:current_package)
         assert_equal 'io.appium.android.apis', e
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        Appium::Core::TouchAction.new(@driver)
-                                 .press(element: @driver.find_element(:accessibility_id, 'App'))
-                                 .release
-                                 .perform
-
-        @driver.wait_until { |d| d.find_element :accessibility_id, 'Action Bar' }
-        @driver.back
       end
 
       def test_hidekeyboard

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 require_relative 'device/screen'
-require_relative 'device/app_management'
 
 module Appium
   module Core
@@ -79,7 +78,6 @@ module Appium
         class << self
           def extended(_mod)
             Screen.add_methods
-            AppManagement.add_methods
           end
         end # class << self
       end # module Device

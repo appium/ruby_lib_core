@@ -52,10 +52,6 @@ class AppiumLibCoreTest
       assert_equal driver.core.caps[:automationName], 'xcuitest'
     end
 
-    def test_verify_session_id_in_the_export_session_path
-      @core.wait { assert File.size?(@core.export_session_path) }
-    end
-
     def test_verify_appium_core_base_capabilities_create_capabilities
       caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
                                                     platformVersion: '11.4',
@@ -88,11 +84,11 @@ class AppiumLibCoreTest
     end
 
     def test_default_timeout_for_http_client
-      @driver ||= android_mock_create_session
+      driver = android_mock_create_session
 
       assert_equal 999_999, @core.http_client.open_timeout
       assert_equal 999_999, @core.http_client.read_timeout
-      uri = @driver.send(:bridge).http.send(:server_url)
+      uri = driver.send(:bridge).http.send(:server_url)
       assert @core.direct_connect
       assert_equal 'http', uri.scheme
       assert_equal '127.0.0.1', uri.host
@@ -446,7 +442,7 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 22, ::Appium::Core::Element::FINDERS.length
+      assert_equal 20, ::Appium::Core::Element::FINDERS.length
       assert_equal({ class: 'class name',
                      class_name: 'class name',
                      css: 'css selector',                    # Defined in W3C spec
@@ -466,9 +462,7 @@ class AppiumLibCoreTest
                      data_matcher: '-android datamatcher',
                      view_matcher: '-android viewmatcher',
                      predicate: '-ios predicate string',
-                     class_chain: '-ios class chain',
-                     windows_uiautomation: '-windows uiautomation',
-                     tizen_uiautomation: '-tizen uiautomation' }, ::Appium::Core::Element::FINDERS)
+                     class_chain: '-ios class chain' }, ::Appium::Core::Element::FINDERS)
     end
 
     def test_attach_to_an_existing_session
@@ -627,45 +621,105 @@ class AppiumLibCoreTest
       stub_request(:post, "#{SESSION}/element")
         .with(body: { using: 'id', value: 'example' }.to_json)
         .to_return(headers: HEADER, status: 200, body: {
-          value: { ELEMENT: 'element_id_parent' }, sessionId: SESSION, status: 0
+          value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_parent' }, sessionId: SESSION, status: 0
         }.to_json)
       el = driver.find_element id: 'example'
       assert_requested :post, "#{SESSION}/element", times: 1
-      assert_equal el.class.name, 'Appium::Core::Element'
+      assert_equal ::Appium::Core::Element, el.class
 
       # No W3C, but can call via '::Appium::Core::Element'
       stub_request(:get, "#{SESSION}/element/element_id_parent/displayed")
         .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
       el.displayed?
       assert_requested :get, "#{SESSION}/element/element_id_parent/displayed", times: 1
-      assert_equal el.class.name, 'Appium::Core::Element'
+      assert_equal ::Appium::Core::Element, el.class
 
       stub_request(:post, "#{SESSION}/element/element_id_parent/element")
         .with(body: { using: 'id', value: 'example2' }.to_json)
         .to_return(headers: HEADER, status: 200, body: {
-          value: { ELEMENT: 'element_id_children' }, sessionId: SESSION, status: 0
+          value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }, sessionId: SESSION, status: 0
         }.to_json)
       c_el = el.find_element id: 'example2'
       assert_requested :post, "#{SESSION}/element/element_id_parent/element", times: 1
-      assert_equal c_el.class.name, 'Appium::Core::Element'
+      assert_equal ::Appium::Core::Element, c_el.class
 
       # elements
       stub_request(:post, "#{SESSION}/elements")
         .with(body: { using: 'id', value: 'example' }.to_json)
         .to_return(headers: HEADER, status: 200, body: {
-          value: [{ ELEMENT: 'element_id_parent' }], sessionId: SESSION, status: 0
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_parent' }], sessionId: SESSION, status: 0
         }.to_json)
       els = driver.find_elements id: 'example'
-      assert_requested :post, "#{SESSION}/element", times: 1
-      assert_equal els.first.class.name, 'Appium::Core::Element'
+      assert_requested :post, "#{SESSION}/elements", times: 1
+      assert_equal ::Appium::Core::Element, els.first.class
 
       stub_request(:post, "#{SESSION}/element/element_id_parent/elements")
         .with(body: { using: 'id', value: 'example2' }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: [{ ELEMENT: 'element_id_children' }],
-                                                          sessionId: SESSION, status: 0 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
+          sessionId: SESSION, status: 0
+        }.to_json)
       c_el = els.first.find_elements id: 'example2'
       assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
-      assert_equal c_el.first.class.name, 'Appium::Core::Element'
+      assert_equal ::Appium::Core::Element, c_el.first.class
+    end
+
+    def test_elements
+      driver = android_mock_create_session
+
+      # element
+      stub_request(:post, "#{SESSION}/element")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_parent' }, sessionId: SESSION, status: 0
+        }.to_json)
+      el = driver.find_element id: 'example'
+      assert_requested :post, "#{SESSION}/element", times: 1
+      assert_equal ::Appium::Core::Element, el.class
+
+      # No W3C, but can call via '::Appium::Core::Element'
+      stub_request(:get, "#{SESSION}/element/element_id_parent/displayed")
+        .to_return(headers: HEADER, status: 200, body: { value: {} }.to_json)
+      el.displayed?
+      assert_requested :get, "#{SESSION}/element/element_id_parent/displayed", times: 1
+      assert_equal ::Appium::Core::Element, el.class
+
+      stub_request(:post, "#{SESSION}/element/element_id_parent/element")
+        .with(body: { using: 'id', value: 'example2' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }, sessionId: SESSION, status: 0
+        }.to_json)
+      c_el = el.find_element id: 'example2'
+      assert_requested :post, "#{SESSION}/element/element_id_parent/element", times: 1
+      assert_equal ::Appium::Core::Element, c_el.class
+
+      # elements
+      stub_request(:post, "#{SESSION}/elements")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_parent' }], sessionId: SESSION, status: 0
+        }.to_json)
+      els = driver.find_elements id: 'example'
+      assert_requested :post, "#{SESSION}/elements", times: 1
+      assert_equal ::Appium::Core::Element, els.first.class
+
+      stub_request(:post, "#{SESSION}/element/element_id_parent/elements")
+        .with(body: { using: 'id', value: 'example2' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [{ ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' }],
+          sessionId: SESSION, status: 0
+        }.to_json)
+      c_el = els.first.find_elements id: 'example2'
+      assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
+      assert_equal ::Appium::Core::Element, c_el.first.class
+    end
+
+    def test_convert_element
+      driver = android_mock_create_session
+      response = { 'element-6066-11e4-a52e-4f735466cecf' => 'test-element-id', 'ELEMENT' => 'test-element-id' }
+      e = driver.convert_to_element response
+      assert_equal 'test-element-id', e.id
+      assert_equal ::Appium::Core::Element, e.class
     end
   end
 end
