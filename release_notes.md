@@ -1,3 +1,13 @@
+#### v8.0.2 2024-04-26
+
+- [1e9fe6d](https://github.com/appium/ruby_lib_core/commit/1e9fe6d89808ce6c2d77189beef5b253df8bedee) Release 8.0.2
+- [33b9065](https://github.com/appium/ruby_lib_core/commit/33b9065c916d91650c4b645415b483ca54f10552) chore: bump thor
+- [2c2b212](https://github.com/appium/ruby_lib_core/commit/2c2b21281474320da2455a5fe15a2dc4075cbbab) chore(deps-dev): update rubocop requirement from = 1.63.2 to = 1.63.3 (#540)
+- [dca3c97](https://github.com/appium/ruby_lib_core/commit/dca3c97919c8be04d4014fec156c783091cecbf5) chore(deps-dev): update rubocop requirement from = 1.63.1 to = 1.63.2 (#539)
+- [3a2b449](https://github.com/appium/ruby_lib_core/commit/3a2b4497ccf5348e9b73fc75abe40002a8be0ddc) chore(deps-dev): update rubocop requirement from = 1.63.0 to = 1.63.1 (#538)
+- [ebbbe8d](https://github.com/appium/ruby_lib_core/commit/ebbbe8da54d9a8e4708aa48e1186ad6b04d42e46) chore(deps-dev): update rubocop requirement from = 1.62.1 to = 1.63.0 (#537)
+
+
 #### v8.0.1 2024-03-26
 
 - [6629004](https://github.com/appium/ruby_lib_core/commit/6629004dd92ff2a7396f5456e9017933891ee79c) Release 8.0.1
