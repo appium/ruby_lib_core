@@ -63,6 +63,13 @@ jobs:
         IGNORE_VERSION_SKIP: true
         CI: true
 
+    - name: Save server output
+      if: ${{ always() }}
+      uses: actions/upload-artifact@master
+      with:
+        name: appium.log
+        path: appium.log
+
   ios_test_with_other_deps:
     runs-on: macos-14
 
@@ -109,3 +116,10 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
+
+    - name: Save server output
+      if: ${{ always() }}
+      uses: actions/upload-artifact@master
+      with:
+        name: appium.log
+        path: appium.log
