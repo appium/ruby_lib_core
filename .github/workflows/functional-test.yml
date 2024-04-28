@@ -47,6 +47,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
+        appium driver run xcuitest build-wda
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
     - name: Set up Ruby
@@ -95,6 +96,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
+        appium driver run xcuitest build-wda
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
     - name: Set up Ruby
