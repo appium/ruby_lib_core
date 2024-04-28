@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-12
+    runs-on: macos-13-xlarge
 
     steps:
     - uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
     - run: |
         appium driver install xcuitest
         appium driver run xcuitest build-wda
-        nohup appium server --relaxed-security > appium.log &
+        nohup appium server --base-path=/wd/hub --relaxed-security > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
