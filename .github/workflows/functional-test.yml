@@ -7,12 +7,12 @@ on:
   #   branches:
   #     - master
 
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-#   cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
+  ios_test:
     strategy:
       matrix:
         test_targets:
@@ -21,7 +21,6 @@ jobs:
           - test/functional/ios/webdriver/device_test.rb
           - test/functional/ios/ios/device_test.rb
           - test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
-          - test/functional/ios/ios/mobile_commands_test.rb
           - test/functional/ios/ios/image_comparison_test.rb
           - test/functional/ios/tv_driver_test.rb
 
@@ -40,9 +39,6 @@ jobs:
       with:
         xcode-version: 14.2
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
-    - run: |
-        brew tap wix/brew
-        brew install applesimutils
 
     # Start Appium
     - run: npm install -g appium
@@ -50,7 +46,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium server --base-path=/wd/hub --relaxed-security > appium.log &
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -66,7 +62,7 @@ jobs:
         IGNORE_VERSION_SKIP: true
         CI: true
 
-  ios_with_ffmpeg:
+  ios_test_with_other_deps:
     runs-on: macos-12
 
     steps:
@@ -82,7 +78,12 @@ jobs:
       with:
         xcode-version: 14.2
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
-    - run: brew install ffmpeg
+
+    - name: Preparing other environment
+    - run: |
+        brew install ffmpeg
+        brew tap wix/brew
+        brew install applesimutils
 
     # Start Appium
     - name: Install appium and mjpeg-consumer
@@ -93,7 +94,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium server --base-path=/wd/hub --relaxed-security > appium.log &
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -102,9 +103,8 @@ jobs:
     - name: Install dependencies
       run: bundle install
 
-    # Run tests
-    - run: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb
-      name: Run tests func_test_ios_webdriver1
+    - run: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
+      name: Run tests
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
