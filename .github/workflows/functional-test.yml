@@ -16,15 +16,15 @@ jobs:
     strategy:
       matrix:
         test_targets:
-          # do not include: test/functional/ios/ios/mjpeg_server_test.rb
           - test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
           - test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
           - test/functional/ios/webdriver/device_test.rb
           - test/functional/ios/ios/device_test.rb
           - test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
           - test/functional/ios/ios/mobile_commands_test.rb
-          - test/functional/ios/tv_driver_test.rb    
-    
+          - test/functional/ios/ios/image_comparison_test.rb
+          - test/functional/ios/tv_driver_test.rb
+
     runs-on: macos-12
 
     steps:
@@ -57,10 +57,50 @@ jobs:
       with:
         ruby-version: 3.2
     - name: Install dependencies
-      run: bundle install  
+      run: bundle install
 
     # Run tests
     - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets}}
+      name: Run tests
+      env:
+        IGNORE_VERSION_SKIP: true
+        CI: true
+
+  ios_with_ffmpeg:
+    runs-on: macos-12
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    - name: Select Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 14.2
+    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+
+    # Start Appium
+    - run: npm install -g appium
+    - run: |
+        appium driver install xcuitest
+        appium plugin install images
+        appium plugin install execute-driver
+        nohup appium server --base-path=/wd/hub --relaxed-security > appium.log &
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
+    - name: Install dependencies
+      run: bundle install
+
+    # Run tests
+    - run: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb
       name: Run tests func_test_ios_webdriver1
       env:
         IGNORE_VERSION_SKIP: true
+        CI: true

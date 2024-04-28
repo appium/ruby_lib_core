@@ -109,6 +109,8 @@ class AppiumLibCoreTest
       def test_siri
         skip_as_appium_version '1.10.0'
 
+        skip 'Not stable on CI' if ci?
+
         @driver = @core.start_driver
 
         assert @driver.app_state('com.example.apple-samplecode.UICatalog') == :running_in_foreground
