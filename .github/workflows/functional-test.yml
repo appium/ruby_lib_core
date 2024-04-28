@@ -82,9 +82,13 @@ jobs:
       with:
         xcode-version: 14.2
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+    - run: brew install ffmpeg
 
     # Start Appium
-    - run: npm install -g appium
+    - name: Install appium and mjpeg-consumer
+      run: |
+        npm install -g appium
+        npm install -g mjpeg-consumer
     - run: |
         appium driver install xcuitest
         appium plugin install images
