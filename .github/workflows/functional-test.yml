@@ -80,7 +80,7 @@ jobs:
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
     - name: Preparing other environment
-    - run: |
+      run: |
         brew install ffmpeg
         brew tap wix/brew
         brew install applesimutils
