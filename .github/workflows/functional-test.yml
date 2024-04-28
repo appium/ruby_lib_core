@@ -1,4 +1,4 @@
-name: Functional Tests
+name: Functional Tests for iOS
 
 on:
   # Run by manual at this time
@@ -44,6 +44,8 @@ jobs:
     - run: npm install -g appium
     - run: |
         appium driver install xcuitest
+        appium plugin install images
+        appium plugin install execute-driver
         nohup appium server --base-path=/wd/hub --relaxed-security > appium.log &
 
     - name: Set up Ruby
