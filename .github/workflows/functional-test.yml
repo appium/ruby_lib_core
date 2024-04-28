@@ -41,6 +41,6 @@ jobs:
 
     # Run tests
     - run: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
-      displayName: Run tests func_test_ios_webdriver1
+      name: Run tests func_test_ios_webdriver1
       env:
         IGNORE_VERSION_SKIP: true
