@@ -40,7 +40,9 @@ jobs:
       with:
         xcode-version: 14.2
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
-    - run: brew install applesimutils
+    - run: |
+        brew tap wix/brew
+        brew install applesimutils
 
     # Start Appium
     - run: npm install -g appium
