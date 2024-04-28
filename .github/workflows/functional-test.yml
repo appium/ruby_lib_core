@@ -1,0 +1,45 @@
+name: Functional Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: macos-12
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+
+    - name: Select Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 14.2
+    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+
+    # Start Appium
+    - run: npm install -g appium
+    - run: |
+        appium driver install xcuitest
+        appium driver run xcuitest build-wda
+        nohup appium server --relaxed-security > appium.log &
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
+    - name: Install dependencies
+      run: bundle install  
+
+    # Run tests
+    - run: bundle exec rake test:func:ios TESTS=test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
+      displayName: Run tests func_test_ios_webdriver1
+      env:
+        IGNORE_VERSION_SKIP: true
