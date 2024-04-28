@@ -41,6 +41,11 @@ jobs:
         xcode-version: 15.3
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
+    - uses: futureware-tech/simulator-action@v3
+      with:
+        model: 'iPhone 11'
+        os_version: '17.4'
+
     # Start Appium
     - run: npm install -g appium
     - run: |
@@ -67,7 +72,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium.log
+        name: appium-{{ matrix.test_targets }}.log
         path: appium.log
 
   ios_test_with_other_deps:
@@ -86,6 +91,11 @@ jobs:
       with:
         xcode-version: 15.3
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+
+    - uses: futureware-tech/simulator-action@v3
+      with:
+        model: 'iPhone 11'
+        os_version: '17.4'
 
     - name: Preparing other environment
       run: |
@@ -121,5 +131,5 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium.log
+        name: appium-ios_test_with_other_deps.log
         path: appium.log
