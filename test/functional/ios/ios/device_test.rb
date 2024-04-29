@@ -75,6 +75,7 @@ class AppiumLibCoreTest
         assert_equal alert_view_cell, e.name
 
         @@driver.background_app(-1)
+        @@driver.wait_true { @@driver.find_elements :accessibility_id, alert_view_cell == [] }
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, alert_view_cell
         end
