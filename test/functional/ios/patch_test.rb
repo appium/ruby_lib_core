@@ -55,8 +55,8 @@ class AppiumLibCoreTest
       location = e.location_rel @@driver
 
       expected_x, expected_y = if over_ios17?(@@driver)
-                                 # iPhone 15 Pro
-                                 ['66.0 / 414.0', '245.0 / 896.0']
+                                 # iPhone 15 Plus
+                                 ['64.0 / 430.0', '245.0 / 932.0']
                                elsif over_ios14?(@@driver)
                                  # iPhone 11
                                  ['64.0 / 414.0', '239.5 / 896.0']
@@ -67,8 +67,8 @@ class AppiumLibCoreTest
                                  ['74.5 / 414.0', '411.0 / 896.0']
                                end
 
-      assert_equal expected_x, location.x
-      assert_equal expected_y, location.y
+      assert_equal expected_x, location.x, "Expected X is #{expected_x}, actual is #{location.x}"
+      assert_equal expected_y, location.y, "Expected y is #{expected_y}, actual is #{location.y}"
     end
   end
 end
