@@ -17,13 +17,20 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
-          - test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
-          - test/functional/ios/webdriver/device_test.rb
-          - test/functional/ios/ios/device_test.rb
-          - test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
-          - test/functional/ios/ios/image_comparison_test.rb
-          - test/functional/ios/tv_driver_test.rb
+          - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
+            name: test1
+          - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
+            name: test2
+          - target: test/functional/ios/webdriver/device_test.rb
+            name: test3
+          - target: test/functional/ios/ios/device_test.rb
+            name: test4
+          - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
+            name: test5
+          - target: test/functional/ios/ios/image_comparison_test.rb
+            name: test6
+          - target: test/functional/ios/tv_driver_test.rb
+            name: test7
 
     runs-on: macos-14
 
@@ -63,7 +70,7 @@ jobs:
       run: bundle install
 
     # Run tests
-    - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets}}
+    - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
       name: Run tests
       env:
         IGNORE_VERSION_SKIP: true
@@ -73,7 +80,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-${{matrix.test_targets}}.log
+        name: appium-${{matrix.test_targets.name}}.log
         path: appium.log
 
   ios_test_with_other_deps:
