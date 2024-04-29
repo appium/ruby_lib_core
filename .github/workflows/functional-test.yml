@@ -51,7 +51,7 @@ jobs:
     - uses: futureware-tech/simulator-action@v3
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: 'iPhone 15'
+        model: 'iPhone 15 Plus'
         os_version: '17.4'
 
     # Start Appium
@@ -103,7 +103,7 @@ jobs:
     - uses: futureware-tech/simulator-action@v3
       with:
       # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: 'iPhone 15'
+        model: 'iPhone 15 Plus'
         os_version: '17.4'
 
     - name: Preparing other environment
@@ -119,7 +119,7 @@ jobs:
         npm install -g mjpeg-consumer
     - run: |
         appium driver install xcuitest
-        appium plugin install images
+        appium plugin install images@2.1.8
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 

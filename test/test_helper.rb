@@ -211,7 +211,7 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 15'
+                 'iPhone 15 Plus'
                else
                  'iPhone 15 Pro Max'
                end

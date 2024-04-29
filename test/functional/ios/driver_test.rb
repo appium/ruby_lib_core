@@ -117,7 +117,8 @@ class AppiumLibCoreTest
           d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
         end
         predictive = @@driver.wait do |d|
-          d.find_element :predicate, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+          search_word = over_ios17?(@@driver) ? 'Predictive Text' : 'Predictive'
+          d.find_element :predicate, "name == \"#{search_word}\" AND type == \"XCUIElementTypeSwitch\""
         end
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value
