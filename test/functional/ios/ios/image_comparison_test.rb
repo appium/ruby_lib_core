@@ -91,7 +91,6 @@ class AppiumLibCoreTest
         File.delete 'get_images_result_visual.png'
       end
 
-      # FIXME: adjust the preset image to iPhone 15 env
       def test_image_element
         skip_as_appium_version '1.9.0'
 
@@ -105,6 +104,8 @@ class AppiumLibCoreTest
         )
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
+
+        # These images are iPhone 11 basis, thus iPhone 15 etc may have bigger delta
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
         # sometimes animation affects here
@@ -151,7 +152,6 @@ class AppiumLibCoreTest
         assert_nil image_element.visual
       end
 
-      # FIXME: adjust the preset image to iPhone 15 env
       def test_image_elements
         skip_as_appium_version '1.9.0'
 
@@ -163,6 +163,7 @@ class AppiumLibCoreTest
           }
         )
 
+        # These images are iPhone 11 basis, thus iPhone 15 etc may have bigger delta
         el = @@driver.find_element :accessibility_id, 'Buttons'
         el.save_screenshot 'test/functional/data/test_ios_button.png'
 

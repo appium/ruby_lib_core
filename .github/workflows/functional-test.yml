@@ -73,7 +73,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-@{{ matrix.test_targets }}.log
+        name: appium-${{matrix.test_targets}}.log
         path: appium.log
 
   ios_test_with_other_deps:

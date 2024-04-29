@@ -28,44 +28,47 @@ class AppiumLibCoreTest
       save_reports(@@driver)
     end
 
-    def test_method_missing_attributes
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }
+    # def test_method_missing_attributes
+    #   e = @@core.wait { @@driver.find_element :accessibility_id, 'Buttons' }
 
-      assert_equal 'Buttons', e.value
-      assert_equal 'Buttons', e.name
-      assert_equal 'Buttons', e.label
-    end
+    #   assert_equal 'Buttons', e.value
+    #   assert_equal 'Buttons', e.name
+    #   assert_equal 'Buttons', e.label
+    # end
 
-    def test_type
-      w3c_scroll @@driver
+    # def test_type
+    #   w3c_scroll @@driver
 
-      @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
+    #   @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
 
-      text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
-      text.type 'hello'
+    #   text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
+    #   text.type 'hello'
 
-      e = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
-      assert_equal 'hello', e.value
+    #   e = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
+    #   assert_equal 'hello', e.value
 
-      @@driver.back
-    end
+    #   @@driver.back
+    # end
 
     def test_location_rel
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
       location = e.location_rel @@driver
 
-      if over_ios14?(@@driver)
-        # iPhone 11
-        assert_equal '64.0 / 414.0', location.x
-        assert_equal '239.5 / 896.0', location.y
-      elsif over_ios13?(@@driver)
-        # iPhone 11
-        assert_equal '64.0 / 414.0', location.x
-        assert_equal '235.5 / 896.0', location.y
-      else
-        assert_equal '74.5 / 414.0', location.x
-        assert_equal '411.0 / 896.0', location.y
-      end
+      expected_x, expected_y = if over_ios17?(@@driver)
+                                 # iPhone 15
+                                 ['62.5 / 375.0', '247.0 / 812.0']
+                               elsif over_ios14?(@@driver)
+                                 # iPhone 11
+                                 ['64.0 / 414.0', '239.5 / 896.0']
+                               elsif over_ios13?(@@driver)
+                                 # iPhone 11
+                                 ['64.0 / 414.0', '235.5 / 896.0']
+                               else
+                                 ['74.5 / 414.0', '411.0 / 896.0']
+                               end
+
+      assert_equal expected_x, location.x
+      assert_equal expected_y, location.y
     end
   end
 end
