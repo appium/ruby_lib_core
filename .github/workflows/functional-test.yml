@@ -3,9 +3,10 @@ name: Functional Tests for iOS
 on:
   # Run by manual at this time
   workflow_dispatch:
-  # pull_request:
-  #   branches:
-  #     - master
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
