@@ -21,7 +21,13 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+      if over_ios17? @@driver
+        'Alert Views'
+      elsif over_ios13? @@driver
+        'Alert Controller'
+      else
+        'Alert Views'
+      end
     end
 
     def uicatalog
