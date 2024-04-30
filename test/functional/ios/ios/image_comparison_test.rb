@@ -97,13 +97,15 @@ class AppiumLibCoreTest
         @@driver.update_settings(
           {
             fixImageTemplateScale: true,
-            imageMatchThreshold: 0.9,
+            imageMatchThreshold: 0.8,
             getMatchedImageResult: true,
             checkForImageElementStaleness: false
           }
         )
 
         el = @@driver.find_element :accessibility_id, 'Buttons'
+
+        # These images are iPhone 11 basis, thus iPhone 15 etc may have bigger delta
         @@driver.save_element_screenshot el, 'test/functional/data/test_ios_button.png'
 
         # sometimes animation affects here
@@ -115,33 +117,34 @@ class AppiumLibCoreTest
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
         assert !image_element.visual.nil?
 
+        image_delta = 10
+
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 2
-        assert_in_delta el_location.y, image_location.y, 2
+        assert_in_delta el_location.x, image_location.x, image_delta
+        assert_in_delta el_location.y, image_location.y, image_delta
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 2
-        assert_in_delta el_size.height, image_size.height, 2
+        assert_in_delta el_size.width, image_size.width, image_delta
+        assert_in_delta el_size.height, image_size.height, image_delta
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 2
-        assert_in_delta el_rect.y, image_rect.y, 2
-        assert_in_delta el_rect.width, image_rect.width, 2
-        assert_in_delta el_rect.height, image_rect.height, 2
+        assert_in_delta el_rect.x, image_rect.x, image_delta
+        assert_in_delta el_rect.y, image_rect.y, image_delta
+        assert_in_delta el_rect.width, image_rect.width, image_delta
+        assert_in_delta el_rect.height, image_rect.height, image_delta
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
 
-        assert @@driver.find_element :accessibility_id, 'Person'
+        assert(@@core.wait { @@driver.find_element :accessibility_id, 'Person' })
         @@driver.back
 
         @@driver.update_settings(
           {
             fixImageTemplateScale: true,
-            imageMatchThreshold: 0.9,
             getMatchedImageResult: false
           }
         )
@@ -156,11 +159,12 @@ class AppiumLibCoreTest
         @@driver.update_settings(
           {
             fixImageTemplateScale: true,
-            imageMatchThreshold: 0.9,
+            imageMatchThreshold: 0.8,
             checkForImageElementStaleness: false
           }
         )
 
+        # These images are iPhone 11 basis, thus iPhone 15 etc may have bigger delta
         el = @@driver.find_element :accessibility_id, 'Buttons'
         el.save_screenshot 'test/functional/data/test_ios_button.png'
 
@@ -168,32 +172,35 @@ class AppiumLibCoreTest
         # assert image_elements.size == 1, image_elements.size
         image_element = image_elements.last
 
+        image_delta = 10
+
         assert image_element.inspect
         assert image_element.hash
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
 
         el_location = el.location
         image_location = image_element.location
-        assert_in_delta el_location.x, image_location.x, 3
-        assert_in_delta el_location.y, image_location.y, 3
+        assert_in_delta el_location.x, image_location.x, image_delta
+        assert_in_delta el_location.y, image_location.y, image_delta
 
         el_size = el.size
         image_size = image_element.size
-        assert_in_delta el_size.width, image_size.width, 3
-        assert_in_delta el_size.height, image_size.height, 3
+        assert_in_delta el_size.width, image_size.width, image_delta
+        assert_in_delta el_size.height, image_size.height, image_delta
 
         el_rect = el.rect
         image_rect = image_element.rect
-        assert_in_delta el_rect.x, image_rect.x, 3
-        assert_in_delta el_rect.y, image_rect.y, 3
-        assert_in_delta el_rect.width, image_rect.width, 3
-        assert_in_delta el_rect.height, image_rect.height, 3
+        assert_in_delta el_rect.x, image_rect.x, image_delta
+        assert_in_delta el_rect.y, image_rect.y, image_delta
+        assert_in_delta el_rect.width, image_rect.width, image_delta
+        assert_in_delta el_rect.height, image_rect.height, image_delta
 
         assert_equal el.displayed?, image_element.displayed?
         image_element.click
 
-        assert @@driver.find_element :accessibility_id, 'Person'
+        assert(@@core.wait { @@driver.find_element :accessibility_id, 'Person' })
         @@driver.back
+        assert(@@core.wait { @@driver.find_element :accessibility_id, 'Buttons' })
       end
     end
   end

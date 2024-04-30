@@ -28,7 +28,13 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+        if over_ios17? @@driver
+          'Alert Views'
+        elsif over_ios13? @@driver
+          'Alert Controller'
+        else
+          'Alert Views'
+        end
       end
 
       public
@@ -75,6 +81,7 @@ class AppiumLibCoreTest
         assert_equal alert_view_cell, e.name
 
         @@driver.background_app(-1)
+        @@driver.wait_true { @@driver.find_elements :accessibility_id, alert_view_cell == [] }
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, alert_view_cell
         end

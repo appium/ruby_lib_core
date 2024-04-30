@@ -78,6 +78,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('14.0')
       end
 
+      def over_ios17?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('17.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -123,7 +127,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = platform_name.downcase == :tvos ? '16.0' : '16.2'
+      platform_version = '17.4'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -189,6 +193,10 @@ class AppiumLibCoreTest
       Gem::Version.create(os_version) >= Gem::Version.create('14.0')
     end
 
+    def over_ios17?(os_version)
+      Gem::Version.create(os_version) >= Gem::Version.create('17.0')
+    end
+
     def test_app(os_version)
       if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
@@ -203,9 +211,9 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 11'
+                 'iPhone 15 Plus'
                else
-                 'iPhone Xs Max'
+                 'iPhone 15 Pro Max'
                end
 
         parallel? ? "#{name} - #{wda_local_port}" : name

@@ -35,7 +35,18 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Buttons') }
         @@driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:name, over_ios13?(@@driver) ? 'X' : 'X Button') }
+        # require 'pry'
+        # binding.pry
+        #
+        button_label = if over_ios17? @@driver
+                         'X Button'
+                       elsif over_ios13? @@driver
+                         'X'
+                       else
+                         'X Button'
+                       end
+
+        el = @@core.wait { @@driver.find_element(:name, button_label) }
         rect = el.rect
         @@driver.action.click_and_hold(el).move_to_location(rect.x, rect.y + 500).release.perform
       end
