@@ -184,6 +184,9 @@ jobs:
         api-level: 29
         script: |
           bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
+        target: google_apis
+        profile: Nexus 5X
+
       env:
         ANDROID_SDK_VERSION: 29
         APPIUM_DRIVER: uiautomator2
