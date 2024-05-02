@@ -169,11 +169,6 @@ jobs:
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
 
-    - name: run tests
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 29
-
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -182,8 +177,13 @@ jobs:
       run: bundle install
 
     # Run tests
-    - run: bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
-      name: Run tests
+
+    - name: run tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: |
+          bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
       env:
         ANDROID_SDK_VERSION: 29
         APPIUM_DRIVER: uiautomator2
