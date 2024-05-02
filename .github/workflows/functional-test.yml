@@ -147,6 +147,27 @@ jobs:
   android_test:
     runs-on: ubuntu-latest
 
+    # test/functional/android/android/mjpeg_server_test.rb
+    # test/functional/android/android/image_comparison_test.rb
+    strategy:
+      fail-fast: false
+      matrix:
+        test_targets:
+          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
+            name: test1
+          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+            name: test2
+          - target: test/functional/android/android/device_test.rb
+            name: test3
+          - target: test/functional/ios/ios/device_test.rb
+            name: test4
+          - target: test/functional/android/android/search_context_test.rb
+            name: test5
+          - target: test/functional/android/android/device_data_test.rb
+            name: test6
+          - target: test/functional/android/android/mobile_commands_test.rb
+            name: test7
+
     steps:
     - uses: actions/checkout@v3
 
@@ -183,7 +204,7 @@ jobs:
       with:
         api-level: 29
         script: |
-          bundle exec rake test:func:android TESTS=test/functional/android/driver_test.rb,test/functional/android/patch_test.rb
+          bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
         profile: Nexus 5X
 
@@ -197,5 +218,5 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-android.log
+        name: appium-${{matrix.test_targets.name}}.log
         path: appium.log
