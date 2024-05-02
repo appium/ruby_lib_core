@@ -25,18 +25,13 @@ class AppiumLibCoreTest
 
     def teardown
       save_reports(@driver)
-      @@core.quit_driver
+      @driver&.quit
     end
 
     def test_appium_server_version
       v = @@core.appium_server_version
 
       refute_nil v['build']['version']
-    end
-
-    def test_platform_version
-      # @@core.platform_version #=> [7, 1, 1]
-      assert @@core.platform_version.length => 1
     end
 
     def test_wait_true

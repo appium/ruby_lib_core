@@ -26,7 +26,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
-        @@core.quit_driver
+        @driver&.quit
       end
 
       def test_uiautomator
@@ -34,23 +34,26 @@ class AppiumLibCoreTest
         e = @driver.find_element :uiautomator, 'new UiSelector().clickable(true)'
         assert e
         assert_equal "Access'ibility", e.tag_name
+        assert_equal ::Appium::Core::Element, e.class
       end
 
       def test_viewtag
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
 
-        e = @driver.find_elements :viewtag, 'example'
-        assert_equal 0, e.size
+        # no elements but the search  context does not get exception about the search context method
+        es = @driver.find_elements :viewtag, 'example'
+        assert_equal 0, es.size
       end
 
       def test_datamatcher
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
 
-        e = @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
-        assert_equal 1, e.size
-        assert_equal 'Animation', e.first.tag_name
+        es = @driver.find_elements :data_matcher, { name: 'hasEntry', args: %w(title Animation) }.to_json
+        assert_equal 1, es.size
+        assert_equal 'Animation', es.first.tag_name
+        assert_equal ::Appium::Core::Element, es.first.class
 
-        e.first.click
+        es.first.click
         @driver.find_element :accessibility_id, 'Cloning' # no error
         @driver.back
       end
@@ -94,6 +97,7 @@ class AppiumLibCoreTest
           class: 'org.hamcrest.Matchers'
         }.to_json
         assert_equal "Access'ibility", e.text
+        assert_equal ::Appium::Core::Element, e.class
       end
     end
   end

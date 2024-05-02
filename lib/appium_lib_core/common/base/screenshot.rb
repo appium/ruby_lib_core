@@ -24,7 +24,7 @@ module Appium
         def save_screenshot(png_path)
           extension = File.extname(png_path).downcase
           if extension != '.png'
-            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. ' \
                                   'It should end with .png extension'
           end
           File.open(png_path, 'wb') { |f| f << screenshot_as(:png) }
@@ -103,7 +103,7 @@ module Appium
         def save_viewport_screenshot(png_path)
           extension = File.extname(png_path).downcase
           if extension != '.png'
-            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+            ::Appium::Logger.warn 'name used for saved screenshot does not match file type. ' \
                                   'It should end with .png extension'
           end
           viewport_screenshot_encode64 = bridge.viewport_screenshot

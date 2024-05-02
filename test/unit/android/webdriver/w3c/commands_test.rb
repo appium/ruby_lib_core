@@ -133,9 +133,7 @@ class AppiumLibCoreTest
                   deviceName: 'Android Emulator',
                   appPackage: 'io.appium.android.apis',
                   appActivity: 'io.appium.android.apis.ApiDemos',
-                  someCapability: 'some_capability',
-                  unicodeKeyboard: true,
-                  resetKeyboard: true
+                  someCapability: 'some_capability'
                 }
               }
             }.to_json
@@ -184,7 +182,7 @@ class AppiumLibCoreTest
               .with(body: { location: { latitude: 1.0, longitude: 1.0, altitude: 1.0 } }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-            @driver.location = ::Selenium::WebDriver::Location.new(1.0, 1.0, 1.0)
+            @driver.location = ::Appium::Location.new(1.0, 1.0, 1.0)
             @driver.set_location 1, 1, 1
 
             assert_requested(:post, "#{SESSION}/location", times: 2)
@@ -229,6 +227,15 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/orientation", times: 1)
           end
 
+          def test_orientation
+            stub_request(:post, "#{SESSION}/orientation")
+              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+
+            @driver.orientation = :landscape
+
+            assert_requested(:post, "#{SESSION}/orientation", times: 1)
+          end
+
           def test_active_element
             stub_request(:get, "#{SESSION}/element/active")
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
@@ -236,17 +243,6 @@ class AppiumLibCoreTest
             @driver.switch_to.active_element
 
             assert_requested(:get, "#{SESSION}/element/active", times: 1)
-          end
-
-          def test_session_capabilities
-            stub_request(:get, SESSION.to_s)
-              .to_return(headers: HEADER, status: 200, body: { value: { sample_key: 'xxx' } }.to_json)
-
-            capability = @driver.session_capabilities
-            assert capability.is_a? Selenium::WebDriver::Remote::Capabilities
-            assert capability['sample_key'] == 'xxx'
-
-            assert_requested(:get, SESSION.to_s, times: 1)
           end
 
           def test_finger_print

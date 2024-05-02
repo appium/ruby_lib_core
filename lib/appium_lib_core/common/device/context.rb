@@ -29,10 +29,6 @@ module Appium
             end
           end
 
-          def switch_to_default_context
-            set_context nil
-          end
-
           def current_context
             execute :current_context
           end
@@ -42,7 +38,7 @@ module Appium
             execute(:available_contexts, {}) || []
           end
 
-          def set_context(context = null)
+          def set_context(context = nil)
             execute :set_context, {}, name: context
           end
         end # module ImeActions

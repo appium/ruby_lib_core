@@ -15,6 +15,9 @@
 require 'uri'
 
 module Appium
+  # The struct for 'location'
+  Location = Struct.new(:latitude, :longitude, :altitude)
+
   module Core
     module Android
       autoload :Uiautomator1, 'appium_lib_core/android'
@@ -23,7 +26,6 @@ module Appium
     end
 
     module Ios
-      autoload :Uiautomation, 'appium_lib_core/ios'
       autoload :Xcuitest, 'appium_lib_core/ios_xcuitest'
     end
 
@@ -34,7 +36,7 @@ module Appium
     # This options affects only client side as <code>:appium_lib</code> key.<br>
     # Read {::Appium::Core::Driver} about each attribute
     class Options
-      attr_reader :custom_url, :default_wait, :export_session, :export_session_path,
+      attr_reader :custom_url, :default_wait,
                   :port, :wait_timeout, :wait_interval, :listener,
                   :direct_connect, :enable_idempotency_header
 
@@ -42,10 +44,6 @@ module Appium
         @custom_url = appium_lib_opts.fetch :server_url, nil
         @default_wait = appium_lib_opts.fetch :wait, nil
         @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
-
-        # bump current session id into a particular file
-        @export_session = appium_lib_opts.fetch :export_session, false
-        @export_session_path = appium_lib_opts.fetch :export_session_path, default_tmp_appium_lib_session
 
         @direct_connect = appium_lib_opts.fetch :direct_connect, true
 
@@ -135,12 +133,6 @@ module Appium
       # @return [String]
       attr_reader :custom_url
 
-      # Export session id to textfile in /tmp for 3rd party tools. False by default.
-      # @return [Boolean]
-      attr_reader :export_session
-      # @return [String] By default, session id is exported in '/tmp/appium_lib_session'
-      attr_reader :export_session_path
-
       # Default wait time for elements to appear in Appium server side.
       # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
       # @return [Integer]
@@ -220,7 +212,6 @@ module Appium
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                export_session: false,
       #                port: 8080,
       #                wait: 0,
       #                wait_timeout: 20,
@@ -243,7 +234,6 @@ module Appium
       #              },
       #              appium_lib: {
       #                server_url: 'http://custom-host:8080/wd/hub.com',
-      #                export_session: false,
       #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
@@ -264,7 +254,6 @@ module Appium
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                export_session: false,
       #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
@@ -273,6 +262,23 @@ module Appium
       #            }
       #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
       #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub.com'
+      #
+      #     # With a custom listener
+      #     class CustomListener < ::Selenium::WebDriver::Support::AbstractEventListener
+      #       // something
+      #     end
+      #     capabilities: {
+      #       platformName: :ios,
+      #       platformVersion: '11.0',
+      #       deviceName: 'iPhone Simulator',
+      #       automationName: 'XCUITest',
+      #       app: '/path/to/MyiOS.app'
+      #     },
+      #     appium_lib: {
+      #       listener: CustomListener.new,
+      #     }
+      #     @core = Appium::Core.for capabilities: capabilities, appium_lib: appium_lib
+      #     @core.start_driver
       #
       def self.for(opts = {})
         new.setup_for_new_session(opts)
@@ -328,7 +334,7 @@ module Appium
       public
 
       # @private
-      # Set up for a neww session
+      # Set up for a new session
       def setup_for_new_session(opts = {})
         @custom_url = opts.delete :url # to set the custom url as :url
 
@@ -420,9 +426,6 @@ module Appium
             d_c = DirectConnections.new(@driver.capabilities)
             @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
           end
-
-          # export session
-          write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
@@ -443,7 +446,7 @@ module Appium
         @driver
       end
 
-      # @privvate
+      # @private
       # Attach to an existing session
       def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
@@ -475,9 +478,6 @@ module Appium
                                                      existing_session_id: session_id,
                                                      automation_name: automation_name,
                                                      platform_name: platform_name)
-
-          # export session
-          write_session_id(@driver.session_id, @export_session_path) if @export_session
         rescue Errno::ECONNREFUSED
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
@@ -486,13 +486,7 @@ module Appium
       end
 
       def get_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
-        client = http_client || Appium::Core::Base::Http::Default.new
-
-        # open_timeout and read_timeout are explicit wait.
-        client.open_timeout = open_timeout if open_timeout
-        client.read_timeout = read_timeout if read_timeout
-
-        client
+        http_client || Appium::Core::Base::Http::Default.new(open_timeout: open_timeout, read_timeout: read_timeout)
       end
 
       # Ignore setting default wait if the target driver has no implementation
@@ -509,7 +503,7 @@ module Appium
         {}
       end
 
-      # Quits the driver
+      # [Deprecated] Quits the driver. This method is the same as @driver.quit
       # @return [void]
       #
       # @example
@@ -517,6 +511,7 @@ module Appium
       #   @core.quit_driver
       #
       def quit_driver
+        ::Appium::Logger.warn('[DEPRECATION] quit_driver will be removed. Please use @driver.quit instead.')
         @driver.quit
       rescue # rubocop:disable Style/RescueStandardError
         nil
@@ -554,18 +549,6 @@ module Appium
         {}
       end
 
-      # Return the platform version as an array of integers
-      # @return [Array<Integer>]
-      #
-      # @example
-      #
-      #     @core.platform_version #=> [10,1,1]
-      #
-      def platform_version
-        p_version = @driver.capabilities['platformVersion'] || @driver.session_capabilities['platformVersion']
-        p_version.split('.').map(&:to_i)
-      end
-
       private
 
       def convert_to_symbol(value)
@@ -599,10 +582,8 @@ module Appium
           case sym_automation_name
           when :safari
             ::Appium::Logger.debug('SafariDriver for iOS')
-          when :xcuitest
+          else # XCUITest
             ::Appium::Core::Ios::Xcuitest::Bridge.for self
-          else # default and UIAutomation
-            ::Appium::Core::Ios::Uiautomation::Bridge.for self
           end
         when :mac
           case sym_automation_name
@@ -682,9 +663,6 @@ module Appium
 
         @default_wait = opts.default_wait
 
-        @export_session = opts.export_session
-        @export_session_path = opts.export_session_path
-
         @port = opts.port
 
         @wait_timeout  = opts.wait_timeout
@@ -725,19 +703,6 @@ module Appium
         @automation_name = if @driver.capabilities['automationName']
                              @driver.capabilities['automationName'].downcase.strip.intern
                            end
-      end
-
-      # @private
-      def write_session_id(session_id, export_path = '/tmp/appium_lib_session')
-        ::Appium::Logger.warn(
-          '[DEPRECATION] export_session option will be removed. ' \
-          'Please save the session id by yourself with #session_id method like @driver.session_id.'
-        )
-        export_path = export_path.tr('/', '\\') if ::Appium::Core::Base.platform.windows?
-        File.write(export_path, session_id)
-      rescue IOError => e
-        ::Appium::Logger.warn e
-        nil
       end
     end # class Driver
   end # module Core

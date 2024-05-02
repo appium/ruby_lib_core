@@ -27,7 +27,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
-        @@core.quit_driver
+        @driver&.quit
       end
 
       def test_capabilities
@@ -37,22 +37,6 @@ class AppiumLibCoreTest
       def test_remote_status
         status = @driver.remote_status
         assert !status['build']['version'].nil?
-      end
-
-      def test_set_immediate_value_and_replace_value
-        @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
-
-        e = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        e.immediate_value 'hello'
-
-        text = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        assert_equal 'Left is besthello', text.text
-
-        text.replace_value %w(テスト hello)
-        replaced_text = @@core.wait { @driver.find_element :id, 'io.appium.android.apis:id/left_text_edit' }
-        assert_equal '44OG44K544OIaGVsbG/ugIA=', Base64.strict_encode64(replaced_text.text)
       end
 
       def test_page_source
@@ -149,13 +133,6 @@ class AppiumLibCoreTest
         assert @driver.set_network_connection(6)
         # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
         assert @driver.network_connection_type = :all
-      end
-
-      def test_session_capability
-        assert @driver.session_capabilities['deviceUDID'].start_with? 'emulator-'
-
-        # with eventTimings
-        assert !@driver.session_capabilities['events']['commands'].nil?
       end
     end
   end

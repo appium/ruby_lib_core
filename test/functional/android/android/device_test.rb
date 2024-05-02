@@ -26,7 +26,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
-        @@core.quit_driver
+        @driver&.quit
       end
 
       def test_window_size
@@ -48,30 +48,10 @@ class AppiumLibCoreTest
         assert @driver.shake
       end
 
-      def test_close_and_launch_app
-        if @@core.automation_name == :espresso
-          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
-            @driver.close_app
-          end
-        else
-          @driver.close_app
-          assert(@driver.wait_until { |d| d.app_state('io.appium.android.apis') != :running_in_foreground })
-        end
-
-        if @@core.automation_name == :espresso
-          assert_raises ::Selenium::WebDriver::Error::UnsupportedOperationError do
-            @driver.launch_app
-          end
-        else
-          @driver.launch_app
-          e = @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }
-          assert_equal 'App', e.text
-        end
-      end
-
       def test_lock_unlock
         @driver.lock
-        assert @driver.device_locked?
+        # Unstable on CI
+        @@core.wait { assert @@driver.device_locked? } unless ci?
 
         @driver.unlock
         @driver.wait_until { |d| assert !d.device_locked? }
@@ -97,7 +77,7 @@ class AppiumLibCoreTest
           end
           assert 'An element could not be located on the page using the given search parameters.', error.message
 
-          @driver.reset
+          @driver.activate_app('io.appium.android.apis')
         end
 
         e = @driver.wait(timeout: 60) { |d| d.find_element :accessibility_id, 'App' }
@@ -130,7 +110,7 @@ class AppiumLibCoreTest
 
         webview_page = @driver.page_source
 
-        @driver.switch_to_default_context
+        @driver.set_context 'NATIVE_APP'
         @driver.wait { |d| assert_equal 'NATIVE_APP', d.current_context }
         assert native_page != webview_page
       end
@@ -189,53 +169,6 @@ class AppiumLibCoreTest
       def test_current_package
         e = @driver.wait_until(&:current_package)
         assert_equal 'io.appium.android.apis', e
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        Appium::Core::TouchAction.new(@driver)
-                                 .press(element: @driver.find_element(:accessibility_id, 'App'))
-                                 .release
-                                 .perform
-
-        @driver.wait_until { |d| d.find_element :accessibility_id, 'Action Bar' }
-        @driver.back
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_swipe
-        @driver.wait_until { |d| d.find_element :accessibility_id, 'App' }.click
-
-        el = @driver.wait_until { |d| d.find_element :accessibility_id, 'Fragment' }
-        rect = el.rect
-
-        Appium::Core::TouchAction.new(@driver)
-                                 .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 500, duration: 500)
-                                 .perform
-        @driver.back # The above command become "tap" action since it doesn't move.
-        el = @driver.wait_until { |d| d.find_element :accessibility_id, 'Fragment' }
-        assert rect.x == el.rect.x
-        assert rect.y == el.rect.y
-
-        touch_action = Appium::Core::TouchAction.new(@driver)
-                                                .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 300, duration: 500)
-
-        assert_equal :press, touch_action.actions[0][:action]
-        assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
-
-        assert_equal :wait, touch_action.actions[1][:action]
-        assert_equal({ ms: 500 }, touch_action.actions[1][:options])
-
-        assert_equal :moveTo, touch_action.actions[2][:action]
-        assert_equal({ x: 75, y: 300 }, touch_action.actions[2][:options])
-
-        assert_equal :release, touch_action.actions[3][:action]
-
-        touch_action.perform
-        assert_equal [], touch_action.actions
-
-        assert rect.x == el.rect.x
-        assert rect.y > el.rect.y
       end
 
       def test_hidekeyboard

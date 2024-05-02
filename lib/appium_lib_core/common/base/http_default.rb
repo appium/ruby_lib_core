@@ -13,6 +13,8 @@
 # limitations under the License.
 
 require 'securerandom'
+# to avoid mysterious resolution error 'uninitialized constant Selenium::WebDriver::Remote::Http::Default::Net (NameError)'
+require 'net/http'
 
 require_relative '../../version'
 
@@ -26,21 +28,15 @@ module Appium
           }.freeze
         end
 
-        class Default < Selenium::WebDriver::Remote::Http::Default
-          DEFAULT_HEADERS = {
-            'Accept' => CONTENT_TYPE,
-            'Content-Type' => "#{CONTENT_TYPE}; charset=UTF-8",
-            'User-Agent' =>
-              "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common::DEFAULT_HEADERS['User-Agent']})"
-          }.freeze
-
+        class Default < ::Selenium::WebDriver::Remote::Http::Default
           attr_reader :additional_headers
 
           # override
-          def initialize(open_timeout: nil, read_timeout: nil) # rubocop:disable Lint/MissingSuper
+          def initialize(open_timeout: nil, read_timeout: nil)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
             @additional_headers = {}
+            super
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
@@ -56,11 +52,18 @@ module Appium
             return @server_url unless validate_url_param(scheme, host, port, path)
 
             # Add / if 'path' does not have it
-            path = path.start_with?('/') ? path : "/#{path}"
-            path = path.end_with?('/') ? path : "#{path}/"
+            path = "/#{path}" unless path.start_with?('/')
+            path = "#{path}/" unless path.end_with?('/')
 
             @http = nil
             @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
+          end
+
+          def request(verb, url, headers, payload, redirects = 0)
+            headers['User-Agent'] = "appium/ruby_lib_core/#{VERSION} (#{headers['User-Agent']})"
+            headers = headers.merge @additional_headers unless @additional_headers.empty?
+
+            super(verb, url, headers, payload, redirects)
           end
 
           private
@@ -71,30 +74,6 @@ module Appium
             message = "Given parameters are scheme: '#{scheme}', host: '#{host}', port: '#{port}', path: '#{path}'"
             ::Appium::Logger.debug(message)
             false
-          end
-
-          public
-
-          # override to use default header
-          # https://github.com/SeleniumHQ/selenium/blob/master/rb/lib/selenium/webdriver/remote/http/common.rb#L46
-          def call(verb, url, command_hash)
-            url      = server_url.merge(url) unless url.is_a?(URI)
-            headers  = DEFAULT_HEADERS.dup
-            headers  = headers.merge @additional_headers unless @additional_headers.empty?
-            headers['Cache-Control'] = 'no-cache' if verb == :get
-
-            if command_hash
-              payload                   = JSON.generate(command_hash)
-              headers['Content-Length'] = payload.bytesize.to_s if [:post, :put].include?(verb)
-            elsif verb == :post
-              payload = '{}'
-              headers['Content-Length'] = '2'
-            end
-
-            ::Appium::Logger.info("   >>> #{url} | #{payload}")
-            ::Appium::Logger.info("     > #{headers.inspect}")
-
-            request verb, url, headers, payload
           end
         end
       end

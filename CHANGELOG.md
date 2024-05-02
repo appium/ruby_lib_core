@@ -10,6 +10,138 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [8.0.2] - 2024-04-26
+
+### Enhancements
+- Bump thor for publishment module
+
+## [8.0.1] - 2024-03-26
+
+### Bug fixes
+- Do not ignore an empty string/nil values as caps
+
+
+## [8.0.0] - 2024-03-08
+
+### Deprecations
+- Removed deprecated methods
+    - `launch_app`, `close_app` and `reset`
+        - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
+    - `TouchAction`, `MultiTouch`
+        - Please refer to W3C WebDriver actions
+        - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
+    - `immediate_value` and `replace_value`
+    - `end_coverage`
+    - `sessions` and `session_capabilities` since they are not W3C WebDriver spec and already removed from the dependent selenium clients.
+        - To get events info, please use `driver.logs.events` instead
+    - `switch_to_default_context`
+        - Please set proper context instead
+
+## [7.5.0] - 2024-02-21
+- Remove upper limitation in `selenium-webdriver`
+    - Users can control the version in their Gemfile
+    - ruby_lib_core will fix when the future release requires changes
+
+## [7.4.0] - 2024-01-23
+
+### Enhancement
+- Bump `selenium-webdriver` max
+
+### Deprecatioons
+- Removed deprecated `core#platform_version` and `core#write_session_id`
+    - Please refer to the capabilities' value and `driver.session_id`
+
+## [7.3.2] - 2023-11-08
+
+### Bug fixes
+- Fix default value fo set context
+
+## [7.3.1] - 2023-11-04
+### Enhancements
+- Bump `selenium-webdriver` max
+
+## [7.3.0] - 2023-10-17
+
+### Deprecations
+- Add deprecation marks that will be removed from Appium or this library to move to extension commands such as `mobile:`
+    - https://github.com/appium/ruby_lib_core/pull/504
+
+## [7.2.0] - 2023-10-13
+
+### Enhancements
+- Append `selenium-webdriver` `4.12` support
+
+## [7.1.1] - 2023-10-01
+
+### Deprecations
+
+- Add deprecation marks in `immediate_value` and `replace_value`
+
+## [7.1.0] - 2023-08-15
+
+### Enhancements
+- Append `selenium-webdriver` `4.11` support
+
+## [7.0.0] - 2023-06-17
+
+### Deprecations
+
+- Drop Ruby 2.7 support
+
+## [6.5.0] - 2023-06-11
+
+### Enhancements
+- Append `selenium-webdriver` `4.10` support
+
+## [6.4.2] - 2023-06-07
+
+### Enhancements
+- Simplify internal http client implementation a bit
+
+## [6.4.1] - 2023-05-13
+
+### Bug fixes
+- Fixed `driver.execute_cdp` command error in a chrome session
+
+## [6.4.0] - 2023-04-30
+
+### Enhancements
+- Append `selenium-webdriver` `4.9` support
+
+## [6.3.0] - 2023-03-14
+
+### Enhancements
+- Support custom listener
+    - e.g. A listener named `CustomListener` which inherits `::Selenium::WebDriver::Support::AbstractEventListener` can set as `appium_lib: { listener: CustomListener.new}` capability
+
+## [6.2.1] - 2023-03-09
+
+### Enhancements
+- Add `uia_device_orientation_landscaperight` and `uia_device_orientation_portrait_upsidedown` symbols in the `drivede.rotation=`
+- Add `drivede.orientation=` as a syntax sugar of `drivede.rotation=`
+
+
+## [6.2.0] - 2023-01-26
+
+### Enhancements
+
+- Append `selenium-webdriver` `4.8` support
+- Add `::Appium::Location` since `::Selenium::WebDriver::Location` no longer exists
+
+### Deprecations
+
+- `::Selenium::WebDriver::Location` is deprecated in favor of `::Appium::Location` in Appium Ruby binding
+
+
+## [6.1.0] - 2023-01-18
+
+### Bug fixes
+- `Element#immediate_value` sends `text` as the request body
+
+## [6.0.0] - 2022-12-25
+- Remove iOS/UiAutomation classes
+    - The version may work for iOS 8. XCUITest driver will be the default behavior for iOS.
+
 ## [5.8.0] - 2022-12-11
 
 ### Enhancements
@@ -24,7 +156,7 @@ Read `release_notes.md` for commit level details.
 ## [5.6.0] - 2022-11-08
 
 ### Enhancements
-- Append `selnium-webdriver` `4.6` support
+- Append `selenium-webdriver` `4.6` support
 
 ## [5.5.2] - 2022-10-11
 

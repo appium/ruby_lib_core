@@ -21,7 +21,6 @@ module Appium
         include Device::ImeActions
         include Device::Setting
         include Device::Context
-        include Device::Value
         include Device::FileManagement
         include Device::KeyEvent
         include Device::ImageComparison
@@ -29,7 +28,6 @@ module Appium
         include Device::AppState
         include Device::ScreenRecord::Command
         include Device::Device
-        include Device::TouchActions
         include Device::ExecuteDriver
         include Device::Orientation
 
@@ -123,9 +121,6 @@ module Appium
           capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
 
           capabilities.each do |name, value|
-            next if value.nil?
-            next if value.is_a?(String) && value.empty?
-
             capability_name = name.to_s
             w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
 
@@ -170,20 +165,16 @@ module Appium
           @available_commands[command]
         end
 
-        # Returns all available sessions on the Appium server instance
-        def sessions
-          execute :get_all_sessions
-        end
-
         def status
           execute :status
         end
 
         # Perform 'touch' actions for W3C module.
         # Generate +touch+ pointer action here and users can use this via +driver.action+
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/W3CActionBuilder.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
-        # - https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        # - https://www.selenium.dev/documentation/webdriver/actions_api/
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/ActionBuilder.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
         #
         # The pointer type is 'touch' by default in the Appium Ruby client.
         #
@@ -206,16 +197,6 @@ module Appium
           execute :get_timeouts
         end
 
-        # Port from MJSONWP
-        def session_capabilities
-          ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
-        end
-
-        # Override for safe. Newer ruby selenium webdriver already has the same code
-        def page_source
-          execute :get_page_source
-        end
-
         # For Appium
         # override
         def element_displayed?(element)
@@ -229,7 +210,8 @@ module Appium
         # override
         def element_attribute(element, name)
           # For W3C in Selenium Client
-          # execute_atom :getAttribute, element, name
+          # execute_atom :getAttribute, element, name.
+          # 'dom_attribute' in the WebDriver Selenium.
           execute :get_element_attribute, id: element.id, name: name
         end
 
@@ -306,7 +288,7 @@ module Appium
         # called in 'extend DriverExtensions::HasLocation'
         def location
           obj = execute(:get_location) || {}
-          ::Selenium::WebDriver::Location.new obj['latitude'], obj['longitude'], obj['altitude']
+          ::Appium::Location.new obj['latitude'], obj['longitude'], obj['altitude']
         end
 
         # For Appium
@@ -359,6 +341,15 @@ module Appium
 
         def element_screenshot(element_id)
           execute :take_element_screenshot, id: element_id
+        end
+
+        # for selenium-webdriver compatibility in chrome browser session.
+        # This may be needed in selenium-webdriver 4.8 or over? (around the version)
+        # when a session starts browserName: 'chrome' for bridge.
+        # This method is not only for Android, but also chrome desktop browser as well.
+        # So this bridge itself does not restrict the target module.
+        def send_command(command_params)
+          execute :chrome_send_command, {}, command_params
         end
 
         private

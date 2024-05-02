@@ -24,7 +24,7 @@ class AppiumLibCoreTest
 
       def teardown
         save_reports(@driver)
-        @core.quit_driver
+        @driver&.quit
       end
 
       # @since Appium 1.12.0

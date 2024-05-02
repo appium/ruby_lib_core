@@ -64,26 +64,6 @@ module Appium
       # Alias for type
       alias type send_keys
 
-      # Set the value to element directly
-      #
-      # @example
-      #
-      #   element.immediate_value 'hello'
-      #
-      def immediate_value(*value)
-        @bridge.set_immediate_value @id, *value
-      end
-
-      # Replace the value to element directly
-      #
-      # @example
-      #
-      #   element.replace_value 'hello'
-      #
-      def replace_value(*value)
-        @bridge.replace_value @id, *value
-      end
-
       # For use with location_rel.
       #
       # @return [::Selenium::WebDriver::Point] the relative x, y in a struct. ex: { x: 0.50, y: 0.20 }
@@ -152,7 +132,7 @@ module Appium
       def save_screenshot(png_path)
         extension = File.extname(png_path).downcase
         if extension != '.png'
-          ::Appium::Logger.warn 'name used for saved screenshot does not match file type. '\
+          ::Appium::Logger.warn 'name used for saved screenshot does not match file type. ' \
                                 'It should end with .png extension'
         end
         File.open(png_path, 'wb') { |f| f << screenshot_as(:png) }

@@ -25,11 +25,18 @@ Please read [`[5.0.0]`](CHANGELOG.md#500---2021-11-05) section in [CHANGELOG](CH
 # How to start
 ## Run tests
 ### Unit Tests
-Run unit tests which check each method and commands, URL, using the webmock.
+Run unit tests which check each method and command, URL, using the webmock.
 
 ```bash
 $ bundle install
 $ bundle exec parallel_test test/unit/
+```
+
+or
+
+```bash
+$ bundle install
+$ bundle exec rake test:unit
 ```
 
 ### Functional Tests
@@ -37,7 +44,7 @@ Run functional tests which require the Appium server and real device, Simulator/
 
 - Start Appium server (Appium 2.0 base)
 ```bash
-$ npm install -g appium@next
+$ npm install --location=global appium
 $ appium driver install xcuitest
 $ appium driver install uiautomator2 # etc
 $ appium --base-path=/wd/hub --relaxed-security # To run all tests in local
@@ -107,8 +114,8 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
         platformName: 'ios',
         platformVersion: '11.0',
         deviceName: 'iPhone Simulator',
-        automationName: 'XCUITest',
-        app: '/path/to/MyiOS.app'
+        # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
+        automationName: 'XCUITest'
       },
       appium_lib: {
         wait: 30
@@ -146,6 +153,29 @@ attached_driver.page_source
 
 Read [Appium/Core/Driver](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
 Capabilities affect only ruby_lib is [Appium/Core/Options](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
+
+
+### Gives custom listener
+
+An example to define a customer listener with [Selenium::WebDriver::Support::AbstractEventListener](https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/Support/AbstractEventListener.html)
+
+```ruby
+class CustomListener < ::Selenium::WebDriver::Support::AbstractEventListener
+  // something
+end
+capabilities: {
+  platformName: :ios,
+  platformVersion: '11.0',
+  deviceName: 'iPhone Simulator',
+  automationName: 'XCUITest',
+  app: '/path/to/MyiOS.app'
+},
+appium_lib: {
+  listener: CustomListener.new
+}
+@core = Appium::Core.for capabilities: capabilities, appium_lib: appium_lib
+@core.start_driver
+```
 
 # Development
 - Demo app

@@ -20,12 +20,18 @@ module Appium
       #
 
       module Rotatable
-        ORIENTATIONS = %i[landscape portrait].freeze
+        ORIENTATIONS = %i[
+          landscape
+          portrait
+          uia_device_orientation_landscaperight
+          uia_device_orientation_portrait_upsidedown
+        ].freeze
 
         #
         # Change the screen orientation
         #
-        # @param [:landscape, :portrait] orientation
+        # @param [:landscape, :portrait,
+        #         :uia_device_orientation_landscaperight, :uia_device_orientation_portrait_upsidedown] orientation
         #
         #
         def rotation=(orientation)
@@ -36,11 +42,13 @@ module Appium
           bridge.screen_orientation = orientation.to_s.upcase
         end
         alias rotate rotation=
+        alias orientation= rotation=
 
         #
         # Get the current screen orientation
         #
-        # @return [:landscape, :portrait] orientation
+        # @return [:landscape, :portrait,
+        #          :uia_device_orientation_landscaperight, :uia_device_orientation_portrait_upsidedown] orientation
         #
         # @api public
         #

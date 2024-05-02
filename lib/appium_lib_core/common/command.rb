@@ -70,11 +70,15 @@ module Appium
         find_elements: [:post, 'session/:session_id/elements'],
         find_child_element: [:post, 'session/:session_id/element/:id/element'],
         find_child_elements: [:post, 'session/:session_id/element/:id/elements'],
+        find_shadow_child_element: [:post, 'session/:session_id/shadow/:id/element'],
+        find_shadow_child_elements: [:post, 'session/:session_id/shadow/:id/elements'],
         get_active_element: [:get, 'session/:session_id/element/active'],
         is_element_selected: [:get, 'session/:session_id/element/:id/selected'],
         get_element_attribute: [:get, 'session/:session_id/element/:id/attribute/:name'],
         get_element_property: [:get, 'session/:session_id/element/:id/property/:name'],
         get_element_css_value: [:get, 'session/:session_id/element/:id/css/:property_name'],
+        get_element_aria_role: [:get, 'session/:session_id/element/:id/computedrole'],
+        get_element_aria_label: [:get, 'session/:session_id/element/:id/computedlabel'],
         get_element_text: [:get, 'session/:session_id/element/:id/text'],
         get_element_tag_name: [:get, 'session/:session_id/element/:id/name'],
         get_element_rect: [:get, 'session/:session_id/element/:id/rect'],
@@ -153,10 +157,6 @@ module Appium
 
         get_timeouts: [:get, 'session/:session_id/timeouts'], # https://w3c.github.io/webdriver/#get-timeouts
 
-        # Add OSS commands to W3C commands. We can remove them if we would like to remove them from W3C module.
-        ### Session capability
-        get_capabilities: [:get, 'session/:session_id'],
-
         ### rotatable
         get_screen_orientation: [:get, 'session/:session_id/orientation'],
         set_screen_orientation: [:post, 'session/:session_id/orientation'],
@@ -180,20 +180,10 @@ module Appium
         ###
 
         # common
-        get_all_sessions: [:get, 'sessions'],
         available_contexts: [:get, 'session/:session_id/contexts'],
         set_context: [:post, 'session/:session_id/context'],
         current_context: [:get, 'session/:session_id/context'],
 
-        touch_actions: [:post, 'session/:session_id/touch/perform'],
-        multi_touch: [:post, 'session/:session_id/touch/multi/perform'],
-
-        set_immediate_value: [:post, 'session/:session_id/appium/element/:id/value'],
-        replace_value: [:post, 'session/:session_id/appium/element/:id/replace_value'],
-
-        launch_app: [:post, 'session/:session_id/appium/app/launch'],
-        close_app: [:post, 'session/:session_id/appium/app/close'],
-        reset: [:post, 'session/:session_id/appium/app/reset'],
         background_app: [:post, 'session/:session_id/appium/app/background'],
         app_strings: [:post, 'session/:session_id/appium/app/strings'],
 
@@ -239,7 +229,6 @@ module Appium
         toggle_wifi: [:post, 'session/:session_id/appium/device/toggle_wifi'],
         toggle_data: [:post, 'session/:session_id/appium/device/toggle_data'],
         toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
-        end_coverage: [:post, 'session/:session_id/appium/app/end_test_coverage'],
         get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'],
         get_performance_data: [:post, 'session/:session_id/appium/getPerformanceData'],
         get_network_connection: [:get, 'session/:session_id/network_connection'], # defined also in OSS

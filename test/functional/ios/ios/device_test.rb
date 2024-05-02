@@ -28,7 +28,13 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+        if over_ios17? @@driver
+          'Alert Views'
+        elsif over_ios13? @@driver
+          'Alert Controller'
+        else
+          'Alert Views'
+        end
       end
 
       public
@@ -61,15 +67,6 @@ class AppiumLibCoreTest
         @@driver.shake
       end
 
-      def test_close_and_launch_app
-        @@driver.close_app
-        assert_equal ['NATIVE_APP'], @@driver.available_contexts
-
-        @@driver.launch_app
-        e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
-        assert_equal alert_view_cell, e.name
-      end
-
       def test_lock_unlock
         @@driver.lock
         @@core.wait { assert @@driver.device_locked? }
@@ -84,12 +81,13 @@ class AppiumLibCoreTest
         assert_equal alert_view_cell, e.name
 
         @@driver.background_app(-1)
+        @@driver.wait_true { @@driver.find_elements :accessibility_id, alert_view_cell == [] }
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
           @@driver.find_element :accessibility_id, alert_view_cell
         end
         assert 'An element could not be located on the page using the given search parameters.', error.message
 
-        @@driver.reset
+        @@driver.activate_app 'com.example.apple-samplecode.UICatalog'
 
         e = @@core.wait { @@driver.find_element :accessibility_id, alert_view_cell }
         assert_equal alert_view_cell, e.name
@@ -115,7 +113,7 @@ class AppiumLibCoreTest
         @@driver.set_context webview_context
         @@core.wait { assert @@driver.current_context.start_with? 'WEBVIEW' }
 
-        @@driver.switch_to_default_context
+        @@driver.set_context 'NATIVE_APP'
         assert_equal 'NATIVE_APP', @@driver.current_context
 
         @@driver.back # go to top
@@ -200,48 +198,6 @@ class AppiumLibCoreTest
         assert_equal(true, @@driver.get_settings['nativeWebTap'])
 
         @@driver.update_settings({ 'nativeWebTap' => false })
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        if @@core.automation_name == :xcuitest
-          element = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
-
-          @@driver.execute_script('mobile: tap', x: 0, y: 0, element: element.id)
-        else
-          Appium::Core::TouchAction.new(@@driver)
-                                   .press(element: @@driver.find_element(:accessibility_id, ACTIVITY_INDICATORS))
-                                   .perform
-        end
-
-        @@driver.back
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_swipe
-        el = @@core.wait { @@driver.find_element :accessibility_id, ACTIVITY_INDICATORS }
-        rect = el.rect
-
-        touch_action = Appium::Core::TouchAction
-                       .new(@@driver)
-                       .swipe(start_x: 75, start_y: 500, end_x: 75, end_y: 300, duration: 500)
-
-        assert_equal :press, touch_action.actions[0][:action]
-        assert_equal({ x: 75, y: 500 }, touch_action.actions[0][:options])
-
-        assert_equal :wait, touch_action.actions[1][:action]
-        assert_equal({ ms: 500 }, touch_action.actions[1][:options])
-
-        assert_equal :moveTo, touch_action.actions[2][:action]
-        assert_equal({ x: 75, y: 300 }, touch_action.actions[2][:options])
-
-        assert_equal :release, touch_action.actions[3][:action]
-
-        touch_action.perform
-        assert_equal [], touch_action.actions
-
-        # If test target has long height, el should be equal
-        assert rect.y >= el.rect.y
       end
 
       def test_touch_id

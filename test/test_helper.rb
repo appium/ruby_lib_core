@@ -78,6 +78,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('14.0')
       end
 
+      def over_ios17?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('17.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -123,7 +127,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '15.2'
+      platform_version = '17.4'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] ? true : false
@@ -137,7 +141,6 @@ class AppiumLibCoreTest
           deviceName: device_name(platform_version, platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
-          useJSONSource: true,
           someCapability: 'some_capability',
           wdaLaunchTimeout: 120_000,
           newCommandTimeout: 120,
@@ -149,10 +152,12 @@ class AppiumLibCoreTest
           orientation: 'PORTRAIT', # only for simulator
           processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
-          connectHardwareKeyboard: false
+          connectHardwareKeyboard: false,
+          maxTypingFrequency: 200,
+          simulatorStartupTimeout: 600_000,
+          'settings[pageSourceExcludedAttributes]': 'visible'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -188,6 +193,10 @@ class AppiumLibCoreTest
       Gem::Version.create(os_version) >= Gem::Version.create('14.0')
     end
 
+    def over_ios17?(os_version)
+      Gem::Version.create(os_version) >= Gem::Version.create('17.0')
+    end
+
     def test_app(os_version)
       if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
@@ -202,9 +211,9 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 11'
+                 'iPhone 15 Plus'
                else
-                 'iPhone Xs Max'
+                 'iPhone 15 Pro Max'
                end
 
         parallel? ? "#{name} - #{wda_local_port}" : name
@@ -217,7 +226,6 @@ class AppiumLibCoreTest
 
       derived_data_path = File.expand_path("tmp/#{xcode_org_id}") # Can run in parallel if we set here as a unique path
       FileUtils.mkdir_p(derived_data_path) unless File.exist? derived_data_path
-      caps[:caps][:derivedDataPath] = derived_data_path
 
       platform_name = caps[:caps][:platformName].downcase
       runnner_prefix = platform_name == :tvos ? 'WebDriverAgentRunner_tvOS_appletv' : 'WebDriverAgentRunner_iphone'
@@ -233,6 +241,8 @@ class AppiumLibCoreTest
       if use_xctestrun_file
         caps[:caps][:bootstrapPath] = build_product
         caps[:caps][:useXctestrunFile] = use_xctestrun_file
+      else
+        caps[:caps][:derivedDataPath] = derived_data_path
       end
 
       caps
@@ -272,8 +282,6 @@ class AppiumLibCoreTest
           appActivity: activity_name || 'io.appium.android.apis.ApiDemos',
           someCapability: 'some_capability',
           eventTimings: true,
-          unicodeKeyboard: true,
-          resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
           autoGrantPermissions: true,
@@ -290,7 +298,6 @@ class AppiumLibCoreTest
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
-          export_session: true,
           wait: 5,
           wait_timeout: 20,
           wait_interval: 1
@@ -302,11 +309,19 @@ class AppiumLibCoreTest
         AppiumLibCoreTest.appium_version == 'beta' || AppiumLibCoreTest.appium_version == 'next'
       )
         cap[:capabilities]['settings[trackScrollEvents]'] = false
+        # reduce possible slowness
+        # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)
+        # _Generally, this timeout should not be modified_
+        # cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
+        # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setScrollAcknowledgmentTimeout(long)
+        # _Generally, this timeout should not be modified_
+        # cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
+        cap[:capabilities]['settings[waitForIdleTimeout]'] = 0
+        # Maybe this does not help so much.
+        # cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else
         cap[:capabilities][:forceEspressoRebuild] = false
-        cap[:capabilities][:espressoBuildConfig] = {
-          additionalAndroidTestDependencies: ['com.google.android.material:material:1.2.1']
-        }.to_json
+        cap[:capabilities][:espressoBuildConfig] = {}.to_json
       end
 
       cap
@@ -316,7 +331,6 @@ class AppiumLibCoreTest
       {
         capabilities: android[:capabilities],
         appium_lib: {
-          export_session: true,
           wait: 30,
           wait_timeout: 20,
           wait_interval: 1,
@@ -341,8 +355,6 @@ class AppiumLibCoreTest
           udid: udid_name,
           deviceName: 'Android Emulator',
           someCapability: 'some_capability',
-          unicodeKeyboard: true,
-          resetKeyboard: true,
           disableWindowAnimation: true,
           newCommandTimeout: 300,
           systemPort: system_port,
@@ -350,7 +362,6 @@ class AppiumLibCoreTest
           locale: 'US'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -366,7 +377,6 @@ class AppiumLibCoreTest
           app: 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'
         },
         appium_lib: {
-          export_session: true,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -383,7 +393,7 @@ class AppiumLibCoreTest
     end
 
     def parallel?
-      ENV['PARALLEL']
+      ENV.fetch 'PARALLEL', false
     end
 
     private
@@ -430,15 +440,12 @@ class AppiumLibCoreTest
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',
             appActivity: 'io.appium.android.apis.ApiDemos',
-            someCapability: 'some_capability',
-            unicodeKeyboard: true,
-            resetKeyboard: true
+            someCapability: 'some_capability'
           }
         }
       }.to_json
 
       stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
-        .with(headers: { 'X-Idempotency-Key' => /.+/ })
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
@@ -448,8 +455,89 @@ class AppiumLibCoreTest
       driver = @core.start_driver
 
       assert_equal({}, driver.send(:bridge).http.additional_headers)
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 5_000 }.to_json, times: 1)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
+
+      assert_requested(
+        :post,
+        "#{SESSION}/timeouts",
+        headers: {
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        body: { implicit: 5_000 }.to_json,
+        times: 1
+      )
+      assert_not_requested(
+        :post,
+        "#{SESSION}/timeouts",
+        headers: { 'X-Idempotency-Key' => /.+/ },
+        body: { implicit: 5_000 }.to_json,
+        times: 1
+      )
+      driver
+    end
+
+    def android_chrome_mock_create_session_w3c
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            browserName: 'chrome',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 5_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver = @core.start_driver
+
+      assert_equal({}, driver.send(:bridge).http.additional_headers)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
+
+      assert_requested(
+        :post,
+        "#{SESSION}/timeouts",
+        headers: {
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        body: { implicit: 5_000 }.to_json,
+        times: 1
+      )
+      assert_not_requested(
+        :post,
+        "#{SESSION}/timeouts",
+        headers: { 'X-Idempotency-Key' => /.+/ },
+        body: { implicit: 5_000 }.to_json,
+        times: 1
+      )
       driver
     end
 
@@ -475,7 +563,16 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
       driver
     end
 
@@ -497,7 +594,16 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
       driver
     end
 
@@ -519,7 +625,16 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
       driver
     end
 
@@ -539,7 +654,16 @@ class AppiumLibCoreTest
 
       driver = @core.start_driver
 
-      assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+      assert_requested(
+        :post,
+        'http://127.0.0.1:4723/wd/hub/session',
+        headers: {
+          'X-Idempotency-Key' => /.+/,
+          'Content-Type' => 'application/json; charset=UTF-8',
+          'User-Agent' => /appium\/ruby_lib_core\/.+/
+        },
+        times: 1
+      )
       driver
     end
   end

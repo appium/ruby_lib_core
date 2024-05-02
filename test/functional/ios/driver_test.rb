@@ -21,7 +21,13 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+      if over_ios17? @@driver
+        'Alert Views'
+      elsif over_ios13? @@driver
+        'Alert Controller'
+      else
+        'Alert Views'
+      end
     end
 
     def uicatalog
@@ -43,11 +49,6 @@ class AppiumLibCoreTest
       v = @@core.appium_server_version
 
       refute_nil v['build']['version']
-    end
-
-    def test_platform_version
-      # Just make sure the value is not nil
-      assert @@core.platform_version
     end
 
     def test_wait_true
@@ -109,7 +110,6 @@ class AppiumLibCoreTest
     def test_default_keyboard_pref
       skip_as_appium_version '1.15.0'
 
-      bundle_id = @@driver.session_capabilities['CFBundleIdentifier']
       begin
         @@driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @@driver.activate_app('com.apple.Preferences')
@@ -122,13 +122,14 @@ class AppiumLibCoreTest
         auto_correction = @@driver.wait do |d|
           d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
         end
+        search_word = over_ios17?(@@driver) ? 'Predictive Text' : 'Predictive'
         predictive = @@driver.wait do |d|
-          d.find_element :predicate, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+          d.find_element :predicate, "name == \"#{search_word}\" AND type == \"XCUIElementTypeSwitch\""
         end
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value
       ensure
-        @@driver.activate_app(bundle_id)
+        @@driver.activate_app('com.example.apple-samplecode.UICatalog')
       end
     end
 
@@ -151,8 +152,7 @@ class AppiumLibCoreTest
     def test_batch_only_return
       skip_as_appium_version '1.15.0'
 
-      script = <<-SCRIPT
-      SCRIPT
+      script = ''
 
       r = @@driver.execute_driver(script: script, type: 'webdriverio')
       assert(r.result.nil?)

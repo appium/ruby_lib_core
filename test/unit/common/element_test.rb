@@ -54,28 +54,6 @@ class AppiumLibCoreTest
       assert_equal '110.0 / 667.0', location.y
     end
 
-    def test_immediate_value
-      stub_request(:post, "#{SESSION}/appium/element/id/value")
-        .with(body: { value: %w(h e l l o) }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
-      e.immediate_value 'hello'
-
-      assert_requested(:post, "#{SESSION}/appium/element/id/value", times: 1)
-    end
-
-    def test_replace
-      stub_request(:post, "#{SESSION}/appium/element/id/replace_value")
-        .with(body: { value: %w(h e l l o) }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
-      e.replace_value 'hello'
-
-      assert_requested(:post, "#{SESSION}/appium/element/id/replace_value", times: 1)
-    end
-
     def test_element_screenshot_as
       stub_request(:get, "#{SESSION}/element/id/screenshot")
         .to_return(headers: HEADER, status: 200,

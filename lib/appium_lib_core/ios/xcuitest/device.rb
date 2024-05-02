@@ -25,6 +25,7 @@ module Appium
 
           # rubocop:disable Layout/LineLength
 
+          # @deprecated Use 'mobile: hideKeyboard' extension instead.
           # @!method hide_keyboard(close_key = nil, strategy = nil)
           # Hide the onscreen keyboard
           # @param [String] close_key The name of the key which closes the keyboard.
@@ -38,6 +39,7 @@ module Appium
           #  @driver.hide_keyboard('Finished') # Close a keyboard with the 'Finished' button
           #
 
+          # @deprecated Use 'mobile: backgroundApp' extension instead.
           # @!method background_app(duration = 0)
           # Backgrounds the app for a set number of seconds.
           # This is a blocking application.

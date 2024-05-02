@@ -20,24 +20,32 @@ module Appium
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:get_network_connection) do
               def get_network_connection
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getConnectivity' extension instead"
+
                 execute :get_network_connection
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_wifi) do
               def toggle_wifi
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: setConnectivity' extension instead"
+
                 execute :toggle_wifi
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_data) do
               def toggle_data
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: setConnectivity' extension instead"
+
                 execute :toggle_data
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:set_network_connection) do
               def set_network_connection(mode)
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: setConnectivity' extension instead"
+
                 # same as ::Selenium::WebDriver::DriverExtensions::HasNetworkConnection
                 # But this method accept number
                 connection_type = { airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0 }
@@ -49,6 +57,8 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_airplane_mode) do
               def toggle_airplane_mode
+                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: setConnectivity' extension instead"
+
                 execute :toggle_airplane_mode
               end
               alias_method :toggle_flight_mode, :toggle_airplane_mode

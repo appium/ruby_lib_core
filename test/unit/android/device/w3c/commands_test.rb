@@ -214,26 +214,6 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
           end
 
-          def test_touch_actions
-            stub_request(:post, "#{SESSION}/touch/perform")
-              .with(body: { actions: ['actions'] }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.touch_actions 'actions'
-
-            assert_requested(:post, "#{SESSION}/touch/perform", times: 1)
-          end
-
-          def test_multi_touch
-            stub_request(:post, "#{SESSION}/touch/multi/perform")
-              .with(body: { actions: 'actions' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.multi_touch 'actions'
-
-            assert_requested(:post, "#{SESSION}/touch/multi/perform", times: 1)
-          end
-
           def test_start_activity
             stub_request(:post, "#{SESSION}/appium/device/start_activity")
               .with(body: { appPackage: 'package', appActivity: 'activity', intentAction: 'action.MAIN' }.to_json)
@@ -473,15 +453,15 @@ class AppiumLibCoreTest
 
           def test_search_element_child_element
             stub_request(:post, "#{SESSION}/element")
-              .with(body: { using: 'accessibility id', value: 'example' }.to_json)
+              .with(body: { using: 'id', value: 'example' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { ELEMENT: 'element_id_parent' },
                                                                sessionId: SESSION, status: 0 }.to_json)
             stub_request(:post, "#{SESSION}/element/element_id_parent/element")
-              .with(body: { using: 'accessibility id', value: 'example2' }.to_json)
+              .with(body: { using: 'id', value: 'example2' }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { ELEMENT: 'element_id_children' },
                                                                sessionId: SESSION, status: 0 }.to_json)
 
-            @driver.find_element(:accessibility_id, 'example').find_element(:accessibility_id, 'example2')
+            @driver.find_element(:id, 'example').find_element(:id, 'example2')
 
             assert_requested(:post, "#{SESSION}/element", times: 1)
             assert_requested(:post, "#{SESSION}/element/element_id_parent/element", times: 1)
