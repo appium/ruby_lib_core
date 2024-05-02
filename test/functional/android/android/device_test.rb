@@ -103,7 +103,7 @@ class AppiumLibCoreTest
         native_page = @driver.page_source
 
         webview_context = @@core.wait do
-          context = @@driver.available_contexts.detect { |c| c.start_with?('WEBVIEW') }
+          context = @driver.available_contexts.detect { |c| c.start_with?('WEBVIEW') }
           assert context
           context
         end
