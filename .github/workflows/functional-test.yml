@@ -81,7 +81,7 @@ jobs:
   #     if: ${{ always() }}
   #     uses: actions/upload-artifact@master
   #     with:
-  #       name: appium-${{matrix.test_targets.name}}.log
+  #       name: appium-ios-${{matrix.test_targets.name}}.log
   #       path: appium.log
 
   # ios_test_with_other_deps:
@@ -218,5 +218,5 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-${{matrix.test_targets.name}}.log
+        name: appium-android-${{matrix.test_targets.name}}.log
         path: appium.log
