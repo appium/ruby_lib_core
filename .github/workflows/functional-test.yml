@@ -153,22 +153,22 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb
+          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
             automation_name: uiautomator2
             name: test1
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb,test/functional/android/android/device_data_test.rb
             automation_name: uiautomator2
             name: test2
-          - target: test/functional/android/android/search_context_test.rb,test/functional/android/android/device_data_test.rb,test/functional/android/android/mobile_commands_test.rb
+          - target: test/functional/android/android/mobile_commands_test.rb
             automation_name: uiautomator2
             name: test3
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb
+          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
             automation_name: espresso
             name: test4
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb,test/functional/android/android/device_data_test.rb
             automation_name: espresso
             name: test5
-          - target: test/functional/android/android/search_context_test.rb,test/functional/android/android/device_data_test.rb,test/functional/android/android/mobile_commands_test.rb
+          - target: test/functional/android/android/mobile_commands_test.rb
             automation_name: espresso
             name: test6
 
