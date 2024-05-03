@@ -67,7 +67,7 @@ class AppiumLibCoreTest
       assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['app']
       assert_equal 'XCUITest', caps_with_json['automationName']
       assert_equal 'iPhone Simulator', caps_with_json['deviceName']
-      assert_equal 'some_capability1', caps_with_json['someCapability1']
+      assert_equal 'some_capability1', caps_with_json['some_capability1']
       assert_equal 'someCapability2', caps_with_json['someCapability2']
 
       assert_equal 'ios', caps[:platformName]
