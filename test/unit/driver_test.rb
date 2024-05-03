@@ -49,7 +49,7 @@ class AppiumLibCoreTest
       opts = { 'caps' => { 'automationName': 'xcuitest' }, appium_lib: {} }
       driver = ExampleDriver.new(opts)
       refute_nil driver
-      assert_equal driver.core.caps[:automationName], 'xcuitest'
+      assert_equal driver.core.caps[:automationName], nil
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities

@@ -25,6 +25,7 @@ module Appium
         # other browsers. But here should inherit `Options` to follow Selenium.
 
         # Method override
+        # FIXME: when we drop "symbolize_keys", this can be removed.
         def convert_key(key)
           case key
           when String

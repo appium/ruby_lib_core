@@ -22,15 +22,18 @@ require_relative 'appium_lib_core/element'
 require_relative 'appium_lib_core/support/event_firing_bridge'
 
 module Appium
-  # @private
-  #
+
   # convert the top level keys to symbols.
   #
   # @param [Hash] hash Hash value to make symbolise
+  #
+  # @example
+  # opts = Appium.symbolize_keys(opts)
+  #
   def self.symbolize_keys(hash, nested: false, enable_deprecation_msg: true)
     # FIXME: As https://github.com/appium/ruby_lib/issues/945, we must remove this implicit string to symbol.
     # But appium_lib_core's some capability handling expect to be symbol, so we should test to remove
-    # the mehotds which expect the symbol first.
+    # the methods which expect the symbol first.
     raise ::Appium::Core::Error::ArgumentError, 'symbolize_keys requires a hash' unless hash.is_a? Hash
 
     hash.each_with_object({}) do |pair, acc|
