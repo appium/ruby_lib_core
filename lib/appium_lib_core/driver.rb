@@ -630,24 +630,26 @@ module Appium
       end
 
       # @private
+      def get_app
+        @caps[:app] || @caps['app']
+      end
+
+      # @private
       # Path to the .apk, .app or .app.zip.
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
-      private def get_app
-        @caps[:app] || @caps["app"]
-      end
       def set_app_path
         # FIXME: maybe `:app` should check `app` as well.
         return unless @caps && get_app && !get_app.empty?
         return if get_app =~ URI::DEFAULT_PARSER.make_regexp
 
         app_path = File.expand_path(get_app)
-        @caps["app"] = if File.exist? app_path
-                        app_path
-                      else
-                        ::Appium::Logger.warn("Use #{get_app} directly since #{app_path} does not exist.")
-                        get_app
-                      end
+        @caps['app'] = if File.exist? app_path
+                         app_path
+                       else
+                         ::Appium::Logger.warn("Use #{get_app} directly since #{app_path} does not exist.")
+                         get_app
+                       end
       end
 
       # @private

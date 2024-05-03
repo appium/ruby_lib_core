@@ -22,7 +22,6 @@ require_relative 'appium_lib_core/element'
 require_relative 'appium_lib_core/support/event_firing_bridge'
 
 module Appium
-
   # convert the top level keys to symbols.
   #
   # @param [Hash] hash Hash value to make symbolise
