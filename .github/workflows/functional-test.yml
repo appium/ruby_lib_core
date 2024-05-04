@@ -213,6 +213,7 @@ jobs:
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         disable-animations: false
         script: echo "Generated AVD snapshot for caching."
+        arch: x86_64
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -233,6 +234,7 @@ jobs:
         profile: Google Pixel 8
         disable-spellchecker: true
         disable-animations: true
+        arch: x86_64
       env:
         ANDROID_SDK_VERSION: 32
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
