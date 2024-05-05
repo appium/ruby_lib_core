@@ -208,12 +208,14 @@ jobs:
       if: steps.avd-cache.outputs.cache-hit != 'true'
       uses: reactivecircus/android-emulator-runner@v2
       with:
+        target: google_apis
         api-level: 32
         force-avd-creation: false
-        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         disable-animations: true
-        script: echo "Generated AVD snapshot for caching."
         arch: x86_64
+        profile: Nexus 5X
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        script: echo "Generated AVD snapshot for caching."
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -235,6 +237,7 @@ jobs:
         disable-spellchecker: true
         disable-animations: true
         arch: x86_64
+        profile: Nexus 5X
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
       env:
         ANDROID_SDK_VERSION: 32
