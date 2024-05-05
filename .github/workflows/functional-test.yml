@@ -213,7 +213,6 @@ jobs:
         force-avd-creation: false
         disable-animations: true
         arch: x86_64
-        profile: Nexus 5X
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         script: echo "Generated AVD snapshot for caching."
 
