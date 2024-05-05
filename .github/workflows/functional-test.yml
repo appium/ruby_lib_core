@@ -211,7 +211,7 @@ jobs:
         api-level: 32
         force-avd-creation: false
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        disable-animations: false
+        disable-animations: true
         script: echo "Generated AVD snapshot for caching."
         arch: x86_64
 
@@ -231,10 +231,11 @@ jobs:
         script: |
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
-        profile: Google Pixel 8
+        force-avd-creation: false
         disable-spellchecker: true
         disable-animations: true
         arch: x86_64
+        emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
       env:
         ANDROID_SDK_VERSION: 32
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
