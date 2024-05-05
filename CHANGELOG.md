@@ -9,6 +9,11 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- Stop converting snake cases to camel case for symbols in capabilities
+    - Please define camel/snake cases in capabilities as-is for the WebDriver capabilities
+- Stop implicit symbolizing capabilities
+    - Historically ruby_lib/ruby_lib_core symbolized capabilities keys from string internally.
+    - `Appium.symbolize_keys` to build symbolized capabilities if issues occurred by this change.
 
 ## [8.0.2] - 2024-04-26
 
