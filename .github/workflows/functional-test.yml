@@ -232,6 +232,7 @@ jobs:
         script: |
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
+        profile: Nexus 5X
         force-avd-creation: false
         disable-spellchecker: true
         disable-animations: true
