@@ -187,6 +187,13 @@ jobs:
       with:
         node-version: 'lts/*'
 
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
+    - name: Install dependencies
+      run: bundle install
+
     # Start Appium
     - run: npm install -g appium
     - run: |
@@ -214,20 +221,14 @@ jobs:
       if: steps.avd-cache.outputs.cache-hit != 'true'
       uses: reactivecircus/android-emulator-runner@v2
       with:
+        profile: Nexus 5X
         target: google_apis
         api-level: 29
         force-avd-creation: false
-        disable-animations: true
+        disable-animations: false
         arch: x86_64
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
         script: echo "Generated AVD snapshot for caching."
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-    - name: Install dependencies
-      run: bundle install
 
     # Run tests
 
@@ -235,14 +236,14 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         script: bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
-        api-level: 29
-        target: google_apis
         profile: Nexus 5X
+        target: google_apis
+        api-level: 29
         force-avd-creation: false
-        disable-spellchecker: true
         disable-animations: true
         arch: x86_64
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+        disable-spellchecker: true
       env:
         ANDROID_SDK_VERSION: 29
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
