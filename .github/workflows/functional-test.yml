@@ -203,13 +203,13 @@ jobs:
         path: |
           ~/.android/avd/*
           ~/.android/adb*
-        key: avd-32
+        key: avd-29
     - name: create AVD and generate snapshot for caching
       if: steps.avd-cache.outputs.cache-hit != 'true'
       uses: reactivecircus/android-emulator-runner@v2
       with:
         target: google_apis
-        api-level: 32
+        api-level: 29
         force-avd-creation: false
         disable-animations: true
         arch: x86_64
@@ -228,7 +228,7 @@ jobs:
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 32
+        api-level: 29
         script: |
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
@@ -238,7 +238,7 @@ jobs:
         arch: x86_64
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
       env:
-        ANDROID_SDK_VERSION: 32
+        ANDROID_SDK_VERSION: 29
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
         IGNORE_VERSION_SKIP: true
         CI: true
