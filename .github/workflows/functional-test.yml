@@ -225,6 +225,8 @@ jobs:
 
     # Run tests
 
+    - run: avdmanager list device
+
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
@@ -236,7 +238,7 @@ jobs:
         disable-spellchecker: true
         disable-animations: true
         arch: x86_64
-        profile: Google Pixel 4
+        profile: Pixel 5
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
       env:
         ANDROID_SDK_VERSION: 32
