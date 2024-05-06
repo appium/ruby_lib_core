@@ -236,7 +236,6 @@ jobs:
         disable-spellchecker: true
         disable-animations: true
         arch: x86_64
-        profile: Pixel 8
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
       env:
         ANDROID_SDK_VERSION: 32
