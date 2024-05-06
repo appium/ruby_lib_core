@@ -230,7 +230,7 @@ jobs:
         script: |
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
-        profile: Nexus 5X
+        profile: Pixel 4
         disable-spellchecker: true
         disable-animations: true
       env:
