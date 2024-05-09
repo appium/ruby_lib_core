@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.1'
   spec.add_development_dependency 'webmock', '~> 3.23.0'
-  spec.add_development_dependency 'rubocop', '1.63.4'
+  spec.add_development_dependency 'rubocop', '1.63.5'
   spec.add_development_dependency 'appium_thor', '~> 2.0'
   spec.add_development_dependency 'parallel_tests'
   spec.add_development_dependency 'simplecov'
