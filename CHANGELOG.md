@@ -9,6 +9,10 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+
+## [9.0.0] - 2024-05-14
+
+### Deprecations
 - Stop converting snake cases to camel case for symbols in capabilities
     - Please define camel/snake cases in capabilities as-is for the WebDriver capabilities
 - Stop implicit symbolizing capabilities
