@@ -238,7 +238,6 @@ module Appium
         # For Appium
         alias switch_to_active_element active_element
 
-        # TODO: add unit test
         # For Appium
         # @param [Hash] id The id which can get as a response from server
         # @return [::Appium::Core::Element]
