@@ -27,7 +27,6 @@ module Appium
         include Device::ImeActions
         include Device::Setting
         include Device::Context
-        include Device::Value
         include Device::FileManagement
         include Device::KeyEvent
         include Device::ImageComparison
@@ -35,7 +34,6 @@ module Appium
         include Device::AppState
         include Device::ScreenRecord::Command
         include Device::Device
-        include Device::TouchActions
         include Device::ExecuteDriver
         include Device::Orientation
 
@@ -131,9 +129,6 @@ module Appium
           capabilities = capabilities.send(:capabilities) unless capabilities.is_a?(Hash)
 
           capabilities.each do |name, value|
-            next if value.nil?
-            next if value.is_a?(String) && value.empty?
-
             capability_name = name.to_s
             w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
 
@@ -190,11 +185,6 @@ module Appium
           @available_commands[command] || Bridge.extra_commands[command]
         end
 
-        # Returns all available sessions on the Appium server instance
-        def sessions
-          execute :get_all_sessions
-        end
-
         def status
           execute :status
         end
@@ -225,11 +215,6 @@ module Appium
         # Port from MJSONWP
         def get_timeouts
           execute :get_timeouts
-        end
-
-        # Port from MJSONWP
-        def session_capabilities
-          ::Appium::Core::Base::Capabilities.json_create execute(:get_capabilities)
         end
 
         # For Appium

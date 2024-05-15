@@ -54,32 +54,21 @@ class AppiumLibCoreTest
       e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
       location = e.location_rel @@driver
 
-      if over_ios14?(@@driver)
-        # iPhone 11
-        assert_equal '64.0 / 414.0', location.x
-        assert_equal '239.5 / 896.0', location.y
-      elsif over_ios13?(@@driver)
-        # iPhone 11
-        assert_equal '64.0 / 414.0', location.x
-        assert_equal '235.5 / 896.0', location.y
-      else
-        assert_equal '74.5 / 414.0', location.x
-        assert_equal '411.0 / 896.0', location.y
-      end
-    end
+      expected_x, expected_y = if over_ios17?(@@driver)
+                                 # iPhone 15 Plus
+                                 ['64.0 / 430.0', '245.0 / 932.0']
+                               elsif over_ios14?(@@driver)
+                                 # iPhone 11
+                                 ['64.0 / 414.0', '239.5 / 896.0']
+                               elsif over_ios13?(@@driver)
+                                 # iPhone 11
+                                 ['64.0 / 414.0', '235.5 / 896.0']
+                               else
+                                 ['74.5 / 414.0', '411.0 / 896.0']
+                               end
 
-    def test_immediate_value
-      w3c_scroll @@driver
-
-      @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
-
-      text = @@core.wait { @@driver.find_element :class, 'XCUIElementTypeTextField' }
-      text.immediate_value 'hello'
-
-      text = @@core.wait { @@driver.find_element :predicate, 'value == "hello"' }
-      assert_equal 'hello', text.value
-
-      @@driver.back
+      assert_equal expected_x, location.x, "Expected X is #{expected_x}, actual is #{location.x}"
+      assert_equal expected_y, location.y, "Expected y is #{expected_y}, actual is #{location.y}"
     end
   end
 end

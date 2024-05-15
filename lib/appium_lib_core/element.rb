@@ -65,35 +65,6 @@ module Appium
       # Alias for type
       alias type send_keys
 
-      # @deprecated Use element send_keys instead.
-      # Set the value to element directly
-      #
-      # @example
-      #
-      #   element.immediate_value 'hello'
-      #
-      def immediate_value(*value)
-        ::Appium::Logger.warn(
-          '[DEPRECATION] element.immediate_value is deprecated. Please use element.send_keys instead.'
-        )
-        @bridge.set_immediate_value @id, *value
-      end
-
-      # @deprecated Use element send_keys or 'mobile: replaceElementValue' for UIAutomator2 instead.
-      # Replace the value to element directly
-      #
-      # @example
-      #
-      #   element.replace_value 'hello'
-      #
-      def replace_value(*value)
-        ::Appium::Logger.warn(
-          '[DEPRECATION] element.replace_value is deprecated. Please use element.send_keys instead, ' \
-          'or "mobile: replaceElementValue" for UIAutomator2.'
-        )
-        @bridge.replace_value @id, *value
-      end
-
       # For use with location_rel.
       #
       # @return [::Selenium::WebDriver::Point] the relative x, y in a struct. ex: { x: 0.50, y: 0.20 }

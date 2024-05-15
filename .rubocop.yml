@@ -170,6 +170,8 @@ Lint/RequireRangeParentheses: # new in 1.32
   Enabled: true
 Lint/UselessRescue: # new in 1.43
   Enabled: true
+Lint/DuplicateBranch:
+  Enabled: false
 Metrics/CollectionLiteralLength: # new in 1.47
   Enabled: true
 Naming/BlockForwarding: # new in 1.24

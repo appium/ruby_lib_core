@@ -21,7 +21,13 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+      if over_ios17? @@driver
+        'Alert Views'
+      elsif over_ios13? @@driver
+        'Alert Controller'
+      else
+        'Alert Views'
+      end
     end
 
     def uicatalog
@@ -116,8 +122,9 @@ class AppiumLibCoreTest
         auto_correction = @@driver.wait do |d|
           d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
         end
+        search_word = over_ios17?(@@driver) ? 'Predictive Text' : 'Predictive'
         predictive = @@driver.wait do |d|
-          d.find_element :predicate, 'name == "Predictive" AND type == "XCUIElementTypeSwitch"'
+          d.find_element :predicate, "name == \"#{search_word}\" AND type == \"XCUIElementTypeSwitch\""
         end
         assert_equal '0', auto_correction.value
         assert_equal '0', predictive.value

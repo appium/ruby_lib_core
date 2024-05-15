@@ -77,7 +77,7 @@ class AppiumLibCoreTest
           end
           assert 'An element could not be located on the page using the given search parameters.', error.message
 
-          @driver.reset
+          @driver.activate_app('io.appium.android.apis')
         end
 
         e = @driver.wait(timeout: 60) { |d| d.find_element :accessibility_id, 'App' }
@@ -102,8 +102,13 @@ class AppiumLibCoreTest
 
         native_page = @driver.page_source
 
-        contexts = @driver.available_contexts
-        webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
+        webview_context = @@core.wait do
+          @driver.execute_script 'mobile: getContexts', { waitForWebviewMs: 5000 }
+
+          context = @driver.available_contexts.detect { |c| c.start_with?('WEBVIEW') }
+          assert context
+          context
+        end
 
         @driver.set_context webview_context
         @driver.wait { |d| assert d.current_context.start_with? 'WEBVIEW' }
@@ -169,17 +174,6 @@ class AppiumLibCoreTest
       def test_current_package
         e = @driver.wait_until(&:current_package)
         assert_equal 'io.appium.android.apis', e
-      end
-
-      # @deprecated Appium::Core::TouchAction
-      def test_touch_actions
-        Appium::Core::TouchAction.new(@driver)
-                                 .press(element: @driver.find_element(:accessibility_id, 'App'))
-                                 .release
-                                 .perform
-
-        @driver.wait_until { |d| d.find_element :accessibility_id, 'Action Bar' }
-        @driver.back
       end
 
       def test_hidekeyboard

@@ -10,6 +10,46 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.0.0] - 2024-05-14
+
+### Deprecations
+- Stop converting snake cases to camel case for symbols in capabilities
+    - Please define camel/snake cases in capabilities as-is for the WebDriver capabilities
+- Stop implicit symbolizing capabilities
+    - Historically ruby_lib/ruby_lib_core symbolized capabilities keys from string internally.
+    - `Appium.symbolize_keys` to build symbolized capabilities if issues occurred by this change.
+
+## [8.0.2] - 2024-04-26
+
+### Enhancements
+- Bump thor for publishment module
+
+## [8.0.1] - 2024-03-26
+
+### Bug fixes
+- Do not ignore an empty string/nil values as caps
+
+
+## [8.0.0] - 2024-03-08
+
+### Deprecations
+- Removed deprecated methods
+    - `launch_app`, `close_app` and `reset`
+        - Please use `activate_app`, `terminate_app`, or launch/activate/terminate commands by `mobile:` command
+    - `TouchAction`, `MultiTouch`
+        - Please refer to W3C WebDriver actions
+        - https://www.rubydoc.info/gems/appium_lib_core/Appium/Core/Base/Bridge#action-instance_method
+    - `immediate_value` and `replace_value`
+    - `end_coverage`
+    - `sessions` and `session_capabilities` since they are not W3C WebDriver spec and already removed from the dependent selenium clients.
+        - To get events info, please use `driver.logs.events` instead
+    - `switch_to_default_context`
+        - Please set proper context instead
+
+## [7.5.0] - 2024-02-21
+- Remove upper limitation in `selenium-webdriver`
+    - Users can control the version in their Gemfile
+    - ruby_lib_core will fix when the future release requires changes
 
 ## [7.4.0] - 2024-01-23
 

@@ -23,6 +23,20 @@ module Appium
         # Appium's capabilities could change by depending on Appium versions. So it does not have
         # standard options like chrome and firefox etc. So, the implementation should differ from
         # other browsers. But here should inherit `Options` to follow Selenium.
+
+        # Method override
+        # FIXME: when we drop "symbolize_keys", this can be removed.
+        def convert_key(key)
+          case key
+          when String
+            key.to_s
+          when Symbol
+            # here do not convert to camel case
+            key.to_s
+          else
+            raise TypeError, "expected String or Symbol, got #{key.inspect}:#{key.class}"
+          end
+        end
       end
     end
   end

@@ -436,18 +436,6 @@ module Appium
           block_given? ? @bridge.within_context(context, &block) : @bridge.within_context(context)
         end
 
-        # @deprecated Use set context with proper context name instead.
-        # Change to the default context. This is equivalent to +set_context nil+.
-        #
-        # @example
-        #
-        #   @driver.switch_to_default_context
-        #
-        def switch_to_default_context
-          ::Appium::Logger.warn '[DEPRECATION] Please set proper context instead of calling this method.'
-          @bridge.switch_to_default_context
-        end
-
         # @return [String] The context currently being used.
         #
         # @example
@@ -603,43 +591,6 @@ module Appium
         def long_press_keycode(key, metastate: [], flags: [])
           ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
-        end
-
-        # @deprecated Will be removed, or use 'windows: launchApp' extension instead for Windows.
-        # Start the simulator and application configured with desired capabilities
-        #
-        # @example
-        #
-        #   @driver.launch_app
-        #
-        def launch_app
-          @bridge.launch_app
-        end
-
-        # @deprecated Will be removed, or use 'windows: closeApp' extension instead for Windows.
-        # Close an app on device
-        #
-        # @example
-        #
-        #   @driver.close_app
-        #
-        def close_app
-          @bridge.close_app
-        end
-
-        # @deprecated
-        # Reset the device, relaunching the application.
-        #
-        # @example
-        #
-        #   @driver.reset
-        #
-        def reset
-          ::Appium::Logger.warn(
-            '[DEPRECATION] reset is deprecated. Please use terminate_app and activate_app, ' \
-            'or quit and create a new session instead.'
-          )
-          @bridge.reset
         end
 
         # @deprecated Use 'mobile: getAppStrings' extension instead.
@@ -854,15 +805,6 @@ module Appium
           @bridge.device_time(format)
         end
 
-        # touch actions
-        def touch_actions(actions)
-          @bridge.touch_actions(actions)
-        end
-
-        def multi_touch(actions)
-          @bridge.multi_touch(actions)
-        end
-
         #
         # Send multiple W3C action chains to server. Use +@driver.action+ for single action chain.
         #
@@ -959,101 +901,6 @@ module Appium
         #
         def get_timeouts
           @bridge.get_timeouts
-        end
-
-        # Retrieve the capabilities of the specified session.
-        # It's almost same as +@driver.capabilities+ but you can get more details.
-        #
-        # @return [Selenium::WebDriver::Remote::Capabilities, Selenium::WebDriver::Remote::Capabilities]
-        #
-        # @example
-        #   @driver.session_capabilities
-        #
-        #   #=> uiautomator2
-        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fa38dae1360
-        #   # @capabilities=
-        #   #     {:browser_name=>nil,
-        #   #      :browser_version=>nil,
-        #   #      :platform_name=>"android",
-        #   #      :page_load_strategy=>nil,
-        #   #      :remote_session_id=>nil,
-        #   #      :accessibility_checks=>nil,
-        #   #      :profile=>nil,
-        #   #      :rotatable=>nil,
-        #   #      :device=>nil,
-        #   #      "platform"=>"LINUX",
-        #   #      "webStorageEnabled"=>false,
-        #   #      "takesScreenshot"=>true,
-        #   #      "javascriptEnabled"=>true,
-        #   #      "databaseEnabled"=>false,
-        #   #      "networkConnectionEnabled"=>true,
-        #   #      "locationContextEnabled"=>false,
-        #   #      "warnings"=>{},
-        #   #      "desired"=>
-        #   #          {"platformName"=>"android",
-        #   #           "automationName"=>"uiautomator2",
-        #   #           "app"=>"/path/to/app/api.apk.zip",
-        #   #           "platformVersion"=>"8.1.0",
-        #   #           "deviceName"=>"Android Emulator",
-        #   #           "appPackage"=>"io.appium.android.apis",
-        #   #           "appActivity"=>"io.appium.android.apis.ApiDemos",
-        #   #           "someCapability"=>"some_capability",
-        #   #      "automationName"=>"uiautomator2",
-        #   #      "app"=>"/path/to/app/api.apk.zip",
-        #   #      "platformVersion"=>"8.1.0",
-        #   #      "deviceName"=>"emulator-5554",
-        #   #      "appPackage"=>"io.appium.android.apis",
-        #   #      "appActivity"=>"io.appium.android.apis.ApiDemos",
-        #   #      "someCapability"=>"some_capability",
-        #   #      "deviceUDID"=>"emulator-5554",
-        #   #      "deviceScreenSize"=>"1080x1920",
-        #   #      "deviceScreenDensity"=>420,
-        #   #      "deviceModel"=>"Android SDK built for x86",
-        #   #      "deviceManufacturer"=>"Google",
-        #   #      "pixelRatio"=>2.625,
-        #   #      "statBarHeight"=>63,
-        #   #      "viewportRect"=>{"left"=>0, "top"=>63, "width"=>1080, "height"=>1731}}>
-        #   #
-        #   #=> XCUITest
-        #   # <Selenium::WebDriver::Remote::Capabilities:0x007fb15dc01370
-        #   # @capabilities=
-        #   #     {:browser_name=>"UICatalog",
-        #   #      :browser_version=>nil,
-        #   #      :platform_name=>"ios",
-        #   #      :page_load_strategy=>nil,
-        #   #      :remote_session_id=>nil,
-        #   #      :accessibility_checks=>nil,
-        #   #      :profile=>nil,
-        #   #      :rotatable=>nil,
-        #   #      :device=>"iphone",
-        #   #      "udid"=>"DED4DBAD-8E5E-4AD6-BDC4-E75CF9AD84D8",
-        #   #      "automationName"=>"XCUITest",
-        #   #      "app"=>"/path/to/app/UICatalog.app",
-        #   #      "platformVersion"=>"11.4",
-        #   #      "deviceName"=>"iPhone Simulator",
-        #   #      "useNewWDA"=>true,
-        #   #      "useJSONSource"=>true,
-        #   #      "someCapability"=>"some_capability",
-        #   #      "sdkVersion"=>"11.4",
-        #   #      "CFBundleIdentifier"=>"com.example.apple-samplecode.UICatalog",
-        #   #      "pixelRatio"=>2,
-        #   #      "statBarHeight"=>23.4375,
-        #   #      "viewportRect"=>{"left"=>0, "top"=>47, "width"=>750, "height"=>1287}}>
-        #
-        def session_capabilities
-          @bridge.session_capabilities
-        end
-
-        # Returns available sessions on the Appium server
-        #
-        # @return [[Hash]]
-        #
-        # @example
-        #
-        #   @driver.sessions #=> [{'id' => 'c363add8-a7ca-4455-b9e3-9ac4d69e95b3', 'capabilities' => { capabilities as Hash }}]
-        #
-        def sessions
-          @bridge.sessions
         end
 
         # Image Comparison

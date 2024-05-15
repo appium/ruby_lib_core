@@ -23,11 +23,23 @@ class AppiumLibCoreTest
       private
 
       def alert_view_cell
-        over_ios13?(@@driver) ? 'Alert Controller' : 'Alert Views'
+        if over_ios17? @@driver
+          'Alert Views'
+        elsif over_ios13? @@driver
+          'Alert Controller'
+        else
+          'Alert Views'
+        end
       end
 
       def okay_cancel_cell
-        over_ios13?(@@driver) ? 'OK / Cancel' : 'Okay / Cancel'
+        if over_ios17? @@driver
+          'Okay / Cancel'
+        elsif over_ios13? @@driver
+          'OK / Cancel'
+        else
+          'Okay / Cancel'
+        end
       end
 
       public
@@ -49,24 +61,6 @@ class AppiumLibCoreTest
         status = @@driver.remote_status
 
         assert !status['build']['version'].nil?
-      end
-
-      # TODO: replave_value
-
-      def test_set_immediate_value
-        w3c_scroll @@driver
-
-        @@core.wait { @@driver.find_element :accessibility_id, 'Text Fields' }.click
-
-        e = @@core.wait { @@driver.find_element :predicate, 'value == "Placeholder text"' }
-        e.click
-        e.immediate_value 'hello'
-
-        # Using predicate case
-        e = @@core.wait { @@driver.find_element :predicate, by_predicate('hello') }
-        assert_equal 'hello', e.value
-
-        @@driver.back
       end
 
       def by_predicate(value)
@@ -165,11 +159,6 @@ class AppiumLibCoreTest
       def test_logs
         assert @@driver.logs.available_types.include? :syslog
         assert @@driver.logs.get(:syslog)
-      end
-
-      def test_session_capability
-        # with eventTimings
-        assert !@@driver.session_capabilities['events']['commands'].nil?
       end
 
       # @since Appium 1.10.0
