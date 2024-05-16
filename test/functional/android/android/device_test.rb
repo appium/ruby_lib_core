@@ -252,11 +252,7 @@ class AppiumLibCoreTest
         @@core.wait_true { @driver.find_element :accessibility_id, ':-|' }
       end
 
-      def test_ime_available_engins
-        @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
-
+      def test_ime_available_engines
         imes = @driver.ime_available_engines
         assert imes.length > 1
 
