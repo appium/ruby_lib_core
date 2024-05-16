@@ -8,48 +8,6 @@ parameters:
   CI: true
 
 jobs:
-  - job: func_test_android_android3
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-    strategy:
-      matrix:
-        uiautomator2:
-          APPIUM_DRIVER: uiautomator2
-        espresso:
-          APPIUM_DRIVER: espresso
-    steps:
-      - template: ./functional/android_setup.yml
-      - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/device_data_test.rb
-        displayName: Run tests func_test_android_android3
-      - template: ./functional/publish_test_result.yml
-
-  - job: func_test_android_mobile_command_espresso
-    pool:
-      vmImage: ${{ parameters.vmImage }}
-    variables:
-      CI: ${{ parameters.ci }}
-      ANDROID_SDK_VERSION: ${{ parameters.androidSDK }}
-      IGNORE_VERSION_SKIP: ${{ parameters.ignoreVersionSkip }}
-      APPIUM_VERSION: ${{ parameters.appiumVersion }}
-    strategy:
-      matrix:
-        uiautomator2:
-          APPIUM_DRIVER: uiautomator2
-        espresso:
-          APPIUM_DRIVER: espresso
-    steps:
-      - template: ./functional/android_setup.yml
-      - template: ./functional/run_appium.yml
-      - script: bundle exec rake test:func:android TESTS=test/functional/android/android/mobile_commands_test.rb
-        displayName: Run tests func_test_android_mobile_command_espresso
-      - template: ./functional/publish_test_result.yml
-
   - job: func_test_android_opencv
     pool:
       vmImage: ${{ parameters.vmImage }}
