@@ -225,14 +225,17 @@ class AppiumLibCoreTest
 
         # Can use `atom` defined in https://developer.android.com/reference/android/support/test/espresso/web/webdriver/DriverAtoms
         # Locator: https://developer.android.com/reference/androidx/test/espresso/web/webdriver/Locator
-        @driver.execute_script 'mobile: webAtoms', {
+        text = @driver.execute_script 'mobile: webAtoms', {
           webviewElement: el.id,
           forceJavascriptEnabled: true,
           methodChain: [{
             name: 'withElement',
             atom: { name: 'findElement', locator: { using: 'XPATH', value: '/html/body' } }
+          }, {
+            name: 'perform', atom: 'getText'
           }]
         }
+        assert text == 'I am some other page content'
 
         # Raises an error if the method cannot find any DriverAtoms or necessary arguments
         error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
