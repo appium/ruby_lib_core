@@ -17,8 +17,9 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
-      include ::Appium::Core::Base::SearchContext
       include ::Appium::Core::Base::TakesScreenshot
+
+      ::Selenium::WebDriver::SearchContext.extra_finders = APPIUM_EXTRA_FINDERS
 
       # Retuns the element id.
       #

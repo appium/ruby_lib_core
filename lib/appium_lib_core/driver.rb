@@ -402,7 +402,7 @@ module Appium
 
         if @enable_idempotency_header
           if @http_client.instance_variable_defined? :@additional_headers
-            @http_client.additional_headers[Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid
+            @http_client.set_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency], SecureRandom.uuid
           else
             ::Appium::Logger.warn 'No additional_headers attribute in this http client instance'
           end
@@ -426,7 +426,7 @@ module Appium
 
         if @http_client.instance_variable_defined? :@additional_headers
           # We only need the key for a new session request. Should remove it for other following commands.
-          @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
+          @http_client.delete_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
         # TODO: this method can be removed after releasing Appium 2.0, and after a while

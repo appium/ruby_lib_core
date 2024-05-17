@@ -15,6 +15,12 @@
 module Appium
   module Core
     class Base
+      class LocatorConverter
+        def convert(how, what)
+          [how, what]
+        end
+      end # LocatorConverter
+
       class Bridge < ::Selenium::WebDriver::Remote::Bridge
         include Device::DeviceLock
         include Device::Keyboard
@@ -30,6 +36,8 @@ module Appium
         include Device::Device
         include Device::ExecuteDriver
         include Device::Orientation
+
+        Bridge.locator_converter = LocatorConverter.new
 
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
@@ -153,6 +161,18 @@ module Appium
         public
 
         # command for Appium 2.0.
+
+        # Example:
+        #   driver.add_command(name: :available_contexts, method: :get, url: 'session/:session_id/contexts') do
+        #     execute(:available_contexts, {}) || []
+        #   end
+        # Then,
+        #   driver.available_contexts #=> ["NATIVE_APP"]
+
+        # def add_command(method:, url:, name:, &block)
+        #   Bridge.add_command name, method, url, &block
+        # end
+
         def add_command(method:, url:, name:, &block)
           ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
 
@@ -162,7 +182,7 @@ module Appium
         end
 
         def commands(command)
-          @available_commands[command]
+          @available_commands[command] || Bridge.extra_commands[command]
         end
 
         def status
@@ -216,51 +236,7 @@ module Appium
         end
 
         # For Appium
-        # override
-        def active_element
-          ::Appium::Core::Element.new self, element_id_from(execute(:get_active_element))
-        end
         alias switch_to_active_element active_element
-
-        # For Appium
-        # override
-        def find_element_by(how, what, parent_ref = [])
-          how, what = convert_locator(how, what)
-
-          return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
-
-          parent_type, parent_id = parent_ref
-          id = case parent_type
-               when :element
-                 execute :find_child_element, { id: parent_id }, { using: how, value: what.to_s }
-               when :shadow_root
-                 execute :find_shadow_child_element, { id: parent_id }, { using: how, value: what.to_s }
-               else
-                 execute :find_element, {}, { using: how, value: what.to_s }
-               end
-
-          ::Appium::Core::Element.new self, element_id_from(id)
-        end
-
-        # For Appium
-        # override
-        def find_elements_by(how, what, parent_ref = [])
-          how, what = convert_locator(how, what)
-
-          return execute_atom :findElements, Support::RelativeLocator.new(what).as_json if how == 'relative'
-
-          parent_type, parent_id = parent_ref
-          ids = case parent_type
-                when :element
-                  execute :find_child_elements, { id: parent_id }, { using: how, value: what.to_s }
-                when :shadow_root
-                  execute :find_shadow_child_elements, { id: parent_id }, { using: how, value: what.to_s }
-                else
-                  execute :find_elements, {}, { using: how, value: what.to_s }
-                end
-
-          ids.map { |id| ::Appium::Core::Element.new self, element_id_from(id) }
-        end
 
         # For Appium
         # @param [Hash] id The id which can get as a response from server
@@ -369,36 +345,6 @@ module Appium
           else
             arg
           end
-        end
-
-        def element_id_from(id)
-          id['ELEMENT'] || id['element-6066-11e4-a52e-4f735466cecf']
-        end
-
-        # Don't convert locators for Appium in native context
-        def convert_locator(how, what)
-          # case how
-          # when 'class name'
-          #   how = 'css selector'
-          #   what = ".#{escape_css(what)}"
-          # when 'id'
-          #   how = 'css selector'
-          #   what = "##{escape_css(what)}"
-          # when 'name'
-          #   how = 'css selector'
-          #   what = "*[name='#{escape_css(what)}']"
-          # when 'tag name'
-          #   how = 'css selector'
-          # end
-          #
-          # if what.is_a?(Hash)
-          #   what = what.each_with_object({}) do |(h, w), hash|
-          #     h, w = convert_locator(h.to_s, w)
-          #     hash[h] = w
-          #   end
-          # end
-
-          [how, what]
         end
       end # class Bridge
     end # class Base

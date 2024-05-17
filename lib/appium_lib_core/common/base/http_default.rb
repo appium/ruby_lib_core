@@ -31,12 +31,26 @@ module Appium
         class Default < ::Selenium::WebDriver::Remote::Http::Default
           attr_reader :additional_headers
 
+          ::Selenium::WebDriver::Remote::Http::Common.user_agent = \
+            "appium/ruby_lib_core/#{VERSION} (#{::Selenium::WebDriver::Remote::Http::Common.user_agent})"
+
           # override
           def initialize(open_timeout: nil, read_timeout: nil)
             @open_timeout = open_timeout
             @read_timeout = read_timeout
             @additional_headers = {}
             super
+          end
+
+          def set_additional_header(key, value)
+            @additional_headers[key] = value
+            ::Selenium::WebDriver::Remote::Http::Common.extra_headers = @additional_headers
+          end
+
+          def delete_additional_header(key)
+            @additional_headers.delete key
+            ::Selenium::WebDriver::Remote::Http::Common.extra_headers = @additional_headers
+            @common_headers.delete key if defined? @common_headers
           end
 
           # Update <code>server_url</code> provided when ruby_lib _core created a default http client.
@@ -57,13 +71,6 @@ module Appium
 
             @http = nil
             @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
-          end
-
-          def request(verb, url, headers, payload, redirects = 0)
-            headers['User-Agent'] = "appium/ruby_lib_core/#{VERSION} (#{headers['User-Agent']})"
-            headers = headers.merge @additional_headers unless @additional_headers.empty?
-
-            super(verb, url, headers, payload, redirects)
           end
 
           private
