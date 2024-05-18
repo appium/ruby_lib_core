@@ -46,11 +46,6 @@ module Appium
 
         # @private
         # Define method in Bridges
-        def add_endpoint_method_only_driver(method, &block)
-          delegate_driver_method method
-          delegate_from_appium_driver method
-        end
-
         def add_endpoint_method(method, &block)
           block_given? ? create_bridge_command(method, &block) : create_bridge_command(method)
 
