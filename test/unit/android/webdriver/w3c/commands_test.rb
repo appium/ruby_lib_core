@@ -50,7 +50,7 @@ class AppiumLibCoreTest
               method: :post,
               url: 'session/:session_id/path/to/custom/url',
               name: :test_command
-            ) do |arg1, arg2|
+            ) do |arg1|
               puts "in bridge level"
               execute(:test_command, {}, { dummy: arg1 })
             end

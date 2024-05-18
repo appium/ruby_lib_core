@@ -27,6 +27,11 @@ module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
+        class << self
+          def add_command(name, &block)
+            define_method(name, &block)
+          end
+        end
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
@@ -196,15 +201,18 @@ module Appium
           # TODO: Remove this logger before Appium 2.0 release
           ::Appium::Logger.info '[Experimental] this method is experimental for Appium 2.0. This interface may change.'
 
-          # ::Appium::Core::Base::Driver.add_command(name) { bridge.execute method }
-
           if block_given?
+            # ::Appium::Core::Base::Driver.add_command(name, &block)
             ::Appium::Core::Base::Bridge.add_command name, method, url, &block
           else
+            # ::Appium::Core::Base::Driver.add_command(name) {
+            #   execute name
+            # }
             ::Appium::Core::Base::Bridge.add_command(name, method, url) {
               execute name
             }
           end
+
           # define_method define_method(name, &block)
         end
 
@@ -215,8 +223,12 @@ module Appium
 
         def test_command(argument)
           puts "in driver level"
-          @bridge.test_command(argument, 'dummy')
+          @bridge.test_command(argument)
         end
+
+        # def execute(command, opts = {}, command_hash = nil)
+        #   @bridge.execute(command, opts, command_hash)
+        # end
 
         ### Methods for Appium
 
