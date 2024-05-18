@@ -183,7 +183,6 @@ module Appium
         #   else
         #     Bridge.add_command(name, method, url) { execute method }
         #   end
-        #   ::Appium::Core::Device.add_endpoint_method_only_driver name, &block
         # end
 
         def commands(command)
