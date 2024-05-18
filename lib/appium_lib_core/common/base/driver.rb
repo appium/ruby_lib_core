@@ -27,12 +27,6 @@ module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
-        class << self
-          def add_command(name, &block)
-            define_method(name, &block)
-          end
-        end
-
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
@@ -205,7 +199,6 @@ module Appium
           # ::Appium::Core::Base::Driver.add_command(name) { bridge.execute method }
 
           if block_given?
-            puts "aaaaaaa"
             ::Appium::Core::Base::Bridge.add_command name, method, url, &block
           else
             ::Appium::Core::Base::Bridge.add_command(name, method, url) {
