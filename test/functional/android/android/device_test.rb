@@ -102,8 +102,13 @@ class AppiumLibCoreTest
 
         native_page = @driver.page_source
 
-        contexts = @driver.available_contexts
-        webview_context = contexts.detect { |e| e.start_with?('WEBVIEW') }
+        webview_context = @@core.wait do
+          @driver.execute_script 'mobile: getContexts', { waitForWebviewMs: 5000 }
+
+          context = @driver.available_contexts.detect { |c| c.start_with?('WEBVIEW') }
+          assert context
+          context
+        end
 
         @driver.set_context webview_context
         @driver.wait { |d| assert d.current_context.start_with? 'WEBVIEW' }
@@ -247,11 +252,7 @@ class AppiumLibCoreTest
         @@core.wait_true { @driver.find_element :accessibility_id, ':-|' }
       end
 
-      def test_ime_available_engins
-        @@core.wait { @driver.find_element :accessibility_id, 'App' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Activity' }.click
-        @@core.wait { @driver.find_element :accessibility_id, 'Custom Title' }.click
-
+      def test_ime_available_engines
         imes = @driver.ime_available_engines
         assert imes.length > 1
 

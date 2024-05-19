@@ -10,6 +10,21 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.1.0] - 2024-05-18
+
+### Enhancements
+- Require Selenium 4.21.0+
+- Simplify internal code with Selenium 4.21.0. Now it requires selenium webdriver v4.21.0.
+
+## [9.0.0] - 2024-05-14
+
+### Deprecations
+- Stop converting snake cases to camel case for symbols in capabilities
+    - Please define camel/snake cases in capabilities as-is for the WebDriver capabilities
+- Stop implicit symbolizing capabilities
+    - Historically ruby_lib/ruby_lib_core symbolized capabilities keys from string internally.
+    - `Appium.symbolize_keys` to build symbolized capabilities if issues occurred by this change.
+
 ## [8.0.2] - 2024-04-26
 
 ### Enhancements

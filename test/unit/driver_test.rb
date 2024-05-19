@@ -49,7 +49,7 @@ class AppiumLibCoreTest
       opts = { 'caps' => { 'automationName': 'xcuitest' }, appium_lib: {} }
       driver = ExampleDriver.new(opts)
       refute_nil driver
-      assert_equal driver.core.caps[:automationName], 'xcuitest'
+      assert_equal driver.core.caps[:automationName], nil
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities
@@ -67,7 +67,7 @@ class AppiumLibCoreTest
       assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['app']
       assert_equal 'XCUITest', caps_with_json['automationName']
       assert_equal 'iPhone Simulator', caps_with_json['deviceName']
-      assert_equal 'some_capability1', caps_with_json['someCapability1']
+      assert_equal 'some_capability1', caps_with_json['some_capability1']
       assert_equal 'someCapability2', caps_with_json['someCapability2']
 
       assert_equal 'ios', caps[:platformName]
@@ -442,27 +442,31 @@ class AppiumLibCoreTest
 
     # https://www.w3.org/TR/webdriver1/
     def test_search_context_in_element_class
-      assert_equal 20, ::Appium::Core::Element::FINDERS.length
-      assert_equal({ class: 'class name',
-                     class_name: 'class name',
-                     css: 'css selector',                    # Defined in W3C spec
-                     id: 'id',
-                     link: 'link text',                      # Defined in W3C spec
-                     link_text: 'link text',                 # Defined in W3C spec
-                     name: 'name',
-                     partial_link_text: 'partial link text', # Defined in W3C spec
-                     relative: 'relative',                   # Defined in Selenium
-                     tag_name: 'tag name',                   # Defined in W3C spec
-                     xpath: 'xpath',                         # Defined in W3C spec
-                     accessibility_id: 'accessibility id',
-                     image: '-image',
-                     custom: '-custom',
-                     uiautomator: '-android uiautomator',
-                     viewtag: '-android viewtag',
-                     data_matcher: '-android datamatcher',
-                     view_matcher: '-android viewmatcher',
-                     predicate: '-ios predicate string',
-                     class_chain: '-ios class chain' }, ::Appium::Core::Element::FINDERS)
+      assert_equal(
+        {
+          class: 'class name',
+          class_name: 'class name',
+          css: 'css selector',                    # Defined in W3C spec
+          id: 'id',
+          link: 'link text',                      # Defined in W3C spec
+          link_text: 'link text',                 # Defined in W3C spec
+          name: 'name',
+          partial_link_text: 'partial link text', # Defined in W3C spec
+          relative: 'relative',                   # Defined in Selenium
+          tag_name: 'tag name',                   # Defined in W3C spec
+          xpath: 'xpath',                         # Defined in W3C spec
+          accessibility_id: 'accessibility id',
+          image: '-image',
+          custom: '-custom',
+          uiautomator: '-android uiautomator',
+          viewtag: '-android viewtag',
+          data_matcher: '-android datamatcher',
+          view_matcher: '-android viewmatcher',
+          predicate: '-ios predicate string',
+          class_chain: '-ios class chain'
+        },
+        ::Appium::Core::Element::FINDERS.merge(::Selenium::WebDriver::SearchContext.extra_finders)
+      )
     end
 
     def test_attach_to_an_existing_session

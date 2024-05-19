@@ -22,6 +22,7 @@ class AppiumLibCoreTest
       include AppiumLibCoreTest::Mock
 
       def setup
+        ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
         @bridge = Appium::Core::Base::Bridge.new url: 'http://127.0.0.1:4723/wd/hub'
       end
 
@@ -158,10 +159,10 @@ class AppiumLibCoreTest
           'platformVersion' => '11.4',
           'deviceName' => 'iPhone Simulator',
           'useNewWDA' => true,
-          'someCapability1' => 'some_capability1',
+          'some_capability1' => 'some_capability1',
           'someCapability2' => '',
           'some_capability3' => 'string_shold_keep',
-          'some_capability4' => { 'nested_key1' => 1, 'nestedKey2' => 2 }
+          'some_capability4' => { 'nested_key1' => 1, 'nested_key2' => 2 }
         }
         assert_equal expected, base_caps.as_json
 
@@ -196,7 +197,7 @@ class AppiumLibCoreTest
           'appium:some_capability3' => 'string_shold_keep',
           'appium:some_capability4' => {
             'nested_key1' => 1,
-            'nestedKey2' => 2
+            'nested_key2' => 2
           }
         }
         # for testing

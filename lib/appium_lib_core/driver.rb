@@ -338,12 +338,6 @@ module Appium
       def setup_for_new_session(opts = {})
         @custom_url = opts.delete :url # to set the custom url as :url
 
-        # TODO: Remove when we implement Options
-        # The symbolize_keys is to keep compatiility for the legacy code, which allows capabilities to give 'string' as the key.
-        # The toplevel `caps`, `capabilities` and `appium_lib` are expected to be symbol.
-        # FIXME: First, please try to remove `nested: true` to `nested: false`.
-        opts = Appium.symbolize_keys(opts, nested: true)
-
         @caps = get_caps(opts)
 
         set_appium_lib_specific_values(get_appium_lib_opts(opts))
@@ -408,7 +402,7 @@ module Appium
 
         if @enable_idempotency_header
           if @http_client.instance_variable_defined? :@additional_headers
-            @http_client.additional_headers[Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]] = SecureRandom.uuid
+            @http_client.set_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency], SecureRandom.uuid
           else
             ::Appium::Logger.warn 'No additional_headers attribute in this http client instance'
           end
@@ -432,7 +426,7 @@ module Appium
 
         if @http_client.instance_variable_defined? :@additional_headers
           # We only need the key for a new session request. Should remove it for other following commands.
-          @http_client.additional_headers.delete Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
+          @http_client.delete_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
         # TODO: this method can be removed after releasing Appium 2.0, and after a while
@@ -636,21 +630,26 @@ module Appium
       end
 
       # @private
+      def get_app
+        @caps[:app] || @caps['app']
+      end
+
+      # @private
       # Path to the .apk, .app or .app.zip.
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
         # FIXME: maybe `:app` should check `app` as well.
-        return unless @caps && @caps[:app] && !@caps[:app].empty?
-        return if @caps[:app] =~ URI::DEFAULT_PARSER.make_regexp
+        return unless @caps && get_app && !get_app.empty?
+        return if get_app =~ URI::DEFAULT_PARSER.make_regexp
 
-        app_path = File.expand_path(@caps[:app])
-        @caps[:app] = if File.exist? app_path
-                        app_path
-                      else
-                        ::Appium::Logger.warn("Use #{@caps[:app]} directly since #{app_path} does not exist.")
-                        @caps[:app]
-                      end
+        app_path = File.expand_path(get_app)
+        @caps['app'] = if File.exist? app_path
+                         app_path
+                       else
+                         ::Appium::Logger.warn("Use #{get_app} directly since #{app_path} does not exist.")
+                         get_app
+                       end
       end
 
       # @private
@@ -676,7 +675,6 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
         @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
@@ -685,7 +683,6 @@ module Appium
 
       # @private
       def set_automation_name
-        # TODO: check if the Appium.symbolize_keys(opts, nested: false) enoug with this
         candidate = @caps[:automationName] || @caps['automationName']
         @automation_name = candidate if candidate
         @automation_name = convert_downcase @automation_name if @automation_name

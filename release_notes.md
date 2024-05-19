@@ -1,3 +1,27 @@
+#### v9.1.0 2024-05-18
+
+- [9e6f5d6](https://github.com/appium/ruby_lib_core/commit/9e6f5d66fe6fb7c03675aaa7eb91072dbbd6e694) Release 9.1.0
+- [6628445](https://github.com/appium/ruby_lib_core/commit/6628445532b85872e2771aa509a4b5c11ecb0114) feat: implement search context and UA based on selenium 4.21 (#480)
+- [f2ee24f](https://github.com/appium/ruby_lib_core/commit/f2ee24fb3e9fe2faf523340aa38a1c7d717ebd44) ci: enable device_data_test on gha (#554)
+- [f7e9b2d](https://github.com/appium/ruby_lib_core/commit/f7e9b2dbdb4e2b92634a1346c72320e035e32ce2) test: tweak to make it stabler (#553)
+- [7fe300d](https://github.com/appium/ruby_lib_core/commit/7fe300dd5e138ee15e0d85696075ae8d5bdcc2b8) ci: add bundle exec for win env (#552)
+
+
+#### v9.0.0 2024-05-14
+
+- [9b96f61](https://github.com/appium/ruby_lib_core/commit/9b96f612d726d19aa28cd50e969171e692c37f81) Release 9.0.0
+- [70fbf85](https://github.com/appium/ruby_lib_core/commit/70fbf85ba8d14750f86b3c2f033fb475c6c126c1) ci: check android a bit more (#551)
+- [aef5b01](https://github.com/appium/ruby_lib_core/commit/aef5b01ba8cff39c63cef37169c5a7437acfeba4) chore(deps-dev): update rubocop requirement from = 1.63.4 to = 1.63.5 (#550)
+- [3ca4e89](https://github.com/appium/ruby_lib_core/commit/3ca4e89986a54af41b3961231f593e9915e0e60f) ci: newer api level (#549)
+- [5c98250](https://github.com/appium/ruby_lib_core/commit/5c98250bed7baab164036d6b345645e6f06194de) ci: use newer device profile for CI (#548)
+- [0ff6409](https://github.com/appium/ruby_lib_core/commit/0ff64094c263b72695753063945d07436776f9d5) feat: do not conver to camel case automatically (#545)
+- [51f2f66](https://github.com/appium/ruby_lib_core/commit/51f2f66b5a8f9b30a7a2bc3ce413a58c8e90a513) ci: functional-test.yml
+- [7de0998](https://github.com/appium/ruby_lib_core/commit/7de09980297b8bde31d05ed1943dea0c8d7f5c18) ci: gha android (#544)
+- [9fd8589](https://github.com/appium/ruby_lib_core/commit/9fd8589b634e4613750b68a7b6095c3ea263802f) ci: use GHA instead of Azure for iOS to make them more stable (#543)
+- [0a6add5](https://github.com/appium/ruby_lib_core/commit/0a6add5e84a015c239003fe002e8514021c27e85) chore(deps-dev): update rubocop requirement from = 1.63.3 to = 1.63.4 (#542)
+- [3909c00](https://github.com/appium/ruby_lib_core/commit/3909c002831ff4a45a405695de267092e869ef6e) ci: run iOS func tests on GHA (manual only) (#541)
+
+
 #### v8.0.2 2024-04-26
 
 - [1e9fe6d](https://github.com/appium/ruby_lib_core/commit/1e9fe6d89808ce6c2d77189beef5b253df8bedee) Release 8.0.2

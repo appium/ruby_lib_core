@@ -32,13 +32,14 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::Rotatable
-        include ::Appium::Core::Base::SearchContext
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
         include ::Appium::Core::Base::HasLocation
         include ::Appium::Core::Base::HasNetworkConnection
 
         include ::Appium::Core::Waitable
+
+        ::Selenium::WebDriver::SearchContext.extra_finders = APPIUM_EXTRA_FINDERS
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
@@ -57,6 +58,7 @@ module Appium
           @bidi = nil
 
           # in the selenium webdriver as well
+          ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
           @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
@@ -1023,8 +1025,8 @@ module Appium
         #     ele = @driver.convert_to_element(response) #=> ::Appium::Core::Element
         #     ele.rect #=> Can get the rect of the element
         #
-        def convert_to_element(id)
-          @bridge.convert_to_element id
+        def convert_to_element(response_id)
+          @bridge.convert_to_element response_id
         end
       end # class Driver
     end # class Base
