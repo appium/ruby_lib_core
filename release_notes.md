@@ -1,3 +1,12 @@
+#### v9.1.0 2024-05-18
+
+- [9e6f5d6](https://github.com/appium/ruby_lib_core/commit/9e6f5d66fe6fb7c03675aaa7eb91072dbbd6e694) Release 9.1.0
+- [6628445](https://github.com/appium/ruby_lib_core/commit/6628445532b85872e2771aa509a4b5c11ecb0114) feat: implement search context and UA based on selenium 4.21 (#480)
+- [f2ee24f](https://github.com/appium/ruby_lib_core/commit/f2ee24fb3e9fe2faf523340aa38a1c7d717ebd44) ci: enable device_data_test on gha (#554)
+- [f7e9b2d](https://github.com/appium/ruby_lib_core/commit/f7e9b2dbdb4e2b92634a1346c72320e035e32ce2) test: tweak to make it stabler (#553)
+- [7fe300d](https://github.com/appium/ruby_lib_core/commit/7fe300dd5e138ee15e0d85696075ae8d5bdcc2b8) ci: add bundle exec for win env (#552)
+
+
 #### v9.0.0 2024-05-14
 
 - [9b96f61](https://github.com/appium/ruby_lib_core/commit/9b96f612d726d19aa28cd50e969171e692c37f81) Release 9.0.0
