@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.1.1] - 2024-05-19
+
+### Enhancements
+- Simplify internal code with Selenium 4.21.0 further.
+
+
 ## [9.1.0] - 2024-05-18
 
 ### Enhancements
