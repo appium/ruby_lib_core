@@ -1,3 +1,10 @@
+#### v9.1.1 2024-05-19
+
+- [d9377cd](https://github.com/appium/ruby_lib_core/commit/d9377cd32b15cf8d77d9d0e461474887cde102f6) Release 9.1.1
+- [28594d2](https://github.com/appium/ruby_lib_core/commit/28594d2213f2e0c9b7eb1820afbab4a558f578a1) chore: remove unnecessary lines (#431)
+- [99402ea](https://github.com/appium/ruby_lib_core/commit/99402ea39a895374798de5238bbd28311adf26b8) chore: auto format of gemfile
+
+
 #### v9.1.0 2024-05-18
 
 - [9e6f5d6](https://github.com/appium/ruby_lib_core/commit/9e6f5d66fe6fb7c03675aaa7eb91072dbbd6e694) Release 9.1.0
