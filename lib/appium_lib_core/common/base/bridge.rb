@@ -327,25 +327,6 @@ module Appium
         def send_command(command_params)
           execute :chrome_send_command, {}, command_params
         end
-
-        private
-
-        def unwrap_script_result(arg)
-          case arg
-          when Array
-            arg.map { |e| unwrap_script_result(e) }
-          when Hash
-            element_id = element_id_from(arg)
-            return ::Appium::Core::Element.new(self, element_id) if element_id
-
-            shadow_root_id = shadow_root_id_from(arg)
-            return ::Selenium::WebDriver::Remote::ShadowRoot.new self, shadow_root_id if shadow_root_id
-
-            arg.each { |k, v| arg[k] = unwrap_script_result(v) }
-          else
-            arg
-          end
-        end
       end # class Bridge
     end # class Base
   end # module Core
