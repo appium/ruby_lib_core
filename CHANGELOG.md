@@ -5,11 +5,22 @@ Read `release_notes.md` for commit level details.
 ## [Unreleased]
 
 ### Enhancements
-- Simplify internal code with Selenium 4.21.0. Now it requires selenium webdriver v4.21.0.
 
 ### Bug fixes
 
 ### Deprecations
+
+## [9.1.1] - 2024-05-19
+
+### Enhancements
+- Simplify internal code with Selenium 4.21.0 further.
+
+
+## [9.1.0] - 2024-05-18
+
+### Enhancements
+- Require Selenium 4.21.0+
+- Simplify internal code with Selenium 4.21.0. Now it requires selenium webdriver v4.21.0.
 
 ## [9.0.0] - 2024-05-14
 
