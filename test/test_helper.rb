@@ -403,7 +403,7 @@ class AppiumLibCoreTest
       # The number is '', '2', '3',...
       number = ENV['TEST_ENV_NUMBER'] || ''
       core_number = number.empty? ? 0 : number.to_i - 1
-      [8100, 8101][core_number]
+      [8100, 8101, 8102, 8103][core_number]
     end
 
     def system_port
