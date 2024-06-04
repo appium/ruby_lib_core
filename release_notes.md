@@ -1,3 +1,14 @@
+#### v9.1.2 2024-06-03
+
+- [fe86fad](https://github.com/appium/ruby_lib_core/commit/fe86fad0915a37bfa85393a334d69ea6b16760f2) Release 9.1.2
+- [37bc924](https://github.com/appium/ruby_lib_core/commit/37bc924d8f04b8cb9ed2d38fbe770f05729d8fe1) fix: respect given url every time (#562)
+- [229d472](https://github.com/appium/ruby_lib_core/commit/229d4727dfcd658a3d40b9edf9ac91be307c512b) chore(deps-dev): update rubocop requirement from = 1.64.0 to = 1.64.1 (#561)
+- [ae8a29f](https://github.com/appium/ruby_lib_core/commit/ae8a29f6b444ba1a9cac030dafa93eadca0a37bc) chore(deps-dev): update rubocop requirement from = 1.63.5 to = 1.64.0 (#559)
+- [d728ded](https://github.com/appium/ruby_lib_core/commit/d728ded3ab5006eb3ea399a26443829105f89f48) ci: android sdk 34 (#558)
+- [576664e](https://github.com/appium/ruby_lib_core/commit/576664e26dd93265eaea92dbd2eb22da3685189e) ci: use android sdk 33 (#557)
+- [78dca97](https://github.com/appium/ruby_lib_core/commit/78dca9755418fdfb4c27f0bc804b0d0eb74834e7) ci: use api level 32 for Android tests (#556)
+
+
 #### v9.1.1 2024-05-19
 
 - [d9377cd](https://github.com/appium/ruby_lib_core/commit/d9377cd32b15cf8d77d9d0e461474887cde102f6) Release 9.1.1
