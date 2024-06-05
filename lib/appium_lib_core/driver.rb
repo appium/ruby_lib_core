@@ -394,7 +394,9 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-        @custom_url = server_url || "http://127.0.0.1:#{@port}/wd/hub"
+
+        @custom_url ||= "http://127.0.0.1:#{@port}/wd/hub"
+        @custom_url = server_url unless server_url.nil?
 
         @http_client = get_http_client http_client: http_client_ops.delete(:http_client),
                                        open_timeout: http_client_ops.delete(:open_timeout),

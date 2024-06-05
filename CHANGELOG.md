@@ -10,7 +10,7 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [9.1.2] - 2024-06-03
+## [9.1.3., 9.1.2] - 2024-06-03
 
 ### Bug fixes
 - Fix `server_url` usage in `core.start_driver` to respect the given value every time.
