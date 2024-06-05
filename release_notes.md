@@ -1,3 +1,9 @@
+#### v9.1.3 2024-06-05
+
+- [cd17962](https://github.com/appium/ruby_lib_core/commit/cd179622e7ec459be43d18a6210816c7fb3839e4) Release 9.1.3
+- [676b142](https://github.com/appium/ruby_lib_core/commit/676b142cd3b0314acc31dc9d086d2dda14f996b2) fix: server_url handling added in 9.1.2
+
+
 #### v9.1.2 2024-06-03
 
 - [fe86fad](https://github.com/appium/ruby_lib_core/commit/fe86fad0915a37bfa85393a334d69ea6b16760f2) Release 9.1.2
