@@ -145,12 +145,12 @@ class AppiumLibCoreTest
           wdaLaunchTimeout: 120_000,
           newCommandTimeout: 120,
           wdaLocalPort: wda_port,
-          # `true`, which is the default value, is faster to finishing launching part in many cases
-          # But sometimes `false` is necessary. It leads regressions sometimes though.
+          # `true`, which is the default value, is faster to finish launching part in many cases
+          # But sometimes `false` is necessary. It leads to regressions sometimes.
           waitForQuiescence: true,
           reduceMotion: true,
           orientation: 'PORTRAIT', # only for simulator
-          processArguments: { args: %w(happy tseting), env: { HAPPY: 'testing' } },
+          processArguments: { args: %w(happy testing), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
           maxTypingFrequency: 200,
