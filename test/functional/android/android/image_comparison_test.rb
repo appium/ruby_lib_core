@@ -100,7 +100,9 @@ class AppiumLibCoreTest
         el = @driver.find_element :accessibility_id, 'NFC'
         @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
 
-        image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc.png')
+        image_element = @driver.wait do |d|
+          d.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc.png')
+        end
 
         assert image_element.inspect
         assert image_element.hash
@@ -154,6 +156,7 @@ class AppiumLibCoreTest
         @driver.rotation = :landscape
 
         el = @driver.find_element :accessibility_id, 'App'
+        sleep(10)
         @driver.save_element_screenshot el, 'test/functional/data/test_android_app.png'
 
         image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_app.png')
@@ -214,7 +217,9 @@ class AppiumLibCoreTest
           }
         )
 
-        image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
+        image_element = @driver.wait do |d|
+          d.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_scale.png')
+        end
         assert image_element.inspect
         assert image_element.hash
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/
