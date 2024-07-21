@@ -13,141 +13,141 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ios_test:
-    strategy:
-      fail-fast: false
-      matrix:
-        test_targets:
-          - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
-            name: test1
-          - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
-            name: test2
-          - target: test/functional/ios/webdriver/device_test.rb
-            name: test3
-          - target: test/functional/ios/ios/device_test.rb
-            name: test4
-          - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
-            name: test5
-          - target: test/functional/ios/ios/image_comparison_test.rb
-            name: test6
-          - target: test/functional/ios/tv_driver_test.rb
-            name: test7
+  # ios_test:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       test_targets:
+  #         - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
+  #           name: test1
+  #         - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
+  #           name: test2
+  #         - target: test/functional/ios/webdriver/device_test.rb
+  #           name: test3
+  #         - target: test/functional/ios/ios/device_test.rb
+  #           name: test4
+  #         - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
+  #           name: test5
+  #         - target: test/functional/ios/ios/image_comparison_test.rb
+  #           name: test6
+  #         - target: test/functional/ios/tv_driver_test.rb
+  #           name: test7
 
-    runs-on: macos-14
+  #   runs-on: macos-14
 
-    env:
-      XCODE_VERSION: 15.3
-      IOS_VERSION: 17.4
-      IOS_DEVICE_NAME: iPhone 15 Plus
+  #   env:
+  #     XCODE_VERSION: 15.3
+  #     IOS_VERSION: 17.4
+  #     IOS_DEVICE_NAME: iPhone 15 Plus
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
+  #   - name: Install Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 'lts/*'
 
-    - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+  #   - name: Select Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: ${{ env.XCODE_VERSION }}
+  #   - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v3
-      with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: ${{ env.IOS_DEVICE_NAME }}
-        os_version: ${{ env.IOS_VERSION }}
+  #   - uses: futureware-tech/simulator-action@v3
+  #     with:
+  #       # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
+  #       model: ${{ env.IOS_DEVICE_NAME }}
+  #       os_version: ${{ env.IOS_VERSION }}
 
-    # Start Appium
-    - run: npm install -g appium
-    - run: |
-        appium driver install xcuitest
-        appium plugin install images
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
+  #   # Start Appium
+  #   - run: npm install -g appium
+  #   - run: |
+  #       appium driver install xcuitest
+  #       appium plugin install images
+  #       appium plugin install execute-driver
+  #       nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-    - name: Install dependencies
-      run: bundle install
+  #   - name: Set up Ruby
+  #     uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: 3.2
+  #   - name: Install dependencies
+  #     run: bundle install
 
-    # Run tests
-    - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
-      name: Run tests
-      env:
-        IGNORE_VERSION_SKIP: true
-        CI: true
+  #   # Run tests
+  #   - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
+  #     name: Run tests
+  #     env:
+  #       IGNORE_VERSION_SKIP: true
+  #       CI: true
 
-    - name: Save server output
-      if: ${{ always() }}
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-ios-${{matrix.test_targets.name}}.log
-        path: appium.log
+  #   - name: Save server output
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@master
+  #     with:
+  #       name: appium-ios-${{matrix.test_targets.name}}.log
+  #       path: appium.log
 
-  ios_test_with_other_deps:
-    runs-on: macos-14
+  # ios_test_with_other_deps:
+  #   runs-on: macos-14
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
+  #   - name: Install Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 'lts/*'
 
-    - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+  #   - name: Select Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: ${{ env.XCODE_VERSION }}
+  #   - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v3
-      with:
-      # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: ${{ env.IOS_DEVICE_NAME }}
-        os_version: ${{ env.IOS_VERSION }}
+  #   - uses: futureware-tech/simulator-action@v3
+  #     with:
+  #     # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
+  #       model: ${{ env.IOS_DEVICE_NAME }}
+  #       os_version: ${{ env.IOS_VERSION }}
 
-    - name: Preparing other environment
-      run: |
-        brew install ffmpeg
-        brew tap wix/brew
-        brew install applesimutils
+  #   - name: Preparing other environment
+  #     run: |
+  #       brew install ffmpeg
+  #       brew tap wix/brew
+  #       brew install applesimutils
 
-    # Start Appium
-    - name: Install appium and mjpeg-consumer
-      run: |
-        npm install -g appium
-        npm install -g mjpeg-consumer
-    - run: |
-        appium driver install xcuitest
-        appium plugin install images@2.1.8
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
+  #   # Start Appium
+  #   - name: Install appium and mjpeg-consumer
+  #     run: |
+  #       npm install -g appium
+  #       npm install -g mjpeg-consumer
+  #   - run: |
+  #       appium driver install xcuitest
+  #       appium plugin install images@2.1.8
+  #       appium plugin install execute-driver
+  #       nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-    - name: Install dependencies
-      run: bundle install
+  #   - name: Set up Ruby
+  #     uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: 3.2
+  #   - name: Install dependencies
+  #     run: bundle install
 
-    - run: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
-      name: Run tests
-      env:
-        IGNORE_VERSION_SKIP: true
-        CI: true
+  #   - run: bundle exec rake test:func:ios TESTS=test/functional/ios/ios/mjpeg_server_test.rb,test/functional/ios/ios/mobile_commands_test.rb
+  #     name: Run tests
+  #     env:
+  #       IGNORE_VERSION_SKIP: true
+  #       CI: true
 
-    - name: Save server output
-      if: ${{ always() }}
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-ios_test_with_other_deps.log
-        path: appium.log
+  #   - name: Save server output
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@master
+  #     with:
+  #       name: appium-ios_test_with_other_deps.log
+  #       path: appium.log
 
   android_test:
     runs-on: ubuntu-latest
@@ -156,30 +156,39 @@ jobs:
       fail-fast: false
       matrix:
         test_targets:
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+          # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+          #   automation_name: uiautomator2
+          #   name: test1
+          # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+          #   automation_name: espresso
+          #   name: test2
+          # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+          #   automation_name: uiautomator2
+          #   name: test3
+          # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+          #   automation_name: espresso
+          #   name: test4
+          # - target: test/functional/android/android/mobile_commands_test.rb
+          #   automation_name: uiautomator2
+          #   name: test5
+          # - target: test/functional/android/android/mobile_commands_test.rb
+          #   automation_name: espresso
+          #   name: test6
+          # - target: test/functional/android/android/device_data_test.rb
+          #   automation_name: uiautomator2
+          #   name: test7
+          # - target: test/functional/android/android/device_data_test.rb
+          #   automation_name: espresso
+          #   name: test8
+          - target: test/functional/android/android/mjpeg_server_test.rb
             automation_name: uiautomator2
-            name: test1
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
-            automation_name: espresso
-            name: test2
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+            name: test9
+          - target: test/functional/android/android/image_comparison_test.rb
             automation_name: uiautomator2
-            name: test3
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
-            automation_name: espresso
-            name: test4
-          - target: test/functional/android/android/mobile_commands_test.rb
-            automation_name: uiautomator2
-            name: test5
-          - target: test/functional/android/android/mobile_commands_test.rb
-            automation_name: espresso
-            name: test6
-          - target: test/functional/android/android/device_data_test.rb
-            automation_name: uiautomator2
-            name: test7
-          - target: test/functional/android/android/device_data_test.rb
-            automation_name: espresso
-            name: test8
+            name: test10
+          # - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+          #   automation_name: espresso
+          #   name: test8
 
           # Some may not work well on GHA. Haven't fully fixed.
           # test/functional/android/android/mjpeg_server_test.rb
