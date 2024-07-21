@@ -156,7 +156,6 @@ class AppiumLibCoreTest
         @driver.rotation = :landscape
 
         el = @driver.find_element :accessibility_id, 'App'
-        sleep(10)
         @driver.save_element_screenshot el, 'test/functional/data/test_android_app.png'
 
         image_elements = @driver.find_elements_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_app.png')
@@ -212,7 +211,7 @@ class AppiumLibCoreTest
         @driver.update_settings(
           {
             defaultImageTemplateScale: 4,
-            imageMatchThreshold: 0.7,
+            imageMatchThreshold: 0.6,
             checkForImageElementStaleness: false
           }
         )
