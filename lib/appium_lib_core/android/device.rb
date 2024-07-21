@@ -417,15 +417,15 @@ module Appium
               def start_activity(opts)
                 ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: startActivity' extension instead"
 
-                raise 'opts must be a hash' unless opts.is_a? Hash
+                raise ::Appium::Core::Error::ArgumentError, 'opts must be a hash' unless opts.is_a? Hash
 
                 option = {}
 
                 app_package = opts[:app_package]
-                raise 'app_package is required' unless app_package
+                raise ::Appium::Core::Error::ArgumentError, 'app_package is required' unless app_package
 
                 app_activity = opts[:app_activity]
-                raise 'app_activity is required' unless app_activity
+                raise ::Appium::Core::Error::ArgumentError, 'app_activity is required' unless app_activity
 
                 option[:appPackage] = app_package
                 option[:appActivity] = app_activity

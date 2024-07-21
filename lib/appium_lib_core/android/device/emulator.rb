@@ -122,7 +122,7 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:gsm_call) do
               def gsm_call(phone_number:, action:)
                 unless GSM_CALL_ACTIONS.member? action.to_sym
-                  raise "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
+                  raise ::Appium::Core::Error::ArgumentError, "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
                 end
 
                 execute(:gsm_call, {}, { phoneNumber: phone_number, action: action })
@@ -131,7 +131,10 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:gsm_signal) do
               def gsm_signal(signal_strength)
-                raise "#{signal_strength} should be member of #{GSM_SIGNALS.keys} " if GSM_SIGNALS[signal_strength.to_sym].nil?
+                if GSM_SIGNALS[signal_strength.to_sym].nil?
+                  raise ::Appium::Core::Error::ArgumentError,
+                        "#{signal_strength} should be member of #{GSM_SIGNALS.keys} "
+                end
 
                 execute(:gsm_signal, {}, { signalStrength: GSM_SIGNALS[signal_strength],
                                            signalStrengh: GSM_SIGNALS[signal_strength] })
@@ -141,7 +144,7 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:gsm_voice) do
               def gsm_voice(state)
                 unless GSM_VOICE_STATES.member? state.to_sym
-                  raise "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
+                  raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
                 end
 
                 execute(:gsm_voice, {}, { state: state })
@@ -150,7 +153,10 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_network_speed) do
               def set_network_speed(netspeed)
-                raise "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}." unless NET_SPEED.member? netspeed.to_sym
+                unless NET_SPEED.member? netspeed.to_sym
+                  raise ::Appium::Core::Error::ArgumentError,
+                        "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
+                end
 
                 execute(:set_network_speed, {}, { netspeed: netspeed })
               end
@@ -169,7 +175,7 @@ module Appium
             ::Appium::Core::Device.add_endpoint_method(:set_power_ac) do
               def set_power_ac(state)
                 unless POWER_AC_STATE.member? state.to_sym
-                  raise "The state should be member of #{POWER_AC_STATE}. Not #{state}."
+                  raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}."
                 end
 
                 execute(:set_power_ac, {}, { state: state })

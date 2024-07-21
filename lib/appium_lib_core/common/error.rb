@@ -27,6 +27,7 @@ module Appium
       class ServerError < CoreError; end
 
       # ruby_lib_core library specific errors
+      class SessionNotCreatedError < CoreError; end
       class ArgumentError < CoreError; end
     end
   end

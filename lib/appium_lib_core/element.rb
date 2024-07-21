@@ -117,7 +117,7 @@ module Appium
         when :png
           bridge.element_screenshot(@id).unpack('m')[0]
         else
-          raise Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
+          raise ::Appium::Core::Error::UnsupportedOperationError, "unsupported format: #{format.inspect}"
         end
       end
 

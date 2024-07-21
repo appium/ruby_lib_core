@@ -34,7 +34,7 @@ module Appium
             # here do not convert to camel case
             key.to_s
           else
-            raise TypeError, "expected String or Symbol, got #{key.inspect}:#{key.class}"
+            raise ::Appium::Core::Error::ArgumentError, "expected String or Symbol, got #{key.inspect}:#{key.class}"
           end
         end
       end
