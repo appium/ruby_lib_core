@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.2.0] - 2024-07-21
+### Enhancements
+- Raise defined errors in this library instead of Ruby general errors in some places.
+    - Most of errors have already followed this method. This version has updated rest of them.
+
 ## [9.1.3., 9.1.2] - 2024-06-03
 
 ### Bug fixes
