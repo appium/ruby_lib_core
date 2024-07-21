@@ -100,7 +100,9 @@ class AppiumLibCoreTest
         el = @driver.find_element :accessibility_id, 'NFC'
         @driver.save_element_screenshot el, 'test/functional/data/test_android_nfc.png'
 
-        image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc.png')
+        image_element = @driver.wait do |d|
+          d.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc.png')
+        end
 
         assert image_element.inspect
         assert image_element.hash
@@ -198,6 +200,10 @@ class AppiumLibCoreTest
 
       # tested only Android side since the logic is the same in cross platform
       def test_template_scale_ratio
+        # Skip on CI since Ci env is unstable to complete this scale test.
+        # Local env succeeded in running this test.
+        skip 'skip because image search with scale is unstable on CI' if ci?
+
         skip_as_appium_version '1.9.0'
         skip 'Espresso does not support settings API' if @@core.automation_name == :espresso
 
@@ -210,11 +216,13 @@ class AppiumLibCoreTest
           {
             defaultImageTemplateScale: 4,
             imageMatchThreshold: 0.7,
-            checkForImageElementStaleness: false
+            checkForImageElementStaleness: true
           }
         )
 
-        image_element = @driver.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_270.png')
+        image_element = @driver.wait do |d|
+          d.find_element_by_image AppiumLibCoreTest.path_of('test/functional/data/test_android_nfc_scale.png')
+        end
         assert image_element.inspect
         assert image_element.hash
         assert image_element.id =~ /\Aappium-image-element-[a-z0-9\-]+/

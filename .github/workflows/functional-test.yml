@@ -87,7 +87,9 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-ios-${{matrix.test_targets.name}}.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/
 
   ios_test_with_other_deps:
     runs-on: macos-14
@@ -147,7 +149,9 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-ios_test_with_other_deps.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/
 
   android_test:
     runs-on: ubuntu-latest
@@ -180,10 +184,12 @@ jobs:
           - target: test/functional/android/android/device_data_test.rb
             automation_name: espresso
             name: test8
-
-          # Some may not work well on GHA. Haven't fully fixed.
-          # test/functional/android/android/mjpeg_server_test.rb
-          # test/functional/android/android/image_comparison_test.rb
+          - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+            automation_name: uiautomator2
+            name: test9
+          - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+            automation_name: espresso
+            name: test10
 
     env:
       API_LEVEL: 34
@@ -267,4 +273,6 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/

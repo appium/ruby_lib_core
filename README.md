@@ -2,7 +2,9 @@
 
 [![Gem Version](https://badge.fury.io/rb/appium_lib_core.svg)](https://badge.fury.io/rb/appium_lib_core)
 
-[![Build Status](https://dev.azure.com/AppiumCI/Appium%20CI/_apis/build/status/appium.ruby_lib_core?branchName=master)](https://dev.azure.com/AppiumCI/Appium%20CI/_build/latest?definitionId=54&branchName=master)
+[![Runs lint and unit tests](https://github.com/appium/ruby_lib_core/actions/workflows/unittest.yml/badge.svg)](https://github.com/appium/ruby_lib_core/actions/workflows/unittest.yml)
+[![Functional Tests](https://github.com/appium/ruby_lib_core/actions/workflows/functional-test.yml/badge.svg)](https://github.com/appium/ruby_lib_core/actions/workflows/functional-test.yml)
+
 
 This library is a Ruby client for Appium.  The gem is available via [appium_lib_core](https://rubygems.org/gems/appium_lib_core).
 
