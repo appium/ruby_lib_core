@@ -210,7 +210,6 @@ jobs:
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
-
     - name: Enable KVM group perms
       run: |
         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -252,7 +251,6 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
-          echo $JAVA_HOME
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
         profile: Nexus 5X
