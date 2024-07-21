@@ -475,7 +475,8 @@ module Appium
                                                      automation_name: automation_name,
                                                      platform_name: platform_name)
         rescue Errno::ECONNREFUSED
-          raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
+          raise ::Appium::Core::Error::SessionNotCreatedError,
+                "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
         end
 
         @driver

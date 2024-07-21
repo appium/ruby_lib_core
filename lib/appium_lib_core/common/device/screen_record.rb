@@ -30,7 +30,10 @@ module Appium
             @upload_option = if remote_path.nil?
                                {}
                              else
-                               raise 'method should be POST or PUT' unless METHOD.member?(method.to_s.upcase)
+                               unless METHOD.member?(method.to_s.upcase)
+                                 raise ::Appium::Core::Error::ArgumentError,
+                                       'method should be POST or PUT'
+                               end
 
                                option = {}
                                option[:remotePath] = remote_path
@@ -45,7 +48,10 @@ module Appium
 
             return if force_restart.nil?
 
-            raise 'force_restart should be true or false' unless [true, false].member?(force_restart)
+            unless [true, false].member?(force_restart)
+              raise ::Appium::Core::Error::ArgumentError,
+                    'force_restart should be true or false'
+            end
 
             @upload_option[:forceRestart] = force_restart
           end

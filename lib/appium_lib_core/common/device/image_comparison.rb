@@ -65,14 +65,17 @@ module Appium
                                     good_matches_factor: nil,
                                     visualize: false)
             unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
-              raise "detector_name should be #{MATCH_FEATURES[:detector_name]}"
+              raise ::Appium::Core::Error::ArgumentError, "detector_name should be #{MATCH_FEATURES[:detector_name]}"
             end
 
             unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
-              raise "match_func should be #{MATCH_FEATURES[:match_func]}"
+              raise ::Appium::Core::Error::ArgumentError, "match_func should be #{MATCH_FEATURES[:match_func]}"
             end
 
-            raise "visualize should be #{MATCH_FEATURES[:visualize]}" unless MATCH_FEATURES[:visualize].member?(visualize)
+            unless MATCH_FEATURES[:visualize].member?(visualize)
+              raise ::Appium::Core::Error::ArgumentError,
+                    "visualize should be #{MATCH_FEATURES[:visualize]}"
+            end
 
             options = {}
             options[:detectorName] = detector_name.to_s.upcase
@@ -109,7 +112,10 @@ module Appium
           #
           def find_image_occurrence(full_image:, partial_image:, visualize: false, threshold: nil,
                                     multiple: nil, match_neighbour_threshold: nil)
-            raise "visualize should be #{MATCH_TEMPLATE[:visualize]}" unless MATCH_TEMPLATE[:visualize].member?(visualize)
+            unless MATCH_TEMPLATE[:visualize].member?(visualize)
+              raise ::Appium::Core::Error::ArgumentError,
+                    "visualize should be #{MATCH_TEMPLATE[:visualize]}"
+            end
 
             options = {}
             options[:visualize] = visualize
@@ -136,7 +142,10 @@ module Appium
           #     File.write 'images_similarity_visual.png', Base64.decode64(visual['visualization']) # if the image is PNG
           #
           def get_images_similarity(first_image:, second_image:, visualize: false)
-            raise "visualize should be #{GET_SIMILARITY[:visualize]}" unless GET_SIMILARITY[:visualize].member?(visualize)
+            unless GET_SIMILARITY[:visualize].member?(visualize)
+              raise ::Appium::Core::Error::ArgumentError,
+                    "visualize should be #{GET_SIMILARITY[:visualize]}"
+            end
 
             options = {}
             options[:visualize] = visualize
@@ -158,7 +167,7 @@ module Appium
           #                 See the documentation on +appium-support+ module for more details.
           #
           def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
-            raise "content_type should be #{MODE}" unless MODE.member?(mode)
+            raise ::Appium::Core::Error::ArgumentError, "content_type should be #{MODE}" unless MODE.member?(mode)
 
             params = {}
             params[:mode] = mode

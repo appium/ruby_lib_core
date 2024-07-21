@@ -41,7 +41,9 @@ module Appium
                 option[:bitRate] = bit_rate unless bit_rate.nil?
 
                 unless bug_report.nil?
-                  raise 'bug_report should be true or false' unless [true, false].member?(bug_report)
+                  unless [true, false].member?(bug_report)
+                    raise ::Appium::Core::Error::ArgumentError, 'bug_report should be true or false'
+                  end
 
                   option[:bugReport] = bug_report
                 end
