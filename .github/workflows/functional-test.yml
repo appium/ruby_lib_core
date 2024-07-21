@@ -209,8 +209,6 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Set JAVA_HOME
-      run: echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))" >> $GITHUB_ENV
 
     - name: Enable KVM group perms
       run: |
