@@ -1,3 +1,12 @@
+#### v9.2.0 2024-07-21
+
+- [cdf80ef](https://github.com/appium/ruby_lib_core/commit/cdf80ef05cd7cf1598fe3c016cd0944a97762109) Release 9.2.0
+- [e8031d1](https://github.com/appium/ruby_lib_core/commit/e8031d15afdd86a508ee368b2eee0b4743e7e1bd) ci: drop azure (#565)
+- [8f6bca9](https://github.com/appium/ruby_lib_core/commit/8f6bca93da7a0cc8bb474460197aefe4a6cb2a8c) feat: raise its own defined errors (#564)
+- [8cc7388](https://github.com/appium/ruby_lib_core/commit/8cc738821bf9067f1151898865ec4b54a98b5f3c) test: fix typo in test_helper.rb
+- [a315d76](https://github.com/appium/ruby_lib_core/commit/a315d7628ca7402be89300f794d4173547ec80cf) chore(deps-dev): update rubocop requirement from = 1.64.1 to = 1.65.0 (#563)
+
+
 #### v9.1.3 2024-06-05
 
 - [cd17962](https://github.com/appium/ruby_lib_core/commit/cd179622e7ec459be43d18a6210816c7fb3839e4) Release 9.1.3
