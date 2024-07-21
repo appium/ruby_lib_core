@@ -87,7 +87,9 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-ios-${{matrix.test_targets.name}}.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/
 
   ios_test_with_other_deps:
     runs-on: macos-14
@@ -147,7 +149,9 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-ios_test_with_other_deps.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/
 
   android_test:
     runs-on: ubuntu-latest
@@ -269,4 +273,6 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: appium-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
-        path: appium.log
+        path: |
+          appium.log
+          test/report/
