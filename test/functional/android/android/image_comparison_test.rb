@@ -212,7 +212,7 @@ class AppiumLibCoreTest
           {
             defaultImageTemplateScale: 4,
             imageMatchThreshold: 0.6,
-            checkForImageElementStaleness: false
+            checkForImageElementStaleness: true
           }
         )
 
