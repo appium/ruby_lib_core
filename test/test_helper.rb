@@ -321,9 +321,7 @@ class AppiumLibCoreTest
         # cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else
         cap[:capabilities][:forceEspressoRebuild] = false
-        cap[:capabilities][:espressoBuildConfig] = {
-          'toolsVersions': { 'toolsVersions': '1_17' }
-        }.to_json
+        cap[:capabilities][:espressoBuildConfig] = {}.to_json
       end
 
       cap

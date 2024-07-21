@@ -192,6 +192,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
@@ -205,12 +210,6 @@ jobs:
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors --base-path=/wd/hub > appium.log &
 
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-    - name: Set JAVA_HOME
-      run: echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))" >> $GITHUB_ENV
 
     - name: Enable KVM group perms
       run: |
