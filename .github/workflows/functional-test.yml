@@ -209,6 +209,8 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+    - name: Set JAVA_HOME
+      run: echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))" >> $GITHUB_ENV
 
     - name: Enable KVM group perms
       run: |
@@ -251,6 +253,7 @@ jobs:
         api-level: ${{ env.API_LEVEL }}
         arch: ${{ env.ARCH }}
         script: |
+          echo $JAVA_HOME
           bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
         target: google_apis
         profile: Nexus 5X
