@@ -1,0 +1,38 @@
+module Appium
+  module Core
+    class Base
+      module Http
+        module RequestHeaders
+          KEYS: Hash[Symbol, String]
+        end
+
+        class Default < Selenium::WebDriver::Remote::Http::Default
+          @open_timeout: untyped
+
+          @read_timeout: untyped
+
+          @additional_headers: untyped
+
+          @http: untyped
+
+          @server_url: untyped
+
+          attr_reader additional_headers: untyped
+
+          # override
+          def initialize: (?open_timeout: untyped?, ?read_timeout: untyped?) -> void
+
+          def set_additional_header: (untyped key, untyped value) -> untyped
+
+          def delete_additional_header: (untyped key) -> untyped
+
+          def update_sending_request_to: (scheme: untyped, host: untyped, port: untyped, path: untyped) -> untyped
+
+          private
+
+          def validate_url_param: (untyped scheme, untyped host, untyped port, untyped path) -> bool
+        end
+      end
+    end
+  end
+end

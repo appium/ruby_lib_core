@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    class Base
+      class DriverSettings
+        @bridge: untyped
+
+        def initialize: (untyped bridge) -> void
+
+        def get: () -> untyped
+
+        def update: (untyped settings) -> untyped
+      end
+    end
+  end
+end

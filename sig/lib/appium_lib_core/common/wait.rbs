@@ -1,0 +1,31 @@
+module Appium
+  module Core
+    module Wait
+      class TimeoutError < StandardError
+      end
+
+      DEFAULT_TIMEOUT: Integer
+
+      DEFAULT_INTERVAL: Float
+
+      def self.until: (?timeout: untyped, ?interval: untyped, ?message: untyped?, ?ignored: untyped?, ?object: untyped?) { (untyped) -> untyped } -> untyped
+
+      def self.until_true: (?timeout: untyped, ?interval: untyped, ?message: untyped?, ?ignored: untyped?, ?object: untyped?) { (untyped) -> untyped } -> untyped
+
+      private
+
+      def self.message_for: (untyped timeout, untyped message) -> untyped
+    end
+
+    module Waitable
+
+      def wait_until_true: (?timeout: untyped?, ?interval: untyped?, ?message: untyped?, ?ignored: untyped?) { (?) -> untyped } -> untyped
+
+      alias wait_true wait_until_true
+
+      def wait_until: (?timeout: untyped?, ?interval: untyped?, ?message: untyped?, ?ignored: untyped?) { (?) -> untyped } -> untyped
+
+      alias wait wait_until
+    end
+  end
+end

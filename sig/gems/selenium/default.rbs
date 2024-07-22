@@ -1,0 +1,10 @@
+module Selenium
+  module WebDriver
+    module Remote
+      module Http
+        class Default
+        end
+      end
+    end
+  end
+end

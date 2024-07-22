@@ -1,0 +1,9 @@
+module Appium
+  module Core
+    class Base
+      module HasRemoteStatus
+        def remote_status: () -> untyped
+      end
+    end
+  end
+end

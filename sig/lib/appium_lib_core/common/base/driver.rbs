@@ -1,0 +1,167 @@
+module Appium
+  module Core
+    class Base
+      class Driver < Selenium::WebDriver::Driver
+        @wait_timeout: untyped
+
+        @wait_interval: untyped
+
+        @devtools: untyped
+
+        @bidi: untyped
+
+        @bridge: untyped
+
+        @settings: untyped
+
+        @ime: untyped
+
+        @logs: untyped
+
+        include Selenium::WebDriver::DriverExtensions::UploadsFiles
+
+        include Selenium::WebDriver::DriverExtensions::HasSessionId
+
+        include Selenium::WebDriver::DriverExtensions::HasWebStorage
+
+        include Base::Rotatable
+
+        include Base::TakesScreenshot
+
+        include Base::HasRemoteStatus
+
+        include Base::HasLocation
+
+        include Base::HasNetworkConnection
+
+        include Core::Waitable
+
+        attr_reader bridge: untyped
+
+        def initialize: (?bridge: untyped?, ?listener: untyped?, **untyped opts) -> void
+
+        private
+
+        def create_bridge: (**untyped opts) -> untyped
+
+        public
+
+        def update_sending_request_to: (protocol: untyped, host: untyped, port: untyped, path: untyped) -> (nil | untyped)
+
+        AVAILABLE_METHODS: ::Array[:get | :head | :post | :put | :delete | :connect | :options | :trace | :patch]
+
+        def add_command: (method: untyped, url: untyped, name: untyped) { () -> untyped } -> untyped
+
+        def key_action: (?async: bool) -> untyped
+
+        def lock: (?untyped? duration) -> untyped
+
+        def locked?: () -> untyped
+
+        alias device_locked? locked?
+
+        def unlock: () -> untyped
+
+        def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
+
+        def keyboard_shown?: () -> untyped
+
+        alias is_keyboard_shown keyboard_shown?
+
+        def settings: () -> untyped
+
+        def get_settings: () -> untyped
+
+        def settings=: (untyped value) -> untyped
+
+        alias update_settings settings=
+
+        def ime: () -> untyped
+
+        def ime_activate: (untyped ime_name) -> untyped
+
+        def ime_available_engines: () -> untyped
+
+        def ime_active_engine: () -> untyped
+
+        def ime_activated: () -> untyped
+
+        def ime_deactivate: () -> untyped
+
+        def within_context: (untyped context) ?{ () -> untyped } -> untyped
+
+        def current_context: () -> untyped
+
+        def available_contexts: () -> untyped
+
+        def context=: (?untyped? context) -> untyped
+
+        alias set_context context=
+
+        def push_file: (untyped path, untyped filedata) -> untyped
+
+        def pull_file: (untyped path) -> untyped
+
+        def pull_folder: (untyped path) -> untyped
+
+        def press_keycode: (untyped key, ?metastate: untyped, ?flags: untyped) -> untyped
+
+        def long_press_keycode: (untyped key, ?metastate: untyped, ?flags: untyped) -> untyped
+
+        def app_strings: (?untyped? language) -> untyped
+
+        def background_app: (?::Integer duration) -> untyped
+
+        def install_app: (untyped path, **untyped options) -> untyped
+
+        def remove_app: (untyped app_id, ?keep_data: untyped?, ?timeout: untyped?) -> untyped
+
+        def app_installed?: (untyped app_id) -> untyped
+
+        def activate_app: (untyped app_id) -> untyped
+
+        def terminate_app: (untyped app_id, ?timeout: untyped?) -> untyped
+
+        def app_state: (untyped app_id) -> untyped
+
+        alias query_app_state app_state
+
+        def stop_recording_screen: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: ::String) -> untyped
+
+        def stop_and_save_recording_screen: (untyped file_path) -> untyped
+
+        def shake: () -> untyped
+
+        def device_time: (?untyped? format) -> untyped
+
+        def perform_actions: (untyped data) -> nil
+
+        def window_size: () -> untyped
+
+        def window_rect: () -> untyped
+
+        def back: () -> untyped
+
+        def logs: () -> untyped
+
+        def get_timeouts: () -> untyped
+
+        def match_images_features: (first_image: untyped, second_image: untyped, ?detector_name: ::String, ?match_func: ::String, ?good_matches_factor: untyped?, ?visualize: bool) -> untyped
+
+        def find_image_occurrence: (full_image: untyped, partial_image: untyped, ?visualize: bool, ?threshold: untyped?, ?multiple: untyped?, ?match_neighbour_threshold: untyped?) -> untyped
+
+        def get_images_similarity: (first_image: untyped, second_image: untyped, ?visualize: bool) -> untyped
+
+        def compare_images: (first_image: untyped, second_image: untyped, ?mode: ::Symbol, ?options: untyped?) -> untyped
+
+        def find_element_by_image: (untyped img_path) -> untyped
+
+        def find_elements_by_image: (untyped img_path) -> untyped
+
+        def execute_driver: (?script: ::String, ?type: ::String, ?timeout_ms: untyped?) -> untyped
+
+        def convert_to_element: (untyped response_id) -> untyped
+      end
+    end
+  end
+end

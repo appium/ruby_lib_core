@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    class Base
+      module HasLocation
+        def location: () -> untyped
+
+        def location=: (untyped location) -> untyped
+
+        def set_location: (untyped latitude, untyped longitude, untyped altitude, ?speed: untyped?, ?satellites: untyped?) -> untyped
+      end
+    end
+  end
+end

@@ -1,0 +1,17 @@
+module Appium
+  module Core
+    class Base
+      module Rotatable
+        ORIENTATIONS: Array[Symbol]
+
+        def rotation=: (untyped orientation) -> untyped
+
+        alias rotate rotation=
+
+        alias orientation= rotation=
+
+        def orientation: () -> untyped
+      end
+    end
+  end
+end
