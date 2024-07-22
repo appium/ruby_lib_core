@@ -122,4 +122,3 @@ desc('Run Steep type check')
 task :steep do
   system('steep check')
 end
-

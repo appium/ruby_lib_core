@@ -1,11 +1,14 @@
 ---
-sources:
-- name: ruby/gem_rbs_collection
-  remote: https://github.com/ruby/gem_rbs_collection.git
-  revision: main
-  repo_dir: gems
 path: ".gem_rbs_collection"
 gems:
+- name: activesupport
+  version: '7.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: addressable
   version: '2.8'
   source:
@@ -30,8 +33,56 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: concurrent-ruby
+  version: '1.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: connection_pool
+  version: '2.4'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: csv
+  version: '0'
+  source:
+    type: stdlib
+- name: date
+  version: '0'
+  source:
+    type: stdlib
+- name: erb
+  version: '0'
+  source:
+    type: stdlib
+- name: ffi
+  version: 1.17.0
+  source:
+    type: rubygems
+- name: fileutils
+  version: '0'
+  source:
+    type: stdlib
+- name: forwardable
+  version: '0'
+  source:
+    type: stdlib
 - name: hashdiff
   version: '1.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: i18n
+  version: '1.10'
   source:
     type: git
     name: ruby/gem_rbs_collection
@@ -42,11 +93,31 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: listen
+  version: '3.9'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: logger
   version: '0'
   source:
     type: stdlib
 - name: minitest
+  version: '0'
+  source:
+    type: stdlib
+- name: monitor
+  version: '0'
+  source:
+    type: stdlib
+- name: mutex_m
+  version: '0'
+  source:
+    type: stdlib
+- name: optparse
   version: '0'
   source:
     type: stdlib
@@ -90,6 +161,10 @@ gems:
     revision: 3670834268f4ea9c10aefeffae7e072b51256375
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: ripper
+  version: '0'
+  source:
+    type: stdlib
 - name: rubocop
   version: '1.57'
   source:
@@ -114,6 +189,10 @@ gems:
     revision: 3670834268f4ea9c10aefeffae7e072b51256375
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: securerandom
+  version: '0'
+  source:
+    type: stdlib
 - name: simplecov
   version: '0.22'
   source:
@@ -122,12 +201,32 @@ gems:
     revision: 3670834268f4ea9c10aefeffae7e072b51256375
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: singleton
+  version: '0'
+  source:
+    type: stdlib
 - name: strscan
   version: '0'
   source:
     type: stdlib
 - name: thor
   version: '1.2'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 3670834268f4ea9c10aefeffae7e072b51256375
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: time
+  version: '0'
+  source:
+    type: stdlib
+- name: timeout
+  version: '0'
+  source:
+    type: stdlib
+- name: tzinfo
+  version: '2.0'
   source:
     type: git
     name: ruby/gem_rbs_collection
@@ -150,19 +249,4 @@ gems:
     revision: 3670834268f4ea9c10aefeffae7e072b51256375
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
-- name: monitor
-  version: '0'
-  source:
-    type: stdlib
-- name: mutex_m
-  version: '0'
-  source:
-    type: stdlib
-- name: fileutils
-  version: '0'
-  source:
-    type: stdlib
-- name: optparse
-  version: '0'
-  source:
-    type: stdlib
+gemfile_lock_path: Gemfile.lock
