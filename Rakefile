@@ -117,3 +117,8 @@ RuboCop::RakeTask.new(:rubocop) do |t|
   t.options = %w(-D)
   t.fail_on_error = true
 end
+
+desc('Run Steep type check')
+task :steep do
+  system('steep check')
+end

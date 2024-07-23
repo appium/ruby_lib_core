@@ -1,0 +1,7 @@
+module Selenium
+  module WebDriver
+    class Driver
+      def capabilities: () -> untyped
+    end
+  end
+end

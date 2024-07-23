@@ -1,0 +1,7 @@
+module Appium
+  module Core
+    class Base
+      def self.platform: () -> untyped
+    end
+  end
+end

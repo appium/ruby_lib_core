@@ -16,3 +16,6 @@
 .idea
 
 .coverage
+
+# for RBS
+/.gem_rbs_collection/

@@ -1,0 +1,19 @@
+module Appium
+  module Core
+    class Base
+      module TakesScreenshot
+        def save_screenshot: (untyped png_path) -> untyped
+
+        def screenshot_as: (untyped format) -> untyped
+
+        def save_element_screenshot: (untyped element, untyped png_path) -> untyped
+
+        alias take_element_screenshot save_element_screenshot
+
+        def element_screenshot_as: (untyped element, untyped format) -> untyped
+
+        def save_viewport_screenshot: (untyped png_path) -> untyped
+      end
+    end
+  end
+end

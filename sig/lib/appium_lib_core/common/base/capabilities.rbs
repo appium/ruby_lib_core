@@ -1,0 +1,9 @@
+module Appium
+  module Core
+    class Base
+      class Capabilities < Selenium::WebDriver::Remote::Capabilities
+        def convert_key: (untyped key) -> untyped
+      end
+    end
+  end
+end

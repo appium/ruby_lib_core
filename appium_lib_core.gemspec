@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rubocop', '1.65.0'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'steep', '~> 1.7.0'
   spec.add_development_dependency 'webmock', '~> 3.23.0'
   spec.add_development_dependency 'yard', '~> 0.9.11'
   spec.metadata['rubygems_mfa_required'] = 'true'

@@ -1,0 +1,21 @@
+module Appium
+  module Core
+    module Device
+      extend Forwardable
+
+      def self.extended: (untyped _mod) -> untyped
+
+      def self.add_endpoint_method: (untyped method) ?{ () -> untyped } -> untyped
+
+      def self.extend_webdriver_with_forwardable: () -> (nil | untyped)
+
+      private
+
+      def self.delegate_from_appium_driver: (untyped method, Symbol? delegation_target) -> (nil | untyped)
+
+      def self.delegate_driver_method: (untyped method) -> (nil | untyped)
+
+      def self.create_bridge_command: (untyped method) ?{ () -> untyped } -> untyped
+    end
+  end
+end
