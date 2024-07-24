@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module BatteryStatus
+          ANDROID: Array[Symbol]
+
+          IOS: Array[Symbol]
+        end
+      end
+    end
+  end
+end

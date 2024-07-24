@@ -1,0 +1,7 @@
+module Appium
+  module Core
+    VERSION: String
+
+    DATE: String
+  end
+end

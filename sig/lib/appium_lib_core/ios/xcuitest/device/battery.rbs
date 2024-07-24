@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    module Ios
+      module Xcuitest
+        module Device
+          module Battery
+            def self.add_methods: () -> (Symbol | Hash[Symbol, Proc])?
+
+            def battery_info: () -> (Symbol | Hash[Symbol, Proc])?
+          end
+        end
+      end
+    end
+  end
+end
