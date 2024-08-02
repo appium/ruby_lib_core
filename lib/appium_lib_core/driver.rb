@@ -125,7 +125,7 @@ module Appium
 
       # Automation name sent to appium server or received by server.<br>
       # If automation_name is <code>nil</code>, it is not set both client side and server side.
-      # @return [device]
+      # @return [Symbol]
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
