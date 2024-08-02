@@ -104,7 +104,7 @@ module Appium
     class Driver
       include Waitable
 
-      # Selenium webdriver capabilities
+      # Selenium webdriver capabilities, but the value is provided capabilities basis.
       # @return [Core::Base::Capabilities]
       attr_reader :caps
 
@@ -125,7 +125,7 @@ module Appium
 
       # Automation name sent to appium server or received by server.<br>
       # If automation_name is <code>nil</code>, it is not set both client side and server side.
-      # @return [Hash]
+      # @return [Symbol]
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
@@ -634,7 +634,7 @@ module Appium
 
       # @private
       def get_app
-        @caps[:app] || @caps['app']
+        get_cap 'app'
       end
 
       # @private
@@ -678,17 +678,17 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = @caps[:platformName] || @caps['platformName']
+        @device = get_cap 'platformName'
         return @device unless @device
 
-        @device = convert_downcase @device
+        @device = convert_to_symbol(convert_downcase(@device))
       end
 
       # @private
       def set_automation_name
-        candidate = @caps[:automationName] || @caps['automationName']
+        candidate = get_cap 'automationName'
         @automation_name = candidate if candidate
-        @automation_name = convert_downcase @automation_name if @automation_name
+        @automation_name = convert_to_symbol(convert_downcase(@automation_name)) if @automation_name
       end
 
       # @private
@@ -700,9 +700,18 @@ module Appium
       def set_automation_name_if_nil
         return unless @automation_name.nil?
 
-        @automation_name = if @driver.capabilities['automationName']
-                             @driver.capabilities['automationName'].downcase.strip.intern
-                           end
+        automation_name = if @driver.capabilities['automationName']
+                            @driver.capabilities['automationName'].downcase.strip.intern
+                          end
+        @automation_name = convert_to_symbol automation_name
+      end
+
+      def get_cap(name)
+        name_with_prefix = "appium:#{name}"
+        @caps[convert_to_symbol name] ||
+          @caps[name] ||
+          @caps[convert_to_symbol name_with_prefix] ||
+          @caps[name_with_prefix]
       end
     end # class Driver
   end # module Core
