@@ -707,7 +707,7 @@ module Appium
       end
 
       def get_cap(name)
-        name_with_prefix = "appium:#{name}"
+        name_with_prefix = "#{::Appium::Core::Base::Bridge::APPIUM_PREFIX}#{name}"
         @caps[convert_to_symbol name] ||
           @caps[name] ||
           @caps[convert_to_symbol name_with_prefix] ||
