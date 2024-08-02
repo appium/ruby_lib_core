@@ -82,7 +82,7 @@ class AppiumLibCoreTest
       assert_equal :xcuitest, @core.automation_name
     end
 
-    def test_core_instance_variables_with_appium_prefix
+    def test_core_instance_variables_with_appium_prefix_hash
       opts = {
         url: 'http://custom-host:8080/wd/hub.com',
         caps: {
@@ -100,6 +100,23 @@ class AppiumLibCoreTest
       assert_equal :xcuitest, @core.automation_name
     end
 
+    def test_core_instance_variables_with_appium_prefix_string
+      opts = {
+        url: 'http://custom-host:8080/wd/hub.com',
+        caps: {
+          'platformName' => 'ios',
+          'appium:platformVersion' => '11.0',
+          'appium:deviceName' => 'iPhone Simulator',
+          'appium:automationName' => 'XCUITest',
+          'appium:app' => '/path/to/MyiOS.app'
+        }
+      }
+      @core = Appium::Core.for(opts)
+      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+
+      assert_equal :ios, @core.device
+      assert_equal :xcuitest, @core.automation_name
+    end
     def test_url_param
       opts = {
         url: 'http://custom-host:8080/wd/hub.com',
