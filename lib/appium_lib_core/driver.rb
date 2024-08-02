@@ -104,7 +104,7 @@ module Appium
     class Driver
       include Waitable
 
-      # Selenium webdriver capabilities
+      # Selenium webdriver capabilities, but the value is provided capabilities basis.
       # @return [Core::Base::Capabilities]
       attr_reader :caps
 
@@ -125,7 +125,7 @@ module Appium
 
       # Automation name sent to appium server or received by server.<br>
       # If automation_name is <code>nil</code>, it is not set both client side and server side.
-      # @return [Hash]
+      # @return [device]
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
@@ -624,6 +624,7 @@ module Appium
 
       # @private
       def get_caps(opts)
+        # TODO: drop symbols
         Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
@@ -634,7 +635,8 @@ module Appium
 
       # @private
       def get_app
-        @caps[:app] || @caps['app']
+        # return symbols only
+        @caps[:app] || @caps['app'] || @caps[:'appium:app'] || @caps['appium:app']
       end
 
       # @private
@@ -681,14 +683,15 @@ module Appium
         @device = @caps[:platformName] || @caps['platformName']
         return @device unless @device
 
-        @device = convert_downcase @device
+        @device = convert_to_symbol(convert_downcase(@device))
       end
 
       # @private
       def set_automation_name
-        candidate = @caps[:automationName] || @caps['automationName']
+        candidate = @caps[:automationName] || @caps['automationName'] ||
+                    @caps[:'appium:automationName'] || @caps['appium:automationName']
         @automation_name = candidate if candidate
-        @automation_name = convert_downcase @automation_name if @automation_name
+        @automation_name = convert_to_symbol(convert_downcase(@automation_name)) if @automation_name
       end
 
       # @private
@@ -700,9 +703,10 @@ module Appium
       def set_automation_name_if_nil
         return unless @automation_name.nil?
 
-        @automation_name = if @driver.capabilities['automationName']
-                             @driver.capabilities['automationName'].downcase.strip.intern
-                           end
+        automation_name = if @driver.capabilities['automationName']
+                            @driver.capabilities['automationName'].downcase.strip.intern
+                          end
+        @automation_name = convert_to_symbol automation_name
       end
     end # class Driver
   end # module Core

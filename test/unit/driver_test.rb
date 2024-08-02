@@ -79,6 +79,23 @@ class AppiumLibCoreTest
       assert_equal 'someCapability2', caps[:someCapability2]
     end
 
+    def test_verify_appium_core_base_capabilities_create_capabilities_with_caps
+      caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
+                                                    'appium:platformVersion': '11.4',
+                                                    'appium:automationName': 'XCUITest',
+                                                    'appium:app': 'test/functional/app/UICatalog.app.zip')
+
+      caps_with_json = JSON.parse(caps.to_json)
+      puts(caps_with_json)
+      assert_equal 'ios', caps_with_json['platformName']
+      assert_equal 'XCUITest', caps_with_json['appium:automationName']
+      assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['appium:app']
+
+      assert_equal 'ios', caps[:platformName]
+      assert_equal 'XCUITest', caps[:'appium:automationName']
+      assert_equal 'test/functional/app/UICatalog.app.zip', caps[:'appium:app']
+    end
+
     def test_default_wait
       assert_equal 5, @core.default_wait
     end

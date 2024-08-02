@@ -64,6 +64,42 @@ class AppiumLibCoreTest
       assert_equal 'symbolize_keys requires a hash', e.message
     end
 
+    def test_core_instance_variables
+      opts = {
+        url: 'http://custom-host:8080/wd/hub.com',
+        caps: {
+          platformName: :ios,
+          platformVersion: '11.0',
+          deviceName: 'iPhone Simulator',
+          automationName: 'XCUITest',
+          app: '/path/to/MyiOS.app'
+        }
+      }
+      @core = Appium::Core.for(opts)
+      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+
+      assert_equal :ios, @core.device
+      assert_equal :xcuitest, @core.automation_name
+    end
+
+    def test_core_instance_variables_with_appium_prefix
+      opts = {
+        url: 'http://custom-host:8080/wd/hub.com',
+        caps: {
+          'platformName': 'ios',
+          'appium:platformVersion': '11.0',
+          'appium:deviceName': 'iPhone Simulator',
+          'appium:automationName': 'XCUITest',
+          'appium:app': '/path/to/MyiOS.app'
+        }
+      }
+      @core = Appium::Core.for(opts)
+      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+
+      assert_equal :ios, @core.device
+      assert_equal :xcuitest, @core.automation_name
+    end
+
     def test_url_param
       opts = {
         url: 'http://custom-host:8080/wd/hub.com',
