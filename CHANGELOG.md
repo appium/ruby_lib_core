@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+# [9.2.1] - 2024-08-01
+
+### Bug fixes
+- Fix to return symbols for `Core#device` and `Core#automation_name`
+
 ## [9.2.0] - 2024-07-21
 ### Enhancements
 - Raise defined errors in this library instead of Ruby general errors in some places.
