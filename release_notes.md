@@ -1,3 +1,13 @@
+#### v9.2.1 2024-08-01
+
+- [41e58e5](https://github.com/appium/ruby_lib_core/commit/41e58e53641f6f72ea987b5dc6ff6efc0db7bcd7) Release 9.2.1
+- [27047ee](https://github.com/appium/ruby_lib_core/commit/27047ee033e7f9239caafd1a0af64304237dc33b) fix instance variables of device and automation_name (#570)
+- [7528eae](https://github.com/appium/ruby_lib_core/commit/7528eae9278fdea4d45a3263f301620fe8f866cf) chore(deps-dev): update rubocop requirement from = 1.65.0 to = 1.65.1 (#568)
+- [0f19f52](https://github.com/appium/ruby_lib_core/commit/0f19f523171513d964553ed01a9271dc0f162bc3) ci: add note, redirect errors
+- [acbf8f0](https://github.com/appium/ruby_lib_core/commit/acbf8f0cc5bd8cfe7e7ad6f554eb9e30155b75c1) feat: Take down steep issues from 589 to 552 (#567)
+- [466e85f](https://github.com/appium/ruby_lib_core/commit/466e85f44cb7d860e3808cfd247109a6bbff6227) feat: RBS setup for core appium library (#566)
+
+
 #### v9.2.0 2024-07-21
 
 - [cdf80ef](https://github.com/appium/ruby_lib_core/commit/cdf80ef05cd7cf1598fe3c016cd0944a97762109) Release 9.2.0
