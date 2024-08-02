@@ -624,7 +624,6 @@ module Appium
 
       # @private
       def get_caps(opts)
-        # TODO: drop symbols
         Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
       end
 
@@ -635,8 +634,7 @@ module Appium
 
       # @private
       def get_app
-        # return symbols only
-        @caps[:app] || @caps['app'] || @caps[:'appium:app'] || @caps['appium:app']
+        get_cap 'app'
       end
 
       # @private
@@ -680,7 +678,7 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = @caps[:platformName] || @caps['platformName']
+        @device = get_cap 'platformName'
         return @device unless @device
 
         @device = convert_to_symbol(convert_downcase(@device))
@@ -688,8 +686,7 @@ module Appium
 
       # @private
       def set_automation_name
-        candidate = @caps[:automationName] || @caps['automationName'] ||
-                    @caps[:'appium:automationName'] || @caps['appium:automationName']
+        candidate = get_cap 'automationName'
         @automation_name = candidate if candidate
         @automation_name = convert_to_symbol(convert_downcase(@automation_name)) if @automation_name
       end
@@ -707,6 +704,14 @@ module Appium
                             @driver.capabilities['automationName'].downcase.strip.intern
                           end
         @automation_name = convert_to_symbol automation_name
+      end
+
+      def get_cap(name)
+        name_with_prefix = "appium:#{name}"
+        @caps[convert_to_symbol name] ||
+          @caps[name] ||
+          @caps[convert_to_symbol name_with_prefix] ||
+          @caps[name_with_prefix]
       end
     end # class Driver
   end # module Core
