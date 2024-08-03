@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module DeviceLock
+          def lock: (?untyped? duration) -> untyped
+
+          def device_locked?: () -> untyped
+
+          def unlock: () -> untyped
+        end
+      end
+    end
+  end
+end

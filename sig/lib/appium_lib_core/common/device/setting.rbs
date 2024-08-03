@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Setting
+          def get_settings: () -> untyped
+
+          def update_settings: (untyped settings) -> untyped
+        end
+      end
+    end
+  end
+end

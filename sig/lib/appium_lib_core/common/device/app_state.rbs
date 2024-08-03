@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module AppState
+          STATUS: ::Array[:not_installed | :not_running | :running_in_background_suspended | :running_in_background | :running_in_foreground]
+
+          def app_state: (untyped app_id) -> untyped
+        end
+      end
+    end
+  end
+end

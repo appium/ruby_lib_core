@@ -1,0 +1,27 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module AppManagement
+          def app_strings: (?untyped? language) -> untyped
+
+          def background_app: (?::Integer duration) -> untyped
+
+          def install_app: (untyped path, ?::Hash[untyped, untyped] options) -> untyped
+
+          def remove_app: (untyped id, ?keep_data: untyped?, ?timeout: untyped?) -> untyped
+
+          def app_installed?: (untyped app_id) -> untyped
+
+          def activate_app: (untyped app_id) -> untyped
+
+          def terminate_app: (untyped app_id, ?timeout: untyped?) -> untyped
+
+          private
+
+          def options?: (*untyped args) -> untyped
+        end
+      end
+    end
+  end
+end
