@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Device
+          def shake: () -> untyped
+
+          def device_time: (?untyped? format) -> untyped
+        end
+      end
+    end
+  end
+end

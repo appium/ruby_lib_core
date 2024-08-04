@@ -1,0 +1,19 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module ImeActions
+          def ime_activate: (untyped ime_name) -> untyped
+
+          def ime_available_engines: () -> untyped
+
+          def ime_active_engine: () -> untyped
+
+          def ime_activated: () -> untyped
+
+          def ime_deactivate: () -> untyped
+        end
+      end
+    end
+  end
+end
