@@ -5,9 +5,9 @@ module Appium
         module AppManagement
           def app_strings: (?untyped? language) -> untyped
 
-          def background_app: (?::Integer duration) -> untyped
+          def background_app: (Integer? duration) -> untyped
 
-          def install_app: (untyped path, ?::Hash[untyped, untyped] options) -> untyped
+          def install_app: (untyped path, Hash[untyped, untyped]? options) -> untyped
 
           def remove_app: (untyped id, ?keep_data: untyped?, ?timeout: untyped?) -> untyped
 
