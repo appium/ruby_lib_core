@@ -134,6 +134,7 @@ class AppiumLibCoreTest
       def test_add_appium_prefix_already_have_appium_prefix
         cap = {
           platformName: :ios,
+          'webSocketUrl' => true,
           automationName: 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
           platformVersion: '11.4',
@@ -154,6 +155,7 @@ class AppiumLibCoreTest
 
         expected = {
           'platformName' => :ios,
+          'webSocketUrl' => true,
           'automationName' => 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
           'platformVersion' => '11.4',
@@ -170,6 +172,7 @@ class AppiumLibCoreTest
 
         expected = {
           platformName: :ios,
+          'webSocketUrl' => true,
           'appium:automationName' => 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
           'appium:platformVersion' => '11.4',
@@ -187,6 +190,7 @@ class AppiumLibCoreTest
 
         expected = {
           'platformName' => :ios,
+          'webSocketUrl' => true,
           'appium:automationName' => 'XCUITest',
           'appium:app' => 'test/functional/app/UICatalog.app.zip',
           'appium:platformVersion' => '11.4',
