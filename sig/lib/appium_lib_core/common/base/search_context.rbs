@@ -1,0 +1,1 @@
+APPIUM_EXTRA_FINDERS: { accessibility_id: "accessibility id", image: "-image", custom: "-custom", uiautomator: "-android uiautomator", viewtag: "-android viewtag", data_matcher: "-android datamatcher", view_matcher: "-android viewmatcher", predicate: "-ios predicate string", class_chain: "-ios class chain" }

@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Mac2
+      module Device
+        extend Forwardable
+
+        def self.extended: (untyped _mod) -> untyped
+      end
+    end
+  end
+end
