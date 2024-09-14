@@ -1,0 +1,21 @@
+module Appium
+  module Core
+    module Android
+      module Device
+        module Emulator
+          GSM_CALL_ACTIONS: ::Array[:call | :accept | :cancel | :hold]
+
+          GSM_VOICE_STATES: ::Array[:on | :off | :denied | :searching | :roaming | :home | :unregistered]
+
+          GSM_SIGNALS: { none_or_unknown: 0, poor: 1, moderate: 2, good: 3, great: 4 }
+
+          NET_SPEED: ::Array[:gsm | :scsd | :gprs | :edge | :umts | :hsdpa | :lte | :evdo | :full]
+
+          POWER_AC_STATE: ::Array[:on | :off]
+
+          def self.add_methods: () -> untyped
+        end
+      end
+    end
+  end
+end

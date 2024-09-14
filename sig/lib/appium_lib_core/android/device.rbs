@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Android
+      module Device
+        extend Forwardable
+
+        def self.extended: (untyped _mod) -> (nil | untyped)
+      end
+    end
+  end
+end

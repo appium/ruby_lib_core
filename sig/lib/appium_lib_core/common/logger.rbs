@@ -1,0 +1,13 @@
+module Appium
+  module Logger
+    self.@logger: untyped
+
+    extend Forwardable
+
+    attr_writer self.logger: untyped
+
+    private
+
+    def self.logger: () -> untyped
+  end
+end

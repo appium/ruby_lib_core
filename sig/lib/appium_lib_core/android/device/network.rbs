@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Android
+      module Device
+        module Network
+          def self.add_methods: () -> untyped
+        end
+      end
+    end
+  end
+end
