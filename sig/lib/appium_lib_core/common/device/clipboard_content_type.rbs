@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Clipboard
+          CONTENT_TYPE: ::Array[:plaintext | :image | :url]
+        end
+      end
+    end
+  end
+end
