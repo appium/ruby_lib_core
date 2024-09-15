@@ -1,0 +1,25 @@
+module Appium
+  module Core
+    class Base
+      #
+      # @api private
+      #
+      class DeviceIME
+        @bridge: untyped
+
+        # @private this class is private
+        def initialize: (untyped bridge) -> void
+
+        def activate: (untyped ime_name) -> untyped
+
+        def available_engines: () -> untyped
+
+        def active_engine: () -> untyped
+
+        def activated?: () -> untyped
+
+        def deactivate: () -> untyped
+      end
+    end
+  end
+end

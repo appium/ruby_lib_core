@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    module Ios
+      module Xcuitest
+        module Device
+          module Screen
+            def self.add_methods: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end
