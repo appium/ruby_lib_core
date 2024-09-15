@@ -6,6 +6,16 @@ module Appium
 
     attr_writer self.logger: untyped
 
+    def self.debug: (String message) -> untyped
+
+    def self.info: (String message) -> untyped
+
+    def self.warn: (String message) -> untyped
+
+    def self.error: (String message) -> untyped
+
+    def self.fatal: (String message) -> untyped
+
     private
 
     def self.logger: () -> untyped
