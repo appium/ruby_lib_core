@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    module Wait
+      class Timer
+        @end_time: untyped
+
+        def initialize: (Numeric timeout) -> void
+
+        def timeout?: () -> bool
+
+        def current_time: () -> Float
+      end
+    end
+  end
+end

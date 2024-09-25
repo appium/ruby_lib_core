@@ -1,0 +1,27 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module ImageComparison
+          MODE: ::Array[:matchFeatures | :getSimilarity | :matchTemplate]
+
+          MATCH_FEATURES: { detector_name: ::Array["AKAZE" | "AGAST" | "BRISK" | "FAST" | "GFTT" | "KAZE" | "MSER" | "SIFT" | "ORB"], match_func: ::Array["FlannBased" | "BruteForce" | "BruteForceL1" | "BruteForceHamming" | "BruteForceHammingLut" | "BruteForceSL2"], goodMatchesFactor: nil, visualize: ::Array[true | false] }
+
+          MATCH_TEMPLATE: { visualize: ::Array[true | false] }
+
+          GET_SIMILARITY: { visualize: ::Array[true | false] }
+
+          def match_images_features: (first_image: untyped, second_image: untyped, ?detector_name: ::String, ?match_func: ::String, ?good_matches_factor: untyped?, ?visualize: bool) -> untyped
+
+          def find_image_occurrence: (full_image: untyped, partial_image: untyped, ?visualize: bool, ?threshold: untyped?, ?multiple: untyped?, ?match_neighbour_threshold: untyped?) -> untyped
+
+          def get_images_similarity: (first_image: untyped, second_image: untyped, ?visualize: bool) -> untyped
+
+          def compare_images: (first_image: untyped, second_image: untyped, ?mode: ::Symbol, ?options: untyped?) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+        end
+      end
+    end
+  end
+end

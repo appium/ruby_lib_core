@@ -1,9 +1,7 @@
 module Selenium
   module WebDriver
     module Remote
-      module Http
-        class Common
-        end
+      class Response
       end
     end
   end

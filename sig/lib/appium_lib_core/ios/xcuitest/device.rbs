@@ -1,0 +1,14 @@
+module Appium
+  module Core
+    module Ios
+      module Xcuitest
+        module Device
+          extend Forwardable
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def self.extended: (untyped _mod) -> untyped
+        end
+      end
+    end
+  end
+end

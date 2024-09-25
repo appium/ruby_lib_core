@@ -1,8 +1,8 @@
 module Selenium
   module WebDriver
     module Remote
-        class Capabilities
-        end
+      class Capabilities
+      end
     end
   end
 end
