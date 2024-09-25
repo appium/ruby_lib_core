@@ -3,6 +3,8 @@ module Appium
     module Android
       module Device
         module Authentication
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
           def self.add_methods: () -> untyped
         end
       end

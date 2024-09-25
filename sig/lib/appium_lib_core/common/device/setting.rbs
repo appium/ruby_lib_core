@@ -3,6 +3,8 @@ module Appium
     class Base
       module Device
         module Setting
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
           def get_settings: () -> untyped
 
           def update_settings: (untyped settings) -> untyped

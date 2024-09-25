@@ -14,6 +14,8 @@ module Appium
           POWER_AC_STATE: ::Array[:on | :off]
 
           def self.add_methods: () -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
         end
       end
     end

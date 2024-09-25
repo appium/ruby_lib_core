@@ -1,11 +1,12 @@
 module Appium
   module Core
-    module Android
-      module Device
-        module Network
+    module Ios
+      module Xcuitest
+        module Device
+          extend Forwardable
           def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
 
-          def self.add_methods: () -> untyped
+          def self.extended: (untyped _mod) -> untyped
         end
       end
     end

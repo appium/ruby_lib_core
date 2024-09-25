@@ -8,6 +8,8 @@ module Appium
           def pull_file: (untyped path) -> untyped
 
           def pull_folder: (untyped path) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
         end
       end
     end

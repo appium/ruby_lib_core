@@ -1,0 +1,8 @@
+module Selenium
+  module WebDriver
+    module Error
+      module UnknownError
+      end
+    end
+  end
+end

@@ -4,6 +4,8 @@ module Appium
       module Device
         extend Forwardable
 
+        def self.execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
         def self.extended: (untyped _mod) -> (nil | untyped)
       end
     end

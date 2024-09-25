@@ -10,6 +10,8 @@ module Appium
           def available_contexts: () -> untyped
 
           def set_context: (?untyped? context) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
         end
       end
     end

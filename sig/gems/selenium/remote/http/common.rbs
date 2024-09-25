@@ -17,6 +17,14 @@ module Selenium
 
           def call: (untyped verb, untyped url, untyped command_hash) -> untyped
 
+          def self.extra_headers: () -> untyped
+
+          def self.extra_headers=: (Hash[String, untyped]) -> untyped
+
+          def self.user_agent: () -> untyped
+
+          def self.user_agent=: (String) -> untyped
+
           private
 
           def server_url: () -> untyped
