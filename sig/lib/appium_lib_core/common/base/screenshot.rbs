@@ -2,6 +2,8 @@ module Appium
   module Core
     class Base
       module TakesScreenshot
+        include _Bridge
+
         def save_screenshot: (untyped png_path) -> untyped
 
         def screenshot_as: (untyped format) -> untyped

@@ -3,13 +3,13 @@ module Appium
     class Base
       module Device
         module ImageComparison
-          MODE: ::Array[:matchFeatures | :getSimilarity | :matchTemplate]
+          MODE: Array[Symbol]
 
-          MATCH_FEATURES: { detector_name: ::Array["AKAZE" | "AGAST" | "BRISK" | "FAST" | "GFTT" | "KAZE" | "MSER" | "SIFT" | "ORB"], match_func: ::Array["FlannBased" | "BruteForce" | "BruteForceL1" | "BruteForceHamming" | "BruteForceHammingLut" | "BruteForceSL2"], goodMatchesFactor: nil, visualize: ::Array[true | false] }
+          MATCH_FEATURES: { detector_name: untyped }
 
-          MATCH_TEMPLATE: { visualize: ::Array[true | false] }
+          MATCH_TEMPLATE: { visualize: Array[bool] }
 
-          GET_SIMILARITY: { visualize: ::Array[true | false] }
+          GET_SIMILARITY: { visualize: Array[bool] }
 
           def match_images_features: (first_image: untyped, second_image: untyped, ?detector_name: ::String, ?match_func: ::String, ?good_matches_factor: untyped?, ?visualize: bool) -> untyped
 

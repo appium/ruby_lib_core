@@ -3,6 +3,8 @@ module Appium
     class Base
       module Device
         module ImeActions
+          include _Bridge
+
           def ime_activate: (untyped ime_name) -> untyped
 
           def ime_available_engines: () -> untyped
