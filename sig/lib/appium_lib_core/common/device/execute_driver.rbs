@@ -1,0 +1,25 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module ExecuteDriver
+          class Result
+            @result: untyped
+
+            @logs: untyped
+
+            attr_reader result: untyped
+
+            attr_reader logs: untyped
+
+            def initialize: (untyped response) -> void
+          end
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def execute_driver: (?script: ::String, ?type: ::String, ?timeout_ms: untyped?) -> untyped
+        end
+      end
+    end
+  end
+end
