@@ -4,7 +4,7 @@ module Appium
       module Xcuitest
         module Device
           extend Forwardable
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+          include _Bridge
 
           def self.extended: (untyped _mod) -> untyped
         end
