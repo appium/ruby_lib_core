@@ -173,13 +173,17 @@ module Appium
         #   Bridge.add_command name, method, url, &block
         # end
 
-        def add_command(method:, url:, name:, &block)
-          ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
+        # def add_command(method:, url:, name:, &block)
+        #   ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
 
-          @available_commands[name] = [method, url]
+        #   @available_commands[name] = [method, url]
 
-          ::Appium::Core::Device.add_endpoint_method name, &block
-        end
+        #   if block_given?
+        #     Bridge.add_command name, method, url, &block
+        #   else
+        #     Bridge.add_command(name, method, url) { execute method }
+        #   end
+        # end
 
         def commands(command)
           @available_commands[command] || Bridge.extra_commands[command]

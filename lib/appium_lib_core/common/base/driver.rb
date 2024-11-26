@@ -27,6 +27,11 @@ module Appium
   module Core
     class Base
       class Driver < ::Selenium::WebDriver::Driver
+        class << self
+          def add_command(name, &block)
+            define_method(name, &block)
+          end
+        end
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
         include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
@@ -189,15 +194,41 @@ module Appium
         #   @driver.test_action_command(e.id, 'action')
         #
         def add_command(method:, url:, name:, &block)
-          unless AVAILABLE_METHODS.include? method
-            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}"
-          end
+          # unless AVAILABLE_METHODS.include? method
+          #   raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}"
+          # end
 
           # TODO: Remove this logger before Appium 2.0 release
           ::Appium::Logger.info '[Experimental] this method is experimental for Appium 2.0. This interface may change.'
 
-          @bridge.add_command method: method, url: url, name: name, &block
+          if block_given?
+            # ::Appium::Core::Base::Driver.add_command(name, &block)
+            ::Appium::Core::Base::Bridge.add_command name, method, url, &block
+          else
+            # ::Appium::Core::Base::Driver.add_command(name) {
+            #   execute name
+            # }
+            ::Appium::Core::Base::Bridge.add_command(name, method, url) {
+              execute name
+            }
+          end
+
+          # define_method define_method(name, &block)
         end
+
+        # todo: need to add dynamic
+        # def test_command
+        #   @bridge.test_command
+        # end
+
+        def test_command(argument)
+          puts "in driver level"
+          @bridge.test_command(argument)
+        end
+
+        # def execute(command, opts = {}, command_hash = nil)
+        #   @bridge.execute(command, opts, command_hash)
+        # end
 
         ### Methods for Appium
 
