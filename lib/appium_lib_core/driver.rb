@@ -394,7 +394,6 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-
         @custom_url ||= "http://127.0.0.1:#{@port}/wd/hub"
         @custom_url = server_url unless server_url.nil?
 
@@ -446,7 +445,6 @@ module Appium
       # Attach to an existing session
       def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-
         raise ::Appium::Core::Error::ArgumentError, 'The :url must not be nil' if url.nil?
         raise ::Appium::Core::Error::ArgumentError, 'The :automation_name must not be nil' if automation_name.nil?
         raise ::Appium::Core::Error::ArgumentError, 'The :platform_name must not be nil' if platform_name.nil?
