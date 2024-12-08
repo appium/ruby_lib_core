@@ -160,8 +160,6 @@ module Appium
 
       def set_implicit_wait_by_default: (untyped wait) -> untyped
 
-      def quit_driver: () -> void
-
       def appium_server_version: () -> Hash[String, String]
 
       private
