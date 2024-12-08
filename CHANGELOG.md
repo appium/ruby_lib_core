@@ -10,7 +10,7 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
-## [9.3.0]
+## [9.3.0] - 2024-12-08
 
 ### Deprecations
 - Remove deprecated `Appium::Core#quit_driver`. Please use `Appium::Core::Driver.quit` instead.
