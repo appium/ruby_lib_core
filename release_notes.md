@@ -1,3 +1,20 @@
+#### v9.3.0 2024-12-08
+
+- [ca1fc7d](https://github.com/appium/ruby_lib_core/commit/ca1fc7d85bc02e877d3d6ebc54e65b3813091edf) Release 9.3.0
+- [0850725](https://github.com/appium/ruby_lib_core/commit/085072581c002566c476fe5b2d5c1091478ac86b) remove a deprecation method
+- [210ea05](https://github.com/appium/ruby_lib_core/commit/210ea0547ea6b5d645a0b02f7a7c6496734a1ff0) feat!: remove deprecated quit_driver (#579)
+- [3c7a96a](https://github.com/appium/ruby_lib_core/commit/3c7a96a01010f0206bb694f1192d4174b7bc21b3) chore: remove some leftover todos (#580)
+- [0bd0bf4](https://github.com/appium/ruby_lib_core/commit/0bd0bf49e0e2965586f1f3b462bd816b8e45da20) chore(deps-dev): update rubocop requirement from = 1.69.0 to = 1.69.1 (#578)
+- [3166df8](https://github.com/appium/ruby_lib_core/commit/3166df84bf8ed6ccf151766f0ad004a767674804) chore(deps-dev): update rubocop requirement from = 1.68.0 to = 1.69.0 (#577)
+- [3c85ff0](https://github.com/appium/ruby_lib_core/commit/3c85ff03b4039aadebf0ff86de2622303a574d63) chore(deps-dev): update rubocop requirement from = 1.67.0 to = 1.68.0 (#576)
+- [7022542](https://github.com/appium/ruby_lib_core/commit/702254289cd32b6d5df62776568b7a6ad7d368dd) chore(deps-dev): update rubocop requirement from = 1.66.1 to = 1.67.0 (#575)
+- [27a0ca0](https://github.com/appium/ruby_lib_core/commit/27a0ca0414b5f9c26ca871ad2aa55d4ad9f3022d) chore(deps-dev): update webmock requirement from ~> 3.23.0 to ~> 3.24.0 (#574)
+- [960afdf](https://github.com/appium/ruby_lib_core/commit/960afdfc718a8b97a40dc41aed9b8335e344ea5d) chore(deps-dev): update rubocop requirement from = 1.66.0 to = 1.66.1 (#573)
+- [b0670e2](https://github.com/appium/ruby_lib_core/commit/b0670e2a360905d5e1c364ff7a7856136871da3a) chore(deps-dev): update rubocop requirement from = 1.65.1 to = 1.66.0 (#572)
+- [038ec4e](https://github.com/appium/ruby_lib_core/commit/038ec4e1a8119f60ed8f292d219c1d6d2b4b9a85) test: add webSocketUrl in test
+- [cae1716](https://github.com/appium/ruby_lib_core/commit/cae1716c0b78191512021f2025bad058b61cc9f3) chore: refer to the prefix
+
+
 #### v9.2.1 2024-08-01
 
 - [41e58e5](https://github.com/appium/ruby_lib_core/commit/41e58e53641f6f72ea987b5dc6ff6efc0db7bcd7) Release 9.2.1
