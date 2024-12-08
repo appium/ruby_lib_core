@@ -492,20 +492,6 @@ module Appium
         {}
       end
 
-      # [Deprecated] Quits the driver. This method is the same as @driver.quit
-      # @return [void]
-      #
-      # @example
-      #
-      #   @core.quit_driver
-      #
-      def quit_driver
-        ::Appium::Logger.warn('[DEPRECATION] quit_driver will be removed. Please use @driver.quit instead.')
-        @driver.quit
-      rescue # rubocop:disable Style/RescueStandardError
-        nil
-      end
-
       # Returns the server's version info. This method calls +driver.remote_status+ internally
       #
       # @return [Hash]
