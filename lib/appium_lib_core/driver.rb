@@ -430,12 +430,6 @@ module Appium
           @http_client.delete_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
-        # TODO: this method can be removed after releasing Appium 2.0, and after a while
-        # since Appium 2.0 reuqires 'automationName'. This method won't help anymore then.
-        # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
-        # Since @automation_name is set only client side before start_driver is called.
-        set_automation_name_if_nil
-
         set_implicit_wait_by_default(@default_wait)
 
         @driver
@@ -692,16 +686,6 @@ module Appium
       # @private
       def convert_downcase(value)
         value.is_a?(Symbol) ? value.downcase : value.downcase.strip.intern
-      end
-
-      # @private
-      def set_automation_name_if_nil
-        return unless @automation_name.nil?
-
-        automation_name = if @driver.capabilities['automationName']
-                            @driver.capabilities['automationName'].downcase.strip.intern
-                          end
-        @automation_name = convert_to_symbol automation_name
       end
 
       def get_cap(name)

@@ -193,8 +193,6 @@ module Appium
       def set_automation_name: () -> Symbol?
 
       def convert_downcase: (Symbol value) -> Symbol
-
-      def set_automation_name_if_nil: () -> Symbol?
     end
   end
 end
