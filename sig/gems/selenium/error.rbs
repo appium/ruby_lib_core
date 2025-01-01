@@ -2,6 +2,7 @@ module Selenium
   module WebDriver
     module Error
       module UnknownError
+        def message: -> String
       end
     end
   end
