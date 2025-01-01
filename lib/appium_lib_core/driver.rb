@@ -394,7 +394,6 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-
         @custom_url ||= "http://127.0.0.1:#{@port}/wd/hub"
         @custom_url = server_url unless server_url.nil?
 
@@ -431,12 +430,6 @@ module Appium
           @http_client.delete_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
-        # TODO: this method can be removed after releasing Appium 2.0, and after a while
-        # since Appium 2.0 reuqires 'automationName'. This method won't help anymore then.
-        # If "automationName" is set only server side, this method set "automationName" attribute into @automation_name.
-        # Since @automation_name is set only client side before start_driver is called.
-        set_automation_name_if_nil
-
         set_implicit_wait_by_default(@default_wait)
 
         @driver
@@ -446,7 +439,6 @@ module Appium
       # Attach to an existing session
       def attach_to(session_id, url: nil, automation_name: nil, platform_name: nil,
                     http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-
         raise ::Appium::Core::Error::ArgumentError, 'The :url must not be nil' if url.nil?
         raise ::Appium::Core::Error::ArgumentError, 'The :automation_name must not be nil' if automation_name.nil?
         raise ::Appium::Core::Error::ArgumentError, 'The :platform_name must not be nil' if platform_name.nil?
@@ -498,20 +490,6 @@ module Appium
 
         ::Appium::Logger.debug(e.message)
         {}
-      end
-
-      # [Deprecated] Quits the driver. This method is the same as @driver.quit
-      # @return [void]
-      #
-      # @example
-      #
-      #   @core.quit_driver
-      #
-      def quit_driver
-        ::Appium::Logger.warn('[DEPRECATION] quit_driver will be removed. Please use @driver.quit instead.')
-        @driver.quit
-      rescue # rubocop:disable Style/RescueStandardError
-        nil
       end
 
       # Returns the server's version info. This method calls +driver.remote_status+ internally
@@ -694,16 +672,6 @@ module Appium
       # @private
       def convert_downcase(value)
         value.is_a?(Symbol) ? value.downcase : value.downcase.strip.intern
-      end
-
-      # @private
-      def set_automation_name_if_nil
-        return unless @automation_name.nil?
-
-        automation_name = if @driver.capabilities['automationName']
-                            @driver.capabilities['automationName'].downcase.strip.intern
-                          end
-        @automation_name = convert_to_symbol automation_name
       end
 
       def get_cap(name)

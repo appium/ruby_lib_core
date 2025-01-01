@@ -85,8 +85,6 @@ class AppiumLibCoreTest
       new_element = @driver.find_element :xpath, '//*[@focused="true"]'
       assert_equal 'Right is always right', new_element.text
     end
-
-    # TODO: call @driver.quit after tests
   end
 end
 # rubocop:enable Style/ClassVars
