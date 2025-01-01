@@ -178,8 +178,6 @@ class AppiumLibCoreTest
       assert_equal(rect.width, r.result[1]['width'])
       assert_equal(rect.height, r.result[1]['height'])
     end
-
-    # TODO: call @driver.quit after tests
   end
 end
 # rubocop:enable Style/ClassVars
