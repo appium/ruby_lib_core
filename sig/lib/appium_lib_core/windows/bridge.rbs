@@ -1,0 +1,9 @@
+module Appium
+  module Core
+    module Windows
+      module Bridge
+        def self.for: (untyped target) -> untyped
+      end
+    end
+  end
+end

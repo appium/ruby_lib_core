@@ -1,0 +1,17 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module KeyEvent
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def keyevent: (untyped key, ?untyped? metastate) -> untyped
+
+          def press_keycode: (untyped key, ?metastate: untyped, ?flags: untyped) -> untyped
+
+          def long_press_keycode: (untyped key, ?metastate: untyped, ?flags: untyped) -> untyped
+        end
+      end
+    end
+  end
+end

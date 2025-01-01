@@ -1,0 +1,65 @@
+module Selenium
+  module WebDriver
+    class Element
+      ELEMENT_KEY: ::String
+
+      def inspect: () -> untyped
+
+      def ==: (untyped other) -> bool
+
+      alias eql? ==
+
+      def hash: () -> Integer
+
+      def click: () -> untyped
+
+      def tag_name: () -> untyped
+
+      def attribute: (String | Symbol name) -> String?
+
+      def dom_attribute: (String name) -> String?
+
+      def property: (String name) -> String?
+
+      def aria_role: () -> String
+
+      def accessible_name: () -> String
+
+      def text: () -> String
+
+      def send_keys: (*untyped args) -> untyped
+
+      alias send_key send_keys
+
+      def clear: () -> bool
+
+      def enabled?: () -> bool
+
+      def selected?: () -> bool
+
+      def displayed?: () -> bool
+
+      def submit: () -> untyped
+
+      def css_value: (String prop) -> untyped
+
+      alias style css_value
+
+      alias [] attribute
+
+      def ref: () -> ::Array[:element | untyped]
+
+      def to_json: () -> untyped
+
+      def as_json: () -> untyped
+
+      private
+
+      attr_reader bridge: Remote::Bridge
+
+      def selectable?: () -> bool
+
+      def screenshot: () -> untyped
+    end
+  end
+end

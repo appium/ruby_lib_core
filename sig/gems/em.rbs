@@ -1,0 +1,5 @@
+module EM
+  def stop: () -> untyped
+
+  def run: () -> untyped
+end
