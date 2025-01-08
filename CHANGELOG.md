@@ -10,6 +10,11 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.4.0] - 2025-01-08
+
+### Enhancements
+- Update `/se/log/types` and `/se/log` endpoint call instead of `/log/types` and `/log` for W3C WebDrier era.
+
 ## [9.3.0] - 2024-12-08
 
 ### Deprecations
