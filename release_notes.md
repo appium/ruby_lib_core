@@ -1,3 +1,10 @@
+#### v9.4.0 2025-01-08
+
+- [3f45a72](https://github.com/appium/ruby_lib_core/commit/3f45a7251ffa62d3eb6aeb68b499f4051c2e63f7) Release 9.4.0
+- [420f665](https://github.com/appium/ruby_lib_core/commit/420f6657237be902aca99c58aafa327d6f48189f) feat: use /se/log and /se/log/types for logs (#582)
+- [6e4bc8d](https://github.com/appium/ruby_lib_core/commit/6e4bc8dc1020a4a1be16fdd907ba34b326535989) chore(deps-dev): update rubocop requirement from = 1.69.1 to = 1.69.2 (#581)
+
+
 #### v9.3.0 2024-12-08
 
 - [ca1fc7d](https://github.com/appium/ruby_lib_core/commit/ca1fc7d85bc02e877d3d6ebc54e65b3813091edf) Release 9.3.0
