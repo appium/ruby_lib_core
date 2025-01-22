@@ -1,3 +1,10 @@
+#### v9.5.0 2025-01-22
+
+- [36e0182](https://github.com/appium/ruby_lib_core/commit/36e0182c689f38b1519986d6b962fd21fc428258) Release 9.5.0
+- [3bcadb1](https://github.com/appium/ruby_lib_core/commit/3bcadb1b29910165c63290d4e110d74816feeb7d) feat: Bump ruby selenium and mini Ruby version (#584)
+- [46a96f5](https://github.com/appium/ruby_lib_core/commit/46a96f504c20d0258da69fa81467318322fab108) chore(deps-dev): update rubocop requirement from = 1.69.2 to = 1.70.0 (#583)
+
+
 #### v9.4.0 2025-01-08
 
 - [3f45a72](https://github.com/appium/ruby_lib_core/commit/3f45a7251ffa62d3eb6aeb68b499f4051c2e63f7) Release 9.4.0
