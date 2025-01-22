@@ -9,6 +9,10 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+
+## [9.5.0] - 2025-01-22
+
+### Deprecations
 - Drop Ruby 3.0 by following selenium binding
 
 ## [9.4.0] - 2025-01-08
