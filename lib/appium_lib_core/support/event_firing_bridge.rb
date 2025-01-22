@@ -21,7 +21,7 @@ module Appium
 
       def initialize(delegate, listener, **opts)
         @appium_options = opts
-        super delegate, listener
+        super(delegate, listener)
       end
 
       def find_element_by(how, what, parent = nil)

@@ -30,7 +30,7 @@ rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
+ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
