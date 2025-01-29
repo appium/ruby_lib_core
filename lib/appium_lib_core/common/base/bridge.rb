@@ -59,9 +59,9 @@ module Appium
         # Appium only.
         # Attach to an existing session.
         #
-        # @param [String] The session id to attach to.
+        # @param [String] session_id The session id to attach to.
         # @param [String] platform_name The platform name to keep in the dummy capabilities
-        # @param [String] platform_name The automation name to keep in the dummy capabilities
+        # @param [String] automation_name The automation name to keep in the dummy capabilities
         # @return [::Appium::Core::Base::Capabilities]
         #
         # @example

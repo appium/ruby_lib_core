@@ -27,7 +27,8 @@ module Appium
   # @param [Hash] hash Hash value to make symbolise
   #
   # @example
-  # opts = Appium.symbolize_keys(opts)
+  #
+  #   opts = Appium.symbolize_keys(opts)
   #
   def self.symbolize_keys(hash, nested: false, enable_deprecation_msg: true)
     # FIXME: As https://github.com/appium/ruby_lib/issues/945, we must remove this implicit string to symbol.

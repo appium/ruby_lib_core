@@ -46,18 +46,7 @@ module Appium
         # Can be fully qualified, or simple, and simple defaults to <code>androidx.test.espresso.matcher</code> package
         # (e.g.: <code>class=CursorMatchers</code> fully qualified is <code>class=androidx.test.espresso.matcher.CursorMatchers</code>
         #
-        # See example how to send viewmatcher and datamatcher in Ruby client
-        #
-        #
-        # @overload find_element(how, what)
-        #   @param [Symbol, String] how The method to find the element by
-        #   @param [String] what The locator to use
-        #
-        # @overload find_element(opts)
-        #   @param [Hash] opts Find options
-        #   @option opts [Symbol] :how Key named after the method to find the element by, containing the locator
-        # @return [Element]
-        # @raise [Error::NoSuchElementError] if the element doesn't exist
+        # See test code in the client repository to see how to send viewmatcher and datamatcher in Ruby client
         #
         # @example Find element with each keys
         #
@@ -101,7 +90,6 @@ module Appium
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
         # rubocop:enable Layout/LineLength
-
         APPIUM_EXTRA_FINDERS = {
           accessibility_id:     'accessibility id',
           image:                '-image',

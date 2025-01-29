@@ -290,7 +290,7 @@ module Appium
       # an endpoint to get running session's capabilities.
       #
       #
-      # @param [String] The session id to attach to.
+      # @param [String] session_id The session id to attach to.
       # @param [String] url The WebDriver URL to attach to with the session_id.
       # @param [String] automation_name The platform name to keep in the dummy capabilities
       # @param [String] platform_name The automation name to keep in the dummy capabilities
