@@ -39,7 +39,7 @@ module Appium
 
         include ::Appium::Core::Waitable
 
-        ::Selenium::WebDriver::SearchContext.extra_finders = APPIUM_EXTRA_FINDERS
+        ::Selenium::WebDriver::SearchContext.extra_finders = ::Appium::Core::Base::SearchContext::APPIUM_EXTRA_FINDERS
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
