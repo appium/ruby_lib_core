@@ -1,3 +1,11 @@
+#### v9.5.1 2025-01-29
+
+- [a0c7b9f](https://github.com/appium/ruby_lib_core/commit/a0c7b9f5e4df930232ea369a5f6b7713941fd1d7) Release 9.5.1
+- [408b00e](https://github.com/appium/ruby_lib_core/commit/408b00e52385cf0df23d5c53c952332fa18c2dfd) chore: add module and class to make them readable in docs (#588)
+- [589bfa0](https://github.com/appium/ruby_lib_core/commit/589bfa09d0491107268cde8e55bd8e63ffa636f0) chore(deps): update rubocop requirement from 1.70.0 to 1.71.0 (#586)
+- [d415f2d](https://github.com/appium/ruby_lib_core/commit/d415f2d72226a920795ee2d65894fd90c8e6c721) chore(deps): update steep requirement from ~> 1.7.0 to ~> 1.9.3 (#585)
+
+
 #### v9.5.0 2025-01-22
 
 - [36e0182](https://github.com/appium/ruby_lib_core/commit/36e0182c689f38b1519986d6b962fd21fc428258) Release 9.5.0
