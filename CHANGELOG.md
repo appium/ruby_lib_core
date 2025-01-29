@@ -10,6 +10,12 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.5.1] - 2025-01-29
+
+### Enhancements
+- Added a module to search context to improve documentation
+
+
 ## [9.5.0] - 2025-01-22
 
 ### Deprecations
