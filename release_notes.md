@@ -1,3 +1,9 @@
+#### v9.5.2 2025-01-30
+
+- [8ecf130](https://github.com/appium/ruby_lib_core/commit/8ecf13006bb659bd5cf32830a1ba79b24f25592c) Release 9.5.2
+- [2752573](https://github.com/appium/ruby_lib_core/commit/27525734541f6306c4bc8fce776778c699a6457c) docs: modify yardoc
+
+
 #### v9.5.1 2025-01-29
 
 - [a0c7b9f](https://github.com/appium/ruby_lib_core/commit/a0c7b9f5e4df930232ea369a5f6b7713941fd1d7) Release 9.5.1
