@@ -10,6 +10,9 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.5.2] - 2025-01-30
+- Fix yardoc
+
 ## [9.5.1] - 2025-01-29
 
 ### Enhancements
