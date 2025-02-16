@@ -1,0 +1,19 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Context
+          def within_context: (untyped context) ?{ () -> untyped } -> untyped
+
+          def current_context: () -> untyped
+
+          def available_contexts: () -> untyped
+
+          def set_context: (?untyped? context) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+        end
+      end
+    end
+  end
+end

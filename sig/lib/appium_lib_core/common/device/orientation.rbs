@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Orientation
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def screen_orientation=: (untyped orientation) -> untyped
+
+          def screen_orientation: () -> untyped
+        end
+      end
+    end
+  end
+end

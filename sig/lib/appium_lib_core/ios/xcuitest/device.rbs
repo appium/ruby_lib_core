@@ -1,0 +1,14 @@
+module Appium
+  module Core
+    module Ios
+      module Xcuitest
+        module Device
+          extend Forwardable
+          include _Bridge
+
+          def self.extended: (untyped _mod) -> untyped
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,17 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module DeviceLock
+          def lock: (?untyped? duration) -> untyped
+
+          def device_locked?: () -> untyped
+
+          def unlock: () -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+        end
+      end
+    end
+  end
+end

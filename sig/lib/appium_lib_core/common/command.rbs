@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    module Commands
+      COMMAND: Hash[Symbol, Array[Symbol | String]]
+
+      COMMAND_ANDROID: Hash[Symbol, Array[Symbol | String]]
+
+      COMMAND_IOS: Hash[Symbol, Array[Symbol | String]]
+
+      COMMANDS: untyped
+    end
+  end
+end

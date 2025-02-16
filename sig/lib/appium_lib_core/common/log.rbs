@@ -1,0 +1,19 @@
+module Appium
+  module Core
+    class Logs
+      @bridge: untyped
+
+      def initialize: (untyped bridge) -> void
+
+      def get: (untyped type) -> untyped
+
+      def available_types: () -> untyped
+
+      def event: (vendor: untyped, event: untyped) -> untyped
+
+      def event=: (untyped log_event) -> untyped
+
+      def events: (?untyped? type) -> untyped
+    end
+  end
+end

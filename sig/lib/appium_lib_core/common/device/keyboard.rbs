@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Keyboard
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
+
+          def is_keyboard_shown: () -> untyped
+        end
+      end
+    end
+  end
+end
