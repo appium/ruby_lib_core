@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'appium_lib_core/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.1')
 
   spec.name          = 'appium_lib_core'
   spec.version       = Appium::Core::VERSION
@@ -21,18 +21,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'faye-websocket', '~> 0.11.0'
-  spec.add_runtime_dependency 'selenium-webdriver', '~> 4.21'
+  spec.add_dependency 'faye-websocket', '~> 0.11.0'
+  spec.add_dependency 'selenium-webdriver', '~> 4.21'
 
-  spec.add_development_dependency 'appium_thor', '~> 2.0'
-  spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'minitest-reporters', '~> 1.1'
-  spec.add_development_dependency 'parallel_tests'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rubocop', '1.69.2'
-  spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'steep', '~> 1.7.0'
-  spec.add_development_dependency 'webmock', '~> 3.24.0'
-  spec.add_development_dependency 'yard', '~> 0.9.11'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

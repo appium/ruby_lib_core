@@ -56,7 +56,6 @@ module Appium
         #                               in meters/second @since Appium 1.21.0 and in knots for emulators @since Appium 1.22.0.
         # @param [String, Number] satellites Sets the count of geo satellites being tracked in range 1..12 @since Appium 1.22.0.
         #                                    This number is respected on Emulators.
-        # @param [::Appium::Location]
         #
         # @example
         #

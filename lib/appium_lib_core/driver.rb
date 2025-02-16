@@ -290,7 +290,7 @@ module Appium
       # an endpoint to get running session's capabilities.
       #
       #
-      # @param [String] The session id to attach to.
+      # @param [String] session_id The session id to attach to.
       # @param [String] url The WebDriver URL to attach to with the session_id.
       # @param [String] automation_name The platform name to keep in the dummy capabilities
       # @param [String] platform_name The automation name to keep in the dummy capabilities
@@ -622,7 +622,9 @@ module Appium
       def set_app_path
         # FIXME: maybe `:app` should check `app` as well.
         return unless @caps && get_app && !get_app.empty?
-        return if get_app =~ URI::DEFAULT_PARSER.make_regexp
+
+        uri_regex = defined?(URI::RFC2396_PARSER) ? URI::RFC2396_PARSER : URI::DEFAULT_PARSER
+        return if get_app =~ uri_regex.make_regexp
 
         app_path = File.expand_path(get_app)
         @caps['app'] = if File.exist? app_path

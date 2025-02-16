@@ -171,9 +171,9 @@ module Appium
         ime_deactivate: [:post, 'session/:session_id/ime/deactivate'],
         ime_activate_engine: [:post, 'session/:session_id/ime/activate'],
 
-        ### Logs
-        get_available_log_types: [:get, 'session/:session_id/log/types'],
-        get_log: [:post, 'session/:session_id/log'],
+        ### Logs based on w3c selenium clients
+        get_available_log_types: [:get, 'session/:session_id/se/log/types'],
+        get_log: [:post, 'session/:session_id/se/log'],
 
         ###
         # Appium own

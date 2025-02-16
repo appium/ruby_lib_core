@@ -1,3 +1,31 @@
+#### v9.5.2 2025-01-30
+
+- [8ecf130](https://github.com/appium/ruby_lib_core/commit/8ecf13006bb659bd5cf32830a1ba79b24f25592c) Release 9.5.2
+- [2752573](https://github.com/appium/ruby_lib_core/commit/27525734541f6306c4bc8fce776778c699a6457c) docs: modify yardoc
+
+
+#### v9.5.1 2025-01-29
+
+- [a0c7b9f](https://github.com/appium/ruby_lib_core/commit/a0c7b9f5e4df930232ea369a5f6b7713941fd1d7) Release 9.5.1
+- [408b00e](https://github.com/appium/ruby_lib_core/commit/408b00e52385cf0df23d5c53c952332fa18c2dfd) chore: add module and class to make them readable in docs (#588)
+- [589bfa0](https://github.com/appium/ruby_lib_core/commit/589bfa09d0491107268cde8e55bd8e63ffa636f0) chore(deps): update rubocop requirement from 1.70.0 to 1.71.0 (#586)
+- [d415f2d](https://github.com/appium/ruby_lib_core/commit/d415f2d72226a920795ee2d65894fd90c8e6c721) chore(deps): update steep requirement from ~> 1.7.0 to ~> 1.9.3 (#585)
+
+
+#### v9.5.0 2025-01-22
+
+- [36e0182](https://github.com/appium/ruby_lib_core/commit/36e0182c689f38b1519986d6b962fd21fc428258) Release 9.5.0
+- [3bcadb1](https://github.com/appium/ruby_lib_core/commit/3bcadb1b29910165c63290d4e110d74816feeb7d) feat: Bump ruby selenium and mini Ruby version (#584)
+- [46a96f5](https://github.com/appium/ruby_lib_core/commit/46a96f504c20d0258da69fa81467318322fab108) chore(deps-dev): update rubocop requirement from = 1.69.2 to = 1.70.0 (#583)
+
+
+#### v9.4.0 2025-01-08
+
+- [3f45a72](https://github.com/appium/ruby_lib_core/commit/3f45a7251ffa62d3eb6aeb68b499f4051c2e63f7) Release 9.4.0
+- [420f665](https://github.com/appium/ruby_lib_core/commit/420f6657237be902aca99c58aafa327d6f48189f) feat: use /se/log and /se/log/types for logs (#582)
+- [6e4bc8d](https://github.com/appium/ruby_lib_core/commit/6e4bc8dc1020a4a1be16fdd907ba34b326535989) chore(deps-dev): update rubocop requirement from = 1.69.1 to = 1.69.2 (#581)
+
+
 #### v9.3.0 2024-12-08
 
 - [ca1fc7d](https://github.com/appium/ruby_lib_core/commit/ca1fc7d85bc02e877d3d6ebc54e65b3813091edf) Release 9.3.0

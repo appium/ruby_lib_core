@@ -23,7 +23,7 @@ module Appium
         # rubocop:disable Layout/LineLength
 
         # @since Appium 1.20.0
-        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, fps: nil, preset: nil, video_filter: nil, enable_capture_clicks: nil, enable_cursor_capture: nil, device_id: nil)
+        # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, fps: nil, preset: nil, video_filter: nil, enable_capture_clicks: nil, enable_cursor_capture: nil, device_id: nil, time_limit: nil)
         #
         # Record the display of devices running iOS Simulator since Xcode 9 or real devices since iOS 11
         # (ffmpeg utility is required: 'brew install ffmpeg').

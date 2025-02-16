@@ -30,7 +30,7 @@ rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report"
+ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
@@ -305,9 +305,7 @@ class AppiumLibCoreTest
       }
 
       # settins in caps should work over Appium 1.13.0
-      if cap[:capabilities][:automationName] == 'uiautomator2' && (
-        AppiumLibCoreTest.appium_version == 'beta' || AppiumLibCoreTest.appium_version == 'next'
-      )
+      if cap[:capabilities][:automationName] == 'uiautomator2'
         cap[:capabilities]['settings[trackScrollEvents]'] = false
         # reduce possible slowness
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)

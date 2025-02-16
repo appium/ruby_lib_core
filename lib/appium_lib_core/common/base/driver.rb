@@ -39,7 +39,7 @@ module Appium
 
         include ::Appium::Core::Waitable
 
-        ::Selenium::WebDriver::SearchContext.extra_finders = APPIUM_EXTRA_FINDERS
+        ::Selenium::WebDriver::SearchContext.extra_finders = ::Appium::Core::Base::SearchContext::APPIUM_EXTRA_FINDERS
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
@@ -625,14 +625,14 @@ module Appium
         #
         # @param [String] path The absolute local path or remote http URL to an .ipa or .apk file,
         #                      or a .zip containing one of these.
-        # @param [Boolean] replace Only for Android. Whether to reinstall/upgrade the package if it is already present
+        # @option [Boolean] replace Only for Android. Whether to reinstall/upgrade the package if it is already present
         #                          on the device under test. +true+ by default
-        # @param [Integer] timeout Only for Android. How much time to wait for the installation to complete.
+        # @option [Integer] timeout Only for Android. How much time to wait for the installation to complete.
         #                          60000ms by default.
-        # @param [Boolean] allow_test_packages Only for Android. Whether to allow installation of packages marked as test
+        # @option [Boolean] allow_test_packages Only for Android. Whether to allow installation of packages marked as test
         #                                      in the manifest. +false+ by default
-        # @param [Boolean] use_sdcard Only for Android. Whether to use the SD card to install the app. +false+ by default
-        # @param [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
+        # @option [Boolean] use_sdcard Only for Android. Whether to use the SD card to install the app. +false+ by default
+        # @option [Boolean] grant_permissions Only for Android. whether to automatically grant application permissions
         #                                    on Android 6+ after the installation completes. +false+ by default
         #
         # Other parameters such as https://github.com/appium/appium-xcuitest-driver#mobile-installapp also can be set.
@@ -1014,7 +1014,7 @@ module Appium
 
         # Convert vanilla element response to ::Appium::Core::Element
         #
-        # @param [Hash] id The id which can get as a response from server
+        # @param [Hash] response_id id The id which can get as a response from server
         # @return [::Appium::Core::Element]
         #
         # @example

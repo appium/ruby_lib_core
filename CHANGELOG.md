@@ -10,6 +10,25 @@ Read `release_notes.md` for commit level details.
 
 ### Deprecations
 
+## [9.5.2] - 2025-01-30
+- Fix yardoc
+
+## [9.5.1] - 2025-01-29
+
+### Enhancements
+- Added a module to search context to improve documentation
+
+
+## [9.5.0] - 2025-01-22
+
+### Deprecations
+- Drop Ruby 3.0 by following selenium binding
+
+## [9.4.0] - 2025-01-08
+
+### Enhancements
+- Update `/se/log/types` and `/se/log` endpoint call instead of `/log/types` and `/log` for W3C WebDrier era.
+
 ## [9.3.0] - 2024-12-08
 
 ### Deprecations
