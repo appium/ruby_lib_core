@@ -1,3 +1,12 @@
+#### v10.0.0 2025-02-16
+
+- [96ece1a](https://github.com/appium/ruby_lib_core/commit/96ece1a1f580bc24888841286dc061dd5ec9faa5) Release 10.0.0
+- [2942f7c](https://github.com/appium/ruby_lib_core/commit/2942f7c7593708ceb1448094aca40d1389f9ab2b) feat: drop /wd/hub from the default path (#592)
+- [720be21](https://github.com/appium/ruby_lib_core/commit/720be21cca1f6d293318185896d79ed690eb9a3e) chore(deps): update webmock requirement from ~> 3.24.0 to ~> 3.25.0 (#591)
+- [5e3aeec](https://github.com/appium/ruby_lib_core/commit/5e3aeec2ad27eb4fda14cd24d522027a0a5f431c) chore(deps): update rubocop requirement from 1.71.1 to 1.71.2 (#590)
+- [39062fe](https://github.com/appium/ruby_lib_core/commit/39062feed2ecd659cf513bb0ac6e010e0046d82c) chore(deps): update rubocop requirement from 1.71.0 to 1.71.1 (#589)
+
+
 #### v9.5.2 2025-01-30
 
 - [8ecf130](https://github.com/appium/ruby_lib_core/commit/8ecf13006bb659bd5cf32830a1ba79b24f25592c) Release 9.5.2
