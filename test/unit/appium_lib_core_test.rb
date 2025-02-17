@@ -66,7 +66,7 @@ class AppiumLibCoreTest
 
     def test_core_instance_variables
       opts = {
-        url: 'http://custom-host:8080/wd/hub.com',
+        url: 'http://custom-host:8080/wd/hub/path',
         caps: {
           platformName: :ios,
           platformVersion: '11.0',
@@ -76,7 +76,7 @@ class AppiumLibCoreTest
         }
       }
       @core = Appium::Core.for(opts)
-      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host:8080/wd/hub/path', @core.custom_url
 
       assert_equal :ios, @core.device
       assert_equal :xcuitest, @core.automation_name
@@ -84,7 +84,7 @@ class AppiumLibCoreTest
 
     def test_core_instance_variables_with_appium_prefix_hash
       opts = {
-        url: 'http://custom-host:8080/wd/hub.com',
+        url: 'http://custom-host:8080/wd/hub/path',
         caps: {
           'platformName': 'ios',
           'appium:platformVersion': '11.0',
@@ -94,7 +94,7 @@ class AppiumLibCoreTest
         }
       }
       @core = Appium::Core.for(opts)
-      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host:8080/wd/hub/path', @core.custom_url
 
       assert_equal :ios, @core.device
       assert_equal :xcuitest, @core.automation_name
@@ -102,7 +102,7 @@ class AppiumLibCoreTest
 
     def test_core_instance_variables_with_appium_prefix_string
       opts = {
-        url: 'http://custom-host:8080/wd/hub.com',
+        url: 'http://custom-host:8080/wd/hub/path',
         caps: {
           'platformName' => 'ios',
           'appium:platformVersion' => '11.0',
@@ -112,14 +112,14 @@ class AppiumLibCoreTest
         }
       }
       @core = Appium::Core.for(opts)
-      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host:8080/wd/hub/path', @core.custom_url
 
       assert_equal :ios, @core.device
       assert_equal :xcuitest, @core.automation_name
     end
     def test_url_param
       opts = {
-        url: 'http://custom-host:8080/wd/hub.com',
+        url: 'http://custom-host:8080/wd/hub/path',
         caps: {
           platformName: :ios,
           platformVersion: '11.0',
@@ -129,7 +129,7 @@ class AppiumLibCoreTest
         }
       }
       @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host:8080/wd/hub/path', @core.custom_url
     end
 
     def test_url_server_url
@@ -142,16 +142,16 @@ class AppiumLibCoreTest
           app: '/path/to/MyiOS.app'
         },
         appium_lib: {
-          server_url: 'http://custom-host:8080/wd/hub.com'
+          server_url: 'http://custom-host:8080/wd/hub/path'
         }
       }
       @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      assert_equal 'http://custom-host:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host:8080/wd/hub/path', @core.custom_url
     end
 
     def test_url_is_prior_than_server_url
       opts = {
-        url: 'http://custom-host1:8080/wd/hub.com',
+        url: 'http://custom-host1:8080/wd/hub/path',
         caps: {
           platformName: :ios,
           platformVersion: '11.0',
@@ -160,11 +160,11 @@ class AppiumLibCoreTest
           app: '/path/to/MyiOS.app'
         },
         appium_lib: {
-          server_url: 'http://custom-host2:8080/wd/hub.com'
+          server_url: 'http://custom-host2:8080/wd/hub/path'
         }
       }
       @core = Appium::Core.for(opts) # create a core driver with `opts` and extend methods into `self`
-      assert_equal 'http://custom-host1:8080/wd/hub.com', @core.custom_url
+      assert_equal 'http://custom-host1:8080/wd/hub/path', @core.custom_url
     end
   end
 end
