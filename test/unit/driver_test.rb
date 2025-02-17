@@ -125,7 +125,7 @@ class AppiumLibCoreTest
       assert_equal 'http', uri.scheme
       assert_equal '127.0.0.1', uri.host
       assert_equal 4723, uri.port
-      assert_equal '/wd/hub/', uri.path
+      assert_equal '/', uri.path
     end
 
     def test_http_client
@@ -155,7 +155,7 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
@@ -164,7 +164,7 @@ class AppiumLibCoreTest
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
@@ -205,7 +205,7 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
@@ -214,7 +214,7 @@ class AppiumLibCoreTest
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
@@ -259,7 +259,7 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
@@ -268,7 +268,7 @@ class AppiumLibCoreTest
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
@@ -308,17 +308,17 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
@@ -333,7 +333,7 @@ class AppiumLibCoreTest
       assert_equal 'http', uri.scheme
       assert_equal '127.0.0.1', uri.host
       assert_equal 4723, uri.port
-      assert_equal '/wd/hub/', uri.path
+      assert_equal '/', uri.path
     end
 
     def test_default_timeout_for_http_client_with_direct_no_supported_client
@@ -358,17 +358,17 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver http_client_ops: { http_client: Selenium::WebDriver::Remote::Http::Default.new }
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
@@ -383,7 +383,7 @@ class AppiumLibCoreTest
       assert_equal 'http', uri.scheme
       assert_equal '127.0.0.1', uri.host
       assert_equal 4723, uri.port
-      assert_equal '/wd/hub/', uri.path
+      assert_equal '/', uri.path
     end
 
     def test_default_timeout_for_http_client_with_enable_idempotency_header_false
@@ -404,17 +404,17 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts')
           .with(body: { implicit: 5_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts',
                          body: { implicit: 5_000 }.to_json, times: 1)
         driver
       end
@@ -448,17 +448,17 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts')
           .with(body: { implicit: 5_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver http_client_ops: { http_client: Selenium::WebDriver::Remote::Http::Default.new }
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts',
                          body: { implicit: 5_000 }.to_json, times: 1)
         driver
       end
@@ -523,7 +523,7 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
@@ -532,7 +532,7 @@ class AppiumLibCoreTest
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
@@ -543,7 +543,7 @@ class AppiumLibCoreTest
 
       attached_driver = ::Appium::Core::Driver.attach_to(
         driver.session_id,
-        url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+        url: 'http://127.0.0.1:4723', automation_name: 'UiAutomator2', platform_name: 'Android'
       )
 
       assert_equal driver.session_id, attached_driver.session_id
@@ -569,12 +569,12 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         driver
       end
 
@@ -602,12 +602,12 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         driver
       end
 
@@ -639,12 +639,12 @@ class AppiumLibCoreTest
           }
         }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
         driver = core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         driver
       end
 

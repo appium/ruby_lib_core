@@ -138,7 +138,7 @@ class AppiumLibCoreTest
               }
             }.to_json
 
-            stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+            stub_request(:post, 'http://127.0.0.1:4723/session')
               .to_return(headers: HEADER, status: 200, body: response)
 
             error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
@@ -149,12 +149,12 @@ class AppiumLibCoreTest
           end
 
           def test_remote_status
-            stub_request(:get, 'http://127.0.0.1:4723/wd/hub/status')
+            stub_request(:get, 'http://127.0.0.1:4723/status')
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
 
             @driver.remote_status
 
-            assert_requested(:get, 'http://127.0.0.1:4723/wd/hub/status', times: 1)
+            assert_requested(:get, 'http://127.0.0.1:4723/status', times: 1)
           end
 
           def test_page_source
