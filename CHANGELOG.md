@@ -2,14 +2,11 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
-## [Unreleased]
+## [10.0.0] - 2025-02-16
 
 ### Enhancements
-
-### Bug fixes
-
-### Deprecations
 - Use `http://127.0.0.1:4723` as the default url destination instead of `http://127.0.0.1:4723/wd/hub`
+    - `--base-path` in appium server may need to drop the `/wd/hub`
 
 ## [9.5.2] - 2025-01-30
 - Fix yardoc
