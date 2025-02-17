@@ -9,6 +9,7 @@ Read `release_notes.md` for commit level details.
 ### Bug fixes
 
 ### Deprecations
+- Use `http://127.0.0.1:4723` as the default url destination instead of `http://127.0.0.1:4723/wd/hub`
 
 ## [9.5.2] - 2025-01-30
 - Fix yardoc
