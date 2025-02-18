@@ -547,10 +547,10 @@ module Appium
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
-        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        # @param [Array<Integer>] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
         #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
         #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
-        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        # @param [Array<Integer>] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array.  Can set multiple flags as Array.
         #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+
@@ -571,10 +571,10 @@ module Appium
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to long press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
-        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        # @param [Array<Integer>] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
         #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
         #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
-        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        # @param [Array<Integer>] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array. Can set multiple flags as Array.
         #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+

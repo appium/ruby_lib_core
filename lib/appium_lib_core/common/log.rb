@@ -19,8 +19,8 @@ module Appium
         @bridge = bridge
       end
 
-      # @param [String|Hash] type You can get particular type's logs.
-      # @return [[Selenium::WebDriver::LogEntry]] A list of logs data.
+      # @param [String, Hash] type You can get particular type's logs.
+      # @return [Array<Selenium::WebDriver::LogEntry>] A list of logs data.
       #
       # @example
       #
@@ -33,7 +33,7 @@ module Appium
 
       # Get a list of available log types
       #
-      # @return [[Hash]] A list of available log types.
+      # @return [Array<Hash>] A list of available log types.
       # @example
       #
       #   @driver.logs.available_types # [:syslog, :crashlog, :performance]
@@ -74,7 +74,7 @@ module Appium
       # @since Appium 1.16.0
       # Returns events with filtering with 'type'. Defaults to all available events.
       #
-      # @param [String] type The type of events to get
+      # @param [String, Array<String>] type The type of events to get
       # @return [Hash]
       #
       # @example

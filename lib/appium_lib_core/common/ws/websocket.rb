@@ -84,7 +84,7 @@ module Appium
       # Accepts either a String or an Array of byte-sized integers and sends a text or binary message over the connection
       # to the other peer; binary data must be encoded as an Array.
       #
-      # @param [String|Array] message A message to send a text or binary message over the connection
+      # @param [String, Array] message A message to send a text or binary message over the connection
       #
       # @example
       #     ws = WebSocket.new(url: "ws://#{host}:#{port}/ws/session/#{@session_id}/appium/device/logcat")
