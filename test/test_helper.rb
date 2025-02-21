@@ -101,6 +101,10 @@ class AppiumLibCoreTest
   end
 
   class Caps
+    def ci?
+      ENV['CI'] == 'true'
+    end
+
     def self.ios(platform_name = :ios)
       new.ios(platform_name)
     end
@@ -158,7 +162,7 @@ class AppiumLibCoreTest
           'settings[pageSourceExcludedAttributes]': 'visible'
         },
         appium_lib: {
-          server_url: ENV['CI'] ? 'http://127.0.0.1:4723/wd/hub' : nil,
+          server_url: ci? ? 'http://127.0.0.1:4723/wd/hub' : nil,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -299,7 +303,7 @@ class AppiumLibCoreTest
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
-          server_url: ENV['CI'] ? 'http://127.0.0.1:4723/wd/hub' : nil,
+          server_url: ci? ? 'http://127.0.0.1:4723/wd/hub' : nil,
           wait: 5,
           wait_timeout: 20,
           wait_interval: 1
