@@ -68,7 +68,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        nohup appium --use-plugins=images,execute-driver --base-path=/wd/hub --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -131,7 +131,7 @@ jobs:
         appium driver install xcuitest
         appium plugin install images@2.1.8
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium --use-plugins=images,execute-driver --base-path=/wd/hub --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -216,7 +216,7 @@ jobs:
         appium driver install ${{matrix.test_targets.automation_name}}
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium --use-plugins=images,execute-driver --base-path=/wd/hub --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - name: Enable KVM group perms
       run: |

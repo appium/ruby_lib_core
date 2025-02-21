@@ -158,6 +158,7 @@ class AppiumLibCoreTest
           'settings[pageSourceExcludedAttributes]': 'visible'
         },
         appium_lib: {
+          server_url: 'http://127.0.0.1:4723/wd/hub',
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -298,6 +299,7 @@ class AppiumLibCoreTest
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
+          server_url: 'http://127.0.0.1:4723/wd/hub',
           wait: 5,
           wait_timeout: 20,
           wait_interval: 1
