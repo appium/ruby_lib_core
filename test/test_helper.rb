@@ -130,7 +130,7 @@ class AppiumLibCoreTest
       platform_version = '17.4'
       wda_port = wda_local_port
 
-      real_device = ENV['REAL'] ? true : false
+      real_device = ENV['REAL'] || false
 
       cap = {
         caps: { # :desiredCapabilities is also available
