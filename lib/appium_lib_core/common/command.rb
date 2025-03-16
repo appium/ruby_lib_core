@@ -203,7 +203,6 @@ module Appium
         pull_folder: [:post, 'session/:session_id/appium/device/pull_folder'],
         get_clipboard: [:post, 'session/:session_id/appium/device/get_clipboard'],
         set_clipboard: [:post, 'session/:session_id/appium/device/set_clipboard'],
-        finger_print: [:post, 'session/:session_id/appium/device/finger_print'],
         get_settings: [:get, 'session/:session_id/appium/settings'],
         update_settings: [:post, 'session/:session_id/appium/settings'],
         stop_recording_screen: [:post, 'session/:session_id/appium/stop_recording_screen'],
@@ -228,15 +227,6 @@ module Appium
         toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
         get_network_connection: [:get, 'session/:session_id/network_connection'], # defined also in OSS
         set_network_connection: [:post, 'session/:session_id/network_connection'], # defined also in OSS
-
-        # only emulator
-        send_sms: [:post, 'session/:session_id/appium/device/send_sms'],
-        gsm_call: [:post, 'session/:session_id/appium/device/gsm_call'],
-        gsm_signal: [:post, 'session/:session_id/appium/device/gsm_signal'],
-        gsm_voice: [:post, 'session/:session_id/appium/device/gsm_voice'],
-        set_network_speed: [:post, 'session/:session_id/appium/device/network_speed'],
-        set_power_capacity: [:post, 'session/:session_id/appium/device/power_capacity'],
-        set_power_ac: [:post, 'session/:session_id/appium/device/power_ac'],
 
         # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
         chrome_send_command: [:post, 'session/:session_id/goog/cdp/execute']

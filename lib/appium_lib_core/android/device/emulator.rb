@@ -115,7 +115,7 @@ module Appium
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:send_sms) do
               def send_sms(phone_number:, message:)
-                execute(:send_sms, {}, { phoneNumber: phone_number, message: message })
+                execute_script 'mobile:sendSms', { phoneNumber: phone_number, message: message }
               end
             end
 
@@ -125,7 +125,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
                 end
 
-                execute(:gsm_call, {}, { phoneNumber: phone_number, action: action })
+                execute_script 'mobile:gsmCall', { phoneNumber: phone_number, action: action }
               end
             end
 
@@ -136,8 +136,7 @@ module Appium
                         "#{signal_strength} should be member of #{GSM_SIGNALS.keys} "
                 end
 
-                execute(:gsm_signal, {}, { signalStrength: GSM_SIGNALS[signal_strength],
-                                           signalStrengh: GSM_SIGNALS[signal_strength] })
+                execute 'mobile:gsmSignal', {}, { strength: GSM_SIGNALS[signal_strength] }
               end
             end
 
@@ -147,7 +146,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
                 end
 
-                execute(:gsm_voice, {}, { state: state })
+                execute 'mobile:gsmVoic', {}, { state: state }
               end
             end
 
@@ -158,7 +157,7 @@ module Appium
                         "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
                 end
 
-                execute(:set_network_speed, {}, { netspeed: netspeed })
+                execute_script 'mobile:networkSpee', { speed: netspeed }
               end
             end
 
@@ -168,7 +167,7 @@ module Appium
                   ::Appium::Logger.warn "The  percent should be between 0 and 100. Not #{percent}."
                 end
 
-                execute(:set_power_capacity, {}, { percent: percent })
+                execute_script 'mobile:powerCapacity', { percent: percent }
               end
             end
 
@@ -178,7 +177,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}."
                 end
 
-                execute(:set_power_ac, {}, { state: state })
+                execute 'mobile:powerAc', { state: state }
               end
             end
           end # def self.emulator_commands
