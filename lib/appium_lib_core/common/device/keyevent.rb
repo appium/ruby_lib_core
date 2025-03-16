@@ -32,7 +32,7 @@ module Appium
             args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
             args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
 
-            execute :press_keycode, {}, args
+            execute_script 'mobile:pressKeyCode', args
           end
 
           def long_press_keycode(key, metastate: [], flags: [])
@@ -43,7 +43,7 @@ module Appium
             args[:metastate] = metastate.reduce(0) { |acc, meta| acc | meta } unless metastate.empty?
             args[:flags]     = flags.reduce(0) { |acc, flag| acc | flag } unless flags.empty?
 
-            execute :long_press_keycode, {}, args
+            execute_script 'mobile:longPressKeyCode', args
           end
         end # module KeyEvent
       end # module Device

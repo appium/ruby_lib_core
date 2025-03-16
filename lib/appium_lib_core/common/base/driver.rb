@@ -542,7 +542,6 @@ module Appium
           @bridge.pull_folder(path)
         end
 
-        # @deprecated Use 'mobile: pressKey' extension instead.
         # Press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
@@ -562,11 +561,9 @@ module Appium
         #   @driver.press_keycode 66, metastate: [1], flags: [32]
         #
         def press_keycode(key, metastate: [], flags: [])
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Use 'mobile: pressKey' extension instead.
         # Long press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to long press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
