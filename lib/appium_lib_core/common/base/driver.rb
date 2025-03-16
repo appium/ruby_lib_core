@@ -221,7 +221,6 @@ module Appium
           )
         end
 
-        # @deprecated Use 'mobile: lock' extension instead.
         # Lock the device
         # @return [String]
         #
@@ -232,11 +231,9 @@ module Appium
         #                   #   Block other commands during locking the device.
         #
         def lock(duration = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: lock' extension instead"
           @bridge.lock(duration)
         end
 
-        # @deprecated Use 'mobile: isLocked' extension instead.
         # Check current device status is weather locked or not
         #
         # @example
@@ -245,12 +242,10 @@ module Appium
         #   @driver.locked?
         #
         def locked?
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isLocked' extension instead"
           @bridge.device_locked?
         end
         alias device_locked? locked?
 
-        # @deprecated Use 'mobile: unlock' extension instead.
         # Unlock the device
         #
         # @example
@@ -258,7 +253,6 @@ module Appium
         #   @driver.unlock
         #
         def unlock
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: unlock' extension instead"
           @bridge.unlock
         end
 
@@ -758,7 +752,6 @@ module Appium
           @bridge.stop_and_save_recording_screen(file_path)
         end
 
-        # @deprecated Use 'mobile: shake' extension instead.
         # Cause the device to shake
         #
         # @example
@@ -766,7 +759,6 @@ module Appium
         #   @driver.shake
         #
         def shake
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: shake' extension instead"
           @bridge.shake
         end
 

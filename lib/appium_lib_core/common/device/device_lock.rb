@@ -19,15 +19,15 @@ module Appium
         module DeviceLock
           def lock(duration = nil)
             opts = duration ? { seconds: duration } : {}
-            execute :lock, {}, opts
+            execute_script 'mobile:lock', opts
           end
 
           def device_locked?
-            execute :device_locked?
+            execute_script 'mobile:isLocked', {}
           end
 
           def unlock
-            execute :unlock
+            execute_script 'mobile:unlock', {}
           end
         end # module DeviceLock
       end # module Device

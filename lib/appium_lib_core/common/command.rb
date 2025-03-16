@@ -192,7 +192,6 @@ module Appium
         app_installed?: [:post, 'session/:session_id/appium/device/app_installed'],
         activate_app: [:post, 'session/:session_id/appium/device/activate_app'],
         terminate_app: [:post, 'session/:session_id/appium/device/terminate_app'],
-        shake: [:post, 'session/:session_id/appium/device/shake'],
         push_file: [:post, 'session/:session_id/appium/device/push_file'],
         pull_file: [:post, 'session/:session_id/appium/device/pull_file'],
         pull_folder: [:post, 'session/:session_id/appium/device/pull_folder'],

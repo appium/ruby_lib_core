@@ -18,7 +18,7 @@ module Appium
       module Device
         module Device
           def shake
-            execute :shake
+            execute_script 'mobile:shake', {}
           end
 
           def device_time(format = nil)

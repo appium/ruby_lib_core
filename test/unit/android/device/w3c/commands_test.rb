@@ -38,12 +38,13 @@ class AppiumLibCoreTest
           end
 
           def test_shake
-            stub_request(:post, "#{SESSION}/appium/device/shake")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:shake', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.shake
 
-            assert_requested(:post, "#{SESSION}/appium/device/shake", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_device_time
