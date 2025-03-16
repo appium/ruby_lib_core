@@ -26,7 +26,6 @@ module Appium
 
         # rubocop:disable Layout/LineLength
 
-        # @deprecated Use 'mobile: openNotifications' extension instead.
         # @!method open_notifications
         #   Open Android notifications
         #
@@ -35,7 +34,6 @@ module Appium
         #   @driver.open_notifications
         #
 
-        # @deprecated Use 'mobile: getCurrentActivity' extension instead.
         # @!method current_activity
         # Get current activity name
         # @return [String] An activity name
@@ -45,7 +43,6 @@ module Appium
         #   @driver.current_activity # '.ApiDemos'
         #
 
-        # @deprecated Use 'mobile: getCurrentPackage' extension instead.
         # @!method current_package
         # Get current package name
         # @return [String] A package name
@@ -55,7 +52,6 @@ module Appium
         #   @driver.current_package # 'com.example.android.apis'
         #
 
-        # @deprecated Use 'mobile: getSystemBars' extension instead.
         # @!method get_system_bars
         # Get system bar's information
         # @return [String]
@@ -109,7 +105,6 @@ module Appium
         #   @driver.toggle_location_services
         #
 
-        # @deprecated Use 'mobile: hideKeyboard' extension instead.
         # @!method hide_keyboard(close_key = nil, strategy = nil)
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
@@ -125,7 +120,6 @@ module Appium
         #  @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
 
-        # @deprecated Use 'mobile: getPerformanceDataTypes' extension instead.
         # @!method get_performance_data_types
         #   Get the information type of the system state which is supported to read such as
         #   cpu, memory, network, battery via adb commands.
@@ -214,7 +208,6 @@ module Appium
         #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
         #
 
-        # @deprecated Use 'mobile: fingerprint' extension instead.
         # @!method finger_print(finger_id)
         #     Authenticate users by using their finger print scans on supported emulators.
         #

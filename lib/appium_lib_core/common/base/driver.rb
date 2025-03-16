@@ -580,7 +580,6 @@ module Appium
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Use 'mobile: getAppStrings' extension instead.
         # Return the hash of all localization strings.
         # @return [Hash]
         #
@@ -592,7 +591,6 @@ module Appium
           @bridge.app_strings(language)
         end
 
-        # @deprecated Use 'mobile: backgroundApp' extension instead.
         # Backgrounds the app for a set number of seconds.
         # This is a blocking application
         # @param [Integer] duration How many seconds to background the app for.
@@ -772,7 +770,6 @@ module Appium
           @bridge.shake
         end
 
-        # @deprecated Use 'mobile: getDeviceTime' extension instead.
         # Get the time on the device
         #
         # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get
@@ -786,7 +783,6 @@ module Appium
         #   @driver.device_time "YYYY-MM-DD" #=> "2018-06-12"
         #
         def device_time(format = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getDeviceTime' extension instead"
           @bridge.device_time(format)
         end
 

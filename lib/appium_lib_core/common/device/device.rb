@@ -24,7 +24,8 @@ module Appium
           def device_time(format = nil)
             arg = {}
             arg[:format] = format unless format.nil?
-            execute :device_time, {}, arg
+
+            execute_script 'mobile:getDeviceTime', arg
           end
         end # module Device
       end # module Device

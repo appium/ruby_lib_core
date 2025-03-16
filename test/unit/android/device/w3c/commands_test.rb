@@ -47,23 +47,23 @@ class AppiumLibCoreTest
           end
 
           def test_device_time
-            stub_request(:get, "#{SESSION}/appium/device/system_time")
-              .with(body: {}.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getDeviceTime', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'device time' }.to_json)
 
             @driver.device_time
 
-            assert_requested(:get, "#{SESSION}/appium/device/system_time", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_device_time_with_format
-            stub_request(:get, "#{SESSION}/appium/device/system_time")
-              .with(body: { format: 'YYYY-MM-DD' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getDeviceTime', args: [{ format: 'YYYY-MM-DD' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'device time' }.to_json)
 
             @driver.device_time('YYYY-MM-DD')
 
-            assert_requested(:get, "#{SESSION}/appium/device/system_time", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_open_notifications
