@@ -29,21 +29,23 @@ class AppiumLibCoreTest
           end
 
           def test_touch_id
-            stub_request(:post, "#{SESSION}/appium/simulator/touch_id")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:sendBiometricMatch', args: [{ type: 'touch_id', match: true }] })
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.touch_id
 
-            assert_requested(:post, "#{SESSION}/appium/simulator/touch_id", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_toggle_touch_id_enrollment
-            stub_request(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:enrollBiometric', args: [{ isEnabled: true }] })
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.toggle_touch_id_enrollment(true)
 
-            assert_requested(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_start_recording_screen

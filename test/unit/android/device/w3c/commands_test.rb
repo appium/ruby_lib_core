@@ -111,12 +111,13 @@ class AppiumLibCoreTest
           end
 
           def test_get_display_density
-            stub_request(:get, "#{SESSION}/appium/device/display_density")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getDisplayDensity', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
             @driver.get_display_density
 
-            assert_requested(:get, "#{SESSION}/appium/device/display_density", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_get_performance_data_types

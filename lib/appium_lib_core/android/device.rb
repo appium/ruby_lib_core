@@ -66,7 +66,6 @@ module Appium
         #   @driver.system_bars
         #
 
-        # @deprecated Use 'mobile: getDisplayDensity' extension instead.
         # @!method get_display_density
         # Get connected device's density.
         # @return [Integer] The size of density

@@ -215,17 +215,12 @@ module Appium
       }.freeze
 
       COMMAND_ANDROID = {
-        get_display_density: [:get, 'session/:session_id/appium/device/display_density'],
-        toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
 
         # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
         chrome_send_command: [:post, 'session/:session_id/goog/cdp/execute']
       }.freeze
 
-      COMMAND_IOS = {
-        touch_id: [:post, 'session/:session_id/appium/simulator/touch_id'],
-        toggle_touch_id_enrollment: [:post, 'session/:session_id/appium/simulator/toggle_touch_id_enrollment']
-      }.freeze
+      COMMAND_IOS = {}.freeze
 
       COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).merge(COMMAND_IOS).freeze
     end # module Commands
