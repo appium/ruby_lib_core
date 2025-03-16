@@ -25,13 +25,9 @@ module Appium
 
           # rubocop:disable Layout/LineLength
 
-          # @deprecated Use 'mobile: hideKeyboard' extension instead.
-          # @!method hide_keyboard(close_key = nil, strategy = nil)
+          # @!method hide_keyboard(close_key = nil)
           # Hide the onscreen keyboard
           # @param [String] close_key The name of the key which closes the keyboard.
-          # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
-          #   XCUITest ignore this argument.
-          #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
           #
           # @example
           #
@@ -39,7 +35,6 @@ module Appium
           #  @driver.hide_keyboard('Finished') # Close a keyboard with the 'Finished' button
           #
 
-          # @deprecated Use 'mobile: backgroundApp' extension instead.
           # @!method background_app(duration = 0)
           # Backgrounds the app for a set number of seconds.
           # This is a blocking application.
@@ -183,23 +178,19 @@ module Appium
             def extended(_mod)
               # Xcuitest, Override included method in bridge
               ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
-                def hide_keyboard(close_key = nil, strategy = nil)
+                def hide_keyboard(close_key = nil)
                   option = {}
 
                   option[:key] = close_key if close_key
-                  option[:strategy] = strategy if strategy
 
-                  execute :hide_keyboard, {}, option
+                  execute_script 'mobile:hideKeyboard', option
                 end
               end
 
               # Xcuitest, Override included method in bridge
               ::Appium::Core::Device.add_endpoint_method(:background_app) do
                 def background_app(duration = 0)
-                  # https://github.com/appium/ruby_lib/issues/500, https://github.com/appium/appium/issues/7741
-                  # 'execute :background_app, {}, seconds: { timeout: duration_milli_sec }' works over Appium 1.6.4
-                  duration_milli_sec = duration.nil? ? nil : duration * 1000
-                  execute :background_app, {}, seconds: { timeout: duration_milli_sec }
+                  execute_script 'mobile:backgroundApp', { seconds: duration }
                 end
               end
 

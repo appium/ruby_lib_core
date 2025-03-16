@@ -290,24 +290,15 @@ module Appium
 
             # Android, Override included method in bridge
             ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
-              def hide_keyboard(close_key = nil, strategy = nil)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: hideKeyboard' extension instead"
-
-                option = {}
-
-                option[:key] = close_key if close_key
-                option[:strategy] = strategy if strategy
-
-                execute :hide_keyboard, {}, option
+              def hide_keyboard(_close_key = nil)
+                execute_script 'mobile:hideKeyboard', {}
               end
             end
 
             # Android, Override included method in bridge
             ::Appium::Core::Device.add_endpoint_method(:background_app) do
               def background_app(duration = 0)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: backgroundApp' extension instead"
-
-                execute :background_app, {}, seconds: duration
+                execute_script 'mobile:backgroundApp', { seconds: duration }
               end
             end
 

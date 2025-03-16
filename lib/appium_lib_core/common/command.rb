@@ -123,7 +123,6 @@ module Appium
         element_click: [:post, 'session/:session_id/element/:id/click'],
         element_tap: [:post, 'session/:session_id/element/:id/tap'],
         element_clear: [:post, 'session/:session_id/element/:id/clear'],
-        element_send_keys: [:post, 'session/:session_id/element/:id/value'],
 
         #
         # alerts
@@ -184,9 +183,6 @@ module Appium
         set_context: [:post, 'session/:session_id/context'],
         current_context: [:get, 'session/:session_id/context'],
 
-        background_app: [:post, 'session/:session_id/appium/app/background'],
-        app_strings: [:post, 'session/:session_id/appium/app/strings'],
-
         device_locked?: [:post, 'session/:session_id/appium/device/is_locked'],
         unlock: [:post, 'session/:session_id/appium/device/unlock'],
         lock: [:post, 'session/:session_id/appium/device/lock'],
@@ -197,32 +193,25 @@ module Appium
         activate_app: [:post, 'session/:session_id/appium/device/activate_app'],
         terminate_app: [:post, 'session/:session_id/appium/device/terminate_app'],
         shake: [:post, 'session/:session_id/appium/device/shake'],
-        hide_keyboard: [:post, 'session/:session_id/appium/device/hide_keyboard'],
         push_file: [:post, 'session/:session_id/appium/device/push_file'],
         pull_file: [:post, 'session/:session_id/appium/device/pull_file'],
         pull_folder: [:post, 'session/:session_id/appium/device/pull_folder'],
-        get_clipboard: [:post, 'session/:session_id/appium/device/get_clipboard'],
-        set_clipboard: [:post, 'session/:session_id/appium/device/set_clipboard'],
         get_settings: [:get, 'session/:session_id/appium/settings'],
         update_settings: [:post, 'session/:session_id/appium/settings'],
         stop_recording_screen: [:post, 'session/:session_id/appium/stop_recording_screen'],
         start_recording_screen: [:post, 'session/:session_id/appium/start_recording_screen'],
         compare_images: [:post, 'session/:session_id/appium/compare_images'],
-        is_keyboard_shown: [:get, 'session/:session_id/appium/device/is_keyboard_shown'],
         execute_driver: [:post, 'session/:session_id/appium/execute_driver'],
         post_log_event: [:post, 'session/:session_id/appium/log_event'],
         get_log_events: [:post, 'session/:session_id/appium/events']
       }.freeze
 
       COMMAND_ANDROID = {
-
         # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
         chrome_send_command: [:post, 'session/:session_id/goog/cdp/execute']
       }.freeze
 
-      COMMAND_IOS = {}.freeze
-
-      COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).merge(COMMAND_IOS).freeze
+      COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).freeze
     end # module Commands
   end # module Core
 end # module Appium

@@ -19,7 +19,7 @@ module Appium
         module AppManagement
           def app_strings(language = nil)
             opts = language ? { language: language } : {}
-            execute :app_strings, {}, opts
+            execute_script 'mobile:getAppStrings', opts
           end
 
           def background_app(duration = 0)

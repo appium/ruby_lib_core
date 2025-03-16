@@ -262,7 +262,6 @@ module Appium
           @bridge.unlock
         end
 
-        # @deprecated Use 'mobile: hideKeyboard' extension instead.
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
         #   Defaults to 'Done' for iOS(except for XCUITest).
@@ -276,12 +275,10 @@ module Appium
         #   @driver.hide_keyboard('Finished') # Close a keyboard with the 'Finished' button
         #   @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
-        def hide_keyboard(close_key = nil, strategy = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: hideKeyboard' extension instead"
-          @bridge.hide_keyboard close_key, strategy
+        def hide_keyboard(close_key = nil)
+          @bridge.hide_keyboard close_key
         end
 
-        # @deprecated Use 'mobile: isKeyboardShown' extension instead.
         # Get whether keyboard is displayed or not.
         # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
         #
@@ -290,7 +287,6 @@ module Appium
         #   @driver.keyboard_shown?   # true
         #
         def keyboard_shown?
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isKeyboardShown' extension instead"
           @bridge.is_keyboard_shown
         end
         alias is_keyboard_shown keyboard_shown?
@@ -581,7 +577,6 @@ module Appium
         #   @driver.long_press_keycode 66, metastate: [1], flags: [32, 8192]
         #
         def long_press_keycode(key, metastate: [], flags: [])
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
@@ -594,7 +589,6 @@ module Appium
         #   @driver.app_strings #=> "TransitionsTitle"=>"Transitions", "WebTitle"=>"Web"
         #
         def app_strings(language = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getAppStrings' extension instead"
           @bridge.app_strings(language)
         end
 

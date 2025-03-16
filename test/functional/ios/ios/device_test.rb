@@ -221,7 +221,7 @@ class AppiumLibCoreTest
 
         @@core.wait do
           @@driver.hide_keyboard
-          sleep 1 # wait animation
+          sleep 2 # wait animation
         end
 
         m = assert_raises ::Selenium::WebDriver::Error::WebDriverError do

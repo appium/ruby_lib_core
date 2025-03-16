@@ -29,22 +29,23 @@ class AppiumLibCoreTest
           end
 
           def test_is_keyboard_shown
-            stub_request(:get, "#{SESSION}/appium/device/is_keyboard_shown")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:isKeyboardShown', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
             @driver.is_keyboard_shown
 
-            assert_requested(:get, "#{SESSION}/appium/device/is_keyboard_shown", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_hide_keyboard
-            stub_request(:post, "#{SESSION}/appium/device/hide_keyboard")
-              .with(body: { key: 'Done' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:hideKeyboard', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.hide_keyboard 'Done'
 
-            assert_requested(:post, "#{SESSION}/appium/device/hide_keyboard", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           # keypress
