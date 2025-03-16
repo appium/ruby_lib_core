@@ -246,8 +246,8 @@ class AppiumLibCoreTest
           end
 
           def test_finger_print
-            stub_request(:post, "#{SESSION}/appium/device/finger_print")
-              .with(body: { fingerprintId: 1 }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:fingerprint', 'args': [{ 'fingerprintId' => 1 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: { finger: 'name' } }.to_json)
 
             error = assert_raises ::Appium::Core::Error::ArgumentError do
@@ -257,7 +257,7 @@ class AppiumLibCoreTest
 
             @driver.finger_print 1
 
-            assert_requested(:post, "#{SESSION}/appium/device/finger_print", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_remote

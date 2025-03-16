@@ -136,7 +136,7 @@ module Appium
                         "#{signal_strength} should be member of #{GSM_SIGNALS.keys} "
                 end
 
-                execute 'mobile:gsmSignal', {}, { strength: GSM_SIGNALS[signal_strength] }
+                execute_script 'mobile:gsmSignal', { strength: GSM_SIGNALS[signal_strength] }
               end
             end
 
@@ -146,7 +146,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
                 end
 
-                execute 'mobile:gsmVoic', {}, { state: state }
+                execute_script 'mobile:gsmVoic', { state: state }
               end
             end
 
@@ -177,7 +177,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}."
                 end
 
-                execute 'mobile:powerAc', { state: state }
+                execute_script 'mobile:powerAc', { state: state }
               end
             end
           end # def self.emulator_commands

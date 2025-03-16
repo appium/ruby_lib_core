@@ -20,13 +20,13 @@ module Appium
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:get_performance_data_types) do
               def get_performance_data_types
-                execute_script 'mobile: getPerformanceDataTypes', {}
+                execute_script 'mobile:getPerformanceDataTypes', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:get_performance_data) do
               def get_performance_data(package_name:, data_type:)
-                execute_script 'mobile: getPerformanceData', { packageName: package_name, dataType: data_type }
+                execute_script 'mobile:getPerformanceData', { packageName: package_name, dataType: data_type }
               end
             end
           end

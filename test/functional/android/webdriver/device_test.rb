@@ -126,14 +126,6 @@ class AppiumLibCoreTest
         assert_equal %i(logcat bugreport server), @driver.logs.available_types
         assert @driver.logs.get(:logcat)
       end
-
-      def test_network_connection
-        assert @driver.get_network_connection
-        assert @driver.network_connection_type
-        assert @driver.set_network_connection(6)
-        # TODO: depends on selenium-webdriver. Test failed with webdriver 3.11.0 with a number.
-        assert @driver.network_connection_type = :all
-      end
     end
   end
 end

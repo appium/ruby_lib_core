@@ -215,18 +215,8 @@ module Appium
       }.freeze
 
       COMMAND_ANDROID = {
-        open_notifications: [:post, 'session/:session_id/appium/device/open_notifications'],
-        toggle_airplane_mode: [:post, 'session/:session_id/appium/device/toggle_airplane_mode'],
-        start_activity: [:post, 'session/:session_id/appium/device/start_activity'],
-        current_activity: [:get, 'session/:session_id/appium/device/current_activity'],
-        current_package: [:get, 'session/:session_id/appium/device/current_package'],
-        get_system_bars: [:get, 'session/:session_id/appium/device/system_bars'],
         get_display_density: [:get, 'session/:session_id/appium/device/display_density'],
-        toggle_wifi: [:post, 'session/:session_id/appium/device/toggle_wifi'],
-        toggle_data: [:post, 'session/:session_id/appium/device/toggle_data'],
         toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
-        get_network_connection: [:get, 'session/:session_id/network_connection'], # defined also in OSS
-        set_network_connection: [:post, 'session/:session_id/network_connection'], # defined also in OSS
 
         # For chromium: https://chromium.googlesource.com/chromium/src/+/master/chrome/test/chromedriver/server/http_handler.cc
         chrome_send_command: [:post, 'session/:session_id/goog/cdp/execute']

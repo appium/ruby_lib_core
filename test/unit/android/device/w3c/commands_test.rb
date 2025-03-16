@@ -67,43 +67,38 @@ class AppiumLibCoreTest
           end
 
           def test_open_notifications
-            stub_request(:post, "#{SESSION}/appium/device/open_notifications")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:openNotifications', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.open_notifications
 
-            assert_requested(:post, "#{SESSION}/appium/device/open_notifications", times: 1)
-          end
-
-          def test_toggle_airplane_mode
-            stub_request(:post, "#{SESSION}/appium/device/toggle_airplane_mode")
-              .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-            @driver.toggle_airplane_mode
-
-            assert_requested(:post, "#{SESSION}/appium/device/toggle_airplane_mode", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_current_activity
-            stub_request(:get, "#{SESSION}/appium/device/current_activity")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getCurrentActivity', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
             @driver.current_activity
 
-            assert_requested(:get, "#{SESSION}/appium/device/current_activity", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_current_package
-            stub_request(:get, "#{SESSION}/appium/device/current_package")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getCurrentPackage', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
 
             @driver.current_package
 
-            assert_requested(:get, "#{SESSION}/appium/device/current_package", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_get_system_bars
-            stub_request(:get, "#{SESSION}/appium/device/system_bars")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getSystemBars', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: {
                 statusBar: { visible: true, x: 0, y: 0, width: 1080, height: 63 },
                 navigationBar: { visible: true, x: 0, y: 1794, width: 1080, height: 126 }
@@ -111,7 +106,7 @@ class AppiumLibCoreTest
 
             info = @driver.get_system_bars
 
-            assert_requested(:get, "#{SESSION}/appium/device/system_bars", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
             assert_equal({ 'visible' => true, 'x' => 0, 'y' => 0, 'width' => 1080, 'height' => 63 }, info['statusBar'])
           end
 
@@ -124,22 +119,14 @@ class AppiumLibCoreTest
             assert_requested(:get, "#{SESSION}/appium/device/display_density", times: 1)
           end
 
-          def test_get_network_connection
-            stub_request(:get, "#{SESSION}/network_connection")
-              .to_return(headers: HEADER, status: 200, body: { value: 'A' }.to_json)
-
-            @driver.get_network_connection
-
-            assert_requested(:get, "#{SESSION}/network_connection", times: 1)
-          end
-
           def test_get_performance_data_types
-            stub_request(:post, "#{SESSION}/appium/performanceData/types")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getPerformanceDataTypes', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: ['a'] }.to_json)
 
             @driver.get_performance_data_types
 
-            assert_requested(:post, "#{SESSION}/appium/performanceData/types", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_push_file
@@ -214,56 +201,17 @@ class AppiumLibCoreTest
             assert_requested(:post, "#{SESSION}/appium/settings", times: 1)
           end
 
-          def test_start_activity
-            stub_request(:post, "#{SESSION}/appium/device/start_activity")
-              .with(body: { appPackage: 'package', appActivity: 'activity', intentAction: 'action.MAIN' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-            @driver.start_activity(app_activity: 'activity', app_package: 'package', intent_action: 'action.MAIN')
-
-            assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
-          end
-
-          def test_start_activity_with_wait
-            stub_request(:post, "#{SESSION}/appium/device/start_activity")
-              .with(body: { appPackage: 'package', appActivity: 'activity',
-                            appWaitPackage: 'wait_package', appWaitActivity: 'wait_activity',
-                            intentAction: 'action.MAIN', dontStopAppOnReset: true }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.start_activity(app_activity: 'activity', app_package: 'package',
-                                   app_wait_package: 'wait_package', app_wait_activity: 'wait_activity',
-                                   intent_action: 'action.MAIN', dont_stop_app_on_reset: true)
-
-            assert_requested(:post, "#{SESSION}/appium/device/start_activity", times: 1)
-          end
-
-          def test_set_network_connection
-            stub_request(:post, "#{SESSION}/network_connection")
-              .with(body: { type: 1 }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.set_network_connection 1
-
-            assert_requested(:post, "#{SESSION}/network_connection", times: 1)
-          end
-
-          def test_set_network_connection_key
-            stub_request(:post, "#{SESSION}/network_connection")
-              .with(body: { type: 6 }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.set_network_connection :all
-
-            assert_requested(:post, "#{SESSION}/network_connection", times: 1)
-          end
-
           def test_get_perfoemance_data
-            stub_request(:post, "#{SESSION}/appium/getPerformanceData")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: {
+                script: 'mobile:getPerformanceData',
+                args: [{ 'packageName' => 'package_name', 'dataType' => 'type' }]
+              }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.get_performance_data(package_name: 'package_name', data_type: 'type')
 
-            assert_requested(:post, "#{SESSION}/appium/getPerformanceData", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_start_recording_screen_default
@@ -336,105 +284,84 @@ class AppiumLibCoreTest
 
           # emulator
           def test_send_sms
-            stub_request(:post, "#{SESSION}/appium/device/send_sms")
-              .with(body: { phoneNumber: '00000000000', message: 'test message' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:sendSms', args: [{ phoneNumber: '00000000000', message: 'test message' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.send_sms phone_number: '00000000000', message: 'test message'
 
-            assert_requested(:post, "#{SESSION}/appium/device/send_sms", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_gsm_call
-            stub_request(:post, "#{SESSION}/appium/device/gsm_call")
-              .with(body: { phoneNumber: '00000000000', action: 'call' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:gsmCall', args: [{ phoneNumber: '00000000000', action: 'call' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.gsm_call phone_number: '00000000000', action: :call
 
-            assert_requested(:post, "#{SESSION}/appium/device/gsm_call", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_gsm_signal
-            stub_request(:post, "#{SESSION}/appium/device/gsm_signal")
-              .with(body: { signalStrength: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good],
-                            signalStrengh: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good] }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:gsmSignal',
+args: [{ strength: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good] }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.gsm_signal :good
 
-            assert_requested(:post, "#{SESSION}/appium/device/gsm_signal", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_gsm_voice
-            stub_request(:post, "#{SESSION}/appium/device/gsm_voice")
-              .with(body: { state: 'on' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:gsmVoic', args: [{ state: 'on' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.gsm_voice :on
 
-            assert_requested(:post, "#{SESSION}/appium/device/gsm_voice", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_network_speed
-            stub_request(:post, "#{SESSION}/appium/device/network_speed")
-              .with(body: { netspeed: 'gsm' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:networkSpee', args: [{ speed: 'gsm' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_network_speed :gsm
 
-            assert_requested(:post, "#{SESSION}/appium/device/network_speed", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_set_power_capacity
-            stub_request(:post, "#{SESSION}/appium/device/power_capacity")
-              .with(body: { percent: 10 }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:powerCapacity', args: [{ percent: 10 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_power_capacity 10
 
-            assert_requested(:post, "#{SESSION}/appium/device/power_capacity", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_power_ac
-            stub_request(:post, "#{SESSION}/appium/device/power_ac")
-              .with(body: { state: 'on' }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:powerAc', args: [{ state: 'on' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_power_ac :on
 
-            assert_requested(:post, "#{SESSION}/appium/device/power_ac", times: 1)
-          end
-
-          # toggles
-          def test_toggle_wifi
-            stub_request(:post, "#{SESSION}/appium/device/toggle_wifi")
-              .with(body: '{}')
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.toggle_wifi
-
-            assert_requested(:post, "#{SESSION}/appium/device/toggle_wifi", times: 1)
-          end
-
-          def test_toggle_data
-            stub_request(:post, "#{SESSION}/appium/device/toggle_data")
-              .with(body: '{}')
-              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
-
-            @driver.toggle_data
-
-            assert_requested(:post, "#{SESSION}/appium/device/toggle_data", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_toggle_location_services
-            stub_request(:post, "#{SESSION}/appium/device/toggle_location_services")
-              .with(body: '{}')
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:toggleGps', args: [{}] })
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.toggle_location_services
 
-            assert_requested(:post, "#{SESSION}/appium/device/toggle_location_services", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_get_battery_info

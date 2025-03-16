@@ -76,12 +76,16 @@ class AppiumLibCoreTest
           end
 
           def test_app_state
-            stub_request(:post, "#{SESSION}/appium/device/app_state")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: {
+                script: 'mobile:queryAppState',
+                args: [{ 'appId' => 'com.app.id', 'bundleId' => 'com.app.id' }]
+              }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 4 }.to_json)
 
             state = @driver.app_state 'com.app.id'
 
-            assert_requested(:post, "#{SESSION}/appium/device/app_state", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
             assert_equal :running_in_foreground, state
           end
 

@@ -14,7 +14,6 @@
 
 require_relative 'device/emulator'
 require_relative 'device/clipboard'
-require_relative 'device/network'
 require_relative 'device/performance'
 require_relative 'device/screen'
 require_relative 'device/auth_finger_print'
@@ -77,54 +76,6 @@ module Appium
         #   @driver.get_display_density # 320
         #
 
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method get_network_connection
-        #   Get the device network connection current status
-        #   See set_network_connection method for return value
-        #   Same as #network_connection_type in selenium-webdriver.
-        #
-        #   Returns a key of <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code> in #network_connection_type
-        #   Returns a number of the mode in +#get_network_connection+
-        #
-        # @example
-        #
-        #   @driver.network_connection_type #=> :all
-        #   @driver.get_network_connection  #=> 6
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_wifi
-        #   Switch the state of the wifi service only for Android
-        #
-        # @return [String]
-        #
-        # @example
-        #
-        #   @driver.toggle_wifi
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_data
-        #   Switch the state of data service only for Android, and the device should be rooted
-        #
-        # @return [String]
-        #
-        # @example
-        #
-        #   @driver.toggle_data
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method location
-        # Get the location of the device.
-        #
-        # @return [::Appium::Location]
-        #
-        # @example
-        #
-        #   driver.location #=> ::Appium::Location.new(10, 10, 10)
-        #
-
         # @!method location=
         # Set the [::Appium::Location] of the device.
         #
@@ -149,7 +100,6 @@ module Appium
         #   driver.set_location 10, 10, 0
         #
 
-        # @deprecated Use 'mobile: toggleGps' extension instead.
         # @!method toggle_location_services
         #   Switch the state of the location service
         #
@@ -158,15 +108,6 @@ module Appium
         # @example
         #
         #   @driver.toggle_location_services
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_airplane_mode
-        # Toggle flight mode on or off
-        #
-        # @example
-        #
-        #   @driver.toggle_airplane_mode
         #
 
         # @deprecated Use 'mobile: hideKeyboard' extension instead.
@@ -183,54 +124,6 @@ module Appium
         #  @driver.hide_keyboard                   # Close a keyboard with the 'Done' button
         #  @driver.hide_keyboard('Finished')       # Close a keyboard with the 'Finished' button
         #  @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
-        #
-
-        # @deprecated Use 'mobile: startActivity' extension instead.
-        # @!method start_activity(opts)
-        # Android only. Start a new activity within the current app or launch a new app and start the target activity.
-        #
-        # Read https://developer.android.com/studio/command-line/adb#IntentSpec for each flags.
-        #
-        # @param opts [Hash] Options
-        # @option opts [String] :app_package The package owning the activity [required]
-        # @option opts [String] :app_activity The target activity [required]
-        # @option opts [String] :app_wait_package The package to start before the target package [optional]
-        # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
-        # @option opts [String] :intent_action The intent action to give it when start the target activity (+-a+) [optional]
-        # @option opts [String] :intent_category The intent category to give it when start the target activity (+-c+) [optional]
-        # @option opts [String] :intent_flags The intent flag to give it when start the target activity (+-f+) [optional]
-        # @option opts [String] :optional_intent_arguments The optional intent action to give it when start the target activity [optional]
-        #                                                  You can set arbitrary arguments with space as string.
-        #                                                  e.g. +'--ez your_extra_bool bool --ei your_extra_int 1'+
-        # @option opts [bool] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
-        #
-        # @example
-        #
-        #   start_activity app_package: 'io.appium.android.apis',
-        #     app_activity: '.accessibility.AccessibilityNodeProviderActivity'
-        #
-
-        # @deprecated Use 'mobile: setConnectivity' extension instead.
-        # @!method set_network_connection(mode)
-        # Set the device network connection mode
-        # Same as +#network_connection_type+ in selenium-webdriver.
-        #
-        # @param [String] mode Bit mask that represent the network mode
-        # Or the key matched with <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code>
-        #
-        #   Value (Alias)      | Data | Wifi | Airplane Mode
-        #   -------------------------------------------------
-        #   1 (Airplane Mode)  | 0    | 0    | 1
-        #   6 (All network on) | 1    | 1    | 0
-        #   4 (Data only)      | 1    | 0    | 0
-        #   2 (Wifi only)      | 0    | 1    | 0
-        #   0 (None)           | 0    | 0    | 0
-        #
-        # @example
-        #
-        #   @driver.set_network_connection 1
-        #   @driver.set_network_connection :airplane_mode
-        #   @driver.network_connection_type = :airplane_mode # As selenium-webdriver
         #
 
         # @deprecated Use 'mobile: getPerformanceDataTypes' extension instead.
@@ -362,87 +255,37 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:open_notifications) do
               def open_notifications
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: openNotifications' extension instead"
-
-                execute :open_notifications
+                execute_script 'mobile:openNotifications', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:current_activity) do
               def current_activity
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getCurrentActivity' extension instead"
-
-                execute :current_activity
+                execute_script 'mobile:getCurrentActivity', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:current_package) do
               def current_package
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getCurrentPackage' extension instead"
-
-                execute :current_package
+                execute_script 'mobile:getCurrentPackage', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:get_system_bars) do
               def get_system_bars
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getSystemBars' extension instead"
-
-                execute :get_system_bars
+                execute_script 'mobile:getSystemBars', {}
               end
             end
             # as alias to get_system_bars
             ::Appium::Core::Device.add_endpoint_method(:system_bars) do
               def system_bars
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getSystemBars' extension instead"
-
-                execute :get_system_bars
+                execute_script 'mobile:getSystemBars', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
               def toggle_location_services
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: toggleGps' extension instead"
-
-                execute :toggle_location_services
-              end
-            end
-
-            ::Appium::Core::Device.add_endpoint_method(:start_activity) do
-              def start_activity(opts)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: startActivity' extension instead"
-
-                raise ::Appium::Core::Error::ArgumentError, 'opts must be a hash' unless opts.is_a? Hash
-
-                option = {}
-
-                app_package = opts[:app_package]
-                raise ::Appium::Core::Error::ArgumentError, 'app_package is required' unless app_package
-
-                app_activity = opts[:app_activity]
-                raise ::Appium::Core::Error::ArgumentError, 'app_activity is required' unless app_activity
-
-                option[:appPackage] = app_package
-                option[:appActivity] = app_activity
-
-                app_wait_package  = opts.fetch(:app_wait_package, nil)
-                app_wait_activity = opts.fetch(:app_wait_activity, nil)
-                option[:appWaitPackage] = app_wait_package if app_wait_package
-                option[:appWaitActivity] = app_wait_activity if app_wait_activity
-
-                intent_action = opts.fetch(:intent_action, nil)
-                intent_category = opts.fetch(:intent_category, nil)
-                intent_flags = opts.fetch(:intent_flags, nil)
-                optional_intent_arguments = opts.fetch(:optional_intent_arguments, nil)
-                dont_stop_app_on_reset = opts.fetch(:dont_stop_app_on_reset, nil)
-
-                option[:intentAction] = intent_action if intent_action
-                option[:intentCategory] = intent_category if intent_category
-                option[:intentFlags] = intent_flags if intent_flags
-                option[:optionalIntentArguments] = optional_intent_arguments if optional_intent_arguments
-                option[:dontStopAppOnReset] = dont_stop_app_on_reset if dont_stop_app_on_reset
-
-                execute :start_activity, {}, option
+                execute_script 'mobile:toggleGps', {}
               end
             end
 
@@ -480,7 +323,6 @@ module Appium
 
             Screen.add_methods
             Performance.add_methods
-            Network.add_methods
             Clipboard.add_methods
             Emulator.add_methods
             Authentication.add_methods

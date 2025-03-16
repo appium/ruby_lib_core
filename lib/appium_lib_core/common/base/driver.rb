@@ -20,7 +20,6 @@ require_relative 'screenshot'
 require_relative 'rotable'
 require_relative 'remote_status'
 require_relative 'has_location'
-require_relative 'has_network_connection'
 require_relative '../wait'
 
 module Appium
@@ -35,7 +34,6 @@ module Appium
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
         include ::Appium::Core::Base::HasLocation
-        include ::Appium::Core::Base::HasNetworkConnection
 
         include ::Appium::Core::Waitable
 
