@@ -51,7 +51,7 @@ class AppiumLibCoreTest
           # keypress
           def test_press_keycode
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:pressKeyCode', args: [{ keycode: 86 }] }.to_json)
+              .with(body: { script: 'mobile:pressKey', args: [{ keycode: 86 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.press_keycode 86
@@ -62,7 +62,7 @@ class AppiumLibCoreTest
           # keypress
           def test_press_keycode_with_flags
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:pressKeyCode', args: [{ keycode: 86, metastate: 2_097_153, flags: 44 }] }.to_json)
+              .with(body: { script: 'mobile:pressKey', args: [{ keycode: 86, metastate: 2_097_153, flags: 44 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             # metastate is META_SHIFT_ON and META_NUM_LOCK_ON
@@ -89,7 +89,7 @@ class AppiumLibCoreTest
           # keypress
           def test_long_press_keycode
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:longPressKeyCode', args: [{ keycode: 86 }] }.to_json)
+              .with(body: { script: 'mobile:pressKey', args: [{ keycode: 86, isLongPress: true }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.long_press_keycode 86
@@ -100,7 +100,10 @@ class AppiumLibCoreTest
           # keypress
           def test_long_press_keycodewith_flags
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:longPressKeyCode', args: [{ keycode: 86, metastate: 1, flags: 36 }] }.to_json)
+              .with(body: {
+                script: 'mobile:pressKey',
+                args: [{ keycode: 86, isLongPress: true, metastate: 1, flags: 36 }]
+              }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             # metastate is META_SHIFT_ON

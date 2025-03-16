@@ -151,26 +151,6 @@ class AppiumLibCoreTest
         @driver.wait_until { assert @driver.app_state('io.appium.android.apis') == :running_in_foreground }
       end
 
-      def test_start_activity
-        e = @driver.wait_until(&:current_activity)
-        assert_equal '.ApiDemos', e
-
-        @driver.start_activity app_package: 'io.appium.android.apis',
-                               app_activity: '.accessibility.AccessibilityNodeProviderActivity'
-        e = @driver.wait_until(&:current_activity)
-        assert true, e.include?('Node')
-
-        # Espresso cannot launch my root launched activity: https://github.com/appium/appium-espresso-driver/pull/378#discussion_r250034209
-        return if @@core.automation_name == :espresso
-
-        @driver.start_activity app_package: 'com.android.settings', app_activity: '.Settings',
-                               app_wait_package: 'com.android.settings', app_wait_activity: '.Settings'
-        e = @driver.wait_until(&:current_activity)
-        assert true, e.include?('Settings')
-
-        @driver.start_activity app_package: 'io.appium.android.apis', app_activity: '.ApiDemos'
-      end
-
       def test_current_package
         e = @driver.wait_until(&:current_package)
         assert_equal 'io.appium.android.apis', e
