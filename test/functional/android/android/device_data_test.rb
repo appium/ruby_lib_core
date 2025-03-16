@@ -71,8 +71,7 @@ class AppiumLibCoreTest
 
         assert_equal [%w(user kernel), %w(0 0)],
                      @driver.get_performance_data(package_name: 'io.appium.android.apis',
-                                                  data_type: 'cpuinfo',
-                                                  data_read_timeout: 10)
+                                                  data_type: 'cpuinfo')
       end
 
       def test_take_element_screenshot

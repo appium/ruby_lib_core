@@ -196,7 +196,6 @@ module Appium
         app_installed?: [:post, 'session/:session_id/appium/device/app_installed'],
         activate_app: [:post, 'session/:session_id/appium/device/activate_app'],
         terminate_app: [:post, 'session/:session_id/appium/device/terminate_app'],
-        app_state: [:post, 'session/:session_id/appium/device/app_state'],
         shake: [:post, 'session/:session_id/appium/device/shake'],
         hide_keyboard: [:post, 'session/:session_id/appium/device/hide_keyboard'],
         press_keycode: [:post, 'session/:session_id/appium/device/press_keycode'],
@@ -229,8 +228,6 @@ module Appium
         toggle_wifi: [:post, 'session/:session_id/appium/device/toggle_wifi'],
         toggle_data: [:post, 'session/:session_id/appium/device/toggle_data'],
         toggle_location_services: [:post, 'session/:session_id/appium/device/toggle_location_services'],
-        get_performance_data_types: [:post, 'session/:session_id/appium/performanceData/types'],
-        get_performance_data: [:post, 'session/:session_id/appium/getPerformanceData'],
         get_network_connection: [:get, 'session/:session_id/network_connection'], # defined also in OSS
         set_network_connection: [:post, 'session/:session_id/network_connection'], # defined also in OSS
 

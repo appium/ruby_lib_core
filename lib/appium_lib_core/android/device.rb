@@ -244,17 +244,15 @@ module Appium
         #   @driver.get_performance_data_types #=> ["cpuinfo", "batteryinfo", "networkinfo", "memoryinfo"]
         #
 
-        # @deprecated Use 'mobile: getPerformanceData' extension instead.
-        # @!method get_performance_data(package_name:, data_type:, data_read_timeout: 1000)
+        # @!method get_performance_data(package_name:, data_type:)
         #   Get the resource usage information of the application.
         #   https://github.com/appium/appium-base-driver/blob/be29aec2318316d12b5c3295e924a5ba8f09b0fb/lib/mjsonwp/routes.js#L303
         # @param [String] package_name: Package name
         # @param [String] data_type: Data type get with +get_performance_data_types+
-        # @param [String] data_read_timeout: Command timeout. Default is 2.
         #
         # @example
         #
-        #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
+        #   @driver.get_performance_data package_name: package_name, data_type: data_type
         #
 
         # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000', bug_report: nil)
