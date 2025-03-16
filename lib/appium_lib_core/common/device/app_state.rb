@@ -26,8 +26,8 @@ module Appium
           ].freeze
 
           def app_state(app_id)
-            # required: [['appId'], ['bundleId']]
-            response = execute :app_state, {}, appId: app_id
+            # appId is for android, bundleId is for ios.
+            execute_script 'mobile:queryAppState', { 'appId': app_id, 'bundleId': app_id }
 
             case response
             when 0, 1, 2, 3, 4

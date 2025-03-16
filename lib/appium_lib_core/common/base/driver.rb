@@ -732,7 +732,6 @@ module Appium
         #      @driver.query_app_state("io.appium.bundle") #=> :not_running
         #
         def app_state(app_id)
-          # TODO: use mobile command in the background?
           @bridge.app_state(app_id)
         end
         alias query_app_state app_state
