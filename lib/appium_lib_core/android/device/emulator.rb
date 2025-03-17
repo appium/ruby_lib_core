@@ -157,7 +157,7 @@ module Appium
                         "The netspeed should be member of #{NET_SPEED}. Not #{netspeed}."
                 end
 
-                execute_script 'mobile:networkSpee', { speed: netspeed }
+                execute_script 'mobile:networkSpeed', { speed: netspeed }
               end
             end
 

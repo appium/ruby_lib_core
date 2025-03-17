@@ -114,19 +114,15 @@ module Appium
         #   @driver.toggle_location_services
         #
 
-        # @!method hide_keyboard(close_key = nil, strategy = nil)
+        # @!method hide_keyboard(close_key = nil)
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
         #   Defaults to 'Done' for iOS(except for XCUITest).
-        # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
-        #   XCUITest ignore this argument.
-        #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
         #
         # @example
         #
         #  @driver.hide_keyboard                   # Close a keyboard with the 'Done' button
         #  @driver.hide_keyboard('Finished')       # Close a keyboard with the 'Finished' button
-        #  @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
 
         # @!method get_performance_data_types

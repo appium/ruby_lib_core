@@ -328,7 +328,7 @@ args: [{ strength: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good]
 
           def test_network_speed
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:networkSpee', args: [{ speed: 'gsm' }] }.to_json)
+              .with(body: { script: 'mobile:networkSpeed', args: [{ speed: 'gsm' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.set_network_speed :gsm
