@@ -32,8 +32,6 @@ module Appium
 
         include Base::HasLocation
 
-        include Base::HasNetworkConnection
-
         include Core::Waitable
 
         attr_reader bridge: untyped
@@ -62,7 +60,7 @@ module Appium
 
         def unlock: () -> untyped
 
-        def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
+        def hide_keyboard: (?untyped? close_key) -> untyped
 
         def keyboard_shown?: () -> untyped
 
