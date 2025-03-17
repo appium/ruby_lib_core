@@ -211,9 +211,9 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 15 Pro'
+                 'iPhone 15 Plus'
                else
-                 'iPhone 15 Pro'
+                 'iPhone 15 Pro Max'
                end
 
         parallel? ? "#{name} - #{wda_local_port}" : name

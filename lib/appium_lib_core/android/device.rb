@@ -71,6 +71,15 @@ module Appium
         #   @driver.get_display_density # 320
         #
 
+        # @!method location
+        # Get the location of the device.
+        #
+        # @return [::Appium::Location]
+        #
+        # @example
+        #
+        #   driver.location #=> ::Appium::Location.new(10, 10, 10)
+        #
         # @!method location=
         # Set the [::Appium::Location] of the device.
         #
