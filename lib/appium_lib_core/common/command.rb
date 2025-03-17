@@ -123,6 +123,7 @@ module Appium
         element_click: [:post, 'session/:session_id/element/:id/click'],
         element_tap: [:post, 'session/:session_id/element/:id/tap'],
         element_clear: [:post, 'session/:session_id/element/:id/clear'],
+        element_send_keys: [:post, 'session/:session_id/element/:id/value'],
 
         #
         # alerts
