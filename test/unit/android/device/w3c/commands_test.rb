@@ -318,7 +318,7 @@ args: [{ strength: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good]
 
           def test_gsm_voice
             stub_request(:post, "#{SESSION}/execute/sync")
-              .with(body: { script: 'mobile:gsmVoic', args: [{ state: 'on' }] }.to_json)
+              .with(body: { script: 'mobile:gsmVoice', args: [{ state: 'on' }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.gsm_voice :on

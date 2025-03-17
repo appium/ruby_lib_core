@@ -146,7 +146,7 @@ module Appium
                   raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
                 end
 
-                execute_script 'mobile:gsmVoic', { state: state }
+                execute_script 'mobile:gsmVoice', { state: state }
               end
             end
 
