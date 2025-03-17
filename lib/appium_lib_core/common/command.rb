@@ -183,9 +183,6 @@ module Appium
         set_context: [:post, 'session/:session_id/context'],
         current_context: [:get, 'session/:session_id/context'],
 
-        device_locked?: [:post, 'session/:session_id/appium/device/is_locked'],
-        unlock: [:post, 'session/:session_id/appium/device/unlock'],
-        lock: [:post, 'session/:session_id/appium/device/lock'],
         device_time: [:get, 'session/:session_id/appium/device/system_time'],
         install_app: [:post, 'session/:session_id/appium/device/install_app'],
         remove_app: [:post, 'session/:session_id/appium/device/remove_app'],

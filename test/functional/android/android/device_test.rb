@@ -49,9 +49,9 @@ class AppiumLibCoreTest
       end
 
       def test_lock_unlock
-        @driver.lock
+        @driver.lock 0
         # Unstable on CI
-        @@core.wait { assert @@driver.device_locked? } unless ci?
+        @@core.wait { assert @driver.device_locked? } unless ci?
 
         @driver.unlock
         @driver.wait_until { |d| assert !d.device_locked? }
@@ -208,9 +208,9 @@ class AppiumLibCoreTest
 
         # test & comments from https://github.com/appium/appium/blob/1.x/test/functional/android/apidemos/notifications-specs.js#L19
         # get to the notification page
-        @@core.wait { scroll_to('App').click }
+        @@core.wait { @driver.find_element(:accessibility_id, 'App').click }
         @@core.wait { scroll_to('Notification').click }
-        @@core.wait { scroll_to('Status Bar').click }
+        @@core.wait { @driver.find_element(:accessibility_id, 'Status Bar').click }
         # create a notification
         @@core.wait { @driver.find_element :accessibility_id, ':-|' }.click
         @driver.open_notifications
@@ -225,7 +225,7 @@ class AppiumLibCoreTest
         end
 
         # should see the notification
-        @@core.wait_true { text 'Mood ring' }
+        @@core.wait_true { @driver.find_element :xpath, '//*[@text="Mood ring"]' }
         # return to app
         @driver.back
         # should be able to see elements from app
@@ -290,10 +290,6 @@ class AppiumLibCoreTest
 
         resource_id = %r{^[a-zA-Z_][a-zA-Z0-9._]*:[^\/]+\/\S+$}
         string.match(resource_id) ? on_match : ''
-      end
-
-      def text(value)
-        @driver.find_element :uiautomator, "new UiSelector().className(\"android.widget.TextView\").text(\"#{value}\");"
       end
     end
   end
