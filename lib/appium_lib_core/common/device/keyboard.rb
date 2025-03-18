@@ -17,17 +17,16 @@ module Appium
     class Base
       module Device
         module Keyboard
-          def hide_keyboard(close_key = nil, strategy = nil)
+          def hide_keyboard(close_key = nil)
             option = {}
 
-            option[:key] = close_key || 'Done'        # default to Done key.
-            option[:strategy] = strategy || :pressKey # default to pressKey
+            option[:key] = close_key || 'Done' # default to Done key.
 
-            execute :hide_keyboard, {}, option
+            execute_script 'mobile:hideKeyboard', option
           end
 
           def is_keyboard_shown # rubocop:disable Naming/PredicateName
-            execute :is_keyboard_shown
+            execute_script 'mobile:isKeyboardShown', {}
           end
         end # module Keyboard
       end # module Device

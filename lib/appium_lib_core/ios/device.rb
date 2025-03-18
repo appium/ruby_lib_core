@@ -75,13 +75,13 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:touch_id) do
               def touch_id(match = true)
-                execute :touch_id, {}, match: match
+                execute_script 'mobile:sendBiometricMatch', { 'type': 'touch_id', match: match }
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_touch_id_enrollment) do
               def toggle_touch_id_enrollment(enabled = true)
-                execute :toggle_touch_id_enrollment, {}, enabled: enabled
+                execute_script 'mobile:enrollBiometric', { 'isEnabled': enabled }
               end
             end
 

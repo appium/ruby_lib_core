@@ -20,9 +20,7 @@ module Appium
           def self.add_methods
             ::Appium::Core::Device.add_endpoint_method(:get_display_density) do
               def get_display_density
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getDisplayDensity' extension instead"
-
-                execute :get_display_density
+                execute_script 'mobile:getDisplayDensity', {}
               end
             end
 

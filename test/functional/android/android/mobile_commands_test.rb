@@ -213,7 +213,7 @@ class AppiumLibCoreTest
         el = @core.wait { @driver.find_element(:id, 'wv1') }
 
         @driver.execute_script 'mobile: webAtoms', {
-          webviewElement: el.id,
+          webviewEl: el.id,
           forceJavascriptEnabled: true,
           methodChain: [
             { name: 'withElement', atom: { name: 'findElement', locator: { using: 'ID', value: 'i_am_a_textbox' } } },

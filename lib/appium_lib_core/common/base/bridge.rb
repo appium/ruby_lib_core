@@ -246,20 +246,6 @@ module Appium
         end
 
         # For Appium
-        # override
-        # called in 'extend DriverExtensions::HasNetworkConnection'
-        def network_connection
-          execute :get_network_connection
-        end
-
-        # For Appium
-        # override
-        # called in 'extend DriverExtensions::HasNetworkConnection'
-        def network_connection=(type)
-          execute :set_network_connection, {}, { parameters: { type: type } }
-        end
-
-        # For Appium
         # No implementation for W3C webdriver module
         # called in 'extend DriverExtensions::HasLocation'
         def location
