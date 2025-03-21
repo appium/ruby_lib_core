@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.0.0] - 2025-03-21
+### Enhancements
+- Remove deprecated marked commands
+    - `get_network_connection` / `set_network_connection`, `toggle_wifi`, `toggle_data`, `toggle_airplane_mode`
+        - Please use `mobile: setConnectivity` / `mobile: getConnectivity` instead
+    - `start_activity`
+        - Please use `mobile: startActivity` instead
+- Use mobile command for existing methods (the backend method call has changed. Old appium such as Appium v1 or before may have an issue as no matched command)
+    - `toggle_location_services`, `get_performance_data`, `get_performance_data_types`, `finger_print`, `open_notifications`, `current_activity`, `current_package`, `get_system_bars`, `system_bars`, `toggle_location_services`, `hide_keyboard`, `background_app`, `set_clipboard`, `get_clipboard`, `send_sms`, `gsm_call`, `gsm_signal`, `gsm_voice`, `set_network_speed`, `set_power_capacity`, `set_power_ac`, `get_display_density`, `lock`, `unlock`, `locked?`, `hide_keyboard`, `press_keycode`, `long_press_keycode`, `app_strings`, `app_state`, `shake`, `device_time`
+
 ## [10.0.0] - 2025-02-16
 
 ### Enhancements
