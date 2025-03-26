@@ -28,7 +28,6 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::TakesScreenshot
