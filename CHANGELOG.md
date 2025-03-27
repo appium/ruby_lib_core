@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.0.1]
+- Remove `::Selenium::WebDriver::DriverExtensions::HasWebStorage` import to follow selenium webdriver 4.30.0
+
 ## [11.0.0] - 2025-03-21
 ### Enhancements
 - Remove deprecated marked commands

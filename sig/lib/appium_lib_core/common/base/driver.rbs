@@ -22,8 +22,6 @@ module Appium
 
         include Selenium::WebDriver::DriverExtensions::HasSessionId
 
-        include Selenium::WebDriver::DriverExtensions::HasWebStorage
-
         include Base::Rotatable
 
         include Base::TakesScreenshot
