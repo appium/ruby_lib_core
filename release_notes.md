@@ -1,3 +1,9 @@
+#### v11.0.1 2025-03-27
+
+- [3b62638](https://github.com/appium/ruby_lib_core/commit/3b62638d3f30de324a7f3083fb763ade5dfbe831) Release 11.0.1
+- [d155504](https://github.com/appium/ruby_lib_core/commit/d1555046b8c34912b0015b50ba8fa6de1b3f4b7a) chore: remove HasWebStorage by follow selenium webdriver 4.30.0 (#603)
+
+
 #### v11.0.0 2025-03-21
 
 - [5a5ab02](https://github.com/appium/ruby_lib_core/commit/5a5ab02af87a1ac40201bdaef5dfa771233ccd71) Release 11.0.0
