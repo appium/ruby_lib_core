@@ -29,39 +29,53 @@ class AppiumLibCoreTest
           end
 
           def test_device_locked?
-            stub_request(:post, "#{SESSION}/appium/device/is_locked")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:isLocked', args: [{}] })
               .to_return(headers: HEADER, status: 200, body: { value: 'true' }.to_json)
 
             @driver.device_locked?
 
-            assert_requested(:post, "#{SESSION}/appium/device/is_locked", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_locked?
-            stub_request(:post, "#{SESSION}/appium/device/is_locked")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:isLocked', args: [{}] })
               .to_return(headers: HEADER, status: 200, body: { value: 'true' }.to_json)
 
             @driver.locked?
 
-            assert_requested(:post, "#{SESSION}/appium/device/is_locked", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_unlock
-            stub_request(:post, "#{SESSION}/appium/device/unlock")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:unlock', args: [{}] })
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.unlock
 
-            assert_requested(:post, "#{SESSION}/appium/device/unlock", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
+          end
+
+          def test_lock_no_duration
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:lock', args: [{}] })
+              .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
+
+            @driver.lock
+
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_lock
-            stub_request(:post, "#{SESSION}/appium/device/lock")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:lock', args: [{ seconds: 5 }] })
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.lock 5
 
-            assert_requested(:post, "#{SESSION}/appium/device/lock", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
         end # class DeviceLockTest
       end # module W3C

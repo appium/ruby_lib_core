@@ -29,21 +29,23 @@ class AppiumLibCoreTest
           end
 
           def test_touch_id
-            stub_request(:post, "#{SESSION}/appium/simulator/touch_id")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:sendBiometricMatch', args: [{ type: 'touch_id', match: true }] })
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.touch_id
 
-            assert_requested(:post, "#{SESSION}/appium/simulator/touch_id", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_toggle_touch_id_enrollment
-            stub_request(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:enrollBiometric', args: [{ isEnabled: true }] })
               .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
             @driver.toggle_touch_id_enrollment(true)
 
-            assert_requested(:post, "#{SESSION}/appium/simulator/toggle_touch_id_enrollment", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_start_recording_screen
@@ -133,13 +135,13 @@ class AppiumLibCoreTest
           end
 
           def test_background_app
-            stub_request(:post, "#{SESSION}/appium/app/background")
-              .with(body: { seconds: { timeout: 0 } }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:backgroundApp', args: [{ seconds: 0 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.background_app 0
 
-            assert_requested(:post, "#{SESSION}/appium/app/background", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
         end # class CommandsTest
       end # module W3C

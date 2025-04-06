@@ -22,8 +22,6 @@ module Appium
 
         include Selenium::WebDriver::DriverExtensions::HasSessionId
 
-        include Selenium::WebDriver::DriverExtensions::HasWebStorage
-
         include Base::Rotatable
 
         include Base::TakesScreenshot
@@ -31,8 +29,6 @@ module Appium
         include Base::HasRemoteStatus
 
         include Base::HasLocation
-
-        include Base::HasNetworkConnection
 
         include Core::Waitable
 
@@ -62,7 +58,7 @@ module Appium
 
         def unlock: () -> untyped
 
-        def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
+        def hide_keyboard: (?untyped? close_key) -> untyped
 
         def keyboard_shown?: () -> untyped
 

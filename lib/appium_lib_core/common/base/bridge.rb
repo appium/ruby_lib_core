@@ -68,7 +68,7 @@ module Appium
         #
         #   new_driver = ::Appium::Core::Driver.attach_to(
         #     driver.session_id,
-        #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+        #     url: 'http://127.0.0.1:4723', automation_name: 'UiAutomator2', platform_name: 'Android'
         #   )
         #
         def attach_to(session_id, platform_name, automation_name)
@@ -243,20 +243,6 @@ module Appium
         # @return [::Appium::Core::Element]
         def convert_to_element(id)
           ::Appium::Core::Element.new self, element_id_from(id)
-        end
-
-        # For Appium
-        # override
-        # called in 'extend DriverExtensions::HasNetworkConnection'
-        def network_connection
-          execute :get_network_connection
-        end
-
-        # For Appium
-        # override
-        # called in 'extend DriverExtensions::HasNetworkConnection'
-        def network_connection=(type)
-          execute :set_network_connection, {}, { parameters: { type: type } }
         end
 
         # For Appium

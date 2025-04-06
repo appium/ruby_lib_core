@@ -130,7 +130,7 @@ class AppiumLibCoreTest
       platform_version = '17.4'
       wda_port = wda_local_port
 
-      real_device = ENV['REAL'] ? true : false
+      real_device = ENV['REAL'] || false
 
       cap = {
         caps: { # :desiredCapabilities is also available
@@ -419,8 +419,8 @@ class AppiumLibCoreTest
 
   module Mock
     HEADER = { 'Content-Type' => 'application/json; charset=utf-8', 'Cache-Control' => 'no-cache' }.freeze
-    NOSESSION = 'http://127.0.0.1:4723/wd/hub'
-    SESSION = 'http://127.0.0.1:4723/wd/hub/session/1234567890'
+    NOSESSION = 'http://127.0.0.1:4723'
+    SESSION = 'http://127.0.0.1:4723/session/1234567890'
 
     def android_mock_create_session
       android_mock_create_session_w3c
@@ -443,7 +443,7 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
@@ -457,7 +457,7 @@ class AppiumLibCoreTest
       assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',
@@ -500,7 +500,7 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       stub_request(:post, "#{SESSION}/timeouts")
@@ -512,7 +512,7 @@ class AppiumLibCoreTest
       assert_equal({}, driver.send(:bridge).http.additional_headers)
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',
@@ -558,14 +558,14 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       driver = @core.start_driver
 
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',
@@ -589,14 +589,14 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       driver = @core.start_driver
 
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',
@@ -620,14 +620,14 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       driver = @core.start_driver
 
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',
@@ -649,14 +649,14 @@ class AppiumLibCoreTest
         }
       }.to_json
 
-      stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+      stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
       driver = @core.start_driver
 
       assert_requested(
         :post,
-        'http://127.0.0.1:4723/wd/hub/session',
+        'http://127.0.0.1:4723/session',
         headers: {
           'X-Idempotency-Key' => /.+/,
           'Content-Type' => 'application/json; charset=UTF-8',

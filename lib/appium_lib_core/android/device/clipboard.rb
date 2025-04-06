@@ -29,7 +29,7 @@ module Appium
 
                 params = { contentType: content_type }
 
-                data = execute(:get_clipboard, {}, params)
+                data = execute_script 'mobile:getClipboard', params
                 Base64.decode64 data
               end
             end
@@ -47,7 +47,7 @@ module Appium
                 }
                 params[:label] = label unless label.nil?
 
-                execute(:set_clipboard, {}, params)
+                execute_script 'mobile:setClipboard', params
               end
             end
           end

@@ -23,7 +23,7 @@ class AppiumLibCoreTest
 
       def setup
         ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
-        @bridge = Appium::Core::Base::Bridge.new url: 'http://127.0.0.1:4723/wd/hub'
+        @bridge = Appium::Core::Base::Bridge.new url: 'http://127.0.0.1:4723'
       end
 
       RESPONSE_BASE_VALUE = {
@@ -77,13 +77,13 @@ class AppiumLibCoreTest
       def test_create_session_w3c
         response = { value: RESPONSE_BASE_VALUE }.to_json
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .with(body: { capabilities: { alwaysMatch: APPIUM_PREFIX_CAPS, firstMatch: [{}] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         _driver = ::Appium::Core.for({ caps: CAPS, appium_lib: {} }).start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
       end
 
       def test_create_session_w3c_with_http_package
@@ -119,14 +119,14 @@ class AppiumLibCoreTest
           'appium:appPackage' => 'io.appium.android.apis'
         }
 
-        stub_request(:post, 'http://127.0.0.1:4723/wd/hub/session')
+        stub_request(:post, 'http://127.0.0.1:4723/session')
           .with(body: { capabilities: { alwaysMatch: appium_prefix_http_caps, firstMatch: [{}] } }.to_json)
           .to_return(headers: Mock::HEADER, status: 200, body: response)
 
         core = ::Appium::Core.for({ caps: http_caps, appium_lib: {} })
         core.start_driver
 
-        assert_requested(:post, 'http://127.0.0.1:4723/wd/hub/session', times: 1)
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
 
         assert_equal 'http://example.com/test.apk.zip', core.caps[:app]
       end

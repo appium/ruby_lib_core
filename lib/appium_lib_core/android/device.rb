@@ -14,7 +14,6 @@
 
 require_relative 'device/emulator'
 require_relative 'device/clipboard'
-require_relative 'device/network'
 require_relative 'device/performance'
 require_relative 'device/screen'
 require_relative 'device/auth_finger_print'
@@ -27,7 +26,6 @@ module Appium
 
         # rubocop:disable Layout/LineLength
 
-        # @deprecated Use 'mobile: openNotifications' extension instead.
         # @!method open_notifications
         #   Open Android notifications
         #
@@ -36,7 +34,6 @@ module Appium
         #   @driver.open_notifications
         #
 
-        # @deprecated Use 'mobile: getCurrentActivity' extension instead.
         # @!method current_activity
         # Get current activity name
         # @return [String] An activity name
@@ -46,7 +43,6 @@ module Appium
         #   @driver.current_activity # '.ApiDemos'
         #
 
-        # @deprecated Use 'mobile: getCurrentPackage' extension instead.
         # @!method current_package
         # Get current package name
         # @return [String] A package name
@@ -56,7 +52,6 @@ module Appium
         #   @driver.current_package # 'com.example.android.apis'
         #
 
-        # @deprecated Use 'mobile: getSystemBars' extension instead.
         # @!method get_system_bars
         # Get system bar's information
         # @return [String]
@@ -67,7 +62,6 @@ module Appium
         #   @driver.system_bars
         #
 
-        # @deprecated Use 'mobile: getDisplayDensity' extension instead.
         # @!method get_display_density
         # Get connected device's density.
         # @return [Integer] The size of density
@@ -77,44 +71,6 @@ module Appium
         #   @driver.get_display_density # 320
         #
 
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method get_network_connection
-        #   Get the device network connection current status
-        #   See set_network_connection method for return value
-        #   Same as #network_connection_type in selenium-webdriver.
-        #
-        #   Returns a key of <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code> in #network_connection_type
-        #   Returns a number of the mode in +#get_network_connection+
-        #
-        # @example
-        #
-        #   @driver.network_connection_type #=> :all
-        #   @driver.get_network_connection  #=> 6
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_wifi
-        #   Switch the state of the wifi service only for Android
-        #
-        # @return [String]
-        #
-        # @example
-        #
-        #   @driver.toggle_wifi
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_data
-        #   Switch the state of data service only for Android, and the device should be rooted
-        #
-        # @return [String]
-        #
-        # @example
-        #
-        #   @driver.toggle_data
-        #
-
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
         # @!method location
         # Get the location of the device.
         #
@@ -124,7 +80,6 @@ module Appium
         #
         #   driver.location #=> ::Appium::Location.new(10, 10, 10)
         #
-
         # @!method location=
         # Set the [::Appium::Location] of the device.
         #
@@ -149,7 +104,6 @@ module Appium
         #   driver.set_location 10, 10, 0
         #
 
-        # @deprecated Use 'mobile: toggleGps' extension instead.
         # @!method toggle_location_services
         #   Switch the state of the location service
         #
@@ -160,80 +114,17 @@ module Appium
         #   @driver.toggle_location_services
         #
 
-        # @deprecated Use 'mobile: getConnectivity' extension instead.
-        # @!method toggle_airplane_mode
-        # Toggle flight mode on or off
-        #
-        # @example
-        #
-        #   @driver.toggle_airplane_mode
-        #
-
-        # @deprecated Use 'mobile: hideKeyboard' extension instead.
-        # @!method hide_keyboard(close_key = nil, strategy = nil)
+        # @!method hide_keyboard(close_key = nil)
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
         #   Defaults to 'Done' for iOS(except for XCUITest).
-        # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
-        #   XCUITest ignore this argument.
-        #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
         #
         # @example
         #
         #  @driver.hide_keyboard                   # Close a keyboard with the 'Done' button
         #  @driver.hide_keyboard('Finished')       # Close a keyboard with the 'Finished' button
-        #  @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
 
-        # @deprecated Use 'mobile: startActivity' extension instead.
-        # @!method start_activity(opts)
-        # Android only. Start a new activity within the current app or launch a new app and start the target activity.
-        #
-        # Read https://developer.android.com/studio/command-line/adb#IntentSpec for each flags.
-        #
-        # @param opts [Hash] Options
-        # @option opts [String] :app_package The package owning the activity [required]
-        # @option opts [String] :app_activity The target activity [required]
-        # @option opts [String] :app_wait_package The package to start before the target package [optional]
-        # @option opts [String] :app_wait_activity The activity to start before the target activity [optional]
-        # @option opts [String] :intent_action The intent action to give it when start the target activity (+-a+) [optional]
-        # @option opts [String] :intent_category The intent category to give it when start the target activity (+-c+) [optional]
-        # @option opts [String] :intent_flags The intent flag to give it when start the target activity (+-f+) [optional]
-        # @option opts [String] :optional_intent_arguments The optional intent action to give it when start the target activity [optional]
-        #                                                  You can set arbitrary arguments with space as string.
-        #                                                  e.g. +'--ez your_extra_bool bool --ei your_extra_int 1'+
-        # @option opts [bool] :dont_stop_app_on_reset Do not stop the app when the reset is called in Appium create/delete session [optional]
-        #
-        # @example
-        #
-        #   start_activity app_package: 'io.appium.android.apis',
-        #     app_activity: '.accessibility.AccessibilityNodeProviderActivity'
-        #
-
-        # @deprecated Use 'mobile: setConnectivity' extension instead.
-        # @!method set_network_connection(mode)
-        # Set the device network connection mode
-        # Same as +#network_connection_type+ in selenium-webdriver.
-        #
-        # @param [String] mode Bit mask that represent the network mode
-        # Or the key matched with <code>{:airplane_mode: 1, wifi: 2, data: 4, all: 6, none: 0}</code>
-        #
-        #   Value (Alias)      | Data | Wifi | Airplane Mode
-        #   -------------------------------------------------
-        #   1 (Airplane Mode)  | 0    | 0    | 1
-        #   6 (All network on) | 1    | 1    | 0
-        #   4 (Data only)      | 1    | 0    | 0
-        #   2 (Wifi only)      | 0    | 1    | 0
-        #   0 (None)           | 0    | 0    | 0
-        #
-        # @example
-        #
-        #   @driver.set_network_connection 1
-        #   @driver.set_network_connection :airplane_mode
-        #   @driver.network_connection_type = :airplane_mode # As selenium-webdriver
-        #
-
-        # @deprecated Use 'mobile: getPerformanceDataTypes' extension instead.
         # @!method get_performance_data_types
         #   Get the information type of the system state which is supported to read such as
         #   cpu, memory, network, battery via adb commands.
@@ -244,17 +135,15 @@ module Appium
         #   @driver.get_performance_data_types #=> ["cpuinfo", "batteryinfo", "networkinfo", "memoryinfo"]
         #
 
-        # @deprecated Use 'mobile: getPerformanceData' extension instead.
-        # @!method get_performance_data(package_name:, data_type:, data_read_timeout: 1000)
+        # @!method get_performance_data(package_name:, data_type:)
         #   Get the resource usage information of the application.
         #   https://github.com/appium/appium-base-driver/blob/be29aec2318316d12b5c3295e924a5ba8f09b0fb/lib/mjsonwp/routes.js#L303
         # @param [String] package_name: Package name
         # @param [String] data_type: Data type get with +get_performance_data_types+
-        # @param [String] data_read_timeout: Command timeout. Default is 2.
         #
         # @example
         #
-        #   @driver.get_performance_data package_name: package_name, data_type: data_type, data_read_timeout: 2
+        #   @driver.get_performance_data package_name: package_name, data_type: data_type
         #
 
         # @!method start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT', file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil, video_size: nil, time_limit: '180', bit_rate: '4000000', bug_report: nil)
@@ -324,7 +213,6 @@ module Appium
         #   @driver.set_clipboard(content: 'happy testing') #=> {"protocol"=>"W3C"}
         #
 
-        # @deprecated Use 'mobile: fingerprint' extension instead.
         # @!method finger_print(finger_id)
         #     Authenticate users by using their finger print scans on supported emulators.
         #
@@ -364,110 +252,51 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:open_notifications) do
               def open_notifications
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: openNotifications' extension instead"
-
-                execute :open_notifications
+                execute_script 'mobile:openNotifications', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:current_activity) do
               def current_activity
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getCurrentActivity' extension instead"
-
-                execute :current_activity
+                execute_script 'mobile:getCurrentActivity', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:current_package) do
               def current_package
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getCurrentPackage' extension instead"
-
-                execute :current_package
+                execute_script 'mobile:getCurrentPackage', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:get_system_bars) do
               def get_system_bars
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getSystemBars' extension instead"
-
-                execute :get_system_bars
+                execute_script 'mobile:getSystemBars', {}
               end
             end
             # as alias to get_system_bars
             ::Appium::Core::Device.add_endpoint_method(:system_bars) do
               def system_bars
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getSystemBars' extension instead"
-
-                execute :get_system_bars
+                execute_script 'mobile:getSystemBars', {}
               end
             end
 
             ::Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
               def toggle_location_services
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: toggleGps' extension instead"
-
-                execute :toggle_location_services
-              end
-            end
-
-            ::Appium::Core::Device.add_endpoint_method(:start_activity) do
-              def start_activity(opts)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: startActivity' extension instead"
-
-                raise ::Appium::Core::Error::ArgumentError, 'opts must be a hash' unless opts.is_a? Hash
-
-                option = {}
-
-                app_package = opts[:app_package]
-                raise ::Appium::Core::Error::ArgumentError, 'app_package is required' unless app_package
-
-                app_activity = opts[:app_activity]
-                raise ::Appium::Core::Error::ArgumentError, 'app_activity is required' unless app_activity
-
-                option[:appPackage] = app_package
-                option[:appActivity] = app_activity
-
-                app_wait_package  = opts.fetch(:app_wait_package, nil)
-                app_wait_activity = opts.fetch(:app_wait_activity, nil)
-                option[:appWaitPackage] = app_wait_package if app_wait_package
-                option[:appWaitActivity] = app_wait_activity if app_wait_activity
-
-                intent_action = opts.fetch(:intent_action, nil)
-                intent_category = opts.fetch(:intent_category, nil)
-                intent_flags = opts.fetch(:intent_flags, nil)
-                optional_intent_arguments = opts.fetch(:optional_intent_arguments, nil)
-                dont_stop_app_on_reset = opts.fetch(:dont_stop_app_on_reset, nil)
-
-                option[:intentAction] = intent_action if intent_action
-                option[:intentCategory] = intent_category if intent_category
-                option[:intentFlags] = intent_flags if intent_flags
-                option[:optionalIntentArguments] = optional_intent_arguments if optional_intent_arguments
-                option[:dontStopAppOnReset] = dont_stop_app_on_reset if dont_stop_app_on_reset
-
-                execute :start_activity, {}, option
+                execute_script 'mobile:toggleGps', {}
               end
             end
 
             # Android, Override included method in bridge
             ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
-              def hide_keyboard(close_key = nil, strategy = nil)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: hideKeyboard' extension instead"
-
-                option = {}
-
-                option[:key] = close_key if close_key
-                option[:strategy] = strategy if strategy
-
-                execute :hide_keyboard, {}, option
+              def hide_keyboard(_close_key = nil)
+                execute_script 'mobile:hideKeyboard', {}
               end
             end
 
             # Android, Override included method in bridge
             ::Appium::Core::Device.add_endpoint_method(:background_app) do
               def background_app(duration = 0)
-                ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: backgroundApp' extension instead"
-
-                execute :background_app, {}, seconds: duration
+                execute_script 'mobile:backgroundApp', { seconds: duration }
               end
             end
 
@@ -482,7 +311,6 @@ module Appium
 
             Screen.add_methods
             Performance.add_methods
-            Network.add_methods
             Clipboard.add_methods
             Emulator.add_methods
             Authentication.add_methods

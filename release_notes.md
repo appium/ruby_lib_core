@@ -1,3 +1,31 @@
+#### v11.0.1 2025-03-27
+
+- [3b62638](https://github.com/appium/ruby_lib_core/commit/3b62638d3f30de324a7f3083fb763ade5dfbe831) Release 11.0.1
+- [d155504](https://github.com/appium/ruby_lib_core/commit/d1555046b8c34912b0015b50ba8fa6de1b3f4b7a) chore: remove HasWebStorage by follow selenium webdriver 4.30.0 (#603)
+
+
+#### v11.0.0 2025-03-21
+
+- [5a5ab02](https://github.com/appium/ruby_lib_core/commit/5a5ab02af87a1ac40201bdaef5dfa771233ccd71) Release 11.0.0
+- [8d19b1f](https://github.com/appium/ruby_lib_core/commit/8d19b1f13d26491562e607c465f3d425fc3c4996) feat: replace duplicated commands/endpoint with mobile extensions (#600)
+- [f2857c2](https://github.com/appium/ruby_lib_core/commit/f2857c23feccb698b6a0c62ddc01470a38c60554) chore(deps): update rubocop requirement from 1.73.2 to 1.74.0 (#599)
+- [7265c89](https://github.com/appium/ruby_lib_core/commit/7265c8903052981c1a1d1b30c5a43652d903c686) chore(deps): update rubocop requirement from 1.73.0 to 1.73.2 (#598)
+- [ac54640](https://github.com/appium/ruby_lib_core/commit/ac54640c5bb28a3e9aba418070605f2b22432b61) chore(deps): update rubocop requirement from 1.72.2 to 1.73.0 (#596)
+- [986fdab](https://github.com/appium/ruby_lib_core/commit/986fdab723aede03f7e9babb2ab6ca8d7f6ed6e7) chore(deps): update rubocop requirement from 1.72.1 to 1.72.2 (#594)
+- [2d169d3](https://github.com/appium/ruby_lib_core/commit/2d169d3e7bbb84808fd9ced56c17d95f0337d73e) Merge branch 'master' of github.com:appium/ruby_lib_core
+- [9271c78](https://github.com/appium/ruby_lib_core/commit/9271c787ed23ca678a01f0734ac3b495dd1c22be) chore: correct yardocs
+- [dbe0af0](https://github.com/appium/ruby_lib_core/commit/dbe0af0849ca2bd8591de5983e4e37d13f9c41c1) chore(deps): update rubocop requirement from 1.71.2 to 1.72.1 (#593)
+
+
+#### v10.0.0 2025-02-16
+
+- [96ece1a](https://github.com/appium/ruby_lib_core/commit/96ece1a1f580bc24888841286dc061dd5ec9faa5) Release 10.0.0
+- [2942f7c](https://github.com/appium/ruby_lib_core/commit/2942f7c7593708ceb1448094aca40d1389f9ab2b) feat: drop /wd/hub from the default path (#592)
+- [720be21](https://github.com/appium/ruby_lib_core/commit/720be21cca1f6d293318185896d79ed690eb9a3e) chore(deps): update webmock requirement from ~> 3.24.0 to ~> 3.25.0 (#591)
+- [5e3aeec](https://github.com/appium/ruby_lib_core/commit/5e3aeec2ad27eb4fda14cd24d522027a0a5f431c) chore(deps): update rubocop requirement from 1.71.1 to 1.71.2 (#590)
+- [39062fe](https://github.com/appium/ruby_lib_core/commit/39062feed2ecd659cf513bb0ac6e010e0046d82c) chore(deps): update rubocop requirement from 1.71.0 to 1.71.1 (#589)
+
+
 #### v9.5.2 2025-01-30
 
 - [8ecf130](https://github.com/appium/ruby_lib_core/commit/8ecf13006bb659bd5cf32830a1ba79b24f25592c) Release 9.5.2

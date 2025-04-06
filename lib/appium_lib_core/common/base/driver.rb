@@ -20,7 +20,6 @@ require_relative 'screenshot'
 require_relative 'rotable'
 require_relative 'remote_status'
 require_relative 'has_location'
-require_relative 'has_network_connection'
 require_relative '../wait'
 
 module Appium
@@ -29,13 +28,11 @@ module Appium
       class Driver < ::Selenium::WebDriver::Driver
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
-        include ::Selenium::WebDriver::DriverExtensions::HasWebStorage
 
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
         include ::Appium::Core::Base::HasLocation
-        include ::Appium::Core::Base::HasNetworkConnection
 
         include ::Appium::Core::Waitable
 
@@ -223,7 +220,6 @@ module Appium
           )
         end
 
-        # @deprecated Use 'mobile: lock' extension instead.
         # Lock the device
         # @return [String]
         #
@@ -234,11 +230,9 @@ module Appium
         #                   #   Block other commands during locking the device.
         #
         def lock(duration = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: lock' extension instead"
           @bridge.lock(duration)
         end
 
-        # @deprecated Use 'mobile: isLocked' extension instead.
         # Check current device status is weather locked or not
         #
         # @example
@@ -247,12 +241,10 @@ module Appium
         #   @driver.locked?
         #
         def locked?
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isLocked' extension instead"
           @bridge.device_locked?
         end
         alias device_locked? locked?
 
-        # @deprecated Use 'mobile: unlock' extension instead.
         # Unlock the device
         #
         # @example
@@ -260,30 +252,22 @@ module Appium
         #   @driver.unlock
         #
         def unlock
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: unlock' extension instead"
           @bridge.unlock
         end
 
-        # @deprecated Use 'mobile: hideKeyboard' extension instead.
         # Hide the onscreen keyboard
         # @param [String] close_key The name of the key which closes the keyboard.
         #   Defaults to 'Done' for iOS(except for XCUITest).
-        # @param [Symbol] strategy The symbol of the strategy which closes the keyboard.
-        #   XCUITest ignore this argument.
-        #   Default for iOS is +:pressKey+. Default for Android is +:tapOutside+.
         #
         # @example
         #
         #   @driver.hide_keyboard # Close a keyboard with the 'Done' button
         #   @driver.hide_keyboard('Finished') # Close a keyboard with the 'Finished' button
-        #   @driver.hide_keyboard(nil, :tapOutside) # Close a keyboard with tapping out side of keyboard
         #
-        def hide_keyboard(close_key = nil, strategy = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: hideKeyboard' extension instead"
-          @bridge.hide_keyboard close_key, strategy
+        def hide_keyboard(close_key = nil)
+          @bridge.hide_keyboard close_key
         end
 
-        # @deprecated Use 'mobile: isKeyboardShown' extension instead.
         # Get whether keyboard is displayed or not.
         # @return [Boolean] Return true if keyboard is shown. Return false if keyboard is hidden.
         #
@@ -292,7 +276,6 @@ module Appium
         #   @driver.keyboard_shown?   # true
         #
         def keyboard_shown?
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: isKeyboardShown' extension instead"
           @bridge.is_keyboard_shown
         end
         alias is_keyboard_shown keyboard_shown?
@@ -542,15 +525,14 @@ module Appium
           @bridge.pull_folder(path)
         end
 
-        # @deprecated Use 'mobile: pressKey' extension instead.
         # Press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
-        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        # @param [Array<Integer>] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
         #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
         #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
-        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        # @param [Array<Integer>] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array.  Can set multiple flags as Array.
         #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+
@@ -562,19 +544,17 @@ module Appium
         #   @driver.press_keycode 66, metastate: [1], flags: [32]
         #
         def press_keycode(key, metastate: [], flags: [])
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Use 'mobile: pressKey' extension instead.
         # Long press keycode on the device.
         # http://developer.android.com/reference/android/view/KeyEvent.html
         # @param [Integer] key The key to long press. The values which have +KEYCODE_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                      e.g.: KEYCODE_HOME is +3+ or +0x00000003+
-        # @param [[Integer]] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
+        # @param [Array<Integer>] metastate The state the metakeys should be in when pressing the key. Default is empty Array.
         #                              Metastate have +META_+ prefix in https://developer.android.com/reference/android/view/KeyEvent.html
         #                              e.g.: META_SHIFT_ON is +1+ or +0x00000001+
-        # @param [[Integer]] flags Native Android flag value. Several flags can be combined into a single key event.
+        # @param [Array<Integer>] flags Native Android flag value. Several flags can be combined into a single key event.
         #                          Default is empty Array. Can set multiple flags as Array.
         #                          Flags have +FLAG_+ prefix in http://developer.android.com/reference/android/view/KeyEvent.html
         #                          e.g.: FLAG_CANCELED is +32+ or +0x00000020+
@@ -586,11 +566,9 @@ module Appium
         #   @driver.long_press_keycode 66, metastate: [1], flags: [32, 8192]
         #
         def long_press_keycode(key, metastate: [], flags: [])
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: pressKey' extension instead"
           @bridge.long_press_keycode(key, metastate: metastate, flags: flags)
         end
 
-        # @deprecated Use 'mobile: getAppStrings' extension instead.
         # Return the hash of all localization strings.
         # @return [Hash]
         #
@@ -599,11 +577,9 @@ module Appium
         #   @driver.app_strings #=> "TransitionsTitle"=>"Transitions", "WebTitle"=>"Web"
         #
         def app_strings(language = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getAppStrings' extension instead"
           @bridge.app_strings(language)
         end
 
-        # @deprecated Use 'mobile: backgroundApp' extension instead.
         # Backgrounds the app for a set number of seconds.
         # This is a blocking application
         # @param [Integer] duration How many seconds to background the app for.
@@ -732,7 +708,6 @@ module Appium
         #      @driver.query_app_state("io.appium.bundle") #=> :not_running
         #
         def app_state(app_id)
-          # TODO: use mobile command in the background?
           @bridge.app_state(app_id)
         end
         alias query_app_state app_state
@@ -772,7 +747,6 @@ module Appium
           @bridge.stop_and_save_recording_screen(file_path)
         end
 
-        # @deprecated Use 'mobile: shake' extension instead.
         # Cause the device to shake
         #
         # @example
@@ -780,11 +754,9 @@ module Appium
         #   @driver.shake
         #
         def shake
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: shake' extension instead"
           @bridge.shake
         end
 
-        # @deprecated Use 'mobile: getDeviceTime' extension instead.
         # Get the time on the device
         #
         # @param [String] format The set of format specifiers. Read https://momentjs.com/docs/ to get
@@ -798,7 +770,6 @@ module Appium
         #   @driver.device_time "YYYY-MM-DD" #=> "2018-06-12"
         #
         def device_time(format = nil)
-          ::Appium::Logger.warn "[DEPRECATION] Please use 'mobile: getDeviceTime' extension instead"
           @bridge.device_time(format)
         end
 

@@ -129,7 +129,7 @@ module Appium
       attr_reader :automation_name
 
       # Custom URL for the selenium server. If set this attribute, ruby_lib_core try to handshake to the custom url.<br>
-      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}/wd/hub</code>.
+      # Defaults to false. Then try to connect to <code>http://127.0.0.1:#{port}</code>.
       # @return [String]
       attr_reader :custom_url
 
@@ -196,7 +196,7 @@ module Appium
       #     # format 1
       #     @core = Appium::Core.for caps: {...}, appium_lib: {...}
       #     # format 2. 'capabilities:' is also available instead of 'caps:'.
-      #     @core = Appium::Core.for url: "http://127.0.0.1:8080/wd/hub", capabilities: {...}, appium_lib: {...}
+      #     @core = Appium::Core.for url: "http://127.0.0.1:8080", capabilities: {...}, appium_lib: {...}
       #
       #
       #     require 'rubygems'
@@ -220,7 +220,7 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
-      #     @core.start_driver # Connect to 'http://127.0.0.1:8080/wd/hub' because of 'port: 8080'
+      #     @core.start_driver # Connect to 'http://127.0.0.1:8080' because of 'port: 8080'
       #
       #     # Start iOS driver with .zip file over HTTP
       #     # 'capabilities:' is also available instead of 'caps:'. Either is fine.
@@ -233,7 +233,7 @@ module Appium
       #                app: 'http://example.com/path/to/MyiOS.app.zip'
       #              },
       #              appium_lib: {
-      #                server_url: 'http://custom-host:8080/wd/hub.com',
+      #                server_url: 'http://custom-host:8080/wd/hub',
       #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
@@ -241,11 +241,11 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts)
-      #     @core.start_driver # Connect to 'http://custom-host:8080/wd/hub.com'
+      #     @core.start_driver # Connect to 'http://custom-host:8080/wd/hub'
       #
       #     # Start iOS driver as another format. 'url' is available like below
       #     opts = {
-      #              url: "http://custom-host:8080/wd/hub.com",
+      #              url: "http://custom-host:8080/wd/hub",
       #              capabilities: {
       #                platformName: :ios,
       #                platformVersion: '11.0',
@@ -261,7 +261,7 @@ module Appium
       #              }
       #            }
       #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
-      #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub.com'
+      #     @core.start_driver # start driver with 'url'. Connect to 'http://custom-host:8080/wd/hub'
       #
       #     # With a custom listener
       #     class CustomListener < ::Selenium::WebDriver::Support::AbstractEventListener
@@ -300,7 +300,7 @@ module Appium
       #
       #   new_driver = ::Appium::Core::Driver.attach_to(
       #     driver.session_id,  # The 'driver' has an existing session id
-      #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+      #     url: 'http://127.0.0.1:4723', automation_name: 'UiAutomator2', platform_name: 'Android'
       #   )
       #   new_driver.page_source # for example
       #
@@ -352,7 +352,7 @@ module Appium
       # Creates a new global driver and quits the old one if it exists.
       # You can customise http_client as the following
       #
-      # @param [String] server_url Custom server url to send to requests. Default is "http://127.0.0.1:4723/wd/hub".
+      # @param [String] server_url Custom server url to send to requests. Default is "http://127.0.0.1:4723".
       # @param http_client_ops [Hash] Options for http client
       # @option http_client_ops [Hash] :http_client Custom HTTP Client
       # @option http_client_ops [Hash] :open_timeout Custom open timeout for http client.
@@ -383,10 +383,10 @@ module Appium
       #            }
       #
       #     @core = Appium::Core.for(opts) # create a core driver with 'opts' and extend methods into 'self'
-      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub"
+      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000"
       #
       #     # Attach custom HTTP client
-      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000/wd/hub",
+      #     @driver = @core.start_driver server_url: "http://127.0.0.1:8000",
       #                                  http_client_ops: { http_client: Your:Http:Client.new,
       #                                                     open_timeout: 1_000,
       #                                                     read_timeout: 1_000 }
@@ -394,7 +394,7 @@ module Appium
 
       def start_driver(server_url: nil,
                        http_client_ops: { http_client: nil, open_timeout: 999_999, read_timeout: 999_999 })
-        @custom_url ||= "http://127.0.0.1:#{@port}/wd/hub"
+        @custom_url ||= "http://127.0.0.1:#{@port}"
         @custom_url = server_url unless server_url.nil?
 
         @http_client = get_http_client http_client: http_client_ops.delete(:http_client),

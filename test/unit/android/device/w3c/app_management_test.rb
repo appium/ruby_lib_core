@@ -29,22 +29,23 @@ class AppiumLibCoreTest
           end
 
           def test_app_strings
-            stub_request(:post, "#{SESSION}/appium/app/strings")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:getAppStrings', args: [{}] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
 
             @driver.app_strings
 
-            assert_requested(:post, "#{SESSION}/appium/app/strings", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_background_app
-            stub_request(:post, "#{SESSION}/appium/app/background")
-              .with(body: { seconds: 0 }.to_json)
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: { script: 'mobile:backgroundApp', args: [{ seconds: 0 }] }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
             @driver.background_app 0
 
-            assert_requested(:post, "#{SESSION}/appium/app/background", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
           end
 
           def test_terminate_app
@@ -76,12 +77,16 @@ class AppiumLibCoreTest
           end
 
           def test_app_state
-            stub_request(:post, "#{SESSION}/appium/device/app_state")
+            stub_request(:post, "#{SESSION}/execute/sync")
+              .with(body: {
+                script: 'mobile:queryAppState',
+                args: [{ 'appId' => 'com.app.id', 'bundleId' => 'com.app.id' }]
+              }.to_json)
               .to_return(headers: HEADER, status: 200, body: { value: 4 }.to_json)
 
             state = @driver.app_state 'com.app.id'
 
-            assert_requested(:post, "#{SESSION}/appium/device/app_state", times: 1)
+            assert_requested(:post, "#{SESSION}/execute/sync", times: 1)
             assert_equal :running_in_foreground, state
           end
 
