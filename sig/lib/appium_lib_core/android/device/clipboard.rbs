@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    module Android
+      module Device
+        module Clipboard
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def self.add_methods: () -> untyped
+        end
+      end
+    end
+  end
+end

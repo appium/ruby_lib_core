@@ -1,0 +1,27 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module ImageComparison
+          MODE: Array[Symbol]
+
+          MATCH_FEATURES: { detector_name: untyped }
+
+          MATCH_TEMPLATE: { visualize: Array[bool] }
+
+          GET_SIMILARITY: { visualize: Array[bool] }
+
+          def match_images_features: (first_image: untyped, second_image: untyped, ?detector_name: ::String, ?match_func: ::String, ?good_matches_factor: untyped?, ?visualize: bool) -> untyped
+
+          def find_image_occurrence: (full_image: untyped, partial_image: untyped, ?visualize: bool, ?threshold: untyped?, ?multiple: untyped?, ?match_neighbour_threshold: untyped?) -> untyped
+
+          def get_images_similarity: (first_image: untyped, second_image: untyped, ?visualize: bool) -> untyped
+
+          def compare_images: (first_image: untyped, second_image: untyped, ?mode: ::Symbol, ?options: untyped?) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,11 @@
+module Selenium
+  module WebDriver
+    class Interactions
+      def key: (String key) -> untyped
+    end
+
+    class Point
+      def initialize: (Integer x, Integer y) -> untyped
+    end
+  end
+end

@@ -1,0 +1,26 @@
+module Appium
+  module Core
+    module Error
+      class CoreError < StandardError
+      end
+
+      class NotSupportedAppiumServer < CoreError
+      end
+
+      class NoSuchElementError < CoreError
+      end
+
+      class UnsupportedOperationError < CoreError
+      end
+
+      class ServerError < CoreError
+      end
+
+      class SessionNotCreatedError < CoreError
+      end
+
+      class ArgumentError < CoreError
+      end
+    end
+  end
+end

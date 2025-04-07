@@ -1,9 +1,8 @@
 module Selenium
   module WebDriver
     module Remote
-      module Http
-        class Default
-        end
+      class Bridge
+        COMMANDS: Hash[Symbol, Array[Symbol | String]]
       end
     end
   end

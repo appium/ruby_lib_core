@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    module Android
+      module Uiautomator2
+        module Device
+          module Battery
+            def self.add_methods: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

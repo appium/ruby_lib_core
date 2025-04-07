@@ -1,0 +1,21 @@
+module Appium
+  module Support
+    class EventFiringBridge < ::Selenium::WebDriver::Support::EventFiringBridge
+      @appium_options: untyped
+
+      @driver: untyped
+
+      def initialize: (untyped delegate, untyped listener, **untyped opts) -> void
+
+      def find_element_by: (untyped how, untyped what, ?untyped? parent) -> untyped
+
+      def find_elements_by: (untyped how, untyped what, ?untyped? parent) -> untyped
+
+      private
+
+      def create_element: (untyped ref) -> untyped
+
+      def driver: () -> untyped
+    end
+  end
+end
