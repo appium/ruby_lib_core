@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Android
+      module Uiautomator1
+        module Bridge
+          def self.for: (untyped target) -> untyped
+        end
+      end
+    end
+  end
+end

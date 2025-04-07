@@ -1,0 +1,24 @@
+module Appium
+  module Core
+    class Element < ::Selenium::WebDriver::Element
+      include ::Appium::Core::Base::TakesScreenshot
+
+      attr_reader id: untyped
+
+      def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
+
+      def respond_to_missing?: (*untyped) -> true
+
+      # Alias for type
+      alias type send_keys
+
+      def location_rel: (untyped driver) -> untyped
+
+      def screenshot: () -> untyped
+
+      def screenshot_as: (untyped format) -> untyped
+
+      def save_screenshot: (untyped png_path) -> untyped
+    end
+  end
+end

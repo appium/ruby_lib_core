@@ -1,0 +1,12 @@
+module Appium
+  module Core
+    module Ios
+      module Device
+        include _Bridge
+        extend Forwardable
+
+        def self.toggle_touch_id_enrollment: -> untyped
+      end
+    end
+  end
+end

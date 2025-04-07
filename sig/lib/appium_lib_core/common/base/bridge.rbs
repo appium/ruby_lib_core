@@ -1,0 +1,206 @@
+module Appium
+  module Core
+    class Base
+      class LocatorConverter
+        def convert: (untyped how, untyped what) -> ::Array[untyped]
+      end
+
+      class Bridge < ::Selenium::WebDriver::Remote::Bridge
+        @browser: untyped
+
+        @available_commands: untyped
+
+        @session_id: untyped
+
+        # generate a dummy capabilities instance which only has the given platformName and automationName
+        @capabilities: untyped
+
+        include Device::DeviceLock
+
+        include Device::Keyboard
+
+        include Device::ImeActions
+
+        include Device::Setting
+
+        include Device::Context
+
+        include Device::FileManagement
+
+        include Device::KeyEvent
+
+        include Device::ImageComparison
+
+        include Device::AppManagement
+
+        include Device::AppState
+
+        include Device::ScreenRecord::Command
+
+        include Device::Device
+
+        include Device::ExecuteDriver
+
+        include Device::Orientation
+
+        # Prefix for extra capability defined by W3C
+        APPIUM_PREFIX: "appium:"
+
+        # No 'browserName' means the session is native appium connection
+        APPIUM_NATIVE_BROWSER_NAME: "appium"
+
+        attr_reader available_commands: untyped
+
+        def browser: () -> untyped
+
+        # Appium only.
+        # Attach to an existing session.
+        #
+        # @param [String] The session id to attach to.
+        # @param [String] platform_name The platform name to keep in the dummy capabilities
+        # @param [String] platform_name The automation name to keep in the dummy capabilities
+        # @return [::Appium::Core::Base::Capabilities]
+        #
+        # @example
+        #
+        #   new_driver = ::Appium::Core::Driver.attach_to(
+        #     driver.session_id,
+        #     url: 'http://127.0.0.1:4723/wd/hub', automation_name: 'UiAutomator2', platform_name: 'Android'
+        #   )
+        #
+        def attach_to: (untyped session_id, untyped platform_name, untyped automation_name) -> untyped
+
+        # Override
+        # Creates session handling.
+        #
+        # @param [::Appium::Core::Base::Capabilities, Hash] capabilities A capability
+        # @return [::Appium::Core::Base::Capabilities]
+        #
+        # @example
+        #
+        #   opts = {
+        #     caps: {
+        #       platformName: :ios,
+        #       automationName: 'XCUITest',
+        #       app: 'test/functional/app/UICatalog.app.zip',
+        #       platformVersion: '11.4',
+        #       deviceName: 'iPhone Simulator',
+        #       useNewWDA: true,
+        #     },
+        #     appium_lib: {
+        #       wait: 30
+        #     }
+        #   }
+        #   core = ::Appium::Core.for(caps)
+        #   driver = core.start_driver
+        #
+        def create_session: (untyped capabilities) -> untyped
+
+        # Append +appium:+ prefix for Appium following W3C spec
+        # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
+        #
+        # @param [::Appium::Core::Base::Capabilities, Hash] capabilities A capability
+        # @return [::Appium::Core::Base::Capabilities]
+        def add_appium_prefix: (untyped capabilities) -> untyped
+
+        private
+
+        def camel_case: (untyped str_or_sym) -> untyped
+
+        def extension_prefix?: (untyped capability_name) -> untyped
+
+        def json_create: (untyped value) -> untyped
+
+        public
+
+        def add_command: (method: untyped, url: untyped, name: untyped) { (?) -> untyped } -> untyped
+
+        def commands: (untyped command) -> untyped
+
+        def status: () -> untyped
+
+        # Perform 'touch' actions for W3C module.
+        # Generate +touch+ pointer action here and users can use this via +driver.action+
+        # - https://www.selenium.dev/documentation/webdriver/actions_api/
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/ActionBuilder.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/PointerActions.html
+        # - https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/KeyActions.html
+        #
+        # The pointer type is 'touch' by default in the Appium Ruby client.
+        #
+        # @example
+        #
+        #     element = @driver.find_element(:id, "some id")
+        #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
+        #
+        def action: (?untyped? _deprecated_async, ?async: bool, ?devices: untyped?) -> untyped
+
+        # Port from MJSONWP
+        def get_timeouts: () -> untyped
+
+        # For Appium
+        # override
+        def element_displayed?: (untyped element) -> untyped
+
+        # For Appium
+        # override
+        def element_attribute: (untyped element, untyped name) -> untyped
+
+        # For Appium
+        alias switch_to_active_element active_element
+
+        # For Appium
+        # @param [Hash] id The id which can get as a response from server
+        # @return [::Appium::Core::Element]
+        def convert_to_element: (untyped id) -> untyped
+
+        # For Appium
+        # override
+        # called in 'extend DriverExtensions::HasNetworkConnection'
+        def network_connection: () -> untyped
+
+        # For Appium
+        # override
+        # called in 'extend DriverExtensions::HasNetworkConnection'
+        def network_connection=: (untyped type) -> untyped
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        # called in 'extend DriverExtensions::HasLocation'
+        def location: () -> untyped
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        def set_location: (untyped lat, untyped lon, ?::Float alt, ?speed: untyped?, ?satellites: untyped?) -> untyped
+
+        #
+        # logs
+        #
+        # For Appium
+        # No implementation for W3C webdriver module
+        def available_log_types: () -> untyped
+
+        # For Appium
+        # No implementation for W3C webdriver module
+        def log: (untyped type) -> untyped
+
+        # For Appium
+        def log_event: (untyped vendor, untyped event) -> untyped
+
+        # For Appium
+        def log_events: (?untyped? type) -> untyped
+
+        def viewport_screenshot: () -> untyped
+
+        def element_screenshot: (untyped element_id) -> untyped
+
+        # for selenium-webdriver compatibility in chrome browser session.
+        # This may be needed in selenium-webdriver 4.8 or over? (around the version)
+        # when a session starts browserName: 'chrome' for bridge.
+        # This method is not only for Android, but also chrome desktop browser as well.
+        # So this bridge itself does not restrict the target module.
+        def send_command: (untyped command_params) -> untyped
+      end
+    end
+  end
+end

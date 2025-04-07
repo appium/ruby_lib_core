@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Ios
+      module Xcuitest
+        module Bridge
+          def self.for: (untyped target) -> untyped
+        end
+      end
+    end
+  end
+end

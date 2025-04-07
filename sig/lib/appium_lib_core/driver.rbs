@@ -109,7 +109,7 @@ module Appium
 
       attr_reader enable_idempotency_header: bool
 
-      attr_reader device: Symbol
+      attr_reader device: Symbol | String
 
       attr_reader automation_name: Symbol
 
@@ -164,7 +164,7 @@ module Appium
 
       private
 
-      def convert_to_symbol: (untyped? value) -> Symbol
+      def convert_to_symbol: (untyped? value) -> Symbol?
 
       def extend_for: (device: Symbol | String, automation_name: Symbol) -> self
 
@@ -183,10 +183,10 @@ module Appium
       def set_app_path: () -> String?
 
       def set_appium_lib_specific_values: (
-          Hash[Symbol, Symbol | String | Hash[Symbol, String | Numeric] | Numeric]? appium_lib_opts
-        ) -> self
+          Hash[Symbol, String] appium_lib_opts
+        ) -> bool
 
-      def set_appium_device: () -> String
+      def set_appium_device: () -> Symbol
 
       def set_automation_name: () -> Symbol?
 

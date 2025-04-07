@@ -1,0 +1,15 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module Device
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+
+          def shake: () -> untyped
+
+          def device_time: (?untyped? format) -> untyped
+        end
+      end
+    end
+  end
+end

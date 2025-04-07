@@ -1,0 +1,17 @@
+module Appium
+  module Core
+    class Base
+      module Device
+        module FileManagement
+          def push_file: (untyped path, untyped filedata) -> untyped
+
+          def pull_file: (untyped path) -> untyped
+
+          def pull_folder: (untyped path) -> untyped
+
+          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+        end
+      end
+    end
+  end
+end
