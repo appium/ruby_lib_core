@@ -34,7 +34,7 @@ jobs:
         APPIUM_DRIVER=espresso bundle exec rake test:unit:android
         APPIUM_DRIVER=appium bundle exec rake test:unit
 
- test-win:
+  test-win:
     strategy:
       fail-fast: false
       matrix:
