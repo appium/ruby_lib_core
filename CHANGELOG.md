@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.0.2] - 2025-04-27
+- Add more sig definitions [#571](https://github.com/appium/ruby_lib_core/pull/571)
+
 ## [11.0.1] - 2025-03-27
 - Remove `::Selenium::WebDriver::DriverExtensions::HasWebStorage` import to follow selenium webdriver 4.30.0
 
