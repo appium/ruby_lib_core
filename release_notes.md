@@ -1,3 +1,12 @@
+#### v11.0.2 2025-04-27
+
+- [dccd87f](https://github.com/appium/ruby_lib_core/commit/dccd87f9bca10efb541629eb2f0f58bd77fd87fb) Release 11.0.2
+- [79b4f20](https://github.com/appium/ruby_lib_core/commit/79b4f20b1f087dd6c0498a3ade5b1ef89a28dba9) chore(deps): update rubocop requirement from 1.75.2 to 1.75.3 (#606)
+- [9b138d6](https://github.com/appium/ruby_lib_core/commit/9b138d614c819ff115fef3a9bb394fa8b7114bb8) feat: Take down steep issues from 522 to 104 (#571)
+- [e75ca47](https://github.com/appium/ruby_lib_core/commit/e75ca47eab80cf8ed8f1b4efafbdb3321ba8dbc9) chore(deps): update rubocop requirement from 1.75.1 to 1.75.2 (#605)
+- [1f3b6dc](https://github.com/appium/ruby_lib_core/commit/1f3b6dcf2038dada2f08d52cdc017901926a1c9c) chore(deps): update rubocop requirement from 1.74.0 to 1.75.1 (#604)
+
+
 #### v11.0.1 2025-03-27
 
 - [3b62638](https://github.com/appium/ruby_lib_core/commit/3b62638d3f30de324a7f3083fb763ade5dfbe831) Release 11.0.1
