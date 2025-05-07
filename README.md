@@ -138,7 +138,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     $ ruby test.rb
     ```
 
-[Appium::Core.for](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
+[Appium::Core.for](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
 
 More examples are in [test/functional](test/functional)
 
@@ -153,8 +153,8 @@ attached_driver.page_source
 
 ### Capabilities
 
-Read [Appium/Core/Driver](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
-Capabilities affect only ruby_lib is [Appium/Core/Options](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
+Read [Appium/Core/Driver](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
+Capabilities affect only ruby_lib is [Appium/Core/Options](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
 
 
 ### Gives custom listener
