@@ -65,13 +65,7 @@ jobs:
     # Start Appium
     - run: npm install -g appium@beta
     - run: |
-        git clone https://github.com/appium/appium-xcuitest-driver.git
-        cd appium-xcuitest-driver
-        git checkout appium3
-        npm install
-        npm link
-        cd ..
-        appium driver install --source=local $(pwd)/appium-xcuitest-driver
+        appium driver install xcuitest@beta
         # appium plugin install images
         # appium plugin install execute-driver
         # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
@@ -135,13 +129,7 @@ jobs:
         npm install -g appium@beta
         npm install -g mjpeg-consumer
     - run: |
-        git clone https://github.com/appium/appium-xcuitest-driver.git
-        cd appium-xcuitest-driver
-        git checkout appium3
-        npm install
-        npm link
-        cd ..
-        appium driver install --source=local $(pwd)/appium-xcuitest-driver
+        appium driver install xcuitest@beta
         # appium plugin install images
         # appium plugin install execute-driver
         # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
@@ -227,13 +215,7 @@ jobs:
     # Start Appium
     - run: npm install -g appium@beta
     - run: |
-        git clone https://github.com/appium/appium-uiautomator2-driver.git
-        cd appium-uiautomator2-driver
-        git checkout appium3
-        npm install
-        npm link
-        cd ..
-        appium driver install --source=local $(pwd)/appium-uiautomator2-driver
+        appium driver install uiautomator2@beta
         # appium plugin install images
         # appium plugin install execute-driver
         # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
