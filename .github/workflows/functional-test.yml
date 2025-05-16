@@ -65,7 +65,7 @@ jobs:
     # Start Appium
     - run: npm install -g appium@beta
     - run: |
-        git clone https://github.com/mykola-mokhnach/appium-xcuitest-driver.git
+        git clone https://github.com/appium/appium-xcuitest-driver.git
         cd appium-xcuitest-driver
         git checkout appium3
         npm install
@@ -135,7 +135,7 @@ jobs:
         npm install -g appium@beta
         npm install -g mjpeg-consumer
     - run: |
-        git clone https://github.com/mykola-mokhnach/appium-xcuitest-driver.git
+        git clone https://github.com/appium/appium-xcuitest-driver.git
         cd appium-xcuitest-driver
         git checkout appium3
         npm install
@@ -227,7 +227,7 @@ jobs:
     # Start Appium
     - run: npm install -g appium@beta
     - run: |
-        git clone https://github.com/mykola-mokhnach/appium-uiautomator2-driver.git
+        git clone https://github.com/appium/appium-uiautomator2-driver.git
         cd appium-uiautomator2-driver
         git checkout appium3
         npm install
