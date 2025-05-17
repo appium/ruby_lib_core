@@ -141,7 +141,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -191,7 +191,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -241,7 +241,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -295,7 +295,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -344,7 +344,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -394,7 +394,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -438,7 +438,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -509,7 +509,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
