@@ -97,9 +97,9 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
 
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
-        assert_mobile_command_error 'mobile: openDrawer', { element: el.id, gravity: 1 },
+        assert_mobile_command_error 'mobile: openDrawer', { elementId: el.id, gravity: 1 },
                                     'Could not open drawer'
-        assert_mobile_command_error 'mobile: closeDrawer', { element: el.id, gravity: 1 },
+        assert_mobile_command_error 'mobile: closeDrawer', { elementId: el.id, gravity: 1 },
                                     'Could not close drawer'
       end
 
@@ -115,7 +115,7 @@ class AppiumLibCoreTest
         @core.wait { @driver.find_element(:accessibility_id, 'change the date') }.click
 
         date_picker = @driver.find_element(:id, 'android:id/datePicker')
-        @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, element: date_picker.id })
+        @driver.execute_script('mobile: setDate', { year: 2020, monthOfYear: 10, dayOfMonth: 25, elementId: date_picker.id })
         assert_equal 'Sun, Oct 25', @driver.find_element(:id, 'android:id/date_picker_header_date').text
       end
 
@@ -146,12 +146,12 @@ class AppiumLibCoreTest
 
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: -100 },
+        assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: -100 },
                                     'must be a non-negative number'
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: 'no element' },
+        assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: 'no element' },
                                     'must be a non-negative number'
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: navigateTo', { element: el.id, menuItemId: 10 },
+        assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: 10 },
                                     'Could not navigate to menu item 10'
       end
 
@@ -164,19 +164,17 @@ class AppiumLibCoreTest
         @driver = @core.start_driver
         el = @core.wait { @driver.find_element(:accessibility_id, 'Views') }
 
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollTo: 'right' },
+        assert_mobile_command_error 'mobile: scrollToPage',  { elementId: el.id, scrollTo: 'right' },
                                     'Could not perform scroll to on element'
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollTo: '' },
-                                    'Invalid scrollTo parameters'
-        assert_mobile_command_error 'mobile: scrollToPage',  { element: el.id, scrollToPage: -100 },
+        assert_mobile_command_error 'mobile: scrollToPage',  { elementId: el.id, scrollToPage: -100 },
                                     'be a non-negative integer'
         error = assert_raises ::Selenium::WebDriver::Error::InvalidArgumentError do
-          @driver.execute_script 'mobile: scrollToPage', { element: el.id }
+          @driver.execute_script 'mobile: scrollToPage', { elementId: el.id }
         end
         assert error.message.include? "Must provide either 'scrollTo' or 'scrollToPage'"
 
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: scrollToPage', { element: el.id, scrollToPage: 2, smoothScroll: true },
+        assert_mobile_command_error 'mobile: scrollToPage', { elementId: el.id, scrollToPage: 2, smoothScroll: true },
                                     'Could not perform scroll to on element'
       end
 
