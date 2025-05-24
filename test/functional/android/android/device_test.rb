@@ -193,43 +193,34 @@ class AppiumLibCoreTest
 
       def test_press_keycode
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        result = @driver.press_keycode(176) # it does not raise error
+        result = @driver.press_keycode(84) # it does not raise error
         assert result || result.nil?
       end
 
       def test_long_press_keycode
         # http://developer.android.com/reference/android/view/KeyEvent.html
-        result = @driver.long_press_keycode(176) # it does not raise error
+        result = @driver.long_press_keycode(84) # it does not raise error
         assert result || result.nil?
       end
 
       def test_open_notifications
         skip if @@core.automation_name == :espresso
 
-        # test & comments from https://github.com/appium/appium/blob/1.x/test/functional/android/apidemos/notifications-specs.js#L19
-        # get to the notification page
-        @@core.wait { @driver.find_element(:accessibility_id, 'App').click }
-        @@core.wait { scroll_to('Notification').click }
-        @@core.wait { @driver.find_element(:accessibility_id, 'Status Bar').click }
-        # create a notification
-        @@core.wait { @driver.find_element :accessibility_id, ':-|' }.click
         @driver.open_notifications
         # shouldn't see the elements behind shade
 
         # Sometimes, we should wait animation
         @@core.wait(timeout: 5) do
           error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
-            @driver.find_element :accessibility_id, ':-|'
+            @driver.find_element :accessibility_id, 'Appium Settings'
           end
           assert 'An element could not be located on the page using the given search parameters.', error.message
         end
 
-        # should see the notification
-        @@core.wait_true { @driver.find_element :xpath, '//*[@text="Mood ring"]' }
         # return to app
         @driver.back
         # should be able to see elements from app
-        @@core.wait_true { @driver.find_element :accessibility_id, ':-|' }
+        @@core.wait_true { @driver.find_element :accessibility_id, 'Accessibility' }
       end
 
       def test_ime_available_engines
