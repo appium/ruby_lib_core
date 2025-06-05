@@ -25,7 +25,7 @@ module Appium
             execute_script 'mobile:hideKeyboard', option
           end
 
-          def is_keyboard_shown # rubocop:disable Naming/PredicateName
+          def is_keyboard_shown # rubocop:disable Naming/PredicatePrefix
             execute_script 'mobile:isKeyboardShown', {}
           end
         end # module Keyboard
