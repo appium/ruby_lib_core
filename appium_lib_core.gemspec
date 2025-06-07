@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'faye-websocket', '~> 0.11.0'
+  spec.add_dependency 'faye-websocket', '>= 0.11', '< 0.13'
   spec.add_dependency 'selenium-webdriver', '~> 4.21'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
