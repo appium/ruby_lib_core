@@ -82,6 +82,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('17.0')
       end
 
+      def over_ios26?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('26.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -127,7 +131,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '17.4'
+      platform_version = '26.0'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] || false
@@ -211,9 +215,9 @@ class AppiumLibCoreTest
         'Apple TV'
       else
         name = if over_ios13?(os_version)
-                 'iPhone 15 Plus'
+                 'iPhone 16 Plus'
                else
-                 'iPhone 15 Pro Max'
+                 'iPhone 16 Pro Max'
                end
 
         parallel? ? "#{name} - #{wda_local_port}" : name
