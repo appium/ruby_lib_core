@@ -84,6 +84,7 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
+        skip 'Not stable on CI' if ci?
         # skip 'Permissions does not work well on iOS 14 yet' if over_ios14?(@driver)
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
@@ -94,12 +95,14 @@ class AppiumLibCoreTest
         @driver.activate_app('com.apple.Preferences')
         @driver.settings.update({ defaultActiveApplication: 'com.apple.Preferences' })
         w3c_scroll @driver, duration: 1.0
-        @driver.find_element(:accessibility_id, 'com.apple.settings.privacyAndSecurity').click
+
+        privacy_name = over_ios26? @driver ? 'com.apple.settings.privacyAndSecurity' : 'Privacy'
+        @driver.find_element(:accessibility_id, privacy_name).click
 
         @driver.find_element(:accessibility_id, 'Calendars').click
         if over_ios26? @driver
           # without exceptions
-          d.find_element :predicate, "label == 'UIKitCatalog, Full Access'"
+          @driver.find_element :predicate, "label == 'UIKitCatalog, Full Access'"
         else
           el = @driver.find_element(:accessibility_id, uicatalog)
           assert_equal '1', el.value

@@ -118,7 +118,7 @@ class AppiumLibCoreTest
         @@driver.find_element(:accessibility_id, 'Keyboard').click
 
         # to wait the animation
-        auto_correction_name = over_ios26?(@@driver) ? 'KeyboardAutocorrection' : 'Auto-Correction'
+        auto_correction_name = over_ios26? @@driver ? 'KeyboardAutocorrection' : 'Auto-Correction'
         @@driver.wait { |d| d.find_element :accessibility_id, auto_correction_name }
 
         auto_correction = @@driver.wait do |d|
@@ -127,9 +127,9 @@ class AppiumLibCoreTest
 
         # need to bding the element into the screen
         w3c_scroll @@driver, duration: 1.0
-        search_word = if over_ios26?(@@driver)
+        search_word = if over_ios26? @@driver
                         'KeyboardPrediction'
-                      elsif over_ios17?(@@driver)
+                      elsif over_ios17? @@driver
                         'Predictive Text'
                       else
                         'Predictive'
