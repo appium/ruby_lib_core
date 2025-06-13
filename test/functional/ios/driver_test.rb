@@ -125,8 +125,8 @@ class AppiumLibCoreTest
           d.find_element :predicate, "name == \"#{auto_correction_name}\" AND type == \"XCUIElementTypeSwitch\""
         end
 
-        # need to bding the element into the screen
-        w3c_scroll @@driver, duration: 1.0
+        # need to bring the element into the screen in ios 26
+        w3c_scroll @@driver, duration: 1.0 if over_ios26? @@driver
         search_word = if over_ios26? @@driver
                         'KeyboardPrediction'
                       elsif over_ios17? @@driver
