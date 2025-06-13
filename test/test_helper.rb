@@ -82,6 +82,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('17.0')
       end
 
+      def over_ios26?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('26.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
