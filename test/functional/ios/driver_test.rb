@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'functional/common_w3c_actions'
 
 # $ rake test:func:ios TEST=test/functional/ios/driver_test.rb
 # rubocop:disable Style/ClassVars
@@ -117,12 +118,22 @@ class AppiumLibCoreTest
         @@driver.find_element(:accessibility_id, 'Keyboard').click
 
         # to wait the animation
-        @@driver.wait { |d| d.find_element :accessibility_id, 'Auto-Correction' }
+        auto_correction_name = over_ios26? @@driver ? 'KeyboardAutocorrection' : 'Auto-Correction'
+        @@driver.wait { |d| d.find_element :accessibility_id, auto_correction_name }
 
         auto_correction = @@driver.wait do |d|
-          d.find_element :predicate, 'name == "Auto-Correction" AND type == "XCUIElementTypeSwitch"'
+          d.find_element :predicate, "name == \"#{auto_correction_name}\" AND type == \"XCUIElementTypeSwitch\""
         end
-        search_word = over_ios17?(@@driver) ? 'Predictive Text' : 'Predictive'
+
+        # need to bring the element into the screen in ios 26
+        w3c_scroll @@driver, duration: 1.0 if over_ios26? @@driver
+        search_word = if over_ios26? @@driver
+                        'KeyboardPrediction'
+                      elsif over_ios17? @@driver
+                        'Predictive Text'
+                      else
+                        'Predictive'
+                      end
         predictive = @@driver.wait do |d|
           d.find_element :predicate, "name == \"#{search_word}\" AND type == \"XCUIElementTypeSwitch\""
         end
