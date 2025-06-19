@@ -313,14 +313,11 @@ class AppiumLibCoreTest
         cap[:capabilities]['settings[trackScrollEvents]'] = false
         # reduce possible slowness
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)
-        # _Generally, this timeout should not be modified_
-        # cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
+        cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setScrollAcknowledgmentTimeout(long)
-        # _Generally, this timeout should not be modified_
-        # cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
+        cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
         cap[:capabilities]['settings[waitForIdleTimeout]'] = 0
-        # Maybe this does not help so much.
-        # cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
+        cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else
         cap[:capabilities][:forceEspressoRebuild] = false
         cap[:capabilities][:espressoBuildConfig] = {}.to_json
