@@ -315,7 +315,7 @@ class AppiumLibCoreTest
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)
         cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setScrollAcknowledgmentTimeout(long)
-        cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
+        # cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
         cap[:capabilities]['settings[waitForIdleTimeout]'] = 0
         cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else
