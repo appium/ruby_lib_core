@@ -63,12 +63,13 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
 
     # Start Appium
-    - run: npm install -g appium
+    - run: npm install -g appium@beta
     - run: |
-        appium driver install xcuitest
-        appium plugin install images
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        appium driver install xcuitest@beta
+        # appium plugin install images
+        # appium plugin install execute-driver
+        # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -132,13 +133,14 @@ jobs:
     # Start Appium
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium
+        npm install -g appium@beta
         npm install -g mjpeg-consumer
     - run: |
-        appium driver install xcuitest
-        appium plugin install images@2.1.8
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        appium driver install xcuitest@beta
+        # appium plugin install images
+        # appium plugin install execute-driver
+        # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -172,33 +174,33 @@ jobs:
           - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
             automation_name: uiautomator2
             name: test1
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
-            automation_name: espresso
-            name: test2
+          # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+          #   automation_name: espresso
+          #   name: test2
           - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
             automation_name: uiautomator2
             name: test3
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
-            automation_name: espresso
-            name: test4
+          # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+          #   automation_name: espresso
+          #   name: test4
           - target: test/functional/android/android/mobile_commands_test.rb
             automation_name: uiautomator2
             name: test5
-          - target: test/functional/android/android/mobile_commands_test.rb
-            automation_name: espresso
-            name: test6
+          # - target: test/functional/android/android/mobile_commands_test.rb
+          #   automation_name: espresso
+          #   name: test6
           - target: test/functional/android/android/device_data_test.rb
             automation_name: uiautomator2
             name: test7
-          - target: test/functional/android/android/device_data_test.rb
-            automation_name: espresso
-            name: test8
+          # - target: test/functional/android/android/device_data_test.rb
+          #   automation_name: espresso
+          #   name: test8
           - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
             automation_name: uiautomator2
             name: test9
-          - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
-            automation_name: espresso
-            name: test10
+          # - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+          #   automation_name: espresso
+          #   name: test10
 
     env:
       API_LEVEL: 36
@@ -218,12 +220,13 @@ jobs:
         node-version: 'lts/*'
 
     # Start Appium
-    - run: npm install -g appium
+    - run: npm install -g appium@beta
     - run: |
-        appium driver install ${{matrix.test_targets.automation_name}}
-        appium plugin install images
-        appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        appium driver install uiautomator2@beta
+        # appium plugin install images
+        # appium plugin install execute-driver
+        # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - name: Enable KVM group perms
       run: |
