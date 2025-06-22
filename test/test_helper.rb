@@ -142,7 +142,7 @@ class AppiumLibCoreTest
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name(platform_version, platform_name, wda_port),
+          deviceName: device_name(platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
           someCapability: 'some_capability',
@@ -210,7 +210,7 @@ class AppiumLibCoreTest
       end
     end
 
-    def device_name(os_version, platform_name, wda_local_port)
+    def device_name(platform_name, wda_local_port)
       if platform_name.downcase == :tvos
         'Apple TV'
       else
