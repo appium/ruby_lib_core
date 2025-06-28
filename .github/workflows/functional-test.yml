@@ -113,7 +113,14 @@ jobs:
           test/report/
 
   ios_test_with_other_deps:
-    runs-on: macos-14
+    runs-on: macos-15
+
+    # Please make sure the available Xcode versions and iOS versions
+    # on the runner images. https://github.com/actions/runner-images
+    env:
+      XCODE_VERSION: 16.4
+      IOS_VERSION: 18.5
+      IOS_DEVICE_NAME: iPhone 16 Plus
 
     steps:
     - uses: actions/checkout@v3
