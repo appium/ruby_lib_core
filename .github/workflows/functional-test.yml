@@ -85,7 +85,7 @@ jobs:
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=$GITHUB_WORKSPACE/wda
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
@@ -101,7 +101,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
-        LOCAL_PREBUILT_WDA: $GITHUB_WORKSPACE/wda/${{matrix.test_targets.wdaName}}
+        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
 
     - name: Save server output
       if: ${{ always() }}
@@ -160,7 +160,7 @@ jobs:
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - run: |
-        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=$GITHUB_WORKSPACE/wda
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
@@ -175,7 +175,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
-        LOCAL_PREBUILT_WDA: $GITHUB_WORKSPACE/wda/WebDriverAgentRunner-Runner.app
+        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     - name: Save server output
       if: ${{ always() }}
