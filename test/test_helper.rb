@@ -184,6 +184,11 @@ class AppiumLibCoreTest
         cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
       end
 
+      if ENV['LOCAL_PREBUILT_WDA']
+        cap[:caps][:usePreinstalledWDA] = true
+        cap[:caps][:prebuiltWDAPath] = ENV['LOCAL_PREBUILT_WDA']
+      end
+
       cap
     end
 

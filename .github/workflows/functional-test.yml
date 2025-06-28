@@ -20,18 +20,32 @@ jobs:
         test_targets:
           - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
             name: test1
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
             name: test2
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/webdriver/device_test.rb
             name: test3
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/device_test.rb
             name: test4
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
             name: test5
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/image_comparison_test.rb
             name: test6
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/tv_driver_test.rb
             name: test7
+            platform: tvOS
+            wdaName: WebDriverAgentRunner_tvOS-Runner.app
 
     runs-on: macos-15
 
@@ -70,6 +84,10 @@ jobs:
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=$GITHUB_WORKSPACE/wda
+      name: Downloading prebuilt WDA
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -83,6 +101,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
+        LOCAL_PREBUILT_WDA: $GITHUB_WORKSPACE/wda/${{matrix.test_targets.wdaName}}
 
     - name: Save server output
       if: ${{ always() }}
@@ -133,6 +152,10 @@ jobs:
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=$GITHUB_WORKSPACE/wda
+      name: Downloading prebuilt WDA
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -145,6 +168,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
+        LOCAL_PREBUILT_WDA: $GITHUB_WORKSPACE/wda/WebDriverAgentRunner-Runner.app
 
     - name: Save server output
       if: ${{ always() }}
