@@ -118,7 +118,7 @@ class AppiumLibCoreTest
         @@driver.find_element(:accessibility_id, 'Keyboard').click
 
         # to wait the animation
-        auto_correction_name = over_ios26? @@driver ? 'KeyboardAutocorrection' : 'Auto-Correction'
+        auto_correction_name = over_ios26?(@@driver) ? 'KeyboardAutocorrection' : 'Auto-Correction'
         @@driver.wait { |d| d.find_element :accessibility_id, auto_correction_name }
 
         auto_correction = @@driver.wait do |d|
