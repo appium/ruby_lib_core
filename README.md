@@ -156,6 +156,26 @@ attached_driver.page_source
 Read [Appium/Core/Driver](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
 Capabilities affect only ruby_lib is [Appium/Core/Options](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
 
+### Improvement ideas
+
+- for iOS
+
+```
+$ appium driver run xcuitest download-wda-sim --outdir=/path/to/download/prebuilt/wda/
+```
+
+Then, adding capabilities below:
+
+```json
+{
+  usePreinstalledWDA: true,
+  prebuiltWDAPath: "/path/to/download/prebuilt/wda/WebDriverAgentRunner-Runner.app"
+}
+```
+
+It will improve initial new session request performance for iOS simulator.
+
+`"settings[respectSystemAlerts]" => true` for capability will also help to work with [permissions](https://appium.github.io/appium-xcuitest-driver/latest/guides/troubleshooting/#interact-with-dialogs-managed-by-comapplespringboard).
 
 ### Gives custom listener
 
