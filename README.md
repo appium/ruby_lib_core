@@ -168,14 +168,14 @@ Then, adding capabilities below:
 
 ```json
 {
-  usePreinstalledWDA: true,
-  prebuiltWDAPath: "/path/to/download/prebuilt/wda/WebDriverAgentRunner-Runner.app"
+  "appium:usePreinstalledWDA": true,
+  "appium:prebuiltWDAPath": "/path/to/download/prebuilt/wda/WebDriverAgentRunner-Runner.app"
 }
 ```
 
 It will improve initial new session request performance for iOS simulator.
 
-`"settings[respectSystemAlerts]" => true` for capability will also help to work with [permissions](https://appium.github.io/appium-xcuitest-driver/latest/guides/troubleshooting/#interact-with-dialogs-managed-by-comapplespringboard).
+`"appium:settings[respectSystemAlerts]" => true` for capability will also help to work with [permissions](https://appium.github.io/appium-xcuitest-driver/latest/guides/troubleshooting/#interact-with-dialogs-managed-by-comapplespringboard).
 
 ### Gives custom listener
 
