@@ -131,7 +131,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '17.4'
+      platform_version = ENV['IOS_VERSION'] || '18.5'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] || false
@@ -142,7 +142,7 @@ class AppiumLibCoreTest
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name(platform_version, platform_name, wda_port),
+          deviceName: device_name(platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
           someCapability: 'some_capability',
@@ -184,6 +184,11 @@ class AppiumLibCoreTest
         cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
       end
 
+      if ENV['LOCAL_PREBUILT_WDA']
+        cap[:caps][:usePreinstalledWDA] = true
+        cap[:caps][:prebuiltWDAPath] = ENV['LOCAL_PREBUILT_WDA']
+      end
+
       cap
     end
 
@@ -210,16 +215,11 @@ class AppiumLibCoreTest
       end
     end
 
-    def device_name(os_version, platform_name, wda_local_port)
+    def device_name(platform_name, wda_local_port)
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        name = if over_ios13?(os_version)
-                 'iPhone 15 Plus'
-               else
-                 'iPhone 15 Pro Max'
-               end
-
+        name = ENV['IOS_DEVICE_NAME'] || 'iPhone 16 Plus'
         parallel? ? "#{name} - #{wda_local_port}" : name
       end
     end
@@ -315,7 +315,7 @@ class AppiumLibCoreTest
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)
         cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setScrollAcknowledgmentTimeout(long)
-        cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
+        # cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
         cap[:capabilities]['settings[waitForIdleTimeout]'] = 0
         cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else

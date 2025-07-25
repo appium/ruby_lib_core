@@ -20,27 +20,41 @@ jobs:
         test_targets:
           - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
             name: test1
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
             name: test2
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/webdriver/device_test.rb
             name: test3
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/device_test.rb
             name: test4
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
             name: test5
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/ios/image_comparison_test.rb
             name: test6
+            platform: ios
+            wdaName: WebDriverAgentRunner-Runner.app
           - target: test/functional/ios/tv_driver_test.rb
             name: test7
+            platform: tvOS
+            wdaName: WebDriverAgentRunner_tvOS-Runner.app
 
-    runs-on: macos-14
+    runs-on: macos-15
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 15.3
-      IOS_VERSION: 17.4
-      IOS_DEVICE_NAME: iPhone 15 Plus
+      XCODE_VERSION: 16.4
+      IOS_VERSION: 18.5
+      IOS_DEVICE_NAME: iPhone 16 Plus
 
     steps:
     - uses: actions/checkout@v3
@@ -71,6 +85,10 @@ jobs:
         # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
+      name: Downloading prebuilt WDA
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -84,6 +102,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
+        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
 
     - name: Save server output
       if: ${{ always() }}
@@ -95,7 +114,14 @@ jobs:
           test/report/
 
   ios_test_with_other_deps:
-    runs-on: macos-14
+    runs-on: macos-15
+
+    # Please make sure the available Xcode versions and iOS versions
+    # on the runner images. https://github.com/actions/runner-images
+    env:
+      XCODE_VERSION: 16.4
+      IOS_VERSION: 18.5
+      IOS_DEVICE_NAME: iPhone 16 Plus
 
     steps:
     - uses: actions/checkout@v3
@@ -135,6 +161,10 @@ jobs:
         # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
+    - run: |
+        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
+      name: Downloading prebuilt WDA
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -147,6 +177,7 @@ jobs:
       env:
         IGNORE_VERSION_SKIP: true
         CI: true
+        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/WebDriverAgentRunner-Runner.app
 
     - name: Save server output
       if: ${{ always() }}
