@@ -30,12 +30,11 @@ module Appium
         #
         #   opts = {
         #     caps: {
-        #       platformName: :ios,
-        #       automationName: 'XCUITest',
-        #       app: 'test/functional/app/UICatalog.app.zip',
-        #       platformVersion: '11.4',
-        #       deviceName: 'iPhone Simulator',
-        #       useNewWDA: true,
+        #       platformName: :android,
+        #       automationName: 'uiautomator2',
+        #       platformVersion: '15',
+        #       deviceName: 'Android',
+        #.      webSocketUrl: true,
         #     },
         #     appium_lib: {
         #       wait: 30
