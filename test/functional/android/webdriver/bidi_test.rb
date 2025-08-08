@@ -38,7 +38,7 @@ class AppiumLibCoreTest
         begin
           driver.bidi.remove_callback('log.entryAdded', subscribe_id)
           driver.bidi.send_cmd('session.unsubscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
-        rescue StandardError => e
+        rescue StandardError
           # ignore
         end
 
