@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.1.0] - 2025-08-08
+- Add WebDriver BiDi support. Please set `webSocketUrl` in the capabilities to enable it.
+    - `test/functional/android/webdriver/bidi_test.rb` can be an example usage.
+    - Older versions of the Selenium Ruby bindings may raise exceptions due to missing dependencies.
+
 ## [11.0.2] - 2025-04-27
 - Add more sig definitions [#571](https://github.com/appium/ruby_lib_core/pull/571)
 

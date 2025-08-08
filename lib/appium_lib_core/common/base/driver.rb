@@ -81,7 +81,7 @@ module Appium
 
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          @has_bidi = capabilities && capabilities['webSocketUrl']
+          @has_bidi = !!(capabilities && capabilities['webSocketUrl'])
           bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
           bridge = bridge_clzz.new(**bridge_opts)
 
