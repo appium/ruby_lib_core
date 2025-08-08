@@ -116,9 +116,6 @@ module Appium
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
           @capabilities = json_create(response['capabilities'])
-
-          socket_url = @capabilities[:web_socket_url]
-          @bidi = ::Selenium::WebDriver::BiDi.new(url: socket_url) if socket_url
         end
 
         # Append +appium:+ prefix for Appium following W3C spec

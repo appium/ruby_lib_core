@@ -700,6 +700,40 @@ class AppiumLibCoreTest
       assert_equal ::Appium::Core::Element, c_el.first.class
     end
 
+    def test_bidi_bridge
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator',
+              webSocketUrl: 'ws://192.168.1.49:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = core.start_driver
+
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        driver
+      end
+
+      capabilities = Caps.android[:capabilities]
+      capabilities['webSocketUrl'] = true
+
+      core = ::Appium::Core.for capabilities: capabilities
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal driver.send(:bridge).class, Appium::Core::Base::BiDiBridge
+      assert_equal driver.instance_variable_get(:@wait_timeout), 30
+      assert !driver.send(:bridge).respond_to?(:driver)
+    end
+
     def test_elements
       driver = android_mock_create_session
 

@@ -57,6 +57,8 @@ module Appium
           # internal use
           @has_bidi = false
 
+          ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
+
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
           @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
@@ -80,14 +82,9 @@ module Appium
 
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          if capabilities['webSocketUrl']
-            @has_bidi = true
-            ::Selenium::WebDriver::Remote::BiDiBridge.element_class = ::Appium::Core::Element
-            bridge = ::Appium::Core::Base::BiDiBridge.new(**bridge_opts)
-          else
-            ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
-            bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
-          end
+          @has_bidi = capabilities && capabilities['webSocketUrl']
+          bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
+          bridge = bridge_clzz.new(**bridge_opts)
 
           if session_id.nil?
             bridge.create_session(capabilities)

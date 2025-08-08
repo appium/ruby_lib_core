@@ -45,8 +45,13 @@ module Appium
         #
         def create_session(capabilities)
           super
-          socket_url = @capabilities[:web_socket_url]
-          @bidi = ::Selenium::WebDriver::BiDi.new(url: socket_url)
+
+          unless @capabilities.nil?
+            socket_url = @capabilities[:web_socket_url]
+            @bidi = ::Selenium::WebDriver::BiDi.new(url: socket_url) if socket_url
+          end
+
+          @capabilities
         end
 
         def get(url)
