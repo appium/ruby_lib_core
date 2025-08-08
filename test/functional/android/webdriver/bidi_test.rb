@@ -14,7 +14,7 @@
 
 require 'test_helper'
 
-# $ rake test:func:android TEST=test/functional/android/webdriver/create_session_test.rb
+# $ rake test:func:android TEST=test/functional/android/webdriver/bidi_test.rb
 class AppiumLibCoreTest
   module WebDriver
     class BidiTest < AppiumLibCoreTest::Function::TestCase
