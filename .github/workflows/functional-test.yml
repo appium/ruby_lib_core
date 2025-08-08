@@ -223,6 +223,13 @@ jobs:
           - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
             automation_name: espresso
             name: test10
+          # FIXME: rever the comment out after https://github.com/appium/appium/pull/21468
+          # - target: test/functional/android/webdriver/bidi_test.rb
+          #   automation_name: uiautomator2
+          #   name: test11
+          # - target: test/functional/android/webdriver/bidi_test.rb
+          #   automation_name: espresso
+          #   name: test12
 
     env:
       API_LEVEL: 36
