@@ -46,9 +46,14 @@ module Appium
         def create_session(capabilities)
           super
 
-          unless @capabilities.nil?
+          return @capabilities if @capabilities.nil?
+
+          begin
             socket_url = @capabilities[:web_socket_url]
             @bidi = ::Selenium::WebDriver::BiDi.new(url: socket_url) if socket_url
+          rescue StandardError => e
+            ::Appium::Logger.warn "WebSocket connection to #{socket_url} for BiDi failed. Error #{e}"
+            raise
           end
 
           @capabilities

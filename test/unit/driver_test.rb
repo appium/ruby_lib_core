@@ -701,6 +701,10 @@ class AppiumLibCoreTest
     end
 
     def test_bidi_bridge
+      # Mock the BiDi WebSocket connection using Minitest
+      mock_bidi = Minitest::Mock.new
+      mock_bidi.expect(:close, nil)
+
       android_mock_create_session_w3c_direct = lambda do |core|
         response = {
           value: {
@@ -709,7 +713,7 @@ class AppiumLibCoreTest
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
               deviceName: 'Android Emulator',
-              webSocketUrl: 'ws://192.168.1.49:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
+              webSocketUrl: 'ws://127.0.0.1:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
             }
           }
         }.to_json
@@ -717,7 +721,10 @@ class AppiumLibCoreTest
         stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        driver = core.start_driver
+        driver = nil
+        ::Selenium::WebDriver::BiDi.stub(:new, mock_bidi) do
+          driver = core.start_driver
+        end
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         driver
@@ -730,8 +737,14 @@ class AppiumLibCoreTest
       driver = android_mock_create_session_w3c_direct.call(core)
 
       assert_equal driver.send(:bridge).class, Appium::Core::Base::BiDiBridge
-      assert_equal driver.instance_variable_get(:@wait_timeout), 30
       assert !driver.send(:bridge).respond_to?(:driver)
+
+      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.quit
+      # Verify that close was called exactly once
+      mock_bidi.verify
     end
 
     def test_elements

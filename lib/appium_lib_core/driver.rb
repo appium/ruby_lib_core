@@ -421,8 +421,8 @@ module Appium
             d_c = DirectConnections.new(@driver.capabilities)
             @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
           end
-        rescue Errno::ECONNREFUSED
-          raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}?"
+        rescue Errno::ECONNREFUSED => e
+          raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}? Error: #{e}"
         end
 
         if @http_client.instance_variable_defined? :@additional_headers

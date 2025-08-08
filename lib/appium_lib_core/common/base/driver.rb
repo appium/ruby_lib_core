@@ -58,7 +58,6 @@ module Appium
           @has_bidi = false
 
           ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
-
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
           @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
