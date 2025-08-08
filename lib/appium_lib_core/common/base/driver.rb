@@ -29,9 +29,6 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
 
-        # TODO: allow to install only for newer version
-        include ::Selenium::WebDriver::DriverExtensions::HasBiDi
-
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
@@ -57,9 +54,9 @@ module Appium
           @devtools = nil
           @bidi = nil
 
-          # TODO: modify the eleemnt_class
-          # in the selenium webdriver as well
-          ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
+          # internal use
+          @has_bidi = false
+
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
           @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
@@ -83,7 +80,14 @@ module Appium
 
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
+          if capabilities['webSocketUrl']
+            @has_bidi = true
+            ::Selenium::WebDriver::Remote::BiDiBridge.element_class = ::Appium::Core::Element
+            bridge = ::Appium::Core::Base::BiDiBridge.new(**bridge_opts)
+          else
+            ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
+            bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
+          end
 
           if session_id.nil?
             bridge.create_session(capabilities)
@@ -96,6 +100,13 @@ module Appium
         end
 
         public
+
+        def bidi
+          return @bridge.bidi if @has_bidi
+
+          msg = 'BiDi must be enabled by providing webSocketUrl capability to true'
+          raise(::Selenium::WebDriver::Error::WebDriverError, msg)
+        end
 
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is

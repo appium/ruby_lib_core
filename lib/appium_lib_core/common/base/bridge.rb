@@ -21,9 +21,7 @@ module Appium
         end
       end # LocatorConverter
 
-      # TODO: switch to use BiDiBridge with 'webSocketUrl'
-      class Bridge < ::Selenium::WebDriver::Remote::BiDiBridge
-      # class Bridge < ::Selenium::WebDriver::Remote::Bridge
+      class Bridge < ::Selenium::WebDriver::Remote::Bridge
         include Device::DeviceLock
         include Device::Keyboard
         include Device::ImeActions
@@ -317,11 +315,6 @@ module Appium
         # So this bridge itself does not restrict the target module.
         def send_command(command_params)
           execute :chrome_send_command, {}, command_params
-        end
-
-        def quit
-          bidi&.close
-          super
         end
       end # class Bridge
     end # class Base
