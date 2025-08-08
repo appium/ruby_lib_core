@@ -101,13 +101,6 @@ module Appium
 
         public
 
-        def bidi
-          return @bridge.bidi if @has_bidi
-
-          msg = 'BiDi must be enabled by providing webSocketUrl capability to true'
-          raise(::Selenium::WebDriver::Error::WebDriverError, msg)
-        end
-
         # Update +server_url+ and HTTP clients following this arguments, protocol, host, port and path.
         # After this method, +@bridge.http+ will be a new instance following them instead of +server_url+ which is
         # set before creating session.
@@ -1010,6 +1003,28 @@ module Appium
         #
         def convert_to_element(response_id)
           @bridge.convert_to_element response_id
+        end
+
+        # Return bidi instance
+        # @return [::Selenium::WebDriver::BiDi]
+        #
+        # @example
+        #
+        #     log_entries = []
+        #     driver.bidi.send_cmd('session.subscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
+        #     subscribe_id = driver.bidi.add_callback('log.entryAdded') do |params|
+        #       log_entries << params
+        #     end
+        #     driver.page_source
+        #
+        #     driver.bidi.remove_callback('log.entryAdded', subscribe_id)
+        #     driver.bidi.send_cmd('session.unsubscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
+        #
+        def bidi
+          return @bridge.bidi if @has_bidi
+
+          msg = 'BiDi must be enabled by providing webSocketUrl capability to true'
+          raise(::Selenium::WebDriver::Error::WebDriverError, msg)
         end
       end # class Driver
     end # class Base
