@@ -34,7 +34,7 @@ module Appium
         #       automationName: 'uiautomator2',
         #       platformVersion: '15',
         #       deviceName: 'Android',
-        #.      webSocketUrl: true,
+        #       webSocketUrl: true,
         #     },
         #     appium_lib: {
         #       wait: 30
