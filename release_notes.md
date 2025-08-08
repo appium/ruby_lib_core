@@ -1,3 +1,9 @@
+#### v11.1.1 2025-08-08
+
+- [4651cac](https://github.com/appium/ruby_lib_core/commit/4651cac25d4f95374568d1c97083ecd0eb9e4547) Release 11.1.1
+- [5b5e47b](https://github.com/appium/ruby_lib_core/commit/5b5e47b05e0f8f2577af4f0d595658531f3efc66) fix: fix rubocop
+
+
 #### v11.1.0 2025-08-08
 
 - [0486d1b](https://github.com/appium/ruby_lib_core/commit/0486d1b5042ff86c0d4378bbd0eec574d5825fdd) Release 11.1.0
