@@ -21,7 +21,9 @@ module Appium
         end
       end # LocatorConverter
 
-      class Bridge < ::Selenium::WebDriver::Remote::Bridge
+      # TODO: switch to use BiDiBridge with 'webSocketUrl'
+      class Bridge < ::Selenium::WebDriver::Remote::BiDiBridge
+      # class Bridge < ::Selenium::WebDriver::Remote::Bridge
         include Device::DeviceLock
         include Device::Keyboard
         include Device::ImeActions
@@ -116,6 +118,9 @@ module Appium
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
           @capabilities = json_create(response['capabilities'])
+
+          socket_url = @capabilities[:web_socket_url]
+          @bidi = ::Selenium::WebDriver::BiDi.new(url: socket_url) if socket_url
         end
 
         # Append +appium:+ prefix for Appium following W3C spec
@@ -312,6 +317,11 @@ module Appium
         # So this bridge itself does not restrict the target module.
         def send_command(command_params)
           execute :chrome_send_command, {}, command_params
+        end
+
+        def quit
+          bidi&.close
+          super
         end
       end # class Bridge
     end # class Base

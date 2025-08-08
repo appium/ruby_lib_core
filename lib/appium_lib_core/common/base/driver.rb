@@ -29,6 +29,9 @@ module Appium
         include ::Selenium::WebDriver::DriverExtensions::UploadsFiles
         include ::Selenium::WebDriver::DriverExtensions::HasSessionId
 
+        # TODO: allow to install only for newer version
+        include ::Selenium::WebDriver::DriverExtensions::HasBiDi
+
         include ::Appium::Core::Base::Rotatable
         include ::Appium::Core::Base::TakesScreenshot
         include ::Appium::Core::Base::HasRemoteStatus
@@ -54,6 +57,7 @@ module Appium
           @devtools = nil
           @bidi = nil
 
+          # TODO: modify the eleemnt_class
           # in the selenium webdriver as well
           ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
           bridge ||= create_bridge(**opts)
