@@ -1,0 +1,25 @@
+module Appium
+  module Core
+    class Base
+      class BiDiBridge < ::Appium::Core::Base::Bridge
+        @bidi: ::Selenium::WebDriver::BiDi
+
+        def attach_to: (untyped session_id, untyped platform_name, untyped automation_name) -> untyped
+
+        def create_session: (untyped capabilities) -> ::Appium::Core::Base::Capabilities
+
+        def get: (string url) -> untyped
+
+        def go_back: () -> untyped
+
+        def go_forward: () -> untyped
+
+        def refresh: () -> untyped
+
+        def quit: () -> untyped
+
+        def close: () -> untyped
+      end
+    end
+  end
+end

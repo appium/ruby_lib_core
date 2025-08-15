@@ -191,7 +191,7 @@ capabilities: {
   deviceName: 'iPhone Simulator',
   automationName: 'XCUITest',
   app: '/path/to/MyiOS.app'
-},
+}
 appium_lib: {
   listener: CustomListener.new
 }

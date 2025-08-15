@@ -94,7 +94,7 @@ module Appium
         #   core = ::Appium::Core.for(caps)
         #   driver = core.start_driver
         #
-        def create_session: (untyped capabilities) -> untyped
+        def create_session: (untyped capabilities) -> ::Appium::Core::Base::Capabilities
 
         # Append +appium:+ prefix for Appium following W3C spec
         # https://www.w3.org/TR/webdriver/#dfn-validate-capabilities
