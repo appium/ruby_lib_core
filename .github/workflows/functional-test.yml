@@ -77,7 +77,7 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
 
     # Start Appium
-    - run: npm install -g appium@beta
+    - run: npm install -g appium@rc
     - run: |
         appium driver install xcuitest@beta
         # appium plugin install images
