@@ -86,7 +86,6 @@ jobs:
 
     - run: npm list
     - run: npm -g list
-    - run: ls /usr/local/lib/node_modules
 
     - run: |
         npx appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
