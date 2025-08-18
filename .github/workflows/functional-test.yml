@@ -154,8 +154,8 @@ jobs:
     # Start Appium
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium@rc
-        npm install -g mjpeg-consumer
+        npm install appium@rc
+        npm install mjpeg-consumer
     - run: |
         npx appium driver install xcuitest@rc
         npx appium plugin install images@rc
