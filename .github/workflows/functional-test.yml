@@ -80,8 +80,8 @@ jobs:
     - run: npm install -g appium@rc
     - run: |
         appium driver install xcuitest@rc
-        appium plugin install images
-        appium plugin install execute-driver
+        appium plugin install images@rc
+        appium plugin install execute-driver@rc
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
@@ -156,8 +156,8 @@ jobs:
         npm install -g mjpeg-consumer
     - run: |
         appium driver install xcuitest@rc
-        appium plugin install images
-        appium plugin install execute-driver
+        appium plugin install images@rc
+        appium plugin install execute-driver@rc
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
@@ -254,8 +254,8 @@ jobs:
     - run: npm install -g appium@rc
     - run: |
         appium driver install uiautomator2@rc
-        appium plugin install images
-        appium plugin install execute-driver
+        appium plugin install images@rc
+        appium plugin install execute-driver@rc
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
         # nohup appium --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
