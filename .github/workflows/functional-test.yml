@@ -158,10 +158,12 @@ jobs:
         npm install -g appium@rc
         npm install -g mjpeg-consumer
     - run: |
+        npm install -g appium-xcuitest-driver@rc
+        node `npm root -g`/appium-xcuitest-driver/scripts/download-wda-sim.mjs --platform=ios --outdir=${{github.workspace}}/wda
+    - run: |
         npx appium driver install xcuitest@rc
         npx appium plugin install images@rc
         npx appium plugin install execute-driver@rc
-        npx appium driver run xcuitest download-wda-sim --platform=ios --outdir=${{github.workspace}}/wda
         nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
       name: Preparing driver, plugins and downloading prebuilt WDA
