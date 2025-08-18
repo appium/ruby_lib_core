@@ -77,11 +77,11 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
 
     # Start Appium
-    - run: npm install -g appium@rc
+    - run: npm install -g appium
     - run: |
         appium driver install xcuitest@rc
-        appium plugin install images@rc
-        appium plugin install execute-driver@rc
+        appium plugin install images
+        appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
@@ -152,12 +152,12 @@ jobs:
     - run: npm root -g
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium@rc
+        npm install -g appium
         npm install -g mjpeg-consumer
     - run: |
         appium driver install xcuitest@rc
-        appium plugin install images@rc
-        appium plugin install execute-driver@rc
+        appium plugin install images
+        appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
@@ -250,11 +250,11 @@ jobs:
         node-version: 'lts/*'
 
     # Start Appium
-    - run: npm install -g appium@rc
+    - run: npm install -g appium
     - run: |
         appium driver install uiautomator2@rc
-        appium plugin install images@rc
-        appium plugin install execute-driver@rc
+        appium plugin install images
+        appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - name: Enable KVM group perms
