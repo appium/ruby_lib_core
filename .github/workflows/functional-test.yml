@@ -252,11 +252,10 @@ jobs:
     # Start Appium
     - run: npm install -g appium@rc
     - run: |
-        npx appium driver install uiautomator2@rc
-        npx appium plugin install images@rc
-        npx appium plugin install execute-driver@rc
-        nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
-        # nohup npx appium --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        appium driver install uiautomator2@rc
+        appium plugin install images@rc
+        appium plugin install execute-driver@rc
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
     - name: Enable KVM group perms
       run: |
