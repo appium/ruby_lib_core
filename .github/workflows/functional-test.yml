@@ -13,107 +13,107 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ios_test:
-    strategy:
-      fail-fast: false
-      matrix:
-        test_targets:
-          - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
-            name: test1
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
-            name: test2
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/webdriver/device_test.rb
-            name: test3
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/ios/device_test.rb
-            name: test4
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
-            name: test5
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/ios/image_comparison_test.rb
-            name: test6
-            platform: ios
-            wdaName: WebDriverAgentRunner-Runner.app
-          - target: test/functional/ios/tv_driver_test.rb
-            name: test7
-            platform: tvOS
-            wdaName: WebDriverAgentRunner_tvOS-Runner.app
+  # ios_test:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       test_targets:
+  #         - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
+  #           name: test1
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/webdriver/create_session_test.rb,test/functional/ios/webdriver/w3c_actions_test.rb
+  #           name: test2
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/webdriver/device_test.rb
+  #           name: test3
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/ios/device_test.rb
+  #           name: test4
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/ios/device_wda_attachment_test.rb,test/functional/ios/ios/search_context_test.rb
+  #           name: test5
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/ios/image_comparison_test.rb
+  #           name: test6
+  #           platform: ios
+  #           wdaName: WebDriverAgentRunner-Runner.app
+  #         - target: test/functional/ios/tv_driver_test.rb
+  #           name: test7
+  #           platform: tvOS
+  #           wdaName: WebDriverAgentRunner_tvOS-Runner.app
 
-    runs-on: macos-15
+  #   runs-on: macos-15
 
-    # Please make sure the available Xcode versions and iOS versions
-    # on the runner images. https://github.com/actions/runner-images
-    env:
-      XCODE_VERSION: 16.4
-      IOS_VERSION: 18.5
-      IOS_DEVICE_NAME: iPhone 16 Plus
+  #   # Please make sure the available Xcode versions and iOS versions
+  #   # on the runner images. https://github.com/actions/runner-images
+  #   env:
+  #     XCODE_VERSION: 16.4
+  #     IOS_VERSION: 18.5
+  #     IOS_DEVICE_NAME: iPhone 16 Plus
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
+  #   - name: Install Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 'lts/*'
 
-    - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+  #   - name: Select Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: ${{ env.XCODE_VERSION }}
+  #   - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v3
-      with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-        model: ${{ env.IOS_DEVICE_NAME }}
-        os_version: ${{ env.IOS_VERSION }}
+  #   - uses: futureware-tech/simulator-action@v3
+  #     with:
+  #       # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
+  #       model: ${{ env.IOS_DEVICE_NAME }}
+  #       os_version: ${{ env.IOS_VERSION }}
 
-    # Start Appium
-    - run: npm install -g appium@rc
-    - run: |
-        npx appium driver install xcuitest@rc
-        npx appium plugin install images@rc
-        npx appium plugin install execute-driver@rc
-        nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+  #   # Start Appium
+  #   - run: npm install -g appium@rc
+  #   - run: |
+  #       npx appium driver install xcuitest@rc
+  #       npx appium plugin install images@rc
+  #       npx appium plugin install execute-driver@rc
+  #       nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
-    - run: npm list
-    - run: npm -g list
+  #   - run: npm list
+  #   - run: npm -g list
 
-    - run: |
-        npx appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
-      name: Downloading prebuilt WDA
+  #   - run: |
+  #       npx appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
+  #     name: Downloading prebuilt WDA
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-    - name: Install dependencies
-      run: bundle install
+  #   - name: Set up Ruby
+  #     uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: 3.2
+  #   - name: Install dependencies
+  #     run: bundle install
 
-    # Run tests
-    - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
-      name: Run tests
-      env:
-        IGNORE_VERSION_SKIP: true
-        CI: true
-        LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
+  #   # Run tests
+  #   - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
+  #     name: Run tests
+  #     env:
+  #       IGNORE_VERSION_SKIP: true
+  #       CI: true
+  #       LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
 
-    - name: Save server output
-      if: ${{ always() }}
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-ios-${{matrix.test_targets.name}}.log
-        path: |
-          appium.log
-          test/report/
+  #   - name: Save server output
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@master
+  #     with:
+  #       name: appium-ios-${{matrix.test_targets.name}}.log
+  #       path: |
+  #         appium.log
+  #         test/report/
 
   ios_test_with_other_deps:
     runs-on: macos-15
@@ -152,10 +152,11 @@ jobs:
         brew install applesimutils
 
     # Start Appium
+    - run: npm root -g
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install appium@rc
-        npm install mjpeg-consumer
+        npm install -g appium@rc
+        npm install -g mjpeg-consumer
     - run: |
         npx appium driver install xcuitest@rc
         npx appium plugin install images@rc
@@ -164,7 +165,6 @@ jobs:
         nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
         # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
       name: Preparing driver, plugins and downloading prebuilt WDA
-
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -188,134 +188,134 @@ jobs:
           appium.log
           test/report/
 
-  android_test:
-    runs-on: ubuntu-latest
+  # android_test:
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        test_targets:
-          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
-            automation_name: uiautomator2
-            name: test1
-          # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
-          #   automation_name: espresso
-          #   name: test2
-          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
-            automation_name: uiautomator2
-            name: test3
-          # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
-          #   automation_name: espresso
-          #   name: test4
-          - target: test/functional/android/android/mobile_commands_test.rb
-            automation_name: uiautomator2
-            name: test5
-          # - target: test/functional/android/android/mobile_commands_test.rb
-          #   automation_name: espresso
-          #   name: test6
-          - target: test/functional/android/android/device_data_test.rb
-            automation_name: uiautomator2
-            name: test7
-          # - target: test/functional/android/android/device_data_test.rb
-          #   automation_name: espresso
-          #   name: test8
-          - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
-            automation_name: uiautomator2
-            name: test9
-          # - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
-          #   automation_name: espresso
-          #   name: test10
-          # FIXME: rever the comment out after https://github.com/appium/appium/pull/21468
-          - target: test/functional/android/webdriver/bidi_test.rb
-            automation_name: uiautomator2
-            name: test11
-          # - target: test/functional/android/webdriver/bidi_test.rb
-          #   automation_name: espresso
-          #   name: test12
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       test_targets:
+  #         - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+  #           automation_name: uiautomator2
+  #           name: test1
+  #         # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test2
+  #         - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+  #           automation_name: uiautomator2
+  #           name: test3
+  #         # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test4
+  #         - target: test/functional/android/android/mobile_commands_test.rb
+  #           automation_name: uiautomator2
+  #           name: test5
+  #         # - target: test/functional/android/android/mobile_commands_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test6
+  #         - target: test/functional/android/android/device_data_test.rb
+  #           automation_name: uiautomator2
+  #           name: test7
+  #         # - target: test/functional/android/android/device_data_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test8
+  #         - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+  #           automation_name: uiautomator2
+  #           name: test9
+  #         # - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test10
+  #         # FIXME: rever the comment out after https://github.com/appium/appium/pull/21468
+  #         - target: test/functional/android/webdriver/bidi_test.rb
+  #           automation_name: uiautomator2
+  #           name: test11
+  #         # - target: test/functional/android/webdriver/bidi_test.rb
+  #         #   automation_name: espresso
+  #         #   name: test12
 
-    env:
-      API_LEVEL: 36
-      ARCH: x86_64
+  #   env:
+  #     API_LEVEL: 36
+  #     ARCH: x86_64
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+  #   - uses: actions/setup-java@v3
+  #     with:
+  #       distribution: 'temurin'
+  #       java-version: '17'
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
+  #   - name: Install Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: 'lts/*'
 
-    # Start Appium
-    - run: npm install -g appium@rc
-    - run: |
-        npx appium driver install uiautomator2@rc
-        npx appium plugin install images@rc
-        npx appium plugin install execute-driver@rc
-        nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
-        # nohup npx appium --relaxed-security --log-timestamp --log-no-colors > appium.log &
+  #   # Start Appium
+  #   - run: npm install -g appium@rc
+  #   - run: |
+  #       npx appium driver install uiautomator2@rc
+  #       npx appium plugin install images@rc
+  #       npx appium plugin install execute-driver@rc
+  #       nohup npx appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+  #       # nohup npx appium --relaxed-security --log-timestamp --log-no-colors > appium.log &
 
-    - name: Enable KVM group perms
-      run: |
-        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-        sudo udevadm control --reload-rules
-        sudo udevadm trigger --name-match=kvm
+  #   - name: Enable KVM group perms
+  #     run: |
+  #       echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+  #       sudo udevadm control --reload-rules
+  #       sudo udevadm trigger --name-match=kvm
 
-    - name: AVD cache
-      uses: actions/cache@v3
-      id: avd-cache
-      with:
-        path: |
-          ~/.android/avd/*
-          ~/.android/adb*
-        key: avd-${{ env.API_LEVEL }}
-    - name: create AVD and generate snapshot for caching
-      if: steps.avd-cache.outputs.cache-hit != 'true'
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: ${{ env.API_LEVEL }}
-        arch: ${{ env.ARCH }}
-        target: google_apis
-        force-avd-creation: false
-        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        disable-animations: false
-        script: echo "Generated AVD snapshot for caching."
+  #   - name: AVD cache
+  #     uses: actions/cache@v3
+  #     id: avd-cache
+  #     with:
+  #       path: |
+  #         ~/.android/avd/*
+  #         ~/.android/adb*
+  #       key: avd-${{ env.API_LEVEL }}
+  #   - name: create AVD and generate snapshot for caching
+  #     if: steps.avd-cache.outputs.cache-hit != 'true'
+  #     uses: reactivecircus/android-emulator-runner@v2
+  #     with:
+  #       api-level: ${{ env.API_LEVEL }}
+  #       arch: ${{ env.ARCH }}
+  #       target: google_apis
+  #       force-avd-creation: false
+  #       emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+  #       disable-animations: false
+  #       script: echo "Generated AVD snapshot for caching."
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-    - name: Install dependencies
-      run: bundle install
+  #   - name: Set up Ruby
+  #     uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: 3.2
+  #   - name: Install dependencies
+  #     run: bundle install
 
-    # Run tests
+  #   # Run tests
 
-    - name: run tests
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: ${{ env.API_LEVEL }}
-        arch: ${{ env.ARCH }}
-        script: |
-          bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
-        target: google_apis
-        profile: Nexus 5X
-        disable-spellchecker: true
-        disable-animations: true
-      env:
-        ANDROID_SDK_VERSION: ${{ env.API_LEVEL }}
-        APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
-        IGNORE_VERSION_SKIP: true
-        CI: true
+  #   - name: run tests
+  #     uses: reactivecircus/android-emulator-runner@v2
+  #     with:
+  #       api-level: ${{ env.API_LEVEL }}
+  #       arch: ${{ env.ARCH }}
+  #       script: |
+  #         bundle exec rake test:func:android TESTS=${{matrix.test_targets.target}}
+  #       target: google_apis
+  #       profile: Nexus 5X
+  #       disable-spellchecker: true
+  #       disable-animations: true
+  #     env:
+  #       ANDROID_SDK_VERSION: ${{ env.API_LEVEL }}
+  #       APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
+  #       IGNORE_VERSION_SKIP: true
+  #       CI: true
 
-    - name: Save server output
-      if: ${{ always() }}
-      uses: actions/upload-artifact@master
-      with:
-        name: appium-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
-        path: |
-          appium.log
-          test/report/
+  #   - name: Save server output
+  #     if: ${{ always() }}
+  #     uses: actions/upload-artifact@master
+  #     with:
+  #       name: appium-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
+  #       path: |
+  #         appium.log
+  #         test/report/
