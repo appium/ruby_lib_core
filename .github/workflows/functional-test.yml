@@ -77,7 +77,7 @@ jobs:
         os_version: ${{ env.IOS_VERSION }}
 
     # Start Appium
-    - run: npm install -g appium@rc
+    - run: npm install appium@rc
     - run: |
         appium driver install xcuitest@rc
         appium plugin install images@rc
@@ -85,6 +85,8 @@ jobs:
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: npm list
+    - run: npm -g list
+    - run: ls /usr/local/lib/node_modules
 
     - run: |
         appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
@@ -153,8 +155,8 @@ jobs:
     # Start Appium
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium@rc
-        npm install -g mjpeg-consumer
+        npm install appium@rc
+        npm install mjpeg-consumer
     - run: |
         appium driver install xcuitest@rc
         appium plugin install images@rc
@@ -252,7 +254,7 @@ jobs:
         node-version: 'lts/*'
 
     # Start Appium
-    - run: npm install -g appium@rc
+    - run: npm install appium@rc
     - run: |
         appium driver install uiautomator2@rc
         appium plugin install images@rc
