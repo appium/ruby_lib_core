@@ -158,6 +158,7 @@ jobs:
         npm install -g appium@rc
         npm install -g mjpeg-consumer
     - run: |
+        node -e "console.log(process.env)"
         npm install -g appium-xcuitest-driver@rc
         node `npm root -g`/appium-xcuitest-driver/scripts/download-wda-sim.mjs --platform=ios --outdir=${{github.workspace}}/wda
     - run: |
