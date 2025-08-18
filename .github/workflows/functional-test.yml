@@ -83,10 +83,11 @@ jobs:
         appium plugin install images@rc
         appium plugin install execute-driver@rc
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
-        # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
+        cat /Users/runner/.appium/node_modules/appium-xcuitest-driver/scripts/download-wda-sim.mjs
+        node /Users/runner/.appium/node_modules/appium-xcuitest-driver/scripts/download-wda-sim.mjs --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
+        # appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
