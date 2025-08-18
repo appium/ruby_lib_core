@@ -79,11 +79,11 @@ jobs:
     # Start Appium
     - run: npm install -g appium@rc
     - run: |
-        appium driver install xcuitest@beta
-        # appium plugin install images
-        # appium plugin install execute-driver
-        # nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
-        nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        appium driver install xcuitest@rc
+        appium plugin install images
+        appium plugin install execute-driver
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
+        # nohup appium --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
         appium driver run xcuitest download-wda-sim  --platform=${{matrix.test_targets.platform}} --outdir=${{ github.workspace }}/wda
@@ -152,7 +152,7 @@ jobs:
     # Start Appium
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium@beta
+        npm install -g appium@rc
         npm install -g mjpeg-consumer
     - run: |
         appium driver install xcuitest@rc
