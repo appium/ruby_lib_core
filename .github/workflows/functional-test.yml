@@ -79,7 +79,7 @@ jobs:
     # Start Appium
     - run: npm install -g appium
     - run: |
-        appium driver install xcuitest@rc
+        appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
@@ -155,7 +155,7 @@ jobs:
         npm install -g appium
         npm install -g mjpeg-consumer
     - run: |
-        appium driver install xcuitest@rc
+        appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
@@ -197,40 +197,39 @@ jobs:
           - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
             automation_name: uiautomator2
             name: test1
-          # - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
-          #   automation_name: espresso
-          #   name: test2
+          - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
+            automation_name: espresso
+            name: test2
           - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
             automation_name: uiautomator2
             name: test3
-          # - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
-          #   automation_name: espresso
-          #   name: test4
+          - target: test/functional/android/webdriver/create_session_test.rb,test/functional/android/webdriver/device_test.rb,test/functional/android/webdriver/w3c_actions_test.rb
+            automation_name: espresso
+            name: test4
           - target: test/functional/android/android/mobile_commands_test.rb
             automation_name: uiautomator2
             name: test5
-          # - target: test/functional/android/android/mobile_commands_test.rb
-          #   automation_name: espresso
-          #   name: test6
+          - target: test/functional/android/android/mobile_commands_test.rb
+            automation_name: espresso
+            name: test6
           - target: test/functional/android/android/device_data_test.rb
             automation_name: uiautomator2
             name: test7
-          # - target: test/functional/android/android/device_data_test.rb
-          #   automation_name: espresso
-          #   name: test8
+          - target: test/functional/android/android/device_data_test.rb
+            automation_name: espresso
+            name: test8
           - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
             automation_name: uiautomator2
             name: test9
-          # - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
-          #   automation_name: espresso
-          #   name: test10
-          # FIXME: rever the comment out after https://github.com/appium/appium/pull/21468
+          - target: test/functional/android/android/mjpeg_server_test.rb,test/functional/android/android/image_comparison_test.rb
+            automation_name: espresso
+            name: test10
           - target: test/functional/android/webdriver/bidi_test.rb
             automation_name: uiautomator2
             name: test11
-          # - target: test/functional/android/webdriver/bidi_test.rb
-          #   automation_name: espresso
-          #   name: test12
+          - target: test/functional/android/webdriver/bidi_test.rb
+            automation_name: espresso
+            name: test12
 
     env:
       API_LEVEL: 36
@@ -252,10 +251,10 @@ jobs:
     # Start Appium
     - run: npm install -g appium
     - run: |
-        appium driver install uiautomator2@rc
+        appium driver install ${{matrix.test_targets.automation_name}}
         appium plugin install images
         appium plugin install execute-driver
-        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors > appium.log &
+        nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Enable KVM group perms
       run: |
