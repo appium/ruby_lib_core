@@ -111,20 +111,23 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     require 'rubygems'
     require 'appium_lib_core'
 
-    opts = {
-      capabilities: { # Append capabilities
-        platformName: 'ios',
-        platformVersion: '18.4',
-        deviceName: 'iPhone 16 Plus',
-        # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
-        automationName: 'XCUITest'
-      },
-      appium_lib: {
-        wait: 30
-      }
-    }
-    @core = Appium::Core.for(opts) # create a core driver with `opts`
-    @driver = @core.start_driver
+opts = {
+  capabilities: { # Append capabilities
+    platformName: 'android',
+    platformVersion: '16',
+    deviceName: 'Android',
+    browserName: "chrome",
+    # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
+    automationName: 'uiautomator2',
+    udid: "emulator-5554",
+    recreateChromeDriverSessions: true,
+  },
+  appium_lib: {
+    wait: 30
+  }
+}
+@core = Appium::Core.for(opts) # create a core driver with `opts`
+@driver = @core.start_driver
 
     # Launch iPhone Simulator and `MyiOS.app`
     @driver.find_element(:accessibility_id, 'some accessibility') # find an element

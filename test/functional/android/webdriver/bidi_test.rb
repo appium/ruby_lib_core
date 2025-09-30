@@ -23,7 +23,7 @@ class AppiumLibCoreTest
         caps[:capabilities]['webSocketUrl'] = true
         core = ::Appium::Core.for(caps)
 
-        driver = core.start_driver
+        driver = core.start_driver server_url: 'http://localhost:4723/wd/hub'
         assert !driver.capabilities.nil?
 
         log_entries = []
