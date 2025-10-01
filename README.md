@@ -114,8 +114,8 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     opts = {
       capabilities: { # Append capabilities
         platformName: 'ios',
-        platformVersion: '18.4',
-        deviceName: 'iPhone 16 Plus',
+        platformVersion: '26.0',
+        deviceName: 'iPhone 17',
         # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
         automationName: 'XCUITest'
       },
