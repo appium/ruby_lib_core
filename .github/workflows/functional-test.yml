@@ -60,7 +60,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v5
       with:
         node-version: 'lts/*'
 
@@ -85,7 +85,7 @@ jobs:
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
+        npx appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
@@ -161,7 +161,7 @@ jobs:
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        appium driver run xcuitest download-wda-sim --platform=ios --outdir=${{github.workspace}}/wda
+        npx appium driver run xcuitest download-wda-sim --platform=ios --outdir=${{github.workspace}}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
