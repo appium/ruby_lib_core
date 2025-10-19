@@ -79,13 +79,14 @@ jobs:
     # Start Appium
     - run: npm install -g appium
     - run: |
-        appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
+        // Workaround to keep symlink to global appium
+        appium driver install xcuitest
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        npx appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
+        appium driver run xcuitest download-wda-sim --platform=${{matrix.test_targets.platform}} --outdir=${{github.workspace}}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
@@ -155,9 +156,10 @@ jobs:
         npm install -g appium
         npm install -g mjpeg-consumer
     - run: |
-        appium driver install xcuitest
         appium plugin install images
         appium plugin install execute-driver
+        // Workaround to keep symlink to global appium
+        appium driver install xcuitest
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
