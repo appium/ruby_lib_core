@@ -45,6 +45,8 @@ class AppiumLibCoreTest
         new_ios_caps[:caps].delete :derivedDataPath
         new_ios_caps[:caps].delete :bootstrapPath
         new_ios_caps[:caps].delete :useXctestrunFile
+        new_ios_caps[:caps].delete :prebuiltWDAPath
+        new_ios_caps[:caps].delete :usePreinstalledWDA
 
         new_core = ::Appium::Core.for(new_ios_caps)
         @driver = new_core.start_driver
