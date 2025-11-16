@@ -7,14 +7,16 @@ module Appium
 
           attr_reader upload_option: untyped
 
-          METHOD: ::Array["POST" | "PUT"]
+          METHOD: ::Array[::String]
 
-          def initialize: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: ::String, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?, ?force_restart: untyped?) -> void
+          type upload_method = "POST" | "PUT" | "post" | "put"
+
+          def initialize: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: upload_method, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?, ?force_restart: untyped?) -> void
 
           module Command
             include _Bridge
 
-            def stop_recording_screen: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: ::String, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?) -> untyped
+            def stop_recording_screen: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: upload_method, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?) -> untyped
 
             def stop_and_save_recording_screen: (untyped file_path) -> untyped
           end

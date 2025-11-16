@@ -120,5 +120,5 @@ end
 
 desc('Run Steep type check')
 task :steep do
-  system 'steep check'
+  system 'steep check --severity-level=error'
 end

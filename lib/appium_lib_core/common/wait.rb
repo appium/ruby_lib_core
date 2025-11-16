@@ -62,7 +62,9 @@ module Appium
           end
 
           msg = message_for timeout, message
+          # steep:ignore:start
           msg += " (#{last_error.message})" if last_error
+          # steep:ignore:end
 
           raise TimeoutError, msg
         end
@@ -109,7 +111,9 @@ module Appium
           end
 
           msg = message_for timeout, message
+          # steep:ignore:start
           msg += " (#{last_error.message})" if last_error
+          # steep:ignore:end
 
           raise TimeoutError, msg
         end

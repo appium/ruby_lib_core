@@ -5,7 +5,7 @@ module Appium
         module Keyboard
           include _Bridge
 
-          def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
+          def hide_keyboard: (?untyped? close_key) -> untyped
 
           def is_keyboard_shown: () -> untyped
         end

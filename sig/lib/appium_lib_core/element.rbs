@@ -10,7 +10,7 @@ module Appium
 
       def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
 
-      def respond_to_missing?: (*untyped) -> true
+      def respond_to_missing?: (untyped _method_name, bool _include_private) -> true
 
       # Alias for type
       alias type send_keys

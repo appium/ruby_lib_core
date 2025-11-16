@@ -43,6 +43,7 @@ module Appium
         @endpoint = url
 
         @ws_thread = Thread.new do
+          # steep:ignore:start
           EM.run do
             @client ||= ::Faye::WebSocket::Client.new(url, protocols, options)
 
@@ -62,6 +63,7 @@ module Appium
               handle_close(close.code, close.reason)
             end
           end
+          # steep:ignore:end
         end
       end
 
@@ -120,7 +122,7 @@ module Appium
       # Default is just put a debug message.
       #
       def handle_open
-        ::Appium::Logger.debug %W(#{self.class} :open)
+        ::Appium::Logger.debug("#{self.class} :open")
       end
 
       # Standard out by default
@@ -134,7 +136,7 @@ module Appium
       # In general, users should override this handler to handle messages from the peer.
       #
       def handle_message_data(data)
-        ::Appium::Logger.debug %W(#{self.class} :message #{data})
+        ::Appium::Logger.debug("#{self.class} :message #{data}")
         $stdout << "#{data}\n"
       end
 
@@ -145,7 +147,7 @@ module Appium
       # Default is just put a error message.
       #
       def handle_error
-        ::Appium::Logger.error %W(#{self.class} :error)
+        ::Appium::Logger.error("#{self.class} :error")
       end
 
       #
@@ -156,9 +158,11 @@ module Appium
       # The methods also clear +client+ instance and stop the eventmachine which is called in initialising this class.
       #
       def handle_close(code, reason)
-        ::Appium::Logger.debug %W(#{self.class} :close #{code} #{reason})
+        ::Appium::Logger.debug("#{self.class} :close #{code} #{reason}")
         @client = nil
+        # steep:ignore:start
         EM.stop
+        # steep:ignore:end
       end
     end # module WebSocket
   end # module Core

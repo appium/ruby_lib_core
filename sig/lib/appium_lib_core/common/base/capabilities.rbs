@@ -3,6 +3,9 @@ module Appium
     class Base
       class Capabilities < Selenium::WebDriver::Remote::Capabilities
         def convert_key: (untyped key) -> untyped
+
+        # Inherit json_create from parent, but you can redeclare for clarity:
+        def self.json_create: (Hash[untyped, untyped] value) -> Capabilities
       end
     end
   end

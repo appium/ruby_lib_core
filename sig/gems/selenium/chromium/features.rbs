@@ -35,7 +35,7 @@ module Selenium
         def available_log_types: () -> Array[Symbol]
 
         def log: (Symbol type) -> Array[Hash[String, untyped]] |
-          (Symbol type) -> Array[LogEntry]
+          (Symbol type) -> Array[Selenium::WebDriver::LogEntry]
       end
     end
   end

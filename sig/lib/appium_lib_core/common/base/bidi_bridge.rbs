@@ -19,6 +19,10 @@ module Appium
         def quit: () -> untyped
 
         def close: () -> untyped
+
+        private
+
+        def browsing_context: () -> ::Selenium::WebDriver::BiDi::BrowsingContext
       end
     end
   end

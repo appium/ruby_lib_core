@@ -8,7 +8,7 @@ module Appium
 
             def self.add_methods: () -> (Symbol | Hash[Symbol, Proc])?
 
-            def battery_info: () -> (Symbol | Hash[Symbol, Proc])?
+            def battery_info: () -> ::Hash[::Symbol, ::Symbol]
           end
         end
       end

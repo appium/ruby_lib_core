@@ -1,0 +1,17 @@
+# The Forwardable module provides delegation of specified methods to a designated object
+module Forwardable
+  # Defines delegators for instance methods
+  def def_instance_delegators: (Symbol | String accessor, *Symbol methods) -> void
+
+  def def_instance_delegator: (Symbol | String accessor, Symbol method, ?Symbol ali) -> void
+
+  # Defines delegators for singleton methods (used with extend Forwardable)
+  def def_single_delegators: (Symbol | String accessor, *Symbol methods) -> void
+
+  def def_single_delegator: (Symbol | String accessor, Symbol method, ?Symbol ali) -> void
+
+  # Common aliases that work in both instance and singleton contexts
+  def def_delegators: (Symbol | String accessor, *Symbol methods) -> void
+
+  def def_delegator: (Symbol | String accessor, Symbol method, ?Symbol ali) -> void
+end

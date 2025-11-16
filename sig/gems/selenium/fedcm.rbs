@@ -1,0 +1,12 @@
+module FedCM
+  class Account
+    # Keep fields loose to avoid downstream mismatches.
+    attr_reader id: untyped
+    attr_reader email: untyped
+    attr_reader name: untyped
+    attr_reader given_name: untyped
+    attr_reader picture_url: untyped
+
+    def initialize: (*untyped) -> void
+  end
+end

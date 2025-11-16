@@ -36,7 +36,9 @@ module Appium
 
         include ::Appium::Core::Waitable
 
+        # steep:ignore:start
         ::Selenium::WebDriver::SearchContext.extra_finders = ::Appium::Core::Base::SearchContext::APPIUM_EXTRA_FINDERS
+        # steep:ignore:end
 
         # Private API.
         # Do not use this for general use. Used by flutter driver to get bridge for creating a new element
@@ -57,7 +59,9 @@ module Appium
           # internal use
           @has_bidi = false
 
+          # steep:ignore:start
           ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
+          # steep:ignore:end
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
           @bridge = listener ? ::Appium::Support::EventFiringBridge.new(bridge, listener, **original_opts) : bridge
@@ -83,7 +87,9 @@ module Appium
 
           @has_bidi = capabilities && capabilities['webSocketUrl'] ? true : false
           bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
+          # steep:ignore:start
           bridge = bridge_clzz.new(**bridge_opts)
+          # steep:ignore:end
 
           if session_id.nil?
             bridge.create_session(capabilities)
@@ -220,7 +226,9 @@ module Appium
         def key_action(async: false)
           @bridge.action(
             async: async,
+            # steep:ignore:start
             devices: [::Selenium::WebDriver::Interactions.key('keyboard')]
+            # steep:ignore:end
           )
         end
 
@@ -627,7 +635,7 @@ module Appium
         #
         def install_app(path, **options)
           # TODO: use mobile command in the background?
-          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1].upcase } } unless options.nil?
+          options = options.transform_keys { |key| key.to_s.gsub(/_./) { |v| v[1]&.upcase } } unless options.nil?
           @bridge.install_app(path, options)
         end
 

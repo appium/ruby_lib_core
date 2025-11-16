@@ -269,6 +269,9 @@ module Selenium
         UNICODE_CODE_POINT: 30
 
         def escape_css: (untyped string) -> untyped
+
+        def self.extra_commands: () -> Hash[Symbol, Array[untyped]]
+        def self.add_command: (Symbol name, Symbol method, String url, ?untyped block) -> void
       end
     end
   end

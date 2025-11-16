@@ -602,12 +602,19 @@ module Appium
 
       # @private
       def get_caps(opts)
-        Core::Base::Capabilities.new(opts[:caps] || opts[:capabilities] || {})
+        o = opts || {}
+
+        raw_caps = o[:caps] || o[:capabilities]
+        caps_hash = raw_caps.is_a?(Hash) ? raw_caps : {}
+
+        Core::Base::Capabilities.new(caps_hash)
       end
 
-      # @private
       def get_appium_lib_opts(opts)
-        opts[:appium_lib] || {}
+        o = opts || {}
+
+        val = o[:appium_lib]
+        val.is_a?(Hash) ? val : {}
       end
 
       # @private
@@ -621,17 +628,21 @@ module Appium
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
         # FIXME: maybe `:app` should check `app` as well.
-        return unless @caps && get_app && !get_app.empty?
+        return unless @caps
+
+        app = get_app # for steep reason
+        return unless app && app.empty?
 
         uri_regex = defined?(URI::RFC2396_PARSER) ? URI::RFC2396_PARSER : URI::DEFAULT_PARSER
-        return if get_app =~ uri_regex.make_regexp
+        return if app =~ uri_regex.make_regexp
 
-        app_path = File.expand_path(get_app)
+        # steep:ignore
+        app_path = File.expand_path(app)
         @caps['app'] = if File.exist? app_path
                          app_path
                        else
-                         ::Appium::Logger.warn("Use #{get_app} directly since #{app_path} does not exist.")
-                         get_app
+                         ::Appium::Logger.warn("Use #{app} directly since #{app_path} does not exist.")
+                         app
                        end
       end
 
@@ -659,7 +670,7 @@ module Appium
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
         @device = get_cap 'platformName'
-        return @device unless @device
+        return unless @device
 
         @device = convert_to_symbol(convert_downcase(@device))
       end
