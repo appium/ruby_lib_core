@@ -2,7 +2,7 @@ module Appium
   module Core
     class Base
       module SearchContext
-        APPIUM_EXTRA_FINDERS: { Symbol => String }
+        APPIUM_EXTRA_FINDERS: ::Hash[Symbol, String]
       end
     end
   end
