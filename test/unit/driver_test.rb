@@ -141,7 +141,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -191,7 +191,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -241,7 +241,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -295,7 +295,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -344,7 +344,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -394,7 +394,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -438,7 +438,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -509,7 +509,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk.zip',
+              app: 'test/functional/app/api.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -698,6 +698,53 @@ class AppiumLibCoreTest
       c_el = els.first.find_elements id: 'example2'
       assert_requested :post, "#{SESSION}/element/element_id_parent/elements", times: 1
       assert_equal ::Appium::Core::Element, c_el.first.class
+    end
+
+    def test_bidi_bridge
+      # Mock the BiDi WebSocket connection using Minitest
+      mock_bidi = Minitest::Mock.new
+      mock_bidi.expect(:close, nil)
+
+      android_mock_create_session_w3c_direct = lambda do |core|
+        response = {
+          value: {
+            sessionId: '1234567890',
+            capabilities: {
+              platformName: :android,
+              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+              deviceName: 'Android Emulator',
+              webSocketUrl: 'ws://127.0.0.1:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
+            }
+          }
+        }.to_json
+
+        stub_request(:post, 'http://127.0.0.1:4723/session')
+          .to_return(headers: HEADER, status: 200, body: response)
+
+        driver = nil
+        ::Selenium::WebDriver::BiDi.stub(:new, mock_bidi) do
+          driver = core.start_driver
+        end
+
+        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+        driver
+      end
+
+      capabilities = Caps.android[:capabilities]
+      capabilities['webSocketUrl'] = true
+
+      core = ::Appium::Core.for capabilities: capabilities
+      driver = android_mock_create_session_w3c_direct.call(core)
+
+      assert_equal driver.send(:bridge).class, Appium::Core::Base::BiDiBridge
+      assert !driver.send(:bridge).respond_to?(:driver)
+
+      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.quit
+      # Verify that close was called exactly once
+      mock_bidi.verify
     end
 
     def test_elements

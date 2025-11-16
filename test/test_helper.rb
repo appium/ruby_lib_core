@@ -82,6 +82,10 @@ class AppiumLibCoreTest
         Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('17.0')
       end
 
+      def over_ios26?(driver)
+        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('26.0')
+      end
+
       def ci?
         ENV['CI'] == 'true'
       end
@@ -127,7 +131,7 @@ class AppiumLibCoreTest
 
     # Require a simulator which OS version is 11.4, for example.
     def ios(platform_name = :ios)
-      platform_version = '17.4'
+      platform_version = ENV['IOS_VERSION'] || '18.5'
       wda_port = wda_local_port
 
       real_device = ENV['REAL'] || false
@@ -138,7 +142,7 @@ class AppiumLibCoreTest
           automationName: ENV['APPIUM_DRIVER'] || 'XCUITest',
           # udid: 'auto',
           platformVersion: platform_version,
-          deviceName: device_name(platform_version, platform_name, wda_port),
+          deviceName: device_name(platform_name, wda_port),
           useNewWDA: false,
           eventTimings: true,
           someCapability: 'some_capability',
@@ -180,6 +184,11 @@ class AppiumLibCoreTest
         cap = add_xctestrun(real_device, cap.dup, xcode_org_id)
       end
 
+      if ENV['LOCAL_PREBUILT_WDA']
+        cap[:caps][:usePreinstalledWDA] = true
+        cap[:caps][:prebuiltWDAPath] = ENV['LOCAL_PREBUILT_WDA']
+      end
+
       cap
     end
 
@@ -206,16 +215,11 @@ class AppiumLibCoreTest
       end
     end
 
-    def device_name(os_version, platform_name, wda_local_port)
+    def device_name(platform_name, wda_local_port)
       if platform_name.downcase == :tvos
         'Apple TV'
       else
-        name = if over_ios13?(os_version)
-                 'iPhone 15 Plus'
-               else
-                 'iPhone 15 Pro Max'
-               end
-
+        name = ENV['IOS_DEVICE_NAME'] || 'iPhone 16 Plus'
         parallel? ? "#{name} - #{wda_local_port}" : name
       end
     end
@@ -275,7 +279,7 @@ class AppiumLibCoreTest
         capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-          app: 'test/functional/app/api.apk.zip',
+          app: 'test/functional/app/api.apk',
           udid: udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
@@ -309,14 +313,11 @@ class AppiumLibCoreTest
         cap[:capabilities]['settings[trackScrollEvents]'] = false
         # reduce possible slowness
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setActionAcknowledgmentTimeout(long)
-        # _Generally, this timeout should not be modified_
-        # cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
+        cap[:capabilities]['settings[actionAcknowledgmentTimeout]'] = 0
         # https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setScrollAcknowledgmentTimeout(long)
-        # _Generally, this timeout should not be modified_
         # cap[:capabilities]['settings[scrollAcknowledgmentTimeout]'] = 0
         cap[:capabilities]['settings[waitForIdleTimeout]'] = 0
-        # Maybe this does not help so much.
-        # cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
+        cap[:capabilities]['settings[waitForSelectorTimeout]'] = 0
       else
         cap[:capabilities][:forceEspressoRebuild] = false
         cap[:capabilities][:espressoBuildConfig] = {}.to_json
@@ -433,7 +434,7 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            app: 'test/functional/app/api.apk.zip',
+            app: 'test/functional/app/api.apk',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',

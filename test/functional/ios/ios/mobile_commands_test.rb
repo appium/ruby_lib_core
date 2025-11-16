@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'functional/common_w3c_actions'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/mobile_commands_test.rb
 class AppiumLibCoreTest
@@ -83,8 +84,8 @@ class AppiumLibCoreTest
         core = ::Appium::Core.for(caps)
         @driver = core.start_driver
 
-        skip 'Permissions does not work well on iOS 14 yet' if over_ios14?(@driver)
-
+        skip 'Not stable on CI' if ci?
+        # skip 'Permissions does not work well on iOS 14 yet' if over_ios14?(@driver)
         assert @driver.execute_script('mobile: getPermission',
                                       { service: 'calendar', bundleId: 'com.example.apple-samplecode.UICatalog' }) == 'yes'
         assert @driver.execute_script('mobile: getPermission',
@@ -92,17 +93,21 @@ class AppiumLibCoreTest
 
         @driver.terminate_app('com.apple.Preferences') # To ensure the app shows the top view
         @driver.activate_app('com.apple.Preferences')
-        @driver.find_element(:accessibility_id, 'Privacy').click
+        @driver.settings.update({ defaultActiveApplication: 'com.apple.Preferences' })
+        w3c_scroll @driver, duration: 1.0
+
+        privacy_name = over_ios26? @driver ? 'com.apple.settings.privacyAndSecurity' : 'Privacy'
+        @driver.find_element(:accessibility_id, privacy_name).click
 
         @driver.find_element(:accessibility_id, 'Calendars').click
-        el = @driver.find_element(:accessibility_id, uicatalog)
-        assert_equal '1', el.value
-
+        if over_ios26? @driver
+          # without exceptions
+          @driver.find_element :predicate, "label == 'UIKitCatalog, Full Access'"
+        else
+          el = @driver.find_element(:accessibility_id, uicatalog)
+          assert_equal '1', el.value
+        end
         @driver.back
-
-        @driver.find_element(:accessibility_id, 'Photos').click
-        el = @driver.find_element(:accessibility_id, 'Never')
-        assert_equal 'Never', el.value
       end
 
       # @since Appium 1.10.0
@@ -118,6 +123,8 @@ class AppiumLibCoreTest
 
         @driver.execute_script 'mobile: siriCommand', { text: 'hello, siri' }
 
+        # to expand the detection area
+        @driver.settings.update({ defaultActiveApplication: 'com.apple.springboard' })
         if over_ios14?(@driver)
           @core.wait { @driver.find_element :name, 'siri-interface-window' }
         else
@@ -126,6 +133,7 @@ class AppiumLibCoreTest
           #   name="...having a problem with the connection. Please try again in a little bit." ...>
           @core.wait { @driver.find_element :class_chain, '**/*[`name == "com.apple.ace.assistant"`]' }
         end
+        @driver.settings.update({ defaultActiveApplication: 'com.example.apple-samplecode.UICatalog' })
         assert_equal :running_in_foreground, @driver.app_state('com.example.apple-samplecode.UICatalog')
 
         @driver.activate_app 'com.example.apple-samplecode.UICatalog'

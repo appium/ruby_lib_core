@@ -1,3 +1,55 @@
+#### v11.1.1 2025-08-08
+
+- [4651cac](https://github.com/appium/ruby_lib_core/commit/4651cac25d4f95374568d1c97083ecd0eb9e4547) Release 11.1.1
+- [5b5e47b](https://github.com/appium/ruby_lib_core/commit/5b5e47b05e0f8f2577af4f0d595658531f3efc66) fix: fix rubocop
+
+
+#### v11.1.0 2025-08-08
+
+- [0486d1b](https://github.com/appium/ruby_lib_core/commit/0486d1b5042ff86c0d4378bbd0eec574d5825fdd) Release 11.1.0
+- [fd23456](https://github.com/appium/ruby_lib_core/commit/fd23456861a907adae5d955ca766d70795686465) feat: add BiDi bridge (#631)
+- [f244a36](https://github.com/appium/ruby_lib_core/commit/f244a365b067fc925017ca4b1d6fdfd85974221a) chore(deps): update rubocop requirement from 1.79.1 to 1.79.2 (#630)
+- [8302f6f](https://github.com/appium/ruby_lib_core/commit/8302f6fd39dfcaf6209b31c3977707305f45af90) docs: fix code example
+- [85ffb58](https://github.com/appium/ruby_lib_core/commit/85ffb5831ef35495153532c9e5b65dc55f18c2d1) chore(deps): update rubocop requirement from 1.79.0 to 1.79.1 (#628)
+- [1770174](https://github.com/appium/ruby_lib_core/commit/1770174e222f9e68fab5c0f989332a52e004a301) chore(deps): update rubocop requirement from 1.78.0 to 1.79.0 (#627)
+- [9e622f2](https://github.com/appium/ruby_lib_core/commit/9e622f220902a9fd71e7b8be5a64f21402cd6422) docs: Update README.md
+- [900ff29](https://github.com/appium/ruby_lib_core/commit/900ff29f57d14b0d281a9edcd0270f4ae22bdadc) docs: modify readme a bit
+- [65a4e32](https://github.com/appium/ruby_lib_core/commit/65a4e322d80739091c9425d2a5f5bec4ddc290d5) test: fix argument naming in mobile_commands_test.rb
+- [2b5a566](https://github.com/appium/ruby_lib_core/commit/2b5a5661d6de87309f874e3f9860ac08c01e5045) test: fix syntax
+- [61dfd40](https://github.com/appium/ruby_lib_core/commit/61dfd401a08fb329f5c0cc75b93db93b8cc94779) chore(deps): update rubocop requirement from 1.77.0 to 1.78.0 (#626)
+- [1f193c1](https://github.com/appium/ruby_lib_core/commit/1f193c1e2d62722c547089aa1c589ff55cb3d3d7) ci: use prebuilt wda (#625)
+- [8c4b08a](https://github.com/appium/ruby_lib_core/commit/8c4b08ad9e4fab7185940393956c14e55dfab9e1) ci: update functional-test.yml
+- [ee92823](https://github.com/appium/ruby_lib_core/commit/ee92823e15740df9763ff7970bd8606234689950) test: remove unused variable
+- [43c2fd2](https://github.com/appium/ruby_lib_core/commit/43c2fd2b8b8af2d9e4eb4f07e9d74209ace41f88) test: use newer xcode/ios
+- [61b2277](https://github.com/appium/ruby_lib_core/commit/61b2277ff2e391571b87e6d3931aac9e0ce9e206) chore(deps): update rubocop requirement from 1.76.2 to 1.77.0 (#624)
+- [3de46ab](https://github.com/appium/ruby_lib_core/commit/3de46abaa933e6fa813b78192650e1f9ead5a238) test: tune default caps
+- [844a704](https://github.com/appium/ruby_lib_core/commit/844a704935fff3a8e839fed26c649d27ae5d268b) test: tune timeout for uia2 (#623)
+- [1d6adc0](https://github.com/appium/ruby_lib_core/commit/1d6adc0b43d5f89b5a5f15315e725ff50a32c804) chore(deps): update rubocop requirement from 1.76.1 to 1.76.2 (#622)
+- [b12d61d](https://github.com/appium/ruby_lib_core/commit/b12d61d5837843f4bd53b40a72090e7474a539c4) test: update scenario for ios 26 (#621)
+- [8baec17](https://github.com/appium/ruby_lib_core/commit/8baec1754d8af9b1dc0024020ba0c819ea49570a) chore(deps): update rubocop requirement from 1.76.0 to 1.76.1 (#620)
+- [cdc82c8](https://github.com/appium/ruby_lib_core/commit/cdc82c8cf165964180a69343ba5294a542e438c8) chore(deps): update rubocop requirement from 1.75.8 to 1.76.0 (#619)
+- [7e7166f](https://github.com/appium/ruby_lib_core/commit/7e7166fa76a71ac563813085adf43b86c6221b9f) chore(deps): update rubocop requirement from 1.75.7 to 1.75.8 (#618)
+- [82b2180](https://github.com/appium/ruby_lib_core/commit/82b218038d4f7178062127e6ce31de0ac149ceb9) chore(deps): update faye-websocket requirement from ~> 0.11.0 to >= 0.11, < 0.13 (#617)
+- [e26e4bb](https://github.com/appium/ruby_lib_core/commit/e26e4bb53573d7bea851ace672beb7f8f3c22cfd) chore(deps): update rubocop requirement from 1.75.6 to 1.75.7 (#616)
+- [84341e5](https://github.com/appium/ruby_lib_core/commit/84341e512f777ae602ad57e0ac525cf480e74255) ci: use api level 36 for Android tests (#615)
+- [69319c8](https://github.com/appium/ruby_lib_core/commit/69319c8779b076a9827d8c6ec6290292199dee44) ci: turn for win (#612)
+- [a28736c](https://github.com/appium/ruby_lib_core/commit/a28736cf63aa41884aff978a0a49001e522c855f) test: some small adjustments
+- [1492e6a](https://github.com/appium/ruby_lib_core/commit/1492e6a888f5d2c2151bba2695ff787bee752c0c) test: update the app path
+- [019b34a](https://github.com/appium/ruby_lib_core/commit/019b34ad42b0368da21784bffd9acb1012eaba14) chore(deps): update rubocop requirement from 1.75.5 to 1.75.6 (#613)
+- [6332ab8](https://github.com/appium/ruby_lib_core/commit/6332ab8392eeabfc8d4905ed3a43ab1305558d52) docs(readme): update Libraries links (#610)
+- [985b3b9](https://github.com/appium/ruby_lib_core/commit/985b3b9e92dc537c8816c5a4ec768a6025a3b548) chore(deps): update rubocop requirement from 1.75.4 to 1.75.5 (#609)
+- [c5945ca](https://github.com/appium/ruby_lib_core/commit/c5945ca2bc45190a1f36a19154c1cea1b00e6dc1) chore(deps): update rubocop requirement from 1.75.3 to 1.75.4 (#607)
+
+
+#### v11.0.2 2025-04-27
+
+- [dccd87f](https://github.com/appium/ruby_lib_core/commit/dccd87f9bca10efb541629eb2f0f58bd77fd87fb) Release 11.0.2
+- [79b4f20](https://github.com/appium/ruby_lib_core/commit/79b4f20b1f087dd6c0498a3ade5b1ef89a28dba9) chore(deps): update rubocop requirement from 1.75.2 to 1.75.3 (#606)
+- [9b138d6](https://github.com/appium/ruby_lib_core/commit/9b138d614c819ff115fef3a9bb394fa8b7114bb8) feat: Take down steep issues from 522 to 104 (#571)
+- [e75ca47](https://github.com/appium/ruby_lib_core/commit/e75ca47eab80cf8ed8f1b4efafbdb3321ba8dbc9) chore(deps): update rubocop requirement from 1.75.1 to 1.75.2 (#605)
+- [1f3b6dc](https://github.com/appium/ruby_lib_core/commit/1f3b6dcf2038dada2f08d52cdc017901926a1c9c) chore(deps): update rubocop requirement from 1.74.0 to 1.75.1 (#604)
+
+
 #### v11.0.1 2025-03-27
 
 - [3b62638](https://github.com/appium/ruby_lib_core/commit/3b62638d3f30de324a7f3083fb763ade5dfbe831) Release 11.0.1

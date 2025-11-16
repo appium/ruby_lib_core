@@ -114,8 +114,8 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     opts = {
       capabilities: { # Append capabilities
         platformName: 'ios',
-        platformVersion: '11.0',
-        deviceName: 'iPhone Simulator',
+        platformVersion: '26.0',
+        deviceName: 'iPhone 17',
         # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
         automationName: 'XCUITest'
       },
@@ -138,7 +138,7 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     $ ruby test.rb
     ```
 
-[Appium::Core.for](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
+[Appium::Core.for](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver#for-class_method) documentation has more example to build a new driver instance.
 
 More examples are in [test/functional](test/functional)
 
@@ -153,9 +153,29 @@ attached_driver.page_source
 
 ### Capabilities
 
-Read [Appium/Core/Driver](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
-Capabilities affect only ruby_lib is [Appium/Core/Options](https://www.rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
+Read [Appium/Core/Driver](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
+Capabilities affect only ruby_lib is [Appium/Core/Options](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Options).
 
+### Improvement ideas
+
+- for iOS
+
+```
+$ appium driver run xcuitest download-wda-sim --outdir=/path/to/download/prebuilt/wda/
+```
+
+Then, adding capabilities below:
+
+```json
+{
+  "appium:usePreinstalledWDA": true,
+  "appium:prebuiltWDAPath": "/path/to/download/prebuilt/wda/WebDriverAgentRunner-Runner.app"
+}
+```
+
+It will improve initial new session request performance for iOS simulator.
+
+`"appium:settings[respectSystemAlerts]" => true` for capability will also help to work with [permissions](https://appium.github.io/appium-xcuitest-driver/latest/guides/troubleshooting/#interact-with-dialogs-managed-by-comapplespringboard).
 
 ### Gives custom listener
 
@@ -171,7 +191,7 @@ capabilities: {
   deviceName: 'iPhone Simulator',
   automationName: 'XCUITest',
   app: '/path/to/MyiOS.app'
-},
+}
 appium_lib: {
   listener: CustomListener.new
 }

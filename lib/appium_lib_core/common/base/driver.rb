@@ -54,7 +54,9 @@ module Appium
           @devtools = nil
           @bidi = nil
 
-          # in the selenium webdriver as well
+          # internal use
+          @has_bidi = false
+
           ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
           bridge ||= create_bridge(**opts)
           add_extensions(bridge.browser)
@@ -79,7 +81,9 @@ module Appium
 
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
+          @has_bidi = capabilities && capabilities['webSocketUrl'] ? true : false
+          bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
+          bridge = bridge_clzz.new(**bridge_opts)
 
           if session_id.nil?
             bridge.create_session(capabilities)
@@ -995,6 +999,28 @@ module Appium
         #
         def convert_to_element(response_id)
           @bridge.convert_to_element response_id
+        end
+
+        # Return bidi instance
+        # @return [::Selenium::WebDriver::BiDi]
+        #
+        # @example
+        #
+        #     log_entries = []
+        #     driver.bidi.send_cmd('session.subscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
+        #     subscribe_id = driver.bidi.add_callback('log.entryAdded') do |params|
+        #       log_entries << params
+        #     end
+        #     driver.page_source
+        #
+        #     driver.bidi.remove_callback('log.entryAdded', subscribe_id)
+        #     driver.bidi.send_cmd('session.unsubscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
+        #
+        def bidi
+          return @bridge.bidi if @has_bidi
+
+          msg = 'BiDi must be enabled by providing webSocketUrl capability to true'
+          raise(::Selenium::WebDriver::Error::WebDriverError, msg)
         end
       end # class Driver
     end # class Base

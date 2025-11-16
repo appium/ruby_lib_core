@@ -55,7 +55,7 @@ jobs:
         run: |
           gem install ffi
           bundle install
-          gem uninstall --force eventmachine && gem install eventmachine --platform ruby
+          gem uninstall --force eventmachine && gem install eventmachine --platform ruby -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
       - name: Run tests
         run: |
           bundle exec rake test:unit

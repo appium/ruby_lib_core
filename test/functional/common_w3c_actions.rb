@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Scroll action for Android and iOS following W3C spec
-def w3c_scroll(driver)
+def w3c_scroll(driver, duration: 0.1)
   window = driver.window_rect
 
   action_builder = driver.action
@@ -21,9 +21,9 @@ def w3c_scroll(driver)
   action_builder
     .move_to_location(window.width / 2, window.height * 8 / 10)
     .pointer_down(:left)
-    .pause(device: input, duration: 0.1)
+    .pause(device: input, duration: duration)
     .move_to_location(window.width / 2, window.height / 10, duration: 0.2)
-    .pause(device: input, duration: 0.1)
+    .pause(device: input, duration: duration)
     .release
     .perform
 end
