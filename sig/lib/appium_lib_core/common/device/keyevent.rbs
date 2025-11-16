@@ -3,7 +3,7 @@ module Appium
     class Base
       module Device
         module KeyEvent
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+          include _Bridge
 
           def keyevent: (untyped key, ?untyped? metastate) -> untyped
 

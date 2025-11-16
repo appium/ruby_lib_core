@@ -3,7 +3,7 @@ module Appium
     class Base
       module Device
         module Keyboard
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+          include _Bridge
 
           def hide_keyboard: (?untyped? close_key, ?untyped? strategy) -> untyped
 

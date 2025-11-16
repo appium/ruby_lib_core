@@ -2,6 +2,9 @@ module Selenium
   module WebDriver
     module Remote
       class Capabilities
+        def []: (untyped key) -> untyped
+
+        def []=: (untyped key, untyped value) -> untyped
       end
     end
   end

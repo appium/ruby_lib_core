@@ -1,5 +1,14 @@
 module Appium
-  Location: Class
+  # Struct for device location
+  class Location
+    attr_accessor latitude: Float | Integer | String
+
+    attr_accessor longitude: Float | Integer | String
+
+    attr_accessor altitude: Float | Integer | String
+
+    def initialize: (Float | Integer | String latitude, Float | Integer | String longitude, Float | Integer | String altitude) -> void
+  end
 
   module Core
     module Android
@@ -79,7 +88,7 @@ module Appium
 
       @custom_url: String
 
-      @caps: Hash[Symbol | String, Symbol | String | Integer]
+      @caps: Core::Base::Capabilities
 
       @http_client: Core::Base::Http::Default
 
@@ -189,6 +198,8 @@ module Appium
       def set_appium_device: () -> Symbol
 
       def set_automation_name: () -> Symbol?
+
+      def get_cap: (String | Symbol name) -> untyped
 
       def convert_downcase: (Symbol value) -> Symbol
     end

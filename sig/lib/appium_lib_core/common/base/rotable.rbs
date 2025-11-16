@@ -4,6 +4,9 @@ module Appium
       module Rotatable
         ORIENTATIONS: Array[Symbol]
 
+        # Expects including class to have bridge accessor
+        def bridge: () -> untyped
+
         def rotation=: (untyped orientation) -> untyped
 
         alias rotate rotation=

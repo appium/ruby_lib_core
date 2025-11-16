@@ -4,6 +4,8 @@ module Appium
       module Uiautomator2
         module Device
           module Battery
+            include _Bridge
+
             def self.add_methods: () -> untyped
           end
         end

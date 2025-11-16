@@ -6,6 +6,8 @@ module Appium
       end
 
       class Bridge < ::Selenium::WebDriver::Remote::Bridge
+        include _Bridge
+
         @browser: untyped
 
         @available_commands: untyped

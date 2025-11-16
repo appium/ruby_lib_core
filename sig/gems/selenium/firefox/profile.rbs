@@ -50,8 +50,6 @@ module Selenium
 
         def proxy=: (untyped proxy) -> untyped
 
-        alias as_json encoded
-
         private
 
         def set_manual_proxy_preference: (untyped key, untyped value) -> untyped?

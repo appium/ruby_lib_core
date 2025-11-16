@@ -2,4 +2,8 @@ interface _Bridge
   def bridge: -> untyped
 
   def execute: (untyped command, ?Hash[untyped, untyped] opts, ?untyped? command_hash) -> untyped
+
+  def execute_script: (String script, *untyped args) -> untyped
+
+  def execute_async_script: (String script, *untyped args) -> untyped
 end

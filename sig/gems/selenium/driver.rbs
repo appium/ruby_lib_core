@@ -2,6 +2,16 @@ module Selenium
   module WebDriver
     class Driver
       def capabilities: () -> untyped
+
+      def manage: () -> untyped
+
+      def navigate: () -> untyped
+
+      def find_element: (untyped how, ?untyped? what) -> untyped
+
+      def find_elements: (untyped how, ?untyped? what) -> untyped
+
+      def add_extensions: (untyped mod) -> untyped
     end
   end
 end

@@ -1,9 +1,12 @@
 module Appium
   module Core
+    # Element class inheriting from Selenium::WebDriver::Element
     class Element < ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::TakesScreenshot
 
-      attr_reader id: untyped
+      def initialize: (untyped bridge, untyped id) -> void
+
+      attr_reader id: Array[untyped]
 
       def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
 

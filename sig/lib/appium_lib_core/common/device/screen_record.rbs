@@ -12,6 +12,8 @@ module Appium
           def initialize: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: ::String, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?, ?force_restart: untyped?) -> void
 
           module Command
+            include _Bridge
+
             def stop_recording_screen: (?remote_path: untyped?, ?user: untyped?, ?pass: untyped?, ?method: ::String, ?file_field_name: untyped?, ?form_fields: untyped?, ?headers: untyped?) -> untyped
 
             def stop_and_save_recording_screen: (untyped file_path) -> untyped
