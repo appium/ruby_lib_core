@@ -30,6 +30,7 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rake rubocop
+        bundle exec rake steep
         bundle exec rake test:unit
         APPIUM_DRIVER=espresso bundle exec rake test:unit:android
         APPIUM_DRIVER=appium bundle exec rake test:unit
