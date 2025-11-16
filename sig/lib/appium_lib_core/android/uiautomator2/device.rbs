@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module Android
+      module Uiautomator2
+        module Device
+          def self.extended: (untyped _mod) -> void
+        end
+      end
+    end
+  end
+end
