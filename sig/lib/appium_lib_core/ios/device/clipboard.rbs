@@ -5,11 +5,7 @@ module Appium
         module Clipboard
           include _Bridge
 
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
-
           def self.add_methods: () -> untyped
-
-          def self.touch_id: -> untyped
         end
       end
     end

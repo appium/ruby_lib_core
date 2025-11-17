@@ -37,7 +37,9 @@ module Appium
         include Device::ExecuteDriver
         include Device::Orientation
 
+        # steep:ignore:start
         Bridge.locator_converter = LocatorConverter.new
+        # steep:ignore:end
 
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
@@ -141,7 +143,7 @@ module Appium
         private
 
         def camel_case(str_or_sym)
-          str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1).upcase }
+          str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1)&.upcase }
         end
 
         def extension_prefix?(capability_name)
@@ -204,12 +206,14 @@ module Appium
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
         def action(_deprecated_async = nil, async: false, devices: nil)
+          # steep:ignore:start
           ::Selenium::WebDriver::ActionBuilder.new(
             self,
             devices: devices || [::Selenium::WebDriver::Interactions.pointer(:touch, name: 'touch')],
             async: async,
             duration: 50 # milliseconds
           )
+          # steep:ignore:end
         end
 
         # Port from MJSONWP
@@ -278,7 +282,9 @@ module Appium
           data = execute :get_log, {}, { type: type.to_s }
 
           Array(data).map do |l|
+            # steep:ignore:start
             ::Selenium::WebDriver::LogEntry.new l.fetch('level', 'UNKNOWN'), l.fetch('timestamp'), l.fetch('message')
+            # steep:ignore:end
           rescue KeyError
             next
           end

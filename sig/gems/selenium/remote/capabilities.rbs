@@ -2,6 +2,12 @@ module Selenium
   module WebDriver
     module Remote
       class Capabilities
+        def initialize: (?Hash[untyped, untyped]) -> void
+        def []: (untyped key) -> untyped
+        def []=: (untyped key, untyped value) -> untyped
+
+        # Add this:
+        def self.json_create: (Hash[untyped, untyped] value) -> Capabilities
       end
     end
   end

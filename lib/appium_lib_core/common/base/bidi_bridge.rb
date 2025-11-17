@@ -18,6 +18,8 @@ module Appium
   module Core
     class Base
       class BiDiBridge < ::Appium::Core::Base::Bridge
+        # steep:ignore:start
+
         attr_reader :bidi
 
         # Override
@@ -84,6 +86,8 @@ module Appium
         def close
           execute(:close_window).tap { |handles| bidi.close if handles.empty? }
         end
+
+        # steep:ignore:end
 
         private
 

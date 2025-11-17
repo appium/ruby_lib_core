@@ -3,6 +3,6 @@ module Appium
     -> Hash[Symbol, untyped]
 
   module Core
-    def self.for: (*untyped args) -> Driver
+    def self.for: (Hash[Symbol, untyped] opts) -> Driver
   end
 end

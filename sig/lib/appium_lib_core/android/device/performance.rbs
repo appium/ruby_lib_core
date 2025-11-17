@@ -3,7 +3,7 @@ module Appium
     module Android
       module Device
         module Performance
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
+          include _Bridge
 
           def self.add_methods: () -> untyped
         end

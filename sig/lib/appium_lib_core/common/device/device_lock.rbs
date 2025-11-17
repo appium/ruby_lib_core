@@ -3,13 +3,13 @@ module Appium
     class Base
       module Device
         module DeviceLock
+          include _Bridge
+
           def lock: (?untyped? duration) -> untyped
 
           def device_locked?: () -> untyped
 
           def unlock: () -> untyped
-
-          def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
         end
       end
     end

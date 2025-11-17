@@ -2,7 +2,6 @@ module Selenium
   module WebDriver
     module Atoms
       include _Bridge
-      include _ExecuteScript
 
       def atom_script: (Symbol) -> String
 

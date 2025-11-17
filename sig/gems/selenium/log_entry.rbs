@@ -1,0 +1,12 @@
+module Selenium
+  module WebDriver
+    class LogEntry
+      # Keep attributes loose to avoid downstream mismatches; refine later if desired.
+      attr_reader level: untyped
+      attr_reader message: String
+      attr_reader timestamp: Integer
+
+      def initialize: (untyped level, String message, Integer timestamp) -> void
+    end
+  end
+end

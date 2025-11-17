@@ -61,8 +61,8 @@ module Appium
 
   module Core
     # @see Appium::Core::Driver.for
-    def self.for(*args)
-      Core::Driver.for(*args)
+    def self.for(opts = {})
+      Core::Driver.for(opts)
     end
   end
 end

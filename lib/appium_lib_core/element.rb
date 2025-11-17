@@ -19,7 +19,9 @@ module Appium
     class Element < ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::TakesScreenshot
 
+      # steep:ignore:start
       ::Selenium::WebDriver::SearchContext.extra_finders = ::Appium::Core::Base::SearchContext::APPIUM_EXTRA_FINDERS
+      # steep:ignore:end
 
       # Retuns the element id.
       #
@@ -58,16 +60,18 @@ module Appium
         respond_to?(method_name) ? attribute(method_name.to_s.tr('_', '-')) : super
       end
 
-      def respond_to_missing?(*)
+      def respond_to_missing?(_method_name, _include_private = false)
         true
       end
 
       # Alias for type
       alias type send_keys
 
+      # @deprecated Please use `Element#rect` instead to get location information.
+      #
       # For use with location_rel.
       #
-      # @return [::Selenium::WebDriver::Point] the relative x, y in a struct. ex: { x: 0.50, y: 0.20 }
+      # @return [Struct(:x, :y)] the relative x, y in a struct in string.
       #
       # @example
       #
@@ -86,7 +90,8 @@ module Appium
         center_y = location_y + (size_height / 2.0)
 
         w = driver.window_size
-        ::Selenium::WebDriver::Point.new "#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}"
+        point = Struct.new(:x, :y)
+        point.new("#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}")
       end
 
       # Return an element screenshot as base64

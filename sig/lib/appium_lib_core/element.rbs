@@ -1,13 +1,16 @@
 module Appium
   module Core
+    # Element class inheriting from Selenium::WebDriver::Element
     class Element < ::Selenium::WebDriver::Element
       include ::Appium::Core::Base::TakesScreenshot
 
-      attr_reader id: untyped
+      def initialize: (untyped bridge, untyped id) -> void
+
+      attr_reader id: Array[untyped]
 
       def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
 
-      def respond_to_missing?: (*untyped) -> true
+      def respond_to_missing?: (untyped _method_name, bool _include_private) -> true
 
       # Alias for type
       alias type send_keys

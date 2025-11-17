@@ -4,9 +4,11 @@ module Appium
       module Xcuitest
         module Device
           module Battery
+            include _Bridge
+
             def self.add_methods: () -> (Symbol | Hash[Symbol, Proc])?
 
-            def battery_info: () -> (Symbol | Hash[Symbol, Proc])?
+            def battery_info: () -> ::Hash[::Symbol, ::Symbol]
           end
         end
       end

@@ -10,7 +10,7 @@ module Selenium
 
         READINESS_STATE: Hash[Symbol, String]
 
-        def initialize: (driver: untyped, ?browsing_context_id: untyped?, ?type: untyped?, ?reference_context: untyped?) -> void
+        def initialize: (untyped bridge) -> void
 
         def navigate: (url: untyped, ?readiness_state: untyped?) -> untyped
 

@@ -1,5 +1,14 @@
 module Appium
-  Location: Class
+  # Struct for device location
+  class Location
+    attr_accessor latitude: Float | Integer | String
+
+    attr_accessor longitude: Float | Integer | String
+
+    attr_accessor altitude: Float | Integer | String
+
+    def initialize: (Float | Integer | String latitude, Float | Integer | String longitude, Float | Integer | String altitude) -> void
+  end
 
   module Core
     module Android
@@ -41,7 +50,7 @@ module Appium
 
       attr_reader enable_idempotency_header: bool
 
-      def initialize: (Hash[Symbol, String] appium_lib_opts) -> void
+      def initialize: (Hash[Symbol, untyped] appium_lib_opts) -> void
 
       private
 
@@ -79,7 +88,7 @@ module Appium
 
       @custom_url: String
 
-      @caps: Hash[Symbol | String, Symbol | String | Integer]
+      @caps: Core::Base::Capabilities
 
       @http_client: Core::Base::Http::Default
 
@@ -172,25 +181,25 @@ module Appium
 
       extend Core::Device
 
-      def get_caps: (Hash[Symbol, Symbol | String | Hash[Symbol, String | Numeric] | Numeric]? opts)
-        -> Core::Base::Capabilities
+      def get_caps: (Hash[Symbol, untyped]? opts) -> Core::Base::Capabilities
 
-      def get_appium_lib_opts: (Hash[Symbol, Symbol | String | Hash[Symbol, String | Numeric] | Numeric]? opts)
-        -> (Symbol | String | Hash[Symbol, String | Numeric] | Numeric)
+      def get_appium_lib_opts: (Hash[Symbol, untyped]? opts) -> Hash[Symbol, untyped]
 
       def get_app: () -> String?
 
       def set_app_path: () -> String?
 
       def set_appium_lib_specific_values: (
-          Hash[Symbol, String] appium_lib_opts
+          Hash[Symbol, String | Numeric] appium_lib_opts
         ) -> bool
 
-      def set_appium_device: () -> Symbol
+      def set_appium_device: () -> Symbol?
 
       def set_automation_name: () -> Symbol?
 
-      def convert_downcase: (Symbol value) -> Symbol
+      def get_cap: (String | Symbol name) -> untyped
+
+      def convert_downcase: (String | Symbol value) -> Symbol
     end
   end
 end

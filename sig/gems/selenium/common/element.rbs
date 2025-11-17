@@ -47,6 +47,8 @@ module Selenium
 
       alias [] attribute
 
+      def rect: () -> untyped
+
       def ref: () -> ::Array[:element | untyped]
 
       def to_json: () -> untyped

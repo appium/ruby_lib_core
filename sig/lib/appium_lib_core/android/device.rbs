@@ -2,11 +2,29 @@ module Appium
   module Core
     module Android
       module Device
+        include _Bridge
+
         extend Forwardable
 
-        def self.execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
-
         def self.extended: (untyped _mod) -> (nil | untyped)
+
+        def open_notifications: () -> untyped
+
+        def current_activity: () -> untyped
+
+        def current_package: () -> untyped
+
+        def get_system_bars: () -> untyped
+
+        def system_bars: () -> untyped
+
+        def toggle_location_services: () -> untyped
+
+        def hide_keyboard: () -> untyped
+
+        def background_app: (Integer duration) -> untyped
+
+        def chrome_send_command: (String cmd, Hash[untyped, untyped] params) -> untyped
       end
     end
   end
