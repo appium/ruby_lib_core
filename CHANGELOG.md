@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.12.0] - 2025-11-16
+- Add more RBS files
+
 ## [11.1.0,11.1.1] - 2025-08-08
 - Add WebDriver BiDi support. Please set `webSocketUrl` in the capabilities to enable it.
     - `test/functional/android/webdriver/bidi_test.rb` can be an example usage.
