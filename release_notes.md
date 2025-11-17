@@ -1,3 +1,22 @@
+#### v11.2.0 2025-11-16
+
+- [3db7c73](https://github.com/appium/ruby_lib_core/commit/3db7c73006274c5d492daf2cd34f2a7e3dcebd18) Release 11.2.0
+- [e044767](https://github.com/appium/ruby_lib_core/commit/e0447677f04874c015a8591bbf5a1dc530fbfd12) feat: add more rbs (#645)
+- [0e44a0f](https://github.com/appium/ruby_lib_core/commit/0e44a0f060cdb0b14d92c956a545c1469f20cbf2) chore(deps): update rubocop requirement from 1.81.6 to 1.81.7 (#642)
+- [abd7a0d](https://github.com/appium/ruby_lib_core/commit/abd7a0d4570e0d893a7299e2b2b2a7dbba80a96b) test: modify test caps to make it pass (#640)
+- [b025c12](https://github.com/appium/ruby_lib_core/commit/b025c12ce22ff171678216252f07c0c8db2e1234) chore(deps): update webmock requirement from ~> 3.25.0 to ~> 3.26.0 (#641)
+- [2ada692](https://github.com/appium/ruby_lib_core/commit/2ada692a310be154207e288ea9dc401aeb74c7c2) chore(deps): update rubocop requirement from 1.81.1 to 1.81.6 (#639)
+- [1ba3638](https://github.com/appium/ruby_lib_core/commit/1ba3638a35d0f21a0146325d391748917885835a) ci: workaround to keep symlink in xcuitest driver's appium (#638)
+- [795ba29](https://github.com/appium/ruby_lib_core/commit/795ba29bf1837369ee52ffa70ef4709bb36c410c) test: use Xcode 26 built ui catalog (#637)
+- [4b3112e](https://github.com/appium/ruby_lib_core/commit/4b3112e83d7d7da8e3927f417c23e611fd7e72b3) chore(deps): update rubocop requirement from 1.81.0 to 1.81.1 (#636)
+- [a85a555](https://github.com/appium/ruby_lib_core/commit/a85a5552b0febef37b2de2c01e5685a940361e68) chore(deps): update rubocop requirement from 1.80.2 to 1.81.0 (#635)
+- [bc21768](https://github.com/appium/ruby_lib_core/commit/bc21768362b9dc7d217b68b59307bc843c14f14e) chore(deps): update rubocop requirement from 1.80.1 to 1.80.2 (#634)
+- [a401718](https://github.com/appium/ruby_lib_core/commit/a401718982a7c91653913a3d5b0096bf4acb8e7a) chore(deps): update rubocop requirement from 1.80.0 to 1.80.1 (#633)
+- [71b47a0](https://github.com/appium/ruby_lib_core/commit/71b47a016f5477236ade9246186d119ccaab138a) chore(deps): update rubocop requirement from 1.79.2 to 1.80.0 (#632)
+- [e3fc0b4](https://github.com/appium/ruby_lib_core/commit/e3fc0b4033e74efce47d7ca3d24fb4f5510adeb1) test: enable bidi tests (#611)
+- [8b3a5af](https://github.com/appium/ruby_lib_core/commit/8b3a5affc90f1f8a5629b9ba361c26a3d08a00b1) docs: tweak changelog
+
+
 #### v11.1.1 2025-08-08
 
 - [4651cac](https://github.com/appium/ruby_lib_core/commit/4651cac25d4f95374568d1c97083ecd0eb9e4547) Release 11.1.1
