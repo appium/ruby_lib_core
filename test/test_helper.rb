@@ -206,7 +206,6 @@ class AppiumLibCoreTest
     end
 
     # Download the given url content into the file path.
-    # Raises an exception if the given url was invalid.
     # @param url URL to the content.
     # @param file_path Path to destination to download the given url content.
     # @return Path to the downloaded content.
@@ -216,22 +215,18 @@ class AppiumLibCoreTest
 
       FileUtils.mkdir_p(File.dirname(file_path))
 
-      # Follow redirects (up to 5 times)
       MAX_REDIRECT.times do
         Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
           http.request(Net::HTTP::Get.new(uri.request_uri)) do |resp|
-            if resp.is_a?(Net::HTTPRedirection)
+            case resp
+            when Net::HTTPRedirection
               uri = URI.parse(resp['location'])
-              next
+            when Net::HTTPSuccess
+              File.open(file_path, 'wb') { |f| resp.read_body { |chunk| f.write(chunk) } }
+              return file_path
+            else
+              raise "Unexpected response: #{resp.code}"
             end
-
-            raise "Unexpected response: #{resp.code}" unless resp.is_a?(Net::HTTPSuccess)
-
-            File.open(file_path, 'wb') do |file|
-              resp.read_body { |chunk| file.write(chunk) }
-            end
-
-            return file_path
           end
         end
       end
