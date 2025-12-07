@@ -132,7 +132,7 @@ class AppiumLibCoreTest
         @driver.remove_app 'io.appium.android.apis'
         assert !@driver.app_installed?('io.appium.android.apis')
 
-        @driver.install_app "#{Dir.pwd}/#{Caps.android[:capabilities][:app]}"
+        @driver.install_app Caps.test_app_android
         assert @driver.app_installed?('io.appium.android.apis')
 
         assert !@driver.app_installed?('fake_app')
