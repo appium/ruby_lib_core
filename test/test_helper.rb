@@ -22,6 +22,9 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
 
+require 'net/http'
+require 'uri'
+
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 begin
@@ -172,7 +175,7 @@ class AppiumLibCoreTest
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
                              "#{Dir.pwd}/test/functional/app/tv-example.zip"
                            else
-                             test_app platform_version
+                             test_app_ios platform_version
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
@@ -206,13 +209,33 @@ class AppiumLibCoreTest
       Gem::Version.create(os_version) >= Gem::Version.create('17.0')
     end
 
-    def test_app(os_version)
-      if over_ios13?(os_version)
-        # https://github.com/appium/ios-uicatalog/pull/15
-        "#{Dir.pwd}/test/functional/app/UIKitCatalog-iphonesimulator.zip"
-      else
-        "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
+    # Download the given url content into the file path.
+    # Raises an exception if the given url was invalid.
+    def download_content(url, file_path)
+      uri = URI.parse(url)
+      raise ArgumentError, 'invalid URL scheme' unless uri.is_a?(URI::HTTP) && uri.host
+
+      FileUtils.mkdir_p(File.dirname(file_path))
+      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', open_timeout: 10, read_timeout: 120) do |http|
+        http.request_get(uri.request_uri) do |res|
+          raise "Unexpected response: #{res.code}" unless res.is_a?(Net::HTTPSuccess)
+
+          File.open(file_path, 'wb') { |f| res.read_body { |chunk| f.write(chunk) } }
+        end
       end
+      file_path
+    end
+
+    def test_app_ios(os_version)
+      if over_ios13?(os_version)
+        File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__).to_s
+      else
+        File.expand_path(File.join('test', 'functional', 'app', 'UICatalog.app.zip'), __dir__).to_s
+      end
+    end
+
+    def test_app_android
+      File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__).to_s
     end
 
     def device_name(platform_name, wda_local_port)
@@ -279,7 +302,7 @@ class AppiumLibCoreTest
         capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-          app: 'test/functional/app/ApiDemos-debug.apk',
+          app: test_app_android,
           udid: udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
@@ -434,7 +457,7 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            app: 'test/functional/app/ApiDemos-debug.apk',
+            app: test_app_android,
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',
