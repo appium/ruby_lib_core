@@ -33,11 +33,11 @@ rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
-START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
+ROOT_REPORT_PATH = File.expand_path(File.join('test', 'report'), __dir__)
+START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S')
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
-FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? "#{ROOT_REPORT_PATH}/#{START_AT}"
+FileUtils.mkdir_p(File.join(ROOT_REPORT_PATH, START_AT)) unless FileTest.exist? File.join(ROOT_REPORT_PATH, START_AT)
 
 ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/tag/v6.0.2/ApiDemos-debug.apk'
 IOS_TEST_APP_URL = 'https://github.com/appium/ios-uicatalog/releases/download/v4.0.1/UIKitCatalog-iphonesimulator.zip'
@@ -49,11 +49,11 @@ class AppiumLibCoreTest
         return if passed?
 
         # Save failed view's screenshot and source
-        base_path = "#{ROOT_REPORT_PATH}/#{START_AT}/#{self.class.name.gsub('::', '_')}"
+        base_path = File.join(ROOT_REPORT_PATH, START_AT, self.class.name.gsub('::', '_'))
         FileUtils.mkdir_p(base_path) unless FileTest.exist? base_path
 
-        File.write "#{base_path}/#{name}-failed.xml", driver.page_source
-        driver.save_screenshot "#{base_path}/#{name}-failed.png"
+        File.write File.join(base_path, "#{name}-failed.xml"), driver.page_source
+        driver.save_screenshot File.join(base_path, "#{name}-failed.png")
       end
 
       # Calls 'skip' if the appium version is not satisfied the version
@@ -234,17 +234,17 @@ class AppiumLibCoreTest
 
     def test_app_ios(os_version)
       if over_ios13?(os_version)
-        test_app = File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__).to_s
+        test_app = File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__)
         return test_app if File.exist? test_app
 
         download_content IOS_TEST_APP_URL, test_app
       else
-        File.expand_path(File.join('test', 'functional', 'app', 'UICatalog.app.zip'), __dir__).to_s
+        File.expand_path(File.join('test', 'functional', 'app', 'UICatalog.app.zip'), __dir__)
       end
     end
 
     def test_app_android
-      test_app = File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__).to_s
+      test_app = File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__)
       return test_app if File.exist? test_app
 
       download_content ANDROID_TEST_APP_URL, test_app
