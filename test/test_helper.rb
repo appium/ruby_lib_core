@@ -228,7 +228,6 @@ class AppiumLibCoreTest
 
             raise "Unexpected response: #{resp.code}" unless resp.is_a?(Net::HTTPSuccess)
 
-            # Stream response body to file
             File.open(file_path, 'wb') do |file|
               resp.read_body { |chunk| file.write(chunk) }
             end
