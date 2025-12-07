@@ -39,7 +39,7 @@ START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S')
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
 FileUtils.mkdir_p(File.join(ROOT_REPORT_PATH, START_AT)) unless FileTest.exist? File.join(ROOT_REPORT_PATH, START_AT)
 
-ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/tag/v6.0.2/ApiDemos-debug.apk'
+ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/download/v6.0.2/ApiDemos-debug.apk'
 IOS_TEST_APP_URL = 'https://github.com/appium/ios-uicatalog/releases/download/v4.0.1/UIKitCatalog-iphonesimulator.zip'
 MAX_REDIRECT = 5
 
