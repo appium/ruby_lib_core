@@ -64,18 +64,9 @@ module Appium
                                     match_func: 'BruteForce',
                                     good_matches_factor: nil,
                                     visualize: false)
-            unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
-              raise ::Appium::Core::Error::ArgumentError, "detector_name should be #{MATCH_FEATURES[:detector_name]}"
-            end
-
-            unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
-              raise ::Appium::Core::Error::ArgumentError, "match_func should be #{MATCH_FEATURES[:match_func]}"
-            end
-
-            unless MATCH_FEATURES[:visualize].member?(visualize)
-              raise ::Appium::Core::Error::ArgumentError,
-                    "visualize should be #{MATCH_FEATURES[:visualize]}"
-            end
+            raise ::Appium::Core::Error::ArgumentError, "detector_name should be #{MATCH_FEATURES[:detector_name]}" unless MATCH_FEATURES[:detector_name].member?(detector_name.to_s)
+            raise ::Appium::Core::Error::ArgumentError, "match_func should be #{MATCH_FEATURES[:match_func]}" unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
+            raise ::Appium::Core::Error::ArgumentError, "visualize should be #{MATCH_FEATURES[:visualize]}" unless MATCH_FEATURES[:visualize].member?(visualize)
 
             options = {}
             options[:detectorName] = detector_name.to_s.upcase

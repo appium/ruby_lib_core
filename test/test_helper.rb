@@ -63,11 +63,7 @@ class AppiumLibCoreTest
         return if AppiumLibCoreTest.appium_version == 'beta'
         return if AppiumLibCoreTest.appium_version == 'next'
 
-        # rubocop:disable Style/GuardClause
-        if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
-          skip "Appium #{required_version} is required"
-        end
-        # rubocop:enable Style/GuardClause
+        skip "Appium #{required_version} is required" if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
       end
 
       def newer_appium_than_or_beta?(version)
@@ -215,9 +211,7 @@ class AppiumLibCoreTest
 
       FileUtils.mkdir_p(File.dirname(file_path))
 
-      # rubocop:disable Layout/LineLength
       # GitHub Actions raised 'OpenSSL::SSL::SSLError: SSL_connect returned=1 errno=0 peeraddr=140.82.116.3:443 state=error: certificate verify failed (unable to get certificate CRL)'
-      # rubocop:enable Layout/LineLength
       cert_store = OpenSSL::X509::Store.new
       if File.exist?('/etc/ssl/certs/ca-certificates.crt') # GitHub Actions (Ubuntu)
         cert_store.add_file('/etc/ssl/certs/ca-certificates.crt')

@@ -91,9 +91,7 @@ class AppiumLibCoreTest
 
       def test_image_element
         skip_as_appium_version '1.9.0'
-        if @@core.automation_name == :espresso
-          skip 'Espresso does not support find_element since it does not support settings API'
-        end
+        skip 'Espresso does not support find_element since it does not support settings API' if @@core.automation_name == :espresso
 
         @driver.rotation = :portrait
 
@@ -143,9 +141,7 @@ class AppiumLibCoreTest
 
       def test_image_elements
         skip_as_appium_version '1.9.0'
-        if @@core.automation_name == :espresso
-          skip 'Espresso does not support find_element since it does not support settings API'
-        end
+        skip 'Espresso does not support find_element since it does not support settings API' if @@core.automation_name == :espresso
 
         @driver.update_settings(
           {

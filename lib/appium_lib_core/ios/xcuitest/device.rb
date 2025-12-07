@@ -22,9 +22,6 @@ module Appium
       module Xcuitest
         module Device
           extend Forwardable
-
-          # rubocop:disable Layout/LineLength
-
           # @!method hide_keyboard(close_key = nil)
           # Hide the onscreen keyboard
           # @param [String] close_key The name of the key which closes the keyboard.
@@ -167,8 +164,6 @@ module Appium
           #
           #   @driver.battery_info #=> { state: :full, level: 0.7 }
           #
-
-          # rubocop:enable Layout/LineLength
 
           ####
           ## class << self

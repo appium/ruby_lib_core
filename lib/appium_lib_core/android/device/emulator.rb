@@ -121,9 +121,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:gsm_call) do
               def gsm_call(phone_number:, action:)
-                unless GSM_CALL_ACTIONS.member? action.to_sym
-                  raise ::Appium::Core::Error::ArgumentError, "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}."
-                end
+                raise ::Appium::Core::Error::ArgumentError, "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}." unless GSM_CALL_ACTIONS.member? action.to_sym
 
                 execute_script 'mobile:gsmCall', { phoneNumber: phone_number, action: action }
               end
@@ -142,9 +140,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:gsm_voice) do
               def gsm_voice(state)
-                unless GSM_VOICE_STATES.member? state.to_sym
-                  raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}."
-                end
+                raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}." unless GSM_VOICE_STATES.member? state.to_sym
 
                 execute_script 'mobile:gsmVoice', { state: state }
               end
@@ -163,9 +159,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
               def set_power_capacity(percent)
-                unless (0..100).member? percent
-                  ::Appium::Logger.warn "The  percent should be between 0 and 100. Not #{percent}."
-                end
+                ::Appium::Logger.warn "The  percent should be between 0 and 100. Not #{percent}." unless (0..100).member? percent
 
                 execute_script 'mobile:powerCapacity', { percent: percent }
               end
@@ -173,9 +167,7 @@ module Appium
 
             ::Appium::Core::Device.add_endpoint_method(:set_power_ac) do
               def set_power_ac(state)
-                unless POWER_AC_STATE.member? state.to_sym
-                  raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}."
-                end
+                raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}." unless POWER_AC_STATE.member? state.to_sym
 
                 execute_script 'mobile:powerAc', { state: state }
               end
