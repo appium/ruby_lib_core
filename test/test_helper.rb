@@ -215,8 +215,22 @@ class AppiumLibCoreTest
 
       FileUtils.mkdir_p(File.dirname(file_path))
 
+      # GitHub Actions raised 'OpenSSL::SSL::SSLError: SSL_connect returned=1 errno=0 peeraddr=140.82.116.3:443 state=error: certificate verify failed (unable to get certificate CRL)'
+      cert_store = OpenSSL::X509::Store.new
+      if File.exist?('/etc/ssl/certs/ca-certificates.crt') # GitHub Actions (Ubuntu)
+        cert_store.add_file('/etc/ssl/certs/ca-certificates.crt')
+      elsif File.exist?('/etc/ssl/cert.pem')               # macOS runner fallback
+        cert_store.add_file('/etc/ssl/cert.pem')
+      else
+        cert_store.set_default_paths
+      end
+
       MAX_REDIRECT.times do
-        Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+        Net::HTTP.start(uri.host,
+                        uri.port,
+                        use_ssl: uri.scheme == 'https',
+                        verify_mode: OpenSSL::SSL::VERIFY_PEER,
+                        cert_store: cert_store) do |http|
           http.request(Net::HTTP::Get.new(uri.request_uri)) do |resp|
             case resp
             when Net::HTTPRedirection
