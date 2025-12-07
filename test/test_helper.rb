@@ -41,6 +41,7 @@ FileUtils.mkdir_p(File.join(ROOT_REPORT_PATH, START_AT)) unless FileTest.exist? 
 
 ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/tag/v6.0.2/ApiDemos-debug.apk'
 IOS_TEST_APP_URL = 'https://github.com/appium/ios-uicatalog/releases/download/v4.0.1/UIKitCatalog-iphonesimulator.zip'
+MAX_REDIRECT = 5
 
 class AppiumLibCoreTest
   module Function
@@ -214,14 +215,30 @@ class AppiumLibCoreTest
       raise ArgumentError, 'invalid URL scheme' unless uri.is_a?(URI::HTTP) && uri.host
 
       FileUtils.mkdir_p(File.dirname(file_path))
-      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', open_timeout: 10, read_timeout: 120) do |http|
-        http.request_get(uri.request_uri) do |res|
-          raise "Unexpected response: #{res.code}" unless res.is_a?(Net::HTTPSuccess)
 
-          File.open(file_path, 'wb') { |f| res.read_body { |chunk| f.write(chunk) } }
+      # Follow redirects (up to 5 times)
+      MAX_REDIRECT.times do
+        Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+          request = Net::HTTP::Get.new(uri.request_uri)
+          http.request(request) do |resp|
+            if resp.is_a?(Net::HTTPRedirection)
+              uri = URI.parse(resp['location'])
+              next
+            end
+
+            raise "Unexpected response: #{resp.code}" unless resp.is_a?(Net::HTTPSuccess)
+
+            # Stream response body to file
+            File.open(file_path, 'wb') do |file|
+              resp.read_body { |chunk| file.write(chunk) }
+            end
+
+            return file_path
+          end
         end
       end
-      file_path
+
+      raise "Too many redirects for #{url}"
     end
 
     def test_app_ios
