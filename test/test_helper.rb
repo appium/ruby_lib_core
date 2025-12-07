@@ -39,6 +39,9 @@ START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
 FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? "#{ROOT_REPORT_PATH}/#{START_AT}"
 
+ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/tag/v6.0.2/ApiDemos-debug.apk'
+IOS_TEST_APP_URL = 'https://github.com/appium/ios-uicatalog/releases/download/v4.0.1/UIKitCatalog-iphonesimulator.zip'
+
 class AppiumLibCoreTest
   module Function
     class TestCase < Minitest::Test
@@ -211,6 +214,9 @@ class AppiumLibCoreTest
 
     # Download the given url content into the file path.
     # Raises an exception if the given url was invalid.
+    # @param url URL to the content.
+    # @param file_path Path to destination to download the given url content.
+    # @return Path to the downloaded content.
     def download_content(url, file_path)
       uri = URI.parse(url)
       raise ArgumentError, 'invalid URL scheme' unless uri.is_a?(URI::HTTP) && uri.host
@@ -228,14 +234,20 @@ class AppiumLibCoreTest
 
     def test_app_ios(os_version)
       if over_ios13?(os_version)
-        File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__).to_s
+        test_app = File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__).to_s
+        return test_app if File.exist? test_app
+
+        download_content IOS_TEST_APP_URL, test_app
       else
         File.expand_path(File.join('test', 'functional', 'app', 'UICatalog.app.zip'), __dir__).to_s
       end
     end
 
     def test_app_android
-      File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__).to_s
+      test_app = File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__).to_s
+      return test_app if File.exist? test_app
+
+      download_content ANDROID_TEST_APP_URL, test_app
     end
 
     def device_name(platform_name, wda_local_port)
