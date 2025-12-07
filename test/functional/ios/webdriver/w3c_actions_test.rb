@@ -38,13 +38,7 @@ class AppiumLibCoreTest
         # require 'pry'
         # binding.pry
         #
-        button_label = if over_ios17? @@driver
-                         'X Button'
-                       elsif over_ios13? @@driver
-                         'X'
-                       else
-                         'X Button'
-                       end
+        button_label = over_ios17?(@@driver) ? 'X Button' : 'X'
 
         el = @@core.wait { @@driver.find_element(:name, button_label) }
         rect = el.rect

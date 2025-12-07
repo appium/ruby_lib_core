@@ -33,7 +33,7 @@ rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
-ROOT_REPORT_PATH = File.expand_path(File.join('test', 'report'), __dir__)
+ROOT_REPORT_PATH = File.expand_path('report', __dir__)
 START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S')
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
@@ -74,10 +74,6 @@ class AppiumLibCoreTest
         return true if AppiumLibCoreTest.appium_version == 'next'
 
         Gem::Version.new(AppiumLibCoreTest.appium_version) > Gem::Version.new(version.to_s)
-      end
-
-      def over_ios13?(driver)
-        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
       def over_ios14?(driver)
@@ -176,9 +172,9 @@ class AppiumLibCoreTest
       if ENV['BUNDLE_ID'].nil?
         cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
-                             "#{Dir.pwd}/test/functional/app/tv-example.zip"
+                             File.expand_path(File.join('functional', 'app', 'tv-example.zip'), __dir__)
                            else
-                             test_app_ios platform_version
+                             test_app_ios
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
@@ -199,10 +195,6 @@ class AppiumLibCoreTest
     end
 
     private
-
-    def over_ios13?(os_version)
-      Gem::Version.create(os_version) >= Gem::Version.create('13.0')
-    end
 
     def over_ios14?(os_version)
       Gem::Version.create(os_version) >= Gem::Version.create('14.0')
@@ -232,19 +224,20 @@ class AppiumLibCoreTest
       file_path
     end
 
-    def test_app_ios(os_version)
-      if over_ios13?(os_version)
-        test_app = File.expand_path(File.join('test', 'functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__)
-        return test_app if File.exist? test_app
+    def test_app_ios
+      # do not check anything for unit test as a dummy path
+      test_app = File.expand_path(File.join('functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__)
+      return test_app if ENV['UNIT_TEST']
 
-        download_content IOS_TEST_APP_URL, test_app
-      else
-        File.expand_path(File.join('test', 'functional', 'app', 'UICatalog.app.zip'), __dir__)
-      end
+      download_content IOS_TEST_APP_URL, test_app
     end
 
     def test_app_android
-      test_app = File.expand_path(File.join('test', 'functional', 'app', 'ApiDemos-debug.apk'), __dir__)
+      test_app = File.expand_path(File.join('functional', 'app', 'ApiDemos-debug.apk'), __dir__)
+
+      # do not check anything for unit test as a dummy path
+      return test_app if ENV['UNIT_TEST']
+
       return test_app if File.exist? test_app
 
       download_content ANDROID_TEST_APP_URL, test_app
@@ -469,7 +462,6 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            app: test_app_android,
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',

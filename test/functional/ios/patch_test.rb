@@ -60,11 +60,9 @@ class AppiumLibCoreTest
                                elsif over_ios14?(@@driver)
                                  # iPhone 11
                                  ['64.0 / 414.0', '239.5 / 896.0']
-                               elsif over_ios13?(@@driver)
+                               else
                                  # iPhone 11
                                  ['64.0 / 414.0', '235.5 / 896.0']
-                               else
-                                 ['74.5 / 414.0', '411.0 / 896.0']
                                end
 
       assert_equal expected_x, location.x, "Expected X is #{expected_x}, actual is #{location.x}"
