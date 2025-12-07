@@ -219,8 +219,7 @@ class AppiumLibCoreTest
       # Follow redirects (up to 5 times)
       MAX_REDIRECT.times do
         Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
-          request = Net::HTTP::Get.new(uri.request_uri)
-          http.request(request) do |resp|
+          http.request(Net::HTTP::Get.new(uri.request_uri)) do |resp|
             if resp.is_a?(Net::HTTPRedirection)
               uri = URI.parse(resp['location'])
               next
