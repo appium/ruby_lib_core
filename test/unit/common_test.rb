@@ -31,7 +31,7 @@ class AppiumLibCoreTest
         capabilities: {
           platformName: :android,
           automationName: 'uiautomator2',
-          app: 'test/functional/app/api.apk',
+          app: 'test/functional/app/ApiDemos-debug.apk',
           platformVersion: '7.1.1',
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis'
@@ -41,7 +41,7 @@ class AppiumLibCoreTest
       CAPS = {
         platformName: :android,
         automationName: 'uiautomator2',
-        app: "#{Dir.pwd}/test/functional/app/api.apk",
+        app: "#{Dir.pwd}/test/functional/app/ApiDemos-debug.apk",
         platformVersion: '7.1.1',
         deviceName: 'Android Emulator',
         'appPackage' => 'io.appium.android.apis',
@@ -59,7 +59,7 @@ class AppiumLibCoreTest
       APPIUM_PREFIX_CAPS = {
         platformName: :android,
         'appium:automationName' => 'uiautomator2',
-        'appium:app' => "#{Dir.pwd}/test/functional/app/api.apk",
+        'appium:app' => "#{Dir.pwd}/test/functional/app/ApiDemos-debug.apk",
         'appium:platformVersion' => '7.1.1',
         'appium:deviceName' => 'Android Emulator',
         'appium:appPackage' => 'io.appium.android.apis',

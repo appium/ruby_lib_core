@@ -209,7 +209,7 @@ class AppiumLibCoreTest
     def test_app(os_version)
       if over_ios13?(os_version)
         # https://github.com/appium/ios-uicatalog/pull/15
-        "#{Dir.pwd}/test/functional/app/iOS13__UICatalog.app.zip"
+        "#{Dir.pwd}/test/functional/app/UIKitCatalog-iphonesimulator.zip"
       else
         "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
       end
@@ -279,7 +279,7 @@ class AppiumLibCoreTest
         capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-          app: 'test/functional/app/api.apk',
+          app: 'test/functional/app/ApiDemos-debug.apk',
           udid: udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
@@ -434,7 +434,7 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            app: 'test/functional/app/api.apk',
+            app: 'test/functional/app/ApiDemos-debug.apk',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',
