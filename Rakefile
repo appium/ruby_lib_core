@@ -38,7 +38,6 @@ namespace :test do
   namespace :unit do
     desc('Run all iOS related unit tests in test directory')
     Rake::TestTask.new(:ios) do |t|
-      ENV['UNIT_TEST'] = '1'
       t.libs << 'test'
       t.libs << 'lib'
       t.test_files = FileList['test/unit/ios/**/*_test.rb']
@@ -46,7 +45,6 @@ namespace :test do
 
     desc('Run all Android related unit tests in test directory')
     Rake::TestTask.new(:android) do |t|
-      ENV['UNIT_TEST'] = '1'
       t.libs << 'test'
       t.libs << 'lib'
       t.test_files = FileList['test/unit/android/**/*_test.rb']
@@ -54,7 +52,6 @@ namespace :test do
 
     desc('Run all common related unit tests in test directory')
     Rake::TestTask.new(:common) do |t|
-      ENV['UNIT_TEST'] = '1'
       t.libs << 'test'
       t.libs << 'lib'
       t.test_files = FileList['test/unit/common/**/*_test.rb']
@@ -62,7 +59,6 @@ namespace :test do
 
     desc('Run all Windows related unit tests in test directory')
     Rake::TestTask.new(:windows) do |t|
-      ENV['UNIT_TEST'] = '1'
       t.libs << 'test'
       t.libs << 'lib'
       t.test_files = FileList['test/unit/windows/**/*_test.rb']

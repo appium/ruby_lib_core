@@ -31,14 +31,14 @@ Run unit tests which check each method and command, URL, using the webmock.
 
 ```bash
 $ bundle install
-$ bundle exec parallel_test test/unit/
+$ UNIT_TEST=1 bundle exec parallel_test test/unit/
 ```
 
 or
 
 ```bash
 $ bundle install
-$ bundle exec rake test:unit
+$ UNIT_TEST=1 bundle exec rake test:unit
 ```
 
 ### Functional Tests

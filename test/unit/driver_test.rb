@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'webmock/minitest'
 
 class AppiumLibCoreTest
   class DriverTest < Minitest::Test
