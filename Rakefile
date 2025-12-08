@@ -38,50 +38,34 @@ namespace :test do
   namespace :unit do
     desc('Run all iOS related unit tests in test directory')
     Rake::TestTask.new(:ios) do |t|
-      begin
-        ENV['UNIT_TEST'] = '1'
-        t.libs << 'test'
-        t.libs << 'lib'
-        t.test_files = FileList['test/unit/ios/**/*_test.rb']
-      ensure
-        ENV.delete('UNIT_TEST')
-      end
+      ENV['UNIT_TEST'] = '1'
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/ios/**/*_test.rb']
     end
 
     desc('Run all Android related unit tests in test directory')
     Rake::TestTask.new(:android) do |t|
-      begin
-        ENV['UNIT_TEST'] = '1'
-        t.libs << 'test'
-        t.libs << 'lib'
-        t.test_files = FileList['test/unit/android/**/*_test.rb']
-      ensure
-        ENV.delete('UNIT_TEST')
-      end
+      ENV['UNIT_TEST'] = '1'
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/android/**/*_test.rb']
     end
 
     desc('Run all common related unit tests in test directory')
     Rake::TestTask.new(:common) do |t|
-      begin
-        ENV['UNIT_TEST'] = '1'
-        t.libs << 'test'
-        t.libs << 'lib'
-        t.test_files = FileList['test/unit/common/**/*_test.rb']
-      ensure
-        ENV.delete('UNIT_TEST')
-      end
+      ENV['UNIT_TEST'] = '1'
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/common/**/*_test.rb']
     end
 
     desc('Run all Windows related unit tests in test directory')
     Rake::TestTask.new(:windows) do |t|
-      begin
-        ENV['UNIT_TEST'] = '1'
-        t.libs << 'test'
-        t.libs << 'lib'
-        t.test_files = FileList['test/unit/windows/**/*_test.rb']
-      ensure
-        ENV.delete('UNIT_TEST')
-      end
+      ENV['UNIT_TEST'] = '1'
+      t.libs << 'test'
+      t.libs << 'lib'
+      t.test_files = FileList['test/unit/windows/**/*_test.rb']
     end
   end
 end

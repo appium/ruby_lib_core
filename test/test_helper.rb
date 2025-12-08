@@ -245,9 +245,12 @@ class AppiumLibCoreTest
     end
 
     def test_app_ios
-      # do not check anything for unit test as a dummy path
       test_app = File.expand_path(File.join('functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__)
+
+      # do not check anything for unit test as a dummy path
       return test_app if ENV['UNIT_TEST']
+
+      return test_app if File.exist? test_app
 
       download_content IOS_TEST_APP_URL, test_app
     end
