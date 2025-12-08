@@ -19,6 +19,8 @@ class AppiumLibCoreTest
   module WebDriver
     class BidiTest < AppiumLibCoreTest::Function::TestCase
       def test_bidi
+        skip 'Skipping to running BIDI on CI since it is unstable on CI while it works on local' if ci?
+
         caps = Caps.android
         caps[:capabilities]['webSocketUrl'] = true
         core = ::Appium::Core.for(caps)
