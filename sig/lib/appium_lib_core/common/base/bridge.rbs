@@ -84,7 +84,7 @@ module Appium
         #     caps: {
         #       platformName: :ios,
         #       automationName: 'XCUITest',
-        #       app: 'test/functional/app/UICatalog.app.zip',
+        #       app: 'test/functional/app/UIKitCatalog-iphonesimulator.zip',
         #       platformVersion: '11.4',
         #       deviceName: 'iPhone Simulator',
         #       useNewWDA: true,

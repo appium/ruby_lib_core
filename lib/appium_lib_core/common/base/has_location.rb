@@ -40,9 +40,7 @@ module Appium
         #   driver.location = ::Appium::Location.new(10, 10, 10)
         #
         def location=(location)
-          unless location.is_a?(::Appium::Location)
-            raise TypeError, "expected #{::Appium::Location}, got #{location.inspect}:#{location.class}"
-          end
+          raise TypeError, "expected #{::Appium::Location}, got #{location.inspect}:#{location.class}" unless location.is_a?(::Appium::Location)
 
           @bridge.set_location location.latitude, location.longitude, location.altitude
         end

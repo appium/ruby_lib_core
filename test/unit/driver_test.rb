@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'webmock/minitest'
 
 class AppiumLibCoreTest
   class DriverTest < Minitest::Test
@@ -57,14 +58,14 @@ class AppiumLibCoreTest
                                                     platformVersion: '11.4',
                                                     automationName: 'XCUITest',
                                                     deviceName: 'iPhone Simulator',
-                                                    app: 'test/functional/app/UICatalog.app.zip',
+                                                    app: 'test/functional/app/UIKitCatalog-iphonesimulator.zip',
                                                     some_capability1: 'some_capability1',
                                                     someCapability2: 'someCapability2')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
       assert_equal '11.4', caps_with_json['platformVersion']
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['app']
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps_with_json['app']
       assert_equal 'XCUITest', caps_with_json['automationName']
       assert_equal 'iPhone Simulator', caps_with_json['deviceName']
       assert_equal 'some_capability1', caps_with_json['some_capability1']
@@ -72,7 +73,7 @@ class AppiumLibCoreTest
 
       assert_equal 'ios', caps[:platformName]
       assert_equal '11.4', caps[:platformVersion]
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps[:app]
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps[:app]
       assert_equal 'XCUITest', caps[:automationName]
       assert_equal 'iPhone Simulator', caps[:deviceName]
       assert_equal 'some_capability1', caps[:some_capability1]
@@ -83,32 +84,32 @@ class AppiumLibCoreTest
       caps = ::Appium::Core::Base::Capabilities.new(platformName: 'ios',
                                                     'appium:platformVersion': '11.4',
                                                     'appium:automationName': 'XCUITest',
-                                                    'appium:app': 'test/functional/app/UICatalog.app.zip')
+                                                    'appium:app': 'test/functional/app/UIKitCatalog-iphonesimulator.zip')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
       assert_equal 'XCUITest', caps_with_json['appium:automationName']
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['appium:app']
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps_with_json['appium:app']
 
       assert_equal 'ios', caps[:platformName]
       assert_equal 'XCUITest', caps[:'appium:automationName']
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps[:'appium:app']
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps[:'appium:app']
     end
 
     def test_verify_appium_core_base_capabilities_create_capabilities_with_caps_string
       caps = ::Appium::Core::Base::Capabilities.new('platformName' => 'ios',
                                                     'appium:platformVersion' => '11.4',
                                                     'appium:automationName' => 'XCUITest',
-                                                    'appium:app' => 'test/functional/app/UICatalog.app.zip')
+                                                    'appium:app' => 'test/functional/app/UIKitCatalog-iphonesimulator.zip')
 
       caps_with_json = JSON.parse(caps.to_json)
       assert_equal 'ios', caps_with_json['platformName']
       assert_equal 'XCUITest', caps_with_json['appium:automationName']
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps_with_json['appium:app']
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps_with_json['appium:app']
 
       assert_equal 'ios', caps['platformName']
       assert_equal 'XCUITest', caps['appium:automationName']
-      assert_equal 'test/functional/app/UICatalog.app.zip', caps['appium:app']
+      assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps['appium:app']
     end
 
     def test_default_wait
@@ -141,7 +142,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -191,7 +192,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -241,7 +242,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -295,7 +296,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -344,7 +345,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -394,7 +395,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -438,7 +439,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',
@@ -509,7 +510,7 @@ class AppiumLibCoreTest
             capabilities: {
               platformName: :android,
               automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              app: 'test/functional/app/api.apk',
+              app: 'test/functional/app/ApiDemos-debug.apk',
               platformVersion: '7.1.1',
               deviceName: 'Android Emulator',
               appPackage: 'io.appium.android.apis',

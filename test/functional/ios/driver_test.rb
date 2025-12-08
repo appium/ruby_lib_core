@@ -22,17 +22,11 @@ class AppiumLibCoreTest
     private
 
     def alert_view_cell
-      if over_ios17? @@driver
-        'Alert Views'
-      elsif over_ios13? @@driver
-        'Alert Controller'
-      else
-        'Alert Views'
-      end
+      over_ios17?(@@driver) ? 'Alert Views' : 'Alert Controller'
     end
 
     def uicatalog
-      over_ios13?(@@driver) ? 'UIKitCatalog' : 'UICatalog'
+      'UIKitCatalog'
     end
 
     public
@@ -88,21 +82,11 @@ class AppiumLibCoreTest
       e = @@driver.find_element :accessibility_id, alert_view_cell
       e.click
       sleep 1 # wait for animation
-      if over_ios13?(@@driver)
-        begin
-          e.click # nothing happens
-        rescue ::Selenium::WebDriver::Error::StaleElementReferenceError
-          # This case also could happen
-          assert true
-        end
-      else
-        error = assert_raises do
-          e.click
-        end
-        assert [::Selenium::WebDriver::Error::UnknownError,
-                ::Selenium::WebDriver::Error::ElementNotVisibleError,
-                ::Selenium::WebDriver::Error::InvalidSelectorError].include? error.class
-        assert error.message.include? ' is not visible on the screen and thus is not interactable'
+      begin
+        e.click # nothing happens
+      rescue ::Selenium::WebDriver::Error::StaleElementReferenceError
+        # This case also could happen
+        assert true
       end
       @@driver.back
     end

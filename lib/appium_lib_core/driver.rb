@@ -484,9 +484,7 @@ module Appium
 
         @driver.manage.timeouts.implicit_wait = wait
       rescue ::Selenium::WebDriver::Error::UnknownError => e
-        unless e.message.include?('The operation requested is not yet implemented')
-          raise ::Appium::Core::Error::ServerError, e.message
-        end
+        raise ::Appium::Core::Error::ServerError, e.message unless e.message.include?('The operation requested is not yet implemented')
 
         ::Appium::Logger.debug(e.message)
         {}

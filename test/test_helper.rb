@@ -22,6 +22,9 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest'
 
+require 'net/http'
+require 'uri'
+
 Appium::Logger.level = ::Logger::FATAL # Show Logger logs only they are error
 
 begin
@@ -30,11 +33,15 @@ rescue Errno::ENOENT
   # Ignore since Minitest::Reporters::JUnitReporter.new fails in deleting files, sometimes
 end
 
-ROOT_REPORT_PATH = "#{Dir.pwd}/test/report".freeze
-START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S').freeze
+ROOT_REPORT_PATH = File.expand_path('report', __dir__)
+START_AT = Time.now.strftime('%Y-%m-%d-%H%M%S')
 
 Dir.mkdir(ROOT_REPORT_PATH) unless Dir.exist? ROOT_REPORT_PATH
-FileUtils.mkdir_p("#{ROOT_REPORT_PATH}/#{START_AT}") unless FileTest.exist? "#{ROOT_REPORT_PATH}/#{START_AT}"
+FileUtils.mkdir_p(File.join(ROOT_REPORT_PATH, START_AT)) unless FileTest.exist? File.join(ROOT_REPORT_PATH, START_AT)
+
+ANDROID_TEST_APP_URL = 'https://github.com/appium/android-apidemos/releases/download/v6.0.2/ApiDemos-debug.apk'
+IOS_TEST_APP_URL = 'https://github.com/appium/ios-uicatalog/releases/download/v4.0.1/UIKitCatalog-iphonesimulator.zip'
+MAX_REDIRECT = 5
 
 class AppiumLibCoreTest
   module Function
@@ -43,11 +50,11 @@ class AppiumLibCoreTest
         return if passed?
 
         # Save failed view's screenshot and source
-        base_path = "#{ROOT_REPORT_PATH}/#{START_AT}/#{self.class.name.gsub('::', '_')}"
+        base_path = File.join(ROOT_REPORT_PATH, START_AT, self.class.name.gsub('::', '_'))
         FileUtils.mkdir_p(base_path) unless FileTest.exist? base_path
 
-        File.write "#{base_path}/#{name}-failed.xml", driver.page_source
-        driver.save_screenshot "#{base_path}/#{name}-failed.png"
+        File.write File.join(base_path, "#{name}-failed.xml"), driver.page_source
+        driver.save_screenshot File.join(base_path, "#{name}-failed.png")
       end
 
       # Calls 'skip' if the appium version is not satisfied the version
@@ -56,11 +63,7 @@ class AppiumLibCoreTest
         return if AppiumLibCoreTest.appium_version == 'beta'
         return if AppiumLibCoreTest.appium_version == 'next'
 
-        # rubocop:disable Style/GuardClause
-        if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
-          skip "Appium #{required_version} is required"
-        end
-        # rubocop:enable Style/GuardClause
+        skip "Appium #{required_version} is required" if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
       end
 
       def newer_appium_than_or_beta?(version)
@@ -68,10 +71,6 @@ class AppiumLibCoreTest
         return true if AppiumLibCoreTest.appium_version == 'next'
 
         Gem::Version.new(AppiumLibCoreTest.appium_version) > Gem::Version.new(version.to_s)
-      end
-
-      def over_ios13?(driver)
-        Gem::Version.create(driver.capabilities['platformVersion']) >= Gem::Version.create('13.0')
       end
 
       def over_ios14?(driver)
@@ -170,9 +169,9 @@ class AppiumLibCoreTest
       if ENV['BUNDLE_ID'].nil?
         cap[:caps][:app] = if cap[:caps][:platformName].downcase == :tvos
                              # Use https://github.com/KazuCocoa/tv-example as a temporary
-                             "#{Dir.pwd}/test/functional/app/tv-example.zip"
+                             File.expand_path(File.join('functional', 'app', 'tv-example.zip'), __dir__)
                            else
-                             test_app platform_version
+                             test_app_ios
                            end
       else
         cap[:caps][:bundleId] = ENV['BUNDLE_ID'] || 'io.appium.apple-samplecode.UICatalog'
@@ -194,10 +193,6 @@ class AppiumLibCoreTest
 
     private
 
-    def over_ios13?(os_version)
-      Gem::Version.create(os_version) >= Gem::Version.create('13.0')
-    end
-
     def over_ios14?(os_version)
       Gem::Version.create(os_version) >= Gem::Version.create('14.0')
     end
@@ -206,13 +201,69 @@ class AppiumLibCoreTest
       Gem::Version.create(os_version) >= Gem::Version.create('17.0')
     end
 
-    def test_app(os_version)
-      if over_ios13?(os_version)
-        # https://github.com/appium/ios-uicatalog/pull/15
-        "#{Dir.pwd}/test/functional/app/iOS13__UICatalog.app.zip"
+    # Download the given url content into the file path.
+    # @param url URL to the content.
+    # @param file_path Path to destination to download the given url content.
+    # @return Path to the downloaded content.
+    def download_content(url, file_path)
+      uri = URI.parse(url)
+      raise ArgumentError, 'invalid URL scheme' unless uri.is_a?(URI::HTTP) && uri.host
+
+      FileUtils.mkdir_p(File.dirname(file_path))
+
+      # GitHub Actions raised 'OpenSSL::SSL::SSLError: SSL_connect returned=1 errno=0 peeraddr=140.82.116.3:443 state=error: certificate verify failed (unable to get certificate CRL)'
+      cert_store = OpenSSL::X509::Store.new
+      if File.exist?('/etc/ssl/certs/ca-certificates.crt') # GitHub Actions (Ubuntu)
+        cert_store.add_file('/etc/ssl/certs/ca-certificates.crt')
+      elsif File.exist?('/etc/ssl/cert.pem')               # macOS runner fallback
+        cert_store.add_file('/etc/ssl/cert.pem')
       else
-        "#{Dir.pwd}/test/functional/app/UICatalog.app.zip"
+        cert_store.set_default_paths
       end
+
+      MAX_REDIRECT.times do
+        Net::HTTP.start(uri.host,
+                        uri.port,
+                        use_ssl: uri.scheme == 'https',
+                        verify_mode: OpenSSL::SSL::VERIFY_PEER,
+                        cert_store: cert_store) do |http|
+          http.request(Net::HTTP::Get.new(uri.request_uri)) do |resp|
+            case resp
+            when Net::HTTPRedirection
+              uri = URI.parse(resp['location'])
+            when Net::HTTPSuccess
+              File.open(file_path, 'wb') { |f| resp.read_body { |chunk| f.write(chunk) } }
+              return file_path
+            else
+              raise "Unexpected response: #{resp.code}"
+            end
+          end
+        end
+      end
+
+      raise "Too many redirects for #{url}"
+    end
+
+    def test_app_ios
+      test_app = File.expand_path(File.join('functional', 'app', 'UIKitCatalog-iphonesimulator.zip'), __dir__)
+
+      # do not check anything for unit test as a dummy path
+      return test_app if ENV['UNIT_TEST']
+
+      return test_app if File.exist? test_app
+
+      download_content IOS_TEST_APP_URL, test_app
+    end
+
+    def test_app_android
+      test_app = File.expand_path(File.join('functional', 'app', 'ApiDemos-debug.apk'), __dir__)
+
+      # do not check anything for unit test as a dummy path
+      return test_app if ENV['UNIT_TEST']
+
+      return test_app if File.exist? test_app
+
+      download_content ANDROID_TEST_APP_URL, test_app
     end
 
     def device_name(platform_name, wda_local_port)
@@ -279,7 +330,7 @@ class AppiumLibCoreTest
         capabilities: { # :caps is also available
           platformName: :android,
           automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-          app: 'test/functional/app/api.apk',
+          app: test_app_android,
           udid: udid_name,
           deviceName: 'Android Emulator',
           appPackage: 'io.appium.android.apis',
@@ -434,7 +485,6 @@ class AppiumLibCoreTest
           capabilities: {
             platformName: :android,
             automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            app: 'test/functional/app/api.apk',
             platformVersion: '7.1.1',
             deviceName: 'Android Emulator',
             appPackage: 'io.appium.android.apis',

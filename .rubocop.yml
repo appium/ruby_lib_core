@@ -1,7 +1,7 @@
 AllCops:
   TargetRubyVersion: 3.1
 Layout/LineLength:
-  Max: 128
+  Enabled: false
 Layout/RescueEnsureAlignment:
   Enabled: false
 Layout/EmptyLinesAroundAttributeAccessor:

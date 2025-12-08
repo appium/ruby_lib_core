@@ -16,7 +16,6 @@ module Appium
   module Core
     class Base
       module SearchContext
-        # rubocop:disable Layout/LineLength
         #
         # Find the first element matching the given arguments
         #
@@ -89,7 +88,6 @@ module Appium
         #     e = find_element :class_chain, "**/XCUIElementTypeStaticText[$name == 'Buttons'$]"
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
-        # rubocop:enable Layout/LineLength
         APPIUM_EXTRA_FINDERS = {
           accessibility_id:     'accessibility id',
           image:                '-image',

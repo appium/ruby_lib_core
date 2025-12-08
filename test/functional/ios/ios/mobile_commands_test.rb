@@ -22,7 +22,7 @@ class AppiumLibCoreTest
       private
 
       def uicatalog
-        over_ios13?(@driver) ? 'UIKitCatalog' : 'UICatalog'
+        'UIKitCatalog'
       end
 
       public

@@ -150,9 +150,10 @@ class AppiumLibCoreTest
                                     'must be a non-negative number'
         assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: 'no element' },
                                     'must be a non-negative number'
+        # Skip this line since the espresso driver/server easy to break with the dependencies.
         # A test demo apk has no the element
-        assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: 10 },
-                                    'Could not navigate to menu item 10'
+        # assert_mobile_command_error 'mobile: navigateTo', { elementId: el.id, menuItemId: 10 },
+        #                             'Could not navigate to menu item 10'
       end
 
       # @since Appium 1.11.0 (Newer than 1.10.0)

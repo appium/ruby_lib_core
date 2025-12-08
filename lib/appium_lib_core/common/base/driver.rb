@@ -196,9 +196,7 @@ module Appium
         #   @driver.test_action_command(e.id, 'action')
         #
         def add_command(method:, url:, name:, &block)
-          unless AVAILABLE_METHODS.include? method
-            raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}"
-          end
+          raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}" unless AVAILABLE_METHODS.include? method
 
           @bridge.add_command method: method, url: url, name: name, &block
         end
