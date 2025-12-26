@@ -1,3 +1,22 @@
+#### v11.2.1 2025-12-25
+
+- [7e6151e](https://github.com/appium/ruby_lib_core/commit/7e6151e6d9b4541b3f869c89e669760c3287885b) Release 11.2.1
+- [2ac2ab3](https://github.com/appium/ruby_lib_core/commit/2ac2ab3b8962f95418815be570c8a0d45f747217) ci: use ruby v4 (#657)
+- [3a388b7](https://github.com/appium/ruby_lib_core/commit/3a388b744464ad0d90620ac493c1de06a97dee87) fix: Improving steep setup (#655)
+- [a990343](https://github.com/appium/ruby_lib_core/commit/a990343d150962ce11a39ad7aec8d70e465ff959) chore(deps): update rubocop requirement from 1.81.7 to 1.82.0 (#656)
+- [952992d](https://github.com/appium/ruby_lib_core/commit/952992d26e4eb0d77caafc6cfe6e7ef19b6453bc) chore(deps): bump actions/cache from 4 to 5 (#654)
+- [b91caf8](https://github.com/appium/ruby_lib_core/commit/b91caf877e028459438750fcd911e1c2490d9158) test: use newer app for testing and drop ios 13 and lower versions (#653)
+- [2c24e87](https://github.com/appium/ruby_lib_core/commit/2c24e87ff640063512ddfcc345444f2e9cb8609b) chore(deps): bump futureware-tech/simulator-action from 3 to 4 (#652)
+- [b60ac91](https://github.com/appium/ruby_lib_core/commit/b60ac918ef92193ce057c142ddf897923391c367) chore(deps): bump actions/checkout from 2 to 6 (#651)
+- [ae40f8a](https://github.com/appium/ruby_lib_core/commit/ae40f8aa18ec1bb38dcc845be516c5d0dfbd326d) chore(deps): bump actions/setup-java from 3 to 5 (#650)
+- [4d0ebdb](https://github.com/appium/ruby_lib_core/commit/4d0ebdb30936f10b796c14b29e5f6a15b61d7fd6) chore(deps): bump actions/setup-node from 3 to 6 (#649)
+- [0e0a538](https://github.com/appium/ruby_lib_core/commit/0e0a538df0e230b24d32d6013d956a2246de7aac) chore(deps): bump actions/cache from 3 to 4 (#648)
+- [cf9e96e](https://github.com/appium/ruby_lib_core/commit/cf9e96e56567acf2be6dd974e5d34623414124b8) chore(deps): bump github/codeql-action from 2 to 4 (#647)
+- [9d5b5c7](https://github.com/appium/ruby_lib_core/commit/9d5b5c77b7169d8bb166613e1b0620ce59ac6c68) ci: ignore func tests for some target modifications
+- [ffaa475](https://github.com/appium/ruby_lib_core/commit/ffaa4756e98ff639b932d5a0a73aabc8cc57b554) ci: add github actions dependency bot config
+- [865adce](https://github.com/appium/ruby_lib_core/commit/865adcee0a5cea8aa9b0faba371a3b3e1a08acd5) feat: remove Appium::Core::WebSocket class - not BiDi (#646)
+
+
 #### v11.2.0 2025-11-16
 
 - [3db7c73](https://github.com/appium/ruby_lib_core/commit/3db7c73006274c5d492daf2cd34f2a7e3dcebd18) Release 11.2.0
