@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [11.12.1] - 2025-12-25
+- update RBS files
+
 ## [11.12.0] - 2025-11-16
 - Add more RBS files
 
