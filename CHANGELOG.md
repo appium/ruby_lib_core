@@ -2,8 +2,12 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
-## [11.12.1] - 2025-12-25
+## [12.0.0] - 2025-12-28
+- Remove `Appium::Core::WebSocket` which was for `appium/device/logcat` endpoint. Please use BiDi log endpoint such as [this test](https://github.com/appium/ruby_lib_core/blob/master/test/functional/android/webdriver/bidi_test.rb) instead.
 - update RBS files
+
+## ~~[11.12.1] - 2025-12-25~~ (Yanked)
+- ~~update RBS files~~
 
 ## [11.12.0] - 2025-11-16
 - Add more RBS files
