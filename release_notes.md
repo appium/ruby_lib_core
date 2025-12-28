@@ -1,3 +1,8 @@
+#### v12.0.0 2025-12-28
+
+- [4e0001b](https://github.com/appium/ruby_lib_core/commit/4e0001b9eee3e5c8f28110b63d2e44123092ee35) Release 12.0.0
+
+
 #### v11.2.1 2025-12-25
 
 - [7e6151e](https://github.com/appium/ruby_lib_core/commit/7e6151e6d9b4541b3f869c89e669760c3287885b) Release 11.2.1
