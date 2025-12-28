@@ -88,6 +88,8 @@ jobs:
     - run: npm install -g appium
     - run: |
         appium plugin install images
+        # for macOS env specific
+        npm install -g --os=darwin --cpu=arm64 sharp
         appium plugin install execute-driver
         # Workaround to keep symlink to global appium
         appium driver install xcuitest
@@ -165,6 +167,8 @@ jobs:
         npm install -g mjpeg-consumer
     - run: |
         appium plugin install images
+        # for macOS env specific
+        npm install -g --os=darwin --cpu=arm64 sharp
         appium plugin install execute-driver
         # Workaround to keep symlink to global appium
         appium driver install xcuitest
