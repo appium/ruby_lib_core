@@ -89,7 +89,7 @@ jobs:
     - run: |
         appium plugin install images
         appium plugin install execute-driver
-        # Workaround to keep symlink to global appium
+        # Workaround to keep symlink to global appium with plugins
         appium driver install xcuitest
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
@@ -166,7 +166,7 @@ jobs:
     - run: |
         appium plugin install images
         appium plugin install execute-driver
-        # Workaround to keep symlink to global appium
+        # Workaround to keep symlink to global appium with plugins
         appium driver install xcuitest
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 

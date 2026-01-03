@@ -57,18 +57,32 @@ class AppiumLibCoreTest
       end
 
       def test_location
-        latitude = 100
-        longitude = 100
+        latitude = 80
+        longitude = -80
         altitude = 75
         @driver.set_location(latitude, longitude, altitude)
 
         return if ci?
 
-        # Here has been improved in Appium 1.14.0, but it is still unstable on Emulator...
         loc = @@core.wait { @driver.location } # check the location
-        assert_equal 100, loc.latitude
-        assert_equal 100, loc.longitude
+        assert_equal 80, loc.latitude
+        assert_equal(-80, loc.longitude)
         assert_equal 75, loc.altitude
+      end
+
+      def test_location_with_mobile_ext
+        latitude = 80
+        longitude = -80
+        altitude = 75
+        @driver.execute_script(
+          'mobile: setGeolocation',
+          { latitude: latitude, longitude: longitude, altitude: altitude }
+        )
+
+        loc = @@core.wait { @driver.execute_script 'mobile: getGeolocation' } # check the location
+        assert_equal 80, loc['latitude']
+        assert_equal(-80, loc['longitude'])
+        assert_equal 75, loc['altitude']
       end
 
       def test_accept_alert
