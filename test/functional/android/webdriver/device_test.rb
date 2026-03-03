@@ -48,9 +48,9 @@ class AppiumLibCoreTest
         assert s_source.include?('io.appium.android.apis')
 
         if @@core.automation_name == :espresso
-          assert xml[1].elements.each('//*') { |v| v }.map(&:name).size >= 20 # rubocop:disable Lint/Void:
+          assert xml[1].elements.each('//*') { |v| v }.map(&:name).size >= 20
         else
-          names = xml[2].elements.each('//*') { |v| v }.map(&:name) # rubocop:disable Lint/Void:
+          names = xml[2].elements.each('//*') { |v| v }.map(&:name)
           assert_equal 'hierarchy', names[0]
           assert names.size >= 5
         end
