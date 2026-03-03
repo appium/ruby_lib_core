@@ -75,10 +75,10 @@ class AppiumLibCoreTest
 
         assert !source.include?('AppiumAUT')
         assert source.include?('XCUIElementTypeApplication type')
-        assert xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
+        assert xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70
 
         # Roughly matching...
-        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70 # rubocop:disable Lint/Void
+        assert s_xml[2].elements.each('//*') { |v| v }.map(&:name).size > 70
       end
 
       def test_location
