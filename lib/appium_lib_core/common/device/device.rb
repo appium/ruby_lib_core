@@ -22,7 +22,7 @@ module Appium
           end
 
           def device_time(format = nil)
-            arg = {}
+            arg = {} # steep:ignore
             arg[:format] = format unless format.nil?
 
             execute_script 'mobile:getDeviceTime', arg

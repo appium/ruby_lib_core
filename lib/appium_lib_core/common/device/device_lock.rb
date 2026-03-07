@@ -18,7 +18,7 @@ module Appium
       module Device
         module DeviceLock
           def lock(duration = nil)
-            opts = duration ? { seconds: duration } : {}
+            opts = duration ? { seconds: duration } : {} # steep:ignore
             execute_script 'mobile:lock', opts
           end
 

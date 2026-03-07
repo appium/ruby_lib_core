@@ -157,6 +157,8 @@ module Appium
         def execute_driver: (?script: ::String, ?type: ::String, ?timeout_ms: untyped?) -> untyped
 
         def convert_to_element: (untyped response_id) -> untyped
+
+        def bidi: () -> untyped
       end
     end
   end

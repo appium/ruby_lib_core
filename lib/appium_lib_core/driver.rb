@@ -603,7 +603,7 @@ module Appium
         o = opts || {}
 
         raw_caps = o[:caps] || o[:capabilities]
-        caps_hash = raw_caps.is_a?(Hash) ? raw_caps : {}
+        caps_hash = raw_caps.is_a?(Hash) ? raw_caps : {} # steep:ignore
 
         Core::Base::Capabilities.new(caps_hash)
       end
@@ -631,7 +631,7 @@ module Appium
         app = get_app # for steep reason
         return unless app && app.empty?
 
-        uri_regex = defined?(URI::RFC2396_PARSER) ? URI::RFC2396_PARSER : URI::DEFAULT_PARSER
+        uri_regex = defined?(URI::RFC2396_PARSER) ? URI::RFC2396_PARSER : URI::DEFAULT_PARSER # steep:ignore
         return if app =~ uri_regex.make_regexp
 
         # steep:ignore

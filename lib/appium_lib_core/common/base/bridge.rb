@@ -112,7 +112,7 @@ module Appium
           @available_commands = ::Appium::Core::Commands::COMMANDS.dup
 
           always_match = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } })
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } }) # steep:ignore
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
@@ -273,7 +273,7 @@ module Appium
         # No implementation for W3C webdriver module
         def available_log_types
           types = execute :get_available_log_types
-          Array(types).map(&:to_sym)
+          Array(types).map(&:to_sym) # steep:ignore
         end
 
         # For Appium
@@ -297,7 +297,7 @@ module Appium
 
         # For Appium
         def log_events(type = nil)
-          args = {}
+          args = {} # steep:ignore
           args['type'] = type unless type.nil?
 
           execute :get_log_events, {}, args

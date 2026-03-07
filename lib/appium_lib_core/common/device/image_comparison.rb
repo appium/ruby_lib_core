@@ -68,7 +68,7 @@ module Appium
             raise ::Appium::Core::Error::ArgumentError, "match_func should be #{MATCH_FEATURES[:match_func]}" unless MATCH_FEATURES[:match_func].member?(match_func.to_s)
             raise ::Appium::Core::Error::ArgumentError, "visualize should be #{MATCH_FEATURES[:visualize]}" unless MATCH_FEATURES[:visualize].member?(visualize)
 
-            options = {}
+            options = {} # steep:ignore
             options[:detectorName] = detector_name.to_s.upcase
             options[:matchFunc] = match_func.to_s
             options[:goodMatchesFactor] = good_matches_factor.to_i unless good_matches_factor.nil?
@@ -108,7 +108,7 @@ module Appium
                     "visualize should be #{MATCH_TEMPLATE[:visualize]}"
             end
 
-            options = {}
+            options = {} # steep:ignore
             options[:visualize] = visualize
             options[:threshold] = threshold unless threshold.nil?
             options[:multiple] = multiple unless multiple.nil?
@@ -138,7 +138,7 @@ module Appium
                     "visualize should be #{GET_SIMILARITY[:visualize]}"
             end
 
-            options = {}
+            options = {} # steep:ignore
             options[:visualize] = visualize
 
             compare_images(mode: :getSimilarity, first_image: first_image, second_image: second_image, options: options)
@@ -160,7 +160,7 @@ module Appium
           def compare_images(mode: :matchFeatures, first_image:, second_image:, options: nil)
             raise ::Appium::Core::Error::ArgumentError, "content_type should be #{MODE}" unless MODE.member?(mode)
 
-            params = {}
+            params = {} # steep:ignore
             params[:mode] = mode
             params[:firstImage] = Base64.strict_encode64 first_image
             params[:secondImage] = Base64.strict_encode64 second_image
