@@ -1,3 +1,21 @@
+#### v12.0.1 2026-03-07
+
+- [6bae39d](https://github.com/appium/ruby_lib_core/commit/6bae39d9125c4218d723449d1fa141d5daf6e665) Release 12.0.1
+- [3ba5482](https://github.com/appium/ruby_lib_core/commit/3ba5482fb3467d0bf74f059ce8c479ece3ee7e7e) fix: Add ignore inline comments and needed signature files (#669)
+- [a8052bc](https://github.com/appium/ruby_lib_core/commit/a8052bc77f14808b40441f23c6340fb5ec646e7c) chore(deps): bump futureware-tech/simulator-action from 4 to 5 (#668)
+- [3b41820](https://github.com/appium/ruby_lib_core/commit/3b41820ac96c8c0fbff0b43da4016c7672f8afa3) chore(deps): update rubocop requirement from 1.84.2 to 1.85.0 (#667)
+- [4d208ef](https://github.com/appium/ruby_lib_core/commit/4d208efc607b9f294dfbc2370d07079bc1d97755) chore(deps): update rubocop requirement from 1.84.1 to 1.84.2 (#666)
+- [1755c37](https://github.com/appium/ruby_lib_core/commit/1755c3729f8458468ff42275eb150784f6c78808) chore(deps): update rubocop requirement from 1.84.0 to 1.84.1 (#665)
+- [d36af5c](https://github.com/appium/ruby_lib_core/commit/d36af5c52a173c5fd1339be6f7f4cd0b4ee6b65d) chore(deps): update rubocop requirement from 1.82.1 to 1.84.0 (#664)
+- [b31c073](https://github.com/appium/ruby_lib_core/commit/b31c073db83f5b092df1dc1f4abf7621cf1a26b7) ci: remove workaround (#663)
+- [32b1335](https://github.com/appium/ruby_lib_core/commit/32b1335923758359b2740d0cb7ffb2ba2b9a9264) ci: add pr title check (#662)
+- [2f5066c](https://github.com/appium/ruby_lib_core/commit/2f5066cfd2d35c3b2067a151a51d4e8d73ae2b85) ci: add options to launch ios simulators
+- [03fa0a5](https://github.com/appium/ruby_lib_core/commit/03fa0a523d3781abd1e5e97d0aeed555b37a7657) test: check with geo (#661)
+- [87eabe4](https://github.com/appium/ruby_lib_core/commit/87eabe47b9ddb082702d283f8a7fcc35dfef49ff) ci: revert unnecessary sharp installation (#659)
+- [030eaa5](https://github.com/appium/ruby_lib_core/commit/030eaa5d94d18112ba6fc5370def692542bafcc4) chore(deps): update rubocop requirement from 1.82.0 to 1.82.1 (#660)
+- [32e20a8](https://github.com/appium/ruby_lib_core/commit/32e20a81b99bab390a26e10be92e78cf748299ca) ci: install sharp with argums for macOS env
+
+
 #### v12.0.0 2025-12-28
 
 - [4e0001b](https://github.com/appium/ruby_lib_core/commit/4e0001b9eee3e5c8f28110b63d2e44123092ee35) Release 12.0.0
