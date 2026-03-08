@@ -36,7 +36,7 @@ module Appium
     # the methods which expect the symbol first.
     raise ::Appium::Core::Error::ArgumentError, 'symbolize_keys requires a hash' unless hash.is_a? Hash
 
-    hash.each_with_object({}) do |pair, acc|
+    hash.each_with_object({}) do |pair, acc| # steep:ignore
       key = begin
         if enable_deprecation_msg && !(pair[0].is_a? Symbol)
           ::Appium::Logger.warn("[Deprecation] The key '#{pair[0]}' must be a symbol while currently it " \
