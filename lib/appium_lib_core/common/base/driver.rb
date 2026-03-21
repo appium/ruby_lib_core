@@ -159,7 +159,21 @@ module Appium
         #   # Send a GET request to 'session/<session id>/path/to/custom/url'
         #   @driver.test_command
         #
-        # @example POST command with arguments (block style)
+        # @example POST command with arguments (do/end block)
+        #
+        #   @driver.add_command(
+        #     method: :post,
+        #     url: 'session/:session_id/path/to/custom/url',
+        #     name: :test_command
+        #   ) do |argument|
+        #     execute(:test_command, {}, { dummy: argument })
+        #   end
+        #   # Send a POST request to 'session/<session id>/path/to/custom/url'
+        #   # with body "{ dummy: 1 }" as JSON object. "1" is the argument.
+        #   # ':session_id' in the given 'url' is replaced with current 'session id'.
+        #   @driver.test_command(1)
+        #
+        # @example POST command with arguments (inline block)
         #
         #   @driver.add_command(
         #     method: :post,
@@ -168,7 +182,23 @@ module Appium
         #   ) { |argument| execute(:test_command, {}, { dummy: argument }) }
         #   @driver.test_command(1)
         #
-        # @example POST command with URL placeholders (block style)
+        # @example POST command with URL placeholders (do/end block)
+        #
+        #   @driver.add_command(
+        #     method: :post,
+        #     url: 'session/:session_id/element/:id/custom/action',
+        #     name: :test_action_command
+        #   ) do |element_id, action|
+        #     execute(:test_action_command, {id: element_id}, { dummy_action: action })
+        #   end
+        #   # Send a POST request to 'session/<session id>/element/<element id>/custom/action'
+        #   # with body "{ dummy_action: #{action} }" as JSON object. "action" is the seconds argument.
+        #   # ':session_id' in the given url is replaced with current 'session id'.
+        #   # ':id' in the given url is replaced with the given 'element_id'.
+        #   e = @driver.find_element :accessibility_id, 'an element'
+        #   @driver.test_action_command(e.id, 'action')
+        #
+        # @example POST command with URL placeholders (inline block)
         #
         #   @driver.add_command(
         #     method: :post,
@@ -181,9 +211,7 @@ module Appium
         def add_command(method:, url:, name:, &block)
           raise ::Appium::Core::Error::ArgumentError, "Available method is either #{AVAILABLE_METHODS}" unless AVAILABLE_METHODS.include? method
 
-          if Bridge.extra_commands&.key?(name)
-            ::Appium::Logger.info "Overriding the command '#{name}' for '#{url}'"
-          end
+          ::Appium::Logger.info "Overriding the command '#{name}' for '#{url}'" if Bridge.extra_commands&.key?(name)
 
           # Use Selenium's Bridge.add_command to register the command and define the method.
           # When no block is given, create a default implementation that calls execute.
