@@ -208,7 +208,7 @@ module Appium
         chrome_send_command: [:post, 'session/:session_id/goog/cdp/execute']
       }.freeze
 
-      COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).freeze
+      COMMANDS = {}.merge(COMMAND).merge(COMMAND_ANDROID).freeze # steep:ignore
     end # module Commands
   end # module Core
 end # module Appium
