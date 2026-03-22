@@ -1,3 +1,10 @@
+#### v12.1.0 2026-03-21
+
+- [4ffb5a3](https://github.com/appium/ruby_lib_core/commit/4ffb5a3c2595414c4e2073f51f251208c28591d3) Release 12.1.0
+- [91cee6b](https://github.com/appium/ruby_lib_core/commit/91cee6b1e5dc6b0ceed0af0828b1c121ad680291) feat: use Selenium's Bridge.add_command for custom command registration (#671)
+- [4ccec26](https://github.com/appium/ruby_lib_core/commit/4ccec263d52d1c965e1ae83b78b7f27772cbf803) chore(deps): update rubocop requirement from 1.85.0 to 1.85.1 (#670)
+
+
 #### v12.0.1 2026-03-07
 
 - [6bae39d](https://github.com/appium/ruby_lib_core/commit/6bae39d9125c4218d723449d1fa141d5daf6e665) Release 12.0.1
