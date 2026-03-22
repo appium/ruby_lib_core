@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [12.1.0] - 2026-03-21
+- Replace internal `add_command` method with Selnium Bridge's `add_command` to simplify the codebase.
+
 ## [12.0.1] - 2026-03-07
 - Improve Steep
 
