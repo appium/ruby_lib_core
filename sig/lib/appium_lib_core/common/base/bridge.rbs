@@ -10,8 +10,6 @@ module Appium
 
         @browser: untyped
 
-        @available_commands: untyped
-
         @session_id: untyped
 
         # generate a dummy capabilities instance which only has the given platformName and automationName
@@ -50,8 +48,6 @@ module Appium
 
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME: "appium"
-
-        attr_reader available_commands: untyped
 
         def browser: () -> untyped
 
@@ -115,8 +111,10 @@ module Appium
 
         public
 
-        def add_command: (method: untyped, url: untyped, name: untyped) { (?) -> untyped } -> untyped
+        # Override Selenium's command_list to use Appium's command definitions
+        def command_list: () -> Hash[Symbol, Array[Symbol | String]]
 
+        # Override Selenium's commands to resolve extra_commands from this subclass
         def commands: (untyped command) -> untyped
 
         def status: () -> untyped
