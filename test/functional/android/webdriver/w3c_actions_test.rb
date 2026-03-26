@@ -60,7 +60,7 @@ class AppiumLibCoreTest
             @driver.find_element(:accessibility_id, 'Custom')
           end
         end
-        @driver.manage.timeouts.implicit_wait = @@core.default_wait
+        @driver.manage.timeouts.implicit_wait = 0
       end
 
       def test_double_tap

@@ -36,13 +36,12 @@ module Appium
     # This options affects only client side as <code>:appium_lib</code> key.<br>
     # Read {::Appium::Core::Driver} about each attribute
     class Options
-      attr_reader :custom_url, :default_wait,
+      attr_reader :custom_url,
                   :port, :wait_timeout, :wait_interval, :listener,
                   :direct_connect, :enable_idempotency_header
 
       def initialize(appium_lib_opts)
         @custom_url = appium_lib_opts.fetch :server_url, nil
-        @default_wait = appium_lib_opts.fetch :wait, nil
         @enable_idempotency_header = appium_lib_opts.fetch :enable_idempotency_header, true
 
         @direct_connect = appium_lib_opts.fetch :direct_connect, true
@@ -133,11 +132,6 @@ module Appium
       # @return [String]
       attr_reader :custom_url
 
-      # Default wait time for elements to appear in Appium server side.
-      # Provide <code>{ appium_lib: { wait: 30 } }</code> to {::Appium::Core.for}
-      # @return [Integer]
-      attr_reader :default_wait
-
       # Appium's server port. 4723 is by default. Defaults to {::Appium::Core::Driver::DEFAULT_APPIUM_PORT}.<br>
       # Provide <code>{ appium_lib: { port: 8080 } }</code> to {::Appium::Core.for}.
       # <code>:custom_url</code> is prior than <code>:port</code> if <code>:custom_url</code> is set.
@@ -213,7 +207,6 @@ module Appium
       #              },
       #              appium_lib: {
       #                port: 8080,
-      #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
       #                listener: nil,
@@ -234,7 +227,6 @@ module Appium
       #              },
       #              appium_lib: {
       #                server_url: 'http://custom-host:8080/wd/hub',
-      #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
       #                listener: nil,
@@ -254,7 +246,6 @@ module Appium
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                wait: 0,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
       #                listener: nil,
@@ -376,7 +367,6 @@ module Appium
       #                app: '/path/to/MyiOS.app'
       #              },
       #              appium_lib: {
-      #                wait: 20,
       #                wait_timeout: 20,
       #                wait_interval: 0.3,
       #              }
@@ -430,8 +420,6 @@ module Appium
           @http_client.delete_additional_header Appium::Core::Base::Http::RequestHeaders::KEYS[:idempotency]
         end
 
-        set_implicit_wait_by_default(@default_wait)
-
         @driver
       end
 
@@ -476,18 +464,6 @@ module Appium
 
       def get_http_client(http_client: nil, open_timeout: nil, read_timeout: nil)
         http_client || Appium::Core::Base::Http::Default.new(open_timeout: open_timeout, read_timeout: read_timeout)
-      end
-
-      # Ignore setting default wait if the target driver has no implementation
-      def set_implicit_wait_by_default(wait)
-        return if @default_wait.nil?
-
-        @driver.manage.timeouts.implicit_wait = wait
-      rescue ::Selenium::WebDriver::Error::UnknownError => e
-        raise ::Appium::Core::Error::ServerError, e.message unless e.message.include?('The operation requested is not yet implemented')
-
-        ::Appium::Logger.debug(e.message)
-        {}
       end
 
       # Returns the server's version info. This method calls +driver.remote_status+ internally
@@ -651,8 +627,6 @@ module Appium
 
         @custom_url ||= opts.custom_url # Keep existence capability if it's already provided
         @enable_idempotency_header = opts.enable_idempotency_header
-
-        @default_wait = opts.default_wait
 
         @port = opts.port
 
