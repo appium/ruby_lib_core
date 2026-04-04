@@ -35,7 +35,7 @@ module Appium
                                        'method should be POST or PUT'
                                end
 
-                               option = {}
+                               option = {} # steep:ignore
                                option[:remotePath] = remote_path
                                option[:user] = user unless user.nil?
                                option[:pass] = pass unless pass.nil?
@@ -64,7 +64,7 @@ module Appium
                 file_field_name: file_field_name, form_fields: form_fields, headers: headers
               ).upload_option
 
-              params = option.empty? ? {} : { options: option }
+              params = option.empty? ? {} : { options: option } # steep:ignore
 
               execute(:stop_recording_screen, {}, params)
             end

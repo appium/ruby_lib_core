@@ -18,7 +18,7 @@ module Appium
       module Device
         module AppManagement
           def app_strings(language = nil)
-            opts = language ? { language: language } : {}
+            opts = language ? { language: language } : {} # steep:ignore
             execute_script 'mobile:getAppStrings', opts
           end
 
@@ -27,7 +27,7 @@ module Appium
             raise NotImplementedError
           end
 
-          def install_app(path, options = {})
+          def install_app(path, options = {}) # steep:ignore
             args = { appPath: path }
             args[:options] = options unless options&.empty?
 

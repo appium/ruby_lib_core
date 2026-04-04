@@ -18,7 +18,7 @@ module Appium
       module Device
         module Keyboard
           def hide_keyboard(close_key = nil)
-            option = {}
+            option = {} # steep:ignore
 
             option[:key] = close_key || 'Done' # default to Done key.
 

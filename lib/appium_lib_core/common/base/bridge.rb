@@ -47,8 +47,6 @@ module Appium
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
-        attr_reader :available_commands
-
         def browser
           @browser ||= begin
             name = @capabilities&.browser_name
@@ -74,7 +72,6 @@ module Appium
         #   )
         #
         def attach_to(session_id, platform_name, automation_name)
-          @available_commands = ::Appium::Core::Commands::COMMANDS.dup
           @session_id = session_id
 
           # generate a dummy capabilities instance which only has the given platformName and automationName
@@ -109,10 +106,8 @@ module Appium
         #   driver = core.start_driver
         #
         def create_session(capabilities)
-          @available_commands = ::Appium::Core::Commands::COMMANDS.dup
-
           always_match = add_appium_prefix(capabilities)
-          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } })
+          response = execute(:new_session, {}, { capabilities: { alwaysMatch: always_match, firstMatch: [{}] } }) # steep:ignore
 
           @session_id = response['sessionId']
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
@@ -162,29 +157,16 @@ module Appium
 
         public
 
-        # command for Appium 2.0.
-
-        # Example:
-        #   driver.add_command(name: :available_contexts, method: :get, url: 'session/:session_id/contexts') do
-        #     execute(:available_contexts, {}) || []
-        #   end
-        # Then,
-        #   driver.available_contexts #=> ["NATIVE_APP"]
-
-        # def add_command(method:, url:, name:, &block)
-        #   Bridge.add_command name, method, url, &block
-        # end
-
-        def add_command(method:, url:, name:, &block)
-          ::Appium::Logger.info "Overriding the method '#{name}' for '#{url}'" if @available_commands.key? name
-
-          @available_commands[name] = [method, url]
-
-          ::Appium::Core::Device.add_endpoint_method name, &block
+        # Override Selenium's command_list to use Appium's command definitions
+        # instead of the default W3C COMMANDS from Selenium.
+        def command_list
+          ::Appium::Core::Commands::COMMANDS
         end
 
+        # Override Selenium's commands to resolve extra_commands from this subclass
+        # rather than the parent Selenium::WebDriver::Remote::Bridge.
         def commands(command)
-          @available_commands[command] || Bridge.extra_commands[command]
+          command_list[command] || self.class.extra_commands&.[](command)
         end
 
         def status
@@ -273,7 +255,7 @@ module Appium
         # No implementation for W3C webdriver module
         def available_log_types
           types = execute :get_available_log_types
-          Array(types).map(&:to_sym)
+          Array(types).map(&:to_sym) # steep:ignore
         end
 
         # For Appium
@@ -297,7 +279,7 @@ module Appium
 
         # For Appium
         def log_events(type = nil)
-          args = {}
+          args = {} # steep:ignore
           args['type'] = type unless type.nil?
 
           execute :get_log_events, {}, args

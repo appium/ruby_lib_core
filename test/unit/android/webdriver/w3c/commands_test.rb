@@ -50,10 +50,8 @@ class AppiumLibCoreTest
               method: :post,
               url: 'session/:session_id/path/to/custom/url',
               name: :test_command
-            ) do
-              def test_command(argument)
-                execute(:test_command, {}, { dummy: argument })
-              end
+            ) do |argument|
+              execute(:test_command, {}, { dummy: argument })
             end
 
             assert_equal @driver.respond_to?(:test_command), true
@@ -72,10 +70,8 @@ class AppiumLibCoreTest
               method: :post,
               url: 'session/:session_id/path/to/custom/:element_id/url',
               name: :test_command
-            ) do
-              def test_command(argument)
-                execute(:test_command, { element_id: 'dummy_element_id' }, { dummy: argument })
-              end
+            ) do |argument|
+              execute(:test_command, { element_id: 'dummy_element_id' }, { dummy: argument })
             end
 
             assert_equal @driver.respond_to?(:test_command), true
