@@ -228,7 +228,7 @@ class AppiumLibCoreTest
       assert_equal 999_999, driver.send(:bridge).http.read_timeout
       uri = driver.send(:bridge).http.send(:server_url)
       assert core.direct_connect
-      assert_equal 'http', uri.scheme
+      assert_equal 'https', uri.scheme
       assert_equal 'appium.io', uri.host
       assert_equal 8888, uri.port
       assert_equal '/wd/hub/', uri.path
