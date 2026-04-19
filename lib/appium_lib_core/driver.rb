@@ -204,8 +204,7 @@ module Appium
       # @return [Appium::Core::Base::Driver]
       attr_reader :driver
 
-      # <b>[Experimental feature]</b><br>
-      # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.<br>
+      # Enable updating Http client endpoint following below keys by Appium/Selenium server.<br>
       # This works with {Appium::Core::Base::Http::Default}.
       #
       # If your Selenium/Appium server decorates the new session capabilities response with the following keys:<br>
@@ -216,6 +215,12 @@ module Appium
       #
       # ignore them if this parameter is <code>false</code>. Defaults to true.
       # These keys can have <code>appium:</code> prefix.
+      #
+      # Note that the server should provide the keys with valid values. The host value must not be
+      # - loopback (for example `127.0.0.1`, `::1`)
+      # - link-local (for example `169.254.x.x`, `fe80::/10`)
+      # - unspecified/wildcard (`0.0.0.0`, `::`)
+      # - multicast (`224.0.0.0/4`, `ff00::/8`)
       #
       # @return [Bool]
       attr_reader :direct_connect
