@@ -149,7 +149,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               directConnectProtocol: 'http',
-              directConnectHost: 'localhost',
+              directConnectHost: '1.1.1.1',
               directConnectPort: '8888',
               directConnectPath: '/wd/hub'
             }
@@ -159,14 +159,14 @@ class AppiumLibCoreTest
         stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
-        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
@@ -179,7 +179,7 @@ class AppiumLibCoreTest
       uri = driver.send(:bridge).http.send(:server_url)
       assert core.direct_connect
       assert_equal 'http', uri.scheme
-      assert_equal 'localhost', uri.host
+      assert_equal '1.1.1.1', uri.host
       assert_equal 8888, uri.port
       assert_equal '/wd/hub/', uri.path
     end
@@ -199,7 +199,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               'appium:directConnectProtocol' => 'http',
-              'appium:directConnectHost' => 'localhost',
+              'appium:directConnectHost' => '1.1.1.1',
               'appium:directConnectPort' => '8888',
               'appium:directConnectPath' => '/wd/hub'
             }
@@ -209,14 +209,14 @@ class AppiumLibCoreTest
         stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
-        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
@@ -229,7 +229,7 @@ class AppiumLibCoreTest
       uri = driver.send(:bridge).http.send(:server_url)
       assert core.direct_connect
       assert_equal 'http', uri.scheme
-      assert_equal 'localhost', uri.host
+      assert_equal '1.1.1.1', uri.host
       assert_equal 8888, uri.port
       assert_equal '/wd/hub/', uri.path
     end
@@ -249,7 +249,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               'appium:directConnectProtocol' => 'http',
-              'appium:directConnectHost' => 'localhost',
+              'appium:directConnectHost' => '1.1.1.1',
               'appium:directConnectPort' => '8888',
               'appium:directConnectPath' => '/wd/hub',
               directConnectProtocol: 'https',
@@ -263,14 +263,14 @@ class AppiumLibCoreTest
         stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
-        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
@@ -283,9 +283,52 @@ class AppiumLibCoreTest
       uri = driver.send(:bridge).http.send(:server_url)
       assert core.direct_connect
       assert_equal 'http', uri.scheme
-      assert_equal 'localhost', uri.host
+      assert_equal '1.1.1.1', uri.host
       assert_equal 8888, uri.port
       assert_equal '/wd/hub/', uri.path
+    end
+
+    def test_direct_connect_loopback_host_falls_back_to_original_url
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            app: 'test/functional/app/ApiDemos-debug.apk',
+            platformVersion: '7.1.1',
+            deviceName: 'Android Emulator',
+            appPackage: 'io.appium.android.apis',
+            appActivity: 'io.appium.android.apis.ApiDemos',
+            someCapability: 'some_capability',
+            directConnectProtocol: 'http',
+            directConnectHost: 'localhost',
+            directConnectPort: '8888',
+            directConnectPath: '/wd/hub'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts')
+        .with(body: { implicit: 30_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      core = ::Appium::Core.for(Caps.android_direct)
+      driver = core.start_driver
+
+      uri = driver.send(:bridge).http.send(:server_url)
+      assert_equal 'http', uri.scheme
+      assert_equal '127.0.0.1', uri.host
+      assert_equal 4723, uri.port
+      assert_equal '/', uri.path
+
+      assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
+      assert_requested(:post, 'http://127.0.0.1:4723/session/1234567890/timeouts',
+                       body: { implicit: 30_000 }.to_json, times: 1)
+      assert_not_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
     end
 
     def test_default_timeout_for_http_client_with_direct_no_path
@@ -303,7 +346,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               directConnectProtocol: 'http',
-              directConnectHost: 'localhost',
+              directConnectHost: '1.1.1.1',
               directConnectPort: '8888'
             }
           }
@@ -352,7 +395,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               directConnectProtocol: 'http',
-              directConnectHost: 'localhost',
+              directConnectHost: '1.1.1.1',
               directConnectPort: '8888',
               directConnectPath: '/wd/hub'
             }
@@ -517,7 +560,7 @@ class AppiumLibCoreTest
               appActivity: 'io.appium.android.apis.ApiDemos',
               someCapability: 'some_capability',
               directConnectProtocol: 'http',
-              directConnectHost: 'localhost',
+              directConnectHost: '1.1.1.1',
               directConnectPort: '8888',
               directConnectPath: '/wd/hub'
             }
@@ -527,14 +570,14 @@ class AppiumLibCoreTest
         stub_request(:post, 'http://127.0.0.1:4723/session')
           .to_return(headers: HEADER, status: 200, body: response)
 
-        stub_request(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts')
+        stub_request(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts')
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
         driver = core.start_driver
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
-        assert_requested(:post, 'http://localhost:8888/wd/hub/session/1234567890/timeouts',
+        assert_requested(:post, 'http://1.1.1.1:8888/wd/hub/session/1234567890/timeouts',
                          body: { implicit: 30_000 }.to_json, times: 1)
         driver
       end
