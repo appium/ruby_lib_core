@@ -15,6 +15,7 @@
 require 'uri'
 require 'socket'
 require 'ipaddr'
+require 'timeout'
 
 module Appium
   # The struct for 'location'
@@ -115,6 +116,7 @@ module Appium
 
       # Do not allow loopback, link-local, unspecified and multicast addresses for
       # direct connect since they are not accessible from outside of the server.
+      DNS_RESOLVE_TIMEOUT_SECONDS = 30
       LOOPBACK_RANGES = [IPAddr.new('127.0.0.0/8'), IPAddr.new('::1/128')].freeze
       LINK_LOCAL_RANGES = [IPAddr.new('169.254.0.0/16'), IPAddr.new('fe80::/10')].freeze
       UNSPECIFIED_RANGES = [IPAddr.new('0.0.0.0/32'), IPAddr.new('::/128')].freeze
@@ -128,11 +130,25 @@ module Appium
 
       def resolve_addresses(host)
         normalized_host = host.to_s.delete_prefix('[').delete_suffix(']')
-        Socket.getaddrinfo(normalized_host, nil).map { |entry| entry[3] }.uniq
-      rescue SocketError => e
-        error_message = "Failed to resolve host '#{host}' for direct connect: #{e.message}"
-        ::Appium::Logger.warn(error_message)
+        # If the host is already an IP literal, skip DNS resolution to avoid blocking calls
+        return [normalized_host] if ip_literal?(normalized_host)
+
+        Timeout.timeout(DNS_RESOLVE_TIMEOUT_SECONDS) do
+          Socket.getaddrinfo(normalized_host, nil).map { |entry| entry[3] }.uniq
+        end
+      rescue Timeout::Error
+        ::Appium::Logger.warn("DNS resolution for '#{host}' timed out after #{DNS_RESOLVE_TIMEOUT_SECONDS}s")
         []
+      rescue SocketError => e
+        ::Appium::Logger.warn("Failed to resolve host '#{host}' for direct connect: #{e.message}")
+        []
+      end
+
+      def ip_literal?(host)
+        IPAddr.new(host)
+        true
+      rescue IPAddr::InvalidAddressError
+        false
       end
 
       def disallowed?(ip)
