@@ -1,3 +1,13 @@
+#### v12.2.0 2026-04-19
+
+- [3c60948](https://github.com/appium/ruby_lib_core/commit/3c60948114e65f7c0dc8724325b00272970cb818) Release 12.2.0
+- [1d76ac4](https://github.com/appium/ruby_lib_core/commit/1d76ac43800f88c8167ae1bd7d5e9b744229adcc) chore: add timeout and ip tune up (#678)
+- [3bbc416](https://github.com/appium/ruby_lib_core/commit/3bbc416e9d78d044f2b5e76afeee37a614e43903) fix: validate direct connect url (#676)
+- [b1a9007](https://github.com/appium/ruby_lib_core/commit/b1a9007c0b5632b97e3d9b8ed852477558297e82) chore(deps): update rubocop requirement from 1.86.0 to 1.86.1 (#675)
+- [646f448](https://github.com/appium/ruby_lib_core/commit/646f4480d72048a84a2c0c7a2cfbfd4b2905176d) test: add stylus off (#673)
+- [ef29797](https://github.com/appium/ruby_lib_core/commit/ef29797038687acdeb9581c589979a887d77857c) chore(deps): update rubocop requirement from 1.85.1 to 1.86.0 (#672)
+
+
 #### v12.1.0 2026-03-21
 
 - [4ffb5a3](https://github.com/appium/ruby_lib_core/commit/4ffb5a3c2595414c4e2073f51f251208c28591d3) Release 12.1.0
