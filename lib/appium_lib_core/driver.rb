@@ -108,7 +108,7 @@ module Appium
         addresses = resolve_addresses(@host)
         return false if addresses.empty?
 
-        addresses.find { |ip| disallowed?(ip) }.nil?
+        addresses.find { |ip| disallowed? ip }.nil?
       end
 
       private
@@ -136,8 +136,8 @@ module Appium
       end
 
       def disallowed?(ip)
-        address = IPAddr.new(ip)
-        DISALLOWED_RANGES.any? { |range| range.include?(address) }
+        address = IPAddr.new ip
+        DISALLOWED_RANGES.any? { |range| range.include? address }
       end
     end
 
