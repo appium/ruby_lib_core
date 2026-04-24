@@ -56,7 +56,7 @@ class AppiumLibCoreTest
 
       expected_x, expected_y = if over_ios17?(@@driver)
                                  # iPhone 17
-                                 ['64.0 / 402.0', '245.0 / 932.0']
+                                 ['64.0 / 402.0', '263.5 / 874.0']
                                elsif over_ios14?(@@driver)
                                  # iPhone 11
                                  ['64.0 / 414.0', '239.5 / 896.0']
