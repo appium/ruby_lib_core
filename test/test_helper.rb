@@ -156,9 +156,10 @@ class AppiumLibCoreTest
           processArguments: { args: %w(happy testing), env: { HAPPY: 'testing' } },
           screenshotQuality: 2, # The lowest quality screenshots
           connectHardwareKeyboard: false,
-          maxTypingFrequency: 200,
           simulatorStartupTimeout: 600_000,
-          'settings[pageSourceExcludedAttributes]': 'visible'
+          'settings[maxTypingFrequency]': 45,
+          'settings[pageSourceExcludedAttributes]': 'visible,accessible',
+          'settings[animationCoolOffTimeout]': 0.5
         },
         appium_lib: {
           wait_timeout: 20,
