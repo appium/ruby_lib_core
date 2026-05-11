@@ -20,26 +20,6 @@ module Appium
       class << self
         def extended(_mod)
           extend_webdriver_with_forwardable
-
-          # Compatibility for appium_lib. Below command are extended by `extend Appium::Core::Deivce`in appium_lib.
-          # TODO: Will remove
-          [
-            :take_element_screenshot, :save_viewport_screenshot,
-            :lock, :device_locked?, :unlock,
-            :hide_keyboard, :is_keyboard_shown,
-            :ime_activate, :ime_available_engines, :ime_active_engine, :ime_activated, :ime_deactivate,
-            :get_settings, :update_settings,
-            :within_context, :current_context, :available_contexts, :set_context,
-            :push_file, :pull_file, :pull_folder,
-            :keyevent, :press_keycode, :long_press_keycode,
-            :match_images_features, :find_image_occurrence, :get_images_similarity, :compare_images,
-            :app_strings, :background_app,
-            :install_app, :remove_app, :app_installed?, :activate_app, :terminate_app,
-            :app_state,
-            :stop_recording_screen, :stop_and_save_recording_screen,
-            :shake, :device_time,
-            :execute_driver, :execute_cdp
-          ].each(&method(:delegate_from_appium_driver))
         end
 
         # def extended
