@@ -1,3 +1,11 @@
+#### v13.0.0 2026-05-10
+
+- [38e40f4](https://github.com/appium/ruby_lib_core/commit/38e40f4a8b12c0e51cb71f669a54ebd42a85de16) Release 13.0.0
+- [862813d](https://github.com/appium/ruby_lib_core/commit/862813dea473b7bf3ab1fcacbfa6550963ecdaaa) feat: remove unnecessary code (#680)
+- [63af649](https://github.com/appium/ruby_lib_core/commit/63af649a917de71afd4acbcd8db7f7e82555ca02) test: tune caps (#679)
+- [9973f44](https://github.com/appium/ruby_lib_core/commit/9973f4422a552bf5a7062bb24c55bf169ae80a82) ci: Update Xcode and iOS versions in workflow (#677)
+
+
 #### v12.2.0 2026-04-19
 
 - [3c60948](https://github.com/appium/ruby_lib_core/commit/3c60948114e65f7c0dc8724325b00272970cb818) Release 12.2.0
