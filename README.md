@@ -114,10 +114,21 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
     opts = {
       capabilities: { # Append capabilities
         platformName: 'ios',
-        platformVersion: '26.0',
+        platformVersion: '15.8.3',
         deviceName: 'iPhone 17',
         # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
-        automationName: 'XCUITest'
+        automationName: 'XCUITest',
+        # "appium:bundleId":"com.apple.mobilesafari",
+        # "usePreinstalledWDA": true,
+        useNewWDA: false,
+        browserName: 'Safari',
+        # "webDriverAgentUrl": "http://192.168.4.47:8100",
+        "udid": "00008020-000E5CDA0A23002E",
+        'xcodeOrgId': '47PCFA586Q',
+        'xcodeSigningId': 'iPhone Developer',
+        'updatedWDABundleId': 'com.kazucocoa.wda',
+        allowProvisioningDeviceRegistration: true,
+        # 'appium:skipLogCapture': true
       },
       appium_lib: {
         wait: 30

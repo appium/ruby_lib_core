@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [13.0.1] - 2026-06-07
+- Update the `rbs_collection.lock.yaml`
+
 ## [13.0.0] - 2026-05-10
 - Remove extenced methods in `Appium::Core::Base::Driver` only for the appium_lib - which is covered  by the library.
 
