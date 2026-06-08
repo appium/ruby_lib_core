@@ -1,3 +1,11 @@
+#### v13.0.1 2026-06-07
+
+- [faa52fc](https://github.com/appium/ruby_lib_core/commit/faa52fc2cc6bc72a8992f90c5acc6fd18e2b6401) Release 13.0.1
+- [391c1d4](https://github.com/appium/ruby_lib_core/commit/391c1d492ef0f416e9c0280e9e8ff0e9b7d2a8f3) chore: update rbs collection lock (prism 1.6.0 -> 1.7.0) (#683)
+- [31599d0](https://github.com/appium/ruby_lib_core/commit/31599d0e4644a4ab340ec7232ff2c419354cb177) chore(deps): update rubocop requirement from 1.86.2 to 1.87.0 (#682)
+- [3d6b9e7](https://github.com/appium/ruby_lib_core/commit/3d6b9e71d595f0a460cfc4ee880fd7972fc68c0b) chore(deps): update rubocop requirement from 1.86.1 to 1.86.2 (#681)
+
+
 #### v13.0.0 2026-05-10
 
 - [38e40f4](https://github.com/appium/ruby_lib_core/commit/38e40f4a8b12c0e51cb71f669a54ebd42a85de16) Release 13.0.0
