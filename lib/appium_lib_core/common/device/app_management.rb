@@ -29,7 +29,7 @@ module Appium
 
           def install_app(path, options = {}) # steep:ignore
             args = { appPath: path }
-            args[:options] = options unless options&.empty?
+            args[:options] = options unless options && options.empty?
 
             execute :install_app, {}, args
           end
