@@ -20,8 +20,6 @@ module Appium
     class Options
       @custom_url: String
 
-      @default_wait: Integer
-
       @enable_idempotency_header: bool
 
       @direct_connect: bool
@@ -35,8 +33,6 @@ module Appium
       @listener: Selenium::WebDriver::Support::AbstractEventListener
 
       attr_reader custom_url: String
-
-      attr_reader default_wait: Integer
 
       attr_reader port: Integer
 
@@ -98,8 +94,6 @@ module Appium
 
       @enable_idempotency_header: bool
 
-      @default_wait: Integer
-
       @port: Integer
 
       @wait_timeout: Integer
@@ -123,8 +117,6 @@ module Appium
       attr_reader automation_name: Symbol
 
       attr_reader custom_url: String
-
-      attr_reader default_wait: Integer
 
       attr_reader port: Integer
 
@@ -166,8 +158,6 @@ module Appium
       def attach_to: (untyped session_id, ?url: untyped?, ?automation_name: Symbol, ?platform_name: untyped?, ?http_client_ops: Hash[untyped, untyped]) -> untyped
 
       def get_http_client: (?http_client: untyped?, ?open_timeout: untyped?, ?read_timeout: untyped?) -> untyped
-
-      def set_implicit_wait_by_default: (untyped wait) -> untyped
 
       def appium_server_version: () -> Hash[String, String]
 

@@ -1,7 +1,4 @@
 module Appium
-  def self.symbolize_keys: (Hash[untyped, untyped] hash, ?nested: bool, ?enable_deprecation_msg: bool)
-    -> Hash[Symbol, untyped]
-
   module Core
     def self.for: (Hash[Symbol, untyped] opts) -> Driver
   end
