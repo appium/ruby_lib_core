@@ -55,17 +55,17 @@ jobs:
             platform: tvOS
             wdaName: WebDriverAgentRunner_tvOS-Runner.app
 
-    runs-on: macos-15
+    runs-on: macos-26
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 16.4
-      IOS_VERSION: 18.5
-      IOS_DEVICE_NAME: iPhone 16 Plus
+      XCODE_VERSION: 26.4
+      IOS_VERSION: 26.4
+      IOS_DEVICE_NAME: iPhone 17
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Install Node.js
       uses: actions/setup-node@v6
@@ -80,7 +80,7 @@ jobs:
 
     - uses: futureware-tech/simulator-action@v5
       with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md
+        # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
         model: ${{ env.IOS_DEVICE_NAME }}
         os_version: ${{ env.IOS_VERSION }}
         wait_for_boot: true
@@ -123,17 +123,17 @@ jobs:
           test/report/
 
   ios_test_with_other_deps:
-    runs-on: macos-15
+    runs-on: macos-26
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 16.4
-      IOS_VERSION: 18.5
-      IOS_DEVICE_NAME: iPhone 16 Plus
+      XCODE_VERSION: 26.4
+      IOS_VERSION: 26.4
+      IOS_DEVICE_NAME: iPhone 17
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Install Node.js
       uses: actions/setup-node@v6
@@ -148,7 +148,7 @@ jobs:
 
     - uses: futureware-tech/simulator-action@v5
       with:
-      # https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md
+      # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
         model: ${{ env.IOS_DEVICE_NAME }}
         os_version: ${{ env.IOS_VERSION }}
         wait_for_boot: true
@@ -248,7 +248,7 @@ jobs:
       ARCH: x86_64
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - uses: actions/setup-java@v5
       with:
@@ -275,7 +275,7 @@ jobs:
         sudo udevadm trigger --name-match=kvm
 
     - name: AVD cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: avd-cache
       with:
         path: |

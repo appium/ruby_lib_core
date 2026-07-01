@@ -1,3 +1,29 @@
+#### v13.0.1 2026-06-07
+
+- [faa52fc](https://github.com/appium/ruby_lib_core/commit/faa52fc2cc6bc72a8992f90c5acc6fd18e2b6401) Release 13.0.1
+- [391c1d4](https://github.com/appium/ruby_lib_core/commit/391c1d492ef0f416e9c0280e9e8ff0e9b7d2a8f3) chore: update rbs collection lock (prism 1.6.0 -> 1.7.0) (#683)
+- [31599d0](https://github.com/appium/ruby_lib_core/commit/31599d0e4644a4ab340ec7232ff2c419354cb177) chore(deps): update rubocop requirement from 1.86.2 to 1.87.0 (#682)
+- [3d6b9e7](https://github.com/appium/ruby_lib_core/commit/3d6b9e71d595f0a460cfc4ee880fd7972fc68c0b) chore(deps): update rubocop requirement from 1.86.1 to 1.86.2 (#681)
+
+
+#### v13.0.0 2026-05-10
+
+- [38e40f4](https://github.com/appium/ruby_lib_core/commit/38e40f4a8b12c0e51cb71f669a54ebd42a85de16) Release 13.0.0
+- [862813d](https://github.com/appium/ruby_lib_core/commit/862813dea473b7bf3ab1fcacbfa6550963ecdaaa) feat: remove unnecessary code (#680)
+- [63af649](https://github.com/appium/ruby_lib_core/commit/63af649a917de71afd4acbcd8db7f7e82555ca02) test: tune caps (#679)
+- [9973f44](https://github.com/appium/ruby_lib_core/commit/9973f4422a552bf5a7062bb24c55bf169ae80a82) ci: Update Xcode and iOS versions in workflow (#677)
+
+
+#### v12.2.0 2026-04-19
+
+- [3c60948](https://github.com/appium/ruby_lib_core/commit/3c60948114e65f7c0dc8724325b00272970cb818) Release 12.2.0
+- [1d76ac4](https://github.com/appium/ruby_lib_core/commit/1d76ac43800f88c8167ae1bd7d5e9b744229adcc) chore: add timeout and ip tune up (#678)
+- [3bbc416](https://github.com/appium/ruby_lib_core/commit/3bbc416e9d78d044f2b5e76afeee37a614e43903) fix: validate direct connect url (#676)
+- [b1a9007](https://github.com/appium/ruby_lib_core/commit/b1a9007c0b5632b97e3d9b8ed852477558297e82) chore(deps): update rubocop requirement from 1.86.0 to 1.86.1 (#675)
+- [646f448](https://github.com/appium/ruby_lib_core/commit/646f4480d72048a84a2c0c7a2cfbfd4b2905176d) test: add stylus off (#673)
+- [ef29797](https://github.com/appium/ruby_lib_core/commit/ef29797038687acdeb9581c589979a887d77857c) chore(deps): update rubocop requirement from 1.85.1 to 1.86.0 (#672)
+
+
 #### v12.1.0 2026-03-21
 
 - [4ffb5a3](https://github.com/appium/ruby_lib_core/commit/4ffb5a3c2595414c4e2073f51f251208c28591d3) Release 12.1.0

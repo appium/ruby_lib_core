@@ -42,44 +42,6 @@ class AppiumLibCoreTest
               delegate_from_appium_driver(v)
             end
           end
-
-          def test_with_arg_definitions
-            parameterized_method_defined_check([:shake,
-                                                :device_locked?,
-                                                :unlock,
-                                                :device_time,
-                                                :current_context,
-                                                :open_notifications,
-                                                :current_activity,
-                                                :current_package,
-                                                :get_system_bars,
-                                                :get_display_density,
-                                                :is_keyboard_shown,
-                                                :available_contexts,
-                                                :set_context,
-                                                :app_strings,
-                                                :lock,
-                                                :install_app,
-                                                :remove_app,
-                                                :app_installed?,
-                                                :terminate_app,
-                                                :activate_app,
-                                                :app_state,
-                                                :background_app,
-                                                :hide_keyboard,
-                                                :keyevent,
-                                                :press_keycode,
-                                                :long_press_keycode,
-                                                :push_file,
-                                                :pull_file,
-                                                :pull_folder,
-                                                :get_settings,
-                                                :update_settings,
-                                                :get_clipboard,
-                                                :set_clipboard,
-                                                :execute_driver,
-                                                :execute_cdp])
-          end
         end # class DefinitionTest
       end # module W3C
     end # module Device

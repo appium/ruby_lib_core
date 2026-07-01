@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [13.0.1] - 2026-06-07
+- Update the `rbs_collection.lock.yaml`
+
+## [13.0.0] - 2026-05-10
+- Remove extenced methods in `Appium::Core::Base::Driver` only for the appium_lib - which is covered  by the library.
+
+## [12.2.0] - 2026-04-19
+- Add validation for direct connect URL when `direct_connect` capability is `true`.
+
 ## [12.1.0] - 2026-03-21
 - Replace internal `add_command` method with Selnium Bridge's `add_command` to simplify the codebase.
 

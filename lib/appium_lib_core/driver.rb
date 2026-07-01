@@ -13,6 +13,9 @@
 # limitations under the License.
 
 require 'uri'
+require 'socket'
+require 'ipaddr'
+require 'timeout'
 
 module Appium
   # The struct for 'location'
@@ -98,6 +101,59 @@ module Appium
         @port = capabilities[W3C_KEYS[:port]] || capabilities[KEYS[:port]]
         @path = capabilities[W3C_KEYS[:path]] || capabilities[KEYS[:path]]
       end
+
+      def valid?
+        return false unless [@protocol, @host, @port, @path].none?(&:nil?)
+
+        addresses = resolve_addresses(@host)
+        return false if addresses.empty?
+
+        addresses.find { |ip| disallowed? ip }.nil?
+      end
+
+      private
+
+      # Do not allow loopback, link-local, unspecified and multicast addresses for
+      # direct connect since they are not accessible from outside of the server.
+      DNS_RESOLVE_TIMEOUT_SECONDS = 30
+      LOOPBACK_RANGES = [IPAddr.new('127.0.0.0/8'), IPAddr.new('::1/128')].freeze
+      LINK_LOCAL_RANGES = [IPAddr.new('169.254.0.0/16'), IPAddr.new('fe80::/10')].freeze
+      UNSPECIFIED_RANGES = [IPAddr.new('0.0.0.0/32'), IPAddr.new('::/128')].freeze
+      MULTICAST_RANGES = [IPAddr.new('224.0.0.0/4'), IPAddr.new('ff00::/8')].freeze
+      DISALLOWED_RANGES = [
+        *LOOPBACK_RANGES,
+        *LINK_LOCAL_RANGES,
+        *UNSPECIFIED_RANGES,
+        *MULTICAST_RANGES
+      ].freeze
+
+      def resolve_addresses(host)
+        normalized_host = host.to_s.delete_prefix('[').delete_suffix(']')
+        # If the host is already an IP literal, skip DNS resolution to avoid blocking calls
+        return [normalized_host] if ip_literal?(normalized_host)
+
+        Timeout.timeout(DNS_RESOLVE_TIMEOUT_SECONDS) do
+          Socket.getaddrinfo(normalized_host, nil).map { |entry| entry[3] }.uniq
+        end
+      rescue Timeout::Error
+        ::Appium::Logger.warn("DNS resolution for '#{host}' timed out after #{DNS_RESOLVE_TIMEOUT_SECONDS}s")
+        []
+      rescue SocketError => e
+        ::Appium::Logger.warn("Failed to resolve host '#{host}' for direct connect: #{e.message}")
+        []
+      end
+
+      def ip_literal?(host)
+        IPAddr.new(host)
+        true
+      rescue IPAddr::InvalidAddressError
+        false
+      end
+
+      def disallowed?(ip)
+        address = IPAddr.new ip
+        DISALLOWED_RANGES.any? { |range| range.include? address }
+      end
     end
 
     class Driver
@@ -158,8 +214,7 @@ module Appium
       # @return [Appium::Core::Base::Driver]
       attr_reader :driver
 
-      # <b>[Experimental feature]</b><br>
-      # Enable an experimental feature updating Http client endpoint following below keys by Appium/Selenium server.<br>
+      # Enable updating Http client endpoint following below keys by Appium/Selenium server.<br>
       # This works with {Appium::Core::Base::Http::Default}.
       #
       # If your Selenium/Appium server decorates the new session capabilities response with the following keys:<br>
@@ -170,6 +225,12 @@ module Appium
       #
       # ignore them if this parameter is <code>false</code>. Defaults to true.
       # These keys can have <code>appium:</code> prefix.
+      #
+      # Note that the server should provide the keys with valid values. The host value must not be
+      # - loopback (for example `127.0.0.1`, `::1`)
+      # - link-local (for example `169.254.x.x`, `fe80::/10`)
+      # - unspecified/wildcard (`0.0.0.0`, `::`)
+      # - multicast (`224.0.0.0/4`, `ff00::/8`)
       #
       # @return [Bool]
       attr_reader :direct_connect
@@ -409,7 +470,14 @@ module Appium
 
           if @direct_connect
             d_c = DirectConnections.new(@driver.capabilities)
-            @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
+            if d_c.valid?
+              @driver.update_sending_request_to(protocol: d_c.protocol, host: d_c.host, port: d_c.port, path: d_c.path)
+            else
+              ::Appium::Logger.warn(
+                "Direct connect is enabled but the server did not provide valid direct connect information (#{d_c.protocol}, #{d_c.host}, #{d_c.port}, #{d_c.path}). " \
+                "Continue with the original URL (#{@custom_url})"
+              )
+            end
           end
         rescue Errno::ECONNREFUSED => e
           raise "ERROR: Unable to connect to Appium. Is the server running on #{@custom_url}? Error: #{e}"
