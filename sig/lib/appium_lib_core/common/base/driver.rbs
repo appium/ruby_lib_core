@@ -2,6 +2,8 @@ module Appium
   module Core
     class Base
       class Driver < Selenium::WebDriver::Driver
+        extend Forwardable
+
         @wait_timeout: untyped
 
         @wait_interval: untyped
