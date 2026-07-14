@@ -63,14 +63,14 @@ module Appium
           #
           # @return [URI] An instance of URI updated to. Returns default +server_url+ if some of arguments are +nil+
           def update_sending_request_to(scheme:, host:, port:, path:)
-            return @server_url unless validate_url_param(scheme, host, port, path)
+            return server_url unless validate_url_param(scheme, host, port, path)
 
             # Add / if 'path' does not have it
             path = "/#{path}" unless path.start_with?('/')
             path = "#{path}/" unless path.end_with?('/')
 
             @http = nil
-            @server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
+            self.server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
           end
 
           private

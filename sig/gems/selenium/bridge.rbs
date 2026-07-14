@@ -30,7 +30,7 @@ module Selenium
 
         attr_reader capabilities: untyped
 
-        def initialize: (url: String | URI, ?http_client: untyped?) -> void
+        def initialize: (?url: untyped, ?http_client: untyped?) -> void
 
         def cancel_fedcm_dialog: -> nil
 

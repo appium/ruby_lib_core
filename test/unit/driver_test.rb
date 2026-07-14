@@ -463,8 +463,9 @@ class AppiumLibCoreTest
       core = ::Appium::Core.for(Caps.android_direct)
       driver = android_mock_create_session_w3c_direct_default_client.call(core)
 
-      assert_nil driver.send(:bridge).http.open_timeout
-      assert_nil driver.send(:bridge).http.read_timeout
+      default_http_client = Selenium::WebDriver::Remote::Http::Default.new
+      assert_equal default_http_client.open_timeout, driver.send(:bridge).http.open_timeout
+      assert_equal default_http_client.read_timeout, driver.send(:bridge).http.read_timeout
       uri = driver.send(:bridge).http.send(:server_url)
       assert core.direct_connect
       assert_equal 'http', uri.scheme

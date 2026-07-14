@@ -47,6 +47,17 @@ module Appium
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
+        # Selenium 4.46 moved server URL configuration from Bridge to the HTTP client.
+        def initialize(url:, http_client: nil)
+          if selenium_bridge_accepts_url?
+            super
+          else
+            http_client ||= ::Selenium::WebDriver::Remote::Http::Default.new
+            http_client.server_url = url
+            super(http_client: http_client)
+          end
+        end
+
         def browser
           @browser ||= begin
             name = @capabilities&.browser_name
@@ -136,6 +147,12 @@ module Appium
         end
 
         private
+
+        def selenium_bridge_accepts_url?
+          ::Selenium::WebDriver::Remote::Bridge.instance_method(:initialize).parameters.any? do |_, name|
+            name == :url
+          end
+        end
 
         def camel_case(str_or_sym)
           str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1)&.upcase }
