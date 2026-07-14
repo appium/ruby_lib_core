@@ -1,3 +1,15 @@
+#### v13.1.0 2026-07-13
+
+- [e099307](https://github.com/appium/ruby_lib_core/commit/e099307ee1868986215f66002caf05b6f514aafe) Release 13.1.0
+- [99a248d](https://github.com/appium/ruby_lib_core/commit/99a248d25b89871eb1714530f1628fccbe9ee24c) fix: seleium 4.46 compatibility (#690)
+- [77b9cca](https://github.com/appium/ruby_lib_core/commit/77b9cca7c3cebc73b6be971696642d8116479fd5) chore(deps): update rubocop requirement from 1.88.1 to 1.88.2 (#688)
+- [f3718af](https://github.com/appium/ruby_lib_core/commit/f3718af5bcc1ed6ea272037501125039ffba5898) fix: fix selneium version up to 4.45
+- [3aa4877](https://github.com/appium/ruby_lib_core/commit/3aa4877b241328721a69acda3cb012f82af42722) chore(deps): update rubocop requirement from 1.88.0 to 1.88.1 (#687)
+- [1d9485e](https://github.com/appium/ruby_lib_core/commit/1d9485e28d44124a73135f7ff761d25ddcf705b6) chore(deps): bump actions/cache from 5 to 6 (#686)
+- [903cf60](https://github.com/appium/ruby_lib_core/commit/903cf60b3232e691983597f60b606e51efdf12c9) chore(deps): update rubocop requirement from 1.87.0 to 1.88.0 (#684)
+- [79cbc8e](https://github.com/appium/ruby_lib_core/commit/79cbc8eacf9d66acae8a090811d5cfcd72929b44) chore(deps): bump actions/checkout from 6 to 7 (#685)
+
+
 #### v13.0.1 2026-06-07
 
 - [faa52fc](https://github.com/appium/ruby_lib_core/commit/faa52fc2cc6bc72a8992f90c5acc6fd18e2b6401) Release 13.0.1
