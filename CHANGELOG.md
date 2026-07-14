@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 Read `release_notes.md` for commit level details.
 
+## [13.1.0] - 2026-07-13
+- Compatible with selenium 4.46
+
 ## [13.0.1] - 2026-06-07
 - Update the `rbs_collection.lock.yaml`
 
