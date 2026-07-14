@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'selenium-webdriver', '~> 4.21'
+  spec.add_dependency 'selenium-webdriver', '~> 4.21', '< 4.46'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
