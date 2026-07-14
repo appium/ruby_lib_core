@@ -49,6 +49,8 @@ module Appium
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME: "appium"
 
+        def initialize: (url: untyped, ?http_client: untyped?) -> void
+
         def browser: () -> untyped
 
         # Appium only.
@@ -102,6 +104,8 @@ module Appium
         def add_appium_prefix: (untyped capabilities) -> untyped
 
         private
+
+        def selenium_bridge_accepts_url?: () -> bool
 
         def camel_case: (untyped str_or_sym) -> untyped
 

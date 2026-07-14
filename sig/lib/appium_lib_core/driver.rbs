@@ -75,6 +75,16 @@ module Appium
       attr_reader path: String
 
       def initialize: (Hash[String | Symbol, String] capabilities) -> void
+
+      def valid?: () -> bool
+
+      private
+
+      def resolve_addresses: (String host) -> Array[String]
+
+      def ip_literal?: (String host) -> bool
+
+      def disallowed?: (String ip) -> bool
     end
 
     class Driver
