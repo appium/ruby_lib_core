@@ -387,8 +387,6 @@ Read `release_notes.md` for commit level details.
         - [test/functional/common_w3c_actions.rb](test/functional/common_w3c_actions.rb)
         - https://www.selenium.dev/documentation/support_packages/mouse_and_keyboard_actions_in_detail/
         - https://www.youtube.com/watch?v=oAJ7jwMNFVU
-        - https://appiumpro.com/editions/30-ios-specific-touch-action-methods
-        - https://appiumpro.com/editions/29-automating-complex-gestures-with-the-w3c-actions-api
 - `launch_app`, `close_app` and `reset`. Please read [issues#15807](https://github.com/appium/appium/issues/15807) for more details.
     - `activate_app` or a new session request can be alternatives of `launch_app`
     - `terminate_app` or close the session request can be alternatives of `close_app`
