@@ -60,8 +60,8 @@ jobs:
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 27.0-beta
-      IOS_VERSION: 27.0
+      XCODE_VERSION: "27.0-beta"
+      IOS_VERSION: "27.0"
       IOS_DEVICE_NAME: iPhone 17
 
     steps:
@@ -128,8 +128,8 @@ jobs:
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 27.0-beta
-      IOS_VERSION: 27.0
+      XCODE_VERSION: "27.0-beta"
+      IOS_VERSION: "27.0"
       IOS_DEVICE_NAME: iPhone 17
 
     steps:
