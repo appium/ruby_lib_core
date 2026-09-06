@@ -55,13 +55,13 @@ jobs:
             platform: tvOS
             wdaName: WebDriverAgentRunner_tvOS-Runner.app
 
-    runs-on: macos-26
+    runs-on: xcode-27
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 26.4
-      IOS_VERSION: 26.4
+      XCODE_VERSION: "27.0-beta"
+      IOS_VERSION: "27.0"
       IOS_DEVICE_NAME: iPhone 17
 
     steps:
@@ -76,15 +76,15 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+    # - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v5
-      with:
-        # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
-        model: ${{ env.IOS_DEVICE_NAME }}
-        os_version: ${{ env.IOS_VERSION }}
-        wait_for_boot: true
-        shutdown_after_job: false
+    # - uses: futureware-tech/simulator-action@v5
+    #   with:
+    #     # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
+    #     model: ${{ env.IOS_DEVICE_NAME }}
+    #     os_version: ${{ env.IOS_VERSION }}
+    #     wait_for_boot: true
+    #     shutdown_after_job: false
 
     # Start Appium
     - run: npm install -g appium
@@ -123,13 +123,13 @@ jobs:
           test/report/
 
   ios_test_with_other_deps:
-    runs-on: macos-26
+    runs-on: xcode-27
 
     # Please make sure the available Xcode versions and iOS versions
     # on the runner images. https://github.com/actions/runner-images
     env:
-      XCODE_VERSION: 26.4
-      IOS_VERSION: 26.4
+      XCODE_VERSION: "27.0-beta"
+      IOS_VERSION: "27.0"
       IOS_DEVICE_NAME: iPhone 17
 
     steps:
@@ -144,21 +144,19 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{ env.XCODE_VERSION }}
-    - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
+    # - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v5
-      with:
-      # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
-        model: ${{ env.IOS_DEVICE_NAME }}
-        os_version: ${{ env.IOS_VERSION }}
-        wait_for_boot: true
-        shutdown_after_job: false
+    # - uses: futureware-tech/simulator-action@v5
+    #   with:
+    #   # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
+    #     model: ${{ env.IOS_DEVICE_NAME }}
+    #     os_version: ${{ env.IOS_VERSION }}
+    #     wait_for_boot: true
+    #     shutdown_after_job: false
 
     - name: Preparing other environment
       run: |
         brew install ffmpeg
-        brew tap wix/brew
-        brew install applesimutils
 
     # Start Appium
     - run: npm root -g
