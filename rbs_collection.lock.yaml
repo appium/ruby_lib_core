@@ -74,7 +74,7 @@ gems:
   source:
     type: stdlib
 - name: ffi
-  version: 1.17.2
+  version: 1.17.4
   source:
     type: rubygems
 - name: fileutils
@@ -170,7 +170,7 @@ gems:
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: prism
-  version: 1.7.0
+  version: 1.9.0
   source:
     type: rubygems
 - name: rainbow
