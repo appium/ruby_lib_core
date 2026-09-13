@@ -9,11 +9,10 @@ merge the release PR. There is no local version bump, tag push, or gem push.
 
 ## One-time setup
 
-1. Create or reuse a GitHub App installed on `appium/ruby_lib_core`. Grant repository
-   **Contents**, **Pull requests**, and **Issues** read/write permissions. No webhook
-   is needed just to mint installation tokens from Actions. Store its app ID in the
-   repository variable `RELEASE_APP_ID` and its private key in the Actions secret
-   `RELEASE_APP_PRIVATE_KEY`.
+1. In repository **Settings → Actions → General → Workflow permissions**, enable
+   **Allow GitHub Actions to create and approve pull requests** (the organization
+   policy must permit it). Workflows declare their own permissions. Release Please
+   uses the built-in `GITHUB_TOKEN`; no GitHub App, PAT, or new GitHub secret is needed.
 2. Keep the normal branch protection/rulesets on `master`. Require the existing
    unit/lint checks and the `package` job from **Release validation** before merging
    a release PR. Do not exempt the release bot from those merge checks. Its direct
@@ -27,15 +26,22 @@ merge the release PR. There is no local version bump, tag push, or gem push.
    - Repository name: `ruby_lib_core`
    - Workflow filename: `publish-gem.yml`
    - Environment: `rubygems`
-5. Merge the migration after its CI passes. The Release Please job is skipped until
-   `RELEASE_APP_ID` exists. Once configured, a push to master or a manual run of
-   **Release Please** updates the pending release PR.
+5. Merge the migration after its CI passes. A push to master or a manual run of
+   **Release Please** updates the pending release PR. Configure the RubyGems
+   publisher before merging that first release PR.
 
-The GitHub App token is intentional: PRs and releases created using the default
-`GITHUB_TOKEN` do not normally trigger further Actions workflows. The app token
-lets both the PR checks and `release.published` publishing workflow run. A GitHub
-App key is still required; Trusted Publishing removes the separate long-lived
-RubyGems API key.
+This follows the standard `GITHUB_TOKEN` and OIDC authentication used by Appium's
+Python client and XCUITest driver release workflows. Release Please explicitly
+uses `workflow_dispatch` to run the existing unit, functional, CodeQL, and package
+workflows on the release PR branch, and **Publish gem** on master with the new tag.
+These events run with `GITHUB_TOKEN` without a separate bot credential. All workflow
+files must first be on master for dispatch to work.
+
+GitHub may also show approval-required `pull_request` runs for bot-created PRs.
+The dispatched checks do not require that approval. The shared PR-title workflow
+is event-only; if repository rules require its check, that run still needs approval
+(or a separate adaptation of the shared workflow). Do not make an approval-only
+check required if the intended release process is review and merge only.
 
 No credentials, remote settings, tags, or releases are created by installing these
 files. Configure the RubyGems publisher before merging the first release PR.
@@ -50,7 +56,8 @@ files. Configure the RubyGems publisher before merging the first release PR.
    `Appium::Core::DATE` in the same PR. Wait for checks on the final PR commit.
 3. Review the version and release notes, then merge the PR when ready. If master
    has advanced, require current checks before merging through the repository rules.
-4. Release Please creates `v<version>` and a GitHub Release. **Publish gem** verifies
+4. Release Please creates `v<version>` and a GitHub Release, then dispatches
+   **Publish gem** with that tag. **Publish gem** verifies
    that the tag is on master's history, builds the gem before test tools can modify local files, runs checks, and verifies
    the tag, source version, manifest, changelog date, and packaged gem identity.
 5. Only a successful verification job uploads a gem for the separate publishing
@@ -87,11 +94,14 @@ is for stable releases from master, not a parallel prerelease branch.
 - **Release PR has a date mismatch:** rerun **Release Please**. Alternatively, check
   out its branch, run `ruby script/release.rb prepare-date`, and commit the date
   change. Do not edit the date to the upload day independently of the changelog.
-- **PR checks do not start:** check the app installation, its permissions, and the
-  repository variable/secret. Do not substitute `GITHUB_TOKEN` without redesigning
-  the downstream workflow triggers.
+- **PR checks do not start:** inspect the **Run release PR checks** step, Actions
+  policy, and workflow permissions. Each dispatched workflow must exist on master.
+  Retry the affected workflow from the generated PR branch using **Run workflow**;
+  rerunning Release Please may not return an unchanged PR in its outputs.
 - **Tag/Release exists but publication failed:** correct external setup if needed
-  and rerun the failed workflow jobs. The verified artifact is kept for 14 days.
+  and rerun the failed workflow jobs. If dispatch itself failed, run
+  **Publish gem** from master with the existing tag; rerunning Release Please does
+  not necessarily emit an already-created release again. The verified artifact is kept for 14 days.
   If it has expired, run **Publish gem** manually from master with the same existing
   release tag; it rechecks and rebuilds that tag. This retry route is for releases
   containing this workflow and validation script, not older historical tags.
@@ -126,7 +136,9 @@ made its first release, its bootstrap setting is ignored and can be removed.
 ## References
 
 - [Release Please](https://github.com/googleapis/release-please)
-- [GitHub Action authentication and event behavior](https://github.com/googleapis/release-please-action#other-actions-on-release-please-prs)
+- [GitHub workflow triggering and token behavior](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)
+- [Appium Python client release workflow](https://github.com/appium/python-client/blob/master/.github/workflows/publish.yml)
+- [Appium XCUITest driver release workflow](https://github.com/appium/appium-xcuitest-driver/blob/master/.github/workflows/publish.js.yml)
 - [Manifest and prerelease configuration](https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md)
 - [RubyGems Trusted Publishing](https://guides.rubygems.org/trusted-publishing/)
 - [RubyGems credentials Action](https://github.com/rubygems/configure-rubygems-credentials)
