@@ -253,14 +253,6 @@ gems:
   version: '0'
   source:
     type: stdlib
-- name: thor
-  version: '1.2'
-  source:
-    type: git
-    name: ruby/gem_rbs_collection
-    revision: 3f5e8df1ce89ea06067fa42263012c968b4e583e
-    remote: https://github.com/ruby/gem_rbs_collection.git
-    repo_dir: gems
 - name: time
   version: '0'
   source:
