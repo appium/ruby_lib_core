@@ -26,8 +26,8 @@ module Appium
 
         # @private
         # Define method in Bridges
-        def add_endpoint_method(method, &block)
-          block_given? ? create_bridge_command(method, &block) : create_bridge_command(method)
+        def add_endpoint_method(method, bridge: ::Appium::Core::Base::Bridge, &block)
+          create_bridge_command(method, bridge: bridge, &block)
 
           delegate_driver_method method
           delegate_from_appium_driver method
@@ -56,8 +56,8 @@ module Appium
           ::Appium::Core::Base::Driver.class_eval { def_delegator :@bridge, method }
         end
 
-        def create_bridge_command(method, &block)
-          ::Appium::Core::Base::Bridge.class_eval do
+        def create_bridge_command(method, bridge:, &block)
+          bridge.class_eval do
             undef_method method if method_defined? method
             block_given? ? class_eval(&block) : define_method(method) { execute method }
           end

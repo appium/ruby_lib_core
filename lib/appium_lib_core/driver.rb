@@ -160,6 +160,10 @@ module Appium
     class Driver
       include Waitable
 
+      # @private Platform-specific methods for this driver
+      # @return [Module]
+      attr_reader :bridge_extensions
+
       # Selenium webdriver capabilities, but the value is provided capabilities basis.
       # @return [Core::Base::Capabilities]
       attr_reader :caps
@@ -388,6 +392,7 @@ module Appium
 
       # @private
       def initialize
+        @bridge_extensions = Module.new
         @delegate_target = self # for testing purpose
         @automation_name = nil # initialise before 'set_automation_name'
       end
@@ -473,6 +478,7 @@ module Appium
         begin
           @driver = ::Appium::Core::Base::Driver.new(listener: @listener,
                                                      http_client: @http_client,
+                                                     bridge_extensions: @bridge_extensions,
                                                      capabilities: @caps, # ::Appium::Core::Base::Capabilities
                                                      url: @custom_url,
                                                      wait_timeout: @wait_timeout,
@@ -531,6 +537,7 @@ module Appium
           @driver = ::Appium::Core::Base::Driver.new(http_client: @http_client,
                                                      url: @custom_url,
                                                      listener: @listener,
+                                                     bridge_extensions: @bridge_extensions,
                                                      existing_session_id: session_id,
                                                      automation_name: automation_name,
                                                      platform_name: platform_name)
@@ -693,23 +700,23 @@ module Appium
       # The path can be local, HTTP/S, Windows Share and other path like 'sauce-storage:'.
       # Use @caps[:app] without modifications if the path isn't HTTP/S or local path.
       def set_app_path
-        # FIXME: maybe `:app` should check `app` as well.
         return unless @caps
 
         app = get_app # for steep reason
-        return unless app && app.empty?
+        return if app.nil? || app.empty?
 
         uri_regex = defined?(URI::RFC2396_PARSER) ? URI::RFC2396_PARSER : URI::DEFAULT_PARSER # steep:ignore
         return if app =~ uri_regex.make_regexp
 
         # steep:ignore
         app_path = File.expand_path(app)
-        @caps['app'] = if File.exist? app_path
-                         app_path
-                       else
-                         ::Appium::Logger.warn("Use #{app} directly since #{app_path} does not exist.")
-                         app
-                       end
+        app_key = [:app, 'app', :'appium:app', 'appium:app'].find { |key| @caps[key] }
+        @caps[app_key] = if File.exist? app_path
+                           app_path
+                         else
+                           ::Appium::Logger.warn("Use #{app} directly since #{app_path} does not exist.")
+                           app
+                         end
       end
 
       # @private

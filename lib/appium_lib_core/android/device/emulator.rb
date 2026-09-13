@@ -112,14 +112,14 @@ module Appium
           ## self.emulator_commands
           ####
 
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:send_sms) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:send_sms, bridge: target.bridge_extensions) do
               def send_sms(phone_number:, message:)
                 execute_script 'mobile:sendSms', { phoneNumber: phone_number, message: message }
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:gsm_call) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_call, bridge: target.bridge_extensions) do
               def gsm_call(phone_number:, action:)
                 raise ::Appium::Core::Error::ArgumentError, "action: should be member of #{GSM_CALL_ACTIONS}. Not #{action}." unless GSM_CALL_ACTIONS.member? action.to_sym
 
@@ -127,7 +127,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:gsm_signal) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_signal, bridge: target.bridge_extensions) do
               def gsm_signal(signal_strength)
                 if GSM_SIGNALS[signal_strength.to_sym].nil?
                   raise ::Appium::Core::Error::ArgumentError,
@@ -138,7 +138,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:gsm_voice) do
+            ::Appium::Core::Device.add_endpoint_method(:gsm_voice, bridge: target.bridge_extensions) do
               def gsm_voice(state)
                 raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{GSM_VOICE_STATES}. Not #{state}." unless GSM_VOICE_STATES.member? state.to_sym
 
@@ -146,7 +146,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:set_network_speed) do
+            ::Appium::Core::Device.add_endpoint_method(:set_network_speed, bridge: target.bridge_extensions) do
               def set_network_speed(netspeed)
                 unless NET_SPEED.member? netspeed.to_sym
                   raise ::Appium::Core::Error::ArgumentError,
@@ -157,7 +157,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:set_power_capacity) do
+            ::Appium::Core::Device.add_endpoint_method(:set_power_capacity, bridge: target.bridge_extensions) do
               def set_power_capacity(percent)
                 ::Appium::Logger.warn "The  percent should be between 0 and 100. Not #{percent}." unless (0..100).member? percent
 
@@ -165,7 +165,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:set_power_ac) do
+            ::Appium::Core::Device.add_endpoint_method(:set_power_ac, bridge: target.bridge_extensions) do
               def set_power_ac(state)
                 raise ::Appium::Core::Error::ArgumentError, "The state should be member of #{POWER_AC_STATE}. Not #{state}." unless POWER_AC_STATE.member? state.to_sym
 

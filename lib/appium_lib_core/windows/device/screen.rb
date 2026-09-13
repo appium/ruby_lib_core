@@ -17,8 +17,8 @@ module Appium
     module Windows
       module Device
         module Screen
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen, bridge: target.bridge_extensions) do
               def start_recording_screen(force_restart: nil, time_limit: nil,
                                          fps: nil, preset: nil, video_filter: nil,
                                          capture_clicks: nil, capture_cursor: nil, audio_input: nil)

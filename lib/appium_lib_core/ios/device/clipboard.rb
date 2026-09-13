@@ -19,8 +19,8 @@ module Appium
     module Ios
       module Device
         module Clipboard
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:get_clipboard) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:get_clipboard, bridge: target.bridge_extensions) do
               def get_clipboard(content_type: :plaintext)
                 unless ::Appium::Core::Base::Device::Clipboard::CONTENT_TYPE.member?(content_type)
                   raise ::Appium::Core::Error::ArgumentError,
@@ -34,7 +34,7 @@ module Appium
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:set_clipboard) do
+            ::Appium::Core::Device.add_endpoint_method(:set_clipboard, bridge: target.bridge_extensions) do
               def set_clipboard(content:, content_type: :plaintext)
                 unless ::Appium::Core::Base::Device::Clipboard::CONTENT_TYPE.member?(content_type)
                   raise ::Appium::Core::Error::ArgumentError,

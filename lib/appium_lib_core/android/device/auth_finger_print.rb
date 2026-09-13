@@ -17,8 +17,8 @@ module Appium
     module Android
       module Device
         module Authentication
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:finger_print) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:finger_print, bridge: target.bridge_extensions) do
               def finger_print(finger_id)
                 unless (1..10).cover? finger_id.to_i
                   raise ::Appium::Core::Error::ArgumentError,

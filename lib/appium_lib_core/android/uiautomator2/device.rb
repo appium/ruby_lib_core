@@ -42,8 +42,8 @@ module Appium
           ####
 
           class << self
-            def extended(_mod)
-              Battery.add_methods
+            def extended(target)
+              Battery.add_methods(target)
             end
           end # class << self
         end # module Device

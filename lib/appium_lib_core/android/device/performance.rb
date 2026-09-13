@@ -17,14 +17,14 @@ module Appium
     module Android
       module Device
         module Performance
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:get_performance_data_types) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:get_performance_data_types, bridge: target.bridge_extensions) do
               def get_performance_data_types
                 execute_script 'mobile:getPerformanceDataTypes', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:get_performance_data) do
+            ::Appium::Core::Device.add_endpoint_method(:get_performance_data, bridge: target.bridge_extensions) do
               def get_performance_data(package_name:, data_type:)
                 execute_script 'mobile:getPerformanceData', { packageName: package_name, dataType: data_type }
               end

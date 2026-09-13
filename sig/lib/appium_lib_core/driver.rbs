@@ -92,6 +92,7 @@ module Appium
     end
 
     class Driver
+      attr_reader bridge_extensions: Module
       @delegate_target: self
 
       @automation_name: Symbol

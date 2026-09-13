@@ -77,8 +77,8 @@ module Appium
         ####
 
         class << self
-          def extended(_mod)
-            Screen.add_methods
+          def extended(target)
+            Screen.add_methods(target)
           end
         end # class << self
       end # module Device

@@ -18,8 +18,8 @@ module Appium
       module Xcuitest
         module Device
           module Performance
-            def self.add_methods
-              ::Appium::Core::Device.add_endpoint_method(:start_performance_record) do
+            def self.add_methods(target)
+              ::Appium::Core::Device.add_endpoint_method(:start_performance_record, bridge: target.bridge_extensions) do
                 def start_performance_record(timeout: 300_000, profile_name: 'Activity Monitor', pid: nil)
                   option = {}
                   option[:timeout] = timeout
@@ -30,7 +30,7 @@ module Appium
                 end
               end
 
-              ::Appium::Core::Device.add_endpoint_method(:get_performance_record) do
+              ::Appium::Core::Device.add_endpoint_method(:get_performance_record, bridge: target.bridge_extensions) do
                 def get_performance_record(save_file_path: './performance', profile_name: 'Activity Monitor',
                                            remote_path: nil, user: nil, pass: nil, method: 'PUT',
                                            file_field_name: nil, form_fields: nil, headers: nil)
