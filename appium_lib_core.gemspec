@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Core Ruby client for Appium, extending Selenium WebDriver with Appium-specific commands.'
   spec.homepage      = 'https://github.com/appium/ruby_lib_core/'
   spec.license       = 'Apache-2.0'
-  spec.files         = Dir.glob(%w[lib/**/*.rb sig/**/*.rbs README.md LICENSE.txt CHANGELOG.md])
+  spec.files         = Dir.glob(%w[lib/**/*.rb sig/**/*.rbs README.md LICENSE.txt CHANGELOG.md appium_lib_core.gemspec])
   spec.require_paths = ['lib']
 
   spec.add_dependency 'selenium-webdriver', '~> 4.21'
