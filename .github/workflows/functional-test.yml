@@ -9,12 +9,18 @@ on:
     - '.github/**'
     - 'docs/**'
     - '*.md'
+    # Release-only merges do not need functional tests.
+    - '.release-please-manifest.json'
+    - 'lib/appium_lib_core/version.rb'
   pull_request:
     branches: [ master ]
     paths-ignore:
     - '.github/**'
     - 'docs/**'
     - '*.md'
+    # Release-only merges do not need functional tests.
+    - '.release-please-manifest.json'
+    - 'lib/appium_lib_core/version.rb'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
