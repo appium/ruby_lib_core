@@ -204,12 +204,10 @@ appium_lib: {
     - https://android.googlesource.com/platform/development/+/master/samples/ApiDemos
 
 # Release
-Use [appium_thor](https://github.com/appium/appium_thor) to release this gem.
+Releases are prepared automatically by Release Please. Review and merge the release
+PR; GitHub Actions then validates and publishes the gem using RubyGems Trusted
+Publishing. See [RELEASING.md](RELEASING.md) for setup, version overrides, and recovery.
 
-```bash
-$ thor bump # bumpy,
-$ thor release
-```
 
 # Contribution
 1. Fork it ( https://github.com/appium/ruby_lib_core/fork )

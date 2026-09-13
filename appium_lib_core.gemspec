@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/appium/ruby_lib_core/'
   spec.license       = 'Apache-2.0'
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{(^(doc|docs|test|spec|features|ci-jobs|.github|script)/|release_notes.md|.gitignore|azure-pipelines.yml|.rubocop.yml)})
+    f.match(%r{(^(doc|docs|test|spec|features|ci-jobs|.github|script)/|release_notes.md|RELEASING.md|release-please-config.json|.release-please-manifest.json|.gitignore|azure-pipelines.yml|.rubocop.yml)})
   end
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
