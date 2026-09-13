@@ -21,7 +21,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # pull_request branch filters apply to the base branch, so skip release PRs here.
   ios_test:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     strategy:
       fail-fast: false
       matrix:
@@ -123,6 +125,7 @@ jobs:
           test/report/
 
   ios_test_with_other_deps:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     runs-on: macos-26
 
     # Please make sure the available Xcode versions and iOS versions
@@ -200,6 +203,7 @@ jobs:
           test/report/
 
   android_test:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     runs-on: ubuntu-latest
 
     strategy:

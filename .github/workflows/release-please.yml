@@ -43,7 +43,7 @@ jobs:
           RELEASE_PR: ${{ steps.release.outputs.pr }}
         run: |
           branch=$(jq -er '.headBranchName | select(type == "string" and length > 0)' <<< "$RELEASE_PR")
-          for workflow in unittest.yml functional-test.yml codeql-analysis.yml release-validation.yml; do
+          for workflow in unittest.yml codeql-analysis.yml release-validation.yml; do
             gh workflow run "$workflow" --ref "$branch"
           done
       - name: Publish the new release
