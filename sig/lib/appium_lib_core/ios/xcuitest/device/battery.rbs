@@ -6,7 +6,7 @@ module Appium
           module Battery
             include _Bridge
 
-            def self.add_methods: () -> (Symbol | Hash[Symbol, Proc])?
+            def self.add_methods: (untyped target) -> (Symbol | Hash[Symbol, Proc])?
 
             def battery_info: () -> ::Hash[::Symbol, ::Symbol]
           end

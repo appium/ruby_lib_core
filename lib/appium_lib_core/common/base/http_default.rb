@@ -69,6 +69,8 @@ module Appium
             path = "/#{path}" unless path.start_with?('/')
             path = "#{path}/" unless path.end_with?('/')
 
+            host = "[#{host}]" if host.include?(':') && !host.start_with?('[')
+
             @http = nil
             self.server_url = URI.parse "#{scheme}://#{host}:#{port}#{path}"
           end

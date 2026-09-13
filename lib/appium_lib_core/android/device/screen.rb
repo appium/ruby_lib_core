@@ -17,14 +17,14 @@ module Appium
     module Android
       module Device
         module Screen
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:get_display_density) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:get_display_density, bridge: target.bridge_extensions) do
               def get_display_density
                 execute_script 'mobile:getDisplayDensity', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
+            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen, bridge: target.bridge_extensions) do
               def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT',
                                          file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil,
                                          video_size: nil, time_limit: '180', bit_rate: nil, bug_report: nil)

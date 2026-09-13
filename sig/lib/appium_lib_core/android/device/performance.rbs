@@ -5,7 +5,7 @@ module Appium
         module Performance
           include _Bridge
 
-          def self.add_methods: () -> untyped
+          def self.add_methods: (untyped target) -> untyped
         end
       end
     end

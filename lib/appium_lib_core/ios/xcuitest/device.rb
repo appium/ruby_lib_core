@@ -170,9 +170,9 @@ module Appium
           ####
 
           class << self
-            def extended(_mod)
+            def extended(target)
               # Xcuitest, Override included method in bridge
-              ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
+              ::Appium::Core::Device.add_endpoint_method(:hide_keyboard, bridge: target.bridge_extensions) do
                 def hide_keyboard(close_key = nil)
                   option = {}
 
@@ -183,15 +183,15 @@ module Appium
               end
 
               # Xcuitest, Override included method in bridge
-              ::Appium::Core::Device.add_endpoint_method(:background_app) do
+              ::Appium::Core::Device.add_endpoint_method(:background_app, bridge: target.bridge_extensions) do
                 def background_app(duration = 0)
                   execute_script 'mobile:backgroundApp', { seconds: duration }
                 end
               end
 
-              Performance.add_methods
-              Screen.add_methods
-              Battery.add_methods
+              Performance.add_methods(target)
+              Screen.add_methods(target)
+              Battery.add_methods(target)
             end
           end # class << self
         end # module Device

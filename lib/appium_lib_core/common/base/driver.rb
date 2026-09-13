@@ -49,8 +49,8 @@ module Appium
           original_opts = opts.dup
 
           # For ::Appium::Core::Waitable
-          @wait_timeout = opts.delete(:wait_timeout)
-          @wait_interval = opts.delete(:wait_interval)
+          @wait_timeout = opts.delete(:wait_timeout) || ::Appium::Core::Wait::DEFAULT_TIMEOUT
+          @wait_interval = opts.delete(:wait_interval) || ::Appium::Core::Wait::DEFAULT_INTERVAL
 
           # Selenium WebDriver attributes
           @devtools = nil
@@ -76,6 +76,7 @@ module Appium
         def create_bridge(**opts)
           # for a new session request
           capabilities = opts.delete(:capabilities)
+          bridge_extensions = opts.delete(:bridge_extensions)
           bridge_opts = { http_client: opts.delete(:http_client), url: opts.delete(:url) }
 
           # for attaching to an existing session
@@ -89,6 +90,7 @@ module Appium
           bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
           # steep:ignore:start
           bridge = bridge_clzz.new(**bridge_opts)
+          bridge.extend(bridge_extensions) if bridge_extensions
           # steep:ignore:end
 
           if session_id.nil?

@@ -6,7 +6,7 @@ module Appium
           module Screen
             def execute: (Symbol command, ?Hash[untyped, untyped], ?Hash[untyped, untyped]) -> untyped
 
-            def self.add_methods: () -> untyped
+            def self.add_methods: (untyped target) -> untyped
           end
         end
       end

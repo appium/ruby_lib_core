@@ -18,8 +18,8 @@ module Appium
       module Uiautomator2
         module Device
           module Battery
-            def self.add_methods
-              ::Appium::Core::Device.add_endpoint_method(:battery_info) do
+            def self.add_methods(target)
+              ::Appium::Core::Device.add_endpoint_method(:battery_info, bridge: target.bridge_extensions) do
                 def battery_info
                   response = execute_script 'mobile: batteryInfo', {}
 

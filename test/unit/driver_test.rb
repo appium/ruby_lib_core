@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require 'test_helper'
+require 'minitest/mock'
 require 'webmock/minitest'
 
 class AppiumLibCoreTest
@@ -214,7 +215,7 @@ class AppiumLibCoreTest
           .with(body: { implicit: 30_000 }.to_json)
           .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
-        driver = core.start_driver
+        driver = Socket.stub(:getaddrinfo, [['AF_INET', 0, 'appium.io', '192.0.2.1']]) { core.start_driver }
 
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
         assert_requested(:post, 'https://appium.io:8888/wd/hub/session/1234567890/timeouts',

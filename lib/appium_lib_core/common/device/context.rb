@@ -20,11 +20,9 @@ module Appium
           def within_context(context)
             existing_context = current_context
             set_context context
-            if block_given?
-              result = yield
-              set_context existing_context
-              result
-            else
+            begin
+              yield if block_given?
+            ensure
               set_context existing_context
             end
           end

@@ -17,8 +17,8 @@ module Appium
     module Mac2
       module Device
         module Screen
-          def self.add_methods
-            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen) do
+          def self.add_methods(target)
+            ::Appium::Core::Device.add_endpoint_method(:start_recording_screen, bridge: target.bridge_extensions) do
               def start_recording_screen(remote_path: nil, user: nil, pass: nil, method: 'PUT',
                                          file_field_name: nil, form_fields: nil, headers: nil, force_restart: nil,
                                          fps: nil, preset: nil, video_filter: nil, time_limit: nil,

@@ -243,60 +243,60 @@ module Appium
         ####
 
         class << self
-          def extended(_mod)
+          def extended(target)
             ::Appium::Core::Device.extend_webdriver_with_forwardable
 
-            ::Appium::Core::Device.add_endpoint_method(:open_notifications) do
+            ::Appium::Core::Device.add_endpoint_method(:open_notifications, bridge: target.bridge_extensions) do
               def open_notifications
                 execute_script 'mobile:openNotifications', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:current_activity) do
+            ::Appium::Core::Device.add_endpoint_method(:current_activity, bridge: target.bridge_extensions) do
               def current_activity
                 execute_script 'mobile:getCurrentActivity', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:current_package) do
+            ::Appium::Core::Device.add_endpoint_method(:current_package, bridge: target.bridge_extensions) do
               def current_package
                 execute_script 'mobile:getCurrentPackage', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:get_system_bars) do
+            ::Appium::Core::Device.add_endpoint_method(:get_system_bars, bridge: target.bridge_extensions) do
               def get_system_bars
                 execute_script 'mobile:getSystemBars', {}
               end
             end
             # as alias to get_system_bars
-            ::Appium::Core::Device.add_endpoint_method(:system_bars) do
+            ::Appium::Core::Device.add_endpoint_method(:system_bars, bridge: target.bridge_extensions) do
               def system_bars
                 execute_script 'mobile:getSystemBars', {}
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:toggle_location_services) do
+            ::Appium::Core::Device.add_endpoint_method(:toggle_location_services, bridge: target.bridge_extensions) do
               def toggle_location_services
                 execute_script 'mobile:toggleGps', {}
               end
             end
 
             # Android, Override included method in bridge
-            ::Appium::Core::Device.add_endpoint_method(:hide_keyboard) do
+            ::Appium::Core::Device.add_endpoint_method(:hide_keyboard, bridge: target.bridge_extensions) do
               def hide_keyboard(_close_key = nil)
                 execute_script 'mobile:hideKeyboard', {}
               end
             end
 
             # Android, Override included method in bridge
-            ::Appium::Core::Device.add_endpoint_method(:background_app) do
+            ::Appium::Core::Device.add_endpoint_method(:background_app, bridge: target.bridge_extensions) do
               def background_app(duration = 0)
                 execute_script 'mobile:backgroundApp', { seconds: duration }
               end
             end
 
-            ::Appium::Core::Device.add_endpoint_method(:execute_cdp) do
+            ::Appium::Core::Device.add_endpoint_method(:execute_cdp, bridge: target.bridge_extensions) do
               # SeleniumWebdriver could already define this method
               return if method_defined? :execute_cdp
 
@@ -305,11 +305,11 @@ module Appium
               end
             end
 
-            Screen.add_methods
-            Performance.add_methods
-            Clipboard.add_methods
-            Emulator.add_methods
-            Authentication.add_methods
+            Screen.add_methods(target)
+            Performance.add_methods(target)
+            Clipboard.add_methods(target)
+            Emulator.add_methods(target)
+            Authentication.add_methods(target)
           end
         end
       end # module Device
