@@ -134,7 +134,7 @@ module Appium
         return [normalized_host] if ip_literal?(normalized_host)
 
         Timeout.timeout(DNS_RESOLVE_TIMEOUT_SECONDS) do
-          Socket.getaddrinfo(normalized_host, nil).map { |entry| entry[3] }.uniq
+          Socket.getaddrinfo(normalized_host, nil).map { |entry| entry[3].to_s }.uniq
         end
       rescue Timeout::Error
         ::Appium::Logger.warn("DNS resolution for '#{host}' timed out after #{DNS_RESOLVE_TIMEOUT_SECONDS}s")
