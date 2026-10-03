@@ -6,6 +6,7 @@ target :lib do
 
   # Standard libraries used in the project
   library(
-    'forwardable'
+    'forwardable',
+    'ipaddr'
   )
 end

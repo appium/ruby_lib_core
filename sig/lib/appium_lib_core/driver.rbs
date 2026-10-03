@@ -70,6 +70,18 @@ module Appium
 
       W3C_KEYS: Hash[String | Symbol, String]
 
+      DNS_RESOLVE_TIMEOUT_SECONDS: Integer
+
+      LOOPBACK_RANGES: Array[IPAddr]
+
+      LINK_LOCAL_RANGES: Array[IPAddr]
+
+      UNSPECIFIED_RANGES: Array[IPAddr]
+
+      MULTICAST_RANGES: Array[IPAddr]
+
+      DISALLOWED_RANGES: Array[IPAddr]
+
       attr_reader protocol: String
 
       attr_reader host: String
