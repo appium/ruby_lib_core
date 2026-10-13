@@ -86,7 +86,7 @@ jobs:
         xcode-version: ${{ env.XCODE_VERSION }}
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v5
+    - uses: futureware-tech/simulator-action@v6
       with:
         # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
         model: ${{ env.IOS_DEVICE_NAME }}
@@ -155,7 +155,7 @@ jobs:
         xcode-version: ${{ env.XCODE_VERSION }}
     - run: defaults write com.apple.iphonesimulator PasteboardAutomaticSync -bool false
 
-    - uses: futureware-tech/simulator-action@v5
+    - uses: futureware-tech/simulator-action@v6
       with:
       # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
         model: ${{ env.IOS_DEVICE_NAME }}
