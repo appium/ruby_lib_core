@@ -354,7 +354,6 @@ class AppiumLibCoreTest
           uiautomator2ServerLaunchTimeout: 60_000 # ms
         },
         appium_lib: {
-          wait: 5,
           wait_timeout: 20,
           wait_interval: 1
         }
@@ -382,7 +381,6 @@ class AppiumLibCoreTest
       {
         capabilities: android[:capabilities],
         appium_lib: {
-          wait: 30,
           wait_timeout: 20,
           wait_interval: 1,
           direct_connect: true
@@ -498,10 +496,6 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 5_000 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
       assert_equal ::Appium::Core::Base::Driver, driver.class
       assert_equal ::Appium::Core::Base::Bridge, driver.bridge.class
@@ -515,24 +509,6 @@ class AppiumLibCoreTest
           'Content-Type' => 'application/json; charset=UTF-8',
           'User-Agent' => /appium\/ruby_lib_core\/.+/
         },
-        times: 1
-      )
-
-      assert_requested(
-        :post,
-        "#{SESSION}/timeouts",
-        headers: {
-          'Content-Type' => 'application/json; charset=UTF-8',
-          'User-Agent' => /appium\/ruby_lib_core\/.+/
-        },
-        body: { implicit: 5_000 }.to_json,
-        times: 1
-      )
-      assert_not_requested(
-        :post,
-        "#{SESSION}/timeouts",
-        headers: { 'X-Idempotency-Key' => /.+/ },
-        body: { implicit: 5_000 }.to_json,
         times: 1
       )
       driver
@@ -555,10 +531,6 @@ class AppiumLibCoreTest
       stub_request(:post, 'http://127.0.0.1:4723/session')
         .to_return(headers: HEADER, status: 200, body: response)
 
-      stub_request(:post, "#{SESSION}/timeouts")
-        .with(body: { implicit: 5_000 }.to_json)
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
       driver = @core.start_driver
 
       assert_equal({}, driver.send(:bridge).http.additional_headers)
@@ -570,24 +542,6 @@ class AppiumLibCoreTest
           'Content-Type' => 'application/json; charset=UTF-8',
           'User-Agent' => /appium\/ruby_lib_core\/.+/
         },
-        times: 1
-      )
-
-      assert_requested(
-        :post,
-        "#{SESSION}/timeouts",
-        headers: {
-          'Content-Type' => 'application/json; charset=UTF-8',
-          'User-Agent' => /appium\/ruby_lib_core\/.+/
-        },
-        body: { implicit: 5_000 }.to_json,
-        times: 1
-      )
-      assert_not_requested(
-        :post,
-        "#{SESSION}/timeouts",
-        headers: { 'X-Idempotency-Key' => /.+/ },
-        body: { implicit: 5_000 }.to_json,
         times: 1
       )
       driver
