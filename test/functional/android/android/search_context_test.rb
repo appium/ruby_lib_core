@@ -63,7 +63,14 @@ class AppiumLibCoreTest
           elements.each do |element|
             assert_equal element.text, element.cached.text
             assert_equal element.enabled?, element.cached.enabled?
-            assert_equal element.attribute('content-desc'), element.cached['content-desc']
+            # The response and the attribute endpoint can encode null differently.
+            # Cache access preserves the value from the element response.
+            description = element.cached.attributes['attribute/content-desc']
+            if description.nil?
+              assert_nil element.cached['content-desc']
+            else
+              assert_equal description, element.cached['content-desc']
+            end
             refute element.cached.attributes.key?(::Appium::Core::Element::ELEMENT_KEY)
             refute element.cached.attributes.key?('ELEMENT')
           end

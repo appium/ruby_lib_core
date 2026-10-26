@@ -134,6 +134,24 @@ class AppiumLibCoreTest
       assert_equal true, cache['enabled']
     end
 
+    def test_custom_attribute_preserves_json_null_and_string_null
+      [nil, 'null'].each do |value|
+        stub_value(:post, '/element', response.merge('attribute/content-desc' => value))
+        cache = @driver.find_element(id: 'example').cached
+        assert cache.attributes.key?('attribute/content-desc')
+
+        if value.nil?
+          assert_nil cache.attributes['attribute/content-desc']
+          assert_nil cache['content-desc']
+          assert_nil cache.content_desc
+        else
+          assert_equal value, cache.attributes['attribute/content-desc']
+          assert_equal value, cache['content-desc']
+          assert_equal value, cache.content_desc
+        end
+      end
+    end
+
     private
 
     def response(id = 'id', text = 'original')
