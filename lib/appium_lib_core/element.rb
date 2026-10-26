@@ -68,6 +68,8 @@ module Appium
 
       def initialize(bridge, id, cached = nil)
         if id.is_a?(Hash)
+          # This case occurs when settings shouldUseCompactResponses=false 
+          # and elementResponseAttributes are specified in the element response.
           cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
           id = id['ELEMENT'] || id[ELEMENT_KEY]
         end
