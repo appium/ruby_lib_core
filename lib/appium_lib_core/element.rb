@@ -17,6 +17,70 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
+      # Holds attributes returned with the element response when
+      # +shouldUseCompactResponses+ is +false+ and +elementResponseAttributes+ is set.
+      class Cache
+        # @return [Hash]
+        attr_reader :attributes
+
+        def initialize(attributes = {})
+          @attributes = attributes || {}
+        end
+
+        def attribute(name)
+          attr_key = "attribute/#{name}"
+          return @attributes[attr_key] if @attributes.key?(attr_key)
+
+          @attributes[name.to_s]
+        end
+
+        alias [] attribute
+
+        def rect
+          data = @attributes['rect']
+          return nil unless data.is_a?(Hash)
+
+          ::Selenium::WebDriver::Rectangle.new(data['x'], data['y'], data['width'], data['height'])
+        end
+
+        def location
+          r = rect
+          return nil if r.nil?
+
+          ::Selenium::WebDriver::Point.new(r.x, r.y)
+        end
+
+        def size
+          r = rect
+          return nil if r.nil?
+
+          ::Selenium::WebDriver::Dimension.new(r.width, r.height)
+        end
+
+        def tag_name
+          @attributes['name'] || @attributes['tag_name']
+        end
+
+        def method_missing(method_name, *args, &block)
+          return if [:to_hash, :to_ary].include?(method_name)
+
+          key = method_name.to_s.delete_suffix('?')
+          hyphenated_key = key.tr('_', '-')
+
+          [key, hyphenated_key, "attribute/#{key}", "attribute/#{hyphenated_key}"].each do |candidate|
+            return @attributes[candidate] if @attributes.key?(candidate)
+          end
+
+          return nil if respond_to?(method_name)
+
+          super
+        end
+
+        def respond_to_missing?(_method_name, _include_private = false)
+          true
+        end
+      end
+
       include ::Appium::Core::Base::TakesScreenshot
 
       # steep:ignore:start
@@ -31,6 +95,19 @@ module Appium
       #   e.id
       #
       attr_reader :id
+
+      def initialize(bridge, id, cached_attributes = {})
+        super(bridge, id) # steep:ignore
+        @cached_attributes = cached_attributes || {}
+      end
+
+      # Returns cached attributes returned with the element response when
+      # +shouldUseCompactResponses+ is +false+ and +elementResponseAttributes+ is set.
+      #
+      # @return [Appium::Core::Element::Cache]
+      def cached
+        @cached ||= Cache.new(@cached_attributes)
+      end
 
       # Returns the value of attributes like below. Read each platform to know more details.
       #

@@ -73,5 +73,73 @@ class AppiumLibCoreTest
       assert_equal 'iVBORw0KGgoAAAANSUhEUgAABDgAAAB+CAIAAABOPDa6AAAAAX', e.screenshot
       assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
     end
+
+    def test_element_cached_attributes
+      stub_request(:post, "#{SESSION}/element")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: {
+            ::Appium::Core::Element::ELEMENT_KEY => 'element_id_1',
+            'ELEMENT' => 'element_id_1',
+            'name' => 'android.widget.TextView',
+            'text' => 'Hello World',
+            'enabled' => true,
+            'displayed' => false,
+            'selected' => false,
+            'attribute/content-desc' => 'greeting_label',
+            'rect' => { 'x' => 10, 'y' => 20, 'width' => 100, 'height' => 50 }
+          },
+          sessionId: SESSION,
+          status: 0
+        }.to_json)
+
+      e = @driver.find_element id: 'example'
+      assert_equal 'element_id_1', e.id
+      assert_equal 'android.widget.TextView', e.cached.name
+      assert_equal 'android.widget.TextView', e.cached.tag_name
+      assert_equal 'Hello World', e.cached.text
+      assert_equal true, e.cached.enabled
+      assert_equal true, e.cached.enabled?
+      assert_equal false, e.cached.displayed
+      assert_equal false, e.cached.displayed?
+      assert_equal false, e.cached.selected?
+      assert_equal 'greeting_label', e.cached.content_desc
+      assert_equal 'greeting_label', e.cached.attribute('content-desc')
+      assert_equal 'greeting_label', e.cached['content-desc']
+      assert_equal ::Selenium::WebDriver::Rectangle.new(10, 20, 100, 50), e.cached.rect
+      assert_equal ::Selenium::WebDriver::Point.new(10, 20), e.cached.location
+      assert_equal ::Selenium::WebDriver::Dimension.new(100, 50), e.cached.size
+      assert_nil e.cached.non_existent_attribute
+      assert_nil e.cached.attributes[::Appium::Core::Element::ELEMENT_KEY]
+      assert_nil e.cached.attributes['ELEMENT']
+    end
+
+    def test_elements_cached_attributes
+      stub_request(:post, "#{SESSION}/elements")
+        .with(body: { using: 'id', value: 'example' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: {
+          value: [
+            {
+              ::Appium::Core::Element::ELEMENT_KEY => 'element_id_1',
+              'text' => 'First',
+              'attribute/resource-id' => 'com.example:id/first'
+            },
+            {
+              ::Appium::Core::Element::ELEMENT_KEY => 'element_id_2',
+              'text' => 'Second',
+              'attribute/resource-id' => 'com.example:id/second'
+            }
+          ],
+          sessionId: SESSION,
+          status: 0
+        }.to_json)
+
+      els = @driver.find_elements id: 'example'
+      assert_equal 2, els.length
+      assert_equal 'First', els[0].cached.text
+      assert_equal 'com.example:id/first', els[0].cached.resource_id
+      assert_equal 'Second', els[1].cached.text
+      assert_equal 'com.example:id/second', els[1].cached.resource_id
+    end
   end
 end

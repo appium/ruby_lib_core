@@ -239,13 +239,62 @@ module Appium
         end
 
         # For Appium
+        def active_element
+          convert_to_element(execute(:get_active_element))
+        end
+
         alias switch_to_active_element active_element
+
+        # For Appium
+        def find_element_by(how, what, parent_ref = [])
+          how, what = @locator_converter.convert(how, what)
+
+          # steep:ignore:start
+          return execute_atom(:findElements, ::Selenium::WebDriver::Support::RelativeLocator.new(what).as_json).first if how == 'relative'
+
+          parent_type, parent_id = parent_ref
+          id = case parent_type
+               when :element
+                 execute :find_child_element, { id: parent_id }, { using: how, value: what.to_s }
+               when :shadow_root
+                 execute :find_shadow_child_element, { id: parent_id }, { using: how, value: what.to_s }
+               else
+                 execute :find_element, {}, { using: how, value: what.to_s }
+               end
+          # steep:ignore:end
+
+          convert_to_element(id)
+        end
+
+        # For Appium
+        def find_elements_by(how, what, parent_ref = [])
+          how, what = @locator_converter.convert(how, what)
+
+          # steep:ignore:start
+          return execute_atom :findElements, ::Selenium::WebDriver::Support::RelativeLocator.new(what).as_json if how == 'relative'
+
+          parent_type, parent_id = parent_ref
+          ids = case parent_type
+                when :element
+                  execute :find_child_elements, { id: parent_id }, { using: how, value: what.to_s }
+                when :shadow_root
+                  execute :find_shadow_child_elements, { id: parent_id }, { using: how, value: what.to_s }
+                else
+                  execute :find_elements, {}, { using: how, value: what.to_s }
+                end
+
+          ids.map { |id| convert_to_element(id) }
+          # steep:ignore:end
+        end
 
         # For Appium
         # @param [Hash] id The id which can get as a response from server
         # @return [::Appium::Core::Element]
         def convert_to_element(id)
-          ::Appium::Core::Element.new self, element_id_from(id)
+          return id unless id.is_a?(Hash)
+
+          cached_attributes = id.except('ELEMENT', ::Appium::Core::Element::ELEMENT_KEY)
+          ::Appium::Core::Element.new self, element_id_from(id), cached_attributes
         end
 
         # For Appium

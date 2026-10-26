@@ -888,10 +888,15 @@ class AppiumLibCoreTest
 
     def test_convert_element
       driver = android_mock_create_session
-      response = { 'element-6066-11e4-a52e-4f735466cecf' => 'test-element-id', 'ELEMENT' => 'test-element-id' }
+      response = {
+        'element-6066-11e4-a52e-4f735466cecf' => 'test-element-id',
+        'ELEMENT' => 'test-element-id',
+        'text' => 'sample text'
+      }
       e = driver.convert_to_element response
       assert_equal 'test-element-id', e.id
       assert_equal ::Appium::Core::Element, e.class
+      assert_equal 'sample text', e.cached.text
     end
   end
 end

@@ -29,7 +29,7 @@ module Appium
           @delegate.find_element_by how, what, parent
         end
 
-        ::Appium::Core::Element.new self, e.ref.last
+        ::Appium::Core::Element.new self, e.ref.last, e.cached&.attributes
       end
 
       def find_elements_by(how, what, parent = nil)
@@ -37,7 +37,7 @@ module Appium
           @delegate.find_elements_by(how, what, parent)
         end
 
-        es.map { |e| ::Appium::Core::Element.new self, e.ref.last }
+        es.map { |e| ::Appium::Core::Element.new self, e.ref.last, e.cached&.attributes }
       end
 
       private

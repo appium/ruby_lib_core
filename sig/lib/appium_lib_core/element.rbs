@@ -2,11 +2,41 @@ module Appium
   module Core
     # Element class inheriting from Selenium::WebDriver::Element
     class Element < ::Selenium::WebDriver::Element
+      class Cache
+        @attributes: Hash[untyped, untyped]
+
+        attr_reader attributes: Hash[untyped, untyped]
+
+        def initialize: (?Hash[untyped, untyped] attributes) -> void
+
+        def attribute: (untyped name) -> untyped
+
+        alias [] attribute
+
+        def rect: () -> untyped
+
+        def location: () -> untyped
+
+        def size: () -> untyped
+
+        def tag_name: () -> untyped
+
+        def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
+
+        def respond_to_missing?: (untyped _method_name, ?bool _include_private) -> true
+      end
+
       include ::Appium::Core::Base::TakesScreenshot
 
-      def initialize: (untyped bridge, untyped id) -> void
+      @cached_attributes: Hash[untyped, untyped]
+
+      @cached: Cache?
+
+      def initialize: (untyped bridge, untyped id, ?Hash[untyped, untyped] cached_attributes) -> void
 
       attr_reader id: Array[untyped]
+
+      def cached: () -> Cache
 
       def method_missing: (untyped method_name, *untyped args) { (?) -> untyped } -> (nil | untyped)
 
