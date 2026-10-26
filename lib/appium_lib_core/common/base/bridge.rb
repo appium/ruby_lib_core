@@ -148,6 +148,13 @@ module Appium
 
         private
 
+        # Preserve the response until Element initialization, including for script results.
+        # Selenium calls this immediately before constructing an element. Keep nil for
+        # non-element hashes so ordinary script results and shadow roots stay intact.
+        def element_id_from(response)
+          response if super
+        end
+
         def selenium_bridge_accepts_url?
           ::Selenium::WebDriver::Remote::Bridge.instance_method(:initialize).parameters.any? do |_, name|
             name == :url

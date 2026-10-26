@@ -17,6 +17,86 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
+      # Attributes returned with an element response. This object has no bridge:
+      # reading it never sends a command or refreshes the returned values.
+      class Cache
+        attr_reader :attributes
+
+        def initialize(attributes = {})
+          @attributes = attributes.dup.freeze
+        end
+
+        # Normalize standard response fields; arbitrary attribute/... values stay raw.
+        # Missing attributes return nil. The original values remain in attributes.
+        def attribute(name)
+          key = attribute_key(name)
+          value = @attributes[key]
+          case name.to_s
+          when 'enabled', 'displayed', 'selected'
+            return true if value == 'true'
+            return false if value == 'false'
+          when 'rect'
+            return ::Selenium::WebDriver::Rectangle.new(value['x'], value['y'], value['width'], value['height']) if value.is_a?(Hash)
+          end
+          value
+        end
+
+        alias [] attribute
+
+        def enabled?
+          attribute('enabled')
+        end
+
+        alias enabled enabled?
+
+        def displayed?
+          attribute('displayed')
+        end
+
+        alias displayed displayed?
+
+        def selected?
+          attribute('selected')
+        end
+
+        alias selected selected?
+
+        def rect
+          attribute('rect')
+        end
+
+        def location
+          rectangle = rect
+          ::Selenium::WebDriver::Point.new(rectangle.x, rectangle.y) if rectangle
+        end
+
+        def size
+          rectangle = rect
+          ::Selenium::WebDriver::Dimension.new(rectangle.width, rectangle.height) if rectangle
+        end
+
+        def tag_name
+          attribute('name')
+        end
+
+        def method_missing(name, *args, &block)
+          return super unless args.empty? && block.nil? && respond_to_missing?(name)
+
+          attribute(name.to_s.delete_suffix('?').tr('_', '-'))
+        end
+
+        def respond_to_missing?(name, include_private = false)
+          @attributes.key?(attribute_key(name.to_s.delete_suffix('?').tr('_', '-'))) || super
+        end
+
+        private
+
+        def attribute_key(name)
+          key = name.to_s
+          @attributes.key?("attribute/#{key}") ? "attribute/#{key}" : key
+        end
+      end
+
       include ::Appium::Core::Base::TakesScreenshot
 
       # steep:ignore:start
@@ -31,6 +111,24 @@ module Appium
       #   e.id
       #
       attr_reader :id
+
+      def initialize(bridge, id, cached = nil)
+        if id.is_a?(Hash)
+          # Preserve any extra attributes included in the element response.
+          cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
+          id = id['ELEMENT'] || id[ELEMENT_KEY]
+        end
+        super(bridge, id)
+        @cached = cached
+      end
+
+      # Snapshot from elementResponseAttributes with shouldUseCompactResponses=false.
+      # Normal element calls still query the server and do not update this snapshot.
+      # Standard fields use Element API types; cached.attributes holds server values.
+      # @return [Appium::Core::Element::Cache]
+      def cached
+        @cached ||= Cache.new
+      end
 
       # Returns the value of attributes like below. Read each platform to know more details.
       #
