@@ -42,6 +42,8 @@ module Appium
 
         def create_bridge: (**untyped opts) -> untyped
 
+        def bidi_enabled?: (untyped capabilities) -> bool
+
         public
 
         def update_sending_request_to: (protocol: untyped, host: untyped, port: untyped, path: untyped) -> (nil | untyped)

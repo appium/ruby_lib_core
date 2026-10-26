@@ -836,6 +836,34 @@ class AppiumLibCoreTest
       mock_bidi.verify
     end
 
+    def test_bidi_bridge_with_symbol_key_and_without_server_websocket_url
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            deviceName: 'Android Emulator'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      capabilities = Caps.android[:capabilities].merge(webSocketUrl: true)
+      core = ::Appium::Core.for capabilities: capabilities
+      driver = core.start_driver
+
+      assert_equal Appium::Core::Base::BiDiBridge, driver.send(:bridge).class
+      assert_nil driver.bidi
+
+      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.quit
+    end
+
     def test_elements
       driver = android_mock_create_session
 
