@@ -165,9 +165,16 @@ element.text                           # fetches current text; does not update c
 ```
 
 `cached` only reads the response snapshot. It cannot find elements or send commands.
-Values retain their server types (for example, `cached.rect` is a Hash).
+Standard boolean fields (`enabled`, `displayed`, `selected`) normalize `"true"` and
+`"false"` to booleans. `cached.rect`, `cached.location`, and `cached.size` return
+Selenium Rectangle, Point, and Dimension objects; `cached.tag_name` reads `name`.
+These conversions also apply to `cached[name]`. Explicit `cached['attribute/...']`
+lookups and custom attributes retain their server types. `cached.attributes`
+exposes the original server values.
 Use `cached[name]` for optional attributes; it returns `nil` when absent. Dynamic
 methods such as `cached.text` are available only for attributes in the response.
+Standard accessors such as `cached.enabled?` and `cached.rect` return `nil` when
+their data is absent.
 
 ### Capabilities
 

@@ -87,6 +87,53 @@ class AppiumLibCoreTest
       end
     end
 
+    def test_standard_boolean_fields_match_element_api
+      %w(enabled displayed selected).each do |name|
+        { 'true' => true, 'false' => false, true => true, false => false }.each do |raw, expected|
+          stub_value(:post, '/element', response.merge(name => raw))
+          stub_value(:get, "/element/id/#{name}", expected)
+          element = @driver.find_element(id: 'example')
+          assert_equal element.public_send("#{name}?"), element.cached.public_send("#{name}?")
+          assert_equal expected, element.cached.public_send(name)
+          assert_equal expected, element.cached[name]
+          assert_equal expected, element.cached.attribute(name.to_sym)
+          assert_equal raw, element.cached.attributes[name]
+        end
+      end
+    end
+
+    def test_geometry_and_tag_name_match_element_api
+      rect = { 'x' => 10, 'y' => 20, 'width' => 100, 'height' => 50 }
+      stub_value(:post, '/element', response.merge('rect' => rect, 'name' => 'android.widget.Button'))
+      stub_value(:get, '/element/id/rect', rect)
+      stub_value(:get, '/element/id/name', 'android.widget.Button')
+      element = @driver.find_element(id: 'example')
+      assert_equal element.rect, element.cached.rect
+      assert_equal element.location, element.cached.location
+      assert_equal element.size, element.cached.size
+      assert_equal element.tag_name, element.cached.tag_name
+      assert_equal element.cached.rect, element.cached['rect']
+      assert_equal rect, element.cached.attributes['rect']
+      assert_requested(:get, "#{SESSION}/element/id/rect", times: 3)
+      assert_requested(:get, "#{SESSION}/element/id/name", times: 1)
+    end
+
+    def test_missing_standard_fields_are_not_false
+      cache = Appium::Core::Element::Cache.new
+      [:enabled?, :displayed?, :selected?, :rect, :location, :size, :tag_name].each do |name|
+        assert_nil cache.public_send(name)
+      end
+    end
+
+    def test_arbitrary_attributes_keep_server_types
+      cache = Appium::Core::Element::Cache.new('attribute/custom' => 'false', 'attribute/enabled' => 'true')
+      assert_equal 'false', cache.custom
+      assert_equal 'false', cache['custom']
+      assert_equal 'true', cache['attribute/enabled']
+      assert_equal true, cache.enabled?
+      assert_equal true, cache['enabled']
+    end
+
     private
 
     def response(id = 'id', text = 'original')

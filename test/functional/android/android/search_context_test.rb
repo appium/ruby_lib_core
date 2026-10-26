@@ -45,8 +45,9 @@ class AppiumLibCoreTest
           element = @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle')
           assert_equal 'OFF', element.cached.text
           assert_equal element.enabled?, element.cached.enabled?
-          assert_equal element.rect.x, element.cached.rect['x']
-          assert_equal element.rect.width, element.cached.rect['width']
+          assert_equal element.rect, element.cached.rect
+          assert_equal element.location, element.cached.location
+          assert_equal element.size, element.cached.size
 
           element.click
           @@core.wait { assert_equal 'ON', element.text }

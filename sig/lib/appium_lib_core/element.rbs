@@ -8,6 +8,16 @@ module Appium
         def initialize: (?Hash[String, untyped] attributes) -> void
         def attribute: (String | Symbol name) -> untyped
         alias [] attribute
+        def enabled?: () -> bool?
+        alias enabled enabled?
+        def displayed?: () -> bool?
+        alias displayed displayed?
+        def selected?: () -> bool?
+        alias selected selected?
+        def rect: () -> untyped
+        def location: () -> untyped
+        def size: () -> untyped
+        def tag_name: () -> String?
         def method_missing: (Symbol name, *untyped args) ?{ (?) -> untyped } -> untyped
         def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
 

@@ -26,12 +26,58 @@ module Appium
           @attributes = attributes.dup.freeze
         end
 
-        # Returns the server value without coercion; missing attributes return nil.
+        # Normalize standard response fields; arbitrary attribute/... values stay raw.
+        # Missing attributes return nil. The original values remain in attributes.
         def attribute(name)
-          @attributes[attribute_key(name)]
+          key = attribute_key(name)
+          value = @attributes[key]
+          case name.to_s
+          when 'enabled', 'displayed', 'selected'
+            return true if value == 'true'
+            return false if value == 'false'
+          when 'rect'
+            return ::Selenium::WebDriver::Rectangle.new(value['x'], value['y'], value['width'], value['height']) if value.is_a?(Hash)
+          end
+          value
         end
 
         alias [] attribute
+
+        def enabled?
+          attribute('enabled')
+        end
+
+        alias enabled enabled?
+
+        def displayed?
+          attribute('displayed')
+        end
+
+        alias displayed displayed?
+
+        def selected?
+          attribute('selected')
+        end
+
+        alias selected selected?
+
+        def rect
+          attribute('rect')
+        end
+
+        def location
+          rectangle = rect
+          ::Selenium::WebDriver::Point.new(rectangle.x, rectangle.y) if rectangle
+        end
+
+        def size
+          rectangle = rect
+          ::Selenium::WebDriver::Dimension.new(rectangle.width, rectangle.height) if rectangle
+        end
+
+        def tag_name
+          attribute('name')
+        end
 
         def method_missing(name, *args, &block)
           return super unless args.empty? && block.nil? && respond_to_missing?(name)
@@ -68,8 +114,7 @@ module Appium
 
       def initialize(bridge, id, cached = nil)
         if id.is_a?(Hash)
-          # This case occurs when settings shouldUseCompactResponses=false 
-          # and elementResponseAttributes are specified in the element response.
+          # Preserve any extra attributes included in the element response.
           cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
           id = id['ELEMENT'] || id[ELEMENT_KEY]
         end
@@ -79,7 +124,7 @@ module Appium
 
       # Snapshot from elementResponseAttributes with shouldUseCompactResponses=false.
       # Normal element calls still query the server and do not update this snapshot.
-      # Values retain their server types, e.g. cached.rect is a Hash.
+      # Standard fields use Element API types; cached.attributes holds server values.
       # @return [Appium::Core::Element::Cache]
       def cached
         @cached ||= Cache.new
