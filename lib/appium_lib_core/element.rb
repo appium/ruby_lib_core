@@ -17,6 +17,40 @@ module Appium
     # Implement useful features for element.
     # Patch for Selenium Webdriver.
     class Element < ::Selenium::WebDriver::Element
+      # Attributes returned with an element response. This object has no bridge:
+      # reading it never sends a command or refreshes the returned values.
+      class Cache
+        attr_reader :attributes
+
+        def initialize(attributes = {})
+          @attributes = attributes.dup.freeze
+        end
+
+        # Returns the server value without coercion; missing attributes return nil.
+        def attribute(name)
+          @attributes[attribute_key(name)]
+        end
+
+        alias [] attribute
+
+        def method_missing(name, *args, &block)
+          return super unless args.empty? && block.nil? && respond_to_missing?(name)
+
+          attribute(name.to_s.delete_suffix('?').tr('_', '-'))
+        end
+
+        def respond_to_missing?(name, include_private = false)
+          @attributes.key?(attribute_key(name.to_s.delete_suffix('?').tr('_', '-'))) || super
+        end
+
+        private
+
+        def attribute_key(name)
+          key = name.to_s
+          @attributes.key?("attribute/#{key}") ? "attribute/#{key}" : key
+        end
+      end
+
       include ::Appium::Core::Base::TakesScreenshot
 
       # steep:ignore:start
@@ -31,6 +65,23 @@ module Appium
       #   e.id
       #
       attr_reader :id
+
+      def initialize(bridge, id, cached = nil)
+        if id.is_a?(Hash)
+          cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
+          id = id['ELEMENT'] || id[ELEMENT_KEY]
+        end
+        super(bridge, id)
+        @cached = cached
+      end
+
+      # Snapshot from elementResponseAttributes with shouldUseCompactResponses=false.
+      # Normal element calls still query the server and do not update this snapshot.
+      # Values retain their server types, e.g. cached.rect is a Hash.
+      # @return [Appium::Core::Element::Cache]
+      def cached
+        @cached ||= Cache.new
+      end
 
       # Returns the value of attributes like below. Read each platform to know more details.
       #
