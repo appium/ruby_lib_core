@@ -3,6 +3,8 @@ module Selenium
     class Element
       ELEMENT_KEY: ::String
 
+      def initialize: (untyped bridge, untyped id) -> void
+
       def inspect: () -> untyped
 
       def ==: (untyped other) -> bool

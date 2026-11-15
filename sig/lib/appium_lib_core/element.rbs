@@ -2,9 +2,37 @@ module Appium
   module Core
     # Element class inheriting from Selenium::WebDriver::Element
     class Element < ::Selenium::WebDriver::Element
+      class Cache
+        attr_reader attributes: Hash[String, untyped]
+
+        def initialize: (?Hash[String, untyped] attributes) -> void
+        def attribute: (String | Symbol name) -> untyped
+        alias [] attribute
+        def enabled?: () -> bool?
+        alias enabled enabled?
+        def displayed?: () -> bool?
+        alias displayed displayed?
+        def selected?: () -> bool?
+        alias selected selected?
+        def rect: () -> untyped
+        def location: () -> untyped
+        def size: () -> untyped
+        def tag_name: () -> String?
+        def method_missing: (Symbol name, *untyped args) ?{ (?) -> untyped } -> untyped
+        def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
+
+        private
+
+        def attribute_key: (String | Symbol name) -> String
+      end
+
       include ::Appium::Core::Base::TakesScreenshot
 
-      def initialize: (untyped bridge, untyped id) -> void
+      @cached: Cache?
+
+      def initialize: (untyped bridge, untyped id, ?Cache? cached) -> void
+
+      def cached: () -> Cache
 
       attr_reader id: Array[untyped]
 

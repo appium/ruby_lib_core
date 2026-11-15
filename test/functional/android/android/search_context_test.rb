@@ -37,6 +37,46 @@ class AppiumLibCoreTest
         assert_equal ::Appium::Core::Element, e.class
       end
 
+      def test_cached_element_attributes_remain_a_snapshot
+        with_element_response_attributes do
+          @@core.wait { @driver.find_element(:accessibility_id, 'Views') }.click
+          @@core.wait { @driver.find_element(:accessibility_id, 'Buttons') }.click
+
+          element = @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle')
+          assert_equal 'OFF', element.cached.text
+          assert_equal element.enabled?, element.cached.enabled?
+          assert_equal element.rect, element.cached.rect
+          assert_equal element.location, element.cached.location
+          assert_equal element.size, element.cached.size
+
+          element.click
+          @@core.wait { assert_equal 'ON', element.text }
+          assert_equal 'OFF', element.cached.text
+          assert_equal 'ON', @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle').cached.text
+        end
+      end
+
+      def test_cached_attributes_for_multiple_elements
+        with_element_response_attributes do
+          elements = @driver.find_elements(:class_name, 'android.widget.TextView')
+          refute_empty elements
+          elements.each do |element|
+            assert_equal element.text, element.cached.text
+            assert_equal element.enabled?, element.cached.enabled?
+            # The response and the attribute endpoint can encode null differently.
+            # Cache access preserves the value from the element response.
+            description = element.cached.attributes['attribute/content-desc']
+            if description.nil?
+              assert_nil element.cached['content-desc']
+            else
+              assert_equal description, element.cached['content-desc']
+            end
+            refute element.cached.attributes.key?(::Appium::Core::Element::ELEMENT_KEY)
+            refute element.cached.attributes.key?('ELEMENT')
+          end
+        end
+      end
+
       def test_viewtag
         skip 'UiAutomator2 does not support viewtag' if @@core.automation_name != :espresso
 
@@ -98,6 +138,18 @@ class AppiumLibCoreTest
         }.to_json
         assert_equal "Access'ibility", e.text
         assert_equal ::Appium::Core::Element, e.class
+      end
+
+      private
+
+      def with_element_response_attributes
+        skip 'These response settings require UiAutomator2' if @@core.automation_name == :espresso
+
+        original_settings = @driver.get_settings.slice('shouldUseCompactResponses', 'elementResponseAttributes')
+        @driver.update_settings(shouldUseCompactResponses: false, elementResponseAttributes: 'text,rect,enabled,attribute/content-desc')
+        yield
+      ensure
+        @driver.update_settings(original_settings) if original_settings
       end
     end
   end

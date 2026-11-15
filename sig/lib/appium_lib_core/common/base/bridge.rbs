@@ -105,6 +105,8 @@ module Appium
 
         private
 
+        def element_id_from: (untyped response) -> untyped
+
         def selenium_bridge_accepts_url?: () -> bool
 
         def camel_case: (untyped str_or_sym) -> untyped

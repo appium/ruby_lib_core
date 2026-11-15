@@ -151,6 +151,31 @@ assert attached_driver.session_id == @driver.session_id
 attached_driver.page_source
 ```
 
+### Element response attributes
+
+When the server is configured with `shouldUseCompactResponses: false` and
+`elementResponseAttributes`, returned attributes are available through `element.cached`:
+
+```ruby
+element = @driver.find_element(:accessibility_id, 'some accessibility')
+element.cached.text                    # text returned with this element
+element.cached['content-desc']          # also accepts attribute/content-desc
+element.cached.attributes              # returned attributes, excluding element IDs
+element.text                           # fetches current text; does not update cached
+```
+
+`cached` only reads the response snapshot. It cannot find elements or send commands.
+Standard boolean fields (`enabled`, `displayed`, `selected`) normalize `"true"` and
+`"false"` to booleans. `cached.rect`, `cached.location`, and `cached.size` return
+Selenium Rectangle, Point, and Dimension objects; `cached.tag_name` reads `name`.
+These conversions also apply to `cached[name]`. Explicit `cached['attribute/...']`
+lookups and custom attributes retain their server types. `cached.attributes`
+exposes the original server values.
+Use `cached[name]` for optional attributes; it returns `nil` when absent. Dynamic
+methods such as `cached.text` are available only for attributes in the response.
+Standard accessors such as `cached.enabled?` and `cached.rect` return `nil` when
+their data is absent.
+
 ### Capabilities
 
 Read [Appium/Core/Driver](https://rubydoc.info/github/appium/ruby_lib_core/Appium/Core/Driver) to catch up with available capabilities.
