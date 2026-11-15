@@ -53,6 +53,21 @@ immediately, even when included in `ignored:`.
 `nil`; `wait_true` still waits for a truthy result. Implicit waits configured through
 `driver.manage.timeouts.implicit_wait` are unaffected.
 
+The default retry policy now matches
+[`Selenium::WebDriver::Wait`](https://www.selenium.dev/selenium/docs/api/rb/Selenium/WebDriver/Wait.html)
+(verified with Selenium Ruby 4.21.0 and 4.52.0). The existing Appium API retains
+these differences:
+
+| Behavior | Selenium Ruby | Appium Ruby core |
+| --- | --- | --- |
+| Exception option | `ignore:` | `ignored:` |
+| Explicit exception list | Replaces the default list | Replaces the default list |
+| Success condition | `until` requires a truthy result | `wait_true` requires a truthy result; `wait` accepts any result without an exception |
+| Connection refusal (`Errno::ECONNREFUSED`) | Can be retried when explicitly included in `ignore:` | Always propagates immediately, even when included in `ignored:` |
+
+This change aligns the default exception policy without renaming Appium's options
+or changing its wait success conditions. The minimum Selenium version remains 4.21.0.
+
 #### Hash keys
 
 Callers using `Appium.symbolize_keys` must replace that call. Prefer defining
