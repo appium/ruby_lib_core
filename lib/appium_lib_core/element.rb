@@ -115,7 +115,8 @@ module Appium
       def initialize(bridge, id, cached = nil)
         if id.is_a?(Hash)
           # Preserve any extra attributes included in the element response.
-          cached = Cache.new(id.except(ELEMENT_KEY))
+          # Legacy IDs can accompany a W3C ID, but are not cached attributes.
+          cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
           id = id[ELEMENT_KEY]
         end
         raise ::Selenium::WebDriver::Error::WebDriverError, 'Missing W3C element ID in response' if id.nil?

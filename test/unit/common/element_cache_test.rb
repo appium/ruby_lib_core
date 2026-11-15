@@ -108,6 +108,8 @@ class AppiumLibCoreTest
       element = @driver.convert_to_element(response.merge('ELEMENT' => 'legacy-id'))
       assert_equal 'id', element.id
       assert_equal 'original', element.cached.text
+      refute element.cached.attributes.key?('ELEMENT')
+      refute element.cached.attributes.key?(Appium::Core::Element::ELEMENT_KEY)
     end
 
     def test_standard_boolean_fields_match_element_api
