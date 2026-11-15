@@ -113,6 +113,23 @@ class AppiumLibCoreTest
       assert_equal 'test/functional/app/UIKitCatalog-iphonesimulator.zip', caps['appium:app']
     end
 
+    def test_removed_wait_option_does_not_set_session_timeout
+      opts = Caps.android
+      opts[:appium_lib][:wait] = 30
+      @core = ::Appium::Core.for(opts)
+      driver = android_mock_create_session_w3c
+
+      assert_not_requested(:post, "#{SESSION}/timeouts")
+
+      stub_request(:post, "#{SESSION}/timeouts")
+        .with(body: { implicit: 30_000 }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.manage.timeouts.implicit_wait = 30
+
+      assert_requested(:post, "#{SESSION}/timeouts", body: { implicit: 30_000 }.to_json, times: 1)
+    end
+
     def test_default_timeout_for_http_client
       driver = android_mock_create_session
 

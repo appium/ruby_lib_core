@@ -120,14 +120,14 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
         automationName: 'XCUITest'
       },
       appium_lib: {
-        wait: 30
+        wait_timeout: 30
       }
     }
     @core = Appium::Core.for(opts) # create a core driver with `opts`
     @driver = @core.start_driver
 
     # Launch iPhone Simulator and `MyiOS.app`
-    @driver.find_element(:accessibility_id, 'some accessibility') # find an element
+    @core.wait { @driver.find_element(:accessibility_id, 'some accessibility') } # wait for an element
     ```
 - Run the script
     ```bash
@@ -243,3 +243,57 @@ Publishing. See [RELEASING.md](RELEASING.md) for setup, version overrides, and r
 
 # License
 Apache License v2
+
+## Migrating to 14.0
+
+Version 14 removes `Appium.symbolize_keys`, the `appium_lib[:wait]` option,
+`Appium::Core::Options#default_wait`, `Appium::Core::Driver#default_wait`, and
+`Appium::Core::Driver#set_implicit_wait_by_default`.
+
+### Waiting for elements
+
+`appium_lib: { wait: 30 }` no longer configures an implicit wait; the option is
+ignored. Starting a driver no longer sends an implicit-timeout command. Prefer
+an explicit wait around operations that need to wait for the app:
+
+```ruby
+core = Appium::Core.for(
+  capabilities: { platformName: 'Android', automationName: 'UiAutomator2' },
+  appium_lib: { wait_timeout: 30, wait_interval: 0.5 }
+)
+driver = core.start_driver
+button = core.wait { driver.find_element(:accessibility_id, 'Continue') }
+button.click
+```
+
+`wait_timeout` controls `core.wait` / `core.wait_true`; it does not make ordinary
+`find_element` calls wait. If your application needs an implicit wait, set it
+explicitly after session creation:
+
+```ruby
+driver.manage.timeouts.implicit_wait = 30 # seconds
+```
+
+Keep any application-specific default wait in your own configuration instead of
+reading `core.default_wait`. Explicit Selenium timeout configuration remains supported.
+
+### Hash keys
+
+Callers using `Appium.symbolize_keys` must replace that call. Prefer defining
+client option keys as symbols (`:capabilities`, `:appium_lib`, `:server_url`, etc.).
+For a hash whose top-level keys are all strings or symbols, Ruby provides
+`options.transform_keys(&:to_sym)`. This is a shallow conversion; normalize nested
+client options separately if needed. Capability string/symbol names are still
+preserved when serialized; this change does not introduce camelCase conversion.
+
+### Using appium_lib, appium_console, or appium_capybara
+
+The current `appium_lib` dependency constraint excludes core 14, and its driver
+still calls the removed `symbolize_keys` and `default_wait` APIs. Keep that upper
+bound until a compatible `appium_lib` release adapts both call sites and its wait
+helpers. Do not simply relax the core version constraint. Applications using
+`appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
+compatible release. Direct users of `appium_lib_core` can migrate as described above.
+
+The breaking-change commit is intended to make Release Please prepare 14.0.0.
+Version, date, manifest, and changelog updates belong in that generated release PR.

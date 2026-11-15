@@ -72,7 +72,7 @@ class AppiumLibCoreTest
         el = @@core.wait { @driver.find_element(:accessibility_id, 'Buttons') }
         @driver.action.click(el).perform
 
-        el = @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle')
+        el = @@core.wait { @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle') }
         assert_equal 'OFF', el.text
         @driver.action.click(el).perform
 

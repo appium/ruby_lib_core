@@ -39,7 +39,7 @@ module Appium
         #       webSocketUrl: true,
         #     },
         #     appium_lib: {
-        #       wait: 30
+        #       wait_timeout: 30
         #     }
         #   }
         #   core = ::Appium::Core.for(caps)
