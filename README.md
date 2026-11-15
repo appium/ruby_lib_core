@@ -21,7 +21,8 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 
 Version 14 removes automatic implicit-wait configuration, `Appium.symbolize_keys`,
 `Element#location_rel`, the `take_element_screenshot` alias, the bridge's positional
-`action` argument, and legacy JSONWP/MJSONWP element references. Use explicit waits,
+`action` argument, and legacy JSONWP/MJSONWP element references. Configure implicit
+waits through Selenium and use
 `element.rect`, `save_element_screenshot`, keyword action arguments, and W3C references.
 
 See [Migration from v13 to v14](CHANGELOG.md#migration-from-v13-to-v14) in
@@ -128,16 +129,14 @@ $ IGNORE_VERSION_SKIP=true CI=true bundle exec rake test:func:android
         deviceName: 'iPhone 17',
         # app: '/path/to/MyiOS.app',  # Without 'app' capability, an appium session starts with the home screen
         automationName: 'XCUITest'
-      },
-      appium_lib: {
-        wait_timeout: 30
       }
     }
     @core = Appium::Core.for(opts) # create a core driver with `opts`
     @driver = @core.start_driver
+    @driver.manage.timeouts.implicit_wait = 30 # seconds
 
     # Launch iPhone Simulator and `MyiOS.app`
-    @core.wait { @driver.find_element(:accessibility_id, 'some accessibility') } # wait for an element
+    @driver.find_element(:accessibility_id, 'some accessibility') # wait up to 30 seconds for an element
     ```
 - Run the script
     ```bash

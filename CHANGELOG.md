@@ -13,26 +13,22 @@ Version 14 removes `Appium.symbolize_keys`, the `appium_lib[:wait]` option,
 #### Waiting for elements
 
 `appium_lib: { wait: 30 }` no longer configures an implicit wait; the option is
-ignored. Starting a driver no longer sends an implicit-timeout command. Prefer
-an explicit wait around operations that need to wait for the app:
+ignored. Starting a driver no longer sends an implicit-timeout command. Set the
+implicit wait through Selenium after session creation:
 
 ```ruby
 core = Appium::Core.for(
-  capabilities: { platformName: 'Android', automationName: 'UiAutomator2' },
-  appium_lib: { wait_timeout: 30, wait_interval: 0.5 }
+  capabilities: { platformName: 'Android', automationName: 'UiAutomator2' }
 )
 driver = core.start_driver
-button = core.wait { driver.find_element(:accessibility_id, 'Continue') }
+driver.manage.timeouts.implicit_wait = 30 # seconds
+button = driver.find_element(:accessibility_id, 'Continue')
 button.click
 ```
 
-`wait_timeout` controls `core.wait` / `core.wait_true`; it does not make ordinary
-`find_element` calls wait. If your application needs an implicit wait, set it
-explicitly after session creation:
-
-```ruby
-driver.manage.timeouts.implicit_wait = 30 # seconds
-```
+Element lookup now waits up to 30 seconds for the element to appear.
+`wait_timeout` controls `core.wait` / `core.wait_true`; it does not configure
+implicit waits for ordinary `find_element` calls.
 
 Keep any application-specific default wait in your own configuration instead of
 reading `core.default_wait`. Explicit Selenium timeout configuration remains supported.
