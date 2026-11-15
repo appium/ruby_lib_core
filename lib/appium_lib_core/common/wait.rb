@@ -31,7 +31,7 @@ module Appium
         # @param [Integer] timeout Seconds to wait before timing out. Set default by +appium_wait_timeout+ (30).
         # @param [Integer] interval Seconds to sleep between polls. Set default by +appium_wait_interval+ (0.5).
         # @param [String] message Exception message if timed out.
-        # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+        # @param [Array<Class>, Class] ignored Exception classes to retry (default: Selenium::WebDriver::Error::NoSuchElementError)
         # @param [Object, NilClass] object Object to evaluate block against
         #
         # @example
@@ -45,7 +45,7 @@ module Appium
         #     }
         #
         def until(timeout: DEFAULT_TIMEOUT, interval: DEFAULT_INTERVAL, message: nil, ignored: nil, object: nil)
-          ignored = Array(ignored || ::Exception)
+          ignored = Array(ignored || ::Selenium::WebDriver::Error::NoSuchElementError)
 
           last_error = nil
           timer = Wait::Timer.new(timeout)
@@ -79,7 +79,7 @@ module Appium
         # @param [Integer] timeout Seconds to wait before timing out. Set default by +appium_wait_timeout+ (30).
         # @param [Integer] interval Seconds to sleep between polls. Set default by +appium_wait_interval+ (0.5).
         # @param [String] message Exception message if timed out.
-        # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+        # @param [Array<Class>, Class] ignored Exception classes to retry (default: Selenium::WebDriver::Error::NoSuchElementError)
         # @param [Object, NilClass] object Object to evaluate block against
         #
         # @example
@@ -93,7 +93,7 @@ module Appium
         #     }
         #
         def until_true(timeout: DEFAULT_TIMEOUT, interval: DEFAULT_INTERVAL, message: nil, ignored: nil, object: nil)
-          ignored = Array(ignored || ::Exception)
+          ignored = Array(ignored || ::Selenium::WebDriver::Error::NoSuchElementError)
 
           last_error = nil
           timer = Wait::Timer.new(timeout)
@@ -139,7 +139,7 @@ module Appium
       # @param [Integer] timeout Seconds to wait before timing out. Set default by +appium_wait_timeout+ (30).
       # @param [Integer] interval Seconds to sleep between polls. Set default by +appium_wait_interval+ (0.5).
       # @param [String] message Exception message if timed out.
-      # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+      # @param [Array<Class>, Class] ignored Exception classes to retry (default: Selenium::WebDriver::Error::NoSuchElementError)
       #
       # @example With core instance
       #
@@ -175,7 +175,7 @@ module Appium
       # @param [Integer] timeout Seconds to wait before timing out. Set default by +appium_wait_timeout+ (30).
       # @param [Integer] interval Seconds to sleep between polls. Set default by +appium_wait_interval+ (0.5).
       # @param [String] message Exception message if timed out.
-      # @param [Array, Exception] ignored Exceptions to ignore while polling (default: Exception)
+      # @param [Array<Class>, Class] ignored Exception classes to retry (default: Selenium::WebDriver::Error::NoSuchElementError)
       #
       # @example With core instance
       #

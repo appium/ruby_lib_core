@@ -25,6 +25,9 @@ Version 14 removes automatic implicit-wait configuration, `Appium.symbolize_keys
 waits through Selenium and use
 `element.rect`, `save_element_screenshot`, keyword action arguments, and W3C references.
 
+Wait helpers now retry only `NoSuchElementError` by default; other exceptions
+propagate unless explicitly listed in `ignored:`.
+
 See [Migration from v13 to v14](CHANGELOG.md#migration-from-v13-to-v14) in
 [CHANGELOG](CHANGELOG.md) for replacement examples and downstream compatibility notes.
 

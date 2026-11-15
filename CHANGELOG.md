@@ -33,6 +33,26 @@ implicit waits for ordinary `find_element` calls.
 Keep any application-specific default wait in your own configuration instead of
 reading `core.default_wait`. Explicit Selenium timeout configuration remains supported.
 
+#### Exceptions retried by wait helpers
+
+`wait` / `wait_until` and `wait_true` / `wait_until_true` now retry only
+`Selenium::WebDriver::Error::NoSuchElementError` by default. Previously they
+caught `Exception`, including programming errors and process interruption.
+Other exceptions, including `NoMethodError`, `Interrupt`, and `SystemExit`, now
+propagate immediately by default. This also applies to `Appium::Core::Wait.until`
+and `.until_true`.
+
+If a condition needs to retry other transient errors, pass their classes through
+`ignored:`. This option replaces the default list, so include `NoSuchElementError`
+explicitly if it should still be retried. For example, use
+`ignored: [Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::StaleElementReferenceError]`.
+Use `ignored: []` to disable exception retries. Connection refusal still propagates
+immediately, even when included in `ignored:`.
+
+`wait` still succeeds when the block returns without raising, even for `false` or
+`nil`; `wait_true` still waits for a truthy result. Implicit waits configured through
+`driver.manage.timeouts.implicit_wait` are unaffected.
+
 #### Hash keys
 
 Callers using `Appium.symbolize_keys` must replace that call. Prefer defining
