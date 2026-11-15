@@ -166,8 +166,6 @@ jobs:
     - name: Preparing other environment
       run: |
         brew install ffmpeg
-        brew tap wix/brew
-        brew install applesimutils
 
     # Start Appium
     - run: npm root -g
