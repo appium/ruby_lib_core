@@ -64,20 +64,20 @@ class AppiumLibCoreTest
             end
           end
 
-          def test_take_element_screenshot
+          def test_save_element_screenshot
             stub_request(:get, "#{SESSION}/element/id/screenshot")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.take_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
+            @driver.save_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.png'
 
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end
 
-          def test_take_element_screenshot_wrong_ext
+          def test_save_element_screenshot_wrong_ext
             stub_request(:get, "#{SESSION}/element/id/screenshot")
               .to_return(headers: HEADER, status: 200, body: { value: '' }.to_json)
 
-            @driver.take_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.jpg'
+            @driver.save_element_screenshot ::Appium::Core::Element.new(@driver.send(:bridge), 'id'), 'sample.jpg'
 
             assert_requested(:get, "#{SESSION}/element/id/screenshot", times: 1)
           end

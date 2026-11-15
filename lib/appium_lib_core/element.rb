@@ -115,9 +115,11 @@ module Appium
       def initialize(bridge, id, cached = nil)
         if id.is_a?(Hash)
           # Preserve any extra attributes included in the element response.
-          cached = Cache.new(id.except('ELEMENT', ELEMENT_KEY))
-          id = id['ELEMENT'] || id[ELEMENT_KEY]
+          cached = Cache.new(id.except(ELEMENT_KEY))
+          id = id[ELEMENT_KEY]
         end
+        raise ::Selenium::WebDriver::Error::WebDriverError, 'Missing W3C element ID in response' if id.nil?
+
         super(bridge, id)
         @cached = cached
       end
@@ -164,33 +166,6 @@ module Appium
 
       # Alias for type
       alias type send_keys
-
-      # @deprecated Please use `Element#rect` instead to get location information.
-      #
-      # For use with location_rel.
-      #
-      # @return [Struct(:x, :y)] the relative x, y in a struct in string.
-      #
-      # @example
-      #
-      #   e = @driver.find_element :accessibility_id, 'something'
-      #   e.location_rel @driver
-      #
-      def location_rel(driver)
-        rect = self.rect
-        location_x = rect.x.to_f
-        location_y = rect.y.to_f
-
-        size_width  = rect.width.to_f
-        size_height = rect.height.to_f
-
-        center_x = location_x + (size_width / 2.0)
-        center_y = location_y + (size_height / 2.0)
-
-        w = driver.window_size
-        point = Struct.new(:x, :y)
-        point.new("#{center_x} / #{w.width.to_f}", "#{center_y} / #{w.height.to_f}")
-      end
 
       # Return an element screenshot as base64
       #

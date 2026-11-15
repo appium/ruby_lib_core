@@ -139,9 +139,9 @@ module Appium
         #     element = @driver.find_element(:id, "some id")
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
-        def action: (?untyped? _deprecated_async, ?async: bool, ?devices: untyped?) -> untyped
+        def action: (?async: bool, ?devices: untyped?) -> untyped
 
-        # Port from MJSONWP
+        # W3C Get Timeouts
         def get_timeouts: () -> untyped
 
         # For Appium

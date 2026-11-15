@@ -286,12 +286,42 @@ For a hash whose top-level keys are all strings or symbols, Ruby provides
 client options separately if needed. Capability string/symbol names are still
 preserved when serialized; this change does not introduce camelCase conversion.
 
+### Element location and screenshots
+
+`Element#location_rel(driver)` has been removed. Use `element.rect` for the
+position and size. If you need the element center relative to the window,
+calculate numeric ratios explicitly:
+
+```ruby
+rect = element.rect
+window = driver.window_size
+relative_x = (rect.x + rect.width / 2.0) / window.width
+relative_y = (rect.y + rect.height / 2.0) / window.height
+```
+
+The old method returned strings such as `"60.0 / 375.0"`, not numeric ratios.
+
+Replace `driver.take_element_screenshot(element, path)` with
+`driver.save_element_screenshot(element, path)`. Only the compatibility alias
+has been removed; element screenshot support remains available.
+
+### W3C element responses and actions
+
+For Appium 4, element responses must use the W3C
+`element-6066-11e4-a52e-4f735466cecf` key. The legacy JSONWP/MJSONWP `ELEMENT`
+key is no longer interpreted as an element reference, including in script results.
+Update custom drivers, plugins, and test fixtures that still return legacy references.
+W3C noncompact element responses still preserve cached attributes.
+
+The bridge's unused positional argument to `action` has been removed. Use
+`driver.action(async: true)` instead of passing a positional boolean.
+
 ### Using appium_lib, appium_console, or appium_capybara
 
 The current `appium_lib` dependency constraint excludes core 14, and its driver
 still calls the removed `symbolize_keys` and `default_wait` APIs. Keep that upper
-bound until a compatible `appium_lib` release adapts both call sites and its wait
-helpers. Do not simply relax the core version constraint. Applications using
+bound until a compatible `appium_lib` release adapts those call sites, its wait
+helpers, and its use of the removed `take_element_screenshot` alias. Do not simply relax the core version constraint. Applications using
 `appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
 compatible release. Direct users of `appium_lib_core` can migrate as described above.
 

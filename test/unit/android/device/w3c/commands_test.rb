@@ -383,11 +383,11 @@ args: [{ strength: ::Appium::Core::Android::Device::Emulator::GSM_SIGNALS[:good]
           def test_search_element_child_element
             stub_request(:post, "#{SESSION}/element")
               .with(body: { using: 'id', value: 'example' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: { ELEMENT: 'element_id_parent' },
+              .to_return(headers: HEADER, status: 200, body: { value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_parent' },
                                                                sessionId: SESSION, status: 0 }.to_json)
             stub_request(:post, "#{SESSION}/element/element_id_parent/element")
               .with(body: { using: 'id', value: 'example2' }.to_json)
-              .to_return(headers: HEADER, status: 200, body: { value: { ELEMENT: 'element_id_children' },
+              .to_return(headers: HEADER, status: 200, body: { value: { ::Appium::Core::Element::ELEMENT_KEY => 'element_id_children' },
                                                                sessionId: SESSION, status: 0 }.to_json)
 
             @driver.find_element(:id, 'example').find_element(:id, 'example2')

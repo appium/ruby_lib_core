@@ -1022,7 +1022,7 @@ module Appium
         # @return [::Appium::Core::Element]
         #
         # @example
-        #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx", "ELEMENT"=>"xxxx"}
+        #     response = {"element-6066-11e4-a52e-4f735466cecf"=>"xxxx"}
         #     ele = @driver.convert_to_element(response) #=> ::Appium::Core::Element
         #     ele.rect #=> Can get the rect of the element
         #

@@ -43,8 +43,6 @@ module Appium
       # Alias for type
       alias type send_keys
 
-      def location_rel: (untyped driver) -> untyped
-
       def screenshot: () -> untyped
 
       def screenshot_as: (untyped format) -> untyped

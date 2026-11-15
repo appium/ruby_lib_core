@@ -10,8 +10,6 @@ module Appium
 
         def save_element_screenshot: (untyped element, untyped png_path) -> untyped
 
-        alias take_element_screenshot save_element_screenshot
-
         def element_screenshot_as: (untyped element, untyped format) -> untyped
 
         def save_viewport_screenshot: (untyped png_path) -> untyped

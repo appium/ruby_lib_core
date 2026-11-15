@@ -28,6 +28,11 @@ class AppiumLibCoreTest
             @driver ||= android_mock_create_session_w3c
           end
 
+          def test_action_requires_keyword_arguments
+            assert_raises(ArgumentError) { @driver.bridge.action(true) }
+            assert_instance_of Selenium::WebDriver::ActionBuilder, @driver.action(async: true)
+          end
+
           def test_w3c_actions
             action_body = {
               actions: [{

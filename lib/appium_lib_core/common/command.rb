@@ -148,11 +148,9 @@ module Appium
         upload_file: [:post, 'session/:session_id/se/file'],
 
         ###
-        # Used by Appium, but no in W3C
+        # Additional WebDriver and Appium commands
         ###
 
-        # ::Appium::Core::Base::Commands::OSS has the following commands and Appium also use them.
-        # Delegated to ::Appium::Core::Base::Commands::OSS commands
         is_element_displayed: [:get, 'session/:session_id/element/:id/displayed'], # hint: https://w3c.github.io/webdriver/#element-displayedness
 
         get_timeouts: [:get, 'session/:session_id/timeouts'], # https://w3c.github.io/webdriver/#get-timeouts

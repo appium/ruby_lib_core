@@ -35,25 +35,6 @@ class AppiumLibCoreTest
       assert_requested(:get, "#{SESSION}/element/id/attribute/content-desc", times: 1)
     end
 
-    def test_location_rel
-      stub_request(:get, "#{SESSION}/element/id/rect")
-        .to_return(headers: HEADER, status: 200, body: { value: {
-          x: '10', y: '10', width: '100', height: '200'
-        } }.to_json)
-      stub_request(:get, "#{SESSION}/window/rect")
-        .to_return(headers: HEADER, status: 200, body: { value: {
-          x: '0', y: '0', width: '375', height: '667'
-        } }.to_json)
-
-      e = ::Appium::Core::Element.new(@driver.send(:bridge), 'id')
-      location = e.location_rel @driver
-
-      assert_requested(:get, "#{SESSION}/element/id/rect", times: 1)
-      assert_requested(:get, "#{SESSION}/window/rect", times: 1)
-      assert_equal '60.0 / 375.0', location.x
-      assert_equal '110.0 / 667.0', location.y
-    end
-
     def test_element_screenshot_as
       stub_request(:get, "#{SESSION}/element/id/screenshot")
         .to_return(headers: HEADER, status: 200,

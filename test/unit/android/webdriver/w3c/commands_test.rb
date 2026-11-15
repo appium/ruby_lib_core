@@ -234,9 +234,9 @@ class AppiumLibCoreTest
 
           def test_active_element
             stub_request(:get, "#{SESSION}/element/active")
-              .to_return(headers: HEADER, status: 200, body: { value: 'xxxx' }.to_json)
+              .to_return(headers: HEADER, status: 200, body: { value: { ::Appium::Core::Element::ELEMENT_KEY => 'xxxx' } }.to_json)
 
-            @driver.switch_to.active_element
+            assert_equal 'xxxx', @driver.switch_to.active_element.id
 
             assert_requested(:get, "#{SESSION}/element/active", times: 1)
           end

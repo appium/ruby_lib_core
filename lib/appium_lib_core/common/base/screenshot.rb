@@ -68,8 +68,6 @@ module Appium
           end
           File.open(png_path, 'wb') { |f| f << element_screenshot_as(element, :png) }
         end
-        # backward compatibility
-        alias take_element_screenshot save_element_screenshot
 
         #
         # Return a PNG screenshot in the given format as a string

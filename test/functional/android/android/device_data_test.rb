@@ -74,13 +74,13 @@ class AppiumLibCoreTest
                                                   data_type: 'cpuinfo')
       end
 
-      def test_take_element_screenshot
+      def test_save_element_screenshot
         e = @driver.wait { |d| d.find_element :accessibility_id, 'App' }
-        @driver.take_element_screenshot(e, 'take_element_screenshot.png')
+        @driver.save_element_screenshot(e, 'save_element_screenshot.png')
 
-        assert File.exist? 'take_element_screenshot.png'
+        assert File.exist? 'save_element_screenshot.png'
 
-        File.delete 'take_element_screenshot.png'
+        File.delete 'save_element_screenshot.png'
       end
 
       def test_viewport_screenshot
