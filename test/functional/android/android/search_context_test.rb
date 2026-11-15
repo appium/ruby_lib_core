@@ -51,7 +51,7 @@ class AppiumLibCoreTest
           assert_equal element.size, element.cached.size
 
           element.click
-          Selenium::WebDriver::Wait.new(timeout: 20).until { element.text == 'ON' }
+          @driver.wait_true(timeout: 20) { element.text == 'ON' }
           assert_equal 'ON', element.text
           assert_equal 'OFF', element.cached.text
           assert_equal 'ON', @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle').cached.text

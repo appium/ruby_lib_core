@@ -23,7 +23,6 @@ class AppiumLibCoreTest
         @@core ||= ::Appium::Core.for(Caps.android)
         @driver = @@core.start_driver
         @driver.manage.timeouts.implicit_wait = 20
-        @state_wait = Selenium::WebDriver::Wait.new(timeout: 20)
       end
 
       def teardown
@@ -53,10 +52,10 @@ class AppiumLibCoreTest
       def test_lock_unlock
         @driver.lock 0
         # Unstable on CI
-        @state_wait.until { @driver.device_locked? } unless ci?
+        @driver.wait_true(timeout: 20) { @driver.device_locked? } unless ci?
 
         @driver.unlock
-        @state_wait.until { !@driver.device_locked? }
+        @driver.wait_true(timeout: 20) { !@driver.device_locked? }
       end
 
       def test_background_reset
@@ -72,7 +71,7 @@ class AppiumLibCoreTest
         # Instrumentation process will crash in Espresso
         if @@core.automation_name == :espresso
           @driver.activate_app('io.appium.android.apis')
-          @state_wait.until { @driver.app_state('io.appium.android.apis') == :running_in_foreground }
+          @driver.wait_true(timeout: 20) { @driver.app_state('io.appium.android.apis') == :running_in_foreground }
         else
           error = assert_raises ::Selenium::WebDriver::Error::WebDriverError do
             @driver.find_element :accessibility_id, 'App'
@@ -100,23 +99,23 @@ class AppiumLibCoreTest
         @@core.wait { scroll_to('Views') }.click
         @@core.wait { scroll_to('WebView') }.click
 
-        @state_wait.until { @driver.current_context == 'NATIVE_APP' }
+        @driver.wait_true(timeout: 20) { @driver.current_context == 'NATIVE_APP' }
 
         native_page = @driver.page_source
 
-        webview_context = @state_wait.until do
+        webview_context = @driver.wait_true(timeout: 20) do
           @driver.execute_script 'mobile: getContexts', { waitForWebviewMs: 5000 }
 
           @driver.available_contexts.detect { |c| c.start_with?('WEBVIEW') }
         end
 
         @driver.set_context webview_context
-        @state_wait.until { @driver.current_context.start_with? 'WEBVIEW' }
+        @driver.wait_true(timeout: 20) { @driver.current_context.start_with? 'WEBVIEW' }
 
         webview_page = @driver.page_source
 
         @driver.set_context 'NATIVE_APP'
-        @state_wait.until { @driver.current_context == 'NATIVE_APP' }
+        @driver.wait_true(timeout: 20) { @driver.current_context == 'NATIVE_APP' }
         assert native_page != webview_page
       end
 
@@ -144,11 +143,11 @@ class AppiumLibCoreTest
         # Instrumentation process will crash in Espresso
         unless @@core.automation_name == :espresso
           assert @driver.terminate_app('io.appium.android.apis')
-          @state_wait.until { @driver.app_state('io.appium.android.apis') == :not_running }
+          @driver.wait_true(timeout: 20) { @driver.app_state('io.appium.android.apis') == :not_running }
         end
 
         assert @driver.activate_app('io.appium.android.apis').nil?
-        @state_wait.until { @driver.app_state('io.appium.android.apis') == :running_in_foreground }
+        @driver.wait_true(timeout: 20) { @driver.app_state('io.appium.android.apis') == :running_in_foreground }
         assert_equal :running_in_foreground, @driver.app_state('io.appium.android.apis')
       end
 
@@ -178,9 +177,9 @@ class AppiumLibCoreTest
         # Select the IME before focusing the field so switching engines does not
         # race with the keyboard visibility check or hide command.
         @driver.find_element(:id, 'io.appium.android.apis:id/left_text_edit').click
-        @state_wait.until { @driver.keyboard_shown? }
+        @driver.wait_true(timeout: 20) { @driver.keyboard_shown? }
         @driver.hide_keyboard
-        @state_wait.until { !@driver.keyboard_shown? }
+        @driver.wait_true(timeout: 20) { !@driver.keyboard_shown? }
         refute @driver.is_keyboard_shown
       ensure
         @driver.ime_activate(original_ime) if original_ime
@@ -214,7 +213,7 @@ class AppiumLibCoreTest
           @driver.open_notifications
           # Poll absence without applying the session's positive-lookup timeout.
           @driver.manage.timeouts.implicit_wait = 0
-          @state_wait.until { @driver.find_elements(:accessibility_id, 'Accessibility').empty? }
+          @driver.wait_true(timeout: 20) { @driver.find_elements(:accessibility_id, 'Accessibility').empty? }
           assert_empty @driver.find_elements(:accessibility_id, 'Accessibility')
         ensure
           @driver.execute_script('mobile: statusBar', { command: 'collapse' })
@@ -237,7 +236,7 @@ class AppiumLibCoreTest
         refute_equal available_ime, @driver.ime_active_engine
 
         @driver.ime_activate(available_ime)
-        @state_wait.until { @driver.ime_active_engine == available_ime }
+        @driver.wait_true(timeout: 20) { @driver.ime_active_engine == available_ime }
         assert_equal available_ime, @driver.ime_active_engine
       end
 
