@@ -35,7 +35,7 @@ class AppiumLibCoreTest
         status = JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
 
         # Run with webDriverAgentUrl
-        current_host = status['ios']['ip']
+        current_host = 'localhost'
         current_port = @core.caps[:wdaLocalPort]
 
         new_ios_caps = Caps.ios.dup
@@ -59,8 +59,8 @@ class AppiumLibCoreTest
 
         # Create the original driver again
         @driver = @core.start_driver
-        status = JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
-        current_host = status['ios']['ip']
+        assert JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
+        current_host = 'localhost'
         current_port = @core.caps[:wdaLocalPort]
 
         @driver.quit
