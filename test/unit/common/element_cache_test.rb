@@ -78,13 +78,38 @@ class AppiumLibCoreTest
       assert_requested(:post, "#{SESSION}/element/id/click", times: 1)
     end
 
-    def test_compact_and_legacy
-      [Appium::Core::Element::ELEMENT_KEY, 'ELEMENT'].each do |key|
-        stub_value(:post, '/element', { key => 'id' })
-        e = @driver.find_element(id: 'example')
-        assert_equal 'id', e.id
-        assert_empty e.cached.attributes
-      end
+    def test_compact
+      stub_value(:post, '/element', { Appium::Core::Element::ELEMENT_KEY => 'id' })
+      e = @driver.find_element(id: 'example')
+      assert_equal 'id', e.id
+      assert_empty e.cached.attributes
+    end
+
+    def test_legacy_element_response_is_rejected
+      legacy = { 'ELEMENT' => 'legacy-id' }
+      stub_value(:post, '/element', legacy)
+      error = assert_raises(Selenium::WebDriver::Error::WebDriverError) { @driver.find_element(id: 'example') }
+      assert_match(/Missing W3C element ID/, error.message)
+      assert_raises(Selenium::WebDriver::Error::WebDriverError) { @driver.convert_to_element(legacy) }
+      assert_raises(Selenium::WebDriver::Error::WebDriverError) { Appium::Core::Element.new(@driver.bridge, legacy) }
+    end
+
+    def test_script_hash_with_legacy_key_remains_a_hash
+      value = { 'ELEMENT' => 'ordinary-data', 'nested' => [response] }
+      stub_value(:post, '/execute/sync', value)
+      result = @driver.execute_script('return results')
+      assert_instance_of Hash, result
+      assert_equal 'ordinary-data', result['ELEMENT']
+      assert_equal 'id', result['nested'].first.id
+      assert_equal 'original', result['nested'].first.cached.text
+    end
+
+    def test_w3c_element_id_takes_precedence
+      element = @driver.convert_to_element(response.merge('ELEMENT' => 'legacy-id'))
+      assert_equal 'id', element.id
+      assert_equal 'original', element.cached.text
+      refute element.cached.attributes.key?('ELEMENT')
+      refute element.cached.attributes.key?(Appium::Core::Element::ELEMENT_KEY)
     end
 
     def test_standard_boolean_fields_match_element_api

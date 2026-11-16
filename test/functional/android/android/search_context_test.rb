@@ -22,6 +22,7 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
         @driver = @@core.start_driver
+        @driver.manage.timeouts.implicit_wait = 20
       end
 
       def teardown
@@ -50,7 +51,8 @@ class AppiumLibCoreTest
           assert_equal element.size, element.cached.size
 
           element.click
-          @@core.wait { assert_equal 'ON', element.text }
+          @driver.wait_true(timeout: 20) { element.text == 'ON' }
+          assert_equal 'ON', element.text
           assert_equal 'OFF', element.cached.text
           assert_equal 'ON', @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle').cached.text
         end

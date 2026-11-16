@@ -208,6 +208,21 @@ class AppiumLibCoreTest
         assert_equal expected, caps_with_appium.as_json
       end
 
+      def test_chrome_preferences_preserve_underscores_in_symbol_keys
+        # ChromeDriver expects download.default_directory, not download.defaultDirectory.
+        # convert_key must preserve nested Symbol keys when serializing capabilities.
+        caps = Appium::Core::Base::Capabilities.new(
+          chromeOptions: { prefs: { 'download.default_directory': '/tmp/downloads' } }
+        )
+
+        serialized = JSON.parse(@bridge.add_appium_prefix(caps).to_json)
+
+        assert_equal(
+          { 'appium:chromeOptions' => { 'prefs' => { 'download.default_directory' => '/tmp/downloads' } } },
+          serialized
+        )
+      end
+
       def test_add_appium_prefix_has_no_parameter
         cap = {}
         base_caps = Appium::Core::Base::Capabilities.new cap

@@ -52,7 +52,7 @@ class AppiumLibCoreTest
         @@driver.action.click(el).perform
 
         [1, 2, 3].each do |count|
-          el = @@driver.find_element(:accessibility_id, 'TINTED')
+          el = @@driver.find_element(:predicate, 'name ==[c] "Tinted"')
           rect = el.rect
 
           @@driver.execute_script('mobile: scroll', direction: 'down')
@@ -71,7 +71,7 @@ class AppiumLibCoreTest
         el = @@core.wait { @@driver.find_element(:accessibility_id, 'Segmented Controls') }
         @@driver.action.click(el).perform
 
-        el = @@core.wait { @@driver.find_element(:accessibility_id, 'TINTED') }
+        el = @@core.wait { @@driver.find_element(:predicate, 'name ==[c] "Tinted"') }
         rect = el.rect
 
         w3c_scroll @@driver

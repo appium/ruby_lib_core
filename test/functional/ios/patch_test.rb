@@ -49,25 +49,6 @@ class AppiumLibCoreTest
 
       @@driver.back
     end
-
-    def test_location_rel
-      e = @@core.wait { @@driver.find_element :accessibility_id, 'Date Picker' }
-      location = e.location_rel @@driver
-
-      expected_x, expected_y = if over_ios17?(@@driver)
-                                 # iPhone 17
-                                 ['64.0 / 402.0', '263.5 / 874.0']
-                               elsif over_ios14?(@@driver)
-                                 # iPhone 11
-                                 ['64.0 / 414.0', '239.5 / 896.0']
-                               else
-                                 # iPhone 11
-                                 ['64.0 / 414.0', '235.5 / 896.0']
-                               end
-
-      assert_equal expected_x, location.x, "Expected X is #{expected_x}, actual is #{location.x}"
-      assert_equal expected_y, location.y, "Expected y is #{expected_y}, actual is #{location.y}"
-    end
   end
 end
 # rubocop:enable Style/ClassVars

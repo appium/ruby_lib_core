@@ -24,14 +24,14 @@ module Appium
         # standard options like chrome and firefox etc. So, the implementation should differ from
         # other browsers. But here should inherit `Options` to follow Selenium.
 
-        # Method override
-        # FIXME: when we drop "symbolize_keys", this can be removed.
+        # Override Selenium's convert_key to prevent camelCase conversion.
+        # Appium capability names should be preserved as-is (e.g., :some_capability stays "some_capability",
+        # not converted to "someCapability" as Selenium's default would do).
         def convert_key(key)
           case key
           when String
             key.to_s
           when Symbol
-            # here do not convert to camel case
             key.to_s
           else
             raise ::Appium::Core::Error::ArgumentError, "expected String or Symbol, got #{key.inspect}:#{key.class}"

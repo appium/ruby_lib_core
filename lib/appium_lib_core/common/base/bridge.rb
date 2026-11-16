@@ -110,7 +110,7 @@ module Appium
         #       useNewWDA: true,
         #     },
         #     appium_lib: {
-        #       wait: 30
+        #       wait_timeout: 30
         #     }
         #   }
         #   core = ::Appium::Core.for(caps)
@@ -152,7 +152,7 @@ module Appium
         # Selenium calls this immediately before constructing an element. Keep nil for
         # non-element hashes so ordinary script results and shadow roots stay intact.
         def element_id_from(response)
-          response if super
+          response if response[::Appium::Core::Element::ELEMENT_KEY]
         end
 
         def selenium_bridge_accepts_url?
@@ -211,7 +211,7 @@ module Appium
         #     element = @driver.find_element(:id, "some id")
         #     @driver.action.click(element).perform # The 'click' is a part of 'PointerActions'
         #
-        def action(_deprecated_async = nil, async: false, devices: nil)
+        def action(async: false, devices: nil)
           # steep:ignore:start
           ::Selenium::WebDriver::ActionBuilder.new(
             self,
@@ -222,7 +222,7 @@ module Appium
           # steep:ignore:end
         end
 
-        # Port from MJSONWP
+        # W3C Get Timeouts
         def get_timeouts
           execute :get_timeouts
         end

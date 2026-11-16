@@ -23,6 +23,7 @@ class AppiumLibCoreTest
       def setup
         @@core ||= ::Appium::Core.for(Caps.android)
         @driver = @@core.start_driver
+        @driver.manage.timeouts.implicit_wait = 20
       end
 
       def teardown
@@ -33,10 +34,10 @@ class AppiumLibCoreTest
       def test_tap_scroll
         skip_as_appium_version '1.8.0'
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        el = @driver.find_element(:accessibility_id, 'Views')
         @driver.action.click(el).perform
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
+        el = @driver.find_element(:accessibility_id, 'Custom')
 
         rect1 = el.rect.dup
         @driver
@@ -50,26 +51,24 @@ class AppiumLibCoreTest
 
         w3c_scroll @driver
 
-        @driver.manage.timeouts.implicit_wait = 3
-
         if @@core.automation_name == :espresso
-          el = @@core.wait { @driver.find_element(:accessibility_id, 'Lists') }
+          el = @driver.find_element(:accessibility_id, 'Lists')
           assert_equal 'Lists', el.text
         else
+          @driver.manage.timeouts.implicit_wait = 3
           assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do
             @driver.find_element(:accessibility_id, 'Custom')
           end
         end
-        @driver.manage.timeouts.implicit_wait = @@core.default_wait
       end
 
       def test_double_tap
         skip_as_appium_version '1.10.0' # unstable on 1.9.1-
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        el = @driver.find_element(:accessibility_id, 'Views')
         @driver.action.click(el).perform
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Buttons') }
+        el = @driver.find_element(:accessibility_id, 'Buttons')
         @driver.action.click(el).perform
 
         el = @driver.find_element(:id, 'io.appium.android.apis:id/button_toggle')
@@ -107,10 +106,10 @@ class AppiumLibCoreTest
       def test_actions_with_many_down_up
         skip_as_appium_version '1.8.0'
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Views') }
+        el = @driver.find_element(:accessibility_id, 'Views')
         @driver.action.click_and_hold(el).release.perform
 
-        el = @@core.wait { @driver.find_element(:accessibility_id, 'Custom') }
+        el = @driver.find_element(:accessibility_id, 'Custom')
 
         rect1 = el.rect.dup
 
@@ -179,7 +178,7 @@ class AppiumLibCoreTest
                                origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
         f2.create_pointer_up(:left)
 
-        @@core.wait { @driver.perform_actions [f1, f2] }
+        @driver.perform_actions [f1, f2]
       end
     end
   end
