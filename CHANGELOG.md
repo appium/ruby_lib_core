@@ -117,6 +117,17 @@ relax the core version constraint. Applications using
 `appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
 compatible release. Direct users of `appium_lib_core` can migrate as described above.
 
+## [14.0.0](https://github.com/appium/ruby_lib_core/compare/v13.2.1...v14.0.0) (2026-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove Appium.symbolize_keys and automatic implicit waits configured through appium_lib[:wait]. Use explicit waits and migrate downstream callers before upgrading to core 14.
+
+### Features
+
+* remove deprecated APIs and legacy element handling for core 14 ([#736](https://github.com/appium/ruby_lib_core/issues/736)) ([26a5ec3](https://github.com/appium/ruby_lib_core/commit/26a5ec361b4e5c12451c26e4e4263cc487cb1447))
+
 ## [13.2.1](https://github.com/appium/ruby_lib_core/compare/v13.2.0...v13.2.1) (2026-10-27)
 
 
