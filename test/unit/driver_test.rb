@@ -822,6 +822,47 @@ class AppiumLibCoreTest
       driver.quit
     end
 
+    def test_bidi_bridge_navigates_with_classic_http_command
+      mock_bidi = Minitest::Mock.new
+      mock_bidi.expect(:close, nil)
+
+      response = {
+        value: {
+          sessionId: '1234567890',
+          capabilities: {
+            platformName: :android,
+            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+            deviceName: 'Android Emulator',
+            webSocketUrl: 'ws://127.0.0.1:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
+          }
+        }
+      }.to_json
+
+      stub_request(:post, 'http://127.0.0.1:4723/session')
+        .to_return(headers: HEADER, status: 200, body: response)
+
+      capabilities = Caps.android[:capabilities].merge('webSocketUrl' => true)
+      core = ::Appium::Core.for capabilities: capabilities
+      driver = nil
+      ::Selenium::WebDriver::BiDi.stub(:new, mock_bidi) do
+        driver = core.start_driver
+      end
+
+      stub_request(:post, 'http://127.0.0.1:4723/session/1234567890/url')
+        .with(body: { url: 'https://example.com' }.to_json)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.get 'https://example.com'
+
+      assert_requested :post, 'http://127.0.0.1:4723/session/1234567890/url', times: 1
+
+      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      driver.quit
+      mock_bidi.verify
+    end
+
     def test_elements
       driver = android_mock_create_session
 

@@ -8,21 +8,9 @@ module Appium
 
         def create_session: (untyped capabilities) -> ::Appium::Core::Base::Capabilities
 
-        def get: (string url) -> untyped
-
-        def go_back: () -> untyped
-
-        def go_forward: () -> untyped
-
-        def refresh: () -> untyped
-
         def quit: () -> untyped
 
         def close: () -> untyped
-
-        private
-
-        def browsing_context: () -> ::Selenium::WebDriver::BiDi::BrowsingContext
       end
     end
   end

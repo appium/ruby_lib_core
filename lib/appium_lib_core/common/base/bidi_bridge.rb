@@ -61,22 +61,6 @@ module Appium
           @capabilities
         end
 
-        def get(url)
-          browsing_context.navigate(url)
-        end
-
-        def go_back
-          browsing_context.traverse_history(-1)
-        end
-
-        def go_forward
-          browsing_context.traverse_history(1)
-        end
-
-        def refresh
-          browsing_context.reload
-        end
-
         def quit
           super
         ensure
@@ -88,12 +72,6 @@ module Appium
         end
 
         # steep:ignore:end
-
-        private
-
-        def browsing_context
-          @browsing_context ||= ::Selenium::WebDriver::BiDi::BrowsingContext.new(self)
-        end
       end # class BiDiBridge
     end # class Base
   end # module Core
