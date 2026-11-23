@@ -124,6 +124,46 @@ module Appium
           raise ::Selenium::WebDriver::Error::WebDriverError, 'no sessionId in returned payload' unless @session_id
 
           @capabilities = json_create(response['capabilities'])
+          connect_bidi
+          @capabilities
+        end
+
+        # Override
+        # The BiDi connection opened when the session returned a +webSocketUrl+.
+        #
+        # @return [::Selenium::WebDriver::BiDi]
+        # @raise [::Selenium::WebDriver::Error::WebDriverError] If the session has no BiDi connection.
+        def bidi
+          @bidi || raise(::Selenium::WebDriver::Error::WebDriverError,
+                         'BiDi must be enabled by providing webSocketUrl capability to true')
+        end
+
+        # Override
+        # The BiDi WebSocket, which Selenium's generated +BiDi::Protocol+ classes use when given a driver.
+        # Needs selenium-webdriver 4.46 or newer, where those classes were added.
+        #
+        # @return [::Selenium::WebDriver::WebSocketConnection]
+        # @raise [::Selenium::WebDriver::Error::WebDriverError] If the session has no BiDi connection.
+        #
+        # @example
+        #
+        #   require 'selenium/webdriver/bidi/protocol'
+        #   ::Selenium::WebDriver::BiDi::Protocol::Session.new(driver).status
+        #
+        def connection
+          bidi.ws # steep:ignore
+        end
+
+        # Override
+        def quit
+          super
+        ensure
+          @bidi&.close
+        end
+
+        # Override
+        def close
+          execute(:close_window).tap { |handles| @bidi&.close if handles.empty? }
         end
 
         # Append +appium:+ prefix for Appium following W3C spec
@@ -147,6 +187,21 @@ module Appium
         end
 
         private
+
+        def connect_bidi
+          url = @capabilities[:web_socket_url]
+          return unless url.is_a?(String) && url.start_with?('ws://', 'wss://')
+
+          @bidi = ::Selenium::WebDriver::BiDi.new(url: url) # steep:ignore
+        rescue StandardError => e
+          ::Appium::Logger.warn "WebSocket connection to #{url} for BiDi failed. Deleting the session. Error: #{e}"
+          begin
+            quit
+          rescue StandardError => quit_error
+            ::Appium::Logger.warn "Deleting the session failed. Error: #{quit_error}"
+          end
+          raise
+        end
 
         # Preserve the response until Element initialization, including for script results.
         # Selenium calls this immediately before constructing an element. Keep nil for
@@ -326,6 +381,15 @@ module Appium
           execute :chrome_send_command, {}, command_params
         end
       end # class Bridge
+
+      # Resolving the deprecated BiDiBridge alias here, instead of assigning a constant, logs a warning on each use.
+      def self.const_missing(name)
+        return super unless name == :BiDiBridge
+
+        ::Appium::Logger.warn '[DEPRECATION] Appium::Core::Base::BiDiBridge is deprecated. ' \
+                              'Please use Appium::Core::Base::Bridge instead'
+        Bridge
+      end
     end # class Base
   end # module Core
 end # module Appium
