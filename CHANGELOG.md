@@ -117,6 +117,19 @@ relax the core version constraint. Applications using
 `appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
 compatible release. Direct users of `appium_lib_core` can migrate as described above.
 
+## [14.1.0](https://github.com/appium/ruby_lib_core/compare/v14.0.0...v14.1.0) (2026-11-24)
+
+
+### Features
+
+* open the BiDi WebSocket in Base::Bridge and deprecate Base::BiDiBridge ([#741](https://github.com/appium/ruby_lib_core/issues/741)) ([725f6fb](https://github.com/appium/ruby_lib_core/commit/725f6fb853a815865ddb1d4c7692a22791d7a150))
+
+
+### Bug Fixes
+
+* fix & and add test code ([#743](https://github.com/appium/ruby_lib_core/issues/743)) ([ddfa257](https://github.com/appium/ruby_lib_core/commit/ddfa25737ce775cc8a906ed81350ec2bceabbf1f))
+* rubocop ([#744](https://github.com/appium/ruby_lib_core/issues/744)) ([3d1c58b](https://github.com/appium/ruby_lib_core/commit/3d1c58b19d7bea016094fd85b0eda5ecd8256bec))
+
 ## [14.0.0](https://github.com/appium/ruby_lib_core/compare/v13.2.1...v14.0.0) (2026-11-16)
 
 
