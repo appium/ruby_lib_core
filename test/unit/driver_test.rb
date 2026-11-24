@@ -863,6 +863,15 @@ class AppiumLibCoreTest
       driver.quit
     end
 
+    def test_close_accepts_null_window_handles_without_bidi
+      driver = android_mock_create_session
+      request = stub_request(:delete, "#{SESSION}/window")
+                .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+
+      assert_nil driver.close
+      assert_requested request
+    end
+
     def test_bidi_closes_when_last_window_closes
       connection = FakeBiDiConnection.new
       stub_bidi_session(BIDI_URL)
@@ -931,6 +940,36 @@ class AppiumLibCoreTest
       driver.get 'https://example.com'
 
       assert_requested :post, "#{SESSION}/url", times: 1
+      assert_empty connection.sent
+      driver.quit
+    end
+
+    def test_bidi_session_preserves_id_locator
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+      request = stub_request(:post, "#{SESSION}/element")
+                .with(body: { using: 'id', value: 'login' })
+                .to_return(headers: HEADER, status: 200, body: {
+                  value: { ::Appium::Core::Element::ELEMENT_KEY => 'login-element' }
+                }.to_json)
+
+      assert_equal 'login-element', driver.find_element(:id, 'login').id
+      assert_requested request
+      assert_empty connection.sent
+      driver.quit
+    end
+
+    def test_bidi_session_executes_added_command
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+      driver.add_command(method: :get, url: 'session/:session_id/custom', name: :bidi_test_command)
+      request = stub_request(:get, "#{SESSION}/custom")
+                .to_return(headers: HEADER, status: 200, body: { value: 'custom result' }.to_json)
+
+      assert_equal 'custom result', driver.bidi_test_command
+      assert_requested request
       assert_empty connection.sent
       driver.quit
     end
