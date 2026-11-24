@@ -14,8 +14,7 @@ This library wraps [selenium-webdriver](https://github.com/SeleniumHQ/selenium/w
 
 - https://www.rubydoc.info/gems/appium_lib_core
     - You can find working API examples in test code, [test/functional](test/functional)
-- Appium 2.0
-    - https://appium.github.io/appium/docs/en/2.0/ (Not completed yet)
+- [Migrating to Appium 4](https://appium.io/docs/en/latest/guides/migrating-3-to-4/)
 
 # Migration from v13 to v14
 
@@ -58,13 +57,16 @@ $ UNIT_TEST=1 bundle exec rake test:unit
 ### Functional Tests
 Run functional tests which require the Appium server and real device, Simulator/Emulator.
 
-- Start Appium server (Appium 2.0 base)
+- Start an Appium 4 server
 ```bash
-$ npm install --location=global appium
+$ npm install --location=global appium@4
 $ appium driver install xcuitest
 $ appium driver install uiautomator2 # etc
 $ appium --relaxed-security # To run all tests in local
 ```
+
+With Appium 4, use the WinCore driver (`appium driver install wincore`) for Windows sessions.
+Set `automationName` to `Wincore`. Event timings are available through `driver.logs.events`.
 
 - Conduct tests
 ```bash

@@ -8,6 +8,8 @@ module Appium
       class Bridge < ::Selenium::WebDriver::Remote::Bridge
         include _Bridge
 
+        STANDARD_CAPABILITY_NAMES: Hash[String, String]
+
         @browser: untyped
 
         @session_id: untyped
@@ -102,6 +104,8 @@ module Appium
 
         def connection: () -> untyped
 
+        def transport: () -> untyped
+
         def quit: () -> untyped
 
         def close: () -> untyped
@@ -120,10 +124,6 @@ module Appium
         def element_id_from: (untyped response) -> untyped
 
         def selenium_bridge_accepts_url?: () -> bool
-
-        def camel_case: (untyped str_or_sym) -> untyped
-
-        def extension_prefix?: (untyped capability_name) -> untyped
 
         def json_create: (untyped value) -> untyped
 

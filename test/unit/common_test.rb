@@ -208,6 +208,17 @@ class AppiumLibCoreTest
         assert_equal expected, caps_with_appium.as_json
       end
 
+      def test_standard_capability_names_on_the_wire
+        caps = { platform_name: 'Android', 'accept_insecure_certs' => true, automationName: 'UiAutomator2' }
+        core = Appium::Core.for(capabilities: caps)
+
+        assert_equal :android, core.device
+        assert_equal(
+          { 'platformName' => 'Android', 'acceptInsecureCerts' => true, 'appium:automationName' => 'UiAutomator2' },
+          @bridge.add_appium_prefix(core.caps).as_json
+        )
+      end
+
       def test_chrome_preferences_preserve_underscores_in_symbol_keys
         # ChromeDriver expects download.default_directory, not download.defaultDirectory.
         # convert_key must preserve nested Symbol keys when serializing capabilities.
