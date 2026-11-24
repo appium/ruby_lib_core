@@ -163,7 +163,7 @@ module Appium
 
         # Override
         def close
-          execute(:close_window).tap { |handles| @bidi&.close if handles.empty? }
+          execute(:close_window).tap { |handles| @bidi&.close if handles&.empty? }
         end
 
         # Append +appium:+ prefix for Appium following W3C spec
