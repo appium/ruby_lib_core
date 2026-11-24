@@ -160,7 +160,7 @@ module Appium
 
         def convert_to_element: (untyped response_id) -> untyped
 
-        def bidi: () -> untyped
+        def bidi: () -> ::Selenium::WebDriver::BiDi
       end
     end
   end

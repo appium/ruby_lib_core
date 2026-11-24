@@ -747,78 +747,191 @@ class AppiumLibCoreTest
       assert_equal ::Appium::Core::Element, c_el.first.class
     end
 
-    def test_bidi_bridge
-      # Mock the BiDi WebSocket connection using Minitest
-      mock_bidi = Minitest::Mock.new
-      mock_bidi.expect(:close, nil)
+    BIDI_URL = 'ws://127.0.0.1:4723/bidi/1234567890'
 
-      android_mock_create_session_w3c_direct = lambda do |core|
-        response = {
-          value: {
-            sessionId: '1234567890',
-            capabilities: {
-              platformName: :android,
-              automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-              deviceName: 'Android Emulator',
-              webSocketUrl: 'ws://127.0.0.1:4723/bidi/fbed26aa-e104-42fc-9f5e-b401dc6cc2bc'
-            }
-          }
-        }.to_json
+    class FakeBiDiConnection
+      attr_reader :sent, :callbacks, :close_count
 
-        stub_request(:post, 'http://127.0.0.1:4723/session')
-          .to_return(headers: HEADER, status: 200, body: response)
-
-        driver = nil
-        ::Selenium::WebDriver::BiDi.stub(:new, mock_bidi) do
-          driver = core.start_driver
-        end
-
-        assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
-        driver
+      def initialize(*replies)
+        @replies = replies
+        @sent = []
+        @callbacks = Hash.new { |callbacks, event| callbacks[event] = [] }
+        @close_count = 0
       end
 
-      capabilities = Caps.android[:capabilities]
-      capabilities['webSocketUrl'] = true
+      def send_cmd(**payload)
+        @sent << payload
+        @replies.shift
+      end
 
-      core = ::Appium::Core.for capabilities: capabilities
-      driver = android_mock_create_session_w3c_direct.call(core)
+      def add_callback(event, &block)
+        @callbacks[event] << block
+        block.object_id
+      end
 
-      assert_equal driver.send(:bridge).class, Appium::Core::Base::BiDiBridge
-      assert !driver.send(:bridge).respond_to?(:driver)
+      def remove_callback(event, id)
+        @callbacks[event].reject! { |callback| callback.object_id == id }
+      end
 
-      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
-        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
-
-      driver.quit
-      # Verify that close was called exactly once
-      mock_bidi.verify
+      def close
+        @close_count += 1
+      end
     end
 
-    def test_bidi_bridge_with_symbol_key_and_without_server_websocket_url
-      response = {
-        value: {
-          sessionId: '1234567890',
-          capabilities: {
-            platformName: :android,
-            automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
-            deviceName: 'Android Emulator'
-          }
-        }
-      }.to_json
+    def stub_bidi_session(returned_web_socket_url)
+      capabilities = {
+        platformName: :android,
+        automationName: ENV['APPIUM_DRIVER'] || 'uiautomator2',
+        deviceName: 'Android Emulator',
+        webSocketUrl: returned_web_socket_url
+      }.compact
 
       stub_request(:post, 'http://127.0.0.1:4723/session')
-        .to_return(headers: HEADER, status: 200, body: response)
+        .to_return(headers: HEADER, status: 200,
+                   body: { value: { sessionId: '1234567890', capabilities: capabilities } }.to_json)
+      stub_request(:delete, SESSION)
+        .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
+    end
 
-      capabilities = Caps.android[:capabilities].merge(webSocketUrl: true)
-      core = ::Appium::Core.for capabilities: capabilities
-      driver = core.start_driver
+    def start_bidi_driver(connection, **appium_lib)
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities].merge('webSocketUrl' => true),
+                                appium_lib: appium_lib
+      opened_urls = []
+      open_connection = lambda do |url:|
+        opened_urls << url
+        connection
+      end
 
-      assert_equal Appium::Core::Base::BiDiBridge, driver.send(:bridge).class
-      assert_nil driver.bidi
+      driver = ::Selenium::WebDriver::WebSocketConnection.stub(:new, open_connection) { core.start_driver }
+      [driver, opened_urls]
+    end
 
-      stub_request(:delete, 'http://127.0.0.1:4723/session/1234567890')
+    def test_bidi_connection_opens_from_returned_web_socket_url
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, opened_urls = start_bidi_driver(connection)
+
+      assert_equal [BIDI_URL], opened_urls
+      assert_equal ::Appium::Core::Base::Bridge, driver.send(:bridge).class
+      assert_instance_of ::Selenium::WebDriver::BiDi, driver.bidi
+
+      driver.quit
+
+      assert_requested :delete, SESSION, times: 1
+      assert_equal 1, connection.close_count
+    end
+
+    def test_bidi_raises_when_session_returns_no_web_socket_url
+      [nil, true].each do |returned_web_socket_url|
+        stub_bidi_session(returned_web_socket_url)
+        driver, opened_urls = start_bidi_driver(FakeBiDiConnection.new)
+
+        assert_empty opened_urls
+        error = assert_raises(::Selenium::WebDriver::Error::WebDriverError) { driver.bidi }
+        assert_equal 'BiDi must be enabled by providing webSocketUrl capability to true', error.message
+
+        driver.quit
+      end
+    end
+
+    def test_bidi_connection_failure_deletes_session
+      stub_bidi_session(BIDI_URL)
+      core = ::Appium::Core.for capabilities: Caps.android[:capabilities].merge('webSocketUrl' => true)
+      reset_connection = ->(url:) { raise Errno::ECONNRESET, url }
+
+      ::Selenium::WebDriver::WebSocketConnection.stub(:new, reset_connection) do
+        assert_raises(Errno::ECONNRESET) { core.start_driver }
+      end
+
+      assert_requested :delete, SESSION, times: 1
+    end
+
+    def test_bidi_serves_selenium_console_message_handlers
+      success = { 'id' => 1, 'type' => 'success', 'result' => {} }
+      connection = FakeBiDiConnection.new(success, success)
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+
+      id = driver.script.add_console_message_handler { |entry| entry }
+      assert_equal({ method: 'session.subscribe', params: { events: ['log.entryAdded'] } }, connection.sent.first)
+      assert_equal 1, connection.callbacks['log.entryAdded'].size
+
+      driver.script.remove_console_message_handler(id)
+      assert_empty connection.callbacks['log.entryAdded']
+      assert_equal({ method: 'session.unsubscribe', params: { events: ['log.entryAdded'] } }, connection.sent.last)
+
+      driver.quit
+    end
+
+    def test_bidi_closes_when_last_window_closes
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+      stub_request(:delete, "#{SESSION}/window")
+        .to_return(headers: HEADER, status: 200, body: { value: [] }.to_json)
+
+      driver.close
+
+      assert_equal 1, connection.close_count
+    end
+
+    def test_bidi_reaches_connection_through_event_firing_bridge
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection, listener: ::Selenium::WebDriver::Support::AbstractEventListener.new)
+
+      assert_equal ::Appium::Support::EventFiringBridge, driver.send(:bridge).class
+      driver.bidi.add_callback('log.entryAdded') { |params| params }
+      assert_equal 1, connection.callbacks['log.entryAdded'].size
+
+      driver.quit
+      assert_equal 1, connection.close_count
+    end
+
+    def test_bidi_connection_serves_selenium_bidi_protocol
+      begin
+        require 'selenium/webdriver/bidi/protocol'
+      rescue LoadError
+        skip 'Selenium::WebDriver::BiDi::Protocol needs selenium-webdriver 4.46 or newer'
+      end
+
+      connection = FakeBiDiConnection.new({ 'id' => 1, 'type' => 'success',
+                                            'result' => { 'ready' => false, 'message' => 'busy' } })
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+
+      assert_same connection, driver.send(:bridge).connection
+      assert_equal 'busy', ::Selenium::WebDriver::BiDi::Protocol::Session.new(driver).status.message
+      assert_equal({ method: 'session.status', params: {} }, connection.sent.first)
+
+      driver.quit
+    end
+
+    def test_bidi_bridge_is_a_deprecated_alias_for_bridge
+      warnings = []
+      bridge_class = ::Appium::Logger.stub(:warn, ->(message) { warnings << message }) do
+        ::Appium::Core::Base::BiDiBridge
+      end
+
+      assert_same ::Appium::Core::Base::Bridge, bridge_class
+      assert_equal ['[DEPRECATION] Appium::Core::Base::BiDiBridge is deprecated. ' \
+                    'Please use Appium::Core::Base::Bridge instead'], warnings
+      assert_raises(NameError) { ::Appium::Core::Base.const_get(:NoSuchBridge) }
+    end
+
+    def test_bidi_session_navigates_with_classic_http_command
+      connection = FakeBiDiConnection.new
+      stub_bidi_session(BIDI_URL)
+      driver, = start_bidi_driver(connection)
+
+      stub_request(:post, "#{SESSION}/url")
+        .with(body: { url: 'https://example.com' }.to_json)
         .to_return(headers: HEADER, status: 200, body: { value: nil }.to_json)
 
+      driver.get 'https://example.com'
+
+      assert_requested :post, "#{SESSION}/url", times: 1
+      assert_empty connection.sent
       driver.quit
     end
 

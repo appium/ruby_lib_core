@@ -56,9 +56,6 @@ module Appium
           @devtools = nil
           @bidi = nil
 
-          # internal use
-          @has_bidi = false
-
           # steep:ignore:start
           ::Selenium::WebDriver::Remote::Bridge.element_class = ::Appium::Core::Element
           # steep:ignore:end
@@ -86,10 +83,8 @@ module Appium
 
           raise ::Appium::Core::Error::ArgumentError, "Unable to create a driver with parameters: #{opts}" unless opts.empty?
 
-          @has_bidi = capabilities && (capabilities['webSocketUrl'] || capabilities[:webSocketUrl]) ? true : false
-          bridge_clzz = @has_bidi ? ::Appium::Core::Base::BiDiBridge : ::Appium::Core::Base::Bridge
           # steep:ignore:start
-          bridge = bridge_clzz.new(**bridge_opts)
+          bridge = ::Appium::Core::Base::Bridge.new(**bridge_opts)
           bridge.extend(bridge_extensions) if bridge_extensions
           # steep:ignore:end
 
@@ -1030,8 +1025,11 @@ module Appium
           @bridge.convert_to_element response_id
         end
 
-        # Return bidi instance
+        # Return BiDi instance for the session's WebSocket connection.
+        # The session has one when the server returned a +webSocketUrl+ for a +webSocketUrl: true+ capability.
+        #
         # @return [::Selenium::WebDriver::BiDi]
+        # @raise [::Selenium::WebDriver::Error::WebDriverError] If the session has no BiDi connection.
         #
         # @example
         #
@@ -1046,10 +1044,7 @@ module Appium
         #     driver.bidi.send_cmd('session.unsubscribe', 'events': ['log.entryAdded'], 'contexts': ['NATIVE_APP'])
         #
         def bidi
-          return @bridge.bidi if @has_bidi
-
-          msg = 'BiDi must be enabled by providing webSocketUrl capability to true'
-          raise(::Selenium::WebDriver::Error::WebDriverError, msg)
+          @bridge.bidi
         end
       end # class Driver
     end # class Base

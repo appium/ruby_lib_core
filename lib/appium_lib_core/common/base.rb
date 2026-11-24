@@ -31,7 +31,6 @@ require_relative 'device/orientation'
 
 # The following files have selenium-webdriver related stuff.
 require_relative 'base/bridge'
-require_relative 'base/bidi_bridge'
 require_relative 'base/driver'
 require_relative 'base/capabilities'
 require_relative 'base/http_default'
