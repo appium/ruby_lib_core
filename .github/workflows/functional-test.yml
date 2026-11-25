@@ -131,6 +131,7 @@ jobs:
     - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
       name: Run tests
       env:
+        APPIUM_VERSION: ${{ matrix.appium.version }}
         IGNORE_VERSION_SKIP: true
         CI: true
         LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
@@ -345,6 +346,7 @@ jobs:
         disable-animations: true
       env:
         ANDROID_SDK_VERSION: ${{ env.API_LEVEL }}
+        APPIUM_VERSION: ${{ matrix.appium.version }}
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
         IGNORE_VERSION_SKIP: true
         CI: true

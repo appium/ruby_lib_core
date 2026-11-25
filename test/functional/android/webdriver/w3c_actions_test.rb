@@ -52,8 +52,11 @@ class AppiumLibCoreTest
         w3c_scroll @driver
 
         if @@core.automation_name == :espresso
-          el = @driver.find_element(:accessibility_id, 'Lists')
-          assert_equal 'Lists', el.text
+          # ListView can recycle a row between the lookup and the text request while scrolling.
+          errors = [::Selenium::WebDriver::Error::NoSuchElementError, ::Selenium::WebDriver::Error::StaleElementReferenceError]
+          assert @driver.wait_true(ignored: errors, message: 'Expected the Lists row after scrolling') {
+            @driver.find_element(:accessibility_id, 'Lists').text == 'Lists'
+          }
         else
           @driver.manage.timeouts.implicit_wait = 3
           assert_raises ::Selenium::WebDriver::Error::NoSuchElementError do

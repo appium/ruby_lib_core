@@ -66,6 +66,10 @@ class AppiumLibCoreTest
         skip "Appium #{required_version} is required" if Gem::Version.new(AppiumLibCoreTest.appium_version) < Gem::Version.new(required_version.to_s)
       end
 
+      def skip_viewport_screenshot_on_appium_3_ci
+        skip 'Appium 3 CI drivers cannot load sharp for viewport screenshots' if ci? && AppiumLibCoreTest.appium_version.split('.').first == '3'
+      end
+
       def newer_appium_than_or_beta?(version)
         return true if AppiumLibCoreTest.appium_version == 'beta'
         return true if AppiumLibCoreTest.appium_version == 'next'

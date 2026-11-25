@@ -93,7 +93,11 @@ class AppiumLibCoreTest
       end
 
       def test_context_related
-        w3c_scroll @@driver
+        catalog_back = 'type == "XCUIElementTypeButton" AND name == "BackButton" AND label == "UIKitCatalog"'
+        @@driver.find_elements(:predicate, catalog_back).first&.click
+        @@core.wait { @@driver.find_element(:predicate, 'type == "XCUIElementTypeNavigationBar" AND name == "UIKitCatalog"') }
+        table = @@core.wait { @@driver.find_element(:class_name, 'XCUIElementTypeTable') }
+        @@driver.execute_script('mobile: scroll', elementId: table.id, name: 'Web View')
 
         e = @@core.wait { @@driver.find_element :accessibility_id, 'Web View' }
         e.click
@@ -233,6 +237,7 @@ class AppiumLibCoreTest
       end
 
       def test_viewport_screenshot
+        skip_viewport_screenshot_on_appium_3_ci
         skip_as_appium_version '1.8.0'
 
         file = @@driver.save_viewport_screenshot AppiumLibCoreTest.path_of('ios_viewport_screenshot_test.png')
