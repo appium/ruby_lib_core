@@ -13,64 +13,47 @@
 # limitations under the License.
 
 require 'test_helper'
-require 'base64'
 
 # $ rake test:func:ios TEST=test/functional/ios/ios/device_wda_attachment_test.rb
 class AppiumLibCoreTest
   module Ios
     class DeviceWDAAttachmentTest < AppiumLibCoreTest::Function::TestCase
-      def setup
-        # will add test ad an attachment
-        ios_caps = Caps.ios.dup
-        ios_caps[:caps][:useNewWDA] = true
-        @core = ::Appium::Core.for(ios_caps)
-        @driver = @core.start_driver
-      end
-
       def teardown
-        save_reports(@driver)
+        save_reports(@driver) if @driver
+      ensure
+        @driver&.quit
       end
 
       def test_localhost_wda_agent_url
-        status = JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
+        opts = Caps.ios
+        caps = opts.fetch(:caps)
+        status_url = URI("http://localhost:#{caps.fetch(:wdaLocalPort)}/status")
 
-        # Run with webDriverAgentUrl
-        current_host = 'localhost'
-        current_port = @core.caps[:wdaLocalPort]
-
-        new_ios_caps = Caps.ios.dup
-        new_ios_caps[:caps][:useNewWDA] = false
-        new_ios_caps[:caps][:webDriverAgentUrl] = "http://#{current_host}:#{current_port}"
-        new_ios_caps[:caps].delete :wdaLocalPort
-        new_ios_caps[:caps].delete :derivedDataPath
-        new_ios_caps[:caps].delete :bootstrapPath
-        new_ios_caps[:caps].delete :useXctestrunFile
-        new_ios_caps[:caps].delete :prebuiltWDAPath
-        new_ios_caps[:caps].delete :usePreinstalledWDA
-
-        new_core = ::Appium::Core.for(new_ios_caps)
-        @driver = new_core.start_driver
-        # Make sure if the driver works
-        assert @driver.remote_status
-
+        # An xcodebuild-managed WDA can stay running after its Appium session quits.
+        reusable_caps = caps.except(:usePreinstalledWDA, :prebuiltWDAPath).merge(useNewWDA: false)
+        @driver = ::Appium::Core.for(opts.merge(caps: reusable_caps)).start_driver
         @driver.quit
-        # WDA should not stop by `quit` if `webDriverAgentUrl` exists
-        assert_equal status, JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
+        @driver = nil
+        assert JSON.parse(Net::HTTP.get(status_url)).fetch('value').fetch('ready')
 
-        # Create the original driver again
-        @driver = @core.start_driver
-        assert JSON.parse(Net::HTTP.get('localhost', '/status', @core.caps[:wdaLocalPort]))['value']
-        current_host = 'localhost'
-        current_port = @core.caps[:wdaLocalPort]
-
+        attach_caps = reusable_caps.merge(webDriverAgentUrl: "http://localhost:#{status_url.port}")
+        @driver = ::Appium::Core.for(opts.merge(caps: attach_caps)).start_driver
+        assert @driver.window_rect.width.positive?
         @driver.quit
+        @driver = nil
+        assert JSON.parse(Net::HTTP.get(status_url)).fetch('value').fetch('ready')
 
-        # WDA should stop
-        begin
-          JSON.parse(Net::HTTP.get(current_host, '/status', current_port))['value']
-          assert false, 'should be raise exception such as Errno::ECONNREFUSED'
-        rescue Exception # rubocop:disable Lint/RescueException
-          assert true
+        # A fresh, driver-owned WDA should stop when its session quits.
+        core = ::Appium::Core.for(opts.merge(caps: caps.merge(useNewWDA: true)))
+        @driver = core.start_driver
+        assert JSON.parse(Net::HTTP.get(status_url)).fetch('value').fetch('ready')
+        @driver.quit
+        @driver = nil
+        core.wait_true do
+          Net::HTTP.get(status_url)
+          false
+        rescue Errno::ECONNREFUSED
+          true
         end
       end
     end
