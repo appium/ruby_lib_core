@@ -14,7 +14,7 @@ class WinCoreTest < Minitest::Test
   end
 
   def test_find_menu_item
-    condition = 'new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.MenuItem)'
+    condition = "[PropertyCondition]::new([AutomationElement]::NameProperty, 'File')"
     @driver.manage.timeouts.implicit_wait = 10
     assert @driver.find_element(:windows_uiautomation, condition).displayed?
   end
