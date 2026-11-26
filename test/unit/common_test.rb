@@ -86,6 +86,22 @@ class AppiumLibCoreTest
         assert_requested(:post, 'http://127.0.0.1:4723/session', times: 1)
       end
 
+      def test_create_wincore_session_preserves_ms_capabilities
+        caps = {
+          platformName: 'Windows',
+          'appium:automationName' => 'Wincore',
+          'appium:ms:waitForAppLaunch' => 15,
+          'appium:ms:forcequit' => true
+        }
+        request = stub_request(:post, 'http://127.0.0.1:4723/session')
+                  .with(body: { capabilities: { alwaysMatch: caps, firstMatch: [{}] } })
+                  .to_return(headers: Mock::HEADER, body: { value: { sessionId: '123', capabilities: caps } }.to_json)
+
+        Appium::Core.for(capabilities: caps).start_driver
+
+        assert_requested request
+      end
+
       def test_create_session_w3c_with_http_package
         response = {
           value: {
