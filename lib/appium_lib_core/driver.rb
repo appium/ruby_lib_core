@@ -34,6 +34,7 @@ module Appium
 
     autoload :Mac2, 'appium_lib_core/mac2'
 
+    autoload :WinCore, 'appium_lib_core/wincore'
     autoload :Windows, 'appium_lib_core/windows'
 
     # This options affects only client side as <code>:appium_lib</code> key.<br>
@@ -623,6 +624,8 @@ module Appium
           end
         when :windows
           case sym_automation_name
+          when :wincore
+            ::Appium::Core::WinCore::Bridge.for self
           when :gecko
             ::Appium::Logger.debug('Gecko Driver for Windows')
           else

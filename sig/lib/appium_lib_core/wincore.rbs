@@ -1,0 +1,11 @@
+module Appium
+  module Core
+    module WinCore
+      module Bridge
+        include _Bridge
+
+        def self.for: (untyped target) -> untyped
+      end
+    end
+  end
+end
