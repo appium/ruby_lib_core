@@ -18,21 +18,33 @@ module Appium
       module Device
         module Screen
           def self.add_methods(target)
+            wincore = target.automation_name == :wincore
             ::Appium::Core::Device.add_endpoint_method(:start_recording_screen, bridge: target.bridge_extensions) do
-              def start_recording_screen(force_restart: nil, time_limit: nil,
-                                         fps: nil, preset: nil, video_filter: nil,
-                                         capture_clicks: nil, capture_cursor: nil, audio_input: nil)
+              define_method(:start_recording_screen) do |force_restart: nil, time_limit: nil, fps: nil, preset: nil, video_filter: nil, capture_clicks: nil, capture_cursor: nil, audio_input: nil|
                 option = {}
                 option[:forceRestart] = force_restart unless force_restart.nil?
                 option[:timeLimit] = time_limit unless time_limit.nil?
-                option[:fps] = fps unless fps.nil?
+                option[wincore ? :videoFps : :fps] = fps unless fps.nil?
                 option[:preset] = preset unless preset.nil?
                 option[:videoFilter] = video_filter unless video_filter.nil?
                 option[:captureClicks] = capture_clicks unless capture_clicks.nil?
                 option[:captureCursor] = capture_cursor unless capture_cursor.nil?
                 option[:audioInput] = audio_input unless audio_input.nil?
 
-                execute(:start_recording_screen, {}, { options: option })
+                if wincore
+                  execute_script('windows: startRecordingScreen', option)
+                else
+                  execute(:start_recording_screen, {}, { options: option })
+                end
+              end
+            end
+
+            return unless wincore
+
+            ::Appium::Core::Device.add_endpoint_method(:stop_recording_screen, bridge: target.bridge_extensions) do
+              def stop_recording_screen(**kwargs)
+                options = ::Appium::Core::Base::Device::ScreenRecord.new(**kwargs).upload_option
+                execute_script('windows: stopRecordingScreen', options)
               end
             end
           end

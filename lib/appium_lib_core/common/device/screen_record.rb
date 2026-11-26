@@ -70,7 +70,7 @@ module Appium
             end
 
             def stop_and_save_recording_screen(file_path)
-              base64data = execute(:stop_recording_screen, {}, {})
+              base64data = stop_recording_screen
               File.open(file_path, 'wb') { |f| f << Base64.decode64(base64data) }
             end
           end # module Command
