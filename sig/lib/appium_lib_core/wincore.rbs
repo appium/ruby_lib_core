@@ -1,11 +1,4 @@
-module Appium
-  module Core
-    module WinCore
-      module Bridge
-        include _Bridge
+# frozen_string_literal: true
 
-        def self.for: (untyped target) -> untyped
-      end
-    end
-  end
-end
+# This file only contains require statements and does not define any classes or modules.
+# No type signatures needed.

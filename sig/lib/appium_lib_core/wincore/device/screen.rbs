@@ -1,0 +1,13 @@
+module Appium
+  module Core
+    module WinCore
+      module Device
+        module Screen
+          include _Bridge
+
+          def self.add_methods: (untyped target) -> untyped
+        end
+      end
+    end
+  end
+end
