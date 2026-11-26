@@ -551,7 +551,8 @@ class AppiumLibCoreTest
           data_matcher: '-android datamatcher',
           view_matcher: '-android viewmatcher',
           predicate: '-ios predicate string',
-          class_chain: '-ios class chain'
+          class_chain: '-ios class chain',
+          windows_uiautomation: '-windows uiautomation'
         },
         ::Appium::Core::Element::FINDERS.merge(::Selenium::WebDriver::SearchContext.extra_finders)
       )

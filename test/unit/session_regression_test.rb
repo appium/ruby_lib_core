@@ -59,6 +59,19 @@ class SessionRegressionTest < Minitest::Test
     assert_requested mac_request
   end
 
+  def test_wincore_uiautomation_locator_in_driver_and_element_searches
+    driver = attach('Windows', 'Wincore')
+    condition = "new PropertyCondition(AutomationElement.NameProperty, 'Settings')"
+    body = { using: '-windows uiautomation', value: condition }
+    element = { Appium::Core::Element::ELEMENT_KEY => 'settings' }
+    stub_command('Windows', 'element', body, element)
+    stub_command('Windows', 'element/settings/elements', body, [])
+
+    settings = driver.find_element(:windows_uiautomation, condition)
+
+    assert_empty settings.find_elements(:windows_uiautomation, condition)
+  end
+
   def test_battery_states_remain_platform_specific
     android = attach('Android', 'UiAutomator2')
     ios = attach('iOS', 'XCUITest')
