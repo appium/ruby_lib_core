@@ -117,6 +117,13 @@ relax the core version constraint. Applications using
 `appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
 compatible release. Direct users of `appium_lib_core` can migrate as described above.
 
+## [14.4.0](https://github.com/appium/ruby_lib_core/compare/v14.3.0...v14.4.0) (2026-11-26)
+
+
+### Features
+
+* wincore support ([#749](https://github.com/appium/ruby_lib_core/issues/749)) ([e8385ba](https://github.com/appium/ruby_lib_core/commit/e8385ba45f1e5744e34a0d7d8bae6bc7c88b34c1))
+
 ## [14.3.0](https://github.com/appium/ruby_lib_core/compare/v14.2.0...v14.3.0) (2026-11-26)
 
 
