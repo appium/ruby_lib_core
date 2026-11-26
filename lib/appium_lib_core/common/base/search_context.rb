@@ -19,7 +19,9 @@ module Appium
         #
         # Find the first element matching the given arguments
         #
-        # - Android can find with uiautomator like a {http://developer.android.com/tools/help/uiautomator/UiSelector.html UISelector}.
+        # - UiAutomator2 supports Android class chain (10.1.0+) and predicate string (10.2.0+) locators.
+        #   The :uiautomator locator is deprecated. See the
+        #   {https://appium.github.io/appium-uiautomator2-driver/latest/guides/migrating-from-uiscrollable/ migration guide}.
         # - iOS can find with a {https://developer.apple.com/library/ios/documentation/ToolsLanguages/Reference/UIAWindowClassReference/UIAWindow/UIAWindow.html#//apple_ref/doc/uid/TP40009930 UIAutomation command}.
         # - iOS, only for XCUITest(WebDriverAgent), can find with a {https://github.com/facebook/WebDriverAgent/wiki/Queries class chain}
         #
@@ -57,8 +59,11 @@ module Appium
         #     @driver.find_elements :image, Base64.strict_encode64(File.read(file_path))
         #
         #     # For Android
-        #     ## With uiautomator
-        #     @driver.find_elements :uiautomator, 'new UiSelector().clickable(true)'
+        #     ## With UiAutomator2
+        #     @driver.find_elements :android_class_chain, '**/android.widget.Button'
+        #     @driver.find_elements :android_predicate_string, 'clickable == true'
+        #     ## With Espresso
+        #     @driver.find_element :text, 'Animation'
         #     ## With viewtag, but only for Espresso
         #     ## 'setTag'/'getTag' in https://developer.android.com/reference/android/view/View
         #     @driver.find_elements :viewtag, 'new UiSelector().clickable(true)'
@@ -89,17 +94,20 @@ module Appium
         #     e.tag_name #=> "XCUIElementTypeStaticText"
         #
         APPIUM_EXTRA_FINDERS = {
-          accessibility_id:     'accessibility id',
-          image:                '-image',
-          custom:               '-custom',
+          accessibility_id:         'accessibility id',
+          image:                    '-image',
+          custom:                   '-custom',
           # Android
-          uiautomator:          '-android uiautomator', # Unavailable in Espresso
-          viewtag:              '-android viewtag',     # Available in Espresso
-          data_matcher:         '-android datamatcher', # Available in Espresso
-          view_matcher:         '-android viewmatcher', # Available in Espresso
+          android_class_chain:      '-android class chain',
+          android_predicate_string: '-android predicate string',
+          uiautomator:              '-android uiautomator', # Deprecated in UiAutomator2
+          text:                     'text',                 # Available in Espresso
+          viewtag:                  '-android viewtag',     # Available in Espresso
+          data_matcher:             '-android datamatcher', # Available in Espresso
+          view_matcher:             '-android viewmatcher', # Available in Espresso
           # iOS
-          predicate:            '-ios predicate string',
-          class_chain:          '-ios class chain'
+          predicate:                '-ios predicate string',
+          class_chain:              '-ios class chain'
         }.freeze
       end
     end

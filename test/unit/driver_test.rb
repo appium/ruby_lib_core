@@ -543,7 +543,10 @@ class AppiumLibCoreTest
           accessibility_id: 'accessibility id',
           image: '-image',
           custom: '-custom',
+          android_class_chain: '-android class chain',
+          android_predicate_string: '-android predicate string',
           uiautomator: '-android uiautomator',
+          text: 'text',
           viewtag: '-android viewtag',
           data_matcher: '-android datamatcher',
           view_matcher: '-android viewmatcher',
@@ -552,6 +555,28 @@ class AppiumLibCoreTest
         },
         ::Appium::Core::Element::FINDERS.merge(::Selenium::WebDriver::SearchContext.extra_finders)
       )
+    end
+
+    def test_android_locators_in_driver_and_element_searches
+      driver = android_mock_create_session_w3c
+      element = { ::Appium::Core::Element::ELEMENT_KEY => 'parent' }
+      [
+        [:android_class_chain, '-android class chain', '**/android.widget.Button'],
+        [:android_predicate_string, '-android predicate string', "text == 'Animation'"],
+        [:text, 'text', 'Animation']
+      ].each do |locator, strategy, selector|
+        body = { using: strategy, value: selector }
+        stub_request(:post, "#{SESSION}/element")
+          .with(body: body)
+          .to_return(headers: HEADER, body: { value: element }.to_json)
+        stub_request(:post, "#{SESSION}/element/parent/elements")
+          .with(body: body)
+          .to_return(headers: HEADER, body: { value: [] }.to_json)
+
+        parent = driver.find_element(locator, selector)
+        assert_equal 'parent', parent.id
+        assert_empty parent.find_elements(locator, selector)
+      end
     end
 
     def test_attach_to_an_existing_session
