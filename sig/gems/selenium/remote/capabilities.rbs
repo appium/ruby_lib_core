@@ -6,7 +6,7 @@ module Selenium
         def []: (untyped key) -> untyped
         def []=: (untyped key, untyped value) -> untyped
 
-        # Add this:
+        def self.camel_case: (String | Symbol key) -> String
         def self.json_create: (Hash[untyped, untyped] value) -> Capabilities
       end
     end

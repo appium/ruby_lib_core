@@ -29,10 +29,24 @@ concurrency:
 jobs:
   # pull_request branch filters apply to the base branch, so skip release PRs here.
   ios_test:
+    name: iOS ${{ matrix.test_targets.name }} (Appium ${{ matrix.appium.version }})
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     strategy:
       fail-fast: false
       matrix:
+        appium: &appium_versions
+          - version: 3
+            xcuitest: xcuitest@12
+            uiautomator2: uiautomator2@8
+            espresso: espresso@9
+            images: images@5
+            execute_driver: execute-driver@7
+          - version: 4
+            xcuitest: xcuitest@13
+            uiautomator2: uiautomator2@10
+            espresso: espresso@11
+            images: images@6
+            execute_driver: execute-driver@9
         test_targets:
           - target: test/functional/ios/driver_test.rb,test/functional/ios/patch_test.rb
             name: test1
@@ -95,11 +109,11 @@ jobs:
         shutdown_after_job: false
 
     # Start Appium
-    - run: npm install -g appium
+    - run: npm install -g appium@${{ matrix.appium.version }}
     - run: |
-        appium driver install xcuitest
-        appium plugin install images
-        appium plugin install execute-driver
+        appium driver install ${{ matrix.appium.xcuitest }}
+        appium plugin install ${{ matrix.appium.images }}
+        appium plugin install ${{ matrix.appium.execute_driver }}
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
@@ -117,6 +131,7 @@ jobs:
     - run: bundle exec rake test:func:ios TESTS=${{matrix.test_targets.target}}
       name: Run tests
       env:
+        APPIUM_VERSION: ${{ matrix.appium.version }}
         IGNORE_VERSION_SKIP: true
         CI: true
         LOCAL_PREBUILT_WDA: ${{ github.workspace }}/wda/${{matrix.test_targets.wdaName}}
@@ -125,12 +140,17 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-ios-${{matrix.test_targets.name}}.log
+        name: appium-${{ matrix.appium.version }}-ios-${{matrix.test_targets.name}}.log
         path: |
           appium.log
           test/report/
 
   ios_test_with_other_deps:
+    name: iOS with other dependencies (Appium ${{ matrix.appium.version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        appium: *appium_versions
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     runs-on: macos-26
 
@@ -171,16 +191,16 @@ jobs:
     - run: npm root -g
     - name: Install appium and mjpeg-consumer
       run: |
-        npm install -g appium
+        npm install -g appium@${{ matrix.appium.version }}
         npm install -g mjpeg-consumer
     - run: |
-        appium driver install xcuitest
-        appium plugin install images
-        appium plugin install execute-driver
+        appium driver install ${{ matrix.appium.xcuitest }}
+        appium plugin install ${{ matrix.appium.images }}
+        appium plugin install ${{ matrix.appium.execute_driver }}
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - run: |
-        npx appium driver run xcuitest download-wda-sim --platform=ios --outdir=${{github.workspace}}/wda
+        appium driver run xcuitest download-wda-sim --platform=ios --outdir=${{github.workspace}}/wda
       name: Downloading prebuilt WDA
 
     - name: Set up Ruby
@@ -201,18 +221,20 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-ios_test_with_other_deps.log
+        name: appium-${{ matrix.appium.version }}-ios_test_with_other_deps.log
         path: |
           appium.log
           test/report/
 
   android_test:
+    name: Android ${{ matrix.test_targets.automation_name }} ${{ matrix.test_targets.name }} (Appium ${{ matrix.appium.version }})
     if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
+        appium: *appium_versions
         test_targets:
           - target: test/functional/android/driver_test.rb,test/functional/android/patch_test.rb,test/functional/android/android/device_test.rb,test/functional/android/android/search_context_test.rb
             automation_name: uiautomator2
@@ -269,11 +291,11 @@ jobs:
         node-version: 'lts/*'
 
     # Start Appium
-    - run: npm install -g appium
+    - run: npm install -g appium@${{ matrix.appium.version }}
     - run: |
-        appium driver install ${{matrix.test_targets.automation_name}}
-        appium plugin install images
-        appium plugin install execute-driver
+        appium driver install ${{ matrix.appium[matrix.test_targets.automation_name] }}
+        appium plugin install ${{ matrix.appium.images }}
+        appium plugin install ${{ matrix.appium.execute_driver }}
         nohup appium --use-plugins=images,execute-driver --relaxed-security --log-timestamp --log-no-colors 2>&1 > appium.log &
 
     - name: Enable KVM group perms
@@ -324,6 +346,7 @@ jobs:
         disable-animations: true
       env:
         ANDROID_SDK_VERSION: ${{ env.API_LEVEL }}
+        APPIUM_VERSION: ${{ matrix.appium.version }}
         APPIUM_DRIVER: ${{matrix.test_targets.automation_name}}
         IGNORE_VERSION_SKIP: true
         CI: true
@@ -332,7 +355,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@master
       with:
-        name: appium-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
+        name: appium-${{ matrix.appium.version }}-android-${{matrix.test_targets.automation_name}}-${{matrix.test_targets.name}}.log
         path: |
           appium.log
           test/report/

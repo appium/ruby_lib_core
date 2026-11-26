@@ -716,7 +716,7 @@ module Appium
       # @private
       def set_appium_device
         # https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile
-        @device = get_cap 'platformName'
+        @device = get_cap('platformName') || @caps[:platform_name] || @caps['platform_name']
         return unless @device
 
         @device = convert_to_symbol(convert_downcase(@device))

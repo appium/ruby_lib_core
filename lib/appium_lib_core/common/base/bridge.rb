@@ -44,6 +44,10 @@ module Appium
         # Prefix for extra capability defined by W3C
         APPIUM_PREFIX = 'appium:'
 
+        STANDARD_CAPABILITY_NAMES = ::Appium::Core::Base::Capabilities::KNOWN.to_h do |key|
+          [key.to_s, ::Appium::Core::Base::Capabilities.camel_case(key)]
+        end.freeze
+
         # No 'browserName' means the session is native appium connection
         APPIUM_NATIVE_BROWSER_NAME = 'appium'
 
@@ -154,6 +158,13 @@ module Appium
           bidi.ws # steep:ignore
         end
 
+        # Selenium 4.46 accesses generated BiDi commands through a transport.
+        if ::Selenium::WebDriver::Remote::Bridge.method_defined?(:transport)
+          def transport
+            ::Selenium::WebDriver::BiDi::Transport.new(connection) # steep:ignore
+          end
+        end
+
         # Override
         def quit
           super
@@ -178,7 +189,13 @@ module Appium
 
           capabilities.each do |name, value|
             capability_name = name.to_s
-            w3c_name = extension_prefix?(capability_name) ? name : "#{APPIUM_PREFIX}#{capability_name}"
+            w3c_name = if STANDARD_CAPABILITY_NAMES.key?(capability_name)
+                         STANDARD_CAPABILITY_NAMES.fetch(capability_name)
+                       elsif STANDARD_CAPABILITY_NAMES.value?(capability_name) || capability_name.include?(':')
+                         name
+                       else
+                         "#{APPIUM_PREFIX}#{capability_name}"
+                       end
 
             w3c_capabilities[w3c_name] = value
           end
@@ -214,20 +231,6 @@ module Appium
           ::Selenium::WebDriver::Remote::Bridge.instance_method(:initialize).parameters.any? do |_, name|
             name == :url
           end
-        end
-
-        def camel_case(str_or_sym)
-          str_or_sym.to_s.gsub(/_([a-z])/) { Regexp.last_match(1)&.upcase }
-        end
-
-        def extension_prefix?(capability_name)
-          snake_cased_capability_names = ::Appium::Core::Base::Capabilities::KNOWN.map(&:to_s)
-          camel_cased_capability_names = snake_cased_capability_names.map { |v| camel_case(v) }
-
-          # Check 'EXTENSION_CAPABILITY_PATTERN'
-          snake_cased_capability_names.include?(capability_name) ||
-            camel_cased_capability_names.include?(capability_name) ||
-            capability_name.match(':')
         end
 
         def json_create(value)
