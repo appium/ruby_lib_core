@@ -117,6 +117,13 @@ relax the core version constraint. Applications using
 `appium_console` or `appium_capybara` through `appium_lib` should upgrade with that
 compatible release. Direct users of `appium_lib_core` can migrate as described above.
 
+## [14.3.0](https://github.com/appium/ruby_lib_core/compare/v14.2.0...v14.3.0) (2026-11-26)
+
+
+### Features
+
+* support new android locators ([#747](https://github.com/appium/ruby_lib_core/issues/747)) ([03a649a](https://github.com/appium/ruby_lib_core/commit/03a649afa7565b39ddef71b88a9c9ce54016e8cb))
+
 ## [14.2.0](https://github.com/appium/ruby_lib_core/compare/v14.1.0...v14.2.0) (2026-11-26)
 
 
