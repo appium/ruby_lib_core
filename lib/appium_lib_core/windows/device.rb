@@ -54,7 +54,6 @@ module Appium
         #                              Disabled by default.
         # @param [Bool] capture_clicks Whether to capture the click gestures while recording the screen.
         #                              Disabled by default.
-        #                              With WinCore, leave both capture_clicks and capture_cursor unset.
         # @param [String] audio_input If provided then the given audio input will be used to record the computer audio
         #                             along with the desktop video. The list of available devices could be retrieved using
         #                             +ffmpeg -list_devices true -f dshow -i dummy+ command.
