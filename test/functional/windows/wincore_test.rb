@@ -6,7 +6,14 @@ require 'tmpdir'
 class WinCoreTest < Minitest::Test
   def setup
     app = File.join(ENV.fetch('SystemRoot'), 'System32', 'notepad.exe')
-    @driver = Appium::Core.for(capabilities: { platformName: 'Windows', automationName: 'Wincore', app: app }).start_driver
+    caps = {
+      platformName: 'Windows',
+      automationName: 'Wincore',
+      app: app,
+      'appium:ms:waitForAppLaunch' => 15,
+      'appium:ms:forcequit' => true
+    }
+    @driver = Appium::Core.for(capabilities: caps).start_driver
   end
 
   def teardown
