@@ -3,6 +3,7 @@
 require 'test_helper'
 require 'webmock/minitest'
 require 'minitest/mock'
+require 'tempfile'
 
 class SessionRegressionTest < Minitest::Test
   URL = 'http://127.0.0.1:4723'
@@ -57,6 +58,42 @@ class SessionRegressionTest < Minitest::Test
 
     assert_requested windows_request
     assert_requested mac_request
+  end
+
+  def test_wincore_uiautomation_locator_in_driver_and_element_searches
+    driver = attach('Windows', 'Wincore')
+    condition = "new PropertyCondition(AutomationElement.NameProperty, 'Settings')"
+    body = { using: '-windows uiautomation', value: condition }
+    element = { Appium::Core::Element::ELEMENT_KEY => 'settings' }
+    stub_command('Windows', 'element', body, element)
+    stub_command('Windows', 'element/settings/elements', body, [])
+
+    settings = driver.find_element(:windows_uiautomation, condition)
+
+    assert_empty settings.find_elements(:windows_uiautomation, condition)
+  end
+
+  def test_wincore_recording_commands
+    driver = attach('Windows', 'WinCore')
+    start = stub_command('Windows', 'execute/sync',
+                         { script: 'windows: startRecordingScreen', args: [{ videoFps: 30, forceRestart: false }] })
+    upload_url = 'https://example.com/video.mp4'
+    stub_command('Windows', 'execute/sync',
+                 { script: 'windows: stopRecordingScreen', args: [{ remotePath: upload_url, method: 'POST' }] }, '')
+
+    driver.start_recording_screen(fps: 30, force_restart: false)
+    assert_requested start
+    assert_equal '', driver.stop_recording_screen(remote_path: upload_url, method: 'POST')
+  end
+
+  def test_wincore_saves_recording_to_file
+    driver = attach('Windows', 'Wincore')
+    stub_command('Windows', 'execute/sync', { script: 'windows: stopRecordingScreen', args: [{}] }, 'AP8=')
+
+    Tempfile.create('recording') do |file|
+      driver.stop_and_save_recording_screen(file.path)
+      assert_equal "\x00\xff".b, File.binread(file.path)
+    end
   end
 
   def test_battery_states_remain_platform_specific

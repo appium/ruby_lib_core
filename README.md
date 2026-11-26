@@ -68,6 +68,12 @@ $ appium --relaxed-security # To run all tests in local
 With Appium 4, use the WinCore driver (`appium driver install wincore`) for Windows sessions.
 Set `automationName` to `Wincore`. Event timings are available through `driver.logs.events`.
 
+Use `:windows_uiautomation` to find an element by a WinCore UI Automation condition.
+
+```ruby
+driver.find_element(:windows_uiautomation, "new PropertyCondition(AutomationElement.NameProperty, 'OK')")
+```
+
 - Conduct tests
 ```bash
 $ bundle install

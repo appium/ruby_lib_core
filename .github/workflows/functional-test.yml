@@ -36,12 +36,14 @@ jobs:
       matrix:
         appium: &appium_versions
           - version: 3
+            wincore: appium-wincore-driver@3
             xcuitest: xcuitest@12
             uiautomator2: uiautomator2@8
             espresso: espresso@9
             images: images@5
             execute_driver: execute-driver@7
           - version: 4
+            wincore: appium-wincore-driver@4
             xcuitest: xcuitest@13
             uiautomator2: uiautomator2@10
             espresso: espresso@11
@@ -359,3 +361,46 @@ jobs:
         path: |
           appium.log
           test/report/
+
+  windows_test:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'release-please--')
+    permissions:
+      contents: read
+    runs-on: windows-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        appium: *appium_versions
+    name: Windows (Appium ${{ matrix.appium.version }})
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - run: npm install --global appium@${{ matrix.appium.version }}
+      - run: appium driver install --source=npm ${{ matrix.appium.wincore }}
+
+      - name: Start Appium
+        run: |
+          $server = Start-Process appium.cmd -ArgumentList '--address 127.0.0.1 --log appium.log --log-no-colors' -PassThru
+          for ($attempt = 0; $attempt -lt 60; $attempt++) {
+            if ($server.HasExited) { throw "Appium exited with code $($server.ExitCode)" }
+            try {
+              if ((Invoke-RestMethod http://127.0.0.1:4723/status -TimeoutSec 2).value.ready) { return }
+            } catch { }
+            Start-Sleep -Seconds 1
+          }
+          throw 'Appium did not become ready'
+
+      - name: Run WinCore functional tests
+        run: bundle exec ruby -Itest test/functional/windows/wincore_test.rb
+
+      - name: Show Appium log on failure
+        if: failure()
+        run: if (Test-Path appium.log) { Get-Content appium.log -Tail 250 }
